@@ -1,0 +1,28 @@
+__pycache__/
+*.py[cod]
+*.so
+*.o
+*.a
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/
+.mypy_cache/
+
+# Large/downloaded build artifacts
+*.whl
+*.tar.gz
+*.zip
+artifacts/*
+!artifacts/README.md
+!artifacts/SHA256SUMS.txt
+
+# Local Kaggle recovery material
+kaggle-vllm-recovery-*/
+vllm-0.18.1/
+.deps/
+*.log
+
+# Notebook transient files
+.ipynb_checkpoints/

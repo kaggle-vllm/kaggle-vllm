@@ -1,0 +1,21 @@
+{
+  "profile_id": "kaggle-py312-torch210-cu128-sm75-t4x2",
+  "status": "development",
+  "python": "3.12",
+  "torch": "2.10.0+cu128",
+  "torch_cuda": "12.8",
+  "cuda_toolkit": "12.8.93",
+  "driver": "580.159.04",
+  "driver_cuda_capability": "13.0",
+  "nccl": "2.27.5",
+  "cmake": "3.31.10",
+  "gcc": "11.4.0",
+  "gpus": 2,
+  "gpu_name": "Tesla T4",
+  "compute_capability": "7.5",
+  "upstream_vllm_tag": "v0.18.1",
+  "upstream_vllm_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2",
+  "experimental_wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+  "wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+  "cmake_driver_library_path": "/usr/local/nvidia/lib64"
+}
