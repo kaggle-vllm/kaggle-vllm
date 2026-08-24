@@ -23,3 +23,15 @@ class ShardedModelError(KaggleVLLMError):
 
 class InstallationError(KaggleVLLMError):
     """Raised for unsafe or failed explicit staging operations."""
+
+
+class ProfileError(KaggleVLLMError):
+    """Raised when a packaged compatibility profile is missing or invalid."""
+
+
+class DownloadError(KaggleVLLMError):
+    """Raised when a pinned runtime artifact cannot be downloaded safely."""
+
+
+class BootstrapError(KaggleVLLMError):
+    """Raised when explicit native-runtime bootstrap cannot proceed safely."""

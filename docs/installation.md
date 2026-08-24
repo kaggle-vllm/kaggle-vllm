@@ -1,4 +1,37 @@
-# Installation and recovery
+# Installation, bootstrap, and recovery
+
+## Three SDK installation paths
+
+The distribution name is `kaggle-vllm` and the import is `kaggle_vllm`.
+Python packaging treats hyphens and underscores equivalently, so after the
+0.1.0 PyPI publication the primary flow is:
+
+```bash
+pip install kaggle_vllm
+kaggle-vllm bootstrap
+```
+
+The equivalent one-line Kaggle setup is:
+
+```bash
+pip install kaggle_vllm && kaggle-vllm bootstrap
+```
+
+The tested Hugging Face SDK fallback is pinned to the exact publication commit
+and wheel checksum:
+
+```bash
+pip install "https://huggingface.co/waqasm86/vllm-kaggle-binaries/resolve/ec75826d10e2dbc3c94c4682342ea3b65d7b72e2/kaggle_vllm-0.1.0-py3-none-any.whl#sha256=e6b525d03257f24e2e062770763bf060042fe4868f879fb6f81efc722b076233"
+kaggle-vllm bootstrap
+```
+
+That exact command was verified in a fresh Python 3.11 virtual environment.
+It installs only the SDK; bootstrap separately obtains the cp312 native wheel.
+
+The SDK is pure Python and supports local development on Python 3.11. The
+native artifact is a Linux x86_64 CPython 3.12 wheel. Bootstrap always rejects
+Python 3.11 for that `cp312` profile; it never tries to install an incompatible
+wheel.
 
 ## Why staging exists
 
@@ -7,6 +40,52 @@ install can resolve a large dependency graph and replace packages in that
 environment. The validated recovery kept PyTorch 2.10.0+cu128 at its system
 path, staged only the wheel with `--no-deps`, and created a separate pinned
 overlay for missing Python dependencies.
+
+Installing the SDK does not download vLLM. Importing the SDK has no network or
+installation side effects. Native-runtime work happens only when the user
+explicitly runs `kaggle-vllm bootstrap` or calls the Python `bootstrap()` API.
+
+## The `kaggle-t4x2-cu128` profile
+
+The packaged profile records CPython 3.12.13/cp312, PyTorch 2.10.0+cu128, CUDA
+toolkit 12.8.93, two Tesla T4 GPUs at SM75, NCCL 2.27.5, upstream vLLM v0.18.1
+at `a26e8dc7ff2111a005144d775ecf9cebf56c45b2`, and the exact overlay lock.
+Its native wheel source is pinned to:
+
+```text
+repository: waqasm86/vllm-kaggle-binaries
+revision:   f6b4f10de54924ed6fe9e28cceab84eca7276ab6
+wheel:      vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl
+SHA256:     5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c
+```
+
+When `huggingface_hub` is installed, bootstrap uses `hf_hub_download()` and
+normal Hub cache/Xet delivery. Otherwise it follows the official HTTPS
+`/resolve/` redirect with the standard library. Both routes use the immutable
+revision and verify the wheel before staging.
+
+## Dry run and strict validation
+
+```bash
+kaggle-vllm bootstrap --dry-run --strict
+```
+
+Dry run reports the profile, host findings, artifact identity, cache and target
+paths, and exact pip argument arrays. It neither creates directories nor
+downloads anything. Linux, x86_64, CPython, and cp312 are always mandatory for
+the current native wheel. Without `--strict`, Kaggle/Torch/CUDA/GPU/NCCL drift
+is reported as warnings; strict mode makes every validated-profile mismatch an
+error.
+
+The defaults can be replaced explicitly:
+
+```bash
+kaggle-vllm bootstrap --strict \
+  --cache /kaggle/working/kaggle-vllm-cache \
+  --staged /kaggle/working/vllm-staged \
+  --overlay /kaggle/working/vllm-runtime-overlay \
+  --manifest /kaggle/working/kaggle-vllm-runtime.json
+```
 
 ## Wheel integrity and staging
 
@@ -43,6 +122,40 @@ PYTHONPATH=/kaggle/working/vllm-runtime-overlay:/kaggle/working/vllm-staged
 `LD_LIBRARY_PATH` included the existing Torch library directory, the mounted
 driver directory, and the CUDA toolkit library directory. Validate native
 imports before running inference.
+
+Successful bootstrap writes a small JSON runtime manifest. `KaggleLLM` can
+activate that completed manifest if its first lazy vLLM import fails. For an
+interactive shell or the upstream server CLI, activate it explicitly without
+editing `.bashrc`:
+
+```bash
+eval "$(kaggle-vllm env)"
+```
+
+This prepends the overlay and staged directories to `PYTHONPATH`, the staged
+console-script directory to `PATH`, and the existing Torch/NVIDIA/CUDA library
+directories to `LD_LIBRARY_PATH`.
+
+## Persistent Qwen TP=2 model
+
+The published model is a topology-aware vLLM `sharded_state`, not a normal
+Transformers checkpoint. To make repository resolution explicit, download a
+snapshot through the normal Hub API and pass its local path:
+
+```python
+from huggingface_hub import snapshot_download
+from kaggle_vllm import KaggleLLM
+
+model_path = snapshot_download("waqasm86/vllm-kaggle-models")
+llm = KaggleLLM(
+    model=model_path,
+    tensor_parallel_size=2,
+    load_format="sharded_state",
+)
+```
+
+It was validated only at TP=2. TP=1, TP>2, uneven splitting, arbitrary tensor
+splitting, and standard Transformers loading are not supported claims.
 
 ## Source build
 

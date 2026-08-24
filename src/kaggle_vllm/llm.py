@@ -6,6 +6,7 @@ import importlib
 from pathlib import Path
 from typing import Any
 
+from .bootstrap import activate_runtime
 from .exceptions import ShardedModelError, VLLMNotInstalledError
 from .runtime import validate_tensor_parallel_size
 from .sharding import ShardedModelInspection, copy_model_metadata, inspect_sharded_model
@@ -21,11 +22,19 @@ def _load_llm_class() -> type[Any]:
     try:
         module = importlib.import_module("vllm")
         return module.LLM
-    except (ImportError, AttributeError, OSError) as error:
+    except (ImportError, AttributeError, OSError):
+        try:
+            activated = activate_runtime()
+            if activated:
+                module = importlib.import_module("vllm")
+                return module.LLM
+        except (ImportError, AttributeError, OSError, RuntimeError):
+            pass
         raise VLLMNotInstalledError(
-            "vLLM is unavailable. Stage/install a compatible wheel explicitly before "
-            "constructing KaggleLLM; diagnostics work without vLLM."
-        ) from error
+            "vLLM is unavailable. Run the explicit `kaggle-vllm bootstrap` command "
+            "in the compatible Kaggle CPython 3.12 runtime, or activate an existing "
+            "runtime manifest; diagnostics work without vLLM."
+        ) from None
 
 
 class KaggleLLM:
