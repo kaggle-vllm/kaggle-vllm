@@ -29,7 +29,7 @@ Install the SDK from its immutable publication commit and checked wheel, then
 run the explicit native bootstrap:
 
 ```bash
-pip install "https://huggingface.co/waqasm86/vllm-kaggle-binaries/resolve/ec75826d10e2dbc3c94c4682342ea3b65d7b72e2/kaggle_vllm-0.1.0-py3-none-any.whl#sha256=e6b525d03257f24e2e062770763bf060042fe4868f879fb6f81efc722b076233"
+pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/ec75826d10e2dbc3c94c4682342ea3b65d7b72e2/kaggle_vllm-0.1.0-py3-none-any.whl#sha256=e6b525d03257f24e2e062770763bf060042fe4868f879fb6f81efc722b076233"
 kaggle-vllm bootstrap
 ```
 

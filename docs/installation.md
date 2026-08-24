@@ -3,8 +3,8 @@
 ## Three SDK installation paths
 
 The distribution name is `kaggle-vllm` and the import is `kaggle_vllm`.
-Python packaging treats hyphens and underscores equivalently, so after the
-0.1.0 PyPI publication the primary flow is:
+Python packaging treats hyphens and underscores equivalently. The primary
+PyPI flow is:
 
 ```bash
 pip install kaggle_vllm
@@ -23,11 +23,11 @@ The canonical distribution spelling resolves to the same normalized project:
 python -m pip install kaggle-vllm
 ```
 
-The tested Hugging Face SDK fallback is pinned to the exact publication commit
-and wheel checksum:
+The historical 0.1.0 Hugging Face SDK fallback is pinned to its exact
+publication commit and wheel checksum:
 
 ```bash
-pip install "https://huggingface.co/waqasm86/vllm-kaggle-binaries/resolve/ec75826d10e2dbc3c94c4682342ea3b65d7b72e2/kaggle_vllm-0.1.0-py3-none-any.whl#sha256=e6b525d03257f24e2e062770763bf060042fe4868f879fb6f81efc722b076233"
+pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/ec75826d10e2dbc3c94c4682342ea3b65d7b72e2/kaggle_vllm-0.1.0-py3-none-any.whl#sha256=e6b525d03257f24e2e062770763bf060042fe4868f879fb6f81efc722b076233"
 kaggle-vllm bootstrap
 ```
 
@@ -59,7 +59,7 @@ at `a26e8dc7ff2111a005144d775ecf9cebf56c45b2`, and the exact overlay lock.
 Its native wheel source is pinned to:
 
 ```text
-repository: waqasm86/vllm-kaggle-binaries
+repository: waqasm86/kaggle-vllm-binaries
 revision:   f6b4f10de54924ed6fe9e28cceab84eca7276ab6
 wheel:      vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl
 SHA256:     5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c
@@ -97,7 +97,7 @@ kaggle-vllm bootstrap --strict \
 
 The validated binary, checksum files, compatibility manifest, and provenance
 metadata are published at
-[waqasm86/vllm-kaggle-binaries](https://huggingface.co/waqasm86/vllm-kaggle-binaries).
+[waqasm86/kaggle-vllm-binaries](https://huggingface.co/waqasm86/kaggle-vllm-binaries).
 It is project packaging derived from upstream vLLM, not an official upstream
 vLLM wheel or a universal compatibility claim.
 
@@ -152,7 +152,7 @@ snapshot through the normal Hub API and pass its local path:
 from huggingface_hub import snapshot_download
 from kaggle_vllm import KaggleLLM
 
-model_path = snapshot_download("waqasm86/vllm-kaggle-models")
+model_path = snapshot_download("waqasm86/kaggle-vllm-models")
 llm = KaggleLLM(
     model=model_path,
     tensor_parallel_size=2,

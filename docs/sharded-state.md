@@ -38,7 +38,7 @@ llm = KaggleLLM(
 ```
 
 The extracted, directly usable TP=2 repository is published at
-[waqasm86/vllm-kaggle-models](https://huggingface.co/waqasm86/vllm-kaggle-models).
+[waqasm86/kaggle-vllm-models](https://huggingface.co/waqasm86/kaggle-vllm-models).
 Pass that repository ID directly as `model` with `load_format="sharded_state"`
 and `tensor_parallel_size=2`. The repository is not a newly trained or
 fine-tuned model and does not contain new learned weights.

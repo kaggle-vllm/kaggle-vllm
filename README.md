@@ -47,8 +47,8 @@ It does not mean the source was the upstream v0.18.2 release.
 
 ## Install the lightweight SDK
 
-The SDK intentionally has no hard dependency on vLLM, Torch, or CUDA. Once the
-0.1.0 distribution is published to PyPI, the primary Kaggle flow is:
+The SDK is published on [PyPI](https://pypi.org/project/kaggle-vllm/) and has
+no hard dependency on vLLM, Torch, or CUDA. The primary Kaggle flow is:
 
 ```bash
 pip install kaggle_vllm
@@ -76,9 +76,9 @@ It never replaces or reinstalls Kaggle's Torch packages.
 
 Importing `kaggle_vllm` never downloads or installs anything. The native wheel
 is CPython 3.12 (`cp312`) and bootstrap rejects Python 3.11 even though the
-lightweight SDK itself can be developed and tested with Python 3.11. Until PyPI
-publication completes, install a locally built SDK wheel or use the immutable
-Hugging Face SDK fallback documented in [installation](docs/installation.md).
+lightweight SDK itself can be developed and tested with Python 3.11. An
+immutable Hugging Face SDK fallback is documented in
+[installation](docs/installation.md).
 
 Inspect the complete plan without network or filesystem changes:
 
@@ -250,8 +250,8 @@ kaggle-vllm serve MODEL ...
 
 Verified release artifacts are published separately from the source repository:
 
-- [validated Kaggle dual-T4 vLLM wheel and metadata](https://huggingface.co/waqasm86/vllm-kaggle-binaries)
-- [Qwen2.5-3B-Instruct TP=2 persistent sharded state](https://huggingface.co/waqasm86/vllm-kaggle-models)
+- [validated Kaggle dual-T4 vLLM wheel and metadata](https://huggingface.co/waqasm86/kaggle-vllm-binaries)
+- [Qwen2.5-3B-Instruct TP=2 persistent sharded state](https://huggingface.co/waqasm86/kaggle-vllm-models)
 
 Large wheels, archives, safetensors, caches, overlays, and extracted models are
 ignored by Git. Published artifacts must carry checksums, compatibility data,

@@ -2,7 +2,7 @@
 
 ## Source
 
-- [x] Package version set to 0.1.0
+- [x] Package version set to 0.1.1
 - [x] Public wrapper, diagnostics, staging, sharding, and serving APIs documented
 - [x] CPU tests and skip-marked GPU integration test added
 - [x] Large binary/model/cache patterns ignored
@@ -22,7 +22,7 @@
 
 ## Hugging Face binaries
 
-- [x] Inspect/create `waqasm86/vllm-kaggle-binaries`
+- [x] Move/verify `waqasm86/kaggle-vllm-binaries`
 - [x] Upload wheel using supported large-file transport
 - [x] Upload SHA256, compatibility manifest, and README
 

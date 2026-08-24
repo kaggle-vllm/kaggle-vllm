@@ -2,7 +2,16 @@
 
 All notable changes are documented here.
 
-## 0.1.0 — publication pending
+## 0.1.1 — 2026-08-25
+
+- Rename the Hugging Face binary repository to `kaggle-vllm-binaries` and the
+  persistent model repository to `kaggle-vllm-models`.
+- Update the bootstrap profile and active documentation to the canonical
+  repository IDs while preserving the immutable native revision and SHA256.
+- No native vLLM wheel was rebuilt and no Qwen training, checkpoint
+  regeneration, or large-artifact re-upload was performed.
+
+## 0.1.0 — 2026-08-24
 
 - Add the explicit `kaggle-vllm bootstrap` and side-effect-free dry run.
 - Package the validated overlay lock and immutable `kaggle-t4x2-cu128` profile.
