@@ -9,7 +9,7 @@ description = "A lightweight Kaggle compatibility SDK around upstream vLLM for T
 readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"
-authors = [{name = "vllm-kaggle contributors"}]
+authors = [{name = "kaggle-vllm contributors"}]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Programming Language :: Python :: 3",
@@ -24,10 +24,10 @@ test = ["pytest>=8"]
 hub = ["huggingface_hub>=0.36"]
 
 [project.urls]
-Documentation = "https://github.com/vllm-kaggle/vllm-kaggle-nvidia-dual-t4-gpus/tree/main/docs"
-Repository = "https://github.com/vllm-kaggle/vllm-kaggle-nvidia-dual-t4-gpus"
-Issues = "https://github.com/vllm-kaggle/vllm-kaggle-nvidia-dual-t4-gpus/issues"
-Changelog = "https://github.com/vllm-kaggle/vllm-kaggle-nvidia-dual-t4-gpus/blob/main/CHANGELOG.md"
+Documentation = "https://github.com/kaggle-vllm/kaggle-vllm/tree/main/docs"
+Repository = "https://github.com/kaggle-vllm/kaggle-vllm"
+Issues = "https://github.com/kaggle-vllm/kaggle-vllm/issues"
+Changelog = "https://github.com/kaggle-vllm/kaggle-vllm/blob/main/CHANGELOG.md"
 "Hugging Face binaries" = "https://huggingface.co/waqasm86/vllm-kaggle-binaries"
 "Hugging Face TP=2 model" = "https://huggingface.co/waqasm86/vllm-kaggle-models"
 

@@ -37,3 +37,6 @@ vllm-0.18.1/
 
 # Notebook transient files
 .ipynb_checkpoints/
+
+# Local generated repository inventories
+vllm-kaggle-files-folders.txt
