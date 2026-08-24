@@ -61,7 +61,7 @@ communication still worked.
 
 Use the supplied checksums and compatibility JSON before staging. Avoid normal
 dependency resolution that could replace Kaggle's Torch stack; the associated
-[`kaggle-vllm`](https://github.com/vllm-kaggle/vllm-kaggle-nvidia-dual-t4-gpus)
+[`kaggle-vllm`](https://github.com/kaggle-vllm/kaggle-vllm)
 project documents explicit, checksum-verified `pip --target --no-deps`
 bootstrap staging.
 
