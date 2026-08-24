@@ -17,8 +17,8 @@ v0.18.1 source checkout; it is not a claim that the source was upstream v0.18.2.
 
 ## Hugging Face distribution
 
-- [Validated vLLM wheel and compatibility metadata](https://huggingface.co/waqasm86/vllm-kaggle-binaries)
-- [Qwen2.5-3B-Instruct TP=2 persistent sharded state](https://huggingface.co/waqasm86/vllm-kaggle-models)
+- [Validated vLLM wheel and compatibility metadata](https://huggingface.co/waqasm86/kaggle-vllm-binaries)
+- [Qwen2.5-3B-Instruct TP=2 persistent sharded state](https://huggingface.co/waqasm86/kaggle-vllm-models)
 
 The Qwen repository is a vLLM-native topology-aware representation, not a new
 trained/fine-tuned model or a standard Transformers checkpoint.

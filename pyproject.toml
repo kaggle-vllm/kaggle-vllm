@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kaggle-vllm"
-version = "0.1.0"
+version = "0.1.1"
 description = "A lightweight Kaggle compatibility SDK around upstream vLLM for Tesla T4 GPUs."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -28,8 +28,8 @@ Documentation = "https://github.com/kaggle-vllm/kaggle-vllm/tree/main/docs"
 Repository = "https://github.com/kaggle-vllm/kaggle-vllm"
 Issues = "https://github.com/kaggle-vllm/kaggle-vllm/issues"
 Changelog = "https://github.com/kaggle-vllm/kaggle-vllm/blob/main/CHANGELOG.md"
-"Hugging Face binaries" = "https://huggingface.co/waqasm86/vllm-kaggle-binaries"
-"Hugging Face TP=2 model" = "https://huggingface.co/waqasm86/vllm-kaggle-models"
+"Hugging Face binaries" = "https://huggingface.co/waqasm86/kaggle-vllm-binaries"
+"Hugging Face TP=2 model" = "https://huggingface.co/waqasm86/kaggle-vllm-models"
 
 [project.scripts]
 kaggle-vllm = "kaggle_vllm.cli:main"

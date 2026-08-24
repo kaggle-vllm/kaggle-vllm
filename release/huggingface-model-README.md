@@ -40,7 +40,7 @@ generated.
 from kaggle_vllm import KaggleLLM
 
 llm = KaggleLLM(
-    model="waqasm86/vllm-kaggle-models",
+    model="waqasm86/kaggle-vllm-models",
     load_format="sharded_state",
     tensor_parallel_size=2,
     dtype="float16",
@@ -57,7 +57,7 @@ llm = KaggleLLM(
 from vllm import LLM
 
 llm = LLM(
-    model="waqasm86/vllm-kaggle-models",
+    model="waqasm86/kaggle-vllm-models",
     load_format="sharded_state",
     tensor_parallel_size=2,
     dtype="float16",
@@ -71,7 +71,7 @@ llm = LLM(
 ## OpenAI-compatible server
 
 ```bash
-vllm serve waqasm86/vllm-kaggle-models \
+vllm serve waqasm86/kaggle-vllm-models \
   --served-model-name qwen2.5-3b-kaggle-t4x2 \
   --load-format sharded_state \
   --tensor-parallel-size 2 \

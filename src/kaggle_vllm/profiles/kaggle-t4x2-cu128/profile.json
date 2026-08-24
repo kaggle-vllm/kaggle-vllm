@@ -30,7 +30,7 @@
   "wheel": {
     "filename": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
     "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
-    "hf_repo_id": "waqasm86/vllm-kaggle-binaries",
+    "hf_repo_id": "waqasm86/kaggle-vllm-binaries",
     "hf_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6"
   },
   "overlay": {
