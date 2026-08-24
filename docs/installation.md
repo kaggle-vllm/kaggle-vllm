@@ -10,6 +10,12 @@ overlay for missing Python dependencies.
 
 ## Wheel integrity and staging
 
+The validated binary, checksum files, compatibility manifest, and provenance
+metadata are published at
+[waqasm86/vllm-kaggle-binaries](https://huggingface.co/waqasm86/vllm-kaggle-binaries).
+It is project packaging derived from upstream vLLM, not an official upstream
+vLLM wheel or a universal compatibility claim.
+
 ```bash
 DIGEST=5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c
 kaggle-vllm verify-wheel /kaggle/input/.../vllm-*.whl --sha256 "$DIGEST"

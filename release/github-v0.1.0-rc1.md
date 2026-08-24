@@ -15,6 +15,14 @@ Kaggle dual-T4 environment; not a production-readiness claim.
 The generated version is `setuptools_scm` distribution metadata from the
 v0.18.1 source checkout; it is not a claim that the source was upstream v0.18.2.
 
+## Hugging Face distribution
+
+- [Validated vLLM wheel and compatibility metadata](https://huggingface.co/waqasm86/vllm-kaggle-binaries)
+- [Qwen2.5-3B-Instruct TP=2 persistent sharded state](https://huggingface.co/waqasm86/vllm-kaggle-models)
+
+The Qwen repository is a vLLM-native topology-aware representation, not a new
+trained/fine-tuned model or a standard Transformers checkpoint.
+
 ## Environment and functional validation
 
 - Python 3.12.13, PyTorch 2.10.0+cu128, CUDA toolkit 12.8.93

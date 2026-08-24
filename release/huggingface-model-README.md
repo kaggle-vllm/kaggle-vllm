@@ -18,8 +18,9 @@ tags:
 
 # Qwen2.5-3B-Instruct — vLLM TP=2 persistent sharded state
 
-This is **not a newly trained model**. It is a mechanically repackaged,
-vLLM-native persistent `sharded_state` representation of
+This is **not a newly trained or fine-tuned model**, and it does not introduce
+new learned weights. It is a mechanically transformed, vLLM-native persistent
+`sharded_state` representation of
 [Qwen/Qwen2.5-3B-Instruct](https://huggingface.co/Qwen/Qwen2.5-3B-Instruct),
 created and validated on a Kaggle Notebook with two Tesla T4 GPUs.
 
@@ -102,7 +103,9 @@ vllm serve waqasm86/vllm-kaggle-models \
   this README and NOTICE were added for packaging/attribution.
 - This layout is not a standard Transformers checkpoint. The retained upstream
   safetensors index references the original HF shard names; vLLM's validated
-  `sharded_state` loader uses the rank-specific files.
+  `sharded_state` loader uses the rank-specific files. Do not expect
+  `AutoModelForCausalLM.from_pretrained()` to load this repository as a normal
+  Transformers checkpoint.
 - TP=1, TP>2, uneven GPU splits, other topologies, other accelerators, and
   training/fine-tuning were not validated.
 - FlashAttention 2 is unavailable on SM75; vLLM selected `TRITON_ATTN`.

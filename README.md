@@ -213,6 +213,11 @@ kaggle-vllm serve MODEL ...
 
 ## Artifact distribution and security
 
+Verified release artifacts are published separately from the source repository:
+
+- [validated Kaggle dual-T4 vLLM wheel and metadata](https://huggingface.co/waqasm86/vllm-kaggle-binaries)
+- [Qwen2.5-3B-Instruct TP=2 persistent sharded state](https://huggingface.co/waqasm86/vllm-kaggle-models)
+
 Large wheels, archives, safetensors, caches, overlays, and extracted models are
 ignored by Git. Published artifacts must carry checksums, compatibility data,
 and upstream attribution. Never commit Kaggle, GitHub, or Hugging Face tokens.
