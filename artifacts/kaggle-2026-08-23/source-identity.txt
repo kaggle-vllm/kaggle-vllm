@@ -1,0 +1,5 @@
+Tag(s) pointing at HEAD:
+v0.18.1
+
+Commit:
+a26e8dc (grafted, HEAD, tag: v0.18.1) [Bugfix][MLA] Change default SM100 MLA prefill backend back to TRT-LLM (#38562)

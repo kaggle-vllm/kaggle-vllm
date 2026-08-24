@@ -1,0 +1,11 @@
+Qwen is licensed under the Qwen RESEARCH LICENSE AGREEMENT,
+Copyright (c) Alibaba Cloud. All Rights Reserved.
+
+Modification notice:
+The Qwen/Qwen2.5-3B-Instruct weights were mechanically converted on 2026-08-23
+into vLLM-native TP=2 persistent sharded_state files. No training or fine-tuning
+was performed. The distribution README and this NOTICE were added by the
+kaggle-vllm packaging project.
+
+Upstream model: https://huggingface.co/Qwen/Qwen2.5-3B-Instruct
+Upstream vLLM: https://github.com/vllm-project/vllm

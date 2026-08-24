@@ -1,14 +1,10 @@
-# Binary artifacts
+# Artifact policy
 
-Do not commit large binary wheels to Git.
+Large artifacts do not belong in Git. The validated wheel, Qwen archive,
+safetensors, staged runtime, dependency overlay, caches, and extracted model are
+excluded by `.gitignore`.
 
-Experimental wheel built in Kaggle:
-
-`vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl`
-
-SHA256 is recorded in `SHA256SUMS.txt`.
-
-Recommended future distribution:
-- GitHub Release asset
-- Kaggle Dataset
-- or another binary artifact store
+`kaggle-2026-08-23/` contains a small curated subset of the immutable local
+Kaggle evidence. Binary distribution must use GitHub Releases, Hugging Face, or
+another large-file artifact service and must retain checksums, compatibility
+metadata, licensing, and upstream attribution.

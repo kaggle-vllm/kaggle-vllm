@@ -1,0 +1,27 @@
+================================================================================
+KAGGLE-vLLM RECOVERED RUNTIME
+================================================================================
+
+torch:
+2.10.0+cu128
+/usr/local/lib/python3.12/dist-packages/torch/__init__.py
+
+transformers:
+4.57.6
+/kaggle/working/vllm-runtime-overlay/transformers/__init__.py
+
+=== OVERLAY COMPONENTS ===
+xgrammar PASS
+tvm_ffi PASS
+
+=== vLLM NATIVE EXTENSIONS ===
+vllm._C PASS /kaggle/working/vllm-staged/vllm/_C.abi3.so
+vllm._moe_C PASS /kaggle/working/vllm-staged/vllm/_moe_C.abi3.so
+vllm.cumem_allocator PASS /kaggle/working/vllm-staged/vllm/cumem_allocator.abi3.so
+
+=== HIGH-LEVEL API ===
+LLM PASS
+SamplingParams PASS
+EngineArgs PASS
+
+RECOVERED RUNTIME VALIDATION PASS
