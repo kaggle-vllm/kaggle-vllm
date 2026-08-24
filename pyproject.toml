@@ -24,7 +24,12 @@ test = ["pytest>=8"]
 hub = ["huggingface_hub>=0.36"]
 
 [project.urls]
+Documentation = "https://github.com/vllm-kaggle/vllm-kaggle-nvidia-dual-t4-gpus/tree/main/docs"
 Repository = "https://github.com/vllm-kaggle/vllm-kaggle-nvidia-dual-t4-gpus"
+Issues = "https://github.com/vllm-kaggle/vllm-kaggle-nvidia-dual-t4-gpus/issues"
+Changelog = "https://github.com/vllm-kaggle/vllm-kaggle-nvidia-dual-t4-gpus/blob/main/CHANGELOG.md"
+"Hugging Face binaries" = "https://huggingface.co/waqasm86/vllm-kaggle-binaries"
+"Hugging Face TP=2 model" = "https://huggingface.co/waqasm86/vllm-kaggle-models"
 
 [project.scripts]
 kaggle-vllm = "kaggle_vllm.cli:main"
