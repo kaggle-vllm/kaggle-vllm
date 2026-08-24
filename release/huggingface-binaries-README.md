@@ -14,6 +14,28 @@ Kaggle Notebook with two NVIDIA Tesla T4 (SM75) GPUs. It is packaging work
 around upstream [vLLM](https://github.com/vllm-project/vllm), not a fork or a
 claim of ownership over vLLM. **This is not an official upstream vLLM binary.**
 
+The repository also carries the lightweight `kaggle-vllm` 0.1.0 SDK wheel and
+source distribution. Those pure-Python SDK files do not contain vLLM, CUDA, or
+Torch and do not install the native runtime implicitly.
+
+## Lightweight SDK artifacts
+
+| File | SHA256 |
+|---|---|
+| `kaggle_vllm-0.1.0-py3-none-any.whl` | `e6b525d03257f24e2e062770763bf060042fe4868f879fb6f81efc722b076233` |
+| `kaggle_vllm-0.1.0.tar.gz` | `a35776573291846f20747dad17e193bd00b4dbb4853294224f17db045c51dd0a` |
+
+Install the SDK from its immutable publication commit and checked wheel, then
+run the explicit native bootstrap:
+
+```bash
+pip install "https://huggingface.co/waqasm86/vllm-kaggle-binaries/resolve/ec75826d10e2dbc3c94c4682342ea3b65d7b72e2/kaggle_vllm-0.1.0-py3-none-any.whl#sha256=e6b525d03257f24e2e062770763bf060042fe4868f879fb6f81efc722b076233"
+kaggle-vllm bootstrap
+```
+
+The bootstrap profile remains pinned to the native wheel revision and checksum;
+it does not use mutable `main` for native delivery.
+
 ## Binary identity
 
 - Source: upstream vLLM v0.18.1
@@ -37,10 +59,11 @@ the validated runs, vLLM selected `TRITON_ATTN` successfully. SymmMem
 capability warnings are expected on SM75; ordinary NCCL tensor-parallel
 communication still worked.
 
-Use the supplied checksum and compatibility JSON before staging. Avoid normal
+Use the supplied checksums and compatibility JSON before staging. Avoid normal
 dependency resolution that could replace Kaggle's Torch stack; the associated
 [`kaggle-vllm`](https://github.com/vllm-kaggle/vllm-kaggle-nvidia-dual-t4-gpus)
-project documents `pip --target --no-deps` staging.
+project documents explicit, checksum-verified `pip --target --no-deps`
+bootstrap staging.
 
 The wheel includes upstream vLLM's Apache-2.0 license. Compatibility beyond the
 documented environment is not claimed. In particular, this artifact is not a

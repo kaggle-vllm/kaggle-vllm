@@ -12,7 +12,8 @@ tensor parallelism, sharded-state persistence, and serving remain upstream vLLM
 capabilities.
 
 > **Status:** v0.1 release candidate. Functionally validated on the documented
-> Kaggle dual-T4 environment. It is not described as production-ready.
+> Kaggle dual-T4 environment. PyPI publication is pending Trusted Publisher
+> configuration; it is not described as production-ready.
 
 ## Validated environment
 
@@ -46,17 +47,38 @@ It does not mean the source was the upstream v0.18.2 release.
 
 ## Install the lightweight SDK
 
-The SDK intentionally has no hard dependency on vLLM or Torch:
+The SDK intentionally has no hard dependency on vLLM, Torch, or CUDA. Once the
+0.1.0 distribution is published to PyPI, the primary Kaggle flow is:
 
 ```bash
-python3 -m pip install -e .
-kaggle-vllm fingerprint
-kaggle-vllm doctor
+pip install kaggle_vllm
+kaggle-vllm bootstrap
 ```
 
-Importing diagnostics never installs packages and does not require vLLM. The
-validated binary is CPython 3.12 (`cp312`) and is distributed separately; it is
-not part of the SDK source distribution.
+The one-line form is:
+
+```bash
+pip install kaggle_vllm && kaggle-vllm bootstrap
+```
+
+`pip install kaggle_vllm` installs only the small `kaggle-vllm` distribution;
+Python packaging normalizes `_` and `-` in project names. The explicit
+`bootstrap` command then downloads the exact native wheel from the Hugging Face
+Hub/Xet-backed repository, checks its immutable revision and SHA256, stages it
+with `pip --target --no-deps`, and creates the validated dependency overlay.
+It never replaces or reinstalls Kaggle's Torch packages.
+
+Importing `kaggle_vllm` never downloads or installs anything. The native wheel
+is CPython 3.12 (`cp312`) and bootstrap rejects Python 3.11 even though the
+lightweight SDK itself can be developed and tested with Python 3.11. Until PyPI
+publication completes, install a locally built SDK wheel or use the immutable
+Hugging Face SDK fallback documented in [installation](docs/installation.md).
+
+Inspect the complete plan without network or filesystem changes:
+
+```bash
+kaggle-vllm bootstrap --dry-run --strict
+```
 
 ## Python inference API
 
@@ -127,21 +149,26 @@ llm = KaggleLLM(
 This is not arbitrary tensor splitting, uneven 1/3–2/3 GPU allocation, or a
 claim of topology-independent portability. See [persistent sharded state](docs/sharded-state.md).
 
-## Explicit wheel staging and dependency overlay
+## Explicit native bootstrap and activation
 
 Normal dependency resolution can replace Kaggle's tightly coupled Torch/CUDA
-packages. The validated recovery staged the wheel without dependencies, then
-placed a pinned dependency overlay ahead of it on `PYTHONPATH` while retaining
-Kaggle's system Torch:
+packages. Bootstrap uses the packaged `kaggle-t4x2-cu128` profile and pins the
+native artifact to Hugging Face commit
+`f6b4f10de54924ed6fe9e28cceab84eca7276ab6`:
 
 ```bash
-kaggle-vllm verify-wheel /path/to/vllm-*.whl --sha256 5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c
-kaggle-vllm stage-wheel /path/to/vllm-*.whl --target /kaggle/working/vllm-staged
+kaggle-vllm bootstrap --strict
+eval "$(kaggle-vllm env)"  # optional for subsequent shell commands
 ```
 
-The Python installation helpers reject Torch entries in overlay requirements.
-All installation operations are explicit; importing `kaggle_vllm` never
-modifies global packages. See [installation](docs/installation.md).
+By default it uses `/kaggle/working/vllm-staged`,
+`/kaggle/working/vllm-runtime-overlay`, and
+`/kaggle/working/kaggle-vllm-cache`; every path is overridable. The packaged
+overlay lock is the exact small reproducibility input from the successful
+Kaggle recovery. Bootstrap rejects `torch`, `torchvision`, and `torchaudio`
+entries, writes a runtime manifest, and refuses incompatible non-empty runtime
+directories. `KaggleLLM` may activate an already-completed default manifest,
+but it never bootstraps implicitly. See [installation](docs/installation.md).
 
 ## Kaggle CUDA-driver discovery
 
@@ -204,6 +231,8 @@ ordinary NCCL communication and TP=2 inference still completed successfully.
 ```text
 kaggle-vllm doctor
 kaggle-vllm fingerprint
+kaggle-vllm bootstrap [--strict] [--dry-run]
+kaggle-vllm env [--manifest PATH]
 kaggle-vllm verify-gpus --tensor-parallel-size 2
 kaggle-vllm inspect-shards PATH --json
 kaggle-vllm verify-wheel PATH [--sha256 DIGEST]
@@ -228,6 +257,8 @@ license.
 ## Known limitations
 
 - Validation is specific to the tabled Kaggle environment and CPython 3.12 ABI.
+- The SDK supports Python 3.10+, but the published native wheel profile is
+  Linux x86_64 CPython 3.12 only.
 - No local GPU test is claimed; GPU results come from archived Kaggle evidence.
 - The persistent model is TP-topology-aware and validated only at TP=2.
 - The copied upstream HF weight index names original HF shards; standard

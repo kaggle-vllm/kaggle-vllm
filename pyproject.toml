@@ -21,6 +21,7 @@ dependencies = []
 
 [project.optional-dependencies]
 test = ["pytest>=8"]
+hub = ["huggingface_hub>=0.36"]
 
 [project.urls]
 Repository = "https://github.com/vllm-kaggle/vllm-kaggle-nvidia-dual-t4-gpus"
@@ -30,6 +31,9 @@ kaggle-vllm = "kaggle_vllm.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+kaggle_vllm = ["profiles/*/*.json", "profiles/*/*.txt"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

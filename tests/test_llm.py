@@ -53,12 +53,36 @@ def test_import_diagnostics_does_not_import_vllm():
     assert result.stdout.strip() == "False"
 
 
+def test_plain_import_has_no_network_or_install_side_effects():
+    root = Path(__file__).parents[1]
+    environment = dict(os.environ)
+    environment["PYTHONPATH"] = str(root / "src")
+    code = """
+import sys
+events = []
+def audit(event, args):
+    if event.startswith('socket.') or event == 'subprocess.Popen':
+        events.append(event)
+sys.addaudithook(audit)
+import kaggle_vllm
+print(events)
+"""
+    result = subprocess.run(
+        [sys.executable, "-c", code],
+        check=True,
+        capture_output=True,
+        text=True,
+        env=environment,
+    )
+    assert result.stdout.strip() == "[]"
+
+
 def test_missing_vllm_raises_useful_error(monkeypatch):
     def missing(name):
         raise ImportError(name)
 
     monkeypatch.setattr("kaggle_vllm.llm.importlib.import_module", missing)
-    with pytest.raises(VLLMNotInstalledError, match="Stage/install"):
+    with pytest.raises(VLLMNotInstalledError, match="bootstrap"):
         _load_llm_class()
 
 

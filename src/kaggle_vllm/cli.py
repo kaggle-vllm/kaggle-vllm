@@ -4,14 +4,24 @@ from __future__ import annotations
 
 import argparse
 import json
+import shlex
 from collections.abc import Sequence
 from pathlib import Path
 
+from .bootstrap import (
+    DEFAULT_CACHE,
+    DEFAULT_MANIFEST,
+    DEFAULT_OVERLAY,
+    DEFAULT_STAGED,
+    shell_exports,
+)
+from .bootstrap import bootstrap as bootstrap_runtime
 from .checksums import sha256_file, verify_sha256
 from .doctor import run_doctor, suggested_build_env
 from .environment import as_json, collect
 from .exceptions import KaggleVLLMError
 from .installation import stage_wheel
+from .profiles import DEFAULT_PROFILE
 from .runtime import all_sm75, all_tesla_t4, validate_tensor_parallel_size
 from .server import ServerConfig, serve
 from .sharding import inspect_sharded_model
@@ -25,6 +35,24 @@ def build_parser() -> argparse.ArgumentParser:
     subcommands.add_parser("doctor", help="compare runtime with the validated profile")
     subcommands.add_parser("fingerprint", help="print a JSON runtime fingerprint")
     subcommands.add_parser("build-env", help="print validated source-build settings")
+
+    bootstrap = subcommands.add_parser(
+        "bootstrap",
+        help="explicitly download and stage the validated Kaggle native runtime",
+    )
+    bootstrap.add_argument("--profile", default=DEFAULT_PROFILE)
+    bootstrap.add_argument("--staged", type=Path, default=DEFAULT_STAGED)
+    bootstrap.add_argument("--overlay", type=Path, default=DEFAULT_OVERLAY)
+    bootstrap.add_argument("--cache", type=Path, default=DEFAULT_CACHE)
+    bootstrap.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
+    bootstrap.add_argument("--strict", action="store_true")
+    bootstrap.add_argument("--dry-run", action="store_true")
+    bootstrap.add_argument("--json", action="store_true", dest="as_json")
+
+    runtime_env = subcommands.add_parser(
+        "env", help="print activation exports from a completed bootstrap manifest"
+    )
+    runtime_env.add_argument("--manifest", type=Path, default=None)
 
     verify_gpus = subcommands.add_parser("verify-gpus", help="verify T4/SM75 and TP size")
     verify_gpus.add_argument("--tensor-parallel-size", type=int, default=2)
@@ -78,6 +106,44 @@ def _verify_gpus(tensor_parallel_size: int) -> int:
     return 0
 
 
+def _run_bootstrap(args: argparse.Namespace) -> int:
+    result = bootstrap_runtime(
+        profile_name=args.profile,
+        staged=args.staged,
+        overlay=args.overlay,
+        cache=args.cache,
+        manifest=args.manifest,
+        strict=args.strict,
+        dry_run=args.dry_run,
+    )
+    data = result.to_dict()
+    if args.as_json:
+        print(json.dumps(data, indent=2))
+        return 0
+    print(f"profile: {data['profile']}")
+    print(f"compatible: {data['compatible']}")
+    print(f"strict: {data['strict']}")
+    print(f"HF repository: {data['artifact']['hf_repo_id']}")
+    print(f"immutable revision: {data['artifact']['hf_revision']}")
+    print(f"wheel: {data['artifact']['filename']}")
+    print(f"expected SHA256: {data['artifact']['sha256']}")
+    print(f"cache: {data['paths']['cache']}")
+    print(f"staged: {data['paths']['staged']}")
+    print(f"overlay: {data['paths']['overlay']}")
+    print(f"manifest: {data['paths']['manifest']}")
+    for finding in data["findings"]:
+        print(f"{finding['status'].upper()}: {finding['message']}")
+    if args.dry_run:
+        print("dry-run: no download or filesystem changes performed")
+        for command in data["commands"]:
+            print("would run: " + shlex.join(command))
+    elif result.already_complete:
+        print("bootstrap already complete; matching manifest reused")
+    else:
+        print(f"bootstrap complete: {result.manifest}")
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Run the CLI and return a process exit code."""
 
@@ -91,6 +157,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.command == "build-env":
             for key, value in suggested_build_env().items():
                 print(f"export {key}={value}")
+            return 0
+        if args.command == "bootstrap":
+            return _run_bootstrap(args)
+        if args.command == "env":
+            for line in shell_exports(args.manifest):
+                print(line)
             return 0
         if args.command == "verify-gpus":
             return _verify_gpus(args.tensor_parallel_size)

@@ -40,3 +40,16 @@
 
 Any authentication, checksum, licensing, or existing-release conflict blocks
 only the affected publication step and must be reported exactly.
+
+## Final 0.1.0 distribution
+
+- [x] Merge the reviewed RC SDK PR into `main`
+- [x] Add immutable native bootstrap and packaged overlay profile
+- [x] Verify CPU-only bootstrap/download/activation tests on Python 3.11
+- [x] Verify wheel/sdist metadata contains no vLLM, Torch, or CUDA dependency
+- [x] Upload SDK wheel/sdist/checksums to Hugging Face and test immutable URL
+- [ ] Configure the PyPI pending Trusted Publisher
+- [ ] Publish and remotely verify `kaggle-vllm==0.1.0`
+- [ ] Verify `pip install kaggle_vllm` in a fresh environment
+- [ ] Merge the final bootstrap PR
+- [ ] Tag the exact final main commit and publish GitHub `v0.1.0`

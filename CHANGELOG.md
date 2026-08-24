@@ -2,6 +2,19 @@
 
 All notable changes are documented here.
 
+## 0.1.0 — publication pending
+
+- Add the explicit `kaggle-vllm bootstrap` and side-effect-free dry run.
+- Package the validated overlay lock and immutable `kaggle-t4x2-cu128` profile.
+- Download the native wheel through Hugging Face Hub/Xet or a secure HTTPS
+  fallback, pinned to an immutable revision and verified by SHA256.
+- Reject non-cp312/platform-incompatible native bootstrap and optionally enforce
+  the complete Kaggle dual-T4 profile with `--strict`.
+- Record staged paths and provide explicit process/shell activation without
+  modifying shell startup files.
+- Keep the PyPI SDK dependency-free; vLLM, Torch, and CUDA remain outside
+  `Requires-Dist`.
+
 ## 0.1.0-rc1 — 2026-08-24
 
 - Add the lazy `KaggleLLM` wrapper around upstream `vllm.LLM`.

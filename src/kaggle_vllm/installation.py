@@ -123,6 +123,11 @@ def build_runtime_environment(
         python_paths.append(base["PYTHONPATH"])
     base["PYTHONPATH"] = os.pathsep.join(python_paths)
 
+    executable_paths = [str(Path(staged).resolve() / "bin")]
+    if base.get("PATH"):
+        executable_paths.append(base["PATH"])
+    base["PATH"] = os.pathsep.join(executable_paths)
+
     library_paths: list[str] = []
     if torch_library is not None:
         library_paths.append(str(Path(torch_library).resolve()))
