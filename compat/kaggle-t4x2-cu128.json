@@ -1,7 +1,8 @@
 {
   "profile_id": "kaggle-py312-torch210-cu128-sm75-t4x2",
-  "status": "development",
-  "python": "3.12",
+  "status": "functionally_validated",
+  "validation_date": "2026-08-23",
+  "python": "3.12.13",
   "torch": "2.10.0+cu128",
   "torch_cuda": "12.8",
   "cuda_toolkit": "12.8.93",
@@ -15,7 +16,20 @@
   "compute_capability": "7.5",
   "upstream_vllm_tag": "v0.18.1",
   "upstream_vllm_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2",
-  "experimental_wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+  "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
   "wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
-  "cmake_driver_library_path": "/usr/local/nvidia/lib64"
+  "wheel_python_abi": "cp312",
+  "cmake_driver_library_path": "/usr/local/nvidia/lib64",
+  "attention_backend": "TRITON_ATTN",
+  "validated": {
+    "single_t4_inference": true,
+    "raw_nccl_two_gpu": true,
+    "tensor_parallel_size_2": true,
+    "qwen2_5_3b_instruct_fp16_tp2": true,
+    "persistent_sharded_state_save": true,
+    "persistent_sharded_state_reload": true,
+    "openai_models_http_200": true,
+    "openai_chat_completions_http_200": true
+  },
+  "qwen_sharded_archive_sha256": "12dcb264cb74e6fa2947b5f1fbebfa14562afa2292387f49e447b3290bc0b83b"
 }

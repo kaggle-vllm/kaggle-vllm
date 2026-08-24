@@ -1,0 +1,18 @@
+Validation dates: 2026-08-22 through 2026-08-23 UTC
+Platform: Kaggle Notebook
+Linux ABI: glibc 2.35
+Python: 3.12.13
+PyTorch: 2.10.0+cu128
+PyTorch CUDA: 12.8
+CUDA toolkit: 12.8.93
+NVIDIA driver: 580.159.04
+nvidia-smi CUDA capability: 13.0
+CMake: 3.31.10
+GCC: 11.4.0
+GPU count: 2
+GPU 0: Tesla T4, compute capability 7.5, 15360 MiB
+GPU 1: Tesla T4, compute capability 7.5, 15360 MiB
+NCCL: 2.27.5
+CUDA toolkit path: /usr/local/cuda-12.8
+CUDA driver path: /usr/local/nvidia/lib64/libcuda.so
+vLLM attention backend selected on T4: TRITON_ATTN

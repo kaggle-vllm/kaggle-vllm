@@ -1,0 +1,7 @@
+=== selected verbatim evidence lines ===
+SHARDED STATE SAVE PASS
+(Worker_TP0 pid=1021) INFO 08-23 14:40:00 [cuda.py:317] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].
+(Worker_TP0 pid=1021) INFO 08-23 14:40:01 [sharded_state_loader.py:156] Loading weights took 0.98 seconds
+SHARDED STATE TP=2 RELOAD PASS
+(APIServer pid=1463) INFO:     127.0.0.1:34390 - "GET /v1/models HTTP/1.1" 200 OK
+(APIServer pid=1463) INFO:     127.0.0.1:51784 - "POST /v1/chat/completions HTTP/1.1" 200 OK

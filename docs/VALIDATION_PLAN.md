@@ -1,54 +1,20 @@
 # Validation plan
 
-No production-ready installation is performed until all earlier gates pass.
+The original staged-gate plan has been completed on Kaggle. The resulting
+evidence and outcomes are documented in [validation.md](validation.md).
 
-## Gate 0 — artifact integrity
+Future compatibility runs should repeat, in order:
 
-- verify wheel SHA256
-- inspect wheel contents
-- inspect `ldd` output
-- inspect CUDA fatbins with `cuobjdump`
+1. artifact checksum and binary inspection;
+2. staged imports without dependency resolution;
+3. dependency overlay validation while preserving system Torch;
+4. raw NCCL all-reduce;
+5. single-GPU inference;
+6. TP=2 inference;
+7. real target-model inference;
+8. persistent `sharded_state` save and fresh-engine reload;
+9. OpenAI-compatible endpoint checks;
+10. only then performance experimentation.
 
-## Gate 1 — staged import only
-
-Use `pip --target --no-deps` so normal Kaggle site-packages are not the install
-target. Validate imports from the staged directory.
-
-Expected imports:
-
-- `vllm`
-- `vllm._C`
-- `vllm._moe_C`
-- `vllm.cumem_allocator`
-
-If Python dependency imports fail, stop and record the exact missing/incompatible
-package before changing anything.
-
-## Gate 2 — raw NCCL
-
-Run `scripts/nccl_smoke.py`.
-
-## Gate 3 — single T4 inference
-
-Use FP16, `tensor_parallel_size=1`, conservative memory utilization, and
-`enforce_eager=True`.
-
-## Gate 4 — dual T4 tensor parallelism
-
-Use FP16, `tensor_parallel_size=2`, `disable_custom_all_reduce=True` initially,
-and conservative memory utilization.
-
-## Gate 5 — serving
-
-Only after offline generation works:
-- start vLLM's OpenAI-compatible server
-- test `/v1/models`
-- test `/v1/chat/completions`
-
-## Gate 6 — optimization
-
-Only after correctness:
-- benchmark eager vs CUDA graphs
-- benchmark NCCL vs vLLM custom all-reduce on PHB topology
-- remove irrelevant FA3/Hopper build targets if safe
-- optimize wheel size
+Record full runtime identities and never convert a skipped or local CPU test
+into a claimed GPU pass.

@@ -2,7 +2,10 @@
 set -euo pipefail
 
 TEST="${1:-/kaggle/working/cmake-cuda-driver-probe}"
-rm -rf "$TEST"
+if [[ -e "$TEST" ]]; then
+  echo "Refusing to overwrite existing probe path: $TEST" >&2
+  exit 1
+fi
 mkdir -p "$TEST"
 
 cat > "$TEST/CMakeLists.txt" <<'EOF'

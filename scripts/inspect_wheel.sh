@@ -4,7 +4,10 @@ set -euo pipefail
 WHEEL="${1:?usage: inspect_wheel.sh /path/to/vllm-*.whl}"
 DEST="${2:-/kaggle/working/vllm-wheel-inspect}"
 
-rm -rf "$DEST"
+if [[ -e "$DEST" ]]; then
+  echo "Refusing to overwrite existing inspection path: $DEST" >&2
+  exit 1
+fi
 mkdir -p "$DEST"
 
 python - "$WHEEL" "$DEST" <<'PY'

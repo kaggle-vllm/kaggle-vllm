@@ -2,9 +2,21 @@
 set -euo pipefail
 
 TARGET="${1:-/kaggle/working/vllm-staged}"
+OVERLAY="${2:-}"
 
-export PYTHONPATH="$TARGET${PYTHONPATH:+:$PYTHONPATH}"
-export LD_LIBRARY_PATH="/usr/local/nvidia/lib64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+if [[ -n "$OVERLAY" ]]; then
+  export PYTHONPATH="$OVERLAY:$TARGET${PYTHONPATH:+:$PYTHONPATH}"
+else
+  export PYTHONPATH="$TARGET${PYTHONPATH:+:$PYTHONPATH}"
+fi
+
+TORCH_LIB="$(python3 - <<'PY'
+from pathlib import Path
+import torch
+print(Path(torch.__file__).resolve().parent / "lib")
+PY
+)"
+export LD_LIBRARY_PATH="$TORCH_LIB:/usr/local/nvidia/lib64:/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
 python - <<'PY'
 import importlib

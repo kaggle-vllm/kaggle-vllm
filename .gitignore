@@ -4,25 +4,35 @@ __pycache__/
 *.o
 *.a
 *.egg-info/
-build/
-dist/
 .venv/
 .pytest_cache/
 .mypy_cache/
+.coverage
 
-# Large/downloaded build artifacts
+# Build and package outputs
+build/
+dist/
 *.whl
 *.tar.gz
 *.zip
-artifacts/*
-!artifacts/README.md
-!artifacts/SHA256SUMS.txt
 
-# Local Kaggle recovery material
+# Model and binary weights
+*.safetensors
+*.gguf
+*.bin
+*.pt
+*.pth
+models/
+
+# Local staging, caches, and recovery material
+vllm-runtime-overlay/
+vllm-staged/
+huggingface-cache/
 kaggle-vllm-recovery-*/
 vllm-0.18.1/
 .deps/
 *.log
+!artifacts/kaggle-2026-08-23/*.log
 
 # Notebook transient files
 .ipynb_checkpoints/

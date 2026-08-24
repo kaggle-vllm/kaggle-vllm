@@ -10,7 +10,7 @@ The source checkout was upstream vLLM tag `v0.18.1`, commit:
 
 `a26e8dc7ff2111a005144d775ecf9cebf56c45b2`
 
-The build completed and produced the experimental wheel recorded in
+The build completed and produced the validated wheel recorded in
 `compat/kaggle-t4x2-cu128.json`.
 
 ## Kaggle CUDA-driver discovery issue
@@ -27,9 +27,10 @@ The live driver library was:
 ## Architecture nuance
 
 The primary vLLM CUDA build selected SM75 and produced explicit SM75 Marlin
-translation units. The bundled vLLM FlashAttention external project also built
-SM80 and SM90 objects. Therefore the first wheel should be described as a
-Kaggle/T4-targeted build, not as a strictly SM75-only binary.
+translation units. Binary inspection also recorded some bundled objects for
+other architectures. Therefore the wheel is described as a Kaggle/T4-targeted
+build, not as a strictly SM75-only binary.
 
-A later optimization pass can remove irrelevant FA3/Hopper code after runtime
-validation is complete.
+At runtime, FlashAttention 2 was unavailable on SM75 and vLLM selected
+`TRITON_ATTN`. Removing irrelevant bundled architecture code remains possible
+future size optimization and was not needed for functional validation.

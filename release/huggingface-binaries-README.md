@@ -1,0 +1,47 @@
+---
+pretty_name: vLLM Kaggle validated binaries
+tags:
+- vllm
+- kaggle
+- cuda
+- tesla-t4
+---
+
+# vLLM Kaggle validated binaries
+
+This repository distributes a vLLM wheel built and functionally validated on a
+Kaggle Notebook with two NVIDIA Tesla T4 (SM75) GPUs. It is packaging work
+around upstream [vLLM](https://github.com/vllm-project/vllm), not a fork or a
+claim of ownership over vLLM. **This is not an official upstream vLLM binary.**
+
+## Binary identity
+
+- Source: upstream vLLM v0.18.1
+- Commit: `a26e8dc7ff2111a005144d775ecf9cebf56c45b2`
+- Wheel version: `0.18.2.dev0+ga26e8dc7f.d20260822.cu128`
+- ABI: CPython 3.12, Linux x86_64
+- SHA256: `5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c`
+
+The differing source and wheel version strings result from `setuptools_scm`
+metadata generation; the source checkout was the v0.18.1 tag.
+
+## Validated runtime
+
+Python 3.12.13, PyTorch 2.10.0+cu128, CUDA toolkit 12.8.93, driver
+580.159.04, NCCL 2.27.5, and two Tesla T4 GPUs (SM75). Validation covered
+native imports, single-GPU inference, NCCL, TP=2 inference, Qwen2.5-3B FP16,
+vLLM `sharded_state` persistence/reload, and OpenAI-compatible serving.
+
+FlashAttention 2 is unavailable on the Tesla T4's SM75 architecture. During
+the validated runs, vLLM selected `TRITON_ATTN` successfully. SymmMem
+capability warnings are expected on SM75; ordinary NCCL tensor-parallel
+communication still worked.
+
+Use the supplied checksum and compatibility JSON before staging. Avoid normal
+dependency resolution that could replace Kaggle's Torch stack; the associated
+[`kaggle-vllm`](https://github.com/vllm-kaggle/vllm-kaggle-nvidia-dual-t4-gpus)
+project documents `pip --target --no-deps` staging.
+
+The wheel includes upstream vLLM's Apache-2.0 license. Compatibility beyond the
+documented environment is not claimed. In particular, this artifact is not a
+claim of universal CUDA, Python, PyTorch, GPU, or platform compatibility.
