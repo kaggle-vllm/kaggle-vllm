@@ -17,6 +17,12 @@ The equivalent one-line Kaggle setup is:
 pip install kaggle_vllm && kaggle-vllm bootstrap
 ```
 
+The canonical distribution spelling resolves to the same normalized project:
+
+```bash
+python -m pip install kaggle-vllm
+```
+
 The tested Hugging Face SDK fallback is pinned to the exact publication commit
 and wheel checksum:
 

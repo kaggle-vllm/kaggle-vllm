@@ -61,6 +61,12 @@ The one-line form is:
 pip install kaggle_vllm && kaggle-vllm bootstrap
 ```
 
+The canonical distribution spelling is equivalent:
+
+```bash
+python -m pip install kaggle-vllm
+```
+
 `pip install kaggle_vllm` installs only the small `kaggle-vllm` distribution;
 Python packaging normalizes `_` and `-` in project names. The explicit
 `bootstrap` command then downloads the exact native wheel from the Hugging Face
