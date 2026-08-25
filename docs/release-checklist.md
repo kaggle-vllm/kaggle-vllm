@@ -41,15 +41,27 @@
 Any authentication, checksum, licensing, or existing-release conflict blocks
 only the affected publication step and must be reported exactly.
 
-## Final 0.1.0 distribution
+## Historical 0.1.0 distribution
 
 - [x] Merge the reviewed RC SDK PR into `main`
 - [x] Add immutable native bootstrap and packaged overlay profile
 - [x] Verify CPU-only bootstrap/download/activation tests on Python 3.11
 - [x] Verify wheel/sdist metadata contains no vLLM, Torch, or CUDA dependency
 - [x] Upload SDK wheel/sdist/checksums to Hugging Face and test immutable URL
-- [ ] Configure the PyPI pending Trusted Publisher
-- [ ] Publish and remotely verify `kaggle-vllm==0.1.0`
-- [ ] Verify `pip install kaggle_vllm` in a fresh environment
-- [ ] Merge the final bootstrap PR
-- [ ] Tag the exact final main commit and publish GitHub `v0.1.0`
+- [x] Configure the PyPI pending Trusted Publisher
+- [x] Publish and remotely verify `kaggle-vllm==0.1.0`
+- [x] Verify `pip install kaggle_vllm` in a fresh environment
+- [x] Merge the final bootstrap PR
+- [x] Preserve `v0.1.0-rc1`; defer a final tag in favor of a version-aligned
+  release after the 0.1.1 acceptance run
+
+## 0.1.1 canonical-link maintenance
+
+- [x] Move both Hugging Face repositories without re-uploading large artifacts
+- [x] Preserve and verify the immutable native wheel revision and SHA256
+- [x] Publish and remotely verify `kaggle-vllm==0.1.1`
+- [x] Verify both normalized PyPI installation spellings in fresh environments
+- [x] Publish the exact PyPI 0.1.1 SDK artifacts as an immutable HF fallback
+- [x] Prepare an output-free Kaggle dual-T4 acceptance notebook
+- [ ] Execute the fresh Kaggle dual-T4 acceptance notebook
+- [ ] Create final GitHub `v0.1.1` from the accepted main commit

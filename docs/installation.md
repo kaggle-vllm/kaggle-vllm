@@ -23,7 +23,15 @@ The canonical distribution spelling resolves to the same normalized project:
 python -m pip install kaggle-vllm
 ```
 
-The historical 0.1.0 Hugging Face SDK fallback is pinned to its exact
+The current 0.1.1 Hugging Face SDK fallback uses the exact PyPI wheel, pinned
+to its immutable Hub commit and checksum:
+
+```bash
+pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/ff213d775c560645dbd1bdaf86f7412005717969/kaggle_vllm-0.1.1-py3-none-any.whl#sha256=d8dfb58e369ceea90b2ade10c75d7678166615a04cbea120855bfd2329bbc9db"
+kaggle-vllm bootstrap
+```
+
+The historical 0.1.0 fallback remains available at its original immutable
 publication commit and wheel checksum:
 
 ```bash
