@@ -7,14 +7,14 @@ Python packaging treats hyphens and underscores equivalently. The recommended
 Kaggle flow installs the optional Hub client and applies strict profile checks:
 
 ```bash
-pip install "kaggle-vllm[hub]==0.1.1"
+pip install "kaggle-vllm[hub]==0.1.2"
 kaggle-vllm bootstrap --strict
 ```
 
 The equivalent normalized project spelling is:
 
 ```bash
-pip install "kaggle_vllm[hub]==0.1.1"
+pip install "kaggle_vllm[hub]==0.1.2"
 ```
 
 The canonical distribution spelling resolves to the same normalized project:
@@ -130,6 +130,41 @@ In that measured session, the native bootstrap/runtime occupied approximately
 usage after the full Qwen acceptance flow. These are reference observations,
 not fixed requirements: caches, package metadata, and filesystem accounting can
 change the total.
+
+## Recovering from an existing staged runtime
+
+The default refusal to overwrite a non-empty staged or overlay directory is a
+safety feature. Version 0.1.2 adds an explicit reset plan for SDK-owned runtime
+state without weakening that default.
+
+Review the plan first:
+
+```bash
+kaggle-vllm bootstrap --reset-runtime --dry-run --strict
+```
+
+Add `--json` for a machine-readable plan. It reports the selected staged,
+overlay, manifest, and cache paths; whether each exists and is owned; and
+whether it would be removed, preserved, or skipped as absent.
+
+After reviewing the plan, explicitly confirm removal and continue directly
+into the normal bootstrap:
+
+```bash
+kaggle-vllm bootstrap --reset-runtime --yes --strict
+```
+
+Only the selected staged directory, dependency overlay, and runtime manifest
+are removed. The download cache is preserved by default. Custom existing paths
+must be recorded by the selected manifest, and that manifest must exactly match
+all selected CLI paths. Any mismatch stops the operation rather than guessing.
+
+Reset refuses root and system paths, `/tmp`, `/kaggle`, `/kaggle/input`,
+`/kaggle/working`, the home or current directory, repository contents,
+overlapping parent targets, and paths that traverse symlinks. It never prompts
+users to run broad commands such as `rm -rf /kaggle/working/*`. This behavior
+implements the safety requirements tracked in
+[issue #7](https://github.com/kaggle-vllm/kaggle-vllm/issues/7).
 
 ## Wheel integrity and staging
 

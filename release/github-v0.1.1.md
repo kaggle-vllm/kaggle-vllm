@@ -41,3 +41,11 @@ record:
 
 No native wheel was rebuilt, no Qwen checkpoint was regenerated, and no large
 runtime or model artifact is duplicated in this GitHub release.
+
+## Release asset policy
+
+GitHub carries the small SDK wheel, source distribution, and checksum manifest.
+PyPI remains the primary SDK registry. Hugging Face binaries is authoritative
+for the validated native CUDA wheel, while Hugging Face models is authoritative
+for the Qwen TP=2 persistent sharded state. Large runtime and model artifacts
+are intentionally not duplicated on final GitHub releases.

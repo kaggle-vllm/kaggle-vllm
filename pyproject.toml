@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kaggle-vllm"
-version = "0.1.1"
+version = "0.1.2"
 description = "A lightweight Kaggle compatibility SDK around upstream vLLM for Tesla T4 GPUs."
 readme = "README.md"
 requires-python = ">=3.10"

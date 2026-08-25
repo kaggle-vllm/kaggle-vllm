@@ -2,7 +2,7 @@
 
 ## Source
 
-- [x] Package version set to 0.1.1
+- [x] Package version set to 0.1.2
 - [x] Public wrapper, diagnostics, staging, sharding, and serving APIs documented
 - [x] CPU tests and skip-marked GPU integration test added
 - [x] Large binary/model/cache patterns ignored
@@ -66,3 +66,13 @@ only the affected publication step and must be reported exactly.
 - [x] Execute and inspect the fresh Kaggle dual-T4 acceptance notebook
 - [x] Approve final GitHub `v0.1.1` creation after acceptance documentation
   merges
+
+## 0.1.2 safe runtime reset
+
+- [x] Preserve normal non-empty destination refusal
+- [x] Add manifest-aware reset planning and explicit `--yes` confirmation
+- [x] Preserve cache and reject dangerous, overlapping, or symlinked paths
+- [x] Add CPU-only reset safety tests
+- [ ] Publish and remotely verify `kaggle-vllm==0.1.2`
+- [ ] Complete focused Kaggle reset/bootstrap/TP=2 acceptance
+- [ ] Create final GitHub `v0.1.2` from the accepted main commit
