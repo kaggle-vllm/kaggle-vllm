@@ -14,19 +14,36 @@ Kaggle Notebook with two NVIDIA Tesla T4 (SM75) GPUs. It is packaging work
 around upstream [vLLM](https://github.com/vllm-project/vllm), not a fork or a
 claim of ownership over vLLM. **This is not an official upstream vLLM binary.**
 
-The repository also carries the lightweight `kaggle-vllm` 0.1.0 SDK wheel and
-source distribution. Those pure-Python SDK files do not contain vLLM, CUDA, or
-Torch and do not install the native runtime implicitly.
+The repository also carries exact PyPI artifacts for the lightweight
+`kaggle-vllm` 0.1.1 SDK, plus the historical 0.1.0 SDK files. These pure-Python
+artifacts do not contain vLLM, CUDA, or Torch and do not install the native
+runtime implicitly.
 
 ## Lightweight SDK artifacts
 
 | File | SHA256 |
 |---|---|
+| `kaggle_vllm-0.1.1-py3-none-any.whl` | `d8dfb58e369ceea90b2ade10c75d7678166615a04cbea120855bfd2329bbc9db` |
+| `kaggle_vllm-0.1.1.tar.gz` | `c9981a564513b596bdbd0a68365230d2eb330a61b6b28e42fc22c043b5169349` |
 | `kaggle_vllm-0.1.0-py3-none-any.whl` | `e6b525d03257f24e2e062770763bf060042fe4868f879fb6f81efc722b076233` |
 | `kaggle_vllm-0.1.0.tar.gz` | `a35776573291846f20747dad17e193bd00b4dbb4853294224f17db045c51dd0a` |
 
-Install the SDK from its immutable publication commit and checked wheel, then
-run the explicit native bootstrap:
+The primary installation source is PyPI:
+
+```bash
+pip install kaggle-vllm==0.1.1
+kaggle-vllm bootstrap
+```
+
+The immutable Hub fallback uses the byte-identical PyPI wheel:
+
+```bash
+pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/ff213d775c560645dbd1bdaf86f7412005717969/kaggle_vllm-0.1.1-py3-none-any.whl#sha256=d8dfb58e369ceea90b2ade10c75d7678166615a04cbea120855bfd2329bbc9db"
+kaggle-vllm bootstrap
+```
+
+The historical 0.1.0 fallback remains pinned to its original publication
+commit:
 
 ```bash
 pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/ec75826d10e2dbc3c94c4682342ea3b65d7b72e2/kaggle_vllm-0.1.0-py3-none-any.whl#sha256=e6b525d03257f24e2e062770763bf060042fe4868f879fb6f81efc722b076233"

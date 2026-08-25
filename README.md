@@ -11,9 +11,11 @@ It is **not a fork, reimplementation, or replacement for vLLM**. Inference,
 tensor parallelism, sharded-state persistence, and serving remain upstream vLLM
 capabilities.
 
-> **Status:** v0.1 release candidate. Functionally validated on the documented
-> Kaggle dual-T4 environment. PyPI publication is pending Trusted Publisher
-> configuration; it is not described as production-ready.
+> **Status:** The lightweight SDK release is v0.1.1 and is published on PyPI.
+> The native runtime remains a separate, explicit Hugging Face bootstrap.
+> Functionality was validated on the documented Kaggle dual-T4 environment;
+> a fresh post-rename Kaggle acceptance run is still pending. This is not a
+> production-readiness claim.
 
 ## Validated environment
 
