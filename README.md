@@ -13,13 +13,14 @@ capabilities.
 
 > **Status:** The lightweight SDK release is v0.1.1 and is published on PyPI.
 > The native runtime remains a separate, explicit Hugging Face bootstrap.
-> Functionality was validated on the documented Kaggle dual-T4 environment;
-> a fresh post-rename Kaggle acceptance run is still pending. This is not a
-> production-readiness claim.
+> On 2026-08-25, v0.1.1 completed a fresh post-publication, post-rename
+> acceptance run on the documented Kaggle dual-T4 environment. This is a
+> configuration-specific validation result, not a production-readiness claim.
 
 ## Validated environment
 
-The archived 2026-08-22/23 Kaggle runs recorded:
+The original 2026-08-22/23 evidence and the fresh 2026-08-25 acceptance run
+recorded:
 
 | Component | Validated value |
 |---|---|
@@ -50,17 +51,18 @@ It does not mean the source was the upstream v0.18.2 release.
 ## Install the lightweight SDK
 
 The SDK is published on [PyPI](https://pypi.org/project/kaggle-vllm/) and has
-no hard dependency on vLLM, Torch, or CUDA. The primary Kaggle flow is:
+no hard dependency on vLLM, Torch, or CUDA. The recommended Kaggle flow
+installs Hub support and enforces the validated runtime profile:
 
 ```bash
-pip install kaggle_vllm
-kaggle-vllm bootstrap
+pip install "kaggle-vllm[hub]==0.1.1"
+kaggle-vllm bootstrap --strict
 ```
 
-The one-line form is:
+The underscore spelling is normalized to the same PyPI distribution:
 
 ```bash
-pip install kaggle_vllm && kaggle-vllm bootstrap
+pip install "kaggle_vllm[hub]==0.1.1"
 ```
 
 The canonical distribution spelling is equivalent:
@@ -214,6 +216,21 @@ The archived Qwen run returned HTTP 200 from both `GET /v1/models` and
 
 ## What was functionally validated
 
+The [executed v0.1.1 acceptance notebook](kaggle-notebooks/kaggle_vllm_0_1_1_dual_t4_acceptance.ipynb)
+and its [evidence summary](docs/kaggle-v0.1.1-acceptance.md) freshly validated:
+
+- PyPI `kaggle-vllm==0.1.1` installation without replacing PyTorch
+- strict `kaggle-t4x2-cu128` compatibility checks
+- canonical Hugging Face binary delivery at the immutable revision and SHA256
+- successful staging and imports of `vllm`, `vllm._C`, `vllm._moe_C`, and
+  `vllm.cumem_allocator`
+- real `facebook/opt-125m` inference with TP=2 over both Tesla T4 GPUs
+- canonical Qwen repository download and valid inspection of two ranks/four
+  rank-specific shards
+- Qwen TP=2 `sharded_state` reload and successful text generation
+
+The broader original validation also covered:
+
 - CUDA-enabled vLLM wheel build and SHA256 verification
 - staged native imports (`vllm._C`, `vllm._moe_C`, allocator)
 - isolated dependency overlay while preserving system PyTorch
@@ -267,7 +284,8 @@ license.
 - Validation is specific to the tabled Kaggle environment and CPython 3.12 ABI.
 - The SDK supports Python 3.10+, but the published native wheel profile is
   Linux x86_64 CPython 3.12 only.
-- No local GPU test is claimed; GPU results come from archived Kaggle evidence.
+- No local GPU test is claimed; GPU results come from executed Kaggle notebooks
+  and the curated Kaggle evidence.
 - The persistent model is TP-topology-aware and validated only at TP=2.
 - The copied upstream HF weight index names original HF shards; standard
   Transformers loading is not supported. Use vLLM `sharded_state`.

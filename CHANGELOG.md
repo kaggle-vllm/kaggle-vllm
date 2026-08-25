@@ -10,6 +10,9 @@ All notable changes are documented here.
   repository IDs while preserving the immutable native revision and SHA256.
 - No native vLLM wheel was rebuilt and no Qwen training, checkpoint
   regeneration, or large-artifact re-upload was performed.
+- Record the successful post-publication Kaggle dual-T4 acceptance run covering
+  strict bootstrap, staged native imports, OPT TP=2, and Qwen TP=2
+  `sharded_state` generation.
 
 ## 0.1.0 — 2026-08-24
 
