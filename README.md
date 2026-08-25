@@ -13,9 +13,10 @@ capabilities.
 
 > **Status:** The lightweight SDK release is v0.1.2 and is published on PyPI.
 > The native runtime remains a separate, explicit Hugging Face bootstrap.
-> On 2026-08-25, v0.1.1 completed a fresh post-publication, post-rename
-> acceptance run on the documented Kaggle dual-T4 environment. This is a
-> configuration-specific validation result, not a production-readiness claim.
+> On 2026-08-25, v0.1.1 completed the full post-publication delivery/Qwen
+> acceptance, and v0.1.2 completed a focused safe-reset, re-bootstrap, and
+> TP=2 acceptance run on the documented Kaggle dual-T4 environment. These are
+> configuration-specific validation results, not production-readiness claims.
 
 ## Validated environment
 
@@ -250,6 +251,14 @@ and its [evidence summary](docs/kaggle-v0.1.1-acceptance.md) freshly validated:
 - canonical Qwen repository download and valid inspection of two ranks/four
   rank-specific shards
 - Qwen TP=2 `sharded_state` reload and successful text generation
+
+The focused [v0.1.2 reset acceptance notebook](kaggle-notebooks/kaggle_vllm_0_1_2_reset_acceptance.ipynb)
+and [evidence summary](docs/kaggle-v0.1.2-reset-acceptance.md) additionally
+validated the manifest-aware reset workflow: the default non-empty refusal,
+non-mutating reset dry-run, explicit confirmed reset, cache preservation,
+strict re-bootstrap, staged native imports, preserved Kaggle Torch, and real
+OPT-125M NCCL TP=2 generation. It intentionally did not repeat the multi-GB
+Qwen download because the persistent model and native runtime were unchanged.
 
 The broader original validation also covered:
 

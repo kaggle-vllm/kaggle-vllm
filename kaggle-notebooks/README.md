@@ -5,6 +5,30 @@ This directory contains Kaggle-specific validation material for
 under [`examples/`](../examples/) are starting points and do not claim a
 successful run until their outputs have been captured and reviewed.
 
+## v0.1.2 focused reset acceptance evidence
+
+[`kaggle_vllm_0_1_2_reset_acceptance.ipynb`](kaggle_vllm_0_1_2_reset_acceptance.ipynb)
+is the executed 2026-08-25 focused acceptance run for the safe runtime-reset
+feature added in v0.1.2. Its saved outputs end in `FINAL ACCEPTANCE: PASS`; the
+corresponding [evidence report](../docs/kaggle-v0.1.2-reset-acceptance.md)
+records the independent review.
+
+The focused notebook verified:
+
+- public PyPI `kaggle-vllm==0.1.2` on Python 3.12.13
+- 2 × Tesla T4 at SM75 with PyTorch 2.10.0+cu128 and NCCL 2.27.5
+- initial strict bootstrap from the unchanged immutable native wheel
+- the expected refusal to overwrite an unowned non-empty staged directory
+- a non-mutating manifest-aware reset dry-run
+- explicit reset of staged/overlay/manifest state with cache preservation
+- immediate strict re-bootstrap and staged native-extension imports
+- unchanged Kaggle system Torch and real OPT-125M NCCL TP=2 generation
+
+It intentionally does not repeat the Qwen download or reload. The v0.1.2
+package change is limited to runtime-reset safety; the native wheel and Qwen
+TP=2 model are unchanged, and the v0.1.1 notebook remains the full delivery
+and Qwen acceptance record.
+
 ## v0.1.1 acceptance evidence
 
 [`kaggle_vllm_0_1_1_dual_t4_acceptance.ipynb`](kaggle_vllm_0_1_1_dual_t4_acceptance.ipynb)
