@@ -76,5 +76,5 @@ only the affected publication step and must be reported exactly.
 - [x] Publish and remotely verify `kaggle-vllm==0.1.2`
 - [x] Verify both normalized PyPI installation spellings in fresh environments
 - [x] Mirror the exact PyPI SDK artifacts to an immutable Hugging Face revision
-- [ ] Complete focused Kaggle reset/bootstrap/TP=2 acceptance
+- [x] Complete focused Kaggle reset/bootstrap/TP=2 acceptance
 - [ ] Create final GitHub `v0.1.2` from the accepted main commit
