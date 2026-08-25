@@ -2,6 +2,15 @@
 
 All notable changes are documented here.
 
+## 0.1.2 — 2026-08-25
+
+- Add an explicit, manifest-aware `bootstrap --reset-runtime` recovery flow.
+- Require `--yes` before removal, preserve the download cache, reject dangerous
+  or symlinked targets, and support a structured non-mutating dry run.
+- Keep the default bootstrap refusal for non-empty destinations unchanged.
+- Attach the byte-identical PyPI 0.1.1 SDK wheel and sdist to the historical
+  GitHub v0.1.1 release without duplicating native or model artifacts.
+
 ## 0.1.1 — 2026-08-25
 
 - Rename the Hugging Face binary repository to `kaggle-vllm-binaries` and the

@@ -14,4 +14,4 @@ __all__ = [
     "inspect_sharded_model",
     "load_profile",
 ]
-__version__ = "0.1.1"
+__version__ = "0.1.2"

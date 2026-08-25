@@ -6,6 +6,7 @@ import json
 import os
 import platform
 import shlex
+import shutil
 import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
@@ -51,6 +52,46 @@ class BootstrapPaths:
 
 
 @dataclass(frozen=True)
+class ResetTarget:
+    """One filesystem target in a validated runtime-reset plan."""
+
+    label: str
+    path: Path
+    exists: bool
+    owned: bool
+    action: str
+    reason: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "label": self.label,
+            "path": str(self.path),
+            "exists": self.exists,
+            "owned": self.owned,
+            "action": self.action,
+            "reason": self.reason,
+        }
+
+
+@dataclass(frozen=True)
+class ResetPlan:
+    """Validated, side-effect-free plan for removing SDK-owned runtime state."""
+
+    paths: BootstrapPaths
+    targets: tuple[ResetTarget, ...]
+
+    @property
+    def safe(self) -> bool:
+        return all(target.action in {"remove", "preserve", "absent"} for target in self.targets)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "safe": self.safe,
+            "targets": [target.to_dict() for target in self.targets],
+        }
+
+
+@dataclass(frozen=True)
 class BootstrapPlan:
     """Side-effect-free plan for a native runtime bootstrap."""
 
@@ -92,6 +133,8 @@ class BootstrapResult:
     manifest: Path | None
     completed: bool
     already_complete: bool
+    reset_plan: ResetPlan | None = None
+    reset_completed: bool = False
 
     def to_dict(self) -> dict[str, Any]:
         result = self.plan.to_dict()
@@ -100,6 +143,14 @@ class BootstrapResult:
                 "manifest": str(self.manifest) if self.manifest else None,
                 "completed": self.completed,
                 "already_complete": self.already_complete,
+                "reset": (
+                    {
+                        **self.reset_plan.to_dict(),
+                        "completed": self.reset_completed,
+                    }
+                    if self.reset_plan
+                    else None
+                ),
             }
         )
         return result
@@ -204,6 +255,224 @@ def _resolve_paths(
     )
 
 
+def _repository_roots() -> tuple[Path, ...]:
+    roots: set[Path] = set()
+    for seed in (Path.cwd().resolve(), Path(__file__).resolve()):
+        for candidate in (seed, *seed.parents):
+            if (candidate / ".git").exists():
+                roots.add(candidate)
+                break
+    return tuple(sorted(roots, key=str))
+
+
+def validate_reset_path(path: str | Path, *, label: str) -> Path:
+    """Resolve a reset target and reject dangerous or symlinked selections."""
+
+    raw = os.fspath(path)
+    if not raw.strip():
+        raise BootstrapError(f"refusing empty {label} reset path")
+    expanded = Path(raw).expanduser()
+    lexical = Path(os.path.abspath(expanded))
+    resolved = expanded.resolve(strict=False)
+    if lexical != resolved:
+        raise BootstrapError(
+            f"refusing {label} reset path that traverses a symlink: {lexical} -> {resolved}"
+        )
+
+    dangerous = {
+        Path("/"),
+        Path.home().resolve(),
+        Path("/root"),
+        Path("/home"),
+        Path("/usr"),
+        Path("/usr/local"),
+        Path("/opt"),
+        Path("/etc"),
+        Path("/var"),
+        Path("/tmp"),
+        Path("/kaggle"),
+        Path("/kaggle/input"),
+        Path("/kaggle/working"),
+    }
+    if resolved in dangerous:
+        raise BootstrapError(f"refusing dangerous {label} reset path: {resolved}")
+
+    current = Path.cwd().resolve()
+    if resolved == current or resolved in current.parents:
+        raise BootstrapError(
+            f"refusing {label} reset path that is the current directory or its parent: {resolved}"
+        )
+    for repository in _repository_roots():
+        if resolved == repository or repository in resolved.parents:
+            raise BootstrapError(
+                f"refusing {label} reset path inside repository root {repository}: {resolved}"
+            )
+    return resolved
+
+
+def _expected_manifest_paths(paths: BootstrapPaths) -> dict[str, str]:
+    return {
+        "staged": str(paths.staged),
+        "overlay": str(paths.overlay),
+        "cache": str(paths.cache),
+        "manifest": str(paths.manifest),
+    }
+
+
+def build_reset_plan(
+    *,
+    staged: str | Path = DEFAULT_STAGED,
+    overlay: str | Path = DEFAULT_OVERLAY,
+    cache: str | Path = DEFAULT_CACHE,
+    manifest: str | Path = DEFAULT_MANIFEST,
+    profile: BootstrapProfile | None = None,
+) -> ResetPlan:
+    """Validate ownership and return a reset plan without changing the filesystem."""
+
+    selected_profile = profile or load_profile(DEFAULT_PROFILE)
+    paths = BootstrapPaths(
+        staged=validate_reset_path(staged, label="staged"),
+        overlay=validate_reset_path(overlay, label="overlay"),
+        cache=validate_reset_path(cache, label="cache"),
+        manifest=validate_reset_path(manifest, label="manifest"),
+    )
+    selected = {
+        "staged": paths.staged,
+        "overlay": paths.overlay,
+        "manifest": paths.manifest,
+    }
+    all_paths = {**selected, "cache": paths.cache}
+    if len(set(all_paths.values())) != len(all_paths):
+        raise BootstrapError("reset paths must be distinct")
+    for label, candidate in selected.items():
+        for other_label, other in all_paths.items():
+            if label != other_label and (
+                candidate in other.parents or other in candidate.parents
+            ):
+                raise BootstrapError(
+                    f"refusing {label} reset path because it overlaps the selected "
+                    f"{other_label} path: {candidate}"
+                )
+
+    manifest_matches = False
+    if paths.manifest.exists():
+        if not paths.manifest.is_file():
+            raise BootstrapError(f"runtime manifest is not a file: {paths.manifest}")
+        data = _load_manifest(paths.manifest)
+        identity_matches = (
+            data.get("schema_version") == 1
+            and data.get("profile") == selected_profile.name
+            and data.get("wheel", {}).get("sha256") == selected_profile.wheel_sha256
+            and data.get("wheel", {}).get("hf_revision") == selected_profile.hf_revision
+        )
+        if not identity_matches or data.get("paths") != _expected_manifest_paths(paths):
+            raise BootstrapError(
+                "existing manifest identity or paths do not match the selected reset: "
+                f"{paths.manifest}"
+            )
+        manifest_matches = True
+
+    known_defaults = {
+        "staged": DEFAULT_STAGED.resolve(),
+        "overlay": DEFAULT_OVERLAY.resolve(),
+        "manifest": DEFAULT_MANIFEST.resolve(),
+    }
+    targets: list[ResetTarget] = []
+    for label in ("staged", "overlay"):
+        candidate = selected[label]
+        exists = candidate.exists()
+        if exists and not candidate.is_dir():
+            raise BootstrapError(f"selected {label} runtime path is not a directory: {candidate}")
+        owned = candidate == known_defaults[label] or manifest_matches
+        if exists and not owned:
+            raise BootstrapError(
+                f"cannot prove ownership of custom {label} runtime path without "
+                f"a matching manifest: {candidate}"
+            )
+        reason = (
+            "matching runtime manifest"
+            if manifest_matches
+            else (
+                "known SDK default path"
+                if candidate == known_defaults[label]
+                else "path is absent; nothing to remove"
+            )
+        )
+        targets.append(
+            ResetTarget(
+                label,
+                candidate,
+                exists,
+                owned,
+                "remove" if exists else "absent",
+                reason,
+            )
+        )
+
+    manifest_exists = paths.manifest.exists()
+    manifest_owned = paths.manifest == known_defaults["manifest"] or manifest_matches
+    if manifest_exists and not manifest_owned:
+        raise BootstrapError(f"cannot prove ownership of runtime manifest: {paths.manifest}")
+    manifest_reason = (
+        "matching runtime manifest"
+        if manifest_matches
+        else (
+            "known SDK default path"
+            if paths.manifest == known_defaults["manifest"]
+            else "path is absent; nothing to remove"
+        )
+    )
+    targets.append(
+        ResetTarget(
+            "manifest",
+            paths.manifest,
+            manifest_exists,
+            manifest_owned,
+            "remove" if manifest_exists else "absent",
+            manifest_reason,
+        )
+    )
+    targets.append(
+        ResetTarget(
+            "cache",
+            paths.cache,
+            paths.cache.exists(),
+            False,
+            "preserve",
+            "download cache is preserved by default",
+        )
+    )
+    return ResetPlan(paths, tuple(targets))
+
+
+def execute_reset(plan: ResetPlan) -> tuple[Path, ...]:
+    """Remove only validated reset targets and return the paths removed."""
+
+    removed: list[Path] = []
+    for target in plan.targets:
+        if target.action != "remove":
+            continue
+        try:
+            if validate_reset_path(target.path, label=target.label) != target.path:
+                raise BootstrapError(f"reset target changed after planning: {target.path}")
+            if target.path.is_symlink():
+                raise BootstrapError(
+                    f"refusing reset target that became a symlink: {target.path}"
+                )
+            if target.label in {"staged", "overlay"}:
+                shutil.rmtree(target.path)
+            else:
+                target.path.unlink()
+            removed.append(target.path)
+        except (OSError, BootstrapError) as error:
+            prior = ", ".join(str(path) for path in removed) or "none"
+            raise BootstrapError(
+                f"runtime reset failed at {target.label} path {target.path}: {error}; "
+                f"already removed: {prior}; cache preserved: {plan.paths.cache}"
+            ) from error
+    return tuple(removed)
+
+
 def build_bootstrap_plan(
     *,
     profile_name: str = DEFAULT_PROFILE,
@@ -282,17 +551,11 @@ def _matching_manifest(plan: BootstrapPlan) -> bool:
     if not path.is_file():
         return False
     data = _load_manifest(path)
-    expected_paths = {
-        "staged": str(plan.paths.staged),
-        "overlay": str(plan.paths.overlay),
-        "cache": str(plan.paths.cache),
-        "manifest": str(plan.paths.manifest),
-    }
     identity_matches = (
         data.get("profile") == plan.profile.name
         and data.get("wheel", {}).get("sha256") == plan.profile.wheel_sha256
         and data.get("wheel", {}).get("hf_revision") == plan.profile.hf_revision
-        and data.get("paths") == expected_paths
+        and data.get("paths") == _expected_manifest_paths(plan.paths)
     )
     directories_ready = all(
         path.is_dir() and any(path.iterdir())
@@ -361,6 +624,8 @@ def bootstrap(
     manifest: str | Path = DEFAULT_MANIFEST,
     strict: bool = False,
     dry_run: bool = False,
+    reset_runtime: bool = False,
+    yes: bool = False,
     environment: Environment | None = None,
     python_executable: str = sys.executable,
     implementation: str | None = None,
@@ -368,7 +633,10 @@ def bootstrap(
     system: str | None = None,
     machine: str | None = None,
 ) -> BootstrapResult:
-    """Explicitly download, verify, and stage the profiled native runtime."""
+    """Explicitly reset if requested, then download and stage the native runtime."""
+
+    if yes and not reset_runtime:
+        raise BootstrapError("--yes is only valid together with --reset-runtime")
 
     plan = build_bootstrap_plan(
         profile_name=profile_name,
@@ -384,13 +652,40 @@ def bootstrap(
         system=system,
         machine=machine,
     )
+    reset_plan = (
+        build_reset_plan(
+            staged=staged,
+            overlay=overlay,
+            cache=cache,
+            manifest=manifest,
+            profile=plan.profile,
+        )
+        if reset_runtime
+        else None
+    )
     if dry_run:
-        return BootstrapResult(plan, None, False, False)
+        return BootstrapResult(plan, None, False, False, reset_plan, False)
     errors = [finding.message for finding in plan.findings if finding.status == "error"]
     if errors:
         raise BootstrapError("incompatible native runtime:\n- " + "\n- ".join(errors))
+    reset_completed = False
+    if reset_plan:
+        if not yes:
+            raise BootstrapError(
+                "runtime reset requires explicit --yes confirmation; "
+                "inspect it first with --reset-runtime --dry-run"
+            )
+        execute_reset(reset_plan)
+        reset_completed = True
     if _matching_manifest(plan):
-        return BootstrapResult(plan, plan.paths.manifest, True, True)
+        return BootstrapResult(
+            plan,
+            plan.paths.manifest,
+            True,
+            True,
+            reset_plan,
+            reset_completed,
+        )
     _check_destination(plan.paths.staged, "staged wheel")
     _check_destination(plan.paths.overlay, "dependency overlay")
 
@@ -409,7 +704,14 @@ def bootstrap(
             python_executable=python_executable,
         )
     manifest_path = _write_manifest(plan, wheel)
-    return BootstrapResult(plan, manifest_path, True, False)
+    return BootstrapResult(
+        plan,
+        manifest_path,
+        True,
+        False,
+        reset_plan,
+        reset_completed,
+    )
 
 
 def runtime_manifest_path(path: str | Path | None = None) -> Path:

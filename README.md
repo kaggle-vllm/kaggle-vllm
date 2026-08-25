@@ -11,7 +11,7 @@ It is **not a fork, reimplementation, or replacement for vLLM**. Inference,
 tensor parallelism, sharded-state persistence, and serving remain upstream vLLM
 capabilities.
 
-> **Status:** The lightweight SDK release is v0.1.1 and is published on PyPI.
+> **Status:** The lightweight SDK release is v0.1.2 and is published on PyPI.
 > The native runtime remains a separate, explicit Hugging Face bootstrap.
 > On 2026-08-25, v0.1.1 completed a fresh post-publication, post-rename
 > acceptance run on the documented Kaggle dual-T4 environment. This is a
@@ -55,14 +55,14 @@ no hard dependency on vLLM, Torch, or CUDA. The recommended Kaggle flow
 installs Hub support and enforces the validated runtime profile:
 
 ```bash
-pip install "kaggle-vllm[hub]==0.1.1"
+pip install "kaggle-vllm[hub]==0.1.2"
 kaggle-vllm bootstrap --strict
 ```
 
 The underscore spelling is normalized to the same PyPI distribution:
 
 ```bash
-pip install "kaggle_vllm[hub]==0.1.1"
+pip install "kaggle_vllm[hub]==0.1.2"
 ```
 
 The canonical distribution spelling is equivalent:
@@ -180,6 +180,28 @@ entries, writes a runtime manifest, and refuses incompatible non-empty runtime
 directories. `KaggleLLM` may activate an already-completed default manifest,
 but it never bootstraps implicitly. See [installation](docs/installation.md).
 
+### Recovering an owned staged runtime
+
+Bootstrap still refuses to overwrite non-empty destinations by default. From
+v0.1.2, inspect a manifest-aware reset plan without changing anything:
+
+```bash
+kaggle-vllm bootstrap --reset-runtime --dry-run --strict
+```
+
+After reviewing the exact staged, overlay, manifest, and preserved-cache paths,
+explicitly confirm the reset and continue bootstrap in the same invocation:
+
+```bash
+kaggle-vllm bootstrap --reset-runtime --yes --strict
+```
+
+Reset accepts only known default paths or custom paths proven by the selected
+runtime manifest. It rejects root/system/Kaggle parent paths, the current
+repository, path overlap, and symlink traversal. The download cache is
+preserved by default. See [installation recovery](docs/installation.md#recovering-from-an-existing-staged-runtime)
+and [issue #7](https://github.com/kaggle-vllm/kaggle-vllm/issues/7).
+
 ## Kaggle CUDA-driver discovery
 
 The toolkit was at `/usr/local/cuda-12.8`, while the mounted live driver was
@@ -256,7 +278,7 @@ ordinary NCCL communication and TP=2 inference still completed successfully.
 ```text
 kaggle-vllm doctor
 kaggle-vllm fingerprint
-kaggle-vllm bootstrap [--strict] [--dry-run]
+kaggle-vllm bootstrap [--strict] [--dry-run] [--reset-runtime [--yes]]
 kaggle-vllm env [--manifest PATH]
 kaggle-vllm verify-gpus --tensor-parallel-size 2
 kaggle-vllm inspect-shards PATH --json

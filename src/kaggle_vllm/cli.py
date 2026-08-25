@@ -47,6 +47,16 @@ def build_parser() -> argparse.ArgumentParser:
     bootstrap.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     bootstrap.add_argument("--strict", action="store_true")
     bootstrap.add_argument("--dry-run", action="store_true")
+    bootstrap.add_argument(
+        "--reset-runtime",
+        action="store_true",
+        help="reset validated SDK-owned runtime state before bootstrapping",
+    )
+    bootstrap.add_argument(
+        "--yes",
+        action="store_true",
+        help="confirm the destructive reset plan (requires --reset-runtime)",
+    )
     bootstrap.add_argument("--json", action="store_true", dest="as_json")
 
     runtime_env = subcommands.add_parser(
@@ -115,6 +125,8 @@ def _run_bootstrap(args: argparse.Namespace) -> int:
         manifest=args.manifest,
         strict=args.strict,
         dry_run=args.dry_run,
+        reset_runtime=args.reset_runtime,
+        yes=args.yes,
     )
     data = result.to_dict()
     if args.as_json:
@@ -131,6 +143,14 @@ def _run_bootstrap(args: argparse.Namespace) -> int:
     print(f"staged: {data['paths']['staged']}")
     print(f"overlay: {data['paths']['overlay']}")
     print(f"manifest: {data['paths']['manifest']}")
+    if data["reset"]:
+        print(f"reset plan safe: {data['reset']['safe']}")
+        for target in data["reset"]["targets"]:
+            print(
+                f"reset {target['label']}: {target['action']} {target['path']} "
+                f"(exists={target['exists']}, owned={target['owned']}; "
+                f"{target['reason']})"
+            )
     for finding in data["findings"]:
         print(f"{finding['status'].upper()}: {finding['message']}")
     if args.dry_run:
@@ -140,6 +160,8 @@ def _run_bootstrap(args: argparse.Namespace) -> int:
     elif result.already_complete:
         print("bootstrap already complete; matching manifest reused")
     else:
+        if result.reset_completed:
+            print(f"runtime reset complete; cache preserved: {result.plan.paths.cache}")
         print(f"bootstrap complete: {result.manifest}")
     return 0
 

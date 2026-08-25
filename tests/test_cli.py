@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 from kaggle_vllm.cli import build_parser, main
@@ -30,6 +31,8 @@ def test_cli_parses_bootstrap_dry_run_and_path_overrides():
             "bootstrap",
             "--dry-run",
             "--strict",
+            "--reset-runtime",
+            "--yes",
             "--staged", "/tmp/staged",
             "--overlay", "/tmp/overlay",
             "--cache", "/tmp/cache",
@@ -38,6 +41,7 @@ def test_cli_parses_bootstrap_dry_run_and_path_overrides():
     )
     assert args.command == "bootstrap"
     assert args.dry_run and args.strict
+    assert args.reset_runtime and args.yes
     assert args.staged == Path("/tmp/staged")
     assert args.overlay == Path("/tmp/overlay")
     assert args.cache == Path("/tmp/cache")
@@ -74,4 +78,43 @@ def test_cli_bootstrap_dry_run_reports_plan_without_writes(tmp_path, capsys):
         for line in output.splitlines()
         if "staged path" in line and "would run" in line
     )
+    assert not any(path.exists() for path in (staged, overlay, cache, manifest))
+
+
+def test_cli_reset_dry_run_json_is_structured_and_non_mutating(tmp_path, capsys):
+    staged = tmp_path / "staged"
+    overlay = tmp_path / "overlay"
+    cache = tmp_path / "cache"
+    manifest = tmp_path / "runtime.json"
+
+    assert (
+        main(
+            [
+                "bootstrap",
+                "--reset-runtime",
+                "--dry-run",
+                "--json",
+                "--staged",
+                str(staged),
+                "--overlay",
+                str(overlay),
+                "--cache",
+                str(cache),
+                "--manifest",
+                str(manifest),
+            ]
+        )
+        == 0
+    )
+    data = json.loads(capsys.readouterr().out)
+    assert data["reset"]["safe"] is True
+    assert data["reset"]["completed"] is False
+    assert {
+        target["label"]: target["action"] for target in data["reset"]["targets"]
+    } == {
+        "staged": "absent",
+        "overlay": "absent",
+        "manifest": "absent",
+        "cache": "preserve",
+    }
     assert not any(path.exists() for path in (staged, overlay, cache, manifest))
