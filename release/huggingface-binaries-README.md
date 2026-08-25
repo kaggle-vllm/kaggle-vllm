@@ -15,14 +15,16 @@ around upstream [vLLM](https://github.com/vllm-project/vllm), not a fork or a
 claim of ownership over vLLM. **This is not an official upstream vLLM binary.**
 
 The repository also carries exact PyPI artifacts for the lightweight
-`kaggle-vllm` 0.1.1 SDK, plus the historical 0.1.0 SDK files. These pure-Python
-artifacts do not contain vLLM, CUDA, or Torch and do not install the native
-runtime implicitly.
+`kaggle-vllm` 0.1.2 SDK, plus the historical 0.1.0 and 0.1.1 SDK files. These
+pure-Python artifacts do not contain vLLM, CUDA, or Torch and do not install
+the native runtime implicitly.
 
 ## Lightweight SDK artifacts
 
 | File | SHA256 |
 |---|---|
+| `kaggle_vllm-0.1.2-py3-none-any.whl` | `13f1043df4a173e74555c6a4d7a8f66b4e661d942fc0222124208f50b1e9aad2` |
+| `kaggle_vllm-0.1.2.tar.gz` | `f05c210985bcc74fad689a1ffaf0c4200e80041e791d902e1703b279db02679e` |
 | `kaggle_vllm-0.1.1-py3-none-any.whl` | `d8dfb58e369ceea90b2ade10c75d7678166615a04cbea120855bfd2329bbc9db` |
 | `kaggle_vllm-0.1.1.tar.gz` | `c9981a564513b596bdbd0a68365230d2eb330a61b6b28e42fc22c043b5169349` |
 | `kaggle_vllm-0.1.0-py3-none-any.whl` | `e6b525d03257f24e2e062770763bf060042fe4868f879fb6f81efc722b076233` |
@@ -31,16 +33,19 @@ runtime implicitly.
 The primary installation source is PyPI:
 
 ```bash
-pip install kaggle-vllm==0.1.1
+pip install kaggle-vllm==0.1.2
 kaggle-vllm bootstrap
 ```
 
 The immutable Hub fallback uses the byte-identical PyPI wheel:
 
 ```bash
-pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/ff213d775c560645dbd1bdaf86f7412005717969/kaggle_vllm-0.1.1-py3-none-any.whl#sha256=d8dfb58e369ceea90b2ade10c75d7678166615a04cbea120855bfd2329bbc9db"
+pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/97b741d7fc988ed557a00fc28f2e34abad09fb7d/kaggle_vllm-0.1.2-py3-none-any.whl#sha256=13f1043df4a173e74555c6a4d7a8f66b4e661d942fc0222124208f50b1e9aad2"
 kaggle-vllm bootstrap
 ```
+
+The historical 0.1.1 fallback remains available at revision
+`ff213d775c560645dbd1bdaf86f7412005717969` with its recorded wheel checksum.
 
 The historical 0.1.0 fallback remains pinned to its original publication
 commit:
