@@ -73,6 +73,8 @@ only the affected publication step and must be reported exactly.
 - [x] Add manifest-aware reset planning and explicit `--yes` confirmation
 - [x] Preserve cache and reject dangerous, overlapping, or symlinked paths
 - [x] Add CPU-only reset safety tests
-- [ ] Publish and remotely verify `kaggle-vllm==0.1.2`
+- [x] Publish and remotely verify `kaggle-vllm==0.1.2`
+- [x] Verify both normalized PyPI installation spellings in fresh environments
+- [x] Mirror the exact PyPI SDK artifacts to an immutable Hugging Face revision
 - [ ] Complete focused Kaggle reset/bootstrap/TP=2 acceptance
 - [ ] Create final GitHub `v0.1.2` from the accepted main commit

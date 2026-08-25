@@ -23,12 +23,19 @@ The canonical distribution spelling resolves to the same normalized project:
 python -m pip install kaggle-vllm
 ```
 
-The current 0.1.1 Hugging Face SDK fallback uses the exact PyPI wheel, pinned
+The current 0.1.2 Hugging Face SDK fallback uses the exact PyPI wheel, pinned
 to its immutable Hub commit and checksum:
 
 ```bash
-pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/ff213d775c560645dbd1bdaf86f7412005717969/kaggle_vllm-0.1.1-py3-none-any.whl#sha256=d8dfb58e369ceea90b2ade10c75d7678166615a04cbea120855bfd2329bbc9db"
+pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/97b741d7fc988ed557a00fc28f2e34abad09fb7d/kaggle_vllm-0.1.2-py3-none-any.whl#sha256=13f1043df4a173e74555c6a4d7a8f66b4e661d942fc0222124208f50b1e9aad2"
 kaggle-vllm bootstrap
+```
+
+The historical 0.1.1 fallback remains pinned to its original publication
+commit and wheel checksum:
+
+```bash
+pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/ff213d775c560645dbd1bdaf86f7412005717969/kaggle_vllm-0.1.1-py3-none-any.whl#sha256=d8dfb58e369ceea90b2ade10c75d7678166615a04cbea120855bfd2329bbc9db"
 ```
 
 The historical 0.1.0 fallback remains available at its original immutable
@@ -39,8 +46,9 @@ pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/ec7582
 kaggle-vllm bootstrap
 ```
 
-That exact command was verified in a fresh Python 3.11 virtual environment.
-It installs only the SDK; bootstrap separately obtains the cp312 native wheel.
+The current immutable 0.1.2 command was verified in a fresh Python 3.11 virtual
+environment. It installs only the SDK; bootstrap separately obtains the cp312
+native wheel.
 
 The SDK is pure Python and supports local development on Python 3.11. The
 native artifact is a Linux x86_64 CPython 3.12 wheel. Bootstrap always rejects
