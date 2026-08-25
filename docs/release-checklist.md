@@ -63,5 +63,6 @@ only the affected publication step and must be reported exactly.
 - [x] Verify both normalized PyPI installation spellings in fresh environments
 - [x] Publish the exact PyPI 0.1.1 SDK artifacts as an immutable HF fallback
 - [x] Prepare an output-free Kaggle dual-T4 acceptance notebook
-- [ ] Execute the fresh Kaggle dual-T4 acceptance notebook
-- [ ] Create final GitHub `v0.1.1` from the accepted main commit
+- [x] Execute and inspect the fresh Kaggle dual-T4 acceptance notebook
+- [x] Approve final GitHub `v0.1.1` creation after acceptance documentation
+  merges

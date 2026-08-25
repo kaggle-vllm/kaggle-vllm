@@ -3,18 +3,18 @@
 ## Three SDK installation paths
 
 The distribution name is `kaggle-vllm` and the import is `kaggle_vllm`.
-Python packaging treats hyphens and underscores equivalently. The primary
-PyPI flow is:
+Python packaging treats hyphens and underscores equivalently. The recommended
+Kaggle flow installs the optional Hub client and applies strict profile checks:
 
 ```bash
-pip install kaggle_vllm
-kaggle-vllm bootstrap
+pip install "kaggle-vllm[hub]==0.1.1"
+kaggle-vllm bootstrap --strict
 ```
 
-The equivalent one-line Kaggle setup is:
+The equivalent normalized project spelling is:
 
 ```bash
-pip install kaggle_vllm && kaggle-vllm bootstrap
+pip install "kaggle_vllm[hub]==0.1.1"
 ```
 
 The canonical distribution spelling resolves to the same normalized project:
@@ -100,6 +100,36 @@ kaggle-vllm bootstrap --strict \
   --overlay /kaggle/working/vllm-runtime-overlay \
   --manifest /kaggle/working/kaggle-vllm-runtime.json
 ```
+
+The 2026-08-25 acceptance run used notebook-owned destinations and a reusable
+download cache. This avoids collisions with a prior runtime while preserving
+bootstrap's safety checks:
+
+```bash
+RUNTIME_ROOT=/kaggle/working/kaggle-vllm-e2e-011
+
+kaggle-vllm bootstrap --strict \
+  --cache /kaggle/working/kaggle-vllm-cache \
+  --staged "$RUNTIME_ROOT/vllm-staged" \
+  --overlay "$RUNTIME_ROOT/vllm-runtime-overlay" \
+  --manifest "$RUNTIME_ROOT/kaggle-vllm-runtime.json"
+
+export KAGGLE_VLLM_MANIFEST="$RUNTIME_ROOT/kaggle-vllm-runtime.json"
+eval "$(kaggle-vllm env --manifest "$KAGGLE_VLLM_MANIFEST")"
+```
+
+The staged and overlay destinations must be absent or empty. Refusing to
+overwrite a non-empty destination protects user data and prevents accidental
+mixing of incompatible runtimes. Choose a new notebook-owned root for a clean
+acceptance run; do not delete an existing directory unless you have inspected
+and identified it yourself.
+
+In that measured session, the native bootstrap/runtime occupied approximately
+2.2 GiB. The four Qwen rank-specific weight files totaled 6,172,262,512 bytes
+(about 5.75 GiB), and the Kaggle UI showed about 8 GiB of total working/output
+usage after the full Qwen acceptance flow. These are reference observations,
+not fixed requirements: caches, package metadata, and filesystem accounting can
+change the total.
 
 ## Wheel integrity and staging
 
