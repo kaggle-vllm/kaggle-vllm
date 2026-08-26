@@ -6,7 +6,6 @@ import json
 import re
 from dataclasses import dataclass
 from importlib import resources
-from importlib.resources.abc import Traversable
 from typing import Any
 
 from .exceptions import ProfileError
@@ -104,7 +103,7 @@ class BootstrapProfile:
         return profile
 
 
-def profile_resource(profile_name: str, filename: str) -> Traversable:
+def profile_resource(profile_name: str, filename: str) -> Any:
     """Return a profile resource without extracting or reading credentials."""
 
     return resources.files("kaggle_vllm").joinpath("profiles", profile_name, filename)
