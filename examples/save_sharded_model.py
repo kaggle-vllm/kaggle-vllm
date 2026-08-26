@@ -6,7 +6,6 @@ from huggingface_hub import snapshot_download
 
 from kaggle_vllm import KaggleLLM
 
-
 model_path = Path(snapshot_download("Qwen/Qwen2.5-3B-Instruct"))
 llm = KaggleLLM(
     model=model_path,

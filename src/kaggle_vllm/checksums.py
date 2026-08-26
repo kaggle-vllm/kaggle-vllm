@@ -24,7 +24,9 @@ def verify_sha256(path: str | Path, expected: str) -> str:
 
     normalized = expected.strip().split()[0].casefold()
     if len(normalized) != 64 or any(c not in "0123456789abcdef" for c in normalized):
-        raise ValueError("expected SHA256 must contain exactly 64 hexadecimal characters")
+        raise ValueError(
+            "expected SHA256 must contain exactly 64 hexadecimal characters"
+        )
     actual = sha256_file(path)
     if actual != normalized:
         raise ChecksumMismatchError(

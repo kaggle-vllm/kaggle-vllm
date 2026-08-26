@@ -1,0 +1,58 @@
+name: SDK CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }} CPU SDK
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[test]"
+      - run: python -m pytest -q
+      - run: python -c "import kaggle_vllm; print(kaggle_vllm.__version__)"
+      - run: kaggle-vllm --help
+      - run: kaggle-vllm bootstrap --dry-run --json
+
+  quality-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[test]"
+      - run: python -m ruff check src tests examples scripts
+      - run: python scripts/verify_static.py
+      - run: python scripts/check_markdown_links.py
+      - run: python -m build
+        env:
+          SOURCE_DATE_EPOCH: "1787760000"
+      - run: python -m twine check dist/*
+      - name: Inspect distribution contents
+        run: |
+          python -m zipfile -l dist/*.whl
+          tar -tzf dist/*.tar.gz
+      - uses: actions/upload-artifact@v6
+        with:
+          name: sdk-distributions
+          path: dist/
+          if-no-files-found: error

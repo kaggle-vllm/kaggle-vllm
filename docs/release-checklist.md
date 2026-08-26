@@ -1,4 +1,4 @@
-# v0.1 release checklist
+# Historical v0.1 release checklist
 
 ## Source
 
@@ -77,4 +77,6 @@ only the affected publication step and must be reported exactly.
 - [x] Verify both normalized PyPI installation spellings in fresh environments
 - [x] Mirror the exact PyPI SDK artifacts to an immutable Hugging Face revision
 - [x] Complete focused Kaggle reset/bootstrap/TP=2 acceptance
-- [ ] Create final GitHub `v0.1.2` from the accepted main commit
+- [x] Create final GitHub `v0.1.2` from the accepted main commit
+
+The active future release process is maintained in [release.md](release.md).

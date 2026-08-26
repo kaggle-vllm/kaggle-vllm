@@ -7,7 +7,7 @@
   "torch_cuda": "12.8",
   "cuda_toolkit": "12.8.93",
   "driver": "580.159.04",
-  "driver_cuda_capability": "13.0",
+  "driver_reported_cuda_max": "13.0",
   "nccl": "2.27.5",
   "cmake": "3.31.10",
   "gcc": "11.4.0",

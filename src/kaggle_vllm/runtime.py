@@ -30,9 +30,11 @@ def validate_tensor_parallel_size(
 ) -> None:
     """Validate a requested local TP degree against visible CUDA devices."""
 
-    if not isinstance(tensor_parallel_size, int) or isinstance(
-        tensor_parallel_size, bool
-    ) or tensor_parallel_size < 1:
+    if (
+        not isinstance(tensor_parallel_size, int)
+        or isinstance(tensor_parallel_size, bool)
+        or tensor_parallel_size < 1
+    ):
         raise RuntimeValidationError("tensor_parallel_size must be a positive integer")
     visible = visible_gpu_count() if gpu_count is None else gpu_count
     if tensor_parallel_size > visible:

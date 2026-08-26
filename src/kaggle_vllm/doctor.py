@@ -1,21 +1,17 @@
-"""Human-readable checks for the validated Kaggle dual-T4 profile."""
+"""Human- and machine-readable checks for the validated Kaggle profile."""
 
 from __future__ import annotations
 
+import json
+from collections.abc import Callable
+from dataclasses import asdict
+from importlib import metadata
 from pathlib import Path
 
+from .dependencies import DependencyFinding, inspect_dependencies
 from .environment import Environment, collect
+from .profiles import load_profile
 from .runtime import all_sm75, all_tesla_t4
-
-VALIDATED_PROFILE = {
-    "python_major_minor": "3.12",
-    "torch_prefix": "2.10.0",
-    "torch_cuda": "12.8",
-    "gpu_count": 2,
-    "gpu_name": "Tesla T4",
-    "gpu_capability": (7, 5),
-    "nccl": "2.27.5",
-}
 
 
 def suggested_build_env() -> dict[str, str]:
@@ -37,35 +33,77 @@ def suggested_build_env() -> dict[str, str]:
 def profile_failures(environment: Environment) -> list[str]:
     """Return differences from the exactly validated Kaggle runtime profile."""
 
+    profile = load_profile()
     failures: list[str] = []
     if not environment.is_kaggle:
         failures.append("Kaggle runtime markers were not detected")
-    if not environment.python.startswith(VALIDATED_PROFILE["python_major_minor"] + "."):
-        failures.append("Python is not 3.12.x")
-    if environment.torch is None or not environment.torch.startswith(
-        VALIDATED_PROFILE["torch_prefix"]
-    ):
-        failures.append("PyTorch is not 2.10.0.x")
-    if environment.torch_cuda != VALIDATED_PROFILE["torch_cuda"]:
-        failures.append("PyTorch CUDA ABI is not 12.8")
+    python_prefix = f"{profile.python_major}.{profile.python_minor}."
+    if not environment.python.startswith(python_prefix):
+        failures.append(
+            f"Python is not {profile.python_major}.{profile.python_minor}.x"
+        )
+    if environment.torch != profile.torch_version:
+        failures.append(f"PyTorch is not {profile.torch_version}")
+    if environment.torch_cuda != profile.torch_cuda:
+        failures.append(f"PyTorch CUDA ABI is not {profile.torch_cuda}")
     if not environment.cuda_available:
         failures.append("CUDA is unavailable to PyTorch")
-    if environment.gpu_count != VALIDATED_PROFILE["gpu_count"]:
-        failures.append("Expected exactly two visible GPUs")
+    if environment.gpu_count != profile.gpu_count:
+        failures.append(f"Expected exactly {profile.gpu_count} visible GPUs")
     if not all_tesla_t4(environment.gpus):
         failures.append("Visible GPUs are not all Tesla T4")
     if not all_sm75(environment.gpus):
         failures.append("Visible GPUs are not all compute capability 7.5 / SM75")
     if environment.cuda_driver is None:
         failures.append("CUDA driver library was not found")
+    if environment.nccl != profile.nccl:
+        failures.append(f"NCCL is not {profile.nccl}")
     return failures
 
 
-def run_doctor(environment: Environment | None = None) -> int:
-    """Print diagnostics and return zero only for the validated profile."""
+def _doctor_payload(
+    runtime: Environment,
+    dependencies: tuple[DependencyFinding, ...],
+) -> dict[str, object]:
+    failures = profile_failures(runtime)
+    counts = {
+        status: sum(item.status == status for item in dependencies)
+        for status in ("pass", "warning", "error", "untested")
+    }
+    return {
+        "profile": "kaggle-t4x2-cu128",
+        "environment": asdict(runtime),
+        "profile_findings": [
+            {"status": "error", "message": failure} for failure in failures
+        ],
+        "dependency_findings": [item.to_dict() for item in dependencies],
+        "summary": {"dependencies": counts},
+        "compatible": not failures and counts["error"] == 0,
+    }
+
+
+def run_doctor(
+    environment: Environment | None = None,
+    *,
+    strict: bool = False,
+    check_dependencies: bool = True,
+    as_json_output: bool = False,
+    version_lookup: Callable[[str], str] = metadata.version,
+) -> int:
+    """Print diagnostics and return zero only when required checks pass."""
 
     runtime = environment or collect()
+    profile = load_profile()
     failures = profile_failures(runtime)
+    dependencies = (
+        inspect_dependencies(strict=strict, version_lookup=version_lookup)
+        if check_dependencies
+        else ()
+    )
+    payload = _doctor_payload(runtime, dependencies)
+    if as_json_output:
+        print(json.dumps(payload, indent=2))
+        return 0 if payload["compatible"] else 1
     print("kaggle-vllm doctor")
     print("==================")
     print(f"Kaggle       : {runtime.is_kaggle}")
@@ -77,6 +115,11 @@ def run_doctor(environment: Environment | None = None) -> int:
     print(f"NCCL         : {runtime.nccl or 'NOT FOUND'}")
     print(f"nvcc         : {runtime.nvcc or 'NOT FOUND'}")
     print(f"CUDA driver  : {runtime.cuda_driver or 'NOT FOUND'}")
+    print(f"Driver       : {runtime.driver_version or 'NOT FOUND'}")
+    print(
+        "Driver CUDA  : "
+        f"{runtime.driver_reported_cuda_max or 'NOT FOUND'} (reported maximum)"
+    )
     print(f"GPUs         : {runtime.gpu_count}")
     for gpu in runtime.gpus:
         print(
@@ -90,16 +133,23 @@ def run_doctor(environment: Environment | None = None) -> int:
 
     if runtime.nccl is None:
         print("\nWarning: could not read the NCCL version")
-    elif runtime.nccl != VALIDATED_PROFILE["nccl"]:
+    elif runtime.nccl != profile.nccl:
         print(
-            f"\nWarning: NCCL {runtime.nccl} differs from the validated "
-            f"{VALIDATED_PROFILE['nccl']}"
+            f"\nWarning: NCCL {runtime.nccl} differs from the validated {profile.nccl}"
         )
 
-    if failures:
+    if check_dependencies:
+        print("\nDependency baseline:")
+        for finding in dependencies:
+            print(f"  {finding.status.upper():8} {finding.message}")
+
+    dependency_errors = [item for item in dependencies if item.status == "error"]
+    if failures or dependency_errors:
         print("\nPROFILE MISMATCH:")
         for failure in failures:
             print(" -", failure)
+        if dependency_errors:
+            print(" - dependency baseline has ERROR findings")
         return 1
     print("\nPASS: runtime matches the documented Kaggle T4x2 profile.")
     return 0

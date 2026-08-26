@@ -6,6 +6,7 @@ import importlib
 import json
 import os
 import platform
+import re
 import shutil
 import subprocess
 import sys
@@ -51,6 +52,8 @@ class Environment:
     cuda_home: str | None
     cuda_driver: str | None
     cmake_library_path: str | None
+    driver_version: str | None = None
+    driver_reported_cuda_max: str | None = None
 
     @property
     def gpu_count(self) -> int:
@@ -145,6 +148,13 @@ def collect(torch_module: Any | None = None) -> Environment:
             nccl = None
 
     nvcc = shutil.which("nvcc")
+    nvidia_smi = _run("nvidia-smi") if shutil.which("nvidia-smi") else None
+    driver_match = (
+        re.search(r"Driver Version:\s*([0-9.]+)", nvidia_smi) if nvidia_smi else None
+    )
+    cuda_max_match = (
+        re.search(r"CUDA Version:\s*([0-9.]+)", nvidia_smi) if nvidia_smi else None
+    )
     return Environment(
         is_kaggle=detect_kaggle(),
         python=sys.version.split()[0],
@@ -160,6 +170,8 @@ def collect(torch_module: Any | None = None) -> Environment:
         cuda_home=os.environ.get("CUDA_HOME"),
         cuda_driver=find_cuda_driver(),
         cmake_library_path=os.environ.get("CMAKE_LIBRARY_PATH"),
+        driver_version=driver_match.group(1) if driver_match else None,
+        driver_reported_cuda_max=(cuda_max_match.group(1) if cuda_max_match else None),
     )
 
 

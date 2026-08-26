@@ -5,6 +5,14 @@ This directory contains Kaggle-specific validation material for
 under [`examples/`](../examples/) are starting points and do not claim a
 successful run until their outputs have been captured and reviewed.
 
+## Next development acceptance (not executed)
+
+- `kaggle_vllm_0_2_0_acceptance.ipynb` is the fresh delivery/runtime procedure.
+- `kaggle_vllm_0_2_0_benchmark.ipynb` runs the controlled TP1/TP2 matrix.
+
+Both are output-free and explicitly pending execution on a dual-T4 Kaggle
+notebook. Their presence is not a pass or performance claim.
+
 ## v0.1.2 focused reset acceptance evidence
 
 [`kaggle_vllm_0_1_2_reset_acceptance.ipynb`](kaggle_vllm_0_1_2_reset_acceptance.ipynb)

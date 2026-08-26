@@ -11,7 +11,9 @@ def test_safe_qwen_sharded_server_command():
         port=8001,
         gpu_memory_utilization=0.7,
     )
-    command = build_server_command(config, executable="/staged/bin/vllm", validate_gpus=False)
+    command = build_server_command(
+        config, executable="/staged/bin/vllm", validate_gpus=False
+    )
     assert command[:3] == [
         "/staged/bin/vllm",
         "serve",

@@ -52,3 +52,25 @@ def test_t4_and_sm75_checks_require_nonempty_devices():
     assert not all_sm75(())
     assert not all_tesla_t4((GPUInfo(0, "A100", (8, 0)),))
     assert not all_sm75((GPUInfo(0, "Tesla T4", (8, 0)),))
+
+
+def test_collect_names_driver_reported_cuda_max_without_conflating_sm(monkeypatch):
+    monkeypatch.setattr(
+        "kaggle_vllm.environment.shutil.which",
+        lambda command: "/usr/bin/nvidia-smi" if command == "nvidia-smi" else None,
+    )
+    monkeypatch.setattr(
+        "kaggle_vllm.environment._run",
+        lambda *_args: "Driver Version: 580.159.04     CUDA Version: 13.0",
+    )
+    environment = collect(
+        SimpleNamespace(
+            __version__="2.10.0+cu128",
+            __file__="/system/torch/__init__.py",
+            version=SimpleNamespace(cuda="12.8"),
+            cuda=FakeCuda(),
+        )
+    )
+    assert environment.driver_version == "580.159.04"
+    assert environment.driver_reported_cuda_max == "13.0"
+    assert environment.gpu_caps == [(7, 5), (7, 5)]

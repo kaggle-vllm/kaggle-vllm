@@ -8,7 +8,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from kaggle_vllm.exceptions import VLLMNotInstalledError
+from kaggle_vllm.exceptions import ShardedModelError, VLLMNotInstalledError
 from kaggle_vllm.llm import KaggleLLM, _load_llm_class
 
 
@@ -34,7 +34,9 @@ class FakeUpstreamLLM:
 
 
 def make_llm(monkeypatch, **kwargs):
-    monkeypatch.setattr("kaggle_vllm.llm.validate_tensor_parallel_size", lambda size: None)
+    monkeypatch.setattr(
+        "kaggle_vllm.llm.validate_tensor_parallel_size", lambda size: None
+    )
     monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda: FakeUpstreamLLM)
     return KaggleLLM("model-id", **kwargs)
 
@@ -44,7 +46,11 @@ def test_import_diagnostics_does_not_import_vllm():
     environment = dict(os.environ)
     environment["PYTHONPATH"] = str(root / "src")
     result = subprocess.run(
-        [sys.executable, "-c", "import sys, kaggle_vllm.environment; print('vllm' in sys.modules)"],
+        [
+            sys.executable,
+            "-c",
+            "import sys, kaggle_vllm.environment; print('vllm' in sys.modules)",
+        ],
         check=True,
         capture_output=True,
         text=True,
@@ -118,3 +124,13 @@ def test_generate_and_save_delegate_to_upstream(monkeypatch, tmp_path):
     inspection = llm.save_sharded_model(tmp_path / "sharded", max_size=123)
     assert inspection.rank_count == 2
     assert inspection.valid
+
+
+def test_save_rejects_symlinked_destination(monkeypatch, tmp_path):
+    llm = make_llm(monkeypatch, tensor_parallel_size=2)
+    actual = tmp_path / "actual"
+    actual.mkdir()
+    link = tmp_path / "link"
+    link.symlink_to(actual, target_is_directory=True)
+    with pytest.raises(ShardedModelError, match="traverses a symlink"):
+        llm.save_sharded_model(link)

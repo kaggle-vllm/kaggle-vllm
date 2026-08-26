@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kaggle-vllm"
-version = "0.1.2"
-description = "A lightweight Kaggle compatibility SDK around upstream vLLM for Tesla T4 GPUs."
+version = "0.2.0.dev0"
+description = "A lightweight Kaggle compatibility and runtime-delivery toolkit for upstream vLLM on NVIDIA Tesla T4 GPUs."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"
@@ -16,11 +16,12 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
 ]
-dependencies = []
+dependencies = ["packaging>=23"]
 
 [project.optional-dependencies]
-test = ["pytest>=8"]
+test = ["build>=1.2", "pytest>=8", "ruff>=0.12", "twine>=6"]
 hub = ["huggingface_hub>=0.36"]
 
 [project.urls]
@@ -46,3 +47,6 @@ markers = [
   "gpu: requires a real CUDA GPU runtime",
   "kaggle: requires the documented Kaggle environment",
 ]
+
+[tool.ruff]
+extend-exclude = ["*.ipynb"]

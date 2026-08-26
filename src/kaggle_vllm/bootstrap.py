@@ -23,7 +23,6 @@ from .installation import (
     stage_wheel,
 )
 from .profiles import DEFAULT_PROFILE, BootstrapProfile, load_profile, profile_resource
-from .runtime import all_sm75, all_tesla_t4
 
 DEFAULT_STAGED = Path("/kaggle/working/vllm-staged")
 DEFAULT_OVERLAY = Path("/kaggle/working/vllm-runtime-overlay")
@@ -82,7 +81,9 @@ class ResetPlan:
 
     @property
     def safe(self) -> bool:
-        return all(target.action in {"remove", "preserve", "absent"} for target in self.targets)
+        return all(
+            target.action in {"remove", "preserve", "absent"} for target in self.targets
+        )
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -156,7 +157,9 @@ class BootstrapResult:
         return result
 
 
-def _finding(check: str, matches: bool, expected: str, actual: str, strict: bool) -> CompatibilityFinding:
+def _finding(
+    check: str, matches: bool, expected: str, actual: str, strict: bool
+) -> CompatibilityFinding:
     if matches:
         return CompatibilityFinding(check, "pass", f"{check}: {actual}")
     status = "error" if strict else "warning"
@@ -198,9 +201,27 @@ def inspect_compatibility(
             f"cp{current_python[0]}{current_python[1]}",
             True,
         ),
-        _finding("operating system", current_system == profile.system, profile.system, current_system, True),
-        _finding("machine", current_machine == profile.machine, profile.machine, current_machine, True),
-        _finding("Kaggle runtime", environment.is_kaggle, "Kaggle", str(environment.is_kaggle), strict),
+        _finding(
+            "operating system",
+            current_system == profile.system,
+            profile.system,
+            current_system,
+            True,
+        ),
+        _finding(
+            "machine",
+            current_machine == profile.machine,
+            profile.machine,
+            current_machine,
+            True,
+        ),
+        _finding(
+            "Kaggle runtime",
+            environment.is_kaggle,
+            "Kaggle",
+            str(environment.is_kaggle),
+            strict,
+        ),
         _finding(
             "PyTorch",
             environment.torch == profile.torch_version,
@@ -224,19 +245,34 @@ def inspect_compatibility(
         ),
         _finding(
             "GPU model",
-            all_tesla_t4(environment.gpus),
+            bool(environment.gpus)
+            and all(
+                profile.gpu_name.casefold() in gpu.name.casefold()
+                or gpu.name.casefold() in profile.gpu_name.casefold()
+                for gpu in environment.gpus
+            ),
             profile.gpu_name,
             ", ".join(environment.gpu_names) or "none",
             strict,
         ),
         _finding(
             "GPU compute capability",
-            all_sm75(environment.gpus),
-            "SM75",
-            ", ".join(f"SM{major}{minor}" for major, minor in environment.gpu_caps) or "none",
+            bool(environment.gpus)
+            and all(
+                gpu.capability == profile.compute_capability for gpu in environment.gpus
+            ),
+            f"SM{profile.compute_capability[0]}{profile.compute_capability[1]}",
+            ", ".join(f"SM{major}{minor}" for major, minor in environment.gpu_caps)
+            or "none",
             strict,
         ),
-        _finding("NCCL", environment.nccl == profile.nccl, profile.nccl, str(environment.nccl), strict),
+        _finding(
+            "NCCL",
+            environment.nccl == profile.nccl,
+            profile.nccl,
+            str(environment.nccl),
+            strict,
+        ),
     ]
     return tuple(findings)
 
@@ -382,7 +418,9 @@ def build_reset_plan(
         candidate = selected[label]
         exists = candidate.exists()
         if exists and not candidate.is_dir():
-            raise BootstrapError(f"selected {label} runtime path is not a directory: {candidate}")
+            raise BootstrapError(
+                f"selected {label} runtime path is not a directory: {candidate}"
+            )
         owned = candidate == known_defaults[label] or manifest_matches
         if exists and not owned:
             raise BootstrapError(
@@ -412,7 +450,9 @@ def build_reset_plan(
     manifest_exists = paths.manifest.exists()
     manifest_owned = paths.manifest == known_defaults["manifest"] or manifest_matches
     if manifest_exists and not manifest_owned:
-        raise BootstrapError(f"cannot prove ownership of runtime manifest: {paths.manifest}")
+        raise BootstrapError(
+            f"cannot prove ownership of runtime manifest: {paths.manifest}"
+        )
     manifest_reason = (
         "matching runtime manifest"
         if manifest_matches
@@ -454,7 +494,9 @@ def execute_reset(plan: ResetPlan) -> tuple[Path, ...]:
             continue
         try:
             if validate_reset_path(target.path, label=target.label) != target.path:
-                raise BootstrapError(f"reset target changed after planning: {target.path}")
+                raise BootstrapError(
+                    f"reset target changed after planning: {target.path}"
+                )
             if target.path.is_symlink():
                 raise BootstrapError(
                     f"refusing reset target that became a symlink: {target.path}"
@@ -536,7 +578,9 @@ def _check_destination(path: Path, label: str) -> None:
     if path.exists() and not path.is_dir():
         raise BootstrapError(f"{label} destination is not a directory: {path}")
     if path.exists() and any(path.iterdir()):
-        raise BootstrapError(f"refusing to overwrite non-empty {label} destination: {path}")
+        raise BootstrapError(
+            f"refusing to overwrite non-empty {label} destination: {path}"
+        )
 
 
 def _load_manifest(path: Path) -> dict[str, Any]:
@@ -736,7 +780,9 @@ def runtime_environment_from_manifest(path: str | Path | None = None) -> dict[st
             "PATH": str(runtime_environment["PATH"]),
         }
     except KeyError as error:
-        raise BootstrapError(f"runtime manifest lacks activation data: {manifest}") from error
+        raise BootstrapError(
+            f"runtime manifest lacks activation data: {manifest}"
+        ) from error
 
 
 def activate_runtime(path: str | Path | None = None) -> bool:
@@ -764,4 +810,6 @@ def shell_exports(path: str | Path | None = None) -> tuple[str, ...]:
     """Return safely quoted shell exports without modifying startup files."""
 
     environment = runtime_environment_from_manifest(path)
-    return tuple(f"export {key}={shlex.quote(value)}" for key, value in environment.items())
+    return tuple(
+        f"export {key}={shlex.quote(value)}" for key, value in environment.items()
+    )

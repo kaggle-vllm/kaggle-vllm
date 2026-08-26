@@ -1,8 +1,8 @@
 """Load the persistent TP-aware checkpoint with its validated TP topology."""
 
-from kaggle_vllm import KaggleLLM
 from vllm import SamplingParams
 
+from kaggle_vllm import KaggleLLM
 
 llm = KaggleLLM(
     model="/kaggle/input/qwen2.5-3b-t4x2-sharded",

@@ -32,5 +32,6 @@ The CUDA 12.8 toolkit was under `/usr/local/cuda-12.8` (with the usual
 `CMAKE_LIBRARY_PATH=/usr/local/nvidia/lib64` allowed CMake to create
 `CUDA::cuda_driver` during the successful source build.
 
-`nvidia-smi` reported a driver CUDA capability of 13.0. This is distinct from
-the CUDA 12.8 toolkit and PyTorch `cu128` ABI used for the build.
+`nvidia-smi` reported a driver CUDA maximum compatibility of 13.0. This is
+distinct from both the CUDA 12.8 toolkit/PyTorch `cu128` ABI and the T4 GPU's
+compute capability 7.5 / SM75.

@@ -1,4 +1,7 @@
-from kaggle_vllm.doctor import profile_failures, suggested_build_env
+import json
+
+from kaggle_vllm.dependencies import DependencyFinding
+from kaggle_vllm.doctor import profile_failures, run_doctor, suggested_build_env
 from kaggle_vllm.environment import Environment, GPUInfo
 
 
@@ -32,3 +35,24 @@ def test_kaggle_build_env_contains_cuda():
     assert environment["TORCH_CUDA_ARCH_LIST"] == "7.5"
     assert environment["MAX_JOBS"] == "1"
     assert environment["NVCC_THREADS"] == "1"
+
+
+def test_doctor_json_is_machine_readable(monkeypatch, capsys):
+    finding = DependencyFinding(
+        "example",
+        "example",
+        "pass",
+        "1.0",
+        ">=1",
+        "1.0",
+        "test",
+        "example 1.0",
+    )
+    monkeypatch.setattr(
+        "kaggle_vllm.doctor.inspect_dependencies", lambda **_kwargs: (finding,)
+    )
+    assert run_doctor(validated_environment(), as_json_output=True) == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["compatible"] is True
+    assert payload["summary"]["dependencies"]["pass"] == 1
+    assert payload["dependency_findings"][0]["status"] == "pass"

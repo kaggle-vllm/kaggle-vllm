@@ -56,18 +56,20 @@ def build_server_command(
         command.extend(["--load-format", config.load_format])
     command.extend(
         [
-            "--host", config.host,
-            "--port", str(config.port),
-            "--tensor-parallel-size", str(config.tensor_parallel_size),
-            "--dtype", config.dtype,
+            "--host",
+            config.host,
+            "--port",
+            str(config.port),
+            "--tensor-parallel-size",
+            str(config.tensor_parallel_size),
+            "--dtype",
+            config.dtype,
         ]
     )
     if config.max_model_len is not None:
         command.extend(["--max-model-len", str(config.max_model_len)])
     if config.gpu_memory_utilization is not None:
-        command.extend(
-            ["--gpu-memory-utilization", str(config.gpu_memory_utilization)]
-        )
+        command.extend(["--gpu-memory-utilization", str(config.gpu_memory_utilization)])
     if config.enforce_eager:
         command.append("--enforce-eager")
     if config.disable_custom_all_reduce:

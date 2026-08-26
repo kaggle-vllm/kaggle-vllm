@@ -5,19 +5,37 @@ from kaggle_vllm.cli import build_parser, main
 
 
 def test_cli_parses_inspect_shards():
-    args = build_parser().parse_args(["inspect-shards", "/model", "--json"])
+    args = build_parser().parse_args(
+        ["inspect-shards", "/model", "--json", "--tensor-parallel-size", "2"]
+    )
     assert args.command == "inspect-shards"
     assert args.path == Path("/model")
     assert args.as_json
+    assert args.tensor_parallel_size == 2
+
+
+def test_cli_parses_dependency_doctor_options():
+    args = build_parser().parse_args(
+        ["doctor", "--strict", "--json", "--no-dependencies"]
+    )
+    assert args.strict and args.as_json
+    assert args.check_dependencies is False
 
 
 def test_cli_parses_verify_wheel_and_serve():
-    wheel = build_parser().parse_args(["verify-wheel", "vllm.whl", "--sha256", "a" * 64])
+    wheel = build_parser().parse_args(
+        ["verify-wheel", "vllm.whl", "--sha256", "a" * 64]
+    )
     assert wheel.sha256 == "a" * 64
     server = build_parser().parse_args(
         [
-            "serve", "/model", "--tensor-parallel-size", "2",
-            "--load-format", "sharded_state", "--no-enforce-eager",
+            "serve",
+            "/model",
+            "--tensor-parallel-size",
+            "2",
+            "--load-format",
+            "sharded_state",
+            "--no-enforce-eager",
         ]
     )
     assert server.tensor_parallel_size == 2
@@ -33,10 +51,14 @@ def test_cli_parses_bootstrap_dry_run_and_path_overrides():
             "--strict",
             "--reset-runtime",
             "--yes",
-            "--staged", "/tmp/staged",
-            "--overlay", "/tmp/overlay",
-            "--cache", "/tmp/cache",
-            "--manifest", "/tmp/runtime.json",
+            "--staged",
+            "/tmp/staged",
+            "--overlay",
+            "/tmp/overlay",
+            "--cache",
+            "/tmp/cache",
+            "--manifest",
+            "/tmp/runtime.json",
         ]
     )
     assert args.command == "bootstrap"
