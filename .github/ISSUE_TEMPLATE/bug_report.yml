@@ -1,0 +1,45 @@
+name: Bug report
+description: Report a reproducible SDK, bootstrap, profile, or runtime issue
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include credentials or private model data. Use a private security advisory for vulnerabilities.
+  - type: input
+    id: version
+    attributes:
+      label: SDK version or commit
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - CPU SDK / CLI
+        - Bootstrap / activation / reset
+        - Kaggle GPU runtime
+        - Sharded state
+        - OpenAI serving
+        - Documentation / release metadata
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment fingerprint
+      description: Include redacted doctor/fingerprint output and GPU/driver details when relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction and full error
+    validations:
+      required: true
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Artifact identity
+      description: Include filenames, immutable revisions and SHA256; do not upload large binaries.

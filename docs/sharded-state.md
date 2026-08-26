@@ -19,7 +19,10 @@ Inspect without loading tensor bodies:
 ```python
 from kaggle_vllm import inspect_sharded_model
 
-result = inspect_sharded_model("/kaggle/input/qwen2.5-3b-t4x2-sharded")
+result = inspect_sharded_model(
+    "/kaggle/input/qwen2.5-3b-t4x2-sharded",
+    expected_tensor_parallel_size=2,
+)
 assert result.rank_count == 2
 ```
 
@@ -54,3 +57,12 @@ and loaded successfully. `inspect_sharded_model` warns about this distinction.
 This layout should normally be loaded with the TP topology for which it was
 generated. It is not a standard Transformers checkpoint, arbitrary tensor
 split, uneven GPU memory scheme, or topology portability guarantee.
+
+## Historical archive versus published directory
+
+The immutable historical tar archive contains the four rank shards plus model
+and tokenizer metadata, README and Qwen LICENSE. It does not contain the later
+packaging `NOTICE` or `SHARDED_STATE_SHA256SUMS.txt`. The extracted Hugging Face
+model directory added those compliance/provenance files without rewriting the
+historical archive. Preserve the HF directory's LICENSE and NOTICE together
+when redistributing.

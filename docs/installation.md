@@ -47,8 +47,9 @@ kaggle-vllm bootstrap
 ```
 
 The current immutable 0.1.2 command was verified in a fresh Python 3.11 virtual
-environment. It installs only the SDK; bootstrap separately obtains the cp312
-native wheel.
+environment. The current development package installs the SDK plus the small
+`packaging` library used for PEP 440 checks; bootstrap separately obtains the
+cp312 native wheel. It does not install vLLM, Torch or CUDA packages.
 
 The SDK is pure Python and supports local development on Python 3.11. The
 native artifact is a Linux x86_64 CPython 3.12 wheel. Bootstrap always rejects
@@ -98,6 +99,19 @@ downloads anything. Linux, x86_64, CPython, and cp312 are always mandatory for
 the current native wheel. Without `--strict`, Kaggle/Torch/CUDA/GPU/NCCL drift
 is reported as warnings; strict mode makes every validated-profile mismatch an
 error.
+
+After bootstrap activation, validate both the host and installed dependency
+baseline:
+
+```bash
+eval "$(kaggle-vllm env)"
+kaggle-vllm doctor --strict
+kaggle-vllm doctor --json > /kaggle/working/kaggle-vllm-doctor.json
+```
+
+The dependency baseline is derived from native wheel metadata and the validated
+overlay. Run it after activation; before activation, missing overlay packages
+are expected errors.
 
 The defaults can be replaced explicitly:
 

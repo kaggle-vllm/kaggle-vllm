@@ -1,10 +1,7 @@
 # Curated Kaggle evidence — 2026-08-23
 
-These small files were selected from:
-
-```text
-/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/Kaggle-Session-Files-3/
-```
+These small files were selected from the maintainer's authoritative local
+`Kaggle-Session-Files-3` evidence collection.
 
 The source collection remains the authority. The wheel (383,922,260 bytes),
 Qwen archive (4,773,220,584 bytes), full logs, notebook, and extracted weights

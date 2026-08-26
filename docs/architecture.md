@@ -1,46 +1,58 @@
-# Architecture
+# Architecture and design rationale
 
-`kaggle-vllm` keeps policy and diagnostics separate from upstream execution.
+Kaggle controls Python, PyTorch, the CUDA-facing runtime, driver mounts, base
+Python packages and an ephemeral notebook filesystem. Native vLLM wheels are
+tightly coupled to those layers. A normal `pip install vllm` may resolve a
+different Torch/CUDA dependency set and disturb a working managed image.
+
+`kaggle-vllm` therefore treats delivery as an explicit compatibility operation:
 
 ```mermaid
-flowchart LR
-    U[User / CLI] --> R[Runtime diagnostics]
-    U --> B[Explicit bootstrap]
-    B --> H[Immutable HF Hub artifact]
-    B --> I[Verified wheel and overlay staging]
-    I --> M[Runtime manifest]
-    U --> K[KaggleLLM wrapper]
-    K --> V[upstream vllm.LLM]
-    V --> T[Single GPU or TP=2 execution]
-    V --> S[persistent sharded_state]
-    U --> O[ServerConfig]
-    O --> C[vllm serve argument array]
+flowchart TD
+    N[Kaggle notebook] --> S[kaggle-vllm SDK]
+    S --> D[doctor: host and dependency contract]
+    S --> R[immutable artifact resolver]
+    R --> H[HF commit + exact SHA256]
+    H --> W[pip --target --no-deps native staging]
+    S --> O[locked Python dependency overlay]
+    W --> M[runtime manifest]
+    O --> M
+    M --> A[explicit activation]
+    A --> V[upstream vLLM runtime]
+    V --> T[Kaggle preinstalled Torch/CUDA]
+    T --> C[NCCL and Tesla T4 x2]
 ```
 
-The package does not import vLLM for diagnostics, install anything at import
-time, implement kernels, replace schedulers, or reproduce vLLM inference.
+## Boundary of responsibility
 
-## Modules
+The SDK owns profile validation, immutable resolution, streaming checksum
+verification, safe cache/destination handling, staging plans, manifest-owned
+reset, activation and thin convenience wrappers. It does not own or implement
+vLLM kernels, model execution, scheduling, tensor parallelism, sharded-state
+persistence or the OpenAI-compatible API.
 
-- `environment` collects a secret-free runtime fingerprint using lazy Torch
-  discovery.
-- `runtime` validates visible GPU count, Tesla T4 identity, SM75, and TP degree.
-- `doctor` compares the runtime with the exact validated profile.
-- `checksums` streams large-file SHA256 calculations.
-- `installation` performs opt-in wheel/overlay staging while blocking Torch in
-  overlay requirements.
-- `profiles` loads the packaged immutable native-runtime and overlay identity.
-- `download` uses Hugging Face Hub/Xet when available and a pinned HTTPS
-  fallback, requiring the expected SHA256 in both cases.
-- `bootstrap` validates the host, stages both targets, writes the runtime
-  manifest, and provides explicit process/shell activation.
-- `llm` supplies conservative defaults and delegates to upstream `vllm.LLM`.
-- `sharding` delegates saving and inspects rank/part topology without loading
-  safetensor bodies.
-- `server` builds and executes an argument array for upstream `vllm serve`.
-- `cli` exposes the small operational surface.
+## Why each constraint exists
 
-The SDK is lightweight (`dependencies = []`). Optional Hugging Face Hub support
-does not make vLLM, Torch, CUDA, or NCCL package dependencies. Native runtime
-installation is a separate, explicit bootstrap operation because ordinary
-dependency resolution would defeat the compatibility strategy.
+- Immutable Hugging Face revision plus SHA256 prevents mutable-ref drift and
+  detects byte changes.
+- `--target --no-deps` keeps the native wheel out of system site-packages and
+  prevents pip from replacing Kaggle Torch.
+- A separate locked overlay fills known base-image gaps without declaring
+  Torch, CUDA or vLLM as SDK dependencies.
+- Explicit activation confines `PYTHONPATH`, `PATH` and `LD_LIBRARY_PATH`
+  changes to the selected process or shell.
+- A manifest records artifact identity, resolved paths and environment. Reset
+  is allowed only for defaults or custom resources proven by that manifest.
+- Large CUDA/model artifacts stay on Hugging Face rather than PyPI or Git.
+
+The one lightweight runtime dependency, `packaging`, is used only for correct
+PEP 440 dependency checks. Installing the SDK still does not pull vLLM, Torch
+or CUDA packages.
+
+## Extension points
+
+Profiles are packaged under `src/kaggle_vllm/profiles/<profile>/`. Each profile
+contains its native identity, overlay requirements/lock and dependency
+baseline. This structure permits future profiles without weakening the only
+current strong claim: Kaggle T4x2, cp312, cu128. New hardware profiles require
+their own real acceptance evidence.
