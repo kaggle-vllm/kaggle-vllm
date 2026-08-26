@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib
+import os
 from pathlib import Path
 from typing import Any
 
@@ -85,13 +86,22 @@ class KaggleLLM:
         when ``metadata_source`` (or the original model argument) is a local folder.
         """
 
-        destination = Path(path)
+        expanded = Path(path).expanduser()
+        lexical = Path(os.path.abspath(expanded))
+        destination = expanded.resolve(strict=False)
+        if lexical != destination:
+            raise ShardedModelError(
+                "refusing sharded-state destination that traverses a symlink: "
+                f"{lexical} -> {destination}"
+            )
         if destination.exists() and not destination.is_dir():
             raise ShardedModelError(
                 f"destination exists and is not a directory: {destination}"
             )
         if destination.exists() and any(destination.iterdir()):
-            raise ShardedModelError(f"refusing to overwrite non-empty directory: {destination}")
+            raise ShardedModelError(
+                f"refusing to overwrite non-empty directory: {destination}"
+            )
         destination.mkdir(parents=True, exist_ok=True)
 
         try:

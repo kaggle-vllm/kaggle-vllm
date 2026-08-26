@@ -1,8 +1,8 @@
 """Qwen2.5-3B-Instruct FP16 TP=2 workflow validated on two Tesla T4s."""
 
-from kaggle_vllm import KaggleLLM
 from vllm import SamplingParams
 
+from kaggle_vllm import KaggleLLM
 
 llm = KaggleLLM(
     model="Qwen/Qwen2.5-3B-Instruct",

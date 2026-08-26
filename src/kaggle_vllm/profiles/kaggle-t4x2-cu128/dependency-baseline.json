@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "profile": "kaggle-t4x2-cu128",
+  "description": "Critical dependency subset derived from the native wheel METADATA and the validated Kaggle overlay.",
+  "dependencies": [
+    {"distribution": "transformers", "import_name": "transformers", "specifier": ">=4.56.0,<5", "validated_version": "4.57.6", "required": true, "source": "wheel+overlay"},
+    {"distribution": "tokenizers", "import_name": "tokenizers", "specifier": ">=0.21.1", "validated_version": null, "required": true, "source": "wheel"},
+    {"distribution": "pydantic", "import_name": "pydantic", "specifier": ">=2.12.0", "validated_version": null, "required": true, "source": "wheel"},
+    {"distribution": "fastapi", "import_name": "fastapi", "specifier": ">=0.115.0", "validated_version": null, "required": true, "source": "wheel"},
+    {"distribution": "aiohttp", "import_name": "aiohttp", "specifier": ">=3.13.3", "validated_version": null, "required": true, "source": "wheel"},
+    {"distribution": "numpy", "import_name": "numpy", "specifier": "", "validated_version": null, "required": true, "source": "wheel"},
+    {"distribution": "protobuf", "import_name": "google.protobuf", "specifier": ">=5.29.6,!=6.30.*,!=6.31.*,!=6.32.*,!=6.33.0.*,!=6.33.1.*,!=6.33.2.*,!=6.33.3.*,!=6.33.4.*", "validated_version": "6.33.6", "required": true, "source": "wheel+overlay"},
+    {"distribution": "sentencepiece", "import_name": "sentencepiece", "specifier": "", "validated_version": null, "required": true, "source": "wheel"},
+    {"distribution": "flashinfer-python", "import_name": "flashinfer", "specifier": "==0.6.6", "validated_version": "0.6.6", "required": true, "source": "wheel"},
+    {"distribution": "xgrammar", "import_name": "xgrammar", "specifier": ">=0.1.32,<1.0.0", "validated_version": "0.2.3", "required": true, "source": "wheel+overlay"},
+    {"distribution": "apache-tvm-ffi", "import_name": "tvm_ffi", "specifier": "==0.1.13.post3", "validated_version": "0.1.13.post3", "required": true, "source": "validated-overlay"},
+    {"distribution": "msgspec", "import_name": "msgspec", "specifier": "", "validated_version": "0.21.1", "required": true, "source": "wheel+overlay"},
+    {"distribution": "cbor2", "import_name": "cbor2", "specifier": "", "validated_version": "6.1.4", "required": true, "source": "wheel+overlay"},
+    {"distribution": "pybase64", "import_name": "pybase64", "specifier": "", "validated_version": "1.5.0", "required": true, "source": "wheel+overlay"},
+    {"distribution": "gguf", "import_name": "gguf", "specifier": ">=0.17.0", "validated_version": "0.19.0", "required": true, "source": "wheel+overlay"},
+    {"distribution": "openai-harmony", "import_name": "openai_harmony", "specifier": ">=0.0.3", "validated_version": "0.0.8", "required": true, "source": "wheel+overlay"},
+    {"distribution": "diskcache", "import_name": "diskcache", "specifier": "==5.6.3", "validated_version": "5.6.3", "required": true, "source": "wheel+overlay"},
+    {"distribution": "outlines-core", "import_name": "outlines_core", "specifier": "==0.2.11", "validated_version": "0.2.11", "required": true, "source": "wheel+overlay"},
+    {"distribution": "lm-format-enforcer", "import_name": "lmformatenforcer", "specifier": "==0.11.3", "validated_version": "0.11.3", "required": true, "source": "wheel+overlay"},
+    {"distribution": "llguidance", "import_name": "llguidance", "specifier": ">=1.3.0,<1.4.0", "validated_version": "1.3.0", "required": true, "source": "wheel+overlay"},
+    {"distribution": "triton", "import_name": "triton", "specifier": "", "validated_version": null, "required": false, "source": "torch-provided/attention-backend"}
+  ]
+}

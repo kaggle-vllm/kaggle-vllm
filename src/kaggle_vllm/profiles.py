@@ -51,6 +51,15 @@ class BootstrapProfile:
         """Validate and construct a profile from packaged JSON data."""
 
         try:
+            capability = data["runtime"]["compute_capability"]
+            if (
+                not isinstance(capability, list)
+                or len(capability) != 2
+                or any(type(value) is not int for value in capability)
+            ):
+                raise ProfileError(
+                    "profile compute capability must contain two integers"
+                )
             profile = cls(
                 name=str(data["name"]),
                 status=str(data["status"]),
@@ -65,7 +74,7 @@ class BootstrapProfile:
                 torch_cuda=str(data["runtime"]["torch_cuda"]),
                 cuda_toolkit=str(data["runtime"]["cuda_toolkit"]),
                 gpu_name=str(data["runtime"]["gpu_name"]),
-                compute_capability=tuple(data["runtime"]["compute_capability"]),
+                compute_capability=(capability[0], capability[1]),
                 gpu_count=int(data["runtime"]["gpu_count"]),
                 nccl=str(data["runtime"]["nccl"]),
                 vllm_source_tag=str(data["vllm"]["source_tag"]),
@@ -82,10 +91,10 @@ class BootstrapProfile:
             raise ProfileError(f"invalid bootstrap profile data: {error}") from error
         if profile.name != data.get("name") or not profile.name:
             raise ProfileError("profile name must be non-empty")
-        if profile.compute_capability != (7, 5):
-            raise ProfileError("profile compute capability must contain two integers")
         if not _HEX_40.fullmatch(profile.hf_revision):
-            raise ProfileError("Hugging Face revision must be an immutable 40-digit commit")
+            raise ProfileError(
+                "Hugging Face revision must be an immutable 40-digit commit"
+            )
         if not _HEX_40.fullmatch(profile.vllm_source_commit):
             raise ProfileError("vLLM source commit must be a 40-digit commit")
         if not _HEX_64.fullmatch(profile.wheel_sha256):
@@ -108,7 +117,9 @@ def load_profile(profile_name: str = DEFAULT_PROFILE) -> BootstrapProfile:
     try:
         data = json.loads(resource.read_text(encoding="utf-8"))
     except (FileNotFoundError, json.JSONDecodeError, OSError) as error:
-        raise ProfileError(f"unable to load profile {profile_name!r}: {error}") from error
+        raise ProfileError(
+            f"unable to load profile {profile_name!r}: {error}"
+        ) from error
     profile = BootstrapProfile.from_mapping(data)
     if profile.name != profile_name:
         raise ProfileError(

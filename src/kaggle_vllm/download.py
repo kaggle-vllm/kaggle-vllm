@@ -117,6 +117,8 @@ def download_wheel(
         except ChecksumMismatchError:
             raise
         except (OSError, RuntimeError, ValueError) as error:
-            raise DownloadError(f"Hugging Face Hub wheel download failed: {error}") from error
+            raise DownloadError(
+                f"Hugging Face Hub wheel download failed: {error}"
+            ) from error
 
     return _download_with_https(profile, destination, opener=opener)

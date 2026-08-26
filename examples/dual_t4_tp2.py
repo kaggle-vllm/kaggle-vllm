@@ -1,8 +1,8 @@
 """Validated conservative dual-T4 tensor-parallel smoke configuration."""
 
-from kaggle_vllm import KaggleLLM
 from vllm import SamplingParams
 
+from kaggle_vllm import KaggleLLM
 
 llm = KaggleLLM(
     model="facebook/opt-125m",

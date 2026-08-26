@@ -2,6 +2,19 @@
 
 All notable changes are documented here.
 
+## 0.2.0.dev0 — unreleased
+
+- Add dependency-aware, machine-readable runtime diagnostics sourced from the
+  native wheel metadata and validated overlay.
+- Add CPU CI across Python 3.10–3.13, package validation, provenance checks,
+  documentation-link checks, and an explicit GPU/non-GPU testing boundary.
+- Harden persistent sharded-state inspection against symlinks and topology
+  mismatches.
+- Prepare benchmark and fresh Kaggle acceptance infrastructure without
+  claiming unexecuted GPU results.
+- Reorganize user, operator, contributor, security, provenance, and release
+  documentation for the next alpha.
+
 ## 0.1.2 — 2026-08-25
 
 - Add an explicit, manifest-aware `bootstrap --reset-runtime` recovery flow.

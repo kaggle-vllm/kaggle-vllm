@@ -19,9 +19,13 @@ TORCH_REQUIREMENT = re.compile(
 
 def _require_empty_target(target: Path) -> None:
     if target.exists() and not target.is_dir():
-        raise InstallationError(f"staging target exists and is not a directory: {target}")
+        raise InstallationError(
+            f"staging target exists and is not a directory: {target}"
+        )
     if target.exists() and any(target.iterdir()):
-        raise InstallationError(f"refusing to overwrite non-empty staging target: {target}")
+        raise InstallationError(
+            f"refusing to overwrite non-empty staging target: {target}"
+        )
     target.mkdir(parents=True, exist_ok=True)
 
 
@@ -37,7 +41,9 @@ def stage_wheel(
     wheel_path = Path(wheel).resolve()
     target_path = Path(target).resolve()
     if not wheel_path.is_file() or wheel_path.suffix != ".whl":
-        raise InstallationError(f"wheel does not exist or lacks a .whl suffix: {wheel_path}")
+        raise InstallationError(
+            f"wheel does not exist or lacks a .whl suffix: {wheel_path}"
+        )
     if expected_sha256:
         verify_sha256(wheel_path, expected_sha256)
     _require_empty_target(target_path)
@@ -78,14 +84,18 @@ def stage_dependency_overlay(
     requirements_path = Path(requirements).resolve()
     target_path = Path(target).resolve()
     if not requirements_path.is_file():
-        raise InstallationError(f"requirements file does not exist: {requirements_path}")
+        raise InstallationError(
+            f"requirements file does not exist: {requirements_path}"
+        )
     forbidden = [
-        line for line in _active_requirement_lines(requirements_path)
+        line
+        for line in _active_requirement_lines(requirements_path)
         if TORCH_REQUIREMENT.match(line)
     ]
     if forbidden:
         raise InstallationError(
-            "dependency overlay must not contain torch packages: " + ", ".join(forbidden)
+            "dependency overlay must not contain torch packages: "
+            + ", ".join(forbidden)
         )
     _require_empty_target(target_path)
     command = [
@@ -103,7 +113,9 @@ def stage_dependency_overlay(
     try:
         subprocess.run(command, check=True)
     except (OSError, subprocess.CalledProcessError) as error:
-        raise InstallationError(f"dependency overlay staging failed: {error}") from error
+        raise InstallationError(
+            f"dependency overlay staging failed: {error}"
+        ) from error
     return target_path
 
 

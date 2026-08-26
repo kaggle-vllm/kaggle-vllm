@@ -32,7 +32,17 @@ def build_parser() -> argparse.ArgumentParser:
 
     parser = argparse.ArgumentParser(prog="kaggle-vllm")
     subcommands = parser.add_subparsers(dest="command", required=True)
-    subcommands.add_parser("doctor", help="compare runtime with the validated profile")
+    doctor = subcommands.add_parser(
+        "doctor", help="compare runtime and dependencies with the validated profile"
+    )
+    doctor.add_argument("--strict", action="store_true")
+    doctor.add_argument("--json", action="store_true", dest="as_json")
+    doctor.add_argument(
+        "--no-dependencies",
+        action="store_false",
+        dest="check_dependencies",
+        help="skip installed-distribution checks",
+    )
     subcommands.add_parser("fingerprint", help="print a JSON runtime fingerprint")
     subcommands.add_parser("build-env", help="print validated source-build settings")
 
@@ -64,7 +74,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     runtime_env.add_argument("--manifest", type=Path, default=None)
 
-    verify_gpus = subcommands.add_parser("verify-gpus", help="verify T4/SM75 and TP size")
+    verify_gpus = subcommands.add_parser(
+        "verify-gpus", help="verify T4/SM75 and TP size"
+    )
     verify_gpus.add_argument("--tensor-parallel-size", type=int, default=2)
 
     inspect_shards = subcommands.add_parser(
@@ -72,8 +84,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     inspect_shards.add_argument("path", type=Path)
     inspect_shards.add_argument("--json", action="store_true", dest="as_json")
+    inspect_shards.add_argument("--tensor-parallel-size", type=int)
 
-    verify_wheel = subcommands.add_parser("verify-wheel", help="calculate/verify SHA256")
+    verify_wheel = subcommands.add_parser(
+        "verify-wheel", help="calculate/verify SHA256"
+    )
     verify_wheel.add_argument("path", type=Path)
     verify_wheel.add_argument("--sha256")
 
@@ -82,7 +97,9 @@ def build_parser() -> argparse.ArgumentParser:
     stage.add_argument("--target", type=Path, required=True)
     stage.add_argument("--sha256")
 
-    server = subcommands.add_parser("serve", help="run upstream OpenAI-compatible server")
+    server = subcommands.add_parser(
+        "serve", help="run upstream OpenAI-compatible server"
+    )
     server.add_argument("model")
     server.add_argument("--served-model-name")
     server.add_argument("--tensor-parallel-size", type=int, default=1)
@@ -172,7 +189,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
         if args.command == "doctor":
-            return run_doctor()
+            return run_doctor(
+                strict=args.strict,
+                check_dependencies=args.check_dependencies,
+                as_json_output=args.as_json,
+            )
         if args.command == "fingerprint":
             print(as_json())
             return 0
@@ -189,7 +210,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.command == "verify-gpus":
             return _verify_gpus(args.tensor_parallel_size)
         if args.command == "inspect-shards":
-            inspection = inspect_sharded_model(args.path)
+            inspection = inspect_sharded_model(
+                args.path,
+                expected_tensor_parallel_size=args.tensor_parallel_size,
+            )
             if args.as_json:
                 print(json.dumps(inspection.to_dict(), indent=2))
             else:
@@ -198,13 +222,16 @@ def main(argv: Sequence[str] | None = None) -> int:
                 print(f"shards: {len(inspection.shards)}")
                 print(f"weight bytes: {inspection.total_size}")
                 print(f"valid: {inspection.valid}")
+                for error in inspection.topology_errors:
+                    print(f"error: {error}")
                 for warning in inspection.warnings:
                     print(f"warning: {warning}")
             return 0 if inspection.valid else 1
         if args.command == "verify-wheel":
             digest = (
                 verify_sha256(args.path, args.sha256)
-                if args.sha256 else sha256_file(args.path)
+                if args.sha256
+                else sha256_file(args.path)
             )
             print(f"{digest}  {args.path.name}")
             return 0

@@ -16,7 +16,9 @@ def test_stage_wheel_uses_target_and_no_deps(monkeypatch, tmp_path):
     calls = []
     monkeypatch.setattr(
         "kaggle_vllm.installation.subprocess.run",
-        lambda command, check: calls.append((command, check)) or SimpleNamespace(returncode=0),
+        lambda command, check: (
+            calls.append((command, check)) or SimpleNamespace(returncode=0)
+        ),
     )
     target = stage_wheel(wheel, tmp_path / "staged", python_executable="python")
     command = calls[0][0]
@@ -36,9 +38,7 @@ def test_stage_wheel_uses_target_and_no_deps(monkeypatch, tmp_path):
 )
 def test_overlay_rejects_torch_requirements(tmp_path, requirement):
     requirements = tmp_path / "lock.txt"
-    requirements.write_text(
-        f"transformers==4.57.6\n{requirement}\n", encoding="utf-8"
-    )
+    requirements.write_text(f"transformers==4.57.6\n{requirement}\n", encoding="utf-8")
     with pytest.raises(InstallationError, match="must not contain torch"):
         stage_dependency_overlay(requirements, tmp_path / "overlay")
 
@@ -59,7 +59,9 @@ def test_runtime_environment_orders_overlay_before_staged(tmp_path):
         str((tmp_path / "staged").resolve()),
         "/existing",
     ]
-    assert environment["LD_LIBRARY_PATH"].startswith(str((tmp_path / "torch-lib").resolve()))
+    assert environment["LD_LIBRARY_PATH"].startswith(
+        str((tmp_path / "torch-lib").resolve())
+    )
     assert environment["PATH"].split(":") == [
         str((tmp_path / "staged" / "bin").resolve()),
         "/existing-bin",

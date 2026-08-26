@@ -65,7 +65,7 @@ def write_reset_manifest(
                     "overlay": str(overlay.resolve()),
                     "cache": str(cache.resolve()),
                     "manifest": str(manifest.resolve()),
-                }
+                },
             }
         ),
         encoding="utf-8",
@@ -85,7 +85,9 @@ def host_findings(version: tuple[int, int], system="Linux", machine="x86_64"):
 
 
 def test_cp311_rejected_for_cp312_native_wheel():
-    errors = [finding for finding in host_findings((3, 11)) if finding.status == "error"]
+    errors = [
+        finding for finding in host_findings((3, 11)) if finding.status == "error"
+    ]
     assert any(finding.check == "Python ABI" for finding in errors)
 
 
@@ -146,7 +148,9 @@ def test_bootstrap_writes_manifest_and_is_idempotent(monkeypatch, tmp_path):
 
     monkeypatch.setattr(bootstrap_module, "download_wheel", lambda *_args: wheel)
     monkeypatch.setattr(bootstrap_module, "stage_wheel", fake_stage_wheel)
-    monkeypatch.setattr(bootstrap_module, "stage_dependency_overlay", fake_stage_overlay)
+    monkeypatch.setattr(
+        bootstrap_module, "stage_dependency_overlay", fake_stage_overlay
+    )
     arguments = {
         "staged": tmp_path / "staged",
         "overlay": tmp_path / "overlay",
@@ -235,9 +239,12 @@ def test_reset_dry_run_deletes_nothing(tmp_path):
     reset_data = result.to_dict()["reset"]
     assert reset_data["safe"] is True
     assert reset_data["completed"] is False
-    assert next(
-        target for target in reset_data["targets"] if target["label"] == "cache"
-    )["action"] == "preserve"
+    assert (
+        next(target for target in reset_data["targets"] if target["label"] == "cache")[
+            "action"
+        ]
+        == "preserve"
+    )
 
 
 def test_execute_reset_removes_only_owned_runtime_and_preserves_cache(tmp_path):
@@ -547,7 +554,9 @@ def test_confirmed_reset_then_bootstrap_recreates_runtime(monkeypatch, tmp_path)
 
     monkeypatch.setattr(bootstrap_module, "download_wheel", lambda *_args: wheel)
     monkeypatch.setattr(bootstrap_module, "stage_wheel", fake_stage_wheel)
-    monkeypatch.setattr(bootstrap_module, "stage_dependency_overlay", fake_stage_overlay)
+    monkeypatch.setattr(
+        bootstrap_module, "stage_dependency_overlay", fake_stage_overlay
+    )
 
     result = bootstrap(
         **paths,
