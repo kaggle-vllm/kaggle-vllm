@@ -1,0 +1,47 @@
+{
+  "sdk_version": "0.1.2",
+  "native_repo": "waqasm86/kaggle-vllm-binaries",
+  "native_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+  "native_wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+  "native_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+  "runtime_manifest": "/kaggle/working/kaggle-vllm-benchmark-012/kaggle-vllm-runtime.json",
+  "runtime_manifest_sha256": "1451a1c4fb73dfd54161e422e84fb10c36ed6ff2a14bd39f26d689c36f862cef",
+  "torch_before": {
+    "version": "2.10.0+cu128",
+    "cuda": "12.8",
+    "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "torch_after": {
+    "version": "2.10.0+cu128",
+    "cuda": "12.8",
+    "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "model": "facebook/opt-125m",
+  "matrix": [
+    {
+      "tensor_parallel_size": 1,
+      "enforce_eager": true,
+      "disable_custom_all_reduce": true
+    },
+    {
+      "tensor_parallel_size": 2,
+      "enforce_eager": true,
+      "disable_custom_all_reduce": true
+    },
+    {
+      "tensor_parallel_size": 1,
+      "enforce_eager": false,
+      "disable_custom_all_reduce": true
+    },
+    {
+      "tensor_parallel_size": 2,
+      "enforce_eager": false,
+      "disable_custom_all_reduce": true
+    },
+    {
+      "tensor_parallel_size": 2,
+      "enforce_eager": true,
+      "disable_custom_all_reduce": false
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "status": "executed",
+  "configuration": {
+    "model": "facebook/opt-125m",
+    "tensor_parallel_size": 1,
+    "prompt": "Explain tensor parallel inference.",
+    "requested_output_tokens": 128,
+    "repeats": 3,
+    "max_model_len": 512,
+    "gpu_memory_utilization": 0.4,
+    "enforce_eager": false,
+    "disable_custom_all_reduce": true
+  },
+  "environment": {
+    "is_kaggle": true,
+    "python": "3.12.13",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "torch": "2.10.0+cu128",
+    "torch_path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+    "torch_cuda": "12.8",
+    "cuda_available": true,
+    "gpus": [
+      {
+        "index": 0,
+        "name": "Tesla T4",
+        "capability": [
+          7,
+          5
+        ],
+        "total_memory": 15636037632
+      }
+    ],
+    "nccl": "2.27.5",
+    "nvcc": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "cuda_home": "/usr/local/cuda",
+    "cuda_driver": "/usr/local/nvidia/lib64/libcuda.so",
+    "cmake_library_path": null
+  },
+  "topology": {
+    "nvidia_smi": "Sun Aug 30 14:18:00 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.159.04             Driver Version: 580.159.04     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  Tesla T4                       Off |   00000000:00:04.0 Off |                    0 |\n| N/A   44C    P0             71W /   70W |    6321MiB /  15360MiB |     78%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n|   1  Tesla T4                       Off |   00000000:00:05.0 Off |                    0 |\n| N/A   39C    P8              9W /   70W |       3MiB /  15360MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A             876      C   VLLM::EngineCore                       6318MiB |\n+-----------------------------------------------------------------------------------------+",
+    "nvidia_smi_topology": "\u001b[4mGPU0\tGPU1\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tPHB\t0-3\t0\t\tN/A\nGPU1\tPHB\t X \t0-3\t0\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks",
+    "gpu_monitor": [
+      {
+        "index": 0,
+        "peak_memory_used_mib": 6321,
+        "peak_utilization_percent": 84,
+        "last_memory_used_mib": 6321
+      },
+      {
+        "index": 1,
+        "peak_memory_used_mib": 3,
+        "peak_utilization_percent": 0,
+        "last_memory_used_mib": 3
+      }
+    ]
+  },
+  "runs": [
+    {
+      "index": 0,
+      "prompt_tokens": 8,
+      "output_tokens": 128,
+      "wall_latency_seconds": 0.24909580299993195,
+      "engine_latency_seconds": null,
+      "time_to_first_token_seconds": null,
+      "prefill_tokens_per_second": null,
+      "generation_tokens_per_second": null,
+      "end_to_end_tokens_per_second": 513.858517319278
+    },
+    {
+      "index": 1,
+      "prompt_tokens": 8,
+      "output_tokens": 128,
+      "wall_latency_seconds": 0.24889333900000565,
+      "engine_latency_seconds": null,
+      "time_to_first_token_seconds": null,
+      "prefill_tokens_per_second": null,
+      "generation_tokens_per_second": null,
+      "end_to_end_tokens_per_second": 514.2765190674593
+    },
+    {
+      "index": 2,
+      "prompt_tokens": 8,
+      "output_tokens": 128,
+      "wall_latency_seconds": 0.2483245820000093,
+      "engine_latency_seconds": null,
+      "time_to_first_token_seconds": null,
+      "prefill_tokens_per_second": null,
+      "generation_tokens_per_second": null,
+      "end_to_end_tokens_per_second": 515.4544063623762
+    }
+  ],
+  "aggregate": {
+    "mean_wall_latency_seconds": 0.24877124133331563,
+    "mean_output_tokens_per_second": 514.5298142497045
+  },
+  "captured_at": "2026-08-30T14:18:00.877730+00:00",
+  "wrapper": {
+    "returncode": 0,
+    "elapsed_seconds": 65.7513177394867,
+    "log": "/kaggle/working/kaggle-vllm-benchmarks-012/tp1-eager0-disable-car1.log"
+  }
+}

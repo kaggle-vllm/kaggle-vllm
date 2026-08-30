@@ -20,6 +20,21 @@ candidate wheel is attached, it builds the lightweight SDK from the exact
 reviewed GitHub source commit and records the resulting wheel SHA256. The
 large native vLLM wheel remains the separately pinned Hugging Face artifact.
 
+## v0.1.2 benchmark evidence
+
+[`kaggle_vllm_0_1_2_benchmark.ipynb`](kaggle_vllm_0_1_2_benchmark.ipynb)
+is the executed 2026-08-30 fresh-session TP=1/TP=2 benchmark for the published
+`kaggle-vllm==0.1.2` SDK.
+
+All five controlled OPT-125M configurations executed successfully. The
+corresponding [benchmark report](../docs/kaggle-v0.1.2-benchmark.md) separates
+functional acceptance from performance conclusions. For this small model,
+TP=1 outperformed TP=2 and non-eager execution substantially outperformed the
+conservative eager acceptance configuration.
+
+Machine-readable results and raw logs are retained under
+[`artifacts/kaggle-2026-08-30-v0.1.2-benchmark/`](../artifacts/kaggle-2026-08-30-v0.1.2-benchmark/).
+
 ## v0.1.2 focused reset acceptance evidence
 
 [`kaggle_vllm_0_1_2_reset_acceptance.ipynb`](kaggle_vllm_0_1_2_reset_acceptance.ipynb)
