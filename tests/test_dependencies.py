@@ -56,3 +56,15 @@ def test_malformed_installed_version_is_error(monkeypatch, required_spec):
     finding = _inspect(monkeypatch, required_spec, "not a version")
     assert finding.status == "error"
     assert "malformed version metadata" in finding.message
+
+
+def test_t4_triton_profile_does_not_require_flashinfer():
+    from kaggle_vllm.dependencies import load_dependency_baseline
+
+    specs = {
+        spec.distribution: spec
+        for spec in load_dependency_baseline("kaggle-t4x2-cu128")
+    }
+
+    assert "flashinfer-python" in specs
+    assert specs["flashinfer-python"].required is False
