@@ -13,6 +13,13 @@ successful run until their outputs have been captured and reviewed.
 Both are output-free and explicitly pending execution on a dual-T4 Kaggle
 notebook. Their presence is not a pass or performance claim.
 
+The 0.2.0 acceptance notebook does **not** require a final 0.2.0 GitHub
+release to exist before acceptance. If the reviewed `0.2.0.dev0` wheel is
+attached as a Kaggle Input, the notebook verifies its exact SHA256. If no
+candidate wheel is attached, it builds the lightweight SDK from the exact
+reviewed GitHub source commit and records the resulting wheel SHA256. The
+large native vLLM wheel remains the separately pinned Hugging Face artifact.
+
 ## v0.1.2 focused reset acceptance evidence
 
 [`kaggle_vllm_0_1_2_reset_acceptance.ipynb`](kaggle_vllm_0_1_2_reset_acceptance.ipynb)
