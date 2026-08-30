@@ -22,6 +22,11 @@ warnings normally and errors under `doctor --strict`.
 
 ## Observed but not universally fatal
 
+- `flashinfer-python` is not required by the validated Tesla T4 / SM75
+  `TRITON_ATTN` execution path. Upstream vLLM declares FlashInfer in its
+  general CUDA requirements, but vLLM detects its absence at runtime.
+  `kaggle-vllm doctor` therefore reports a missing FlashInfer installation as
+  `UNTESTED` rather than `ERROR` for this profile.
 - driver patch 580.159.04 and driver-reported CUDA maximum 13.0;
 - CUDA toolkit patch 12.8.93, CMake 3.31.10 and GCC 11.4.0;
 - exact versions of packages whose upstream constraints allow a range;
