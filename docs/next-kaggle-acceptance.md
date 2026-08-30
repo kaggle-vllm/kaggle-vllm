@@ -2,16 +2,21 @@
 
 Use a fresh Kaggle notebook with two Tesla T4 GPUs. The pending
 [`kaggle_vllm_0_2_0_acceptance.ipynb`](../kaggle-notebooks/kaggle_vllm_0_2_0_acceptance.ipynb)
-is the starting artifact; replace its SDK SHA placeholder with the reviewed
-release-candidate wheel digest before running.
+is the starting artifact. A final 0.2.0 release asset is intentionally not a
+prerequisite for pre-release acceptance. The notebook prefers an attached
+reviewed `0.2.0.dev0` SDK wheel and verifies its SHA256; if none is attached,
+it builds the lightweight SDK from the exact reviewed GitHub source commit
+and records the built wheel digest as run evidence.
 
 ## Required sequence
 
 1. Capture `python --version`, glibc, `nvidia-smi`, `nvidia-smi topo -m`,
    `nvcc --version`, CMake and GCC.
 2. Record Torch version, CUDA ABI and installation path before SDK install.
-3. Verify the small SDK wheel SHA256 and install it; confirm no Torch/vLLM/CUDA
-   packages were pulled.
+3. Resolve the small SDK candidate: verify an attached reviewed wheel SHA256,
+   or build it from the exact reviewed source commit. Install it and record
+   its SHA256; confirm no Torch/vLLM/CUDA packages were pulled as SDK
+   dependencies.
 4. Run fingerprint and strict bootstrap dry-run; verify native filename,
    immutable revision and SHA256.
 5. Bootstrap, activate the manifest and run `doctor --strict --json` so the
