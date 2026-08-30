@@ -1,0 +1,52 @@
+[
+  {
+    "file": "tp1-eager0-disable-car1.json",
+    "status": "executed",
+    "tp": 1,
+    "eager": false,
+    "disable_custom_all_reduce": true,
+    "mean_wall_latency_seconds": 0.24546515499999563,
+    "mean_output_tokens_per_second": 521.941523527637,
+    "returncode": 0
+  },
+  {
+    "file": "tp1-eager1-disable-car1.json",
+    "status": "executed",
+    "tp": 1,
+    "eager": true,
+    "disable_custom_all_reduce": true,
+    "mean_wall_latency_seconds": 1.7853904029999892,
+    "mean_output_tokens_per_second": 71.74445418544686,
+    "returncode": 0
+  },
+  {
+    "file": "tp2-eager0-disable-car1.json",
+    "status": "executed",
+    "tp": 2,
+    "eager": false,
+    "disable_custom_all_reduce": true,
+    "mean_wall_latency_seconds": 0.3537570003334167,
+    "mean_output_tokens_per_second": 363.2625816936622,
+    "returncode": 0
+  },
+  {
+    "file": "tp2-eager1-disable-car0.json",
+    "status": "executed",
+    "tp": 2,
+    "eager": true,
+    "disable_custom_all_reduce": false,
+    "mean_wall_latency_seconds": 2.849965197333328,
+    "mean_output_tokens_per_second": 44.914804332679104,
+    "returncode": 0
+  },
+  {
+    "file": "tp2-eager1-disable-car1.json",
+    "status": "executed",
+    "tp": 2,
+    "eager": true,
+    "disable_custom_all_reduce": true,
+    "mean_wall_latency_seconds": 3.4277351353332506,
+    "mean_output_tokens_per_second": 37.34458965675163,
+    "returncode": 0
+  }
+]

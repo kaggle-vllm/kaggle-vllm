@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "sdk_version": "0.2.0.dev0",
+  "sdk_source_commit": "7327b0b0c811a92a9c49421a4d302c18e251ab61",
+  "sdk_wheel": "kaggle_vllm-0.2.0.dev0-py3-none-any.whl",
+  "sdk_wheel_sha256": "a79f5d35a21a45838d9a7234e0764449ed6f3393a0c6fc9de6557f0485734ce4",
+  "runtime_manifest": "/kaggle/working/kaggle-vllm-e2e-020-pr15/kaggle-vllm-runtime.json",
+  "runtime_manifest_sha256": "c78ec5cd32fdda24a21a64f7fac108b0a4dbf0f14b171754563d352fa6b55835",
+  "torch_before": "2.10.0+cu128 12.8 /usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+  "torch_after": "2.10.0+cu128 12.8 /usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+  "qwen_regression_executed": false
+}

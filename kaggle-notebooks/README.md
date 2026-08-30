@@ -5,20 +5,46 @@ This directory contains Kaggle-specific validation material for
 under [`examples/`](../examples/) are starting points and do not claim a
 successful run until their outputs have been captured and reviewed.
 
-## Next development acceptance (not executed)
+## v0.2.0 development-candidate Kaggle evidence
 
-- `kaggle_vllm_0_2_0_acceptance.ipynb` is the fresh delivery/runtime procedure.
-- `kaggle_vllm_0_2_0_benchmark.ipynb` runs the controlled TP1/TP2 matrix.
+The 2026-08-30 fresh-session Kaggle validation for `0.2.0.dev0` is complete.
 
-Both are output-free and explicitly pending execution on a dual-T4 Kaggle
-notebook. Their presence is not a pass or performance claim.
+[`kaggle_vllm_0_2_0_acceptance.ipynb`](kaggle_vllm_0_2_0_acceptance.ipynb)
+is the executed dual-T4 acceptance notebook. It ends in
+`FINAL ACCEPTANCE: PASS`.
 
-The 0.2.0 acceptance notebook does **not** require a final 0.2.0 GitHub
-release to exist before acceptance. If the reviewed `0.2.0.dev0` wheel is
-attached as a Kaggle Input, the notebook verifies its exact SHA256. If no
-candidate wheel is attached, it builds the lightweight SDK from the exact
-reviewed GitHub source commit and records the resulting wheel SHA256. The
-large native vLLM wheel remains the separately pinned Hugging Face artifact.
+[`kaggle_vllm_0_2_0_benchmark.ipynb`](kaggle_vllm_0_2_0_benchmark.ipynb)
+is the executed controlled TP=1/TP=2 benchmark notebook. All five benchmark
+configurations were attempted and completed successfully.
+
+The tested development source state was commit
+`6d10912ad73e81f5a62fcec299c87ed5b2631b4f` with SDK version
+`0.2.0.dev0`.
+
+The environment remained the validated Kaggle configuration:
+
+- Python 3.12.13
+- PyTorch 2.10.0+cu128
+- CUDA 12.8
+- 2 × Tesla T4 / SM75
+- NCCL 2.27.5
+- vLLM attention backend: `TRITON_ATTN`
+
+The underlying native vLLM wheel remained the existing immutable Hugging Face
+artifact; no native CUDA rebuild was required.
+
+Human-readable reports are available in:
+
+- [`docs/kaggle-v0.2.0-acceptance.md`](../docs/kaggle-v0.2.0-acceptance.md)
+- [`docs/kaggle-v0.2.0-benchmark.md`](../docs/kaggle-v0.2.0-benchmark.md)
+
+Machine-readable evidence is retained under:
+
+- [`artifacts/kaggle-2026-08-30-v0.2.0-acceptance/`](../artifacts/kaggle-2026-08-30-v0.2.0-acceptance/)
+- [`artifacts/kaggle-2026-08-30-v0.2.0-benchmark/`](../artifacts/kaggle-2026-08-30-v0.2.0-benchmark/)
+
+These results validate the development candidate. They do not claim that a
+final `0.2.0` release already exists.
 
 ## v0.1.2 benchmark evidence
 
