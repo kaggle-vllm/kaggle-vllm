@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "status": "executed",
+  "configuration": {
+    "model": "/kaggle/working/huggingface/hub/models--facebook--opt-125m/snapshots/27dcfa74d334bc871f3234de431e71c6eeba5dd6",
+    "tensor_parallel_size": 2,
+    "prompt": "Explain tensor parallel inference.",
+    "requested_output_tokens": 128,
+    "repeats": 3,
+    "max_model_len": 512,
+    "gpu_memory_utilization": 0.4,
+    "enforce_eager": true,
+    "disable_custom_all_reduce": true
+  },
+  "environment": {
+    "is_kaggle": true,
+    "python": "3.12.13",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "torch": "2.10.0+cu128",
+    "torch_path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+    "torch_cuda": "12.8",
+    "cuda_available": true,
+    "gpus": [
+      {
+        "index": 0,
+        "name": "Tesla T4",
+        "capability": [
+          7,
+          5
+        ],
+        "total_memory": 15636037632
+      },
+      {
+        "index": 1,
+        "name": "Tesla T4",
+        "capability": [
+          7,
+          5
+        ],
+        "total_memory": 15636037632
+      }
+    ],
+    "nccl": "2.27.5",
+    "nvcc": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "cuda_home": "/usr/local/cuda",
+    "cuda_driver": "/usr/local/nvidia/lib64/libcuda.so",
+    "cmake_library_path": null,
+    "driver_version": "580.159.04",
+    "driver_reported_cuda_max": "13.0"
+  },
+  "topology": {
+    "nvidia_smi": "Sun Aug 30 16:00:25 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.159.04             Driver Version: 580.159.04     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  Tesla T4                       Off |   00000000:00:04.0 Off |                    0 |\n| N/A   54C    P0             34W /   70W |    6235MiB /  15360MiB |      6%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n|   1  Tesla T4                       Off |   00000000:00:05.0 Off |                    0 |\n| N/A   51C    P0             41W /   70W |    6235MiB /  15360MiB |     62%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A             609      C   VLLM::Worker_TP0                       6232MiB |\n|    1   N/A  N/A             610      C   VLLM::Worker_TP1                       6232MiB |\n+-----------------------------------------------------------------------------------------+",
+    "nvidia_smi_topology": "\u001b[4mGPU0\tGPU1\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tPHB\t0-3\t0\t\tN/A\nGPU1\tPHB\t X \t0-3\t0\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks",
+    "gpu_monitor": [
+      {
+        "index": 0,
+        "peak_memory_used_mib": 6235,
+        "peak_utilization_percent": 100,
+        "last_memory_used_mib": 6235
+      },
+      {
+        "index": 1,
+        "peak_memory_used_mib": 6235,
+        "peak_utilization_percent": 100,
+        "last_memory_used_mib": 6235
+      }
+    ]
+  },
+  "runs": [
+    {
+      "index": 0,
+      "prompt_tokens": 8,
+      "output_tokens": 128,
+      "wall_latency_seconds": 3.4590418589998535,
+      "engine_latency_seconds": null,
+      "time_to_first_token_seconds": null,
+      "prefill_tokens_per_second": null,
+      "generation_tokens_per_second": null,
+      "end_to_end_tokens_per_second": 37.00446690662769
+    },
+    {
+      "index": 1,
+      "prompt_tokens": 8,
+      "output_tokens": 128,
+      "wall_latency_seconds": 3.4287565009999526,
+      "engine_latency_seconds": null,
+      "time_to_first_token_seconds": null,
+      "prefill_tokens_per_second": null,
+      "generation_tokens_per_second": null,
+      "end_to_end_tokens_per_second": 37.331318208998056
+    },
+    {
+      "index": 2,
+      "prompt_tokens": 8,
+      "output_tokens": 128,
+      "wall_latency_seconds": 3.3954070459999457,
+      "engine_latency_seconds": null,
+      "time_to_first_token_seconds": null,
+      "prefill_tokens_per_second": null,
+      "generation_tokens_per_second": null,
+      "end_to_end_tokens_per_second": 37.69798385462915
+    }
+  ],
+  "aggregate": {
+    "mean_wall_latency_seconds": 3.4277351353332506,
+    "mean_output_tokens_per_second": 37.34458965675163
+  },
+  "captured_at": "2026-08-30T16:00:25.443368+00:00",
+  "wrapper": {
+    "returncode": 0,
+    "elapsed_seconds": 101.62211656570435,
+    "log": "/kaggle/working/kaggle-vllm-benchmarks-020/tp2-eager1-disable-car1.log"
+  },
+  "model_identity": {
+    "repository": "facebook/opt-125m",
+    "revision": "27dcfa74d334bc871f3234de431e71c6eeba5dd6",
+    "snapshot": "/kaggle/working/huggingface/hub/models--facebook--opt-125m/snapshots/27dcfa74d334bc871f3234de431e71c6eeba5dd6"
+  }
+}

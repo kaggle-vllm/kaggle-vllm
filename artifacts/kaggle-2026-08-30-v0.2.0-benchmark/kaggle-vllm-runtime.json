@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "completed_at": "2026-08-30T15:52:00.623449+00:00",
+  "profile": "kaggle-t4x2-cu128",
+  "strict": true,
+  "wheel": {
+    "filename": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "hf_repo_id": "waqasm86/kaggle-vllm-binaries",
+    "hf_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+    "resolved_path": "/kaggle/working/kaggle-vllm-cache/vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl"
+  },
+  "paths": {
+    "staged": "/kaggle/working/kaggle-vllm-benchmark-020/vllm-staged",
+    "overlay": "/kaggle/working/kaggle-vllm-benchmark-020/vllm-runtime-overlay",
+    "cache": "/kaggle/working/kaggle-vllm-cache",
+    "manifest": "/kaggle/working/kaggle-vllm-benchmark-020/kaggle-vllm-runtime.json"
+  },
+  "runtime_environment": {
+    "PYTHONPATH": "/kaggle/working/kaggle-vllm-benchmark-020/vllm-runtime-overlay:/kaggle/working/kaggle-vllm-benchmark-020/vllm-staged",
+    "LD_LIBRARY_PATH": "/usr/local/lib/python3.12/dist-packages/torch/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64",
+    "PATH": "/kaggle/working/kaggle-vllm-benchmark-020/vllm-staged/bin:/opt/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/tools/node/bin:/tools/google-cloud-sdk/bin"
+  },
+  "environment": {
+    "is_kaggle": true,
+    "python": "3.12.13",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "torch": "2.10.0+cu128",
+    "torch_path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+    "torch_cuda": "12.8",
+    "cuda_available": true,
+    "gpus": [
+      {
+        "index": 0,
+        "name": "Tesla T4",
+        "capability": [
+          7,
+          5
+        ],
+        "total_memory": 15636037632
+      },
+      {
+        "index": 1,
+        "name": "Tesla T4",
+        "capability": [
+          7,
+          5
+        ],
+        "total_memory": 15636037632
+      }
+    ],
+    "nccl": "2.27.5",
+    "nvcc": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "cuda_home": "/usr/local/cuda",
+    "cuda_driver": "/usr/local/nvidia/lib64/libcuda.so",
+    "cmake_library_path": null,
+    "driver_version": "580.159.04",
+    "driver_reported_cuda_max": "13.0"
+  },
+  "findings": [
+    {
+      "check": "Python implementation",
+      "status": "pass",
+      "message": "Python implementation: CPython"
+    },
+    {
+      "check": "Python ABI",
+      "status": "pass",
+      "message": "Python ABI: cp312"
+    },
+    {
+      "check": "operating system",
+      "status": "pass",
+      "message": "operating system: Linux"
+    },
+    {
+      "check": "machine",
+      "status": "pass",
+      "message": "machine: x86_64"
+    },
+    {
+      "check": "Kaggle runtime",
+      "status": "pass",
+      "message": "Kaggle runtime: True"
+    },
+    {
+      "check": "PyTorch",
+      "status": "pass",
+      "message": "PyTorch: 2.10.0+cu128"
+    },
+    {
+      "check": "PyTorch CUDA",
+      "status": "pass",
+      "message": "PyTorch CUDA: 12.8"
+    },
+    {
+      "check": "visible GPU count",
+      "status": "pass",
+      "message": "visible GPU count: 2"
+    },
+    {
+      "check": "GPU model",
+      "status": "pass",
+      "message": "GPU model: Tesla T4, Tesla T4"
+    },
+    {
+      "check": "GPU compute capability",
+      "status": "pass",
+      "message": "GPU compute capability: SM75, SM75"
+    },
+    {
+      "check": "NCCL",
+      "status": "pass",
+      "message": "NCCL: 2.27.5"
+    }
+  ]
+}

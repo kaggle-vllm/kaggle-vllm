@@ -1,0 +1,53 @@
+{
+  "sdk_version": "0.2.0.dev0",
+  "sdk_source_commit": "6d10912ad73e81f5a62fcec299c87ed5b2631b4f",
+  "sdk_source_archive_sha256": "1cdd57ae0efc6662bb856ed2c209548ba3576ed09b1ff3bd9f327dcf1a0e34d5",
+  "sdk_wheel": "kaggle_vllm-0.2.0.dev0-py3-none-any.whl",
+  "sdk_wheel_sha256": "a79f5d35a21a45838d9a7234e0764449ed6f3393a0c6fc9de6557f0485734ce4",
+  "native_repo": "waqasm86/kaggle-vllm-binaries",
+  "native_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+  "native_wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+  "native_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+  "runtime_manifest_sha256": "100fcb218350bf7d0197b03c7c2e16c6ba222fdeabcb2f6bd78cd587cbbb9fe6",
+  "benchmark_harness_sha256": "d98d521fe5ac19ba0acdc519365861c779651a8b146b0951e73a279b8771c715",
+  "torch_before": {
+    "version": "2.10.0+cu128",
+    "cuda": "12.8",
+    "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "torch_after": {
+    "version": "2.10.0+cu128",
+    "cuda": "12.8",
+    "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "model_repository": "facebook/opt-125m",
+  "model_revision": "27dcfa74d334bc871f3234de431e71c6eeba5dd6",
+  "model_snapshot": "/kaggle/working/huggingface/hub/models--facebook--opt-125m/snapshots/27dcfa74d334bc871f3234de431e71c6eeba5dd6",
+  "matrix": [
+    {
+      "tensor_parallel_size": 1,
+      "enforce_eager": true,
+      "disable_custom_all_reduce": true
+    },
+    {
+      "tensor_parallel_size": 2,
+      "enforce_eager": true,
+      "disable_custom_all_reduce": true
+    },
+    {
+      "tensor_parallel_size": 1,
+      "enforce_eager": false,
+      "disable_custom_all_reduce": true
+    },
+    {
+      "tensor_parallel_size": 2,
+      "enforce_eager": false,
+      "disable_custom_all_reduce": true
+    },
+    {
+      "tensor_parallel_size": 2,
+      "enforce_eager": true,
+      "disable_custom_all_reduce": false
+    }
+  ]
+}
