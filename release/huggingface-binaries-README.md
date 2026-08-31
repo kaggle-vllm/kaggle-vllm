@@ -19,20 +19,26 @@ The repository also carries exact PyPI artifacts for the lightweight
 pure-Python artifacts do not contain vLLM, CUDA, or Torch and do not install
 the native runtime implicitly.
 
-## kaggle-vllm 0.2.0 release preparation
+## kaggle-vllm 0.2.0
 
-The forthcoming `kaggle-vllm` 0.2.0 SDK continues to resolve the same immutable
+The public `kaggle-vllm` 0.2.0 SDK continues to resolve the same immutable
 native wheel documented below. No native object was rebuilt, replaced, or
 re-uploaded for the SDK release. Development-candidate acceptance on
 2026-08-30 passed on the exact dual-T4 profile; final acceptance against the
-public `kaggle-vllm==0.2.0` package remains a post-publication gate.
+public package remains pending.
 
-Until PyPI publishes 0.2.0, the public installation command remains the 0.1.2
-command below. A future card update may list the exact 0.2.0 SDK wheel/sdist and
-checksums after those small artifacts exist; it must not change the native
-wheel identity or immutable revision.
+The exact PyPI artifacts are:
 
-## Lightweight SDK artifacts
+| Public PyPI file | Size | SHA256 |
+|---|---:|---|
+| `kaggle_vllm-0.2.0-py3-none-any.whl` | 36,732 bytes | `f3dce393c9e0bd43b9ba29a29ae14f9467857e5eea61390d41f512a52911fbbe` |
+| `kaggle_vllm-0.2.0.tar.gz` | 43,104 bytes | `48ed97da07e54119939053e38f4e87900cf79316711d7b4558aed8122a66e3aa` |
+
+These 0.2.0 SDK files are authoritative on PyPI and are not duplicated in this
+repository. Their publication does not change the native wheel identity or
+immutable revision.
+
+## Historical mirrored SDK artifacts
 
 | File | SHA256 |
 |---|---|
@@ -46,11 +52,12 @@ wheel identity or immutable revision.
 The primary installation source is PyPI:
 
 ```bash
-pip install kaggle-vllm==0.1.2
+pip install "kaggle-vllm[hub]==0.2.0"
 kaggle-vllm bootstrap
 ```
 
-The immutable Hub fallback uses the byte-identical PyPI wheel:
+The latest immutable Hub SDK fallback is the historical byte-identical 0.1.2
+PyPI wheel:
 
 ```bash
 pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/97b741d7fc988ed557a00fc28f2e34abad09fb7d/kaggle_vllm-0.1.2-py3-none-any.whl#sha256=13f1043df4a173e74555c6a4d7a8f66b4e661d942fc0222124208f50b1e9aad2"

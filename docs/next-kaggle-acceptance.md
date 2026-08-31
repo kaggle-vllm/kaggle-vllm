@@ -1,7 +1,7 @@
 # Next Kaggle T4x2 acceptance
 
-Use a fresh Kaggle notebook with two Tesla T4 GPUs after PyPI publication. The
-output-free
+The SDK is now public on PyPI. Use a fresh Kaggle notebook with two Tesla T4
+GPUs for the remaining published-package gate. The output-free
 [`kaggle_vllm_0_2_0_post_publication_acceptance.ipynb`](../kaggle-notebooks/kaggle_vllm_0_2_0_post_publication_acceptance.ipynb)
 installs exactly `kaggle-vllm[hub]==0.2.0`. The already-passed development
 candidate remains separate evidence and is not a substitute for this final

@@ -29,12 +29,11 @@ rank-specific checkpoint files for TP ranks 0 and 1. It is not arbitrary tensor
 splitting and should normally be loaded using the TP topology for which it was
 generated.
 
-The forthcoming `kaggle-vllm` 0.2.0 SDK adds stricter structural inspection,
-symlink protection and topology-mismatch reporting for this existing artifact.
-It does not regenerate, fine-tune, relicense or otherwise change the model
-files. The public installation command remains on SDK 0.1.2 until 0.2.0 is
-actually published; this card will be synchronized again after final
-published-package acceptance.
+The public `kaggle-vllm` 0.2.0 SDK adds stricter structural inspection, symlink
+protection and topology-mismatch reporting for this existing artifact. It does
+not regenerate, fine-tune, relicense or otherwise change the model files.
+Final published-package dual-T4 acceptance and the focused Qwen regression
+remain pending.
 
 > Qwen is licensed under the Qwen RESEARCH LICENSE AGREEMENT, Copyright (c)
 > Alibaba Cloud. All Rights Reserved. The included license permits
@@ -42,6 +41,16 @@ published-package acceptance.
 > terms. Commercial use requires a separate license from Alibaba Cloud.
 
 ## Load with kaggle-vllm
+
+Install the public lightweight SDK without changing Kaggle's system
+Torch/CUDA stack:
+
+```bash
+python -m pip install "kaggle-vllm[hub]==0.2.0"
+kaggle-vllm bootstrap --strict
+eval "$(kaggle-vllm env)"
+kaggle-vllm doctor --strict
+```
 
 ```python
 from kaggle_vllm import KaggleLLM
