@@ -1,0 +1,113 @@
+{
+  "hardware": {
+    "cmake_library_path": null,
+    "cuda_available": true,
+    "cuda_driver": "/usr/local/nvidia/lib64/libcuda.so",
+    "cuda_home": "/usr/local/cuda",
+    "cuda_toolkit": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "driver_reported_cuda_max": "13.0",
+    "driver_version": "580.159.04",
+    "gpu_count": 2,
+    "gpus": [
+      {
+        "capability": [
+          7,
+          5
+        ],
+        "index": 0,
+        "name": "Tesla T4",
+        "total_memory": 15636037632
+      },
+      {
+        "capability": [
+          7,
+          5
+        ],
+        "index": 1,
+        "name": "Tesla T4",
+        "total_memory": 15636037632
+      }
+    ],
+    "is_kaggle": true,
+    "nccl": "2.27.5",
+    "nvcc": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "torch_path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "identity": {
+    "captured_at_utc": "2026-08-31T19:42:19.229179+00:00",
+    "glibc": "2.35",
+    "kaggle_vllm_version": "0.2.0",
+    "measurement_mode": "offline_llm_generate",
+    "os": "Linux",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "source_git_commit": null,
+    "vllm_distribution_version": "0.18.2.dev0+ga26e8dc7f.d20260822.cu128"
+  },
+  "nvidia_smi": {
+    "command": [
+      "nvidia-smi"
+    ],
+    "returncode": 0,
+    "status": "ok",
+    "stderr": "",
+    "stdout": "Mon Aug 31 19:42:19 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.159.04             Driver Version: 580.159.04     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  Tesla T4                       Off |   00000000:00:04.0 Off |                    0 |\n| N/A   41C    P8             13W /   70W |       3MiB /  15360MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n|   1  Tesla T4                       Off |   00000000:00:05.0 Off |                    0 |\n| N/A   43C    P0             27W /   70W |       3MiB /  15360MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+"
+  },
+  "topology": {
+    "interpretation": "observed nvidia-smi output only; no DMA or causal performance claim",
+    "matrix": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-m"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tPHB\t0-3\t0\t\tN/A\nGPU1\tPHB\t X \t0-3\t0\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks"
+    },
+    "parsed_matrix": {
+      "gpu_labels": [
+        "GPU0",
+        "GPU1"
+      ],
+      "links": [
+        {
+          "gpu_a": "GPU0",
+          "gpu_b": "GPU1",
+          "path": "PHB"
+        }
+      ],
+      "nvlink_observed": false
+    },
+    "peer_access_read": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "r"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    },
+    "peer_access_write": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "w"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    }
+  }
+}

@@ -21,8 +21,10 @@ python -m twine check dist/*
 Unit tests cover profile parsing, dependency absence/range/drift/malformed
 metadata, dry-run planning, immutable definitions, checksums, reset ownership,
 path overlap/symlinks, no implicit bootstrap, TP validation, safe server
-arguments and sharded topology. The integration GPU test remains marked and
-skipped outside the exact environment.
+arguments, sharded topology, benchmark configuration/schema/statistics,
+comparison deltas, topology parsing, telemetry failure handling and evidence
+output safety. The integration GPU test remains marked and skipped outside the
+exact environment.
 
 ## Kaggle GPU acceptance
 
@@ -32,6 +34,11 @@ serving and performance. The 2026-08-30 development candidate passed its
 acceptance and benchmark runs. The exact public `0.2.0` package and focused
 existing-Qwen TP=2 regression then passed on 2026-08-31; see the
 [final acceptance report](kaggle-v0.2.0-final-acceptance.md).
+
+The post-0.2.0 Milestone 1 benchmark implementation is locally testable, but
+its new matrix remains **unexecuted** until the output-free Kaggle launcher is
+run on the real profile. A dry-run plan, mocked engine output or topology
+parser fixture is never a GPU performance result.
 
 Development-candidate evidence and final published-package checks are reported
 separately. A skipped local test, valid notebook JSON or successful CPU package

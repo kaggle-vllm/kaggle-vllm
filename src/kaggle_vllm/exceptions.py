@@ -35,3 +35,7 @@ class DownloadError(KaggleVLLMError):
 
 class BootstrapError(KaggleVLLMError):
     """Raised when explicit native-runtime bootstrap cannot proceed safely."""
+
+
+class BenchmarkError(KaggleVLLMError):
+    """Raised for invalid, unsafe, or incompatible benchmark operations."""

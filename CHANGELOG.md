@@ -2,6 +2,22 @@
 
 All notable changes are documented here.
 
+## Unreleased
+
+- Add CPU-testable benchmark specifications, schema-v1 offline-engine evidence,
+  descriptive statistics, neutral result comparison, NVIDIA topology parsing,
+  and lightweight sampled GPU telemetry for dual-T4 TP characterization.
+- Add explicit `benchmark` and `compare-benchmarks` commands with a
+  side-effect-free dry run and safe new-file evidence policy.
+- Add an isolated-process Kaggle matrix runner for controlled OPT-125M
+  TP=1/TP=2 comparisons and existing-Qwen TP=2 scheduler/batching
+  characterization.
+- Record the successful real Kaggle T4 x2 execution of all six planned rows
+  under `artifacts/kaggle-2026-09-01-milestone-1/`. TP=2 was slower than TP=1
+  for OPT-125M in both tested execution modes.
+- Record that Qwen TP=2 with `max_num_batched_tokens=4096` did not demonstrate
+  a clear throughput benefit over the baseline in the three-repeat workload.
+
 ## 0.2.0 — 2026-08-31
 
 - Add dependency-aware, machine-readable runtime diagnostics sourced from the

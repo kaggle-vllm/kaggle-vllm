@@ -23,9 +23,12 @@ CUDA 12.8.
 
 ## Is TP=2 faster?
 
-No universal speedup is claimed. In the controlled 2026-08-30 OPT-125M run,
-TP=1 was faster because NCCL communication outweighed useful computation. TP=2
-is still important when model capacity or multi-GPU compatibility requires it.
+No universal speedup is claimed. In the executed Milestone 1 OPT-125M control,
+TP=2 output throughput was 26.73% lower in graph mode and 44.78% lower in eager
+mode than TP=1. The captured `PHB` topology and TP synchronization are
+consistent with communication overhead being relevant, but the benchmark does
+not isolate one cause. TP=2 is still important when model capacity or
+multi-GPU compatibility requires it.
 
 ## Can Transformers load the Qwen artifact?
 

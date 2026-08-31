@@ -1,0 +1,40 @@
+{
+  "absolute": {
+    "baseline_mean_peak_memory_per_device_mib": 3053.0,
+    "baseline_output_tokens_per_second": 312.0794092620273,
+    "candidate_mean_peak_memory_per_device_mib": 6235.0,
+    "candidate_output_tokens_per_second": 172.3194758116943
+  },
+  "baseline": {
+    "label": "opt125m-tp1-eager1",
+    "tensor_parallel_size": 1
+  },
+  "candidate": {
+    "label": "opt125m-tp2-eager1",
+    "tensor_parallel_size": 2
+  },
+  "comparability": {
+    "controlled_tp_only": true,
+    "differing_non_tp_engine_fields": [],
+    "same_workload": true
+  },
+  "deltas": {
+    "mean_batch_latency_percent": 81.10512917475363,
+    "mean_peak_memory_per_device_mib": 3182.0,
+    "model_load_time_percent": 24.089520439138614,
+    "output_throughput_percent": -44.783452320940576
+  },
+  "limitations": [
+    "Percentage deltas are observations for these runs, not causal attribution.",
+    "This comparison does not isolate collective communication time from compute, scheduling, graph mode, memory, or other interacting effects."
+  ],
+  "measurement_mode": "offline_llm_generate",
+  "observations": [
+    "opt125m-tp2-eager1 output throughput was 44.78% lower than opt125m-tp1-eager1.",
+    "opt125m-tp2-eager1 mean batch latency was 81.11% higher than opt125m-tp1-eager1.",
+    "Candidate telemetry observed non-zero utilization on GPU indices [0, 1].",
+    "Candidate nvidia-smi topology output contained no NVLink path token; observed GPU-to-GPU path(s): ['PHB']."
+  ],
+  "schema_version": 1,
+  "status": "comparison_complete"
+}

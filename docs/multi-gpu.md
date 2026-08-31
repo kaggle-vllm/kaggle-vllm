@@ -30,7 +30,13 @@ optional optimization unavailable != vLLM unsupported
 
 ## Performance boundary
 
-TP=2 is not guaranteed to beat TP=1. Small models can spend more time in NCCL
-collectives than they save through partitioned compute. Eager mode and disabled
-custom all-reduce are compatibility-first historical defaults, not measured
-optima. Use the controlled [benchmark methodology](benchmarking.md).
+TP=2 is not guaranteed to beat TP=1. Small-model results may be consistent with
+collective/synchronization overhead outweighing partitioned compute, but
+end-to-end throughput alone does not isolate that cause. Eager mode and
+disabled custom all-reduce are compatibility-first historical defaults, not
+universal performance recommendations. In the executed Milestone 1 OPT-125M
+control, TP=2 output throughput was 26.73% lower in graph mode and 44.78% lower
+in eager mode than TP=1. `nvidia-smi topo -m` reported `PHB` with no NVLink
+token, while NVIDIA P2P read/write topology queries reported `OK`. These
+observations do not isolate PCIe or NCCL as the sole cause. Use the controlled
+[benchmark methodology and evidence](benchmarking.md).

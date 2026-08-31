@@ -5,6 +5,17 @@ This directory contains Kaggle-specific validation material for
 under [`examples/`](../examples/) are starting points and do not claim a
 successful run until their outputs have been captured and reviewed.
 
+## Post-0.2.0 Milestone 1 evidence
+
+[`kaggle_vllm_milestone_1_tp_diagnostics.ipynb`](kaggle_vllm_milestone_1_tp_diagnostics.ipynb)
+is the executed Milestone 1 dual-T4 TP performance diagnostic notebook. It ran
+the reviewed source identity
+`7e7355d64266e864a8113c30d52c612d98100350` on a real Kaggle T4 x2 session,
+and all six planned OPT-125M and Qwen configurations completed. The notebook
+retains its real outputs; checksummed JSON, logs and topology evidence are in
+[`artifacts/kaggle-2026-09-01-milestone-1/`](../artifacts/kaggle-2026-09-01-milestone-1/).
+See the [benchmark and interpretation guide](../docs/benchmarking.md).
+
 ## v0.2.0 development-candidate Kaggle evidence
 
 The 2026-08-30 fresh-session Kaggle validation for `0.2.0.dev0` is complete.

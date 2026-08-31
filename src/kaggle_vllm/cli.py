@@ -8,6 +8,14 @@ import shlex
 from collections.abc import Sequence
 from pathlib import Path
 
+from .benchmark import (
+    BenchmarkSpec,
+    WorkloadSpec,
+    build_benchmark_plan,
+    run_offline_benchmark,
+    write_json_new,
+)
+from .benchmark_compare import compare_results, load_benchmark_result
 from .bootstrap import (
     DEFAULT_CACHE,
     DEFAULT_MANIFEST,
@@ -118,6 +126,57 @@ def build_parser() -> argparse.ArgumentParser:
         default=True,
     )
     server.add_argument("--vllm-executable", default="vllm")
+
+    benchmark = subcommands.add_parser(
+        "benchmark", help="measure one upstream vLLM offline-engine configuration"
+    )
+    benchmark.add_argument("--model", required=True)
+    benchmark.add_argument("--model-revision")
+    benchmark.add_argument(
+        "--model-representation",
+        choices=("transformers", "sharded_state"),
+        default="transformers",
+    )
+    benchmark.add_argument("--load-format")
+    benchmark.add_argument("--tensor-parallel-size", type=int, required=True)
+    benchmark.add_argument("--dtype", default="float16")
+    benchmark.add_argument("--max-model-len", type=int, default=512)
+    benchmark.add_argument("--gpu-memory-utilization", type=float, default=0.40)
+    benchmark.add_argument(
+        "--enforce-eager", action=argparse.BooleanOptionalAction, default=True
+    )
+    benchmark.add_argument(
+        "--disable-custom-all-reduce",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+    )
+    benchmark.add_argument("--max-num-batched-tokens", type=int)
+    benchmark.add_argument("--max-num-seqs", type=int)
+    benchmark.add_argument(
+        "--prompt",
+        action="append",
+        dest="prompts",
+        help="repeat for a deterministic multi-request batch",
+    )
+    benchmark.add_argument("--max-output-tokens", type=int, default=128)
+    benchmark.add_argument("--warmups", type=int, default=1)
+    benchmark.add_argument("--repeats", type=int, default=5)
+    benchmark.add_argument("--temperature", type=float, default=0.0)
+    benchmark.add_argument(
+        "--ignore-eos", action=argparse.BooleanOptionalAction, default=True
+    )
+    benchmark.add_argument("--seed", type=int, default=0)
+    benchmark.add_argument("--output", type=Path, required=True)
+    benchmark.add_argument("--dry-run", action="store_true")
+
+    compare = subcommands.add_parser(
+        "compare-benchmarks", help="compare two schema-v1 benchmark JSON files"
+    )
+    compare.add_argument("baseline", type=Path)
+    compare.add_argument("candidate", type=Path)
+    compare.add_argument("--baseline-label", default="baseline")
+    compare.add_argument("--candidate-label", default="candidate")
+    compare.add_argument("--output", type=Path)
     return parser
 
 
@@ -181,6 +240,35 @@ def _run_bootstrap(args: argparse.Namespace) -> int:
             print(f"runtime reset complete; cache preserved: {result.plan.paths.cache}")
         print(f"bootstrap complete: {result.manifest}")
     return 0
+
+
+def _benchmark_spec(args: argparse.Namespace) -> BenchmarkSpec:
+    workload_options = {
+        "max_output_tokens": args.max_output_tokens,
+        "warmup_runs": args.warmups,
+        "measurement_runs": args.repeats,
+        "temperature": args.temperature,
+        "ignore_eos": args.ignore_eos,
+        "seed": args.seed,
+    }
+    if args.prompts:
+        workload_options["prompts"] = tuple(args.prompts)
+    workload = WorkloadSpec(**workload_options)
+    return BenchmarkSpec(
+        model=args.model,
+        model_revision=args.model_revision,
+        model_representation=args.model_representation,
+        load_format=args.load_format,
+        tensor_parallel_size=args.tensor_parallel_size,
+        dtype=args.dtype,
+        max_model_len=args.max_model_len,
+        gpu_memory_utilization=args.gpu_memory_utilization,
+        enforce_eager=args.enforce_eager,
+        disable_custom_all_reduce=args.disable_custom_all_reduce,
+        max_num_batched_tokens=args.max_num_batched_tokens,
+        max_num_seqs=args.max_num_seqs,
+        workload=workload,
+    )
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -254,6 +342,26 @@ def main(argv: Sequence[str] | None = None) -> int:
                 disable_custom_all_reduce=args.disable_custom_all_reduce,
             )
             return serve(config, executable=args.vllm_executable)
+        if args.command == "benchmark":
+            specification = _benchmark_spec(args)
+            payload = (
+                build_benchmark_plan(specification, args.output)
+                if args.dry_run
+                else run_offline_benchmark(specification, args.output)
+            )
+            print(json.dumps(payload, indent=2))
+            return 0
+        if args.command == "compare-benchmarks":
+            payload = compare_results(
+                load_benchmark_result(args.baseline),
+                load_benchmark_result(args.candidate),
+                baseline_label=args.baseline_label,
+                candidate_label=args.candidate_label,
+            )
+            if args.output:
+                write_json_new(args.output, payload)
+            print(json.dumps(payload, indent=2))
+            return 0
     except (KaggleVLLMError, ValueError, OSError) as error:
         parser = build_parser()
         parser.exit(2, f"kaggle-vllm: error: {error}\n")
