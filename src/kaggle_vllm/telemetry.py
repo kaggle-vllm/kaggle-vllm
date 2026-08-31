@@ -8,7 +8,7 @@ import threading
 from collections.abc import Callable, Sequence
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
-from typing import Any, Self
+from typing import Any
 
 _ANSI_ESCAPE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
 _NVLINK = re.compile(r"^NV\d+$")
@@ -290,7 +290,7 @@ class GPUMonitor:
         while not self._stop.wait(self.interval_seconds):
             self._sample()
 
-    def __enter__(self) -> Self:
+    def __enter__(self) -> GPUMonitor:  # noqa: PYI034  # noqa: PYI034
         self._sample()
         self._thread.start()
         return self
