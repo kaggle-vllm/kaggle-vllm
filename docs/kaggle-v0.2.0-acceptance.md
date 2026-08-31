@@ -10,8 +10,13 @@ This report records fresh Kaggle dual-T4 acceptance evidence for the
 The tested source state was:
 
 - Git repository: `kaggle-vllm/kaggle-vllm`
-- Source commit: `6d10912ad73e81f5a62fcec299c87ed5b2631b4f`
+- Source commit: `7327b0b0c811a92a9c49421a4d302c18e251ab61`
 - SDK version: `0.2.0.dev0`
+
+The machine-readable acceptance record and the executed notebook both identify
+`7327b0b0…`. The separate controlled benchmark used the later source commit
+`6d10912ad73e81f5a62fcec299c87ed5b2631b4f`; that benchmark identity does not
+replace the acceptance identity.
 
 This is development-candidate evidence. It does not claim that a final
 `kaggle-vllm==0.2.0` PyPI or GitHub release already exists.

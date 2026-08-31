@@ -80,3 +80,16 @@ only the affected publication step and must be reported exactly.
 - [x] Create final GitHub `v0.1.2` from the accepted main commit
 
 The active future release process is maintained in [release.md](release.md).
+
+## 0.2.0 release preparation
+
+- [x] Record and review 2026-08-30 development-candidate dual-T4 acceptance
+- [x] Record and review the controlled OPT-125M TP=1/TP=2 benchmark
+- [x] Correct benchmark versus acceptance source provenance in human docs
+- [x] Complete final local test, package, clean-install and reproducibility checks
+- [ ] Merge the reviewed 0.2.0 release-preparation PR
+- [ ] Publish `kaggle-vllm==0.2.0` through PyPI Trusted Publishing
+- [ ] Run fresh published-package Kaggle T4x2 acceptance
+- [ ] Run the focused existing-Qwen TP=2 regression if required
+- [ ] Merge final evidence, then create immutable `v0.2.0` tag and GitHub release
+- [ ] Synchronize public Hugging Face cards with the published SDK artifacts

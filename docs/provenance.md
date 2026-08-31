@@ -38,17 +38,20 @@ commercial use requires a separate license from Alibaba Cloud.
 ## Evidence lineage
 
 The Git-safe curated 2026-08-23 evidence is under `artifacts/`. Executed
-post-publication notebooks remain under `kaggle-notebooks/`. New 0.2.0
-notebooks are output-free and explicitly pending. Historical evidence is never
-rewritten to appear newer.
+notebooks remain under `kaggle-notebooks/`. The 2026-08-30 development-candidate
+acceptance identifies source `7327b0b0…`; the separate controlled benchmark
+identifies `6d10912a…`. Output-free final-package and Qwen regression notebooks
+are future execution inputs. Historical evidence is never rewritten to appear
+newer.
 
 ## Small SDK reproducibility
 
 Wheel ZIP timestamps and build-tool versions can change bytes even when source
-is equivalent. Two sequential isolated builds with build 1.5.0, setuptools 81,
-wheel and `SOURCE_DATE_EPOCH=1787760000` produced byte-identical 0.2.0.dev0
-wheels. Their sdists differed because setuptools stamped generated archive
-directories and metadata with build time. Therefore deterministic wheels are
-demonstrated for that controlled setup; deterministic sdists and universal
-byte-for-byte reproducibility are not claimed. Published 0.1.x bytes remain
-immutable.
+is equivalent. Two independent clean builds with build 1.5.0 and
+`SOURCE_DATE_EPOCH=1787760000` produced byte-identical release-candidate wheels.
+Their extracted sdists had identical file contents but the compressed archives
+differed: setuptools stamped generated `PKG-INFO`, `setup.cfg`, egg-info and
+directory tar headers with build time, and gzip recorded that build-time mtime
+instead of the fixed epoch. Therefore deterministic wheels are demonstrated
+for this controlled setup; deterministic sdists and universal byte-for-byte
+reproducibility are not claimed. Published 0.1.x bytes remain immutable.

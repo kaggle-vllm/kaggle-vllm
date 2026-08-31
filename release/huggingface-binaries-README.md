@@ -19,6 +19,19 @@ The repository also carries exact PyPI artifacts for the lightweight
 pure-Python artifacts do not contain vLLM, CUDA, or Torch and do not install
 the native runtime implicitly.
 
+## kaggle-vllm 0.2.0 release preparation
+
+The forthcoming `kaggle-vllm` 0.2.0 SDK continues to resolve the same immutable
+native wheel documented below. No native object was rebuilt, replaced, or
+re-uploaded for the SDK release. Development-candidate acceptance on
+2026-08-30 passed on the exact dual-T4 profile; final acceptance against the
+public `kaggle-vllm==0.2.0` package remains a post-publication gate.
+
+Until PyPI publishes 0.2.0, the public installation command remains the 0.1.2
+command below. A future card update may list the exact 0.2.0 SDK wheel/sdist and
+checksums after those small artifacts exist; it must not change the native
+wheel identity or immutable revision.
+
 ## Lightweight SDK artifacts
 
 | File | SHA256 |
@@ -68,6 +81,10 @@ it does not use mutable `main` for native delivery.
 
 The differing source and wheel version strings result from `setuptools_scm`
 metadata generation; the source checkout was the v0.18.1 tag.
+
+The native runtime's generated `0.18.2.dev0+...` distribution version is
+independent of the lightweight `kaggle-vllm` SDK version. Reusing this wheel for
+SDK 0.2.0 does not make the native source upstream vLLM v0.18.2.
 
 ## Validated runtime
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -14,6 +15,7 @@ PROFILE = ROOT / "src/kaggle_vllm/profiles/kaggle-t4x2-cu128/profile.json"
 COMPAT = ROOT / "compat/kaggle-t4x2-cu128.json"
 PROVENANCE = ROOT / "artifacts/BUILD-PROVENANCE.json"
 CHECKSUMS = ROOT / "artifacts/SHA256SUMS.txt"
+INIT = ROOT / "src/kaggle_vllm/__init__.py"
 
 
 def main() -> int:
@@ -38,6 +40,13 @@ def main() -> int:
         Requirement(item).name.casefold() for item in project.get("dependencies", [])
     }
     assert not forbidden & dependencies
+    version_match = re.search(
+        r'^__version__\s*=\s*["\']([^"\']+)["\']\s*$',
+        INIT.read_text(encoding="utf-8"),
+        re.MULTILINE,
+    )
+    assert version_match is not None
+    assert version_match.group(1) == project["version"]
     print("static profile/provenance/package checks: PASS")
     return 0
 

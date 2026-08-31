@@ -31,6 +31,15 @@ TP=2 `sharded_state` generation. Generated text quality is not used as a
 correctness claim; engine creation, distributed execution, and non-null
 generation were the gates.
 
+The 2026-08-30 `0.2.0.dev0` development-candidate acceptance additionally
+verified the dependency-aware strict doctor, strict immutable delivery,
+unchanged system PyTorch, native imports, raw NCCL, OPT TP=1 and TP=2, local
+OpenAI-compatible HTTP 200 responses, and clean worker termination. Its source
+identity is `7327b0b0c811a92a9c49421a4d302c18e251ab61`. The separate controlled
+benchmark used `6d10912ad73e81f5a62fcec299c87ed5b2631b4f`; for OPT-125M it recorded
+TP=1 faster than TP=2. Final acceptance of the package published as 0.2.0 is
+still required.
+
 ## Local tests
 
 CPU tests mock PyTorch/vLLM boundaries. The real GPU profile test is marked

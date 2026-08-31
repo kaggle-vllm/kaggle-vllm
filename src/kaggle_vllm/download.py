@@ -52,7 +52,7 @@ def _download_with_https(
     destination.parent.mkdir(parents=True, exist_ok=True)
     request = Request(
         immutable_resolve_url(profile),
-        headers={"User-Agent": "kaggle-vllm/0.1 bootstrap"},
+        headers={"User-Agent": "kaggle-vllm/0.2 bootstrap"},
     )
     temporary: Path | None = None
     try:

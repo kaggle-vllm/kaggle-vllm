@@ -28,8 +28,10 @@ skipped outside the exact environment.
 
 Only a real Kaggle T4x2 run can validate native imports, Torch preservation,
 NCCL, model initialization/generation, attention selection, sharded reload,
-serving and performance. Use [next acceptance](next-kaggle-acceptance.md).
+serving and performance. The 2026-08-30 development candidate passed its
+acceptance and benchmark runs. Use [next acceptance](next-kaggle-acceptance.md)
+for the still-pending exact public `0.2.0` package.
 
-Historical passed evidence and new pending checks must be reported separately.
-A skipped local test, valid notebook JSON or successful CPU package build is
-never a GPU pass.
+Development-candidate evidence and final published-package checks are reported
+separately. A skipped local test, valid notebook JSON or successful CPU package
+build is never a GPU pass.
