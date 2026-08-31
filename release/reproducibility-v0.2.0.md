@@ -28,5 +28,9 @@ identical. Setuptools used build-time mtimes for generated `PKG-INFO`,
 mtimes `1788170452` and `1788170459` instead of the fixed epoch. No deterministic
 sdist claim is made.
 
-Both distributions passed `twine check`. The selected checksums are recorded in
-[`kaggle-vllm-sdk-SHA256SUMS.txt`](kaggle-vllm-sdk-SHA256SUMS.txt).
+Both local candidate distributions passed `twine check`. These hashes are
+reproducibility results, not published-artifact identities. After trusted
+publishing, download the exact PyPI wheel and sdist and only then append their
+verified hashes to `kaggle-vllm-sdk-SHA256SUMS.txt`; the published sdist is
+expected to differ from the local candidate because of the timestamp behavior
+above.
