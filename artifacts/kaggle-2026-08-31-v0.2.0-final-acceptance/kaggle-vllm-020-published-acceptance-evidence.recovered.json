@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "sdk_version": "0.2.0",
+  "python": "3.12.13",
+  "torch_before": {
+    "version": "2.10.0+cu128",
+    "cuda": "12.8",
+    "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "torch_after": {
+    "version": "2.10.0+cu128",
+    "cuda": "12.8",
+    "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "native_wheel": {
+    "filename": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "hf_repo_id": "waqasm86/kaggle-vllm-binaries",
+    "hf_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+    "resolved_path": "/kaggle/working/kaggle-vllm-cache/vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl"
+  },
+  "doctor_compatible": true,
+  "model_repository": "facebook/opt-125m",
+  "model_revision": "27dcfa74d334bc871f3234de431e71c6eeba5dd6",
+  "checks": {
+    "environment_identity": true,
+    "strict_bootstrap": true,
+    "sha256_verified": true,
+    "torch_preserved": true,
+    "native_imports": true,
+    "strict_doctor": true,
+    "raw_nccl": true,
+    "opt_tp1": true,
+    "opt_tp2": true,
+    "openai_models_http_200": true,
+    "openai_completions_http_200": true,
+    "clean_server_shutdown": true
+  }
+}

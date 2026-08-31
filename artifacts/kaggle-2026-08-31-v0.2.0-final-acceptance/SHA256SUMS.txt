@@ -1,0 +1,8 @@
+6c1bb4a69b4dc643df521d6a75f1edaff8ea29de0a64a4ffbaae9fe075a8d039  kaggle-notebooks/kaggle_vllm_0_2_0_post_publication_acceptance.ipynb
+2c2cdf112c6529adeada5f328779bb16fb5ad96a2ae76a0a2a46b96832f867dc  kaggle-notebooks/kaggle_vllm_0_2_0_qwen_regression.ipynb
+b6d49f044e1fd70e9fd009ec62309af93ffa4def57c38cc6b8c90149476218fb  artifacts/kaggle-2026-08-31-v0.2.0-final-acceptance/README.md
+5c923d8fbd2d7b8d45a680e38145a5381fb251a70aeffea87a0932cfe3a071b6  artifacts/kaggle-2026-08-31-v0.2.0-final-acceptance/evidence-provenance.json
+775176a35217ae286b9bae1aa1e1ee07f82f74164376151ff6c74eae48a1dc6a  artifacts/kaggle-2026-08-31-v0.2.0-final-acceptance/kaggle-vllm-020-published-acceptance-evidence.recovered.json
+c309a10c0abb4c14a7a89fe5da3f73d3e90cd8c99209d51ec7268bbda6c43c4d  artifacts/kaggle-2026-08-31-v0.2.0-final-acceptance/qwen-regression-evidence.json
+19fabbeaec943fe9f58db83967e836b86214da0dfbade7f65897c197e9192f32  artifacts/kaggle-2026-08-31-v0.2.0-final-acceptance/qwen-regression-started.json
+4ffbaf420bf20db4618902aef70af9298219efcf428329fae605a6758b38784d  artifacts/kaggle-2026-08-31-v0.2.0-final-acceptance/qwen-tp2-generation.log

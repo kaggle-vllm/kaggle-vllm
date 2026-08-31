@@ -45,20 +45,25 @@ Machine-readable evidence is retained under:
 - [`artifacts/kaggle-2026-08-30-v0.2.0-acceptance/`](../artifacts/kaggle-2026-08-30-v0.2.0-acceptance/)
 - [`artifacts/kaggle-2026-08-30-v0.2.0-benchmark/`](../artifacts/kaggle-2026-08-30-v0.2.0-benchmark/)
 
-These results validate the development candidate. They do not claim that a
-final `0.2.0` release already exists.
+These results validate the development candidate and remain distinct from the
+final public-package evidence below.
 
 ## v0.2.0 final release gates
 
 [`kaggle_vllm_0_2_0_post_publication_acceptance.ipynb`](kaggle_vllm_0_2_0_post_publication_acceptance.ipynb)
-is an output-free notebook for the fresh dual-T4 run after public PyPI
-publication. It installs exactly `kaggle-vllm[hub]==0.2.0` and must not be
-described as passed until its outputs are captured and reviewed.
+is the executed fresh dual-T4 run after public PyPI publication. It installed
+exactly `kaggle-vllm[hub]==0.2.0` and ends in
+`FINAL PUBLISHED 0.2.0 ACCEPTANCE: PASS`.
 
 [`kaggle_vllm_0_2_0_qwen_regression.ipynb`](kaggle_vllm_0_2_0_qwen_regression.ipynb)
-is an output-free focused regression for the already-published Qwen TP=2
-`sharded_state` artifact. It prefers an attached Kaggle Input or existing Hub
-cache and does not regenerate model shards.
+is the executed V3 diagnostic regression for the already-published Qwen TP=2
+`sharded_state` artifact. It used the existing real artifact without
+regenerating model shards and ends in `FINAL QWEN TP=2 REGRESSION: PASS`.
+
+The reviewed [final acceptance report](../docs/kaggle-v0.2.0-final-acceptance.md)
+and [small evidence directory](../artifacts/kaggle-2026-08-31-v0.2.0-final-acceptance/)
+record exact identities, recovery provenance, checksums, and runtime-log
+interpretation.
 
 ## v0.1.2 benchmark evidence
 

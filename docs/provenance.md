@@ -40,9 +40,9 @@ commercial use requires a separate license from Alibaba Cloud.
 The Git-safe curated 2026-08-23 evidence is under `artifacts/`. Executed
 notebooks remain under `kaggle-notebooks/`. The 2026-08-30 development-candidate
 acceptance identifies source `7327b0b0…`; the separate controlled benchmark
-identifies `6d10912a…`. Output-free final-package and Qwen regression notebooks
-are future execution inputs. Historical evidence is never rewritten to appear
-newer.
+identifies `6d10912a…`. The executed 2026-08-31 final-package and Qwen
+regression notebooks validate the exact public 0.2.0 package and existing model
+artifact. Historical evidence is never rewritten to appear newer.
 
 ## Small SDK reproducibility
 
@@ -54,4 +54,4 @@ differed: setuptools stamped generated `PKG-INFO`, `setup.cfg`, egg-info and
 directory tar headers with build time, and gzip recorded that build-time mtime
 instead of the fixed epoch. Therefore deterministic wheels are demonstrated
 for this controlled setup; deterministic sdists and universal byte-for-byte
-reproducibility are not claimed. Published 0.1.x bytes remain immutable.
+reproducibility are not claimed. Published SDK bytes remain immutable.

@@ -19,6 +19,11 @@ All notable changes are documented here.
   OpenAI-compatible HTTP endpoints and clean worker termination.
 - Record the controlled 2026-08-30 TP benchmark. For the tiny OPT-125M
   workload, TP=1 was faster than TP=2; no universal TP=2 speedup is claimed.
+- Record the successful 2026-08-31 fresh dual-T4 acceptance of the exact public
+  `kaggle-vllm==0.2.0` package.
+- Record the successful 2026-08-31 focused regression of the unchanged Qwen
+  TP=2 persistent `sharded_state` artifact, including real load, generation,
+  topology/symlink safety, and clean child-process exit.
 - Retain the unchanged immutable native artifact built from upstream vLLM
   v0.18.1 at `a26e8dc7ff2111a005144d775ecf9cebf56c45b2`; the SDK still does not
   install or replace Kaggle's Torch/CUDA stack as package dependencies.

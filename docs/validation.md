@@ -37,8 +37,15 @@ unchanged system PyTorch, native imports, raw NCCL, OPT TP=1 and TP=2, local
 OpenAI-compatible HTTP 200 responses, and clean worker termination. Its source
 identity is `7327b0b0c811a92a9c49421a4d302c18e251ab61`. The separate controlled
 benchmark used `6d10912ad73e81f5a62fcec299c87ed5b2631b4f`; for OPT-125M it recorded
-TP=1 faster than TP=2. Final acceptance of the package published as 0.2.0 is
-still required.
+TP=1 faster than TP=2.
+
+On 2026-08-31 the exact public `kaggle-vllm==0.2.0` package passed a fresh
+dual-T4 acceptance covering strict immutable delivery, unchanged system Torch,
+native imports, strict doctor, raw NCCL, OPT TP=1/TP=2, OpenAI-compatible HTTP
+200 responses, and clean server shutdown. The separate existing-Qwen TP=2
+regression passed structural/topology safety, real `sharded_state` load,
+generation, and child-process cleanup. See the
+[final acceptance report](kaggle-v0.2.0-final-acceptance.md).
 
 ## Local tests
 

@@ -1,0 +1,6 @@
+{
+  "identity": "KAGGLE-VLLM-QWEN-REGRESSION-V3",
+  "status": "PASS",
+  "evidence": "/kaggle/working/kaggle-vllm-020-qwen-regression/qwen-regression-evidence.json",
+  "qwen_log": "/kaggle/working/kaggle-vllm-020-qwen-regression/qwen-tp2-generation.log"
+}

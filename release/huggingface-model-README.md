@@ -32,8 +32,11 @@ generated.
 The public `kaggle-vllm` 0.2.0 SDK adds stricter structural inspection, symlink
 protection and topology-mismatch reporting for this existing artifact. It does
 not regenerate, fine-tune, relicense or otherwise change the model files.
-Final published-package dual-T4 acceptance and the focused Qwen regression
-remain pending.
+Final published-package dual-T4 acceptance and the focused existing-artifact
+Qwen TP=2 regression both passed on 2026-08-31. The model files remain
+unchanged.
+
+GitHub release: [kaggle-vllm v0.2.0](https://github.com/kaggle-vllm/kaggle-vllm/releases/tag/v0.2.0)
 
 > Qwen is licensed under the Qwen RESEARCH LICENSE AGREEMENT, Copyright (c)
 > Alibaba Cloud. All Rights Reserved. The included license permits
