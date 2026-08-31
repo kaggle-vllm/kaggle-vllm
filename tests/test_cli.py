@@ -140,3 +140,46 @@ def test_cli_reset_dry_run_json_is_structured_and_non_mutating(tmp_path, capsys)
         "cache": "preserve",
     }
     assert not any(path.exists() for path in (staged, overlay, cache, manifest))
+
+
+def test_cli_benchmark_dry_run_is_structured_and_non_mutating(tmp_path, capsys):
+    output = tmp_path / "benchmark.json"
+    assert (
+        main(
+            [
+                "benchmark",
+                "--model",
+                "facebook/opt-125m",
+                "--model-revision",
+                "immutable",
+                "--tensor-parallel-size",
+                "2",
+                "--max-num-batched-tokens",
+                "4096",
+                "--output",
+                str(output),
+                "--dry-run",
+            ]
+        )
+        == 0
+    )
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["status"] == "planned_not_executed"
+    assert payload["engine"]["tensor_parallel_size"] == 2
+    assert payload["engine"]["max_num_batched_tokens"] == 4096
+    assert not output.exists()
+
+
+def test_cli_parses_compare_benchmarks():
+    args = build_parser().parse_args(
+        [
+            "compare-benchmarks",
+            "baseline.json",
+            "candidate.json",
+            "--candidate-label",
+            "tp2",
+        ]
+    )
+    assert args.baseline == Path("baseline.json")
+    assert args.candidate == Path("candidate.json")
+    assert args.candidate_label == "tp2"

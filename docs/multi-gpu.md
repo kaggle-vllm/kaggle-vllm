@@ -30,7 +30,8 @@ optional optimization unavailable != vLLM unsupported
 
 ## Performance boundary
 
-TP=2 is not guaranteed to beat TP=1. Small models can spend more time in NCCL
-collectives than they save through partitioned compute. Eager mode and disabled
-custom all-reduce are compatibility-first historical defaults, not measured
-optima. Use the controlled [benchmark methodology](benchmarking.md).
+TP=2 is not guaranteed to beat TP=1. Small-model results may be consistent with
+collective/synchronization overhead outweighing partitioned compute, but
+end-to-end throughput alone does not isolate that cause. Eager mode and
+disabled custom all-reduce are compatibility-first historical defaults, not
+measured optima. Use the controlled [benchmark methodology](benchmarking.md).

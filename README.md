@@ -106,11 +106,28 @@ models/completions/chat endpoints on the exact profile. On SM75, vLLM selected
 ordinary NCCL TP=2 still succeeded.
 
 The controlled 2026-08-30 OPT-125M benchmark found TP=1 faster than TP=2 for
-this tiny model because communication overhead dominated. TP=2 remains
-validated for capacity, NCCL execution and topology compatibility, but it is
-not a universal performance improvement. Other Kaggle GPU types, other Python
-ABIs for the native wheel, multi-node operation, training and production
-readiness are not claimed.
+this tiny model. That result is consistent with communication/synchronization
+overhead outweighing useful partitioned compute, but the historical benchmark
+did not isolate one cause. TP=2 remains validated for capacity, NCCL execution
+and topology compatibility, but it is not a universal performance improvement.
+Other Kaggle GPU types, other Python ABIs for the native wheel, multi-node
+operation, training and production readiness are not claimed.
+
+The first post-0.2.0 engineering milestone adds CPU-testable, real-system TP
+performance diagnostics. Preview a run without CUDA, vLLM, downloads or output
+writes:
+
+```bash
+kaggle-vllm benchmark \
+  --model facebook/opt-125m \
+  --model-revision 27dcfa74d334bc871f3234de431e71c6eeba5dd6 \
+  --tensor-parallel-size 2 \
+  --output /kaggle/working/tp2.json \
+  --dry-run
+```
+
+See [tensor-parallel performance diagnostics](docs/benchmarking.md). The new
+Kaggle matrix has not yet been executed; no synthetic GPU result is included.
 
 ## Documentation
 

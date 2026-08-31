@@ -2,6 +2,17 @@
 
 All notable changes are documented here.
 
+## Unreleased
+
+- Add CPU-testable benchmark specifications, schema-v1 offline-engine evidence,
+  descriptive statistics, neutral result comparison, NVIDIA topology parsing,
+  and lightweight sampled GPU telemetry for dual-T4 TP characterization.
+- Add explicit `benchmark` and `compare-benchmarks` commands with a
+  side-effect-free dry run and safe new-file evidence policy.
+- Add an output-free Kaggle launcher and isolated-process matrix runner for
+  controlled OPT-125M TP=1/TP=2 comparisons and optional existing-Qwen TP=2
+  scheduler/batching characterization. No new GPU result is claimed yet.
+
 ## 0.2.0 — 2026-08-31
 
 - Add dependency-aware, machine-readable runtime diagnostics sourced from the
