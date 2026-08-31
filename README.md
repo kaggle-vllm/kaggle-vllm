@@ -13,10 +13,11 @@ It is **not** a vLLM fork, inference implementation, official Kaggle product or
 official vLLM distribution. CUDA kernels, scheduling, tensor parallelism,
 checkpoint persistence and serving are upstream vLLM capabilities.
 
-> Current public PyPI SDK: **0.1.2**. Repository release candidate: **0.2.0**.
+> Current public PyPI SDK and repository version: **0.2.0**.
 > Fresh `0.2.0.dev0` dual-T4 acceptance and controlled benchmark evidence
-> passed on 2026-08-30. Acceptance of the final package published as
-> `kaggle-vllm==0.2.0` remains a post-publication gate.
+> passed on 2026-08-30. Acceptance of the package now published as
+> `kaggle-vllm==0.2.0` remains pending; the final tag and GitHub release follow
+> that real-GPU gate.
 
 ## Validated profile
 
@@ -41,7 +42,7 @@ the source was upstream v0.18.2. See [compatibility](docs/compatibility.md) and
 Install the released lightweight SDK on Kaggle:
 
 ```bash
-python -m pip install "kaggle-vllm[hub]==0.1.2"
+python -m pip install "kaggle-vllm[hub]==0.2.0"
 kaggle-vllm bootstrap --strict --dry-run
 kaggle-vllm bootstrap --strict
 eval "$(kaggle-vllm env)"

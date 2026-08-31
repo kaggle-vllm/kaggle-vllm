@@ -7,24 +7,26 @@ Python packaging treats hyphens and underscores equivalently. The recommended
 Kaggle flow installs the optional Hub client and applies strict profile checks:
 
 ```bash
-pip install "kaggle-vllm[hub]==0.1.2"
+pip install "kaggle-vllm[hub]==0.2.0"
 kaggle-vllm bootstrap --strict
 ```
 
 The equivalent normalized project spelling is:
 
 ```bash
-pip install "kaggle_vllm[hub]==0.1.2"
+pip install "kaggle_vllm[hub]==0.2.0"
 ```
 
 The canonical distribution spelling resolves to the same normalized project:
 
 ```bash
-python -m pip install kaggle-vllm
+python -m pip install "kaggle-vllm==0.2.0"
 ```
 
-The current 0.1.2 Hugging Face SDK fallback uses the exact PyPI wheel, pinned
-to its immutable Hub commit and checksum:
+The exact public 0.2.0 PyPI files are recorded in the
+[SDK checksum manifest](../release/kaggle-vllm-sdk-SHA256SUMS.txt). The binary
+repository's latest mirrored SDK fallback remains the historical 0.1.2 wheel,
+pinned to its immutable Hub commit and checksum; use PyPI for 0.2.0:
 
 ```bash
 pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/97b741d7fc988ed557a00fc28f2e34abad09fb7d/kaggle_vllm-0.1.2-py3-none-any.whl#sha256=13f1043df4a173e74555c6a4d7a8f66b4e661d942fc0222124208f50b1e9aad2"
@@ -46,10 +48,11 @@ pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/ec7582
 kaggle-vllm bootstrap
 ```
 
-The current immutable 0.1.2 command was verified in a fresh Python 3.11 virtual
-environment. The current development package installs the SDK plus the small
-`packaging` library used for PEP 440 checks; bootstrap separately obtains the
-cp312 native wheel. It does not install vLLM, Torch or CUDA packages.
+The public 0.2.0 command was verified in a fresh Python 3.11 virtual
+environment. The base package installs the SDK plus the small `packaging`
+library used for PEP 440 checks; the `hub` extra adds the Hugging Face client.
+Bootstrap separately obtains the cp312 native wheel. Neither installation path
+installs vLLM, Torch or CUDA packages.
 
 The SDK is pure Python and supports local development on Python 3.11. The
 native artifact is a Linux x86_64 CPython 3.12 wheel. Bootstrap always rejects

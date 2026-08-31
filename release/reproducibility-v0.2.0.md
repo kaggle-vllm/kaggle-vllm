@@ -29,8 +29,32 @@ mtimes `1788170452` and `1788170459` instead of the fixed epoch. No deterministi
 sdist claim is made.
 
 Both local candidate distributions passed `twine check`. These hashes are
-reproducibility results, not published-artifact identities. After trusted
-publishing, download the exact PyPI wheel and sdist and only then append their
-verified hashes to `kaggle-vllm-sdk-SHA256SUMS.txt`; the published sdist is
-expected to differ from the local candidate because of the timestamp behavior
-above.
+reproducibility results, not published-artifact identities.
+
+## Finalization re-check
+
+A second two-directory build from merge commit
+`020fca67ff197980886c3e725c5c60a6e1478c7c`, using the same
+`SOURCE_DATE_EPOCH`, reproduced the wheel above exactly in both builds. Its two
+sdists again had identical extracted trees but differed at the archive level:
+
+- build 1: 43,095 bytes,
+  `1d8afbcdaa7554a3ba69c13bfbcc36d35b565126394afd338f75a4ae105f5fc3`
+- build 2: 43,122 bytes,
+  `aa32bb22f0b96974a8509ee603ece203f44a313e2507c26794078389a76b6c6b`
+
+This confirms the previously documented result rather than a deterministic
+sdist claim.
+
+## Exact published artifacts
+
+The files downloaded from public PyPI after trusted publishing from source
+commit `020fca67ff197980886c3e725c5c60a6e1478c7c` are:
+
+- wheel: 36,732 bytes,
+  `f3dce393c9e0bd43b9ba29a29ae14f9467857e5eea61390d41f512a52911fbbe`
+- sdist: 43,104 bytes,
+  `48ed97da07e54119939053e38f4e87900cf79316711d7b4558aed8122a66e3aa`
+
+These published hashes—not the local candidate hashes—are the release-asset
+identities recorded in `kaggle-vllm-sdk-SHA256SUMS.txt`.

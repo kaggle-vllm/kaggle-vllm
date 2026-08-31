@@ -63,10 +63,30 @@ not a new, trained, fine-tuned, normal Transformers, or topology-independent
 checkpoint. Its Qwen Research License and topology restrictions remain
 separate from this SDK's Apache-2.0 license.
 
+## Public SDK artifacts
+
+PyPI published `kaggle-vllm==0.2.0` on 2026-08-31 through GitHub OIDC trusted
+publishing from source commit
+`020fca67ff197980886c3e725c5c60a6e1478c7c`. Install the lightweight SDK with:
+
+```bash
+python -m pip install "kaggle-vllm[hub]==0.2.0"
+```
+
+- `kaggle_vllm-0.2.0-py3-none-any.whl` (36,732 bytes), SHA256
+  `f3dce393c9e0bd43b9ba29a29ae14f9467857e5eea61390d41f512a52911fbbe`
+- `kaggle_vllm-0.2.0.tar.gz` (43,104 bytes), SHA256
+  `48ed97da07e54119939053e38f4e87900cf79316711d7b4558aed8122a66e3aa`
+
+These small SDK artifacts contain neither the native CUDA runtime nor Qwen
+model files. Those remain authoritative in their separate Hugging Face
+repositories.
+
 ## Evidence boundary
 
 The accepted development SDK source commit is
 `7327b0b0c811a92a9c49421a4d302c18e251ab61`. The separate controlled benchmark
-source commit is `6d10912ad73e81f5a62fcec299c87ed5b2631b4f`. Final acceptance against the
-package published as `kaggle-vllm==0.2.0` must be recorded before this draft is
-used to create the immutable `v0.2.0` tag and GitHub release.
+source commit is `6d10912ad73e81f5a62fcec299c87ed5b2631b4f`. The package is now public, but
+final acceptance against that exact published identity must still be recorded
+before this draft is used to create the immutable `v0.2.0` tag and GitHub
+release.

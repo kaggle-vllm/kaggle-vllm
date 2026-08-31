@@ -2,7 +2,7 @@
 
 All notable changes are documented here.
 
-## 0.2.0 — unreleased
+## 0.2.0 — 2026-08-31
 
 - Add dependency-aware, machine-readable runtime diagnostics sourced from the
   native wheel metadata and validated overlay.
