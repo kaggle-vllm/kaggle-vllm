@@ -91,7 +91,7 @@ The active future release process is maintained in [release.md](release.md).
 - [x] Publish and remotely verify `kaggle-vllm==0.2.0` through PyPI Trusted
   Publishing
 - [x] Record exact public wheel/sdist sizes and SHA256 values
-- [ ] Run fresh published-package Kaggle T4x2 acceptance
-- [ ] Run the focused existing-Qwen TP=2 regression if required
+- [x] Run and review fresh published-package Kaggle T4x2 acceptance
+- [x] Run and review the focused existing-Qwen TP=2 regression
 - [ ] Merge final evidence, then create immutable `v0.2.0` tag and GitHub release
 - [x] Synchronize public Hugging Face cards with the published SDK artifacts

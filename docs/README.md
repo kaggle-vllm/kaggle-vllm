@@ -34,7 +34,8 @@ operational detail close to the feature or failure it describes.
 - [Benchmark methodology](benchmarking.md)
 - [Testing: CPU CI versus Kaggle GPU acceptance](testing.md)
 - [Historical validation record](validation.md)
-- [Next Kaggle acceptance procedure](next-kaggle-acceptance.md)
+- [Final 0.2.0 Kaggle acceptance](kaggle-v0.2.0-final-acceptance.md)
+- [Final acceptance procedure and recorded result](next-kaggle-acceptance.md)
 
 ## Operations and maintenance
 
@@ -44,6 +45,6 @@ operational detail close to the feature or failure it describes.
 - [Release process](release.md)
 - [Alpha-readiness scorecard](alpha-readiness.md)
 
-Executed historical/development-candidate notebooks and output-free final
-release-gate notebooks are indexed under
+Executed historical, development-candidate, and final release-gate notebooks
+are indexed under
 [kaggle-notebooks](../kaggle-notebooks/README.md).

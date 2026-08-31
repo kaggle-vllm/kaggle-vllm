@@ -14,10 +14,10 @@ official vLLM distribution. CUDA kernels, scheduling, tensor parallelism,
 checkpoint persistence and serving are upstream vLLM capabilities.
 
 > Current public PyPI SDK and repository version: **0.2.0**.
-> Fresh `0.2.0.dev0` dual-T4 acceptance and controlled benchmark evidence
-> passed on 2026-08-30. Acceptance of the package now published as
-> `kaggle-vllm==0.2.0` remains pending; the final tag and GitHub release follow
-> that real-GPU gate.
+> Final published-package dual-T4 acceptance: **PASS on 2026-08-31**.
+> Focused existing-Qwen TP=2 `sharded_state` regression: **PASS on
+> 2026-08-31**. The earlier `0.2.0.dev0` acceptance and controlled benchmark
+> remain separate 2026-08-30 evidence.
 
 ## Validated profile
 
@@ -139,6 +139,8 @@ python -m twine check dist/*
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). GPU acceptance is separate from CPU CI.
+The final public-package and Qwen release evidence is summarized in the
+[0.2.0 final acceptance report](docs/kaggle-v0.2.0-final-acceptance.md).
 
 ## License and attribution
 

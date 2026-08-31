@@ -82,11 +82,28 @@ These small SDK artifacts contain neither the native CUDA runtime nor Qwen
 model files. Those remain authoritative in their separate Hugging Face
 repositories.
 
-## Evidence boundary
+## Final published-package acceptance
+
+On 2026-08-31 the exact public `kaggle-vllm==0.2.0` package passed a fresh
+Kaggle GPU T4 x2 acceptance run covering exact profile identity, immutable
+bootstrap and SHA256 verification, preserved system PyTorch, native vLLM
+extension imports, strict doctor, raw NCCL, OPT TP=1 and TP=2,
+OpenAI-compatible `/v1/models` and `/v1/completions` HTTP 200 responses, and
+clean server termination.
+
+The separate focused Qwen regression used the existing immutable TP=2
+artifact at revision `08bb62d0b68d20062e9009a9769c0df53d3dae21`. It verified
+all four rank/part shards, direct structural inspection, topology-mismatch and
+symlink safety, real `sharded_state` TP=2 load, short generation, and clean
+child-process termination. The model files and license are unchanged.
+
+See the [final acceptance report](https://github.com/kaggle-vllm/kaggle-vllm/blob/v0.2.0/docs/kaggle-v0.2.0-final-acceptance.md)
+and [small evidence directory](https://github.com/kaggle-vllm/kaggle-vllm/tree/v0.2.0/artifacts/kaggle-2026-08-31-v0.2.0-final-acceptance).
+
+## Evidence identities
 
 The accepted development SDK source commit is
 `7327b0b0c811a92a9c49421a4d302c18e251ab61`. The separate controlled benchmark
-source commit is `6d10912ad73e81f5a62fcec299c87ed5b2631b4f`. The package is now public, but
-final acceptance against that exact published identity must still be recorded
-before this draft is used to create the immutable `v0.2.0` tag and GitHub
-release.
+source commit is `6d10912ad73e81f5a62fcec299c87ed5b2631b4f`. PyPI built the public package
+from `020fca67ff197980886c3e725c5c60a6e1478c7c`; the final acceptance tested
+that exact public package. These identities remain intentionally distinct.

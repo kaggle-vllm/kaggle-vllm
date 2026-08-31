@@ -24,8 +24,11 @@ the native runtime implicitly.
 The public `kaggle-vllm` 0.2.0 SDK continues to resolve the same immutable
 native wheel documented below. No native object was rebuilt, replaced, or
 re-uploaded for the SDK release. Development-candidate acceptance on
-2026-08-30 passed on the exact dual-T4 profile; final acceptance against the
-public package remains pending.
+2026-08-30 passed on the exact dual-T4 profile. Final acceptance of the exact
+public package passed on Kaggle T4 x2 on 2026-08-31. The native binary remains
+unchanged.
+
+GitHub release: [kaggle-vllm v0.2.0](https://github.com/kaggle-vllm/kaggle-vllm/releases/tag/v0.2.0)
 
 The exact PyPI artifacts are:
 

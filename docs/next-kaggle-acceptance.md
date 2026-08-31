@@ -1,11 +1,11 @@
-# Next Kaggle T4x2 acceptance
+# Final Kaggle T4x2 acceptance procedure and result
 
-The SDK is now public on PyPI. Use a fresh Kaggle notebook with two Tesla T4
-GPUs for the remaining published-package gate. The output-free
+The SDK is public on PyPI. This procedure was executed successfully on a fresh
+Kaggle notebook with two Tesla T4 GPUs on 2026-08-31. The executed
 [`kaggle_vllm_0_2_0_post_publication_acceptance.ipynb`](../kaggle-notebooks/kaggle_vllm_0_2_0_post_publication_acceptance.ipynb)
 installs exactly `kaggle-vllm[hub]==0.2.0`. The already-passed development
-candidate remains separate evidence and is not a substitute for this final
-published-package run.
+candidate remains separate evidence. See the reviewed
+[final acceptance report](kaggle-v0.2.0-final-acceptance.md).
 
 ## Required sequence
 
@@ -34,10 +34,10 @@ published-package run.
 12. Save outputs under a new dated 0.2.0 evidence name, checksum them, terminate
     all workers and confirm a clean exit.
 
-## Acceptance boundary
+## Recorded result
 
-Do not mark final 0.2.0 acceptance or the focused Qwen regression as passed
-until the executed notebooks and machine-readable evidence are reviewed. The
-2026-08-30 development-candidate acceptance/benchmark and historical 0.1.x
-evidence remain valid for their exact identities but are not a substitute for
-testing the published package.
+The exact public-package acceptance and focused Qwen regression are `PASS`.
+Their executed notebooks and small machine-readable evidence were reviewed and
+checksummed. The 2026-08-30 development-candidate acceptance/benchmark and
+historical 0.1.x evidence remain valid for their exact identities and are not
+rewritten by the final run.

@@ -1,0 +1,119 @@
+{
+  "status": "PASS",
+  "sdk_version": "0.2.0",
+  "model_repository": "waqasm86/kaggle-vllm-models",
+  "model_revision": "08bb62d0b68d20062e9009a9769c0df53d3dae21",
+  "model_path": "/kaggle/working/kaggle-vllm-020-qwen-regression/qwen2.5-3b-t4x2-sharded",
+  "native_wheel": {
+    "filename": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "hf_repo_id": "waqasm86/kaggle-vllm-binaries",
+    "hf_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+    "resolved_path": "/kaggle/working/kaggle-vllm-cache/vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl"
+  },
+  "torch_before": {
+    "version": "2.10.0+cu128",
+    "cuda": "12.8",
+    "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "torch_after": {
+    "version": "2.10.0+cu128",
+    "cuda": "12.8",
+    "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "artifact_shards": [
+    {
+      "name": "model-rank-0-part-0.safetensors",
+      "is_symlink": false,
+      "resolved_path": "/kaggle/working/kaggle-vllm-020-qwen-regression/qwen2.5-3b-t4x2-sharded/model-rank-0-part-0.safetensors",
+      "size": 2138586872
+    },
+    {
+      "name": "model-rank-0-part-1.safetensors",
+      "is_symlink": false,
+      "resolved_path": "/kaggle/working/kaggle-vllm-020-qwen-regression/qwen2.5-3b-t4x2-sharded/model-rank-0-part-1.safetensors",
+      "size": 947544384
+    },
+    {
+      "name": "model-rank-1-part-0.safetensors",
+      "is_symlink": false,
+      "resolved_path": "/kaggle/working/kaggle-vllm-020-qwen-regression/qwen2.5-3b-t4x2-sharded/model-rank-1-part-0.safetensors",
+      "size": 2138586872
+    },
+    {
+      "name": "model-rank-1-part-1.safetensors",
+      "is_symlink": false,
+      "resolved_path": "/kaggle/working/kaggle-vllm-020-qwen-regression/qwen2.5-3b-t4x2-sharded/model-rank-1-part-1.safetensors",
+      "size": 947544384
+    }
+  ],
+  "source_top_level_symlinks": [],
+  "inspection_mode": "direct-real-artifact",
+  "direct_symlink_rejection": false,
+  "inspection": {
+    "path": "/kaggle/working/kaggle-vllm-020-qwen-regression/qwen2.5-3b-t4x2-sharded",
+    "rank_count": 2,
+    "total_size": 6172262512,
+    "shards": [
+      {
+        "name": "model-rank-0-part-0.safetensors",
+        "rank": 0,
+        "part": 0,
+        "size": 2138586872
+      },
+      {
+        "name": "model-rank-0-part-1.safetensors",
+        "rank": 0,
+        "part": 1,
+        "size": 947544384
+      },
+      {
+        "name": "model-rank-1-part-0.safetensors",
+        "rank": 1,
+        "part": 0,
+        "size": 2138586872
+      },
+      {
+        "name": "model-rank-1-part-1.safetensors",
+        "rank": 1,
+        "part": 1,
+        "size": 947544384
+      }
+    ],
+    "metadata_files": [
+      ".gitattributes",
+      "LICENSE",
+      "NOTICE",
+      "README.md",
+      "SHARDED_STATE_SHA256SUMS.txt",
+      "config.json",
+      "generation_config.json",
+      "merges.txt",
+      "model.safetensors.index.json",
+      "tokenizer.json",
+      "tokenizer_config.json",
+      "vocab.json"
+    ],
+    "missing_metadata": [],
+    "topology_errors": [],
+    "warnings": [
+      "The copied Hugging Face weight index references files absent from this directory; vLLM sharded_state loading uses rank-specific files instead."
+    ],
+    "valid": true
+  },
+  "qwen_log": "/kaggle/working/kaggle-vllm-020-qwen-regression/qwen-tp2-generation.log",
+  "checks": {
+    "public_sdk_0_2_0": true,
+    "strict_bootstrap": true,
+    "native_identity": true,
+    "strict_doctor": true,
+    "torch_preserved": true,
+    "real_artifact_four_shards": true,
+    "tp2_topology": true,
+    "topology_mismatch_rejection": true,
+    "symlink_policy": true,
+    "real_tp2_sharded_state_load": true,
+    "short_generation": true,
+    "clean_child_process_exit": true
+  }
+}

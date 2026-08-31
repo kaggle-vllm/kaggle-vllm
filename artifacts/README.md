@@ -23,6 +23,11 @@ metadata, licensing, and upstream attribution.
   results, raw logs, exact benchmark harness, runtime manifest, provenance and
   SHA256 checksums.
 
+- `kaggle-2026-08-31-v0.2.0-final-acceptance/` — final acceptance of the exact
+  public `kaggle-vllm==0.2.0` package plus the focused existing-Qwen TP=2
+  regression, including reviewed JSON, preserved runtime log, recovery
+  provenance, and SHA256 checksums.
+
 Files under `artifacts/` are retained as immutable execution evidence. They are
 excluded from source-formatting and linting tools so that post-capture tooling
 does not modify their bytes or invalidate recorded checksums.

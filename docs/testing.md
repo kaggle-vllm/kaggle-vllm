@@ -29,8 +29,9 @@ skipped outside the exact environment.
 Only a real Kaggle T4x2 run can validate native imports, Torch preservation,
 NCCL, model initialization/generation, attention selection, sharded reload,
 serving and performance. The 2026-08-30 development candidate passed its
-acceptance and benchmark runs. Use [next acceptance](next-kaggle-acceptance.md)
-for the still-pending exact public `0.2.0` package.
+acceptance and benchmark runs. The exact public `0.2.0` package and focused
+existing-Qwen TP=2 regression then passed on 2026-08-31; see the
+[final acceptance report](kaggle-v0.2.0-final-acceptance.md).
 
 Development-candidate evidence and final published-package checks are reported
 separately. A skipped local test, valid notebook JSON or successful CPU package
