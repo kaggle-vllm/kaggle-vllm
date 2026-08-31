@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import pytest
@@ -60,9 +61,24 @@ def test_qwen_inspection_requires_the_validated_four_shard_structure():
         validate_qwen_inspection(inspection)
 
 
-def test_notebook_is_output_free_and_uses_working_directory():
+def test_notebook_records_executed_kaggle_evidence():
     notebook = Path("kaggle-notebooks/kaggle_vllm_milestone_1_tp_diagnostics.ipynb")
-    text = notebook.read_text(encoding="utf-8")
-    assert '"execution_count": null' in text
-    assert '"outputs": []' in text
-    assert "/kaggle/working/kaggle-vllm-tp-milestone-1" in text
+    payload = json.loads(notebook.read_text(encoding="utf-8"))
+    assert payload["nbformat"] == 4
+    assert all(cell["cell_type"] in {"code", "markdown"} for cell in payload["cells"])
+
+    code_cells = [cell for cell in payload["cells"] if cell["cell_type"] == "code"]
+    executed = [cell for cell in code_cells if cell["execution_count"] is not None]
+    errors = [
+        output
+        for cell in code_cells
+        for output in cell["outputs"]
+        if output["output_type"] == "error"
+    ]
+    rendered = json.dumps(payload)
+
+    assert len(executed) == 9
+    assert not errors
+    assert "FINAL MILESTONE 1 NOTEBOOK: PASS" in rendered
+    assert "7e7355d64266e864a8113c30d52c612d98100350" in rendered
+    assert "/kaggle/working/kaggle-vllm-tp-milestone-1" in rendered

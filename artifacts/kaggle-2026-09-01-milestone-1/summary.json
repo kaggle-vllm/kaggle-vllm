@@ -1,0 +1,23 @@
+{
+  "comparison_files": [
+    "comparison-opt125m-graph-tp1-vs-tp2.json",
+    "comparison-opt125m-eager-tp1-vs-tp2.json",
+    "comparison-qwen-tp2-batching.json"
+  ],
+  "limitations": [
+    "These are offline vLLM measurements, not serving measurements.",
+    "No throughput delta alone proves PCIe or NCCL causality.",
+    "Results apply only to the captured workload and runtime identity."
+  ],
+  "qwen_characterized": true,
+  "run_files": [
+    "opt125m-tp1-eager0.json",
+    "opt125m-tp2-eager0.json",
+    "opt125m-tp1-eager1.json",
+    "opt125m-tp2-eager1.json",
+    "qwen-tp2-baseline.json",
+    "qwen-tp2-batched-4096.json"
+  ],
+  "schema_version": 1,
+  "status": "executed"
+}

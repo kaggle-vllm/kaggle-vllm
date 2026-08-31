@@ -1,0 +1,43 @@
+{
+  "absolute": {
+    "baseline_mean_peak_memory_per_device_mib": 10733.0,
+    "baseline_output_tokens_per_second": 56.60013685924762,
+    "candidate_mean_peak_memory_per_device_mib": 10853.0,
+    "candidate_output_tokens_per_second": 54.954518637170146
+  },
+  "baseline": {
+    "label": "qwen-tp2-baseline",
+    "tensor_parallel_size": 2
+  },
+  "candidate": {
+    "label": "qwen-tp2-batched-4096",
+    "tensor_parallel_size": 2
+  },
+  "comparability": {
+    "controlled_tp_only": false,
+    "differing_non_tp_engine_fields": [
+      "max_num_batched_tokens"
+    ],
+    "same_workload": true
+  },
+  "deltas": {
+    "mean_batch_latency_percent": 2.994509392289368,
+    "mean_peak_memory_per_device_mib": 120.0,
+    "model_load_time_percent": -37.87886189107585,
+    "output_throughput_percent": -2.9074456589562185
+  },
+  "limitations": [
+    "Percentage deltas are observations for these runs, not causal attribution.",
+    "This comparison does not isolate collective communication time from compute, scheduling, graph mode, memory, or other interacting effects.",
+    "This is not a controlled TP-only comparison because workload or non-TP engine fields differ."
+  ],
+  "measurement_mode": "offline_llm_generate",
+  "observations": [
+    "qwen-tp2-batched-4096 output throughput was 2.91% lower than qwen-tp2-baseline.",
+    "qwen-tp2-batched-4096 mean batch latency was 2.99% higher than qwen-tp2-baseline.",
+    "Candidate telemetry observed non-zero utilization on GPU indices [0, 1].",
+    "Candidate nvidia-smi topology output contained no NVLink path token; observed GPU-to-GPU path(s): ['PHB']."
+  ],
+  "schema_version": 1,
+  "status": "comparison_complete"
+}

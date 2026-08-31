@@ -1,0 +1,264 @@
+{
+  "control_model": {
+    "repository": "facebook/opt-125m",
+    "revision": "27dcfa74d334bc871f3234de431e71c6eeba5dd6"
+  },
+  "expected_sdk_version": "0.2.0",
+  "matrix": [
+    {
+      "name": "opt125m-tp1-eager0",
+      "specification": {
+        "disable_custom_all_reduce": true,
+        "dtype": "float16",
+        "enforce_eager": false,
+        "gpu_memory_utilization": 0.4,
+        "load_format": null,
+        "max_model_len": 512,
+        "max_num_batched_tokens": null,
+        "max_num_seqs": null,
+        "model": "facebook/opt-125m",
+        "model_representation": "transformers",
+        "model_revision": "27dcfa74d334bc871f3234de431e71c6eeba5dd6",
+        "tensor_parallel_size": 1,
+        "workload": {
+          "ignore_eos": true,
+          "max_output_tokens": 128,
+          "measurement_runs": 5,
+          "prompts": [
+            "Explain tensor parallel inference in one paragraph.",
+            "Describe one reason to use two GPUs for model inference.",
+            "What role does NCCL play in distributed GPU applications?",
+            "Why can a small model run slower with tensor parallelism?"
+          ],
+          "seed": 0,
+          "temperature": 0.0,
+          "warmup_runs": 1
+        }
+      }
+    },
+    {
+      "name": "opt125m-tp2-eager0",
+      "specification": {
+        "disable_custom_all_reduce": true,
+        "dtype": "float16",
+        "enforce_eager": false,
+        "gpu_memory_utilization": 0.4,
+        "load_format": null,
+        "max_model_len": 512,
+        "max_num_batched_tokens": null,
+        "max_num_seqs": null,
+        "model": "facebook/opt-125m",
+        "model_representation": "transformers",
+        "model_revision": "27dcfa74d334bc871f3234de431e71c6eeba5dd6",
+        "tensor_parallel_size": 2,
+        "workload": {
+          "ignore_eos": true,
+          "max_output_tokens": 128,
+          "measurement_runs": 5,
+          "prompts": [
+            "Explain tensor parallel inference in one paragraph.",
+            "Describe one reason to use two GPUs for model inference.",
+            "What role does NCCL play in distributed GPU applications?",
+            "Why can a small model run slower with tensor parallelism?"
+          ],
+          "seed": 0,
+          "temperature": 0.0,
+          "warmup_runs": 1
+        }
+      }
+    },
+    {
+      "name": "opt125m-tp1-eager1",
+      "specification": {
+        "disable_custom_all_reduce": true,
+        "dtype": "float16",
+        "enforce_eager": true,
+        "gpu_memory_utilization": 0.4,
+        "load_format": null,
+        "max_model_len": 512,
+        "max_num_batched_tokens": null,
+        "max_num_seqs": null,
+        "model": "facebook/opt-125m",
+        "model_representation": "transformers",
+        "model_revision": "27dcfa74d334bc871f3234de431e71c6eeba5dd6",
+        "tensor_parallel_size": 1,
+        "workload": {
+          "ignore_eos": true,
+          "max_output_tokens": 128,
+          "measurement_runs": 5,
+          "prompts": [
+            "Explain tensor parallel inference in one paragraph.",
+            "Describe one reason to use two GPUs for model inference.",
+            "What role does NCCL play in distributed GPU applications?",
+            "Why can a small model run slower with tensor parallelism?"
+          ],
+          "seed": 0,
+          "temperature": 0.0,
+          "warmup_runs": 1
+        }
+      }
+    },
+    {
+      "name": "opt125m-tp2-eager1",
+      "specification": {
+        "disable_custom_all_reduce": true,
+        "dtype": "float16",
+        "enforce_eager": true,
+        "gpu_memory_utilization": 0.4,
+        "load_format": null,
+        "max_model_len": 512,
+        "max_num_batched_tokens": null,
+        "max_num_seqs": null,
+        "model": "facebook/opt-125m",
+        "model_representation": "transformers",
+        "model_revision": "27dcfa74d334bc871f3234de431e71c6eeba5dd6",
+        "tensor_parallel_size": 2,
+        "workload": {
+          "ignore_eos": true,
+          "max_output_tokens": 128,
+          "measurement_runs": 5,
+          "prompts": [
+            "Explain tensor parallel inference in one paragraph.",
+            "Describe one reason to use two GPUs for model inference.",
+            "What role does NCCL play in distributed GPU applications?",
+            "Why can a small model run slower with tensor parallelism?"
+          ],
+          "seed": 0,
+          "temperature": 0.0,
+          "warmup_runs": 1
+        }
+      }
+    },
+    {
+      "name": "qwen-tp2-baseline",
+      "specification": {
+        "disable_custom_all_reduce": true,
+        "dtype": "float16",
+        "enforce_eager": true,
+        "gpu_memory_utilization": 0.7,
+        "load_format": "sharded_state",
+        "max_model_len": 2048,
+        "max_num_batched_tokens": null,
+        "max_num_seqs": null,
+        "model": "/kaggle/working/kaggle-vllm-milestone-1-self-contained/qwen2.5-3b-t4x2-sharded",
+        "model_representation": "sharded_state",
+        "model_revision": "08bb62d0b68d20062e9009a9769c0df53d3dae21",
+        "tensor_parallel_size": 2,
+        "workload": {
+          "ignore_eos": true,
+          "max_output_tokens": 64,
+          "measurement_runs": 3,
+          "prompts": [
+            "Explain tensor parallel model sharding.",
+            "What role does NCCL play in multi-GPU inference?",
+            "Why can capacity improve without a throughput speedup?",
+            "Describe the difference between measurement and diagnosis."
+          ],
+          "seed": 0,
+          "temperature": 0.0,
+          "warmup_runs": 1
+        }
+      }
+    },
+    {
+      "name": "qwen-tp2-batched-4096",
+      "specification": {
+        "disable_custom_all_reduce": true,
+        "dtype": "float16",
+        "enforce_eager": true,
+        "gpu_memory_utilization": 0.7,
+        "load_format": "sharded_state",
+        "max_model_len": 2048,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": null,
+        "model": "/kaggle/working/kaggle-vllm-milestone-1-self-contained/qwen2.5-3b-t4x2-sharded",
+        "model_representation": "sharded_state",
+        "model_revision": "08bb62d0b68d20062e9009a9769c0df53d3dae21",
+        "tensor_parallel_size": 2,
+        "workload": {
+          "ignore_eos": true,
+          "max_output_tokens": 64,
+          "measurement_runs": 3,
+          "prompts": [
+            "Explain tensor parallel model sharding.",
+            "What role does NCCL play in multi-GPU inference?",
+            "Why can capacity improve without a throughput speedup?",
+            "Describe the difference between measurement and diagnosis."
+          ],
+          "seed": 0,
+          "temperature": 0.0,
+          "warmup_runs": 1
+        }
+      }
+    }
+  ],
+  "milestone_source_identity": "7e7355d64266e864a8113c30d52c612d98100350",
+  "native_runtime": {
+    "hf_repository": "waqasm86/kaggle-vllm-binaries",
+    "hf_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+    "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "source_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2",
+    "source_tag": "v0.18.1",
+    "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl"
+  },
+  "qwen_model": {
+    "inspection": {
+      "metadata_files": [
+        ".gitattributes",
+        "LICENSE",
+        "NOTICE",
+        "README.md",
+        "SHARDED_STATE_SHA256SUMS.txt",
+        "config.json",
+        "generation_config.json",
+        "merges.txt",
+        "model.safetensors.index.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ],
+      "missing_metadata": [],
+      "path": "/kaggle/working/kaggle-vllm-milestone-1-self-contained/qwen2.5-3b-t4x2-sharded",
+      "rank_count": 2,
+      "shards": [
+        {
+          "name": "model-rank-0-part-0.safetensors",
+          "part": 0,
+          "rank": 0,
+          "size": 2138586872
+        },
+        {
+          "name": "model-rank-0-part-1.safetensors",
+          "part": 1,
+          "rank": 0,
+          "size": 947544384
+        },
+        {
+          "name": "model-rank-1-part-0.safetensors",
+          "part": 0,
+          "rank": 1,
+          "size": 2138586872
+        },
+        {
+          "name": "model-rank-1-part-1.safetensors",
+          "part": 1,
+          "rank": 1,
+          "size": 947544384
+        }
+      ],
+      "topology_errors": [],
+      "total_size": 6172262512,
+      "valid": true,
+      "warnings": [
+        "The copied Hugging Face weight index references files absent from this directory; vLLM sharded_state loading uses rank-specific files instead."
+      ]
+    },
+    "path": "/kaggle/working/kaggle-vllm-milestone-1-self-contained/qwen2.5-3b-t4x2-sharded",
+    "repository": "waqasm86/kaggle-vllm-models",
+    "revision": "08bb62d0b68d20062e9009a9769c0df53d3dae21"
+  },
+  "schema_version": 1,
+  "started_at_utc": "2026-08-31T19:42:19.691159+00:00",
+  "status": "execution_started",
+  "telemetry_note": "nvidia-smi sampled by each run"
+}

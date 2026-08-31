@@ -126,8 +126,13 @@ kaggle-vllm benchmark \
   --dry-run
 ```
 
-See [tensor-parallel performance diagnostics](docs/benchmarking.md). The new
-Kaggle matrix has not yet been executed; no synthetic GPU result is included.
+Milestone 1 dual-T4 TP diagnostics were executed successfully on the validated
+Kaggle T4 x2 profile. On the OPT-125M control, TP=2 reduced output throughput
+by 26.73% in graph mode and 44.78% in eager mode relative to TP=1. Qwen2.5-3B
+TP=2 with `max_num_batched_tokens=4096` did not demonstrate a meaningful
+throughput improvement over baseline in the three-repeat workload. See the
+[methodology](docs/benchmarking.md) and
+[checksummed evidence](artifacts/kaggle-2026-09-01-milestone-1/).
 
 ## Documentation
 

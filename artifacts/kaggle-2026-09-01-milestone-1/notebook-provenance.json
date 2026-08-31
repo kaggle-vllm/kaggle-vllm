@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "source_identity": "7e7355d64266e864a8113c30d52c612d98100350",
+  "source_archive_url": "https://github.com/kaggle-vllm/kaggle-vllm/archive/7e7355d64266e864a8113c30d52c612d98100350.tar.gz",
+  "source_archive_sha256": "df79fc65fe66989fb91e781eb99c5ff286ef1dea2daaf441999aee9115feefe5",
+  "sdk_version": "0.2.0",
+  "native_repository": "waqasm86/kaggle-vllm-binaries",
+  "native_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+  "native_wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+  "native_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+  "qwen_repository": "waqasm86/kaggle-vllm-models",
+  "qwen_revision": "08bb62d0b68d20062e9009a9769c0df53d3dae21",
+  "qwen_resolution_method": "huggingface-snapshot-download",
+  "qwen_path": "/kaggle/working/kaggle-vllm-milestone-1-self-contained/qwen2.5-3b-t4x2-sharded",
+  "torch_before": {
+    "version": "2.10.0+cu128",
+    "cuda": "12.8",
+    "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "torch_after": {
+    "version": "2.10.0+cu128",
+    "cuda": "12.8",
+    "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  }
+}

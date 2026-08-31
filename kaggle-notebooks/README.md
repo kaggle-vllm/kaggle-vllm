@@ -5,17 +5,16 @@ This directory contains Kaggle-specific validation material for
 under [`examples/`](../examples/) are starting points and do not claim a
 successful run until their outputs have been captured and reviewed.
 
-## Post-0.2.0 Milestone 1 launcher
+## Post-0.2.0 Milestone 1 evidence
 
 [`kaggle_vllm_milestone_1_tp_diagnostics.ipynb`](kaggle_vllm_milestone_1_tp_diagnostics.ipynb)
-is an output-free launcher for reproducible offline-engine TP performance
-characterization. It requires an exact reviewed source identity, previews its
-matrix without side effects, and writes real JSON/log/topology/checksum
-evidence only under `/kaggle/working` when deliberately executed on T4 x2.
-
-It has **not** been executed as part of this source change. It contains no fake
-GPU output and does not relabel the historical 2026-08-30 numbers. See the
-[benchmark and interpretation guide](../docs/benchmarking.md).
+is the executed Milestone 1 dual-T4 TP performance diagnostic notebook. It ran
+the reviewed source identity
+`7e7355d64266e864a8113c30d52c612d98100350` on a real Kaggle T4 x2 session,
+and all six planned OPT-125M and Qwen configurations completed. The notebook
+retains its real outputs; checksummed JSON, logs and topology evidence are in
+[`artifacts/kaggle-2026-09-01-milestone-1/`](../artifacts/kaggle-2026-09-01-milestone-1/).
+See the [benchmark and interpretation guide](../docs/benchmarking.md).
 
 ## v0.2.0 development-candidate Kaggle evidence
 

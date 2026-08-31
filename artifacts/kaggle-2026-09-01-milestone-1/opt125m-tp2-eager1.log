@@ -1,0 +1,410 @@
+INFO 08-31 19:47:14 [utils.py:233] non-default args: {'dtype': 'float16', 'max_model_len': 512, 'tensor_parallel_size': 2, 'gpu_memory_utilization': 0.4, 'disable_log_stats': True, 'revision': '27dcfa74d334bc871f3234de431e71c6eeba5dd6', 'enforce_eager': True, 'disable_custom_all_reduce': True, 'model': 'facebook/opt-125m'}
+INFO 08-31 19:47:14 [model.py:533] Resolved architecture: OPTForCausalLM
+INFO 08-31 19:47:14 [model.py:1582] Using max model len 512
+INFO 08-31 19:47:14 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=8192.
+INFO 08-31 19:47:14 [vllm.py:775] Asynchronous scheduling is enabled.
+WARNING 08-31 19:47:14 [vllm.py:809] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+WARNING 08-31 19:47:14 [vllm.py:820] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+INFO 08-31 19:47:15 [vllm.py:985] Cudagraph is disabled under eager mode
+INFO 08-31 19:47:15 [compilation.py:289] Enabled custom fusions: norm_quant, act_quant
+WARNING 08-31 19:47:15 [system_utils.py:152] We must use the `spawn` multiprocessing start method. Overriding VLLM_WORKER_MULTIPROC_METHOD to 'spawn'. See https://docs.vllm.ai/en/latest/usage/troubleshooting.html#python-multiprocessing for more information. Reasons: CUDA is initialized
+(EngineCore pid=1033) INFO 08-31 19:47:33 [core.py:103] Initializing a V1 LLM engine (v0.18.2.dev0+ga26e8dc7f.d20260822) with config: model='facebook/opt-125m', speculative_config=None, tokenizer='facebook/opt-125m', skip_tokenizer_init=False, tokenizer_mode=auto, revision=27dcfa74d334bc871f3234de431e71c6eeba5dd6, tokenizer_revision=27dcfa74d334bc871f3234de431e71c6eeba5dd6, trust_remote_code=False, dtype=torch.float16, max_seq_len=512, download_dir=None, load_format=auto, tensor_parallel_size=2, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=True, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=facebook/opt-125m, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_endpoints': [8192], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
+(EngineCore pid=1033) WARNING 08-31 19:47:33 [multiproc_executor.py:997] Reducing Torch parallelism from 2 threads to 1 to avoid unnecessary CPU contention. Set OMP_NUM_THREADS in the external environment to tune this value as needed.
+(EngineCore pid=1033) INFO 08-31 19:47:33 [multiproc_executor.py:134] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=172.19.2.2 (local), world_size=2, local_world_size=2
+(Worker pid=1057) INFO 08-31 19:47:48 [parallel_state.py:1395] world_size=2 rank=0 local_rank=0 distributed_init_method=tcp://127.0.0.1:52311 backend=nccl
+(Worker pid=1058) INFO 08-31 19:47:48 [parallel_state.py:1395] world_size=2 rank=1 local_rank=1 distributed_init_method=tcp://127.0.0.1:52311 backend=nccl
+(Worker pid=1057) INFO 08-31 19:47:48 [pynccl.py:111] vLLM is using nccl==2.27.5
+(Worker pid=1057) WARNING 08-31 19:47:49 [symm_mem.py:67] SymmMemCommunicator: Device capability 7.5 not supported, communicator is not available.
+(Worker pid=1058) WARNING 08-31 19:47:49 [symm_mem.py:67] SymmMemCommunicator: Device capability 7.5 not supported, communicator is not available.
+(Worker pid=1058) INFO 08-31 19:47:49 [parallel_state.py:1717] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 1, EP rank N/A, EPLB rank N/A
+(Worker pid=1057) INFO 08-31 19:47:49 [parallel_state.py:1717] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(Worker_TP0 pid=1057) INFO 08-31 19:47:49 [gpu_model_runner.py:4481] Starting to load model facebook/opt-125m...
+(Worker_TP0 pid=1057) ERROR 08-31 19:47:50 [fa_utils.py:145] Cannot use FA version 2 is not supported due to FA2 is only supported on devices with compute capability >= 8
+(Worker_TP0 pid=1057) INFO 08-31 19:47:50 [cuda.py:317] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].
+(Worker_TP1 pid=1058) ERROR 08-31 19:47:50 [fa_utils.py:145] Cannot use FA version 2 is not supported due to FA2 is only supported on devices with compute capability >= 8
+(Worker_TP0 pid=1057) INFO 08-31 19:47:51 [default_loader.py:384] Loading weights took 0.30 seconds
+(Worker_TP0 pid=1057) INFO 08-31 19:47:52 [gpu_model_runner.py:4566] Model loading took 0.12 GiB memory and 0.784791 seconds
+(Worker_TP0 pid=1057) INFO 08-31 19:47:56 [gpu_worker.py:456] Available KV cache memory: 5.48 GiB
+(EngineCore pid=1033) INFO 08-31 19:47:56 [kv_cache_utils.py:1316] GPU KV cache size: 319,072 tokens
+(EngineCore pid=1033) INFO 08-31 19:47:56 [kv_cache_utils.py:1321] Maximum concurrency for 512 tokens per request: 623.19x
+(EngineCore pid=1033) INFO 08-31 19:47:57 [core.py:281] init engine (profile, create kv cache, warmup model) took 5.08 seconds
+(EngineCore pid=1033) INFO 08-31 19:47:59 [vllm.py:775] Asynchronous scheduling is enabled.
+(EngineCore pid=1033) WARNING 08-31 19:47:59 [vllm.py:809] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(EngineCore pid=1033) WARNING 08-31 19:47:59 [vllm.py:820] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore pid=1033) INFO 08-31 19:47:59 [vllm.py:985] Cudagraph is disabled under eager mode
+(EngineCore pid=1033) INFO 08-31 19:47:59 [compilation.py:289] Enabled custom fusions: norm_quant, act_quant
+INFO 08-31 19:47:59 [llm.py:391] Supported tasks: ['generate']
+(EngineCore pid=1033) INFO 08-31 19:48:18 [core.py:1201] Shutdown initiated (timeout=0)
+(EngineCore pid=1033) INFO 08-31 19:48:18 [core.py:1224] Shutdown complete
+(Worker_TP0 pid=1057) INFO 08-31 19:48:18 [multiproc_executor.py:759] Parent process exited, terminating worker queues
+(Worker_TP0 pid=1057) INFO 08-31 19:48:18 [multiproc_executor.py:854] WorkerProc shutting down.
+(Worker_TP1 pid=1058) INFO 08-31 19:48:18 [multiproc_executor.py:759] Parent process exited, terminating worker queues
+(Worker_TP1 pid=1058) INFO 08-31 19:48:18 [multiproc_executor.py:854] WorkerProc shutting down.
+{
+  "schema_version": 1,
+  "status": "executed",
+  "identity": {
+    "captured_at_utc": "2026-08-31T19:47:13.984784+00:00",
+    "kaggle_vllm_version": "0.2.0",
+    "vllm_distribution_version": "0.18.2.dev0+ga26e8dc7f.d20260822.cu128",
+    "source_git_commit": null,
+    "python": "3.12.13",
+    "os": "Linux",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "glibc": "2.35",
+    "measurement_mode": "offline_llm_generate",
+    "native_runtime": {
+      "source_tag": "v0.18.1",
+      "source_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2",
+      "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+      "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+      "hf_repository": "waqasm86/kaggle-vllm-binaries",
+      "hf_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6"
+    }
+  },
+  "hardware": {
+    "is_kaggle": true,
+    "python": "3.12.13",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "torch": "2.10.0+cu128",
+    "torch_path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+    "torch_cuda": "12.8",
+    "cuda_available": true,
+    "gpus": [
+      {
+        "index": 0,
+        "name": "Tesla T4",
+        "capability": [
+          7,
+          5
+        ],
+        "total_memory": 15636037632
+      },
+      {
+        "index": 1,
+        "name": "Tesla T4",
+        "capability": [
+          7,
+          5
+        ],
+        "total_memory": 15636037632
+      }
+    ],
+    "nccl": "2.27.5",
+    "nvcc": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "cuda_home": "/usr/local/cuda",
+    "cuda_driver": "/usr/local/nvidia/lib64/libcuda.so",
+    "cmake_library_path": null,
+    "driver_version": "580.159.04",
+    "driver_reported_cuda_max": "13.0",
+    "gpu_count": 2,
+    "cuda_toolkit": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0"
+  },
+  "topology": {
+    "matrix": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-m"
+      ],
+      "status": "ok",
+      "returncode": 0,
+      "stdout": "\u001b[4mGPU0\tGPU1\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tPHB\t0-3\t0\t\tN/A\nGPU1\tPHB\t X \t0-3\t0\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks",
+      "stderr": ""
+    },
+    "parsed_matrix": {
+      "gpu_labels": [
+        "GPU0",
+        "GPU1"
+      ],
+      "links": [
+        {
+          "gpu_a": "GPU0",
+          "gpu_b": "GPU1",
+          "path": "PHB"
+        }
+      ],
+      "nvlink_observed": false
+    },
+    "peer_access_read": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "r"
+      ],
+      "status": "ok",
+      "returncode": 0,
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown",
+      "stderr": ""
+    },
+    "peer_access_write": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "w"
+      ],
+      "status": "ok",
+      "returncode": 0,
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown",
+      "stderr": ""
+    },
+    "interpretation": "observed nvidia-smi output only; no DMA or causal performance claim"
+  },
+  "engine": {
+    "model": "facebook/opt-125m",
+    "tensor_parallel_size": 2,
+    "model_revision": "27dcfa74d334bc871f3234de431e71c6eeba5dd6",
+    "model_representation": "transformers",
+    "load_format": null,
+    "dtype": "float16",
+    "max_model_len": 512,
+    "gpu_memory_utilization": 0.4,
+    "enforce_eager": true,
+    "disable_custom_all_reduce": true,
+    "max_num_batched_tokens": null,
+    "max_num_seqs": null,
+    "model_revision_applied_to_engine": true,
+    "expected_attention_backend_for_profile": "TRITON_ATTN",
+    "observed_attention_backend": "not_measured",
+    "model_inspection": null
+  },
+  "workload": {
+    "prompts": [
+      "Explain tensor parallel inference in one paragraph.",
+      "Describe one reason to use two GPUs for model inference.",
+      "What role does NCCL play in distributed GPU applications?",
+      "Why can a small model run slower with tensor parallelism?"
+    ],
+    "max_output_tokens": 128,
+    "warmup_runs": 1,
+    "measurement_runs": 5,
+    "temperature": 0.0,
+    "ignore_eos": true,
+    "seed": 0,
+    "request_count_per_trial": 4
+  },
+  "measurements": {
+    "model_load_wall_seconds": 45.23334248800006,
+    "warmup_runs_excluded": 1,
+    "trials": [
+      {
+        "index": 0,
+        "requests_completed": 4,
+        "input_tokens": 51,
+        "output_tokens": 512,
+        "wall_duration_seconds": 2.9340215580000404,
+        "aggregate_input_tokens_per_second": 17.382285369015445,
+        "aggregate_output_tokens_per_second": 174.50451193991975,
+        "request_completion_wall_seconds": [
+          2.9340215580000404,
+          2.9340215580000404,
+          2.9340215580000404,
+          2.9340215580000404
+        ]
+      },
+      {
+        "index": 1,
+        "requests_completed": 4,
+        "input_tokens": 51,
+        "output_tokens": 512,
+        "wall_duration_seconds": 2.9905280749999292,
+        "aggregate_input_tokens_per_second": 17.053844244549087,
+        "aggregate_output_tokens_per_second": 171.20722065115945,
+        "request_completion_wall_seconds": [
+          2.9905280749999292,
+          2.9905280749999292,
+          2.9905280749999292,
+          2.9905280749999292
+        ]
+      },
+      {
+        "index": 2,
+        "requests_completed": 4,
+        "input_tokens": 51,
+        "output_tokens": 512,
+        "wall_duration_seconds": 3.00222561999999,
+        "aggregate_input_tokens_per_second": 16.987397502790003,
+        "aggregate_output_tokens_per_second": 170.54014747898984,
+        "request_completion_wall_seconds": [
+          3.00222561999999,
+          3.00222561999999,
+          3.00222561999999,
+          3.00222561999999
+        ]
+      },
+      {
+        "index": 3,
+        "requests_completed": 4,
+        "input_tokens": 51,
+        "output_tokens": 512,
+        "wall_duration_seconds": 2.956177248999893,
+        "aggregate_input_tokens_per_second": 17.252010182154624,
+        "aggregate_output_tokens_per_second": 173.19665124045426,
+        "request_completion_wall_seconds": [
+          2.956177248999893,
+          2.956177248999893,
+          2.956177248999893,
+          2.956177248999893
+        ]
+      },
+      {
+        "index": 4,
+        "requests_completed": 4,
+        "input_tokens": 51,
+        "output_tokens": 512,
+        "wall_duration_seconds": 2.973174398000083,
+        "aggregate_input_tokens_per_second": 17.153383277585515,
+        "aggregate_output_tokens_per_second": 172.20651447301535,
+        "request_completion_wall_seconds": [
+          2.973174398000083,
+          2.973174398000083,
+          2.973174398000083,
+          2.973174398000083
+        ]
+      }
+    ],
+    "aggregate": {
+      "trial_wall_duration_seconds": {
+        "count": 5,
+        "mean": 2.971225379999987,
+        "median": 2.973174398000083,
+        "sample_standard_deviation": 0.027147643560183038,
+        "min": 2.9340215580000404,
+        "max": 3.00222561999999
+      },
+      "trial_input_tokens_per_second": {
+        "count": 5,
+        "mean": 17.165784115218933,
+        "median": 17.153383277585515,
+        "sample_standard_deviation": 0.15717333300223174,
+        "min": 16.987397502790003,
+        "max": 17.382285369015445
+      },
+      "trial_output_tokens_per_second": {
+        "count": 5,
+        "mean": 172.33100915670772,
+        "median": 172.20651447301535,
+        "sample_standard_deviation": 1.5778969901400484,
+        "min": 170.54014747898984,
+        "max": 174.50451193991975
+      },
+      "request_completion_wall_seconds": {
+        "count": 20,
+        "mean": 2.971225379999987,
+        "median": 2.973174398000083,
+        "sample_standard_deviation": 0.02491238628086329,
+        "min": 2.9340215580000404,
+        "max": 3.00222561999999
+      },
+      "total_wall_duration_seconds": 14.856126899999936,
+      "requests_completed": 20,
+      "input_tokens": 255,
+      "output_tokens": 2560,
+      "aggregate_input_tokens_per_second": 17.164635285930487,
+      "aggregate_output_tokens_per_second": 172.3194758116943
+    }
+  },
+  "gpu_telemetry": {
+    "source": "nvidia-smi",
+    "sampling_interval_seconds": 0.25,
+    "summaries": [
+      {
+        "index": 0,
+        "sample_count": 14,
+        "first_sample_at": "2026-08-31T19:47:59.336606+00:00",
+        "last_sample_at": "2026-08-31T19:48:03.207412+00:00",
+        "first_memory_used_mib": 6235.0,
+        "last_memory_used_mib": 6235.0,
+        "peak_memory_used_mib": 6235.0,
+        "mean_utilization_percent": 13.5,
+        "peak_utilization_percent": 86.0,
+        "peak_temperature_c": 54.0,
+        "peak_power_draw_w": 32.07,
+        "peak_sm_clock_mhz": 1275.0,
+        "peak_memory_clock_mhz": 5000.0
+      },
+      {
+        "index": 1,
+        "sample_count": 14,
+        "first_sample_at": "2026-08-31T19:47:59.336606+00:00",
+        "last_sample_at": "2026-08-31T19:48:03.207412+00:00",
+        "first_memory_used_mib": 6235.0,
+        "last_memory_used_mib": 6235.0,
+        "peak_memory_used_mib": 6235.0,
+        "mean_utilization_percent": 71.35714285714286,
+        "peak_utilization_percent": 100.0,
+        "peak_temperature_c": 54.0,
+        "peak_power_draw_w": 44.06,
+        "peak_sm_clock_mhz": 1590.0,
+        "peak_memory_clock_mhz": 5000.0
+      }
+    ],
+    "capture_failures": [],
+    "raw_samples_retained": false
+  },
+  "limitations": [
+    "Metrics describe offline LLM.generate batches, not HTTP serving.",
+    "Per-request completion wall time is the containing batch duration; individual completion timestamps are not exposed by this harness.",
+    "Sampled nvidia-smi telemetry can miss short-lived peaks.",
+    "Throughput differences alone do not isolate NCCL or topology causality.",
+    "The expected attention backend is profile metadata; runtime logs remain the evidence for the backend actually selected."
+  ]
+}
+(Worker_TP0 pid=1057) 
+Loading pt checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+(Worker_TP0 pid=1057) 
+Loading pt checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.37it/s]
+(Worker_TP0 pid=1057) 
+Loading pt checkpoint shards: 100% Completed | 1/1 [00:00<00:00,  3.36it/s]
+(Worker_TP0 pid=1057) 
+
+Rendering prompts:   0%|          | 0/4 [00:00<?, ?it/s]
+Rendering prompts: 100%|██████████| 4/4 [00:00<00:00, 73.35it/s]
+
+Processed prompts:   0%|          | 0/4 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  25%|██▌       | 1/4 [00:03<00:11,  3.69s/it, est. speed input: 2.98 toks/s, output: 34.71 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:03<00:00,  3.69s/it, est. speed input: 13.58 toks/s, output: 136.28 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:03<00:00,  1.06it/s, est. speed input: 13.58 toks/s, output: 136.28 toks/s]
+
+Rendering prompts:   0%|          | 0/4 [00:00<?, ?it/s]
+Rendering prompts: 100%|██████████| 4/4 [00:00<00:00, 1768.44it/s]
+
+Processed prompts:   0%|          | 0/4 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  25%|██▌       | 1/4 [00:02<00:08,  2.90s/it, est. speed input: 3.79 toks/s, output: 44.10 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  2.90s/it, est. speed input: 17.40 toks/s, output: 174.71 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  1.36it/s, est. speed input: 17.40 toks/s, output: 174.71 toks/s]
+
+Rendering prompts:   0%|          | 0/4 [00:00<?, ?it/s]
+Rendering prompts: 100%|██████████| 4/4 [00:00<00:00, 1321.46it/s]
+
+Processed prompts:   0%|          | 0/4 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  25%|██▌       | 1/4 [00:02<00:08,  2.93s/it, est. speed input: 3.75 toks/s, output: 43.63 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  2.93s/it, est. speed input: 17.09 toks/s, output: 171.54 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  1.34it/s, est. speed input: 17.09 toks/s, output: 171.54 toks/s]
+
+Rendering prompts:   0%|          | 0/4 [00:00<?, ?it/s]
+Rendering prompts: 100%|██████████| 4/4 [00:00<00:00, 1109.82it/s]
+
+Processed prompts:   0%|          | 0/4 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  25%|██▌       | 1/4 [00:02<00:08,  2.95s/it, est. speed input: 3.73 toks/s, output: 43.42 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  2.95s/it, est. speed input: 17.01 toks/s, output: 170.80 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  1.33it/s, est. speed input: 17.01 toks/s, output: 170.80 toks/s]
+
+Rendering prompts:   0%|          | 0/4 [00:00<?, ?it/s]
+Rendering prompts: 100%|██████████| 4/4 [00:00<00:00, 1522.71it/s]
+
+Processed prompts:   0%|          | 0/4 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  25%|██▌       | 1/4 [00:02<00:08,  2.91s/it, est. speed input: 3.79 toks/s, output: 44.05 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  2.91s/it, est. speed input: 17.27 toks/s, output: 173.40 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  1.35it/s, est. speed input: 17.27 toks/s, output: 173.40 toks/s]
+
+Rendering prompts:   0%|          | 0/4 [00:00<?, ?it/s]
+Rendering prompts: 100%|██████████| 4/4 [00:00<00:00, 1339.07it/s]
+
+Processed prompts:   0%|          | 0/4 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]
+Processed prompts:  25%|██▌       | 1/4 [00:02<00:08,  2.92s/it, est. speed input: 3.76 toks/s, output: 43.80 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  2.92s/it, est. speed input: 17.18 toks/s, output: 172.48 toks/s]
+Processed prompts: 100%|██████████| 4/4 [00:02<00:00,  1.35it/s, est. speed input: 17.18 toks/s, output: 172.48 toks/s]

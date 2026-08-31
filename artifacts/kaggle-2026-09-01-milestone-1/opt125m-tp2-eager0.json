@@ -1,0 +1,313 @@
+{
+  "engine": {
+    "disable_custom_all_reduce": true,
+    "dtype": "float16",
+    "enforce_eager": false,
+    "expected_attention_backend_for_profile": "TRITON_ATTN",
+    "gpu_memory_utilization": 0.4,
+    "load_format": null,
+    "max_model_len": 512,
+    "max_num_batched_tokens": null,
+    "max_num_seqs": null,
+    "model": "facebook/opt-125m",
+    "model_inspection": null,
+    "model_representation": "transformers",
+    "model_revision": "27dcfa74d334bc871f3234de431e71c6eeba5dd6",
+    "model_revision_applied_to_engine": true,
+    "observed_attention_backend": "not_measured",
+    "tensor_parallel_size": 2
+  },
+  "gpu_telemetry": {
+    "capture_failures": [],
+    "raw_samples_retained": false,
+    "sampling_interval_seconds": 0.25,
+    "source": "nvidia-smi",
+    "summaries": [
+      {
+        "first_memory_used_mib": 6717.0,
+        "first_sample_at": "2026-08-31T19:45:42.126798+00:00",
+        "index": 0,
+        "last_memory_used_mib": 6717.0,
+        "last_sample_at": "2026-08-31T19:45:43.684033+00:00",
+        "mean_utilization_percent": 22.833333333333332,
+        "peak_memory_clock_mhz": 5000.0,
+        "peak_memory_used_mib": 6717.0,
+        "peak_power_draw_w": 49.59,
+        "peak_sm_clock_mhz": 1515.0,
+        "peak_temperature_c": 54.0,
+        "peak_utilization_percent": 92.0,
+        "sample_count": 6
+      },
+      {
+        "first_memory_used_mib": 6717.0,
+        "first_sample_at": "2026-08-31T19:45:42.126798+00:00",
+        "index": 1,
+        "last_memory_used_mib": 6717.0,
+        "last_sample_at": "2026-08-31T19:45:43.684033+00:00",
+        "mean_utilization_percent": 33.833333333333336,
+        "peak_memory_clock_mhz": 5000.0,
+        "peak_memory_used_mib": 6717.0,
+        "peak_power_draw_w": 54.07,
+        "peak_sm_clock_mhz": 1590.0,
+        "peak_temperature_c": 53.0,
+        "peak_utilization_percent": 97.0,
+        "sample_count": 6
+      }
+    ]
+  },
+  "hardware": {
+    "cmake_library_path": null,
+    "cuda_available": true,
+    "cuda_driver": "/usr/local/nvidia/lib64/libcuda.so",
+    "cuda_home": "/usr/local/cuda",
+    "cuda_toolkit": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "driver_reported_cuda_max": "13.0",
+    "driver_version": "580.159.04",
+    "gpu_count": 2,
+    "gpus": [
+      {
+        "capability": [
+          7,
+          5
+        ],
+        "index": 0,
+        "name": "Tesla T4",
+        "total_memory": 15636037632
+      },
+      {
+        "capability": [
+          7,
+          5
+        ],
+        "index": 1,
+        "name": "Tesla T4",
+        "total_memory": 15636037632
+      }
+    ],
+    "is_kaggle": true,
+    "nccl": "2.27.5",
+    "nvcc": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "torch_path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "identity": {
+    "captured_at_utc": "2026-08-31T19:44:32.159251+00:00",
+    "glibc": "2.35",
+    "kaggle_vllm_version": "0.2.0",
+    "measurement_mode": "offline_llm_generate",
+    "native_runtime": {
+      "hf_repository": "waqasm86/kaggle-vllm-binaries",
+      "hf_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+      "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+      "source_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2",
+      "source_tag": "v0.18.1",
+      "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl"
+    },
+    "os": "Linux",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "source_git_commit": null,
+    "vllm_distribution_version": "0.18.2.dev0+ga26e8dc7f.d20260822.cu128"
+  },
+  "limitations": [
+    "Metrics describe offline LLM.generate batches, not HTTP serving.",
+    "Per-request completion wall time is the containing batch duration; individual completion timestamps are not exposed by this harness.",
+    "Sampled nvidia-smi telemetry can miss short-lived peaks.",
+    "Throughput differences alone do not isolate NCCL or topology causality.",
+    "The expected attention backend is profile metadata; runtime logs remain the evidence for the backend actually selected."
+  ],
+  "measurements": {
+    "aggregate": {
+      "aggregate_input_tokens_per_second": 140.21033031928093,
+      "aggregate_output_tokens_per_second": 1407.6017475190556,
+      "input_tokens": 255,
+      "output_tokens": 2560,
+      "request_completion_wall_seconds": {
+        "count": 20,
+        "max": 0.38071651099994597,
+        "mean": 0.36373924720001016,
+        "median": 0.36066118300004746,
+        "min": 0.35361391700007516,
+        "sample_standard_deviation": 0.009772354360942512
+      },
+      "requests_completed": 20,
+      "total_wall_duration_seconds": 1.8186962360000507,
+      "trial_input_tokens_per_second": {
+        "count": 5,
+        "max": 144.22509281496735,
+        "mean": 140.30455326267128,
+        "median": 141.40695590185896,
+        "min": 133.95794121470934,
+        "sample_standard_deviation": 4.023812099311948
+      },
+      "trial_output_tokens_per_second": {
+        "count": 5,
+        "max": 1447.9068141424173,
+        "mean": 1408.547671970347,
+        "median": 1419.6149298382704,
+        "min": 1344.8326647437486,
+        "sample_standard_deviation": 40.39591754603365
+      },
+      "trial_wall_duration_seconds": {
+        "count": 5,
+        "max": 0.38071651099994597,
+        "mean": 0.36373924720001016,
+        "median": 0.36066118300004746,
+        "min": 0.35361391700007516,
+        "sample_standard_deviation": 0.010649176274954352
+      }
+    },
+    "model_load_wall_seconds": 69.85203764799996,
+    "trials": [
+      {
+        "aggregate_input_tokens_per_second": 133.95794121470934,
+        "aggregate_output_tokens_per_second": 1344.8326647437486,
+        "index": 0,
+        "input_tokens": 51,
+        "output_tokens": 512,
+        "request_completion_wall_seconds": [
+          0.38071651099994597,
+          0.38071651099994597,
+          0.38071651099994597,
+          0.38071651099994597
+        ],
+        "requests_completed": 4,
+        "wall_duration_seconds": 0.38071651099994597
+      },
+      {
+        "aggregate_input_tokens_per_second": 139.09251548305897,
+        "aggregate_output_tokens_per_second": 1396.3797632809058,
+        "index": 1,
+        "input_tokens": 51,
+        "output_tokens": 512,
+        "request_completion_wall_seconds": [
+          0.3666624319998846,
+          0.3666624319998846,
+          0.3666624319998846,
+          0.3666624319998846
+        ],
+        "requests_completed": 4,
+        "wall_duration_seconds": 0.3666624319998846
+      },
+      {
+        "aggregate_input_tokens_per_second": 142.8402608987618,
+        "aggregate_output_tokens_per_second": 1434.004187846393,
+        "index": 2,
+        "input_tokens": 51,
+        "output_tokens": 512,
+        "request_completion_wall_seconds": [
+          0.35704219300009754,
+          0.35704219300009754,
+          0.35704219300009754,
+          0.35704219300009754
+        ],
+        "requests_completed": 4,
+        "wall_duration_seconds": 0.35704219300009754
+      },
+      {
+        "aggregate_input_tokens_per_second": 144.22509281496735,
+        "aggregate_output_tokens_per_second": 1447.9068141424173,
+        "index": 3,
+        "input_tokens": 51,
+        "output_tokens": 512,
+        "request_completion_wall_seconds": [
+          0.35361391700007516,
+          0.35361391700007516,
+          0.35361391700007516,
+          0.35361391700007516
+        ],
+        "requests_completed": 4,
+        "wall_duration_seconds": 0.35361391700007516
+      },
+      {
+        "aggregate_input_tokens_per_second": 141.40695590185896,
+        "aggregate_output_tokens_per_second": 1419.6149298382704,
+        "index": 4,
+        "input_tokens": 51,
+        "output_tokens": 512,
+        "request_completion_wall_seconds": [
+          0.36066118300004746,
+          0.36066118300004746,
+          0.36066118300004746,
+          0.36066118300004746
+        ],
+        "requests_completed": 4,
+        "wall_duration_seconds": 0.36066118300004746
+      }
+    ],
+    "warmup_runs_excluded": 1
+  },
+  "schema_version": 1,
+  "status": "executed",
+  "topology": {
+    "interpretation": "observed nvidia-smi output only; no DMA or causal performance claim",
+    "matrix": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-m"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tPHB\t0-3\t0\t\tN/A\nGPU1\tPHB\t X \t0-3\t0\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks"
+    },
+    "parsed_matrix": {
+      "gpu_labels": [
+        "GPU0",
+        "GPU1"
+      ],
+      "links": [
+        {
+          "gpu_a": "GPU0",
+          "gpu_b": "GPU1",
+          "path": "PHB"
+        }
+      ],
+      "nvlink_observed": false
+    },
+    "peer_access_read": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "r"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    },
+    "peer_access_write": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "w"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    }
+  },
+  "workload": {
+    "ignore_eos": true,
+    "max_output_tokens": 128,
+    "measurement_runs": 5,
+    "prompts": [
+      "Explain tensor parallel inference in one paragraph.",
+      "Describe one reason to use two GPUs for model inference.",
+      "What role does NCCL play in distributed GPU applications?",
+      "Why can a small model run slower with tensor parallelism?"
+    ],
+    "request_count_per_trial": 4,
+    "seed": 0,
+    "temperature": 0.0,
+    "warmup_runs": 1
+  }
+}
