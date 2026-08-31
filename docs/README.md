@@ -44,5 +44,6 @@ operational detail close to the feature or failure it describes.
 - [Release process](release.md)
 - [Alpha-readiness scorecard](alpha-readiness.md)
 
-Executed historical notebooks and new pending notebooks are indexed under
+Executed historical/development-candidate notebooks and output-free final
+release-gate notebooks are indexed under
 [kaggle-notebooks](../kaggle-notebooks/README.md).

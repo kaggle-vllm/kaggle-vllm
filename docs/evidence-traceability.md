@@ -12,7 +12,7 @@ are under `artifacts/kaggle-2026-08-23/`.
 | Native wheel SHA256 and immutable revision | local `sha256sum`, `KAGGLE-VLLM-DOWNLOAD-SHA256SUMS.txt`, public HF revision | packaged profile, [provenance](provenance.md) | Independently verified |
 | Source is vLLM v0.18.1 at `a26e8dc…`; wheel has generated 0.18.2.dev0 version | upstream Git tag object, `vllm-source-identity.txt`, wheel `METADATA` | [native runtime](native-runtime.md) | Verified; identities distinguished |
 | ELF x86-64/cp312 structure and SM75 target | wheel `WHEEL`/`RECORD`, `readelf`, `cuobjdump`, evidence `vllm-wheel-cuda-architectures.txt` | [native runtime](native-runtime.md) | Structurally verified |
-| Native modules import from staged runtime | `vllm-native-imports.log`, executed v0.1.1/v0.1.2 notebooks | [validation](validation.md) | Historically validated |
+| Native modules import from staged runtime | `vllm-native-imports.log`, executed v0.1.1/v0.1.2 notebooks, 0.2 acceptance JSON | [0.2 acceptance](kaggle-v0.2.0-acceptance.md), [validation](validation.md) | Passed for 0.2 development candidate `7327b0b…` |
 | Raw two-rank NCCL works | `kaggle-dual-t4-nccl-smoke.log` | [multi-GPU](multi-gpu.md) | Historically validated |
 | OPT-125M single T4 and TP=2 generate | single/dual scripts and recovery logs, evidence `result.json` | [validation](validation.md) | Historically functional; not benchmarked |
 | SM75 selects `TRITON_ATTN`; FA2/SymmMem limitations are non-fatal | OPT/Qwen/server logs | [multi-GPU](multi-gpu.md), [troubleshooting](troubleshooting.md) | Observed for exact profile |
@@ -20,8 +20,10 @@ are under `artifacts/kaggle-2026-08-23/`.
 | Qwen archive hash and license boundary | local archive SHA256, archive `LICENSE`, public Qwen license | [provenance](provenance.md) | Verified; historical archive lacks later NOTICE |
 | Local OpenAI models/completion/chat endpoints return success | recorded server logs and response JSON | [OpenAI serving](openai-serving.md) | Historically functional only |
 | Manifest-owned reset preserves cache and re-bootstraps | executed v0.1.2 notebook | [v0.1.2 acceptance](kaggle-v0.1.2-reset-acceptance.md) | Historically validated |
-| Dependency baseline matches the known overlay | wheel `METADATA`, upstream requirements, overlay resolution/install logs | [doctor](doctor.md), packaged baseline | Locally tested; new strict run pending Kaggle |
-| TP1 versus TP2 performance | no executed 0.2.0 result | [benchmarking](benchmarking.md), pending notebook | Pending; no performance claim |
+| Dependency baseline matches the known overlay | wheel `METADATA`, upstream requirements, overlay resolution/install logs, 0.2 strict doctor run | [doctor](doctor.md), packaged baseline, [0.2 acceptance](kaggle-v0.2.0-acceptance.md) | Passed for exact development candidate; final published-package rerun pending |
+| 0.2 development-candidate acceptance identity and PASS | `artifacts/kaggle-2026-08-30-v0.2.0-acceptance/kaggle-vllm-020-acceptance-evidence.json`, executed notebook | [0.2 acceptance](kaggle-v0.2.0-acceptance.md) | SDK `0.2.0.dev0`, source `7327b0b…` |
+| TP1 versus TP2 performance | benchmark `run-metadata.json`, `summary.json`, five configuration JSON files and checksums | [0.2 benchmark](kaggle-v0.2.0-benchmark.md), [benchmarking](benchmarking.md) | Executed at source `6d10912…`; tiny OPT-125M TP=1 faster than TP=2 |
+| Final public `kaggle-vllm==0.2.0` delivery | output-free post-publication notebook | [next acceptance](next-kaggle-acceptance.md) | Pending publication and real Kaggle T4x2 execution |
 
 Generated text in evidence demonstrates that inference completed. It is not a
 quality evaluation. CPU unit tests validate SDK behavior but do not replace any

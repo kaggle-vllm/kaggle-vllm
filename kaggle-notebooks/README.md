@@ -17,9 +17,11 @@ is the executed dual-T4 acceptance notebook. It ends in
 is the executed controlled TP=1/TP=2 benchmark notebook. All five benchmark
 configurations were attempted and completed successfully.
 
-The tested development source state was commit
-`6d10912ad73e81f5a62fcec299c87ed5b2631b4f` with SDK version
-`0.2.0.dev0`.
+The acceptance tested source commit
+`7327b0b0c811a92a9c49421a4d302c18e251ab61`; the controlled benchmark tested
+the later commit `6d10912ad73e81f5a62fcec299c87ed5b2631b4f`. Both used SDK version
+`0.2.0.dev0`. The separate identities are retained in their machine-readable
+records.
 
 The environment remained the validated Kaggle configuration:
 
@@ -45,6 +47,18 @@ Machine-readable evidence is retained under:
 
 These results validate the development candidate. They do not claim that a
 final `0.2.0` release already exists.
+
+## v0.2.0 final release gates
+
+[`kaggle_vllm_0_2_0_post_publication_acceptance.ipynb`](kaggle_vllm_0_2_0_post_publication_acceptance.ipynb)
+is an output-free notebook for the fresh dual-T4 run after public PyPI
+publication. It installs exactly `kaggle-vllm[hub]==0.2.0` and must not be
+described as passed until its outputs are captured and reviewed.
+
+[`kaggle_vllm_0_2_0_qwen_regression.ipynb`](kaggle_vllm_0_2_0_qwen_regression.ipynb)
+is an output-free focused regression for the already-published Qwen TP=2
+`sharded_state` artifact. It prefers an attached Kaggle Input or existing Hub
+cache and does not regenerate model shards.
 
 ## v0.1.2 benchmark evidence
 

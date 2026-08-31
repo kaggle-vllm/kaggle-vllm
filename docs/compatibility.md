@@ -43,11 +43,11 @@ compute capability is 7.5 / SM75.
 |---|---|---|
 | Kaggle T4 x2 / cp312 / CUDA 12.8 | Validated | historical acceptance |
 | Native imports (`_C`, `_moe_C`, allocator) | Validated | historical acceptance |
-| OPT-125M TP=1 and TP=2 | Validated | functional, not performance |
+| OPT-125M TP=1 and TP=2 | Validated | functional plus controlled development-candidate benchmark |
 | Qwen2.5-3B `sharded_state` TP=2 | Validated | exact rank topology |
 | Local OpenAI models/completion/chat APIs | Validated | HTTP functional checks |
 | SM75 FlashAttention 2 | Unavailable/not selected | `TRITON_ATTN` observed |
-| New TP1/TP2 performance matrix | Pending | must run on Kaggle |
+| TP1/TP2 performance matrix | Executed 2026-08-30 | OPT-125M only; TP=1 faster in recorded run |
 | Python 3.10/3.11/3.13 lightweight SDK | CPU CI | native cp312 wheel excluded |
 | Other Kaggle GPU architectures | Unvalidated | no profile/evidence |
 | TP=1 or TP>2 for Qwen persistent state | Unsupported by profile | topology mismatch |

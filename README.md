@@ -13,9 +13,10 @@ It is **not** a vLLM fork, inference implementation, official Kaggle product or
 official vLLM distribution. CUDA kernels, scheduling, tensor parallelism,
 checkpoint persistence and serving are upstream vLLM capabilities.
 
-> Current public SDK: **0.1.2**. This branch is **0.2.0.dev0** alpha hardening.
-> Historical dual-T4 functional validation passed on 2026-08-23 and 2026-08-25.
-> The new 0.2.0 benchmark and acceptance notebooks have not yet been executed.
+> Current public PyPI SDK: **0.1.2**. Repository release candidate: **0.2.0**.
+> Fresh `0.2.0.dev0` dual-T4 acceptance and controlled benchmark evidence
+> passed on 2026-08-30. Acceptance of the final package published as
+> `kaggle-vllm==0.2.0` remains a post-publication gate.
 
 ## Validated profile
 
@@ -103,10 +104,12 @@ models/completions/chat endpoints on the exact profile. On SM75, vLLM selected
 `TRITON_ATTN`; FlashAttention 2 and SymmMem optimizations were unavailable, but
 ordinary NCCL TP=2 still succeeded.
 
-No evidence yet proves TP=2 is faster than TP=1. The new benchmark matrix is
-pending an actual Kaggle T4x2 run. Other Kaggle GPU types, other Python ABIs for
-the native wheel, multi-node operation, training and production readiness are
-not claimed.
+The controlled 2026-08-30 OPT-125M benchmark found TP=1 faster than TP=2 for
+this tiny model because communication overhead dominated. TP=2 remains
+validated for capacity, NCCL execution and topology compatibility, but it is
+not a universal performance improvement. Other Kaggle GPU types, other Python
+ABIs for the native wheel, multi-node operation, training and production
+readiness are not claimed.
 
 ## Documentation
 

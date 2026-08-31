@@ -29,6 +29,13 @@ rank-specific checkpoint files for TP ranks 0 and 1. It is not arbitrary tensor
 splitting and should normally be loaded using the TP topology for which it was
 generated.
 
+The forthcoming `kaggle-vllm` 0.2.0 SDK adds stricter structural inspection,
+symlink protection and topology-mismatch reporting for this existing artifact.
+It does not regenerate, fine-tune, relicense or otherwise change the model
+files. The public installation command remains on SDK 0.1.2 until 0.2.0 is
+actually published; this card will be synchronized again after final
+published-package acceptance.
+
 > Qwen is licensed under the Qwen RESEARCH LICENSE AGREEMENT, Copyright (c)
 > Alibaba Cloud. All Rights Reserved. The included license permits
 > non-commercial research/evaluation use and redistribution subject to its

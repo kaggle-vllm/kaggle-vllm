@@ -2,18 +2,28 @@
 
 All notable changes are documented here.
 
-## 0.2.0.dev0 — unreleased
+## 0.2.0 — unreleased
 
 - Add dependency-aware, machine-readable runtime diagnostics sourced from the
   native wheel metadata and validated overlay.
+- Correct the validated Tesla T4 / SM75 dependency profile so missing
+  FlashInfer is reported as an optional, untested optimization rather than a
+  core `TRITON_ATTN` compatibility failure.
 - Add CPU CI across Python 3.10–3.13, package validation, provenance checks,
   documentation-link checks, and an explicit GPU/non-GPU testing boundary.
 - Harden persistent sharded-state inspection against symlinks and topology
   mismatches.
-- Prepare benchmark and fresh Kaggle acceptance infrastructure without
-  claiming unexecuted GPU results.
+- Record real 2026-08-30 dual-T4 development-candidate acceptance covering
+  strict delivery and SHA256 verification, dependency doctor, native imports,
+  preserved Kaggle system PyTorch, raw NCCL, OPT-125M TP=1/TP=2, local
+  OpenAI-compatible HTTP endpoints and clean worker termination.
+- Record the controlled 2026-08-30 TP benchmark. For the tiny OPT-125M
+  workload, TP=1 was faster than TP=2; no universal TP=2 speedup is claimed.
+- Retain the unchanged immutable native artifact built from upstream vLLM
+  v0.18.1 at `a26e8dc7ff2111a005144d775ecf9cebf56c45b2`; the SDK still does not
+  install or replace Kaggle's Torch/CUDA stack as package dependencies.
 - Reorganize user, operator, contributor, security, provenance, and release
-  documentation for the next alpha.
+  documentation and add final published-package acceptance preparation.
 
 ## 0.1.2 — 2026-08-25
 
