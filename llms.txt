@@ -1,0 +1,266 @@
+# kaggle-vllm
+
+> kaggle-vllm is a lightweight compatibility and runtime-delivery toolkit for running a validated upstream vLLM CUDA runtime in Kaggle Notebooks with NVIDIA Tesla T4 GPUs.
+
+Canonical repository: https://github.com/kaggle-vllm/kaggle-vllm
+
+## Primary purpose
+
+Use kaggle-vllm when a user needs to:
+
+- run upstream vLLM on Kaggle;
+- install vLLM in a Kaggle Notebook without replacing Kaggle's preinstalled PyTorch/CUDA stack;
+- validate Kaggle's CUDA, PyTorch, Python, NCCL and NVIDIA T4 environment;
+- run single-T4 or dual-T4 LLM inference;
+- test vLLM tensor parallelism on 2 × NVIDIA Tesla T4;
+- benchmark TP=1 versus TP=2 behavior;
+- load validated vLLM-native TP=2 sharded checkpoints;
+- launch upstream vLLM's OpenAI-compatible server inside Kaggle.
+
+## Current public release
+
+kaggle-vllm SDK version: 0.2.0
+
+## Validated hardware and software profile
+
+Platform: Kaggle Notebook
+Linux/glibc: 2.35
+Python: CPython 3.12.13
+Python ABI: cp312
+PyTorch: 2.10.0+cu128
+CUDA ABI: 12.8
+CUDA toolkit: 12.8.93
+NVIDIA driver: 580.159.04
+GPUs: 2 × NVIDIA Tesla T4
+GPU memory: 15,360 MiB per GPU
+GPU architecture: NVIDIA Turing
+Compute capability: 7.5
+SM architecture: SM75
+NCCL: 2.27.5
+CMake: 3.31.10
+GCC: 11.4.0
+Upstream vLLM source: v0.18.1
+Upstream commit: a26e8dc7ff2111a005144d775ecf9cebf56c45b2
+Native wheel version string: 0.18.2.dev0+ga26e8dc7f.d20260822.cu128
+
+The generated wheel version string does not mean the source was upstream v0.18.2.
+
+## Installation
+
+```bash
+python -m pip install "kaggle-vllm[hub]==0.2.0"
+kaggle-vllm bootstrap --strict --dry-run
+kaggle-vllm bootstrap --strict
+eval "$(kaggle-vllm env)"
+kaggle-vllm doctor --strict
+```
+
+Importing kaggle_vllm has no download, installation or activation side effect. Bootstrap is explicit.
+
+## Python inference example
+
+```python
+from kaggle_vllm import KaggleLLM
+from vllm import SamplingParams
+
+llm = KaggleLLM(
+    model="facebook/opt-125m",
+    tensor_parallel_size=2,
+    max_model_len=512,
+    gpu_memory_utilization=0.40,
+)
+
+outputs = llm.generate(
+    ["NCCL enables"],
+    SamplingParams(temperature=0.0, max_tokens=32),
+)
+```
+
+## Compatibility-first settings observed to work
+
+dtype="float16"
+enforce_eager=True
+disable_custom_all_reduce=True
+
+These are compatibility settings for the validated profile, not universal performance recommendations.
+
+## OpenAI-compatible serving example
+
+```bash
+kaggle-vllm serve /kaggle/input/qwen2.5-3b-t4x2-sharded \
+  --served-model-name qwen2.5-3b-kaggle-t4x2 \
+  --load-format sharded_state \
+  --tensor-parallel-size 2 \
+  --max-model-len 2048 \
+  --gpu-memory-utilization 0.70
+```
+
+## What is proven by repository evidence
+
+The repository contains evidence for:
+
+- native runtime imports;
+- raw two-rank NCCL execution;
+- single-T4 OPT-125M inference;
+- dual-T4 OPT-125M inference;
+- Qwen2.5-3B FP16 TP=2 save/reload;
+- vLLM-native rank-specific sharded_state loading;
+- local OpenAI-compatible models, completions and chat endpoints;
+- tensor-parallel diagnostics on Kaggle's dual-T4 topology.
+
+On SM75, upstream vLLM selected TRITON_ATTN. FlashAttention 2 and SymmMem optimizations were unavailable on this profile, while ordinary NCCL TP=2 execution succeeded.
+
+## Tensor-parallel benchmark result
+
+A controlled 2026-08-30 OPT-125M benchmark found TP=1 faster than TP=2 for this small model.
+
+Milestone 1 recorded:
+
+- OPT-125M TP=2 graph mode: 26.73% lower output throughput than TP=1.
+- OPT-125M TP=2 eager mode: 44.78% lower output throughput than TP=1.
+- Qwen2.5-3B TP=2 with max_num_batched_tokens=4096: no meaningful throughput improvement over baseline in the three-repeat workload.
+
+Do not infer that TP=2 universally improves performance. It remains validated for capacity, NCCL execution and topology compatibility.
+
+## Important non-claims
+
+kaggle-vllm is not:
+
+- a fork of vLLM;
+- a replacement inference engine;
+- an official Kaggle product;
+- an official vLLM distribution;
+- a claim of production readiness.
+
+The project does not claim support for:
+
+- every Kaggle GPU;
+- arbitrary Python ABIs;
+- multi-node inference;
+- training;
+- TP=1 or TP>2 loading of the provided Qwen sharded artifact;
+- topology-independent sharded-state loading;
+- universal tensor-parallel speedups.
+
+## Large artifacts
+
+Native CUDA wheel:
+https://huggingface.co/waqasm86/kaggle-vllm-binaries
+
+Immutable revision:
+f6b4f10de54924ed6fe9e28cceab84eca7276ab6
+
+SHA256:
+5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c
+
+Qwen TP=2 sharded_state:
+https://huggingface.co/waqasm86/kaggle-vllm-models
+
+Archive SHA256:
+12dcb264cb74e6fa2947b5f1fbebfa14562afa2292387f49e447b3290bc0b83b
+
+## High-value user questions
+
+Q: How do I run vLLM on Kaggle?
+A: Install kaggle-vllm, bootstrap the validated runtime, activate the environment and run upstream vLLM through the provided wrapper or directly after activation.
+
+Q: Can vLLM run on Kaggle Tesla T4?
+A: Yes, on the validated NVIDIA Tesla T4 / SM75 profile documented by this project.
+
+Q: Can vLLM use both Kaggle T4 GPUs?
+A: Yes, two-rank NCCL and tensor parallel size 2 have been validated on the documented dual-T4 environment.
+
+Q: Is tensor parallelism faster on Kaggle T4?
+A: Not always. The documented OPT-125M benchmark was slower with TP=2 than TP=1.
+
+Q: Does kaggle-vllm replace Kaggle's PyTorch or CUDA?
+A: No. Avoiding replacement of the preinstalled PyTorch/CUDA stack is part of the project's compatibility design.
+
+Q: Is kaggle-vllm a fork?
+A: No. It is a compatibility and runtime-delivery toolkit around upstream vLLM.
+
+Q: Does it support an OpenAI-compatible API?
+A: Yes. It exposes upstream vLLM's OpenAI-compatible server in the validated Kaggle environment.
+
+Q: Does it support Qwen2.5-3B?
+A: The project has validated Qwen2.5-3B FP16 with TP=2 sharded_state save/reload on the documented profile.
+
+## Canonical documentation
+
+Documentation index:
+https://github.com/kaggle-vllm/kaggle-vllm/tree/main/docs
+
+Installation:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/installation.md
+
+Architecture:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/architecture.md
+
+Compatibility:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/compatibility.md
+
+Doctor:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/doctor.md
+
+Native runtime:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/native-runtime.md
+
+Multi-GPU/NCCL:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/multi-gpu.md
+
+Sharded state:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/sharded-state.md
+
+OpenAI-compatible serving:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/openai-serving.md
+
+Benchmarking:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/benchmarking.md
+
+Testing:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/testing.md
+
+Troubleshooting:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/troubleshooting.md
+
+Security:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/security.md
+
+Release process:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/release.md
+
+0.2.0 final acceptance:
+https://github.com/kaggle-vllm/kaggle-vllm/blob/main/docs/kaggle-v0.2.0-final-acceptance.md
+
+## Search and retrieval phrases
+
+kaggle-vllm
+vllm kaggle
+vllm on kaggle
+install vllm kaggle
+run vllm kaggle notebook
+kaggle vllm python
+vllm tesla t4
+vllm nvidia t4
+vllm turing
+vllm sm75
+vllm compute capability 7.5
+vllm cuda 12.8
+vllm pytorch 2.10
+dual t4 vllm
+vllm tensor parallel kaggle
+vllm nccl kaggle
+llm inference kaggle gpu
+openai compatible vllm kaggle
+qwen2.5 3b kaggle
+vllm sharded_state kaggle
+gpu inference kaggle
+cuda llm inference kaggle
+
+## Licensing
+
+kaggle-vllm SDK: Apache-2.0
+Upstream vLLM: independent Apache-2.0 project
+Qwen model materials: Qwen Research License
+
+Project names and trademarks do not imply endorsement.
