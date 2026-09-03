@@ -213,6 +213,7 @@ def test_dry_run_plan_is_side_effect_free(tmp_path, monkeypatch, capsys):
     assert not output.exists()
     assert not (tmp_path / "result-requests.jsonl").exists()
     assert not (tmp_path / "result.metrics.txt").exists()
+    assert not (tmp_path / "result.telemetry.jsonl").exists()
 
 
 def fake_environment():
@@ -280,6 +281,8 @@ def test_schema_serialization_validation_and_safe_new_outputs(tmp_path):
     assert output.is_file()
     assert (tmp_path / "result-requests.jsonl").is_file()
     assert (tmp_path / "result.metrics.txt").is_file()
+    assert (tmp_path / "result.telemetry.jsonl").is_file()
+    assert payload["measurements"]["input_tokens_per_request"]["count"] == 20
     validate_serving_result(json.loads(output.read_text()))
     with pytest.raises(BenchmarkError, match="overwrite"):
         run_serving_benchmark(

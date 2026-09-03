@@ -334,6 +334,9 @@ class GPUMonitor:
             "monitoring_started_at": self.monitoring_started_at,
             "monitoring_ended_at": self.monitoring_ended_at,
             "telemetry_sample_count": len(self.samples),
+            "telemetry_capture_count": len(
+                {sample.captured_at for sample in self.samples}
+            ),
             "maximum_aggregate_sampled_memory_used_mib": (
                 max(aggregate_by_capture.values()) if aggregate_by_capture else None
             ),

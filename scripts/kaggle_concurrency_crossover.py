@@ -257,6 +257,7 @@ def _empty_failed_cell(
     *,
     server_log: str,
 ) -> dict[str, Any]:
+    stem = server_log.removesuffix(".server.log")
     runtime = collect()
     identity, hardware = runtime_identity(runtime)
     identity["measurement_mode"] = "online_openai_chat_streaming"
@@ -293,6 +294,11 @@ def _empty_failed_cell(
             "ttft_seconds": empty,
             "tpot_seconds": empty,
             "latency_seconds": empty,
+            "requests": {
+                "storage": "jsonl",
+                "file": f"{stem}-requests.jsonl",
+                "count": 0,
+            },
         },
         "gpu_telemetry": {
             "source": "nvidia-smi",
@@ -300,8 +306,13 @@ def _empty_failed_cell(
             "maximum_aggregate_sampled_memory_used_mib": None,
             "summaries": [],
             "status": "measurement_not_started",
+            "raw_samples_file": f"{stem}.telemetry.jsonl",
+            "raw_samples_retained": True,
         },
-        "metrics": {"status": "measurement_not_started"},
+        "metrics": {
+            "status": "measurement_not_started",
+            "raw_file": f"{stem}.metrics.txt",
+        },
         "failure_observations": [classification],
         "oom_observed": classification == "CUDA_OOM_observed",
         "limitations": [
@@ -395,6 +406,21 @@ def _run_cell(
                 server_log=log_path.name,
             )
             write_json_new(evidence, payload)
+        requests_path = output_dir / f"{name}-requests.jsonl"
+        if not requests_path.exists():
+            with requests_path.open("x", encoding="utf-8"):
+                pass
+        metrics_path = output_dir / f"{name}.metrics.txt"
+        if not metrics_path.exists():
+            with metrics_path.open("x", encoding="utf-8") as stream:
+                stream.write(
+                    "# KAGGLE_VLLM_SNAPSHOT UNAVAILABLE\n"
+                    f"# capture_status {classification}\n"
+                )
+        telemetry_path = output_dir / f"{name}.telemetry.jsonl"
+        if not telemetry_path.exists():
+            with telemetry_path.open("x", encoding="utf-8"):
+                pass
         else:
             payload = load_serving_result(evidence)
     payload["_runner_observations"] = {

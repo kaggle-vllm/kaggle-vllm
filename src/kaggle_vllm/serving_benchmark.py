@@ -306,6 +306,7 @@ def build_serving_plan(spec: ServingBenchmarkSpec, output: str | Path) -> dict[s
                 result_path.with_name(f"{result_path.stem}-requests.jsonl")
             ),
             "metrics": str(result_path.with_suffix(".metrics.txt")),
+            "telemetry": str(result_path.with_suffix(".telemetry.jsonl")),
         },
         "metric_definitions": metric_definitions(),
         "operations": [
@@ -607,6 +608,12 @@ def aggregate_request_results(
         "failure_counts": dict(sorted(failure_counts.items())),
         "input_tokens": input_tokens,
         "output_tokens": output_tokens,
+        "input_tokens_per_request": distribution(
+            [request.input_tokens for request in successes if request.input_tokens is not None]
+        ),
+        "output_tokens_per_request": distribution(
+            [request.output_tokens for request in successes if request.output_tokens is not None]
+        ),
         "measured_wall_seconds": measured_wall_seconds,
         "request_throughput_per_second": len(successes) / measured_wall_seconds,
         "input_throughput_tokens_per_second": input_tokens / measured_wall_seconds,
@@ -658,6 +665,7 @@ def run_serving_benchmark(
         destination.with_name(f"{destination.stem}-requests.jsonl")
     )
     metrics_path = _safe_new_file(destination.with_suffix(".metrics.txt"))
+    telemetry_path = _safe_new_file(destination.with_suffix(".telemetry.jsonl"))
     warmups = _run_requests(
         spec,
         spec.workload.warmup_requests,
@@ -713,6 +721,9 @@ def run_serving_benchmark(
     server_returncode = server_status() if server_status is not None else None
     if server_returncode is not None and "server_exit" not in observed:
         observed.append("server_exit")
+    telemetry = monitor.to_dict()
+    telemetry["raw_samples_file"] = telemetry_path.name
+    telemetry["raw_samples_retained"] = True
     payload = {
         "schema_version": SERVING_SCHEMA,
         "benchmark_type": BENCHMARK_TYPE,
@@ -747,7 +758,7 @@ def run_serving_benchmark(
                 "count": len(requests),
             },
         },
-        "gpu_telemetry": monitor.to_dict(),
+        "gpu_telemetry": telemetry,
         "metrics": {
             "endpoint": f"{spec.base_url.rstrip('/')}/metrics",
             "raw_file": metrics_path.name,
@@ -771,6 +782,9 @@ def run_serving_benchmark(
     with requests_path.open("x", encoding="utf-8") as stream:
         for request in requests:
             stream.write(json.dumps(request.to_dict(), sort_keys=True) + "\n")
+    with telemetry_path.open("x", encoding="utf-8") as stream:
+        for sample in getattr(monitor, "samples", []):
+            stream.write(json.dumps(asdict(sample), sort_keys=True) + "\n")
     _write_text_new(metrics_path, _metrics_file_text(before, after))
     with destination.open("x", encoding="utf-8") as stream:
         stream.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")

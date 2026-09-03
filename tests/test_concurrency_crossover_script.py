@@ -121,6 +121,34 @@ def test_failed_cell_payload_still_validates_and_records_null_measurements(monke
     assert payload["failure_observations"] == ["server_start_failure"]
 
 
+def test_partial_server_start_failure_writes_all_cell_evidence(monkeypatch, tmp_path):
+    monkeypatch.setattr(runner.subprocess, "Popen", lambda *_args, **_kwargs: FakeProcess([7, 7]))
+    monkeypatch.setattr(runner, "collect", lambda: SimpleNamespace())
+    monkeypatch.setattr(
+        runner,
+        "runtime_identity",
+        lambda _runtime: ({"measurement_mode": "test"}, {}),
+    )
+    monkeypatch.setattr(runner, "capture_topology", dict)
+    monkeypatch.setattr(
+        runner,
+        "run_command",
+        lambda _command: SimpleNamespace(
+            to_dict=lambda: {"status": "unavailable", "stdout": "", "stderr": ""}
+        ),
+    )
+    args = runner.build_parser().parse_args(["--dry-run"])
+    name, specification = runner.matrix_specs(args)[0]
+    payload = runner._run_cell(name, specification, args, tmp_path)
+    assert payload["status"] == "failed"
+    assert payload["failure_observations"] == ["server_start_failure"]
+    assert (tmp_path / f"{name}.json").is_file()
+    assert (tmp_path / f"{name}.server.log").is_file()
+    assert (tmp_path / f"{name}.metrics.txt").is_file()
+    assert (tmp_path / f"{name}.telemetry.jsonl").is_file()
+    assert (tmp_path / f"{name}-requests.jsonl").is_file()
+
+
 def test_checksum_manifest_is_name_sorted_and_deterministic(tmp_path):
     (tmp_path / "z.txt").write_text("z", encoding="utf-8")
     (tmp_path / "a.txt").write_text("a", encoding="utf-8")
