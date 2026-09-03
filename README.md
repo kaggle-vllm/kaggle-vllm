@@ -158,8 +158,11 @@ kaggle-vllm benchmark \
 ```
 
 Milestone 2 adds a separate online streaming concurrency benchmark for the
-controlled Qwen TP1/TP2 matrix. Its dual-T4 results are not yet claimed. See
-the [concurrency benchmark methodology](docs/concurrency-benchmarking.md) and
+controlled Qwen TP1/TP2 matrix. On the pinned Qwen2.5-3B-Instruct workload,
+TP2 crossed TP1 in output throughput at concurrency 16; no
+TP1-fails/TP2-survives capacity crossover was observed through concurrency 64.
+See the [executed dual-T4 evidence](artifacts/kaggle-2026-09-02-milestone-2/)
+and [concurrency benchmark methodology](docs/concurrency-benchmarking.md), or
 preview a CPU-safe cell with `kaggle-vllm benchmark-serving --help`.
 
 ---

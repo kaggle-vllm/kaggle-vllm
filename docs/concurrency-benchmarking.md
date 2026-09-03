@@ -164,6 +164,39 @@ all cells, creates checksums, and makes a ZIP. It writes only below
 `/kaggle/working`; it does not modify `/kaggle/input`, publish data, rebuild
 vLLM, or regenerate model weights.
 
+## Executed dual-T4 results
+
+The 2026-09-03 Kaggle execution used benchmark source
+`4f8dcc1c032d65d54b1cce3ca213535d68fd5099`, the pinned Qwen revision above,
+and the documented native runtime on two Tesla T4 GPUs. The full checksummed
+evidence is under
+[`artifacts/kaggle-2026-09-02-milestone-2/`](../artifacts/kaggle-2026-09-02-milestone-2/).
+
+| Concurrency | TP1 output tok/s | TP2 output tok/s | TP2 delta | TP1 p95 TTFT (s) | TP2 p95 TTFT (s) | TP1 p95 TPOT (s) | TP2 p95 TPOT (s) | TP1 success/fail | TP2 success/fail |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 26.29 | 14.95 | -43.1% | 1.606 | 0.950 | 0.0353 | 0.0663 | 20/0 | 20/0 |
+| 4 | 76.87 | 55.21 | -28.2% | 5.862 | 3.223 | 0.0463 | 0.0697 | 20/0 | 20/0 |
+| 8 | 108.53 | 99.80 | -8.0% | 11.696 | 6.293 | 0.0677 | 0.0792 | 24/0 | 24/0 |
+| 16 | 138.75 | 174.27 | +25.6% | 21.906 | 11.876 | 0.1086 | 0.0887 | 48/0 | 48/0 |
+| 32 | 158.65 | 267.79 | +68.8% | 43.826 | 23.503 | 0.1920 | 0.1138 | 96/0 | 96/0 |
+| 64 | 177.82 | 311.94 | +75.4% | 84.778 | 46.288 | 0.3452 | 0.1988 | 192/0 | 192/0 |
+
+TP1 delivered higher output throughput at concurrency 1, 4, and 8. The first
+observed throughput crossover was concurrency 16; TP2's measured advantage
+then increased at 32 and 64. Every measured request succeeded. No CUDA OOM
+was observed for either TP degree, and no TP1-fails/TP2-survives capacity
+crossover occurred through concurrency 64.
+
+At concurrency 64, peak sampled memory was 14,255 MiB on TP1's physical GPU
+0. TP2 reached 14,701 MiB sampled on each device, or 29,402 MiB
+(approximately 29.4 GiB) aggregate sampled memory across the two T4s. This is
+not one monolithic 30 GB GPU, and high sampled utilization is not an OOM.
+
+These results are specific to the recorded model, workload, engine controls,
+runtime, and hardware. Concurrency 16 is not a universal TP-selection
+threshold, and the evidence does not assign the crossover to PHB topology or
+memory behavior alone.
+
 ## Evidence and crossover analysis
 
 Cell results use schema `kaggle-vllm-serving-benchmark-v1`. The summary uses
@@ -187,5 +220,6 @@ made from PHB topology alone.
 
 CPU tests validate request parsing, formulas, schema, safety, lifecycle, and
 analysis. They do not validate T4 execution. Milestone 2 GPU acceptance is
-**PENDING** until the real Kaggle T4×2 ZIP is supplied, checksum-verified, and
-reviewed. No local dry run is GPU evidence.
+**PASS** for the reviewed, checksummed 2026-09-03 Kaggle T4×2 run. That status
+applies only to the preserved execution evidence and does not turn CPU dry
+runs into GPU evidence or extend the result beyond the tested matrix.

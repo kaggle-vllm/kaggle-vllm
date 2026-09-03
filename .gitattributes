@@ -1,0 +1,4 @@
+# Preserve immutable Milestone 2 raw captures byte-for-byte. The upstream
+# Prometheus exposition and terminal logs include intentional trailing bytes.
+artifacts/kaggle-2026-09-02-milestone-2/*.metrics.txt -whitespace
+artifacts/kaggle-2026-09-02-milestone-2/*.server.log -whitespace

@@ -1,0 +1,398 @@
+{
+  "benchmark_type": "online-serving-concurrency",
+  "concurrency": 64,
+  "engine": {
+    "disable_custom_all_reduce": true,
+    "dtype": "float16",
+    "enable_prefix_caching": false,
+    "enforce_eager": true,
+    "gpu_memory_utilization": 0.9,
+    "max_model_len": 4096,
+    "max_num_batched_tokens": null,
+    "max_num_seqs": 64,
+    "model": "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "model_representation": "transformers",
+    "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "model_source": "local_transformers",
+    "served_model_name": "qwen2.5-3b-instruct",
+    "telemetry_interval_seconds": 0.25,
+    "tensor_parallel_size": 1
+  },
+  "failure_observations": [],
+  "gpu_telemetry": {
+    "capture_failures": [],
+    "maximum_aggregate_sampled_memory_used_mib": 14258.0,
+    "monitoring_ended_at": "2026-09-03T17:19:23.444754+00:00",
+    "monitoring_started_at": "2026-09-03T17:10:10.615376+00:00",
+    "raw_samples_file": "qwen-tp1-c64.telemetry.jsonl",
+    "raw_samples_retained": true,
+    "sampling_interval_seconds": 0.25,
+    "source": "nvidia-smi",
+    "summaries": [
+      {
+        "first_memory_used_mib": 14253.0,
+        "first_sample_at": "2026-09-03T17:10:10.615388+00:00",
+        "index": 0,
+        "last_memory_used_mib": 14255.0,
+        "last_sample_at": "2026-09-03T17:19:23.375352+00:00",
+        "mean_utilization_percent": 99.97251461988304,
+        "memory_total_mib": 15360.0,
+        "peak_memory_clock_mhz": 5000.0,
+        "peak_memory_used_mib": 14255.0,
+        "peak_memory_utilization_percent": 77.0,
+        "peak_power_draw_w": 89.76,
+        "peak_sm_clock_mhz": 1500.0,
+        "peak_temperature_c": 78.0,
+        "peak_utilization_percent": 100.0,
+        "sample_count": 1710
+      },
+      {
+        "first_memory_used_mib": 3.0,
+        "first_sample_at": "2026-09-03T17:10:10.615388+00:00",
+        "index": 1,
+        "last_memory_used_mib": 3.0,
+        "last_sample_at": "2026-09-03T17:19:23.375352+00:00",
+        "mean_utilization_percent": 0.0,
+        "memory_total_mib": 15360.0,
+        "peak_memory_clock_mhz": 405.0,
+        "peak_memory_used_mib": 3.0,
+        "peak_memory_utilization_percent": 0.0,
+        "peak_power_draw_w": 11.95,
+        "peak_sm_clock_mhz": 300.0,
+        "peak_temperature_c": 39.0,
+        "peak_utilization_percent": 0.0,
+        "sample_count": 1710
+      }
+    ],
+    "telemetry_capture_count": 1710,
+    "telemetry_sample_count": 3420
+  },
+  "hardware": {
+    "cmake_library_path": null,
+    "cuda_available": true,
+    "cuda_driver": "/usr/local/nvidia/lib64/libcuda.so",
+    "cuda_home": "/usr/local/cuda",
+    "cuda_toolkit": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "driver_reported_cuda_max": "13.0",
+    "driver_version": "580.159.04",
+    "gpu_count": 2,
+    "gpus": [
+      {
+        "capability": [
+          7,
+          5
+        ],
+        "index": 0,
+        "name": "Tesla T4",
+        "total_memory": 15636037632
+      },
+      {
+        "capability": [
+          7,
+          5
+        ],
+        "index": 1,
+        "name": "Tesla T4",
+        "total_memory": 15636037632
+      }
+    ],
+    "is_kaggle": true,
+    "nccl": "2.27.5",
+    "nvcc": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "torch_path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "identity": {
+    "captured_at_utc": "2026-09-03T17:19:23.688907+00:00",
+    "glibc": "2.35",
+    "kaggle_vllm_version": "0.2.0",
+    "measurement_mode": "online_openai_chat_streaming",
+    "native_runtime": {
+      "hf_repository": "waqasm86/kaggle-vllm-binaries",
+      "hf_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+      "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+      "source_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2",
+      "source_tag": "v0.18.1",
+      "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl"
+    },
+    "os": "Linux",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "source_git_commit": null,
+    "vllm_distribution_version": "0.18.2.dev0+ga26e8dc7f.d20260822.cu128"
+  },
+  "limitations": [
+    "Sampled nvidia-smi telemetry can miss instantaneous memory peaks.",
+    "Two T4 devices are separate GPUs, not one fungible 30 GB device.",
+    "Client timestamps include loopback HTTP and scheduling effects.",
+    "A throughput change alone is not evidence of CUDA OOM or KV-cache swapping.",
+    "Results apply only to the recorded model, workload, engine, and runtime."
+  ],
+  "measurements": {
+    "failed_requests": 0,
+    "failure_counts": {},
+    "input_throughput_tokens_per_second": 735.5903676306361,
+    "input_tokens": 406656,
+    "input_tokens_per_request": {
+      "count": 192,
+      "max": 2122.0,
+      "mean": 2118.0,
+      "median": 2117.5,
+      "min": 2115.0,
+      "p50": 2117.0,
+      "p95": 2122.0,
+      "p99": 2122.0,
+      "sample_standard_deviation": 2.556175153156091
+    },
+    "latency_seconds": {
+      "count": 192,
+      "max": 274.5037065610004,
+      "mean": 183.21162646251045,
+      "median": 183.62648966499955,
+      "min": 94.38191834499958,
+      "p50": 183.6259177969996,
+      "p95": 259.92676002999997,
+      "p99": 273.04248679099965,
+      "sample_standard_deviation": 41.19972954537612
+    },
+    "measured_ended_at_utc": "2026-09-03T17:19:23.444772+00:00",
+    "measured_started_at_utc": "2026-09-03T17:10:10.615342+00:00",
+    "measured_wall_seconds": 552.829425037,
+    "output_throughput_tokens_per_second": 177.81976781250506,
+    "output_tokens": 98304,
+    "output_tokens_per_request": {
+      "count": 192,
+      "max": 512.0,
+      "mean": 512.0,
+      "median": 512.0,
+      "min": 512.0,
+      "p50": 512.0,
+      "p95": 512.0,
+      "p99": 512.0,
+      "sample_standard_deviation": 0.0
+    },
+    "request_throughput_per_second": 0.34730423400879895,
+    "requests": {
+      "count": 192,
+      "file": "qwen-tp1-c64-requests.jsonl",
+      "storage": "jsonl"
+    },
+    "success_rate": 1.0,
+    "successful_requests": 192,
+    "tpot_seconds": {
+      "count": 192,
+      "max": 0.3526574682485327,
+      "mean": 0.31755927098446685,
+      "median": 0.3426476955655575,
+      "min": 0.1751183539021522,
+      "p50": 0.34264728932681043,
+      "p95": 0.3451980063170244,
+      "p99": 0.35230561290411055,
+      "sample_standard_deviation": 0.04809321607159985
+    },
+    "ttft_seconds": {
+      "count": 192,
+      "max": 98.43711471900042,
+      "mean": 20.938838989447877,
+      "median": 7.284517259999575,
+      "min": 1.6054512800001248,
+      "p50": 7.284513292999691,
+      "p95": 84.77821653199953,
+      "p99": 97.92975961100001,
+      "sample_standard_deviation": 26.53672128561147
+    },
+    "warmup_requests_excluded": 64,
+    "warmup_successful_requests": 64
+  },
+  "metric_definitions": {
+    "output_throughput_tokens_per_second": "successful actual output tokens / measured wall-clock interval",
+    "percentile_method": "nearest-rank: sorted[ceil(p/100*n)-1]",
+    "tpot_seconds": "(completion timestamp - first-token timestamp) / (actual output tokens - 1); null for <=1 token",
+    "ttft_seconds": "first content-bearing SSE event timestamp - request start"
+  },
+  "metrics": {
+    "after": {
+      "http_status": 200,
+      "parsed": {
+        "vllm:generation_tokens": [],
+        "vllm:kv_cache_usage_perc": [
+          {
+            "labels": "{engine=\"0\",model_name=\"qwen2.5-3b-instruct\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:num_preemptions": [],
+        "vllm:num_requests_running": [
+          {
+            "labels": "{engine=\"0\",model_name=\"qwen2.5-3b-instruct\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:num_requests_waiting": [
+          {
+            "labels": "{engine=\"0\",model_name=\"qwen2.5-3b-instruct\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:prompt_tokens": [],
+        "vllm:request_success": []
+      },
+      "status": "captured"
+    },
+    "before": {
+      "http_status": 200,
+      "parsed": {
+        "vllm:generation_tokens": [],
+        "vllm:kv_cache_usage_perc": [
+          {
+            "labels": "{engine=\"0\",model_name=\"qwen2.5-3b-instruct\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:num_preemptions": [],
+        "vllm:num_requests_running": [
+          {
+            "labels": "{engine=\"0\",model_name=\"qwen2.5-3b-instruct\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:num_requests_waiting": [
+          {
+            "labels": "{engine=\"0\",model_name=\"qwen2.5-3b-instruct\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:prompt_tokens": [],
+        "vllm:request_success": []
+      },
+      "status": "captured"
+    },
+    "endpoint": "http://127.0.0.1:8000/metrics",
+    "raw_file": "qwen-tp1-c64.metrics.txt",
+    "verified_against_vllm_source_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2",
+    "verified_metric_names": [
+      "vllm:num_requests_running",
+      "vllm:num_requests_waiting",
+      "vllm:kv_cache_usage_perc",
+      "vllm:num_preemptions",
+      "vllm:prompt_tokens",
+      "vllm:generation_tokens",
+      "vllm:request_success"
+    ]
+  },
+  "oom_observed": false,
+  "schema_version": "kaggle-vllm-serving-benchmark-v1",
+  "server": {
+    "api": "OpenAI-compatible chat completions",
+    "base_url": "http://127.0.0.1:8000",
+    "served_model_name": "qwen2.5-3b-instruct",
+    "server_command": [
+      "vllm",
+      "serve",
+      "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+      "--served-model-name",
+      "qwen2.5-3b-instruct",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8000",
+      "--tensor-parallel-size",
+      "1",
+      "--dtype",
+      "float16",
+      "--max-model-len",
+      "4096",
+      "--gpu-memory-utilization",
+      "0.9",
+      "--max-num-seqs",
+      "64",
+      "--seed",
+      "0",
+      "--no-enable-prefix-caching",
+      "--enforce-eager",
+      "--disable-custom-all-reduce"
+    ],
+    "server_log": "qwen-tp1-c64.server.log",
+    "streaming": true,
+    "unexpected_exit_returncode": null,
+    "visible_physical_gpu_indices": [
+      0
+    ]
+  },
+  "status": "executed",
+  "topology": {
+    "interpretation": "observed nvidia-smi output only; no DMA or causal performance claim",
+    "matrix": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-m"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tPHB\t0-3\t0\t\tN/A\nGPU1\tPHB\t X \t0-3\t0\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks"
+    },
+    "parsed_matrix": {
+      "gpu_labels": [
+        "GPU0",
+        "GPU1"
+      ],
+      "links": [
+        {
+          "gpu_a": "GPU0",
+          "gpu_b": "GPU1",
+          "path": "PHB"
+        }
+      ],
+      "nvlink_observed": false
+    },
+    "peer_access_read": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "r"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    },
+    "peer_access_write": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "w"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    }
+  },
+  "workload": {
+    "concurrency": 64,
+    "dispatch_policy": "closed_loop_up_to_concurrency_in_flight",
+    "ignore_eos": true,
+    "max_output_tokens": 512,
+    "minimum_waves": 3,
+    "prompt_profile": "fixed long-context technical corpus v1; actual server token counts recorded",
+    "prompts": [
+      "A language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nTask: Explain how tensor parallel inference distinguishes compute speed from capacity.",
+      "A language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nTask: Analyze how concurrency affects queueing, KV-cache demand, TTFT, and TPOT.",
+      "A language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nTask: Compare one-GPU and two-GPU inference without making unsupported causal claims.",
+      "A language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nA language-model serving system has a tokenizer, model weights,\nan attention KV cache, a scheduler, GPU kernels, collective communication, and an\nHTTP streaming layer. Model weights occupy device memory before requests begin. Each\nactive sequence adds key and value tensors whose size depends on layer count, KV-head\ncount, head dimension, dtype, and sequence length. The scheduler may batch prefills\nand decode steps, queue work when blocks are unavailable, or preempt work according\nto engine policy. Tensor parallelism partitions selected model tensors and performs\ncollectives between ranks; it does not turn separate devices into one conventional\nmemory address space. Request concurrency is therefore distinct from offline batch\nsize. Time to first token contains queueing, prefill, scheduling, server, and local\nHTTP effects after dispatch. Time per output token covers generation after the first\ntoken. Aggregate throughput counts completed output tokens over the measured wall\ninterval. Sampled GPU telemetry can miss short peaks, while logs and metrics may\nexpose events that a sample misses. A careful comparison keeps model revision,\nprompts, token limits, dtype, generation parameters, and engine controls identical.\nIt reports failures and missing values directly, separates throughput crossover from\ncapacity crossover, and avoids assigning causality to one topology label.\n\nTask: Define the evidence required to establish a capacity crossover rather than a slowdown."
+    ],
+    "request_timeout_seconds": 1800.0,
+    "seed": 0,
+    "temperature": 0.0,
+    "total_requests": 192,
+    "warmup_requests": 64
+  }
+}

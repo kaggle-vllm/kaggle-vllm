@@ -5,8 +5,10 @@ The repository has two scientifically distinct benchmark tracks:
 - Milestone 1 uses offline `vllm.LLM.generate` batches for tensor-parallel
   diagnostics and already has reviewed dual-T4 evidence.
 - Milestone 2 uses genuine streaming OpenAI-compatible HTTP requests to test
-  TP1/TP2 request-concurrency and capacity crossover. Its real GPU execution is
-  pending. See the [online concurrency methodology](concurrency-benchmarking.md).
+  TP1/TP2 request-concurrency and capacity crossover. Its reviewed dual-T4 run
+  observed a throughput crossover at concurrency 16, with no request failure,
+  CUDA OOM, or capacity crossover through concurrency 64. See the
+  [online concurrency methodology and results](concurrency-benchmarking.md).
 
 ## Milestone 1 tensor-parallel performance diagnostics
 

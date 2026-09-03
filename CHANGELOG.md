@@ -11,9 +11,11 @@ All notable changes are documented here.
   `1,4,8,16,32,64`, with fresh per-cell servers, measured-interval GPU
   telemetry, raw before/after vLLM metrics, deterministic checksums, and
   independent throughput/capacity crossover analysis.
-- Add an output-free Kaggle Milestone 2 notebook and pending evidence
-  directory. Real Kaggle dual-T4 acceptance remains pending and no local GPU
-  result is claimed.
+- Add an output-free Kaggle Milestone 2 notebook and checksummed real dual-T4
+  evidence. For the pinned Qwen2.5-3B-Instruct workload, TP2 first exceeded
+  TP1 output throughput at concurrency 16; all requests succeeded and neither
+  a CUDA OOM nor a TP1-fails/TP2-survives capacity crossover was observed
+  through concurrency 64.
 
 - Add CPU-testable benchmark specifications, schema-v1 offline-engine evidence,
   descriptive statistics, neutral result comparison, NVIDIA topology parsing,
