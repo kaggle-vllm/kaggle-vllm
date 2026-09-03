@@ -40,24 +40,32 @@ VERIFIED_VLLM_METRICS = (
     "vllm:generation_tokens",
     "vllm:request_success",
 )
-DEFAULT_PROMPTS = (
-    (
-        "Explain how tensor parallel inference partitions a transformer model, "
-        "and distinguish compute throughput from memory capacity. Give a precise, "
-        "self-contained answer with practical caveats."
-    ),
-    (
-        "Describe how request concurrency affects prefill, decoding, KV-cache "
-        "allocation, queueing, and time to first token in an online LLM server."
-    ),
-    (
-        "Write a technical comparison of one-GPU and two-GPU inference on PCIe-"
-        "connected accelerators. Avoid claiming that topology alone causes a result."
-    ),
-    (
-        "Explain why an inference configuration can have lower single-request speed "
-        "yet sustain a higher-capacity workload. Define the evidence needed to show it."
-    ),
+_LONG_CONTEXT = """A language-model serving system has a tokenizer, model weights,
+an attention KV cache, a scheduler, GPU kernels, collective communication, and an
+HTTP streaming layer. Model weights occupy device memory before requests begin. Each
+active sequence adds key and value tensors whose size depends on layer count, KV-head
+count, head dimension, dtype, and sequence length. The scheduler may batch prefills
+and decode steps, queue work when blocks are unavailable, or preempt work according
+to engine policy. Tensor parallelism partitions selected model tensors and performs
+collectives between ranks; it does not turn separate devices into one conventional
+memory address space. Request concurrency is therefore distinct from offline batch
+size. Time to first token contains queueing, prefill, scheduling, server, and local
+HTTP effects after dispatch. Time per output token covers generation after the first
+token. Aggregate throughput counts completed output tokens over the measured wall
+interval. Sampled GPU telemetry can miss short peaks, while logs and metrics may
+expose events that a sample misses. A careful comparison keeps model revision,
+prompts, token limits, dtype, generation parameters, and engine controls identical.
+It reports failures and missing values directly, separates throughput crossover from
+capacity crossover, and avoids assigning causality to one topology label."""
+_QUESTIONS = (
+    "Explain how tensor parallel inference distinguishes compute speed from capacity.",
+    "Analyze how concurrency affects queueing, KV-cache demand, TTFT, and TPOT.",
+    "Compare one-GPU and two-GPU inference without making unsupported causal claims.",
+    "Define the evidence required to establish a capacity crossover rather than a slowdown.",
+)
+DEFAULT_PROMPTS = tuple(
+    "\n\n".join((_LONG_CONTEXT,) * 8) + f"\n\nTask: {question}"
+    for question in _QUESTIONS
 )
 
 _CUDA_OOM = re.compile(
@@ -85,14 +93,16 @@ class ServingWorkloadSpec:
 
     concurrency: int
     total_requests: int | None = None
-    warmup_requests: int = 4
+    warmup_requests: int | None = None
     prompts: tuple[str, ...] = DEFAULT_PROMPTS
-    prompt_profile: str = "fixed technical prompt corpus v1"
-    max_output_tokens: int = 256
+    prompt_profile: str = (
+        "fixed long-context technical corpus v1; actual server token counts recorded"
+    )
+    max_output_tokens: int = 512
     temperature: float = 0.0
     ignore_eos: bool = True
     seed: int = 0
-    request_timeout_seconds: float = 300.0
+    request_timeout_seconds: float = 1800.0
 
     def __post_init__(self) -> None:
         if (
@@ -115,11 +125,11 @@ class ServingWorkloadSpec:
                 "total_requests must provide at least 20 observations and three "
                 "waves at the selected concurrency"
             )
-        if (
-            isinstance(self.warmup_requests, bool)
-            or not isinstance(self.warmup_requests, int)
-            or self.warmup_requests < 0
-        ):
+        warmups = self.warmup_requests
+        if warmups is None:
+            warmups = self.concurrency
+            object.__setattr__(self, "warmup_requests", warmups)
+        if isinstance(warmups, bool) or not isinstance(warmups, int) or warmups < 0:
             raise ValueError("warmup_requests must be a non-negative integer")
         if not self.prompts or any(not value.strip() for value in self.prompts):
             raise ValueError("prompts must contain non-empty strings")
@@ -163,6 +173,7 @@ class ServingBenchmarkSpec:
     disable_custom_all_reduce: bool = True
     max_num_batched_tokens: int | None = None
     max_num_seqs: int = 64
+    enable_prefix_caching: bool = False
     telemetry_interval_seconds: float = 0.25
 
     def __post_init__(self) -> None:
@@ -668,10 +679,13 @@ def run_serving_benchmark(
     telemetry_path = _safe_new_file(destination.with_suffix(".telemetry.jsonl"))
     warmups = _run_requests(
         spec,
-        spec.workload.warmup_requests,
+        int(spec.workload.warmup_requests or 0),
         prefix="warmup",
         request_function=request_function,
-        concurrency=min(spec.workload.concurrency, max(1, spec.workload.warmup_requests)),
+        concurrency=min(
+            spec.workload.concurrency,
+            max(1, int(spec.workload.warmup_requests or 0)),
+        ),
     ) if spec.workload.warmup_requests else []
     before = metrics_capture(spec.base_url)
     measured_started_at = utc_now()

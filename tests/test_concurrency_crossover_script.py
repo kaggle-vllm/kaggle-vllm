@@ -42,6 +42,7 @@ def test_tp_major_order_and_server_command_have_expected_tp():
     assert command[index + 1] == "2"
     assert command[command.index("--revision") + 1] == args.model_revision
     assert "sharded_state" not in command
+    assert "--no-enable-prefix-caching" in command
 
 
 def test_local_tp_specific_sharded_state_is_rejected(tmp_path):
@@ -119,6 +120,19 @@ def test_failed_cell_payload_still_validates_and_records_null_measurements(monke
     assert payload["measurements"]["ttft_seconds"]["p95"] is None
     assert payload["measurements"]["output_throughput_tokens_per_second"] is None
     assert payload["failure_observations"] == ["server_start_failure"]
+
+    oom_payload = runner._empty_failed_cell(
+        spec,
+        "server_start_failure",
+        "server never became ready",
+        server_log="qwen-tp1-c01.server.log",
+        oom_observed=True,
+    )
+    assert oom_payload["failure_observations"] == [
+        "server_start_failure",
+        "CUDA_OOM_observed",
+    ]
+    assert oom_payload["oom_observed"] is True
 
 
 def test_partial_server_start_failure_writes_all_cell_evidence(monkeypatch, tmp_path):

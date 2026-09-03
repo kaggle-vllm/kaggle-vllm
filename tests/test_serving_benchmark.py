@@ -52,6 +52,7 @@ def test_request_count_requires_meaningful_percentile_sample():
         ServingWorkloadSpec(concurrency=8, total_requests=23)
     workload = ServingWorkloadSpec(concurrency=8, total_requests=24)
     assert workload.total_requests == 24
+    assert workload.warmup_requests == 8
     assert ServingWorkloadSpec(concurrency=1).total_requests == 20
 
 
@@ -210,6 +211,7 @@ def test_dry_run_plan_is_side_effect_free(tmp_path, monkeypatch, capsys):
     payload = json.loads(capsys.readouterr().out)
     assert payload["status"] == "planned_not_executed"
     assert payload["configuration"]["workload"]["total_requests"] == 48
+    assert payload["configuration"]["workload"]["warmup_requests"] == 16
     assert not output.exists()
     assert not (tmp_path / "result-requests.jsonl").exists()
     assert not (tmp_path / "result.metrics.txt").exists()

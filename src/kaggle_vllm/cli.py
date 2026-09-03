@@ -129,6 +129,11 @@ def build_parser() -> argparse.ArgumentParser:
     server.add_argument("--max-num-seqs", type=int)
     server.add_argument("--seed", type=int)
     server.add_argument(
+        "--enable-prefix-caching",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+    )
+    server.add_argument(
         "--enforce-eager", action=argparse.BooleanOptionalAction, default=True
     )
     server.add_argument(
@@ -199,18 +204,22 @@ def build_parser() -> argparse.ArgumentParser:
     serving_benchmark.add_argument("--tensor-parallel-size", type=int, required=True)
     serving_benchmark.add_argument("--concurrency", type=int, required=True)
     serving_benchmark.add_argument("--total-requests", type=int)
-    serving_benchmark.add_argument("--warmup-requests", type=int, default=4)
+    serving_benchmark.add_argument("--warmup-requests", type=int)
     serving_benchmark.add_argument("--prompt", action="append", dest="prompts")
     serving_benchmark.add_argument(
-        "--prompt-profile", default="fixed technical prompt corpus v1"
+        "--prompt-profile",
+        default=(
+            "fixed long-context technical corpus v1; actual server token counts "
+            "recorded"
+        ),
     )
-    serving_benchmark.add_argument("--max-output-tokens", type=int, default=256)
+    serving_benchmark.add_argument("--max-output-tokens", type=int, default=512)
     serving_benchmark.add_argument("--temperature", type=float, default=0.0)
     serving_benchmark.add_argument(
         "--ignore-eos", action=argparse.BooleanOptionalAction, default=True
     )
     serving_benchmark.add_argument("--seed", type=int, default=0)
-    serving_benchmark.add_argument("--request-timeout", type=float, default=300.0)
+    serving_benchmark.add_argument("--request-timeout", type=float, default=1800.0)
     serving_benchmark.add_argument("--base-url", default="http://127.0.0.1:8000")
     serving_benchmark.add_argument("--dtype", default="float16")
     serving_benchmark.add_argument("--max-model-len", type=int, default=4096)
@@ -227,6 +236,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     serving_benchmark.add_argument("--max-num-batched-tokens", type=int)
     serving_benchmark.add_argument("--max-num-seqs", type=int, default=64)
+    serving_benchmark.add_argument(
+        "--enable-prefix-caching",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+    )
     serving_benchmark.add_argument(
         "--telemetry-interval", type=float, default=0.25
     )
@@ -363,6 +377,7 @@ def _serving_benchmark_spec(args: argparse.Namespace) -> ServingBenchmarkSpec:
         disable_custom_all_reduce=args.disable_custom_all_reduce,
         max_num_batched_tokens=args.max_num_batched_tokens,
         max_num_seqs=args.max_num_seqs,
+        enable_prefix_caching=args.enable_prefix_caching,
         telemetry_interval_seconds=args.telemetry_interval,
         workload=ServingWorkloadSpec(**workload_options),
     )
@@ -439,6 +454,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 max_num_batched_tokens=args.max_num_batched_tokens,
                 max_num_seqs=args.max_num_seqs,
                 seed=args.seed,
+                enable_prefix_caching=args.enable_prefix_caching,
                 enforce_eager=args.enforce_eager,
                 disable_custom_all_reduce=args.disable_custom_all_reduce,
             )

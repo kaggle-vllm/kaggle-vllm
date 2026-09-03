@@ -14,6 +14,7 @@ def test_safe_qwen_sharded_server_command():
         max_num_batched_tokens=4096,
         max_num_seqs=64,
         seed=0,
+        enable_prefix_caching=False,
     )
     command = build_server_command(
         config, executable="/staged/bin/vllm", validate_gpus=False
@@ -31,6 +32,7 @@ def test_safe_qwen_sharded_server_command():
     assert command[command.index("--max-num-batched-tokens") + 1] == "4096"
     assert command[command.index("--max-num-seqs") + 1] == "64"
     assert command[command.index("--seed") + 1] == "0"
+    assert "--no-enable-prefix-caching" in command
 
 
 def test_server_values_remain_single_arguments():

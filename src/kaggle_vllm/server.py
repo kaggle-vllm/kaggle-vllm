@@ -15,7 +15,6 @@ class ServerConfig:
     """Supported settings for the validated OpenAI-compatible server workflow."""
 
     model: str
-    model_revision: str | None = None
     served_model_name: str | None = None
     tensor_parallel_size: int = 1
     load_format: str | None = None
@@ -24,11 +23,13 @@ class ServerConfig:
     host: str = "127.0.0.1"
     port: int = 8000
     gpu_memory_utilization: float | None = None
+    enforce_eager: bool = True
+    disable_custom_all_reduce: bool = True
+    model_revision: str | None = None
     max_num_batched_tokens: int | None = None
     max_num_seqs: int | None = None
     seed: int | None = None
-    enforce_eager: bool = True
-    disable_custom_all_reduce: bool = True
+    enable_prefix_caching: bool | None = None
 
 
 def build_server_command(
@@ -96,6 +97,12 @@ def build_server_command(
         command.extend(["--max-num-seqs", str(config.max_num_seqs)])
     if config.seed is not None:
         command.extend(["--seed", str(config.seed)])
+    if config.enable_prefix_caching is not None:
+        command.append(
+            "--enable-prefix-caching"
+            if config.enable_prefix_caching
+            else "--no-enable-prefix-caching"
+        )
     if config.enforce_eager:
         command.append("--enforce-eager")
     if config.disable_custom_all_reduce:

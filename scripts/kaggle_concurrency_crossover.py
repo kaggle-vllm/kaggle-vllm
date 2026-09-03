@@ -75,9 +75,9 @@ def build_parser() -> argparse.ArgumentParser:
         "--matrix-order", choices=("interleaved", "tp-major"), default="interleaved"
     )
     parser.add_argument("--total-requests", type=int)
-    parser.add_argument("--warmup-requests", type=int, default=4)
-    parser.add_argument("--max-output-tokens", type=int, default=256)
-    parser.add_argument("--request-timeout", type=float, default=300.0)
+    parser.add_argument("--warmup-requests", type=int)
+    parser.add_argument("--max-output-tokens", type=int, default=512)
+    parser.add_argument("--request-timeout", type=float, default=1800.0)
     parser.add_argument("--server-startup-timeout", type=float, default=900.0)
     parser.add_argument("--server-shutdown-timeout", type=float, default=30.0)
     parser.add_argument("--port", type=int, default=8000)
@@ -116,6 +116,7 @@ def matrix_specs(args: argparse.Namespace) -> list[tuple[str, ServingBenchmarkSp
                     gpu_memory_utilization=args.gpu_memory_utilization,
                     max_num_batched_tokens=args.max_num_batched_tokens,
                     max_num_seqs=args.max_num_seqs,
+                    enable_prefix_caching=False,
                     telemetry_interval_seconds=args.telemetry_interval,
                     workload=ServingWorkloadSpec(
                         concurrency=concurrency,
@@ -150,6 +151,7 @@ def server_command(
         max_num_batched_tokens=spec.max_num_batched_tokens,
         max_num_seqs=spec.max_num_seqs,
         seed=spec.workload.seed,
+        enable_prefix_caching=spec.enable_prefix_caching,
         enforce_eager=spec.enforce_eager,
         disable_custom_all_reduce=spec.disable_custom_all_reduce,
     )
@@ -256,6 +258,7 @@ def _empty_failed_cell(
     message: str,
     *,
     server_log: str,
+    oom_observed: bool = False,
 ) -> dict[str, Any]:
     stem = server_log.removesuffix(".server.log")
     runtime = collect()
@@ -313,8 +316,15 @@ def _empty_failed_cell(
             "status": "measurement_not_started",
             "raw_file": f"{stem}.metrics.txt",
         },
-        "failure_observations": [classification],
-        "oom_observed": classification == "CUDA_OOM_observed",
+        "failure_observations": [
+            classification,
+            *(
+                ["CUDA_OOM_observed"]
+                if oom_observed and classification != "CUDA_OOM_observed"
+                else []
+            ),
+        ],
+        "oom_observed": oom_observed or classification == "CUDA_OOM_observed",
         "limitations": [
             "The measured request interval did not complete; unavailable metrics are null."
         ],
@@ -390,13 +400,9 @@ def _run_cell(
             pass
         log_classification = classify_failure(log_text)
         classification = (
-            "CUDA_OOM_observed"
-            if log_classification == "CUDA_OOM_observed"
-            else (
-                failure.classification
-                if isinstance(failure, ServerLifecycleError)
-                else classify_failure(f"{failure}\n{log_text}")
-            )
+            failure.classification
+            if isinstance(failure, ServerLifecycleError)
+            else classify_failure(f"{failure}\n{log_text}")
         )
         if not evidence.exists():
             payload = _empty_failed_cell(
@@ -404,6 +410,7 @@ def _run_cell(
                 classification,
                 str(failure),
                 server_log=log_path.name,
+                oom_observed=log_classification == "CUDA_OOM_observed",
             )
             write_json_new(evidence, payload)
         requests_path = output_dir / f"{name}-requests.jsonl"
@@ -424,6 +431,7 @@ def _run_cell(
         else:
             payload = load_serving_result(evidence)
     payload["_runner_observations"] = {
+        "name": name,
         "server_command": command,
         "visible_physical_gpu_indices": (
             [0] if spec.tensor_parallel_size == 1 else [0, 1]
