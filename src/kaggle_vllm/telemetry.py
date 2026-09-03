@@ -15,7 +15,9 @@ _NVLINK = re.compile(r"^NV\d+$")
 _TELEMETRY_FIELDS = (
     "index",
     "memory.used",
+    "memory.total",
     "utilization.gpu",
+    "utilization.memory",
     "temperature.gpu",
     "power.draw",
     "clocks.sm",
@@ -44,7 +46,9 @@ class GPUSample:
     captured_at: str
     index: int
     memory_used_mib: float | None
+    memory_total_mib: float | None
     utilization_percent: float | None
+    memory_utilization_percent: float | None
     temperature_c: float | None
     power_draw_w: float | None
     sm_clock_mhz: float | None
@@ -177,6 +181,10 @@ def parse_telemetry_csv(text: str, *, captured_at: str) -> list[GPUSample]:
     samples: list[GPUSample] = []
     for line in text.splitlines():
         values = [value.strip() for value in line.split(",")]
+        # Accept the seven-column Milestone 1 shape as well as the extended
+        # Milestone 2 query so historical fixtures remain readable.
+        if len(values) == 7:
+            values = [values[0], values[1], "", values[2], "", *values[3:]]
         if len(values) != len(_TELEMETRY_FIELDS):
             continue
         try:
@@ -188,11 +196,13 @@ def parse_telemetry_csv(text: str, *, captured_at: str) -> list[GPUSample]:
                 captured_at=captured_at,
                 index=index,
                 memory_used_mib=_optional_float(values[1]),
-                utilization_percent=_optional_float(values[2]),
-                temperature_c=_optional_float(values[3]),
-                power_draw_w=_optional_float(values[4]),
-                sm_clock_mhz=_optional_float(values[5]),
-                memory_clock_mhz=_optional_float(values[6]),
+                memory_total_mib=_optional_float(values[2]),
+                utilization_percent=_optional_float(values[3]),
+                memory_utilization_percent=_optional_float(values[4]),
+                temperature_c=_optional_float(values[5]),
+                power_draw_w=_optional_float(values[6]),
+                sm_clock_mhz=_optional_float(values[7]),
+                memory_clock_mhz=_optional_float(values[8]),
             )
         )
     return samples
@@ -233,7 +243,9 @@ def summarize_gpu_samples(samples: list[GPUSample]) -> list[dict[str, Any]]:
     for index in sorted({sample.index for sample in samples}):
         selected = [sample for sample in samples if sample.index == index]
         memory = _values(selected, "memory_used_mib")
+        memory_total = _values(selected, "memory_total_mib")
         utilization = _values(selected, "utilization_percent")
+        memory_utilization = _values(selected, "memory_utilization_percent")
         temperature = _values(selected, "temperature_c")
         power = _values(selected, "power_draw_w")
         sm_clock = _values(selected, "sm_clock_mhz")
@@ -247,10 +259,14 @@ def summarize_gpu_samples(samples: list[GPUSample]) -> list[dict[str, Any]]:
                 "first_memory_used_mib": memory[0] if memory else None,
                 "last_memory_used_mib": memory[-1] if memory else None,
                 "peak_memory_used_mib": max(memory) if memory else None,
+                "memory_total_mib": max(memory_total) if memory_total else None,
                 "mean_utilization_percent": (
                     sum(utilization) / len(utilization) if utilization else None
                 ),
                 "peak_utilization_percent": max(utilization) if utilization else None,
+                "peak_memory_utilization_percent": (
+                    max(memory_utilization) if memory_utilization else None
+                ),
                 "peak_temperature_c": max(temperature) if temperature else None,
                 "peak_power_draw_w": max(power) if power else None,
                 "peak_sm_clock_mhz": max(sm_clock) if sm_clock else None,
@@ -277,6 +293,8 @@ class GPUMonitor:
         self.runner = runner
         self.samples: list[GPUSample] = []
         self.failures: list[dict[str, Any]] = []
+        self.monitoring_started_at: str | None = None
+        self.monitoring_ended_at: str | None = None
         self._stop = threading.Event()
         self._thread = threading.Thread(target=self._collect, daemon=True)
 
@@ -291,6 +309,7 @@ class GPUMonitor:
             self._sample()
 
     def __enter__(self) -> GPUMonitor:  # noqa: PYI034  # noqa: PYI034
+        self.monitoring_started_at = datetime.now(timezone.utc).isoformat()
         self._sample()
         self._thread.start()
         return self
@@ -299,11 +318,28 @@ class GPUMonitor:
         self._stop.set()
         self._thread.join(timeout=max(1.0, self.interval_seconds * 3))
         self._sample()
+        self.monitoring_ended_at = datetime.now(timezone.utc).isoformat()
 
     def to_dict(self) -> dict[str, Any]:
+        aggregate_by_capture: dict[str, float] = {}
+        for sample in self.samples:
+            if sample.memory_used_mib is not None:
+                aggregate_by_capture[sample.captured_at] = (
+                    aggregate_by_capture.get(sample.captured_at, 0.0)
+                    + sample.memory_used_mib
+                )
         return {
             "source": "nvidia-smi",
             "sampling_interval_seconds": self.interval_seconds,
+            "monitoring_started_at": self.monitoring_started_at,
+            "monitoring_ended_at": self.monitoring_ended_at,
+            "telemetry_sample_count": len(self.samples),
+            "telemetry_capture_count": len(
+                {sample.captured_at for sample in self.samples}
+            ),
+            "maximum_aggregate_sampled_memory_used_mib": (
+                max(aggregate_by_capture.values()) if aggregate_by_capture else None
+            ),
             "summaries": summarize_gpu_samples(self.samples),
             "capture_failures": self.failures,
             "raw_samples_retained": False,

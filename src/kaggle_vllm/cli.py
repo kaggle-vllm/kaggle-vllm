@@ -32,6 +32,13 @@ from .installation import stage_wheel
 from .profiles import DEFAULT_PROFILE
 from .runtime import all_sm75, all_tesla_t4, validate_tensor_parallel_size
 from .server import ServerConfig, serve
+from .serving_benchmark import (
+    DEFAULT_MODEL_REVISION,
+    ServingBenchmarkSpec,
+    ServingWorkloadSpec,
+    build_serving_plan,
+    run_serving_benchmark,
+)
 from .sharding import inspect_sharded_model
 
 
@@ -109,6 +116,7 @@ def build_parser() -> argparse.ArgumentParser:
         "serve", help="run upstream OpenAI-compatible server"
     )
     server.add_argument("model")
+    server.add_argument("--model-revision")
     server.add_argument("--served-model-name")
     server.add_argument("--tensor-parallel-size", type=int, default=1)
     server.add_argument("--load-format")
@@ -117,6 +125,14 @@ def build_parser() -> argparse.ArgumentParser:
     server.add_argument("--host", default="127.0.0.1")
     server.add_argument("--port", type=int, default=8000)
     server.add_argument("--gpu-memory-utilization", type=float)
+    server.add_argument("--max-num-batched-tokens", type=int)
+    server.add_argument("--max-num-seqs", type=int)
+    server.add_argument("--seed", type=int)
+    server.add_argument(
+        "--enable-prefix-caching",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+    )
     server.add_argument(
         "--enforce-eager", action=argparse.BooleanOptionalAction, default=True
     )
@@ -168,6 +184,68 @@ def build_parser() -> argparse.ArgumentParser:
     benchmark.add_argument("--seed", type=int, default=0)
     benchmark.add_argument("--output", type=Path, required=True)
     benchmark.add_argument("--dry-run", action="store_true")
+
+    serving_benchmark = subcommands.add_parser(
+        "benchmark-serving",
+        help="measure one online streaming request-concurrency configuration",
+    )
+    serving_benchmark.add_argument("--model", required=True)
+    serving_benchmark.add_argument(
+        "--model-revision", default=DEFAULT_MODEL_REVISION
+    )
+    serving_benchmark.add_argument(
+        "--model-source",
+        choices=("huggingface", "local_transformers"),
+        default="huggingface",
+    )
+    serving_benchmark.add_argument(
+        "--served-model-name", default="qwen2.5-3b-instruct"
+    )
+    serving_benchmark.add_argument("--tensor-parallel-size", type=int, required=True)
+    serving_benchmark.add_argument("--concurrency", type=int, required=True)
+    serving_benchmark.add_argument("--total-requests", type=int)
+    serving_benchmark.add_argument("--warmup-requests", type=int)
+    serving_benchmark.add_argument("--prompt", action="append", dest="prompts")
+    serving_benchmark.add_argument(
+        "--prompt-profile",
+        default=(
+            "fixed long-context technical corpus v1; actual server token counts "
+            "recorded"
+        ),
+    )
+    serving_benchmark.add_argument("--max-output-tokens", type=int, default=512)
+    serving_benchmark.add_argument("--temperature", type=float, default=0.0)
+    serving_benchmark.add_argument(
+        "--ignore-eos", action=argparse.BooleanOptionalAction, default=True
+    )
+    serving_benchmark.add_argument("--seed", type=int, default=0)
+    serving_benchmark.add_argument("--request-timeout", type=float, default=1800.0)
+    serving_benchmark.add_argument("--base-url", default="http://127.0.0.1:8000")
+    serving_benchmark.add_argument("--dtype", default="float16")
+    serving_benchmark.add_argument("--max-model-len", type=int, default=4096)
+    serving_benchmark.add_argument(
+        "--gpu-memory-utilization", type=float, default=0.90
+    )
+    serving_benchmark.add_argument(
+        "--enforce-eager", action=argparse.BooleanOptionalAction, default=True
+    )
+    serving_benchmark.add_argument(
+        "--disable-custom-all-reduce",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+    )
+    serving_benchmark.add_argument("--max-num-batched-tokens", type=int)
+    serving_benchmark.add_argument("--max-num-seqs", type=int, default=64)
+    serving_benchmark.add_argument(
+        "--enable-prefix-caching",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+    )
+    serving_benchmark.add_argument(
+        "--telemetry-interval", type=float, default=0.25
+    )
+    serving_benchmark.add_argument("--output", type=Path, required=True)
+    serving_benchmark.add_argument("--dry-run", action="store_true")
 
     compare = subcommands.add_parser(
         "compare-benchmarks", help="compare two schema-v1 benchmark JSON files"
@@ -271,6 +349,40 @@ def _benchmark_spec(args: argparse.Namespace) -> BenchmarkSpec:
     )
 
 
+def _serving_benchmark_spec(args: argparse.Namespace) -> ServingBenchmarkSpec:
+    workload_options = {
+        "concurrency": args.concurrency,
+        "total_requests": args.total_requests,
+        "warmup_requests": args.warmup_requests,
+        "prompt_profile": args.prompt_profile,
+        "max_output_tokens": args.max_output_tokens,
+        "temperature": args.temperature,
+        "ignore_eos": args.ignore_eos,
+        "seed": args.seed,
+        "request_timeout_seconds": args.request_timeout,
+    }
+    if args.prompts:
+        workload_options["prompts"] = tuple(args.prompts)
+    return ServingBenchmarkSpec(
+        model=args.model,
+        model_revision=args.model_revision,
+        model_source=args.model_source,
+        served_model_name=args.served_model_name,
+        tensor_parallel_size=args.tensor_parallel_size,
+        base_url=args.base_url,
+        dtype=args.dtype,
+        max_model_len=args.max_model_len,
+        gpu_memory_utilization=args.gpu_memory_utilization,
+        enforce_eager=args.enforce_eager,
+        disable_custom_all_reduce=args.disable_custom_all_reduce,
+        max_num_batched_tokens=args.max_num_batched_tokens,
+        max_num_seqs=args.max_num_seqs,
+        enable_prefix_caching=args.enable_prefix_caching,
+        telemetry_interval_seconds=args.telemetry_interval,
+        workload=ServingWorkloadSpec(**workload_options),
+    )
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Run the CLI and return a process exit code."""
 
@@ -330,6 +442,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.command == "serve":
             config = ServerConfig(
                 model=args.model,
+                model_revision=args.model_revision,
                 served_model_name=args.served_model_name,
                 tensor_parallel_size=args.tensor_parallel_size,
                 load_format=args.load_format,
@@ -338,6 +451,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                 host=args.host,
                 port=args.port,
                 gpu_memory_utilization=args.gpu_memory_utilization,
+                max_num_batched_tokens=args.max_num_batched_tokens,
+                max_num_seqs=args.max_num_seqs,
+                seed=args.seed,
+                enable_prefix_caching=args.enable_prefix_caching,
                 enforce_eager=args.enforce_eager,
                 disable_custom_all_reduce=args.disable_custom_all_reduce,
             )
@@ -348,6 +465,15 @@ def main(argv: Sequence[str] | None = None) -> int:
                 build_benchmark_plan(specification, args.output)
                 if args.dry_run
                 else run_offline_benchmark(specification, args.output)
+            )
+            print(json.dumps(payload, indent=2))
+            return 0
+        if args.command == "benchmark-serving":
+            specification = _serving_benchmark_spec(args)
+            payload = (
+                build_serving_plan(specification, args.output)
+                if args.dry_run
+                else run_serving_benchmark(specification, args.output)
             )
             print(json.dumps(payload, indent=2))
             return 0

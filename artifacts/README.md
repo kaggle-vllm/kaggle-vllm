@@ -28,6 +28,14 @@ metadata, licensing, and upstream attribution.
   regression, including reviewed JSON, preserved runtime log, recovery
   provenance, and SHA256 checksums.
 
+- `kaggle-2026-09-01-milestone-1/` — reviewed real dual-T4 offline
+  tensor-parallel diagnostic evidence.
+
+- `kaggle-2026-09-02-milestone-2/` — reviewed, checksummed real dual-T4 online
+  Qwen TP1/TP2 concurrency evidence. TP2 first exceeded TP1 output throughput
+  at concurrency 16; all requests succeeded, with no CUDA OOM or capacity
+  crossover through concurrency 64.
+
 Files under `artifacts/` are retained as immutable execution evidence. They are
 excluded from source-formatting and linting tools so that post-capture tooling
 does not modify their bytes or invalidate recorded checksums.

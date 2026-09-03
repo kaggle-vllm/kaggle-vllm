@@ -25,6 +25,11 @@ class ServerConfig:
     gpu_memory_utilization: float | None = None
     enforce_eager: bool = True
     disable_custom_all_reduce: bool = True
+    model_revision: str | None = None
+    max_num_batched_tokens: int | None = None
+    max_num_seqs: int | None = None
+    seed: int | None = None
+    enable_prefix_caching: bool | None = None
 
 
 def build_server_command(
@@ -46,12 +51,26 @@ def build_server_command(
         0.0 < config.gpu_memory_utilization <= 1.0
     ):
         raise ValueError("gpu_memory_utilization must be in (0, 1]")
+    for name, value in (
+        ("max_num_batched_tokens", config.max_num_batched_tokens),
+        ("max_num_seqs", config.max_num_seqs),
+    ):
+        if value is not None and (
+            isinstance(value, bool) or not isinstance(value, int) or value < 1
+        ):
+            raise ValueError(f"{name} must be a positive integer when set")
+    if config.seed is not None and (
+        isinstance(config.seed, bool) or not isinstance(config.seed, int)
+    ):
+        raise TypeError("seed must be an integer when set")
     if any("\0" in value for value in extra_args):
         raise ValueError("server arguments may not contain NUL bytes")
 
     command = [str(executable), "serve", config.model]
     if config.served_model_name:
         command.extend(["--served-model-name", config.served_model_name])
+    if config.model_revision:
+        command.extend(["--revision", config.model_revision])
     if config.load_format:
         command.extend(["--load-format", config.load_format])
     command.extend(
@@ -70,6 +89,20 @@ def build_server_command(
         command.extend(["--max-model-len", str(config.max_model_len)])
     if config.gpu_memory_utilization is not None:
         command.extend(["--gpu-memory-utilization", str(config.gpu_memory_utilization)])
+    if config.max_num_batched_tokens is not None:
+        command.extend(
+            ["--max-num-batched-tokens", str(config.max_num_batched_tokens)]
+        )
+    if config.max_num_seqs is not None:
+        command.extend(["--max-num-seqs", str(config.max_num_seqs)])
+    if config.seed is not None:
+        command.extend(["--seed", str(config.seed)])
+    if config.enable_prefix_caching is not None:
+        command.append(
+            "--enable-prefix-caching"
+            if config.enable_prefix_caching
+            else "--no-enable-prefix-caching"
+        )
     if config.enforce_eager:
         command.append("--enforce-eager")
     if config.disable_custom_all_reduce:

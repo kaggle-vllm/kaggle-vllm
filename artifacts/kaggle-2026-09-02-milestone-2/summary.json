@@ -1,0 +1,922 @@
+{
+  "analysis": {
+    "capacity_crossover_concurrency": null,
+    "capacity_crossover_reason": "No TP1-fails/TP2-survives capacity crossover observed in tested range.",
+    "throughput_crossover_concurrency": 16,
+    "throughput_crossover_reason": "First tested concurrency where TP2 throughput exceeded TP1 and TP2 maintained an equal or higher request success rate.",
+    "tp1_first_cuda_oom_concurrency": null,
+    "tp1_first_failure_concurrency": null,
+    "tp2_first_cuda_oom_concurrency": null,
+    "tp2_first_failure_concurrency": null
+  },
+  "benchmark_type": "online-serving-concurrency",
+  "interpretation_boundary": [
+    "The benchmark tests whether a crossover occurs; it does not assume TP2 wins.",
+    "Throughput and capacity crossovers are separate observations.",
+    "No OOM is reported without matching request or server-log text.",
+    "Approximately 30 GB aggregate device memory across two T4 GPUs is not one 30 GB GPU."
+  ],
+  "matrix": [
+    {
+      "concurrency": 1,
+      "cuda_oom_observed": false,
+      "failed_requests": 0,
+      "maximum_aggregate_sampled_memory_used_mib": 13734.0,
+      "output_throughput_tokens_per_second": 26.294877775905213,
+      "per_gpu_peak_sampled_memory_used_mib": [
+        {
+          "index": 0,
+          "peak_memory_used_mib": 13731.0
+        },
+        {
+          "index": 1,
+          "peak_memory_used_mib": 3.0
+        }
+      ],
+      "successful_requests": 20,
+      "tensor_parallel_size": 1,
+      "tpot_p95_seconds": 0.03530823862817995,
+      "ttft_p95_seconds": 1.6057877169998847
+    },
+    {
+      "concurrency": 1,
+      "cuda_oom_observed": false,
+      "failed_requests": 0,
+      "maximum_aggregate_sampled_memory_used_mib": 27594.0,
+      "output_throughput_tokens_per_second": 14.950372824233986,
+      "per_gpu_peak_sampled_memory_used_mib": [
+        {
+          "index": 0,
+          "peak_memory_used_mib": 13797.0
+        },
+        {
+          "index": 1,
+          "peak_memory_used_mib": 13797.0
+        }
+      ],
+      "successful_requests": 20,
+      "tensor_parallel_size": 2,
+      "tpot_p95_seconds": 0.06630317080626186,
+      "ttft_p95_seconds": 0.9500490320001518
+    },
+    {
+      "concurrency": 4,
+      "cuda_oom_observed": false,
+      "failed_requests": 0,
+      "maximum_aggregate_sampled_memory_used_mib": 13734.0,
+      "output_throughput_tokens_per_second": 76.87029600852728,
+      "per_gpu_peak_sampled_memory_used_mib": [
+        {
+          "index": 0,
+          "peak_memory_used_mib": 13731.0
+        },
+        {
+          "index": 1,
+          "peak_memory_used_mib": 3.0
+        }
+      ],
+      "successful_requests": 20,
+      "tensor_parallel_size": 1,
+      "tpot_p95_seconds": 0.046307528230919034,
+      "ttft_p95_seconds": 5.86202942600039
+    },
+    {
+      "concurrency": 4,
+      "cuda_oom_observed": false,
+      "failed_requests": 0,
+      "maximum_aggregate_sampled_memory_used_mib": 27594.0,
+      "output_throughput_tokens_per_second": 55.20755481971187,
+      "per_gpu_peak_sampled_memory_used_mib": [
+        {
+          "index": 0,
+          "peak_memory_used_mib": 13797.0
+        },
+        {
+          "index": 1,
+          "peak_memory_used_mib": 13797.0
+        }
+      ],
+      "successful_requests": 20,
+      "tensor_parallel_size": 2,
+      "tpot_p95_seconds": 0.06970086603131073,
+      "ttft_p95_seconds": 3.2234671579999485
+    },
+    {
+      "concurrency": 8,
+      "cuda_oom_observed": false,
+      "failed_requests": 0,
+      "maximum_aggregate_sampled_memory_used_mib": 13734.0,
+      "output_throughput_tokens_per_second": 108.5268807697579,
+      "per_gpu_peak_sampled_memory_used_mib": [
+        {
+          "index": 0,
+          "peak_memory_used_mib": 13731.0
+        },
+        {
+          "index": 1,
+          "peak_memory_used_mib": 3.0
+        }
+      ],
+      "successful_requests": 24,
+      "tensor_parallel_size": 1,
+      "tpot_p95_seconds": 0.06765856585322942,
+      "ttft_p95_seconds": 11.695949558999928
+    },
+    {
+      "concurrency": 8,
+      "cuda_oom_observed": false,
+      "failed_requests": 0,
+      "maximum_aggregate_sampled_memory_used_mib": 27594.0,
+      "output_throughput_tokens_per_second": 99.80195398445139,
+      "per_gpu_peak_sampled_memory_used_mib": [
+        {
+          "index": 0,
+          "peak_memory_used_mib": 13797.0
+        },
+        {
+          "index": 1,
+          "peak_memory_used_mib": 13797.0
+        }
+      ],
+      "successful_requests": 24,
+      "tensor_parallel_size": 2,
+      "tpot_p95_seconds": 0.07916768069080254,
+      "ttft_p95_seconds": 6.293311308999819
+    },
+    {
+      "concurrency": 16,
+      "cuda_oom_observed": false,
+      "failed_requests": 0,
+      "maximum_aggregate_sampled_memory_used_mib": 13734.0,
+      "output_throughput_tokens_per_second": 138.74944716864707,
+      "per_gpu_peak_sampled_memory_used_mib": [
+        {
+          "index": 0,
+          "peak_memory_used_mib": 13731.0
+        },
+        {
+          "index": 1,
+          "peak_memory_used_mib": 3.0
+        }
+      ],
+      "successful_requests": 48,
+      "tensor_parallel_size": 1,
+      "tpot_p95_seconds": 0.10859214394716249,
+      "ttft_p95_seconds": 21.905747577000056
+    },
+    {
+      "concurrency": 16,
+      "cuda_oom_observed": false,
+      "failed_requests": 0,
+      "maximum_aggregate_sampled_memory_used_mib": 27594.0,
+      "output_throughput_tokens_per_second": 174.27246539500263,
+      "per_gpu_peak_sampled_memory_used_mib": [
+        {
+          "index": 0,
+          "peak_memory_used_mib": 13797.0
+        },
+        {
+          "index": 1,
+          "peak_memory_used_mib": 13797.0
+        }
+      ],
+      "successful_requests": 48,
+      "tensor_parallel_size": 2,
+      "tpot_p95_seconds": 0.08868218973189787,
+      "ttft_p95_seconds": 11.876112908999858
+    },
+    {
+      "concurrency": 32,
+      "cuda_oom_observed": false,
+      "failed_requests": 0,
+      "maximum_aggregate_sampled_memory_used_mib": 13736.0,
+      "output_throughput_tokens_per_second": 158.65474999851432,
+      "per_gpu_peak_sampled_memory_used_mib": [
+        {
+          "index": 0,
+          "peak_memory_used_mib": 13733.0
+        },
+        {
+          "index": 1,
+          "peak_memory_used_mib": 3.0
+        }
+      ],
+      "successful_requests": 96,
+      "tensor_parallel_size": 1,
+      "tpot_p95_seconds": 0.1919652750763217,
+      "ttft_p95_seconds": 43.826062518999606
+    },
+    {
+      "concurrency": 32,
+      "cuda_oom_observed": false,
+      "failed_requests": 0,
+      "maximum_aggregate_sampled_memory_used_mib": 27594.0,
+      "output_throughput_tokens_per_second": 267.79253064154625,
+      "per_gpu_peak_sampled_memory_used_mib": [
+        {
+          "index": 0,
+          "peak_memory_used_mib": 13797.0
+        },
+        {
+          "index": 1,
+          "peak_memory_used_mib": 13797.0
+        }
+      ],
+      "successful_requests": 96,
+      "tensor_parallel_size": 2,
+      "tpot_p95_seconds": 0.11378735690606788,
+      "ttft_p95_seconds": 23.502741418999904
+    },
+    {
+      "concurrency": 64,
+      "cuda_oom_observed": false,
+      "failed_requests": 0,
+      "maximum_aggregate_sampled_memory_used_mib": 14258.0,
+      "output_throughput_tokens_per_second": 177.81976781250506,
+      "per_gpu_peak_sampled_memory_used_mib": [
+        {
+          "index": 0,
+          "peak_memory_used_mib": 14255.0
+        },
+        {
+          "index": 1,
+          "peak_memory_used_mib": 3.0
+        }
+      ],
+      "successful_requests": 192,
+      "tensor_parallel_size": 1,
+      "tpot_p95_seconds": 0.3451980063170244,
+      "ttft_p95_seconds": 84.77821653199953
+    },
+    {
+      "concurrency": 64,
+      "cuda_oom_observed": false,
+      "failed_requests": 0,
+      "maximum_aggregate_sampled_memory_used_mib": 29402.0,
+      "output_throughput_tokens_per_second": 311.93870224937984,
+      "per_gpu_peak_sampled_memory_used_mib": [
+        {
+          "index": 0,
+          "peak_memory_used_mib": 14701.0
+        },
+        {
+          "index": 1,
+          "peak_memory_used_mib": 14701.0
+        }
+      ],
+      "successful_requests": 192,
+      "tensor_parallel_size": 2,
+      "tpot_p95_seconds": 0.1987743648454009,
+      "ttft_p95_seconds": 46.288379392000024
+    }
+  ],
+  "matrix_order": [
+    "qwen-tp1-c01",
+    "qwen-tp2-c01",
+    "qwen-tp1-c04",
+    "qwen-tp2-c04",
+    "qwen-tp1-c08",
+    "qwen-tp2-c08",
+    "qwen-tp1-c16",
+    "qwen-tp2-c16",
+    "qwen-tp1-c32",
+    "qwen-tp2-c32",
+    "qwen-tp1-c64",
+    "qwen-tp2-c64"
+  ],
+  "model_identity_preserved_across_cells": true,
+  "runner_observations": [
+    {
+      "name": "qwen-tp1-c01",
+      "post_termination_compute_processes": {
+        "command": [
+          "nvidia-smi",
+          "--query-compute-apps=pid,process_name,used_memory",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "readiness": {
+        "health_status": 200,
+        "ready": true,
+        "startup_wait_seconds": 96.60795618099996
+      },
+      "server_command": [
+        "vllm",
+        "serve",
+        "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "--served-model-name",
+        "qwen2.5-3b-instruct",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--tensor-parallel-size",
+        "1",
+        "--dtype",
+        "float16",
+        "--max-model-len",
+        "4096",
+        "--gpu-memory-utilization",
+        "0.9",
+        "--max-num-seqs",
+        "64",
+        "--seed",
+        "0",
+        "--no-enable-prefix-caching",
+        "--enforce-eager",
+        "--disable-custom-all-reduce"
+      ],
+      "termination": {
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "visible_physical_gpu_indices": [
+        0
+      ]
+    },
+    {
+      "name": "qwen-tp2-c01",
+      "post_termination_compute_processes": {
+        "command": [
+          "nvidia-smi",
+          "--query-compute-apps=pid,process_name,used_memory",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "readiness": {
+        "health_status": 200,
+        "ready": true,
+        "startup_wait_seconds": 78.08297470299976
+      },
+      "server_command": [
+        "vllm",
+        "serve",
+        "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "--served-model-name",
+        "qwen2.5-3b-instruct",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--tensor-parallel-size",
+        "2",
+        "--dtype",
+        "float16",
+        "--max-model-len",
+        "4096",
+        "--gpu-memory-utilization",
+        "0.9",
+        "--max-num-seqs",
+        "64",
+        "--seed",
+        "0",
+        "--no-enable-prefix-caching",
+        "--enforce-eager",
+        "--disable-custom-all-reduce"
+      ],
+      "termination": {
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "visible_physical_gpu_indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "name": "qwen-tp1-c04",
+      "post_termination_compute_processes": {
+        "command": [
+          "nvidia-smi",
+          "--query-compute-apps=pid,process_name,used_memory",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "readiness": {
+        "health_status": 200,
+        "ready": true,
+        "startup_wait_seconds": 49.552523027999996
+      },
+      "server_command": [
+        "vllm",
+        "serve",
+        "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "--served-model-name",
+        "qwen2.5-3b-instruct",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--tensor-parallel-size",
+        "1",
+        "--dtype",
+        "float16",
+        "--max-model-len",
+        "4096",
+        "--gpu-memory-utilization",
+        "0.9",
+        "--max-num-seqs",
+        "64",
+        "--seed",
+        "0",
+        "--no-enable-prefix-caching",
+        "--enforce-eager",
+        "--disable-custom-all-reduce"
+      ],
+      "termination": {
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "visible_physical_gpu_indices": [
+        0
+      ]
+    },
+    {
+      "name": "qwen-tp2-c04",
+      "post_termination_compute_processes": {
+        "command": [
+          "nvidia-smi",
+          "--query-compute-apps=pid,process_name,used_memory",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "readiness": {
+        "health_status": 200,
+        "ready": true,
+        "startup_wait_seconds": 66.57724530699988
+      },
+      "server_command": [
+        "vllm",
+        "serve",
+        "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "--served-model-name",
+        "qwen2.5-3b-instruct",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--tensor-parallel-size",
+        "2",
+        "--dtype",
+        "float16",
+        "--max-model-len",
+        "4096",
+        "--gpu-memory-utilization",
+        "0.9",
+        "--max-num-seqs",
+        "64",
+        "--seed",
+        "0",
+        "--no-enable-prefix-caching",
+        "--enforce-eager",
+        "--disable-custom-all-reduce"
+      ],
+      "termination": {
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "visible_physical_gpu_indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "name": "qwen-tp1-c08",
+      "post_termination_compute_processes": {
+        "command": [
+          "nvidia-smi",
+          "--query-compute-apps=pid,process_name,used_memory",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "readiness": {
+        "health_status": 200,
+        "ready": true,
+        "startup_wait_seconds": 50.053711466000095
+      },
+      "server_command": [
+        "vllm",
+        "serve",
+        "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "--served-model-name",
+        "qwen2.5-3b-instruct",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--tensor-parallel-size",
+        "1",
+        "--dtype",
+        "float16",
+        "--max-model-len",
+        "4096",
+        "--gpu-memory-utilization",
+        "0.9",
+        "--max-num-seqs",
+        "64",
+        "--seed",
+        "0",
+        "--no-enable-prefix-caching",
+        "--enforce-eager",
+        "--disable-custom-all-reduce"
+      ],
+      "termination": {
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "visible_physical_gpu_indices": [
+        0
+      ]
+    },
+    {
+      "name": "qwen-tp2-c08",
+      "post_termination_compute_processes": {
+        "command": [
+          "nvidia-smi",
+          "--query-compute-apps=pid,process_name,used_memory",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "readiness": {
+        "health_status": 200,
+        "ready": true,
+        "startup_wait_seconds": 66.57888587599973
+      },
+      "server_command": [
+        "vllm",
+        "serve",
+        "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "--served-model-name",
+        "qwen2.5-3b-instruct",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--tensor-parallel-size",
+        "2",
+        "--dtype",
+        "float16",
+        "--max-model-len",
+        "4096",
+        "--gpu-memory-utilization",
+        "0.9",
+        "--max-num-seqs",
+        "64",
+        "--seed",
+        "0",
+        "--no-enable-prefix-caching",
+        "--enforce-eager",
+        "--disable-custom-all-reduce"
+      ],
+      "termination": {
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "visible_physical_gpu_indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "name": "qwen-tp1-c16",
+      "post_termination_compute_processes": {
+        "command": [
+          "nvidia-smi",
+          "--query-compute-apps=pid,process_name,used_memory",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "readiness": {
+        "health_status": 200,
+        "ready": true,
+        "startup_wait_seconds": 50.05574596899987
+      },
+      "server_command": [
+        "vllm",
+        "serve",
+        "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "--served-model-name",
+        "qwen2.5-3b-instruct",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--tensor-parallel-size",
+        "1",
+        "--dtype",
+        "float16",
+        "--max-model-len",
+        "4096",
+        "--gpu-memory-utilization",
+        "0.9",
+        "--max-num-seqs",
+        "64",
+        "--seed",
+        "0",
+        "--no-enable-prefix-caching",
+        "--enforce-eager",
+        "--disable-custom-all-reduce"
+      ],
+      "termination": {
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "visible_physical_gpu_indices": [
+        0
+      ]
+    },
+    {
+      "name": "qwen-tp2-c16",
+      "post_termination_compute_processes": {
+        "command": [
+          "nvidia-smi",
+          "--query-compute-apps=pid,process_name,used_memory",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "readiness": {
+        "health_status": 200,
+        "ready": true,
+        "startup_wait_seconds": 64.57236787600004
+      },
+      "server_command": [
+        "vllm",
+        "serve",
+        "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "--served-model-name",
+        "qwen2.5-3b-instruct",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--tensor-parallel-size",
+        "2",
+        "--dtype",
+        "float16",
+        "--max-model-len",
+        "4096",
+        "--gpu-memory-utilization",
+        "0.9",
+        "--max-num-seqs",
+        "64",
+        "--seed",
+        "0",
+        "--no-enable-prefix-caching",
+        "--enforce-eager",
+        "--disable-custom-all-reduce"
+      ],
+      "termination": {
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "visible_physical_gpu_indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "name": "qwen-tp1-c32",
+      "post_termination_compute_processes": {
+        "command": [
+          "nvidia-smi",
+          "--query-compute-apps=pid,process_name,used_memory",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "readiness": {
+        "health_status": 200,
+        "ready": true,
+        "startup_wait_seconds": 50.55362154100021
+      },
+      "server_command": [
+        "vllm",
+        "serve",
+        "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "--served-model-name",
+        "qwen2.5-3b-instruct",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--tensor-parallel-size",
+        "1",
+        "--dtype",
+        "float16",
+        "--max-model-len",
+        "4096",
+        "--gpu-memory-utilization",
+        "0.9",
+        "--max-num-seqs",
+        "64",
+        "--seed",
+        "0",
+        "--no-enable-prefix-caching",
+        "--enforce-eager",
+        "--disable-custom-all-reduce"
+      ],
+      "termination": {
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "visible_physical_gpu_indices": [
+        0
+      ]
+    },
+    {
+      "name": "qwen-tp2-c32",
+      "post_termination_compute_processes": {
+        "command": [
+          "nvidia-smi",
+          "--query-compute-apps=pid,process_name,used_memory",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "readiness": {
+        "health_status": 200,
+        "ready": true,
+        "startup_wait_seconds": 67.07572221499959
+      },
+      "server_command": [
+        "vllm",
+        "serve",
+        "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "--served-model-name",
+        "qwen2.5-3b-instruct",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--tensor-parallel-size",
+        "2",
+        "--dtype",
+        "float16",
+        "--max-model-len",
+        "4096",
+        "--gpu-memory-utilization",
+        "0.9",
+        "--max-num-seqs",
+        "64",
+        "--seed",
+        "0",
+        "--no-enable-prefix-caching",
+        "--enforce-eager",
+        "--disable-custom-all-reduce"
+      ],
+      "termination": {
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "visible_physical_gpu_indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "name": "qwen-tp1-c64",
+      "post_termination_compute_processes": {
+        "command": [
+          "nvidia-smi",
+          "--query-compute-apps=pid,process_name,used_memory",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "readiness": {
+        "health_status": 200,
+        "ready": true,
+        "startup_wait_seconds": 50.555511247999675
+      },
+      "server_command": [
+        "vllm",
+        "serve",
+        "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "--served-model-name",
+        "qwen2.5-3b-instruct",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--tensor-parallel-size",
+        "1",
+        "--dtype",
+        "float16",
+        "--max-model-len",
+        "4096",
+        "--gpu-memory-utilization",
+        "0.9",
+        "--max-num-seqs",
+        "64",
+        "--seed",
+        "0",
+        "--no-enable-prefix-caching",
+        "--enforce-eager",
+        "--disable-custom-all-reduce"
+      ],
+      "termination": {
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "visible_physical_gpu_indices": [
+        0
+      ]
+    },
+    {
+      "name": "qwen-tp2-c64",
+      "post_termination_compute_processes": {
+        "command": [
+          "nvidia-smi",
+          "--query-compute-apps=pid,process_name,used_memory",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "readiness": {
+        "health_status": 200,
+        "ready": true,
+        "startup_wait_seconds": 66.57756187599989
+      },
+      "server_command": [
+        "vllm",
+        "serve",
+        "/kaggle/working/kaggle-vllm-milestone-2-work/model-cache/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "--served-model-name",
+        "qwen2.5-3b-instruct",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--tensor-parallel-size",
+        "2",
+        "--dtype",
+        "float16",
+        "--max-model-len",
+        "4096",
+        "--gpu-memory-utilization",
+        "0.9",
+        "--max-num-seqs",
+        "64",
+        "--seed",
+        "0",
+        "--no-enable-prefix-caching",
+        "--enforce-eager",
+        "--disable-custom-all-reduce"
+      ],
+      "termination": {
+        "returncode": 0,
+        "status": "terminated"
+      },
+      "visible_physical_gpu_indices": [
+        0,
+        1
+      ]
+    }
+  ],
+  "schema_version": "kaggle-vllm-serving-summary-v1",
+  "status": "executed"
+}
