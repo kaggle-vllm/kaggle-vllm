@@ -62,6 +62,15 @@ def test_parse_and_summarize_gpu_telemetry_with_unsupported_values():
     assert summaries[1]["peak_utilization_percent"] is None
 
 
+def test_extended_telemetry_records_total_memory_and_memory_utilization():
+    text = "0, 12000, 15360, 90, 75, 60, 65, 1500, 5000"
+    samples = parse_telemetry_csv(text, captured_at="2026-09-02T00:00:00+00:00")
+    summary = summarize_gpu_samples(samples)[0]
+    assert summary["peak_memory_used_mib"] == 12000
+    assert summary["memory_total_mib"] == 15360
+    assert summary["peak_memory_utilization_percent"] == 75
+
+
 def test_monitor_collects_initial_and_final_samples_without_cuda():
     def runner(command):
         return CommandCapture(
@@ -74,6 +83,10 @@ def test_monitor_collects_initial_and_final_samples_without_cuda():
     assert payload["summaries"][0]["sample_count"] == 2
     assert payload["capture_failures"] == []
     assert payload["raw_samples_retained"] is False
+    assert payload["telemetry_sample_count"] == 2
+    assert payload["maximum_aggregate_sampled_memory_used_mib"] == 10
+    assert payload["monitoring_started_at"] is not None
+    assert payload["monitoring_ended_at"] is not None
 
 
 def test_run_command_reports_missing_executable():
