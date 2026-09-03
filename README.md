@@ -157,6 +157,11 @@ kaggle-vllm benchmark \
   --dry-run
 ```
 
+Milestone 2 adds a separate online streaming concurrency benchmark for the
+controlled Qwen TP1/TP2 matrix. Its dual-T4 results are not yet claimed. See
+the [concurrency benchmark methodology](docs/concurrency-benchmarking.md) and
+preview a CPU-safe cell with `kaggle-vllm benchmark-serving --help`.
+
 ---
 
 ## OpenAI-compatible vLLM server on Kaggle

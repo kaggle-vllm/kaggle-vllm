@@ -24,6 +24,7 @@ are under `artifacts/kaggle-2026-08-23/`.
 | 0.2 development-candidate acceptance identity and PASS | `artifacts/kaggle-2026-08-30-v0.2.0-acceptance/kaggle-vllm-020-acceptance-evidence.json`, executed notebook | [0.2 acceptance](kaggle-v0.2.0-acceptance.md) | SDK `0.2.0.dev0`, source `7327b0b…` |
 | TP1 versus TP2 performance | benchmark `run-metadata.json`, `summary.json`, five configuration JSON files and checksums | [0.2 benchmark](kaggle-v0.2.0-benchmark.md), [benchmarking](benchmarking.md) | Executed at source `6d10912…`; tiny OPT-125M TP=1 faster than TP=2 |
 | Final public `kaggle-vllm==0.2.0` delivery | executed post-publication notebook, recovered acceptance JSON, Qwen JSON/log | [final acceptance](kaggle-v0.2.0-final-acceptance.md), [evidence directory](../artifacts/kaggle-2026-08-31-v0.2.0-final-acceptance/) | PASS on Kaggle T4x2, 2026-08-31 |
+| Qwen TP1/TP2 online concurrency crossover | output-free source notebook and CPU-tested framework only | [online concurrency methodology](concurrency-benchmarking.md), [pending evidence directory](../artifacts/kaggle-2026-09-02-milestone-2/) | PENDING — no local GPU result claimed |
 
 Generated text in evidence demonstrates that inference completed. It is not a
 quality evaluation. CPU unit tests validate SDK behavior but do not replace any

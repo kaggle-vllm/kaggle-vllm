@@ -4,6 +4,17 @@ All notable changes are documented here.
 
 ## Unreleased
 
+- Add a CPU-testable streaming OpenAI-compatible serving benchmark with real
+  first-content TTFT, post-first-token TPOT, actual usage-token throughput,
+  neutral failure/OOM classification, and a separate serving evidence schema.
+- Add the pinned Qwen2.5-3B TP1/TP2 concurrency matrix at
+  `1,4,8,16,32,64`, with fresh per-cell servers, measured-interval GPU
+  telemetry, raw before/after vLLM metrics, deterministic checksums, and
+  independent throughput/capacity crossover analysis.
+- Add an output-free Kaggle Milestone 2 notebook and pending evidence
+  directory. Real Kaggle dual-T4 acceptance remains pending and no local GPU
+  result is claimed.
+
 - Add CPU-testable benchmark specifications, schema-v1 offline-engine evidence,
   descriptive statistics, neutral result comparison, NVIDIA topology parsing,
   and lightweight sampled GPU telemetry for dual-T4 TP characterization.

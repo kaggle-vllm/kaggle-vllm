@@ -32,6 +32,7 @@ operational detail close to the feature or failure it describes.
 ## Benchmarking and acceptance
 
 - [Benchmark methodology](benchmarking.md)
+- [Online concurrency benchmarking](concurrency-benchmarking.md)
 - [Testing: CPU CI versus Kaggle GPU acceptance](testing.md)
 - [Historical validation record](validation.md)
 - [Final 0.2.0 Kaggle acceptance](kaggle-v0.2.0-final-acceptance.md)

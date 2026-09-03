@@ -5,6 +5,15 @@ This directory contains Kaggle-specific validation material for
 under [`examples/`](../examples/) are starting points and do not claim a
 successful run until their outputs have been captured and reviewed.
 
+## Post-0.2.0 Milestone 2 execution source
+
+[`kaggle_vllm_milestone_2_concurrency_crossover.ipynb`](kaggle_vllm_milestone_2_concurrency_crossover.ipynb)
+is the output-free source notebook for the Qwen TP1/TP2 online concurrency
+matrix. It has no committed GPU outputs and makes no crossover, OOM, or
+acceptance claim. Run it only in a fresh Kaggle T4×2 session, then download the
+checksummed `/kaggle/working/kaggle-vllm-milestone-2.zip` for review. See the
+[Milestone 2 methodology](../docs/concurrency-benchmarking.md).
+
 ## Post-0.2.0 Milestone 1 evidence
 
 [`kaggle_vllm_milestone_1_tp_diagnostics.ipynb`](kaggle_vllm_milestone_1_tp_diagnostics.ipynb)
