@@ -1,13 +1,11 @@
 # Communication Cost Modeling & Crossover Diagnostics
 
 ## Overview
-This document describes the analytical $\alpha–\beta$ communication cost model implemented in `src/kaggle_vllm/diagnostics/`. 
+This document describes the analytical alpha-beta communication cost model implemented in `src/kaggle_vllm/diagnostics/`.
 
 The model is designed to explain the low-concurrency Tensor Parallelism (TP2) penalty and the high-concurrency throughput crossover observed on Dual Tesla T4 GPUs connected via a PCIe Host Bridge (PHB).
 
----
-
-## The Analytical Model ($\alpha–\beta$)
+## The Analytical Model (Alpha-Beta)
 
 Total inter-GPU communication latency per generated token is modeled as:
 
@@ -20,16 +18,12 @@ Where:
 - $S$: Payload size in bytes ($S = \text{Batch\_Size} \times \text{Hidden\_Size} \times \text{Bytes\_Per\_Elem}$).
 - $\beta$: Effective PCIe bus bandwidth ($\approx 7.8\,\text{GB/s}$ for PCIe Gen3 x8).
 
----
-
 ## Measured vs. Inferred Quantities
 
 | Category | Variables | Source |
 |---|---|---|
 | **Measured** | Output tok/s, TTFT p95, TPOT p95, Peak Memory, Request Status | JSON Evidence Artifacts (`summary.json`) |
 | **Inferred** | Step Alpha ($\alpha$), Comm Overhead ($T_{\text{comm}}$), Crossover Point | `AlphaBetaCommModel` Analytical Calculations |
-
----
 
 ## Limitations & Causal Boundaries
 

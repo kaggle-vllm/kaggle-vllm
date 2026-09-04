@@ -1,6 +1,6 @@
 # Milestone 3 — Communication-Cost & Crossover Diagnostics Report
 
-**Framework:** `kaggle-vllm` Analytical Alpha-Beta Diagnostics  
+**Framework:** `kaggle-vllm` Analytical Alpha-Beta Diagnostics
 **Scope:** Evaluation of PCIe Host Bridge (PHB) AllReduce penalty across M1 and M2 datasets
 
 ## 1. Milestone 1 — Low-Concurrency TP Penalty Analysis

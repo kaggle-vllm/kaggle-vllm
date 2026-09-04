@@ -1,4 +1,3 @@
-import pytest
 from kaggle_vllm.diagnostics.alpha_beta_model import AlphaBetaCommModel
 from kaggle_vllm.diagnostics.evaluator import MilestoneArtifactEvaluator
 
@@ -19,7 +18,9 @@ def test_alpha_beta_model_tp2_opt125m():
 def test_evaluate_cell_crossover():
     model = AlphaBetaCommModel()
     # High concurrency where TP2 > TP1
-    estimate = model.evaluate_cell("qwen2.5-3b", tp1_tok_s=138.75, tp2_tok_s=174.27, concurrency=16)
+    estimate = model.evaluate_cell(
+        "qwen2.5-3b", tp1_tok_s=138.75, tp2_tok_s=174.27, concurrency=16
+    )
     assert not estimate.is_comm_bound
     assert estimate.observed_delta_percent > 0
 
