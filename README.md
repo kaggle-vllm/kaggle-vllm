@@ -1,4 +1,4 @@
-# kaggle-vllm — Run vLLM on Kaggle NVIDIA T4 GPUs
+# kaggle-vllm — Run vLLM on Kaggle platform with dual NVIDIA T4 GPUs
 
 **kaggle-vllm** is a lightweight compatibility and runtime-delivery toolkit for running **upstream vLLM on Kaggle Notebooks with NVIDIA Tesla T4 GPUs**.
 
