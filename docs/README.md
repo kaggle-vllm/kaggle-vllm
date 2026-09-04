@@ -42,6 +42,7 @@ operational detail close to the feature or failure it describes.
 
 - [Troubleshooting](troubleshooting.md)
 - [Security and supply chain](security.md)
+- [Repository governance](repository-governance.md)
 - [Development workflow](development.md)
 - [Release process](release.md)
 - [Alpha-readiness scorecard](alpha-readiness.md)
