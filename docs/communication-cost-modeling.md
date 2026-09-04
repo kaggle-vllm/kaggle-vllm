@@ -1,31 +1,56 @@
-# Communication Cost Modeling & Crossover Diagnostics
+# Communication Cost Modeling and Crossover Diagnostics
 
-## Overview
-This document describes the analytical alpha-beta communication cost model implemented in `src/kaggle_vllm/diagnostics/`.
+## Purpose
 
-The model is designed to explain the low-concurrency Tensor Parallelism (TP2) penalty and the high-concurrency throughput crossover observed on Dual Tesla T4 GPUs connected via a PCIe Host Bridge (PHB).
+Milestone 3 turns existing M1/M2 measurements into a reusable diagnostics layer that:
 
-## The Analytical Model (Alpha-Beta)
+1. Re-reads artifact JSON (no new GPU dependency).
+2. Separates measured facts from derived proxies and optional hypothetical alpha-beta arithmetic.
+3. Detects the measured TP throughput crossover on M2.
+4. States explicitly when the analytical model cannot predict crossover from available evidence.
 
-Total inter-GPU communication latency per generated token is modeled as:
+## Measured vs derived vs hypothetical
 
-$$T_{\text{comm}} = N_{\text{steps}} \times \left( \alpha + \frac{2(P - 1)}{P} \cdot \frac{S}{\beta} \right)$$
+| Layer | Meaning | Example |
+| --- | --- | --- |
+| Measured | Directly taken from evidence JSON | TP1/TP2 tok/s, M2 matrix, summary crossover field |
+| Derived proxy | Function of measured rates plus an assumed collective count | excess ms/tok divided by 2*layers |
+| Hypothetical | Optional alpha-beta expression with labeled assumptions | N*alpha_assumed; optional S using concurrency as batch (weak) |
 
-Where:
-- $N_{\text{steps}}$: Number of AllReduce collective calls per token ($2 \times \text{layers}$ in Megatron TP).
-- $\alpha$: Fixed per-collective synchronization latency across the CPU root-complex / PCIe bridge (inferred $\sim 7.91\,\mu\text{s}$ for SM75 PHB).
-- $P$: Tensor Parallel degree ($P = 2$).
-- $S$: Payload size in bytes ($S = \text{Batch\_Size} \times \text{Hidden\_Size} \times \text{Bytes\_Per\_Elem}$).
-- $\beta$: Effective PCIe bus bandwidth ($\approx 7.8\,\text{GB/s}$ for PCIe Gen3 x8).
+The derived proxy is not classical alpha. M1 already notes that offline TP deltas do not isolate collective time from compute, scheduling, graph/eager mode, or memory effects. Eager vs graph proxies on OPT-125M differ by a large factor; that instability is reported, not hidden.
 
-## Measured vs. Inferred Quantities
+## Architecture assumptions (collective count only)
 
-| Category | Variables | Source |
-|---|---|---|
-| **Measured** | Output tok/s, TTFT p95, TPOT p95, Peak Memory, Request Status | JSON Evidence Artifacts (`summary.json`) |
-| **Inferred** | Step Alpha ($\alpha$), Comm Overhead ($T_{\text{comm}}$), Crossover Point | `AlphaBetaCommModel` Analytical Calculations |
+Megatron-style tensor parallel is assumed to issue two AllReduce-like syncs per transformer layer (attention output projection and MLP down-projection):
 
-## Limitations & Causal Boundaries
+- OPT-125M: 12 layers => 24 collectives/token (not "24 layers").
+- Qwen2.5-3B: 36 layers => 72 collectives/token.
 
-1. **Interacting Effects:** The model isolates collective communication latency, but measured throughput also includes vLLM scheduling overhead, CUDA Graph execution efficiency, and KV cache memory bus saturation.
-2. **Topology Specificity:** The inferred step latency ($\sim 7.91\,\mu\text{s}$) applies strictly to PCIe Host Bridge (PHB) topologies without NVLink. On NVLink-enabled hardware, $\alpha$ drops significantly ($< 1.5\,\mu\text{s}$).
+These counts are structural assumptions for normalizing a proxy. They are not proof of the vendor collective schedule inside vLLM for every kernel path.
+
+## Payload S and concurrency
+
+Online M2 concurrency is the offered load parameter for the benchmark harness. It is not established as the instantaneous decode batch size inside the vLLM scheduler. Therefore the default diagnostics path sets payload mode to unknown and does not compute beta*S from concurrency. A hypothetical mode may set payload_mode=hypothetical_concurrency_as_batch only with an explicit warning.
+
+## Crossover: detection vs prediction
+
+- Detection: first matrix concurrency where measured TP2 output tok/s exceeds TP1 (M2: c=16 under the pinned workload).
+- Prediction: not supported with current evidence (no isolated collective timestamps; no trusted per-step batch size trace). The report records prediction_status=unsupported rather than implying the model predicted c=16.
+
+## Topology language
+
+topology.txt on the Kaggle dual-T4 host records PHB between GPUs. Diagnostics may mention that observation. They must not claim PHB/NCCL as the sole cause of TP behavior.
+
+## CLI
+
+Run:
+
+PYTHONPATH=src python -m kaggle_vllm.diagnostics --m1-dir artifacts/kaggle-2026-09-01-milestone-1 --m2-dir artifacts/kaggle-2026-09-02-milestone-2 --output-dir artifacts/kaggle-2026-09-03-milestone-3 --format both
+
+Optional flag --enable-hypothetical attaches labeled what-if numbers; it does not calibrate transport parameters from M1/M2.
+
+## Non-goals
+
+- No new vLLM/Torch/CUDA package dependency for import.
+- No overwrite of historical M1/M2 artifacts.
+- No silent equation of concurrency with decode batch.
