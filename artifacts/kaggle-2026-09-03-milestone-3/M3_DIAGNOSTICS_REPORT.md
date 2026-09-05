@@ -2,8 +2,9 @@
 
 ## Provenance
 
-- Generated at (UTC): 2026-09-05T07:48:29.678264+00:00
-- Generator git HEAD: `e4bddbc3ef8091c43791ad79e7618ee9bba1500e`
+- Generated at (UTC): 2026-09-05T08:56:01.721257+00:00
+- Generator git HEAD: `4f14958ab26ddb6d2d8029b2b0781dcaf6a4bfa6`
+- Generator git dirty: `True`
 - Command: `python -m kaggle_vllm.diagnostics --format both`
 - enable_hypothetical: False
 - strict_evidence: True
@@ -62,3 +63,4 @@
 - Eager vs graph proxy divergence means proxy is not stable transport alpha.
 - Serving concurrency is not silently treated as decode batch size.
 - No sole NCCL/PCIe causality claim from M1/M2 alone.
+

@@ -1,7 +1,8 @@
 {
   "provenance": {
-    "generated_at_utc": "2026-09-05T07:48:29.678264+00:00",
-    "git_head": "e4bddbc3ef8091c43791ad79e7618ee9bba1500e",
+    "generated_at_utc": "2026-09-05T08:56:01.721257+00:00",
+    "git_head": "4f14958ab26ddb6d2d8029b2b0781dcaf6a4bfa6",
+    "git_tree_dirty": true,
     "command": "python -m kaggle_vllm.diagnostics --format both",
     "enable_hypothetical": false,
     "strict_evidence": true,
@@ -13,8 +14,7 @@
       "md"
     ],
     "errors": [],
-    "markdown_sha256": "f87f8e3228375243628e8e0bc407f8e355af57a57cab702558597880a1b43a94",
-    "json_sha256": "5e32e1fbc94005a6e4edc9ad2f7e93a81d3ea61749221e9f0f5f1e96c37f0989"
+    "markdown_sha256": "272d07bcb7d8d00e9c5475981662275d2900eda5178bb5f5fab5304b1e1fbc32"
   },
   "m1": {
     "milestone": "m1",
