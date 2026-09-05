@@ -87,18 +87,34 @@ class MilestoneArtifactEvaluator:
                 errors.append(f"{comp_file.name}: missing absolute block")
                 continue
             try:
-                tp1 = float(
-                    abs_data.get("baseline_output_tokens_per_second", 0.0) or 0.0
-                )
-                tp2 = float(
-                    abs_data.get("candidate_output_tokens_per_second", 0.0) or 0.0
-                )
+                if "baseline_output_tokens_per_second" not in abs_data:
+                    errors.append(
+                        f"{comp_file.name}: missing baseline_output_tokens_per_second"
+                    )
+                    continue
+                if "candidate_output_tokens_per_second" not in abs_data:
+                    errors.append(
+                        f"{comp_file.name}: missing candidate_output_tokens_per_second"
+                    )
+                    continue
+                tp1 = float(abs_data["baseline_output_tokens_per_second"])
+                tp2 = float(abs_data["candidate_output_tokens_per_second"])
             except (TypeError, ValueError) as exc:
                 errors.append(f"{comp_file.name}: bad throughput fields: {exc}")
                 continue
 
             is_tp = "batching" not in label
-            model_key = "opt-125m" if "opt125m" in label else "qwen2.5-3b"
+            label_l = label.lower()
+            if "opt125m" in label_l or "opt-125m" in label_l:
+                model_key = "opt-125m"
+            elif "qwen" in label_l:
+                model_key = "qwen2.5-3b"
+            else:
+                errors.append(
+                    f"{comp_file.name}: cannot map label to a known model_key "
+                    f"(expected opt125m/opt-125m or qwen); refusing silent fallback"
+                )
+                continue
             try:
                 cells.append(
                     self.model.diagnose_cell(

@@ -8,6 +8,7 @@ import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 
 def _fmt(x: float | None, digits: int = 2) -> str:
@@ -33,21 +34,43 @@ def _git_head() -> str:
         return "unknown"
 
 
-def render_markdown(m1, m2, provenance: dict) -> str:
+def _git_dirty() -> bool:
+    try:
+        out = subprocess.check_output(
+            ["git", "status", "--porcelain"], text=True, stderr=subprocess.DEVNULL
+        ).strip()
+        return bool(out)
+    except (OSError, subprocess.CalledProcessError):
+        return True
+
+
+def render_markdown(m1: Any, m2: Any, provenance: dict[str, Any]) -> str:
+    gen_utc = provenance.get("generated_at_utc")
+    g_head = provenance.get("git_head")
+    g_dirty = provenance.get("git_tree_dirty")
+    cmd = provenance.get("command")
+    hyp = provenance.get("enable_hypothetical")
+    strict = provenance.get("strict_evidence")
+    m1_d = provenance.get("m1_dir")
+    m2_d = provenance.get("m2_dir")
+    out_d = provenance.get("output_dir")
+    fmts = provenance.get("formats_written")
+
     lines: list[str] = [
         "# Milestone 3 - Communication-Cost Diagnostics Report",
         "",
         "## Provenance",
         "",
-        f"- Generated at (UTC): {provenance.get('generated_at_utc')}",
-        f"- Generator git HEAD: `{provenance.get('git_head')}`",
-        f"- Command: `{provenance.get('command')}`",
-        f"- enable_hypothetical: {provenance.get('enable_hypothetical')}",
-        f"- strict_evidence: {provenance.get('strict_evidence')}",
-        f"- M1 dir: `{provenance.get('m1_dir')}`",
-        f"- M2 dir: `{provenance.get('m2_dir')}`",
-        f"- Output dir: `{provenance.get('output_dir')}`",
-        f"- Formats written: {provenance.get('formats_written')}",
+        f"- Generated at (UTC): {gen_utc}",
+        f"- Generator git HEAD: `{g_head}`",
+        f"- Generator git dirty: `{g_dirty}`",
+        f"- Command: `{cmd}`",
+        f"- enable_hypothetical: {hyp}",
+        f"- strict_evidence: {strict}",
+        f"- M1 dir: `{m1_d}`",
+        f"- M2 dir: `{m2_d}`",
+        f"- Output dir: `{out_d}`",
+        f"- Formats written: {fmts}",
         "",
         "## Scientific boundaries",
         "",
@@ -122,7 +145,7 @@ def render_markdown(m1, m2, provenance: dict) -> str:
         "- No sole NCCL/PCIe causality claim from M1/M2 alone.",
         "",
     ]
-    return "\n".join(lines)
+    return "\n".join(lines) + "\n"
 
 
 def generate_reports(
@@ -134,9 +157,8 @@ def generate_reports(
     formats: set[str] | None = None,
     strict_evidence: bool = True,
     command: str = "python -m kaggle_vllm.diagnostics",
-) -> dict:
+) -> dict[str, str]:
     from kaggle_vllm.diagnostics.evaluator import (
-        EvidenceIncompleteError,
         MilestoneArtifactEvaluator,
         evaluation_to_jsonable,
     )
@@ -152,17 +174,13 @@ def generate_reports(
 
     m1_eval = MilestoneArtifactEvaluator(m1_dir, strict=strict_evidence)
     m2_eval = MilestoneArtifactEvaluator(m2_dir, strict=strict_evidence)
-    try:
-        m1 = m1_eval.parse_m1_evidence()
-        m2 = m2_eval.parse_m2_concurrency_matrix()
-    except EvidenceIncompleteError:
-        if strict_evidence:
-            raise
-        raise
+    m1 = m1_eval.parse_m1_evidence()
+    m2 = m2_eval.parse_m2_concurrency_matrix()
 
-    provenance = {
+    provenance: dict[str, Any] = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "git_head": _git_head(),
+        "git_tree_dirty": _git_dirty(),
         "command": command,
         "enable_hypothetical": False,
         "strict_evidence": strict_evidence,
@@ -174,28 +192,31 @@ def generate_reports(
     }
 
     paths: dict[str, str] = {}
+
     if "md" in formats:
         md_path = output_path / "M3_DIAGNOSTICS_REPORT.md"
-        md_path.write_text(render_markdown(m1, m2, provenance), encoding="utf-8")
+        md_text = render_markdown(m1, m2, provenance)
+        md_path.write_text(md_text, encoding="utf-8")
         provenance["markdown_sha256"] = _sha256_file(md_path)
         paths["markdown"] = str(md_path)
 
     if "json" in formats:
         json_path = output_path / "M3_DIAGNOSTICS_REPORT.json"
         payload = {
-            "provenance": provenance,
+            "provenance": dict(provenance),
             "m1": evaluation_to_jsonable(m1),
             "m2": evaluation_to_jsonable(m2),
         }
-        json_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+        json_bytes = (json.dumps(payload, indent=2) + "\n").encode("utf-8")
+        json_path.write_bytes(json_bytes)
         provenance["json_sha256"] = _sha256_file(json_path)
-        payload["provenance"] = provenance
-        json_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
         paths["json"] = str(json_path)
 
     prov_path = output_path / "M3_PROVENANCE.json"
-    prov_path.write_text(json.dumps(provenance, indent=2) + "\n", encoding="utf-8")
+    prov_bytes = (json.dumps(provenance, indent=2) + "\n").encode("utf-8")
+    prov_path.write_bytes(prov_bytes)
     paths["provenance"] = str(prov_path)
+
     return paths
 
 
@@ -223,7 +244,7 @@ def main(argv: list[str] | None = None) -> int:
             strict_evidence=not args.no_strict_evidence,
             command=cmd,
         )
-    except (RuntimeError, ValueError, OSError) as e:
+    except (RuntimeError, ValueError, OSError, KeyError, TypeError) as e:
         print(f"ERROR: {e}", file=sys.stderr)
         return 2
 
