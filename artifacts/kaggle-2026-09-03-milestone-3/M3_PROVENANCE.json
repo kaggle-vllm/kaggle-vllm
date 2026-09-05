@@ -1,0 +1,17 @@
+{
+  "generated_at_utc": "2026-09-05T07:48:29.678264+00:00",
+  "git_head": "e4bddbc3ef8091c43791ad79e7618ee9bba1500e",
+  "command": "python -m kaggle_vllm.diagnostics --format both",
+  "enable_hypothetical": false,
+  "strict_evidence": true,
+  "m1_dir": "artifacts/kaggle-2026-09-01-milestone-1",
+  "m2_dir": "artifacts/kaggle-2026-09-02-milestone-2",
+  "output_dir": "artifacts/kaggle-2026-09-03-milestone-3",
+  "formats_written": [
+    "json",
+    "md"
+  ],
+  "errors": [],
+  "markdown_sha256": "f87f8e3228375243628e8e0bc407f8e355af57a57cab702558597880a1b43a94",
+  "json_sha256": "5e32e1fbc94005a6e4edc9ad2f7e93a81d3ea61749221e9f0f5f1e96c37f0989"
+}

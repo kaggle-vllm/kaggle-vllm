@@ -10,13 +10,16 @@ from typing import Any
 from kaggle_vllm.diagnostics.alpha_beta_model import (
     AlphaBetaCommModel,
     CellCommDiagnosis,
+    UnsupportedModelArchitectureError,
 )
+
+
+class EvidenceIncompleteError(RuntimeError):
+    """Required milestone evidence missing or malformed."""
 
 
 @dataclass(frozen=True)
 class CrossoverAnalysis:
-    """Measured crossover detection vs analytical prediction status."""
-
     measured_throughput_crossover_concurrency: int | None
     measured_crossover_tp1_tok_s: float | None
     measured_crossover_tp2_tok_s: float | None
@@ -31,6 +34,7 @@ class MilestoneEvaluation:
     cells: list[CellCommDiagnosis]
     crossover: CrossoverAnalysis | None
     notes: list[str]
+    errors: list[str]
 
 
 class MilestoneArtifactEvaluator:
@@ -39,49 +43,76 @@ class MilestoneArtifactEvaluator:
         artifact_dir: str | Path,
         *,
         enable_hypothetical: bool = False,
+        strict: bool = True,
     ) -> None:
+        if enable_hypothetical:
+            raise ValueError(
+                "enable_hypothetical requires wiring HypotheticalAlphaBetaAssumptions "
+                "explicitly in a future call path; refusing bare True without assumptions"
+            )
         self.artifact_path = Path(artifact_dir)
-        self.model = AlphaBetaCommModel(enable_hypothetical=enable_hypothetical)
+        self.model = AlphaBetaCommModel(enable_hypothetical=False)
+        self.strict = strict
+
+    def _fail_or_note(self, errors: list[str], msg: str) -> None:
+        errors.append(msg)
 
     def parse_m1_evidence(self) -> MilestoneEvaluation:
         cells: list[CellCommDiagnosis] = []
-        notes: list[str] = [
+        notes = [
             "M1 offline comparisons: treat graph vs eager proxy spread as a stability warning.",
             "M1 text already states communication was not causally isolated.",
         ]
+        errors: list[str] = []
 
-        for comp_file in sorted(self.artifact_path.glob("comparison-*.json")):
+        if not self.artifact_path.is_dir():
+            errors.append(f"M1 artifact dir missing: {self.artifact_path}")
+            return self._finish("m1", cells, None, notes, errors)
+
+        comp_files = sorted(self.artifact_path.glob("comparison-*.json"))
+        if not comp_files:
+            errors.append(f"No comparison-*.json under {self.artifact_path}")
+            return self._finish("m1", cells, None, notes, errors)
+
+        for comp_file in comp_files:
             try:
                 data = json.loads(comp_file.read_text(encoding="utf-8"))
-            except (OSError, json.JSONDecodeError, UnicodeError):
+            except (OSError, json.JSONDecodeError, UnicodeError) as exc:
+                errors.append(f"unreadable {comp_file.name}: {exc}")
                 continue
 
             label = comp_file.stem
-            abs_data = data.get("absolute", {})
-            tp1 = float(abs_data.get("baseline_output_tokens_per_second", 0.0) or 0.0)
-            tp2 = float(abs_data.get("candidate_output_tokens_per_second", 0.0) or 0.0)
-
-            is_tp = True
-            model_key = "opt-125m" if "opt125m" in label else "qwen2.5-3b"
-            if "batching" in label:
-                is_tp = False
-
-            # Prefer engine metadata when present on side files — comparisons encode TP in name
-            if "opt125m-graph" in label or "opt125m-eager" in label:
-                model_key = "opt-125m"
-
-            cells.append(
-                self.model.diagnose_cell(
-                    label=label,
-                    model_key=model_key,
-                    tp1_tok_s=tp1,
-                    tp2_tok_s=tp2,
-                    concurrency=1,
-                    comparison_is_tp_controlled=is_tp,
+            abs_data = data.get("absolute")
+            if not isinstance(abs_data, dict):
+                errors.append(f"{comp_file.name}: missing absolute block")
+                continue
+            try:
+                tp1 = float(
+                    abs_data.get("baseline_output_tokens_per_second", 0.0) or 0.0
                 )
-            )
+                tp2 = float(
+                    abs_data.get("candidate_output_tokens_per_second", 0.0) or 0.0
+                )
+            except (TypeError, ValueError) as exc:
+                errors.append(f"{comp_file.name}: bad throughput fields: {exc}")
+                continue
 
-        # Explicit note on proxy spread graph vs eager
+            is_tp = "batching" not in label
+            model_key = "opt-125m" if "opt125m" in label else "qwen2.5-3b"
+            try:
+                cells.append(
+                    self.model.diagnose_cell(
+                        label=label,
+                        model_key=model_key,
+                        tp1_tok_s=tp1,
+                        tp2_tok_s=tp2,
+                        concurrency=1,
+                        comparison_is_tp_controlled=is_tp,
+                    )
+                )
+            except UnsupportedModelArchitectureError as exc:
+                errors.append(str(exc))
+
         graph_proxy = next(
             (
                 c.observed_excess_us_per_collective_proxy
@@ -102,72 +133,82 @@ class MilestoneArtifactEvaluator:
         )
         if graph_proxy is not None and eager_proxy is not None:
             notes.append(
-                f"OPT-125M excess-time proxy differs sharply: "
-                f"graph~{graph_proxy:.2f} us/collective vs eager~{eager_proxy:.2f} us/collective. "
-                f"This spread indicates the proxy is not a stable transport-latency alpha."
+                f"OPT-125M excess-time proxy differs: graph~{graph_proxy:.2f} vs "
+                f"eager~{eager_proxy:.2f} us/collective (not stable transport alpha)."
             )
 
-        return MilestoneEvaluation(
-            milestone="m1",
-            cells=cells,
-            crossover=None,
-            notes=notes,
-        )
+        return self._finish("m1", cells, None, notes, errors)
 
     def parse_m2_concurrency_matrix(self) -> MilestoneEvaluation:
-        notes: list[str] = [
+        notes = [
             "M2 online serving: concurrency is NOT proven equal to instantaneous decode batch.",
             "Crossover c=16 is MEASURED detection from the matrix, not an alpha-beta prediction.",
         ]
-        summary_path = self.artifact_path / "summary.json"
+        errors: list[str] = []
         cells: list[CellCommDiagnosis] = []
 
+        if not self.artifact_path.is_dir():
+            errors.append(f"M2 artifact dir missing: {self.artifact_path}")
+            return self._finish("m2", cells, None, notes, errors)
+
+        summary_path = self.artifact_path / "summary.json"
         if not summary_path.exists():
-            return MilestoneEvaluation("m2", [], None, notes + ["summary.json missing"])
+            errors.append("summary.json missing")
+            return self._finish("m2", cells, None, notes, errors)
 
         try:
             data = json.loads(summary_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError, UnicodeError):
-            return MilestoneEvaluation(
-                "m2", [], None, notes + ["summary.json unreadable"]
-            )
+        except (OSError, json.JSONDecodeError, UnicodeError) as exc:
+            errors.append(f"summary.json unreadable: {exc}")
+            return self._finish("m2", cells, None, notes, errors)
 
         matrix = data.get("matrix")
-        if not isinstance(matrix, list):
-            return MilestoneEvaluation("m2", [], None, notes + ["matrix missing"])
+        if not isinstance(matrix, list) or not matrix:
+            errors.append("matrix missing or empty in summary.json")
+            return self._finish("m2", cells, None, notes, errors)
 
         by_c: dict[int, dict[int, dict]] = {}
-        for row in matrix:
+        for idx, row in enumerate(matrix):
             if not isinstance(row, dict):
+                errors.append(f"matrix[{idx}] is not an object")
                 continue
             try:
                 c = int(row["concurrency"])
                 tp = int(row["tensor_parallel_size"])
-            except (KeyError, TypeError, ValueError):
+                thr = float(row["output_throughput_tokens_per_second"])
+            except (KeyError, TypeError, ValueError) as exc:
+                errors.append(f"matrix[{idx}] invalid fields: {exc}")
                 continue
+            row = dict(row)
+            row["output_throughput_tokens_per_second"] = thr
             by_c.setdefault(c, {})[tp] = row
 
-        for c in sorted(by_c):
-            r1, r2 = by_c[c].get(1), by_c[c].get(2)
-            if not r1 or not r2:
+        expected_c = [1, 4, 8, 16, 32, 64]
+        for c in expected_c:
+            if c not in by_c or 1 not in by_c[c] or 2 not in by_c[c]:
+                errors.append(f"incomplete TP1/TP2 pair at concurrency={c}")
                 continue
-            tp1 = float(r1.get("output_throughput_tokens_per_second", 0.0) or 0.0)
-            tp2 = float(r2.get("output_throughput_tokens_per_second", 0.0) or 0.0)
-            cells.append(
-                self.model.diagnose_cell(
-                    label=f"qwen-tp-c{c:02d}",
-                    model_key="qwen2.5-3b",
-                    tp1_tok_s=tp1,
-                    tp2_tok_s=tp2,
-                    concurrency=c,
-                    comparison_is_tp_controlled=True,
+            r1, r2 = by_c[c][1], by_c[c][2]
+            tp1 = float(r1["output_throughput_tokens_per_second"])
+            tp2 = float(r2["output_throughput_tokens_per_second"])
+            try:
+                cells.append(
+                    self.model.diagnose_cell(
+                        label=f"qwen-tp-c{c:02d}",
+                        model_key="qwen2.5-3b",
+                        tp1_tok_s=tp1,
+                        tp2_tok_s=tp2,
+                        concurrency=c,
+                        comparison_is_tp_controlled=True,
+                    )
                 )
-            )
+            except UnsupportedModelArchitectureError as exc:
+                errors.append(str(exc))
 
         measured_cross = None
         t1 = t2 = None
         for cell in cells:
-            if cell.measured_tp2_tok_s > cell.measured_tp1_tok_s:
+            if cell.measured_regime == "TP2_FASTER":
                 measured_cross = cell.concurrency
                 t1, t2 = cell.measured_tp1_tok_s, cell.measured_tp2_tok_s
                 break
@@ -176,14 +217,16 @@ class MilestoneArtifactEvaluator:
             data.get("analysis") if isinstance(data.get("analysis"), dict) else {}
         )
         declared = analysis.get("throughput_crossover_concurrency")
-        if (
-            declared is not None
-            and measured_cross is not None
-            and int(declared) != measured_cross
-        ):
-            notes.append(
-                f"summary.analysis crossover={declared} differs from recomputed first cross={measured_cross}."
-            )
+        if declared is not None and measured_cross is not None:
+            try:
+                if int(declared) != measured_cross:
+                    notes.append(
+                        f"summary.analysis crossover={declared} differs from recomputed={measured_cross}."
+                    )
+            except (TypeError, ValueError):
+                errors.append(
+                    f"invalid analysis.throughput_crossover_concurrency={declared!r}"
+                )
 
         crossover = CrossoverAnalysis(
             measured_throughput_crossover_concurrency=measured_cross,
@@ -192,15 +235,26 @@ class MilestoneArtifactEvaluator:
             model_predicted_crossover_concurrency=None,
             prediction_status="unsupported",
             prediction_reason=(
-                "M1/M2 evidence lacks isolated collective timestamps and true per-step "
-                "scheduler batch sizes. An α–β model therefore cannot defensibly *predict* "
-                "the concurrency crossover; c=16 is reported as an observed matrix fact only."
+                "M1/M2 lack isolated collective timestamps and trusted per-step "
+                "scheduler batch sizes; alpha-beta cannot defensibly predict crossover."
             ),
         )
+        return self._finish("m2", cells, crossover, notes, errors)
 
-        return MilestoneEvaluation(
-            milestone="m2", cells=cells, crossover=crossover, notes=notes
-        )
+    def _finish(
+        self,
+        milestone: str,
+        cells: list[CellCommDiagnosis],
+        crossover: CrossoverAnalysis | None,
+        notes: list[str],
+        errors: list[str],
+    ) -> MilestoneEvaluation:
+        ev = MilestoneEvaluation(milestone, cells, crossover, notes, errors)
+        if self.strict and errors:
+            raise EvidenceIncompleteError(
+                f"{milestone} evidence incomplete: " + "; ".join(errors)
+            )
+        return ev
 
 
 def evaluation_to_jsonable(ev: MilestoneEvaluation) -> dict[str, Any]:
@@ -215,6 +269,7 @@ def evaluation_to_jsonable(ev: MilestoneEvaluation) -> dict[str, Any]:
                 "delta_percent": c.measured_delta_percent,
                 "tp1_ms_per_tok": c.measured_tp1_ms_per_tok,
                 "tp2_ms_per_tok": c.measured_tp2_ms_per_tok,
+                "service_time_delta_ms_per_tok": c.measured_service_time_delta_ms_per_tok,
                 "excess_ms_per_tok": c.measured_excess_ms_per_tok,
                 "regime": c.measured_regime,
             },
@@ -235,10 +290,10 @@ def evaluation_to_jsonable(ev: MilestoneEvaluation) -> dict[str, Any]:
             "summary": c.summary,
         }
 
-    out: dict[str, Any] = {
+    return {
         "milestone": ev.milestone,
         "notes": list(ev.notes),
+        "errors": list(ev.errors),
         "cells": [cell_dict(c) for c in ev.cells],
         "crossover": asdict(ev.crossover) if ev.crossover else None,
     }
-    return out
