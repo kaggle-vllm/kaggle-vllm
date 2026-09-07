@@ -1,0 +1,40 @@
+{
+  "schema_version": "kaggle-vllm-m4-protocol-v1",
+  "status": "PREPARED_FOR_KAGGLE",
+  "baseline_version": "kaggle-vllm 0.2.0",
+  "tensor_parallel_sizes": [1, 2],
+  "principal_concurrency": [1, 4, 8, 16, 32, 64],
+  "transition_refinement": "Add justified points between adjacent cells when the signed effect changes; use at least 10 repetitions near a candidate transition.",
+  "principal_repetitions": 5,
+  "near_crossover_repetitions": 10,
+  "workloads": {
+    "short": {"input_tokens": 128, "output_tokens": 64},
+    "balanced": {"input_tokens": 512, "output_tokens": 256},
+    "prefill_heavy": {"input_tokens": 2048, "output_tokens": 128}
+  },
+  "prompt_control": {
+    "method": "Generate and verify exact token lengths with the pinned model tokenizer",
+    "shared_prefix": false,
+    "prefix_caching": false,
+    "restart_between_independent_runs": true
+  },
+  "required_metrics": [
+    "request_throughput", "input_tokens_per_second", "output_tokens_per_second",
+    "total_tokens_per_second", "ttft", "tpot", "itl", "end_to_end_latency",
+    "request_failures", "oom", "preemption_if_visible", "kv_cache_occupancy_if_visible",
+    "gpu_utilization", "vram", "ram", "power", "temperature"
+  ],
+  "crossover_types": [
+    "THROUGHPUT_CROSSOVER", "LATENCY_CROSSOVER", "CAPACITY_CROSSOVER",
+    "NO_CROSSOVER_OBSERVED"
+  ],
+  "robustness_criterion": "A favorable paired-repetition mean delta must have a 95% confidence interval excluding zero; otherwise the cell is inconclusive/no robust crossover.",
+  "standardized_crosscheck": {
+    "preferred": "vllm bench serve",
+    "alternate": "GuideLLM",
+    "guidellm_commit": "fc2dbe9edd4f7f1a4e9ccd752f6f43591adbcb73",
+    "guidellm_describe": "v0.7.3-47-gfc2dbe9e",
+    "dependency_boundary": "research tooling only; never a lightweight SDK dependency",
+    "metric_warning": "Do not equate TTFT/TPOT/ITL definitions across tools without explicit reconciliation."
+  }
+}

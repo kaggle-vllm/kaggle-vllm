@@ -1,0 +1,385 @@
+
+M3 INDEPENDENT REPETITION 0
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+[W907 21:15:16.614598835 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+[W907 21:15:18.024224221 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+[W907 21:15:18.125526673 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+a3b20710b203:241:241 [0] NCCL INFO Bootstrap: Using eth0:172.19.2.2<0>
+a3b20710b203:241:241 [0] NCCL INFO cudaDriverVersion 13000
+a3b20710b203:241:241 [0] NCCL INFO NCCL version 2.27.5+cuda12.9
+a3b20710b203:242:242 [1] NCCL INFO cudaDriverVersion 13000
+a3b20710b203:241:241 [0] NCCL INFO Comm config Blocking set to 1
+a3b20710b203:242:242 [1] NCCL INFO Bootstrap: Using eth0:172.19.2.2<0>
+a3b20710b203:242:242 [1] NCCL INFO NCCL version 2.27.5+cuda12.9
+a3b20710b203:242:242 [1] NCCL INFO Comm config Blocking set to 1
+a3b20710b203:242:267 [1] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. 
+a3b20710b203:241:266 [0] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. 
+a3b20710b203:242:267 [1] NCCL INFO NET/IB : No device found.
+a3b20710b203:241:266 [0] NCCL INFO NET/IB : No device found.
+a3b20710b203:242:267 [1] NCCL INFO NET/IB : Using [RO]; OOB eth0:172.19.2.2<0>
+a3b20710b203:241:266 [0] NCCL INFO NET/IB : Using [RO]; OOB eth0:172.19.2.2<0>
+a3b20710b203:242:267 [1] NCCL INFO NET/Socket : Using [0]eth0:172.19.2.2<0>
+a3b20710b203:242:267 [1] NCCL INFO Initialized NET plugin Socket
+a3b20710b203:241:266 [0] NCCL INFO NET/Socket : Using [0]eth0:172.19.2.2<0>
+a3b20710b203:241:266 [0] NCCL INFO Initialized NET plugin Socket
+a3b20710b203:242:267 [1] NCCL INFO Assigned NET plugin Socket to comm
+a3b20710b203:241:266 [0] NCCL INFO Assigned NET plugin Socket to comm
+a3b20710b203:242:267 [1] NCCL INFO Using network Socket
+a3b20710b203:241:266 [0] NCCL INFO Using network Socket
+a3b20710b203:242:267 [1] NCCL INFO ncclCommInitRankConfig comm 0x12c09e60 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0x41a602813e09263f - Init START
+a3b20710b203:241:266 [0] NCCL INFO ncclCommInitRankConfig comm 0x3e60cf70 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0x41a602813e09263f - Init START
+a3b20710b203:242:267 [1] NCCL INFO RAS client listening socket at ::1<28028>
+a3b20710b203:241:266 [0] NCCL INFO RAS client listening socket at ::1<28028>
+a3b20710b203:242:267 [1] NCCL INFO Bootstrap timings total 0.001128 (create 0.000048, send 0.000160, recv 0.000323, ring 0.000044, delay 0.000001)
+a3b20710b203:241:266 [0] NCCL INFO Bootstrap timings total 0.001103 (create 0.000043, send 0.000144, recv 0.000225, ring 0.000054, delay 0.000000)
+a3b20710b203:242:267 [1] NCCL INFO Setting affinity for GPU 1 to 0-3
+a3b20710b203:241:266 [0] NCCL INFO Setting affinity for GPU 0 to 0-3
+a3b20710b203:242:267 [1] NCCL INFO comm 0x12c09e60 rank 1 nRanks 2 nNodes 1 localRanks 2 localRank 1 MNNVL 0
+a3b20710b203:241:266 [0] NCCL INFO comm 0x3e60cf70 rank 0 nRanks 2 nNodes 1 localRanks 2 localRank 0 MNNVL 0
+a3b20710b203:242:267 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0
+a3b20710b203:241:266 [0] NCCL INFO Channel 00/02 : 0 1
+a3b20710b203:242:267 [1] NCCL INFO P2P Chunksize set to 131072
+a3b20710b203:241:266 [0] NCCL INFO Channel 01/02 : 0 1
+a3b20710b203:241:266 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
+a3b20710b203:241:266 [0] NCCL INFO P2P Chunksize set to 131072
+a3b20710b203:242:267 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+a3b20710b203:241:266 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+a3b20710b203:241:266 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0
+a3b20710b203:241:275 [0] NCCL INFO [Proxy Service] Device 0 CPU core 1
+a3b20710b203:242:274 [1] NCCL INFO [Proxy Service] Device 1 CPU core 0
+a3b20710b203:241:277 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 0
+a3b20710b203:242:276 [1] NCCL INFO [Proxy Service UDS] Device 1 CPU core 2
+a3b20710b203:242:267 [1] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+a3b20710b203:242:267 [1] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+a3b20710b203:241:266 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+a3b20710b203:241:266 [0] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+a3b20710b203:241:266 [0] NCCL INFO CC Off, workFifoBytes 1048576
+a3b20710b203:242:267 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+a3b20710b203:241:266 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+a3b20710b203:242:267 [1] NCCL INFO ncclCommInitRankConfig comm 0x12c09e60 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0x41a602813e09263f - Init COMPLETE
+a3b20710b203:241:266 [0] NCCL INFO ncclCommInitRankConfig comm 0x3e60cf70 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0x41a602813e09263f - Init COMPLETE
+a3b20710b203:241:266 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 2 total 0.40 (kernels 0.35, alloc 0.01, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.01, rest 0.00)
+a3b20710b203:242:267 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 2 total 0.40 (kernels 0.35, alloc 0.01, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.01, rest 0.00)
+a3b20710b203:241:278 [0] NCCL INFO Channel 00 : 0[0] -> 1[1] via SHM/direct/direct
+a3b20710b203:241:278 [0] NCCL INFO Channel 01 : 0[0] -> 1[1] via SHM/direct/direct
+a3b20710b203:242:279 [1] NCCL INFO Channel 00 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:242:279 [1] NCCL INFO Channel 01 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:242:279 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+a3b20710b203:241:278 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+/usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+a3b20710b203:242:280 [1] NCCL INFO Channel 00 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:242:280 [1] NCCL INFO Channel 01 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:241:241 [0] NCCL INFO comm 0x3e60cf70 rank 0 nranks 2 cudaDev 0 busId 40 - Destroy COMPLETE
+a3b20710b203:242:242 [1] NCCL INFO comm 0x12c09e60 rank 1 nranks 2 cudaDev 1 busId 50 - Destroy COMPLETE
+
+M3 INDEPENDENT REPETITION 1
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+[W907 21:15:27.482814336 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+[W907 21:15:29.805237652 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+a3b20710b203:342:342 [0] NCCL INFO Bootstrap: Using eth0:172.19.2.2<0>
+a3b20710b203:342:342 [0] NCCL INFO cudaDriverVersion 13000
+a3b20710b203:342:342 [0] NCCL INFO NCCL version 2.27.5+cuda12.9
+a3b20710b203:342:342 [0] NCCL INFO Comm config Blocking set to 1
+[W907 21:15:29.924314780 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+a3b20710b203:343:343 [1] NCCL INFO cudaDriverVersion 13000
+a3b20710b203:343:343 [1] NCCL INFO Bootstrap: Using eth0:172.19.2.2<0>
+a3b20710b203:343:343 [1] NCCL INFO NCCL version 2.27.5+cuda12.9
+a3b20710b203:343:343 [1] NCCL INFO Comm config Blocking set to 1
+a3b20710b203:342:365 [0] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. 
+a3b20710b203:342:365 [0] NCCL INFO NET/IB : No device found.
+a3b20710b203:342:365 [0] NCCL INFO NET/IB : Using [RO]; OOB eth0:172.19.2.2<0>
+a3b20710b203:342:365 [0] NCCL INFO NET/Socket : Using [0]eth0:172.19.2.2<0>
+a3b20710b203:342:365 [0] NCCL INFO Initialized NET plugin Socket
+a3b20710b203:342:365 [0] NCCL INFO Assigned NET plugin Socket to comm
+a3b20710b203:342:365 [0] NCCL INFO Using network Socket
+a3b20710b203:342:365 [0] NCCL INFO ncclCommInitRankConfig comm 0x4939f320 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0x820126f908c5b18f - Init START
+a3b20710b203:343:370 [1] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. 
+a3b20710b203:343:370 [1] NCCL INFO NET/IB : No device found.
+a3b20710b203:343:370 [1] NCCL INFO NET/IB : Using [RO]; OOB eth0:172.19.2.2<0>
+a3b20710b203:343:370 [1] NCCL INFO NET/Socket : Using [0]eth0:172.19.2.2<0>
+a3b20710b203:343:370 [1] NCCL INFO Initialized NET plugin Socket
+a3b20710b203:343:370 [1] NCCL INFO Assigned NET plugin Socket to comm
+a3b20710b203:343:370 [1] NCCL INFO Using network Socket
+a3b20710b203:343:370 [1] NCCL INFO ncclCommInitRankConfig comm 0x37da8db0 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0x820126f908c5b18f - Init START
+a3b20710b203:343:370 [1] NCCL INFO RAS client listening socket at ::1<28028>
+a3b20710b203:342:365 [0] NCCL INFO RAS client listening socket at ::1<28028>
+a3b20710b203:343:370 [1] NCCL INFO Bootstrap timings total 0.001674 (create 0.000054, send 0.000179, recv 0.000756, ring 0.000046, delay 0.000000)
+a3b20710b203:342:365 [0] NCCL INFO Bootstrap timings total 0.151130 (create 0.000039, send 0.000193, recv 0.150086, ring 0.000055, delay 0.000000)
+a3b20710b203:342:365 [0] NCCL INFO Setting affinity for GPU 0 to 0-3
+a3b20710b203:343:370 [1] NCCL INFO Setting affinity for GPU 1 to 0-3
+a3b20710b203:342:365 [0] NCCL INFO comm 0x4939f320 rank 0 nRanks 2 nNodes 1 localRanks 2 localRank 0 MNNVL 0
+a3b20710b203:343:370 [1] NCCL INFO comm 0x37da8db0 rank 1 nRanks 2 nNodes 1 localRanks 2 localRank 1 MNNVL 0
+a3b20710b203:342:365 [0] NCCL INFO Channel 00/02 : 0 1
+a3b20710b203:343:370 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0
+a3b20710b203:342:365 [0] NCCL INFO Channel 01/02 : 0 1
+a3b20710b203:343:370 [1] NCCL INFO P2P Chunksize set to 131072
+a3b20710b203:342:365 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
+a3b20710b203:342:365 [0] NCCL INFO P2P Chunksize set to 131072
+a3b20710b203:343:370 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+a3b20710b203:342:365 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+a3b20710b203:342:365 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0
+a3b20710b203:343:374 [1] NCCL INFO [Proxy Service] Device 1 CPU core 1
+a3b20710b203:342:375 [0] NCCL INFO [Proxy Service] Device 0 CPU core 0
+a3b20710b203:343:376 [1] NCCL INFO [Proxy Service UDS] Device 1 CPU core 3
+a3b20710b203:342:377 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 0
+a3b20710b203:343:370 [1] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+a3b20710b203:343:370 [1] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+a3b20710b203:342:365 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+a3b20710b203:342:365 [0] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+a3b20710b203:342:365 [0] NCCL INFO CC Off, workFifoBytes 1048576
+a3b20710b203:342:365 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+a3b20710b203:342:365 [0] NCCL INFO ncclCommInitRankConfig comm 0x4939f320 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0x820126f908c5b18f - Init COMPLETE
+a3b20710b203:342:365 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 2 total 0.41 (kernels 0.24, alloc 0.00, bootstrap 0.15, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+a3b20710b203:343:370 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+a3b20710b203:343:370 [1] NCCL INFO ncclCommInitRankConfig comm 0x37da8db0 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0x820126f908c5b18f - Init COMPLETE
+a3b20710b203:343:370 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 2 total 0.30 (kernels 0.28, alloc 0.00, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+a3b20710b203:342:379 [0] NCCL INFO Channel 00 : 0[0] -> 1[1] via SHM/direct/direct
+a3b20710b203:342:379 [0] NCCL INFO Channel 01 : 0[0] -> 1[1] via SHM/direct/direct
+a3b20710b203:343:380 [1] NCCL INFO Channel 00 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:343:380 [1] NCCL INFO Channel 01 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:343:380 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+a3b20710b203:342:379 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+/usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+a3b20710b203:343:381 [1] NCCL INFO Channel 00 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:343:381 [1] NCCL INFO Channel 01 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:342:342 [0] NCCL INFO comm 0x4939f320 rank 0 nranks 2 cudaDev 0 busId 40 - Destroy COMPLETE
+a3b20710b203:343:343 [1] NCCL INFO comm 0x37da8db0 rank 1 nranks 2 cudaDev 1 busId 50 - Destroy COMPLETE
+
+M3 INDEPENDENT REPETITION 2
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+[W907 21:15:37.038351477 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+[W907 21:15:39.391630863 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+a3b20710b203:443:443 [0] NCCL INFO Bootstrap: Using eth0:172.19.2.2<0>
+a3b20710b203:443:443 [0] NCCL INFO cudaDriverVersion 13000
+a3b20710b203:443:443 [0] NCCL INFO NCCL version 2.27.5+cuda12.9
+a3b20710b203:443:443 [0] NCCL INFO Comm config Blocking set to 1
+[W907 21:15:40.493084871 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+a3b20710b203:444:444 [1] NCCL INFO cudaDriverVersion 13000
+a3b20710b203:444:444 [1] NCCL INFO Bootstrap: Using eth0:172.19.2.2<0>
+a3b20710b203:444:444 [1] NCCL INFO NCCL version 2.27.5+cuda12.9
+a3b20710b203:444:444 [1] NCCL INFO Comm config Blocking set to 1
+a3b20710b203:443:466 [0] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. 
+a3b20710b203:443:466 [0] NCCL INFO NET/IB : No device found.
+a3b20710b203:443:466 [0] NCCL INFO NET/IB : Using [RO]; OOB eth0:172.19.2.2<0>
+a3b20710b203:443:466 [0] NCCL INFO NET/Socket : Using [0]eth0:172.19.2.2<0>
+a3b20710b203:443:466 [0] NCCL INFO Initialized NET plugin Socket
+a3b20710b203:443:466 [0] NCCL INFO Assigned NET plugin Socket to comm
+a3b20710b203:443:466 [0] NCCL INFO Using network Socket
+a3b20710b203:443:466 [0] NCCL INFO ncclCommInitRankConfig comm 0x28e57020 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0xfe658e549ca3e902 - Init START
+a3b20710b203:444:469 [1] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. 
+a3b20710b203:444:469 [1] NCCL INFO NET/IB : No device found.
+a3b20710b203:444:469 [1] NCCL INFO NET/IB : Using [RO]; OOB eth0:172.19.2.2<0>
+a3b20710b203:444:469 [1] NCCL INFO NET/Socket : Using [0]eth0:172.19.2.2<0>
+a3b20710b203:444:469 [1] NCCL INFO Initialized NET plugin Socket
+a3b20710b203:444:469 [1] NCCL INFO Assigned NET plugin Socket to comm
+a3b20710b203:444:469 [1] NCCL INFO Using network Socket
+a3b20710b203:444:469 [1] NCCL INFO ncclCommInitRankConfig comm 0x11017d00 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0xfe658e549ca3e902 - Init START
+a3b20710b203:444:469 [1] NCCL INFO RAS client listening socket at ::1<28028>
+a3b20710b203:443:466 [0] NCCL INFO RAS client listening socket at ::1<28028>
+a3b20710b203:443:466 [0] NCCL INFO Bootstrap timings total 0.072851 (create 0.000050, send 0.000163, recv 0.071910, ring 0.000051, delay 0.000000)
+a3b20710b203:444:469 [1] NCCL INFO Bootstrap timings total 0.001213 (create 0.000038, send 0.000126, recv 0.000393, ring 0.000117, delay 0.000000)
+a3b20710b203:444:469 [1] NCCL INFO Setting affinity for GPU 1 to 0-3
+a3b20710b203:443:466 [0] NCCL INFO Setting affinity for GPU 0 to 0-3
+a3b20710b203:443:466 [0] NCCL INFO comm 0x28e57020 rank 0 nRanks 2 nNodes 1 localRanks 2 localRank 0 MNNVL 0
+a3b20710b203:444:469 [1] NCCL INFO comm 0x11017d00 rank 1 nRanks 2 nNodes 1 localRanks 2 localRank 1 MNNVL 0
+a3b20710b203:444:469 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0
+a3b20710b203:443:466 [0] NCCL INFO Channel 00/02 : 0 1
+a3b20710b203:444:469 [1] NCCL INFO P2P Chunksize set to 131072
+a3b20710b203:443:466 [0] NCCL INFO Channel 01/02 : 0 1
+a3b20710b203:443:466 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
+a3b20710b203:443:466 [0] NCCL INFO P2P Chunksize set to 131072
+a3b20710b203:444:469 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+a3b20710b203:443:466 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+a3b20710b203:443:466 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0
+a3b20710b203:444:474 [1] NCCL INFO [Proxy Service] Device 1 CPU core 1
+a3b20710b203:444:475 [1] NCCL INFO [Proxy Service UDS] Device 1 CPU core 2
+a3b20710b203:443:477 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 1
+a3b20710b203:443:476 [0] NCCL INFO [Proxy Service] Device 0 CPU core 2
+a3b20710b203:444:469 [1] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+a3b20710b203:444:469 [1] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+a3b20710b203:443:466 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+a3b20710b203:443:466 [0] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+a3b20710b203:443:466 [0] NCCL INFO CC Off, workFifoBytes 1048576
+a3b20710b203:444:469 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+a3b20710b203:444:469 [1] NCCL INFO ncclCommInitRankConfig comm 0x11017d00 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0xfe658e549ca3e902 - Init COMPLETE
+a3b20710b203:444:469 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 2 total 0.30 (kernels 0.28, alloc 0.00, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+a3b20710b203:443:466 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+a3b20710b203:443:466 [0] NCCL INFO ncclCommInitRankConfig comm 0x28e57020 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0xfe658e549ca3e902 - Init COMPLETE
+a3b20710b203:443:466 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 2 total 0.36 (kernels 0.27, alloc 0.00, bootstrap 0.07, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+a3b20710b203:444:478 [1] NCCL INFO Channel 00 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:443:479 [0] NCCL INFO Channel 00 : 0[0] -> 1[1] via SHM/direct/direct
+a3b20710b203:443:479 [0] NCCL INFO Channel 01 : 0[0] -> 1[1] via SHM/direct/direct
+a3b20710b203:444:478 [1] NCCL INFO Channel 01 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:444:478 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+a3b20710b203:443:479 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+/usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+a3b20710b203:444:480 [1] NCCL INFO Channel 00 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:444:480 [1] NCCL INFO Channel 01 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:443:443 [0] NCCL INFO comm 0x28e57020 rank 0 nranks 2 cudaDev 0 busId 40 - Destroy COMPLETE
+a3b20710b203:444:444 [1] NCCL INFO comm 0x11017d00 rank 1 nranks 2 cudaDev 1 busId 50 - Destroy COMPLETE
+
+M3 INDEPENDENT REPETITION 3
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+[W907 21:15:48.618408299 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+[W907 21:15:50.994814539 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+a3b20710b203:543:543 [0] NCCL INFO Bootstrap: Using eth0:172.19.2.2<0>
+a3b20710b203:543:543 [0] NCCL INFO cudaDriverVersion 13000
+a3b20710b203:543:543 [0] NCCL INFO NCCL version 2.27.5+cuda12.9
+a3b20710b203:543:543 [0] NCCL INFO Comm config Blocking set to 1
+[W907 21:15:50.072493958 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+a3b20710b203:544:544 [1] NCCL INFO cudaDriverVersion 13000
+a3b20710b203:544:544 [1] NCCL INFO Bootstrap: Using eth0:172.19.2.2<0>
+a3b20710b203:544:544 [1] NCCL INFO NCCL version 2.27.5+cuda12.9
+a3b20710b203:544:544 [1] NCCL INFO Comm config Blocking set to 1
+a3b20710b203:543:566 [0] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. 
+a3b20710b203:543:566 [0] NCCL INFO NET/IB : No device found.
+a3b20710b203:543:566 [0] NCCL INFO NET/IB : Using [RO]; OOB eth0:172.19.2.2<0>
+a3b20710b203:543:566 [0] NCCL INFO NET/Socket : Using [0]eth0:172.19.2.2<0>
+a3b20710b203:543:566 [0] NCCL INFO Initialized NET plugin Socket
+a3b20710b203:543:566 [0] NCCL INFO Assigned NET plugin Socket to comm
+a3b20710b203:543:566 [0] NCCL INFO Using network Socket
+a3b20710b203:543:566 [0] NCCL INFO ncclCommInitRankConfig comm 0x4014fc40 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0x24a83bd4f56f90f6 - Init START
+a3b20710b203:544:569 [1] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. 
+a3b20710b203:544:569 [1] NCCL INFO NET/IB : No device found.
+a3b20710b203:544:569 [1] NCCL INFO NET/IB : Using [RO]; OOB eth0:172.19.2.2<0>
+a3b20710b203:544:569 [1] NCCL INFO NET/Socket : Using [0]eth0:172.19.2.2<0>
+a3b20710b203:544:569 [1] NCCL INFO Initialized NET plugin Socket
+a3b20710b203:544:569 [1] NCCL INFO Assigned NET plugin Socket to comm
+a3b20710b203:544:569 [1] NCCL INFO Using network Socket
+a3b20710b203:544:569 [1] NCCL INFO ncclCommInitRankConfig comm 0x2d03ece0 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0x24a83bd4f56f90f6 - Init START
+a3b20710b203:544:569 [1] NCCL INFO RAS client listening socket at ::1<28028>
+a3b20710b203:543:566 [0] NCCL INFO RAS client listening socket at ::1<28028>
+a3b20710b203:544:569 [1] NCCL INFO Bootstrap timings total 0.001121 (create 0.000048, send 0.000170, recv 0.000228, ring 0.000066, delay 0.000000)
+a3b20710b203:543:566 [0] NCCL INFO Bootstrap timings total 0.044886 (create 0.000068, send 0.000215, recv 0.043868, ring 0.000081, delay 0.000001)
+a3b20710b203:544:569 [1] NCCL INFO Setting affinity for GPU 1 to 0-3
+a3b20710b203:543:566 [0] NCCL INFO Setting affinity for GPU 0 to 0-3
+a3b20710b203:543:566 [0] NCCL INFO comm 0x4014fc40 rank 0 nRanks 2 nNodes 1 localRanks 2 localRank 0 MNNVL 0
+a3b20710b203:544:569 [1] NCCL INFO comm 0x2d03ece0 rank 1 nRanks 2 nNodes 1 localRanks 2 localRank 1 MNNVL 0
+a3b20710b203:543:566 [0] NCCL INFO Channel 00/02 : 0 1
+a3b20710b203:544:569 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0
+a3b20710b203:543:566 [0] NCCL INFO Channel 01/02 : 0 1
+a3b20710b203:544:569 [1] NCCL INFO P2P Chunksize set to 131072
+a3b20710b203:543:566 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
+a3b20710b203:543:566 [0] NCCL INFO P2P Chunksize set to 131072
+a3b20710b203:544:569 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+a3b20710b203:543:566 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+a3b20710b203:543:566 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0
+a3b20710b203:544:576 [1] NCCL INFO [Proxy Service UDS] Device 1 CPU core 2
+a3b20710b203:544:574 [1] NCCL INFO [Proxy Service] Device 1 CPU core 2
+a3b20710b203:543:575 [0] NCCL INFO [Proxy Service] Device 0 CPU core 3
+a3b20710b203:543:577 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 3
+a3b20710b203:544:569 [1] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+a3b20710b203:544:569 [1] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+a3b20710b203:543:566 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+a3b20710b203:543:566 [0] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+a3b20710b203:543:566 [0] NCCL INFO CC Off, workFifoBytes 1048576
+a3b20710b203:544:569 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+a3b20710b203:544:569 [1] NCCL INFO ncclCommInitRankConfig comm 0x2d03ece0 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0x24a83bd4f56f90f6 - Init COMPLETE
+a3b20710b203:544:569 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 2 total 0.26 (kernels 0.24, alloc 0.00, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+a3b20710b203:543:566 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+a3b20710b203:543:566 [0] NCCL INFO ncclCommInitRankConfig comm 0x4014fc40 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0x24a83bd4f56f90f6 - Init COMPLETE
+a3b20710b203:543:566 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 2 total 0.33 (kernels 0.27, alloc 0.00, bootstrap 0.04, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+a3b20710b203:543:578 [0] NCCL INFO Channel 00 : 0[0] -> 1[1] via SHM/direct/direct
+a3b20710b203:544:579 [1] NCCL INFO Channel 00 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:543:578 [0] NCCL INFO Channel 01 : 0[0] -> 1[1] via SHM/direct/direct
+a3b20710b203:544:579 [1] NCCL INFO Channel 01 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:544:579 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+a3b20710b203:543:578 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+/usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+a3b20710b203:544:580 [1] NCCL INFO Channel 00 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:544:580 [1] NCCL INFO Channel 01 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:543:543 [0] NCCL INFO comm 0x4014fc40 rank 0 nranks 2 cudaDev 0 busId 40 - Destroy COMPLETE
+a3b20710b203:544:544 [1] NCCL INFO comm 0x2d03ece0 rank 1 nranks 2 cudaDev 1 busId 50 - Destroy COMPLETE
+
+M3 INDEPENDENT REPETITION 4
+
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+[W907 21:15:58.252547881 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+[W907 21:16:01.778271556 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+[W907 21:16:01.792377659 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+a3b20710b203:643:643 [0] NCCL INFO Bootstrap: Using eth0:172.19.2.2<0>
+a3b20710b203:643:643 [0] NCCL INFO cudaDriverVersion 13000
+a3b20710b203:643:643 [0] NCCL INFO NCCL version 2.27.5+cuda12.9
+a3b20710b203:643:643 [0] NCCL INFO Comm config Blocking set to 1
+a3b20710b203:644:644 [1] NCCL INFO cudaDriverVersion 13000
+a3b20710b203:644:644 [1] NCCL INFO Bootstrap: Using eth0:172.19.2.2<0>
+a3b20710b203:644:644 [1] NCCL INFO NCCL version 2.27.5+cuda12.9
+a3b20710b203:644:644 [1] NCCL INFO Comm config Blocking set to 1
+a3b20710b203:643:669 [0] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. 
+a3b20710b203:643:669 [0] NCCL INFO NET/IB : No device found.
+a3b20710b203:643:669 [0] NCCL INFO NET/IB : Using [RO]; OOB eth0:172.19.2.2<0>
+a3b20710b203:643:669 [0] NCCL INFO NET/Socket : Using [0]eth0:172.19.2.2<0>
+a3b20710b203:643:669 [0] NCCL INFO Initialized NET plugin Socket
+a3b20710b203:643:669 [0] NCCL INFO Assigned NET plugin Socket to comm
+a3b20710b203:643:669 [0] NCCL INFO Using network Socket
+a3b20710b203:643:669 [0] NCCL INFO ncclCommInitRankConfig comm 0x376a1060 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0x872b8e65d67c8db4 - Init START
+a3b20710b203:644:670 [1] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. 
+a3b20710b203:644:670 [1] NCCL INFO NET/IB : No device found.
+a3b20710b203:644:670 [1] NCCL INFO NET/IB : Using [RO]; OOB eth0:172.19.2.2<0>
+a3b20710b203:644:670 [1] NCCL INFO NET/Socket : Using [0]eth0:172.19.2.2<0>
+a3b20710b203:644:670 [1] NCCL INFO Initialized NET plugin Socket
+a3b20710b203:644:670 [1] NCCL INFO Assigned NET plugin Socket to comm
+a3b20710b203:644:670 [1] NCCL INFO Using network Socket
+a3b20710b203:644:670 [1] NCCL INFO ncclCommInitRankConfig comm 0x3d215ef0 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0x872b8e65d67c8db4 - Init START
+a3b20710b203:644:670 [1] NCCL INFO RAS client listening socket at ::1<28028>
+a3b20710b203:643:669 [0] NCCL INFO RAS client listening socket at ::1<28028>
+a3b20710b203:644:670 [1] NCCL INFO Bootstrap timings total 0.001030 (create 0.000036, send 0.000134, recv 0.000210, ring 0.000065, delay 0.000000)
+a3b20710b203:643:669 [0] NCCL INFO Bootstrap timings total 0.011347 (create 0.000055, send 0.000193, recv 0.010396, ring 0.000057, delay 0.000001)
+a3b20710b203:643:669 [0] NCCL INFO Setting affinity for GPU 0 to 0-3
+a3b20710b203:644:670 [1] NCCL INFO Setting affinity for GPU 1 to 0-3
+a3b20710b203:643:669 [0] NCCL INFO comm 0x376a1060 rank 0 nRanks 2 nNodes 1 localRanks 2 localRank 0 MNNVL 0
+a3b20710b203:644:670 [1] NCCL INFO comm 0x3d215ef0 rank 1 nRanks 2 nNodes 1 localRanks 2 localRank 1 MNNVL 0
+a3b20710b203:643:669 [0] NCCL INFO Channel 00/02 : 0 1
+a3b20710b203:643:669 [0] NCCL INFO Channel 01/02 : 0 1
+a3b20710b203:644:670 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0
+a3b20710b203:643:669 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
+a3b20710b203:644:670 [1] NCCL INFO P2P Chunksize set to 131072
+a3b20710b203:643:669 [0] NCCL INFO P2P Chunksize set to 131072
+a3b20710b203:643:669 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+a3b20710b203:643:669 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0
+a3b20710b203:644:670 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+a3b20710b203:643:675 [0] NCCL INFO [Proxy Service] Device 0 CPU core 1
+a3b20710b203:644:676 [1] NCCL INFO [Proxy Service] Device 1 CPU core 2
+a3b20710b203:643:677 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 1
+a3b20710b203:644:678 [1] NCCL INFO [Proxy Service UDS] Device 1 CPU core 1
+a3b20710b203:643:669 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+a3b20710b203:644:670 [1] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+a3b20710b203:643:669 [0] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+a3b20710b203:644:670 [1] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+a3b20710b203:643:669 [0] NCCL INFO CC Off, workFifoBytes 1048576
+a3b20710b203:643:669 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+a3b20710b203:644:670 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+a3b20710b203:643:669 [0] NCCL INFO ncclCommInitRankConfig comm 0x376a1060 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0x872b8e65d67c8db4 - Init COMPLETE
+a3b20710b203:644:670 [1] NCCL INFO ncclCommInitRankConfig comm 0x3d215ef0 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0x872b8e65d67c8db4 - Init COMPLETE
+a3b20710b203:643:669 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 2 total 0.31 (kernels 0.28, alloc 0.00, bootstrap 0.01, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+a3b20710b203:644:670 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 2 total 0.31 (kernels 0.28, alloc 0.00, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+a3b20710b203:643:680 [0] NCCL INFO Channel 00 : 0[0] -> 1[1] via SHM/direct/direct
+a3b20710b203:643:680 [0] NCCL INFO Channel 01 : 0[0] -> 1[1] via SHM/direct/direct
+a3b20710b203:644:679 [1] NCCL INFO Channel 00 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:644:679 [1] NCCL INFO Channel 01 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:644:679 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+a3b20710b203:643:680 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+/usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+a3b20710b203:644:682 [1] NCCL INFO Channel 00 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:644:682 [1] NCCL INFO Channel 01 : 1[1] -> 0[0] via SHM/direct/direct
+a3b20710b203:643:643 [0] NCCL INFO comm 0x376a1060 rank 0 nranks 2 cudaDev 0 busId 40 - Destroy COMPLETE
+a3b20710b203:644:644 [1] NCCL INFO comm 0x3d215ef0 rank 1 nranks 2 cudaDev 1 busId 50 - Destroy COMPLETE

@@ -1,0 +1,113 @@
+{
+  "schema_version": "kaggle-vllm-m3-canonical-review-v1",
+  "decision": "CANONICAL_ACCEPTED",
+  "candidate_identity": {
+    "evidence_zip_sha256": "b5aedfdda06522d483042e55a4f9637dd582e72242936ee130cddeeae0ae5769",
+    "evidence_zip_size_bytes": 294101,
+    "executed_notebook_sha256": "a2bf24a37a63d12318c5188829310f95d8f3106733be5d301b5570bd63e18383",
+    "executed_notebook_size_bytes": 36105,
+    "source_notebook_sha256": "28178ea0121448966f4b000df5343a279f3f5eaed82ad5e7a2e1f1bb203e9232",
+    "native_wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c"
+  },
+  "provenance_gate": {
+    "repository": "kaggle-vllm/kaggle-vllm",
+    "branch": "research/m3-measured-comm-t4-phb-v020",
+    "commit": "4df0dd183d78e48739f509637934adf33b98ce82",
+    "dirty": false,
+    "dirty_paths": [],
+    "started_at_utc": "2026-09-07T21:15:10.204816+00:00",
+    "completed_at_utc": "2026-09-07T21:16:07.686398+00:00"
+  },
+  "zip_safety": {
+    "entry_count": 15,
+    "duplicate_entries": 0,
+    "absolute_paths": 0,
+    "path_traversal_entries": 0,
+    "symlinks": 0,
+    "crc_failures": 0,
+    "unexpected_files": 0,
+    "project_hash_verifier": "PASS",
+    "sha256sum_check": "PASS"
+  },
+  "executed_notebook_audit": {
+    "fresh_session_guard_completed": true,
+    "substantive_cell_sources_match_repository_source": true,
+    "kaggle_appended_empty_unexecuted_cell": true,
+    "manual_patch_cell": false,
+    "python_error_outputs": 0,
+    "tracebacks": 0,
+    "output_warning_classifications": [
+      {
+        "finding": "Unauthenticated Hugging Face Hub request rate-limit warning",
+        "classification": "BENIGN_DOWNLOAD_WARNING",
+        "effect": "Download and strict bootstrap completed successfully"
+      }
+    ]
+  },
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_toolkit": "12.8.93",
+    "nccl": "2.27.5",
+    "gpus": ["Tesla T4 SM75", "Tesla T4 SM75"],
+    "topology": "PHB",
+    "p2p_read": "OK_BIDIRECTIONAL",
+    "p2p_write": "OK_BIDIRECTIONAL",
+    "nccl_debug": "INFO",
+    "nccl_algo_forced": false,
+    "nccl_proto_forced": false
+  },
+  "measurement_grid": {
+    "payload_bytes": [1024, 4096, 16384, 65536, 262144, 1048576, 4194304, 16777216, 33554432, 67108864],
+    "repetitions": [0, 1, 2, 3, 4],
+    "warmups_per_payload_repetition": 20,
+    "timed_samples_per_payload_repetition": 100,
+    "critical_path_observations": 5000,
+    "complete_grid": true,
+    "finite_positive_timings": true,
+    "critical_latency_is_rank_max": true,
+    "csv_json_semantically_equivalent": true
+  },
+  "telemetry_gate": {
+    "rows": 340,
+    "measurement_active_rows": 114,
+    "measurement_active_start_utc": "2026-09-07T21:15:19.401836+00:00",
+    "measurement_active_end_utc": "2026-09-07T21:16:05.929583+00:00",
+    "maximum_gpu_memory_used_mib": 399.0,
+    "maximum_system_used_bytes": 3099164672,
+    "maximum_process_tree_rss_bytes": 3115548672,
+    "resource_guard_violation": false,
+    "oom": false
+  },
+  "independently_recomputed_fit": {
+    "equation": "T_us(S)=measured_allreduce_intercept_us + S/beta_effective",
+    "measured_allreduce_intercept_us": 112.13507942457227,
+    "measured_allreduce_intercept_95_ci_us": [93.11121046785493, 131.1589483812896],
+    "slope_us_per_byte": 0.00024606807761991587,
+    "beta_effective_gb_s": 4.063916009229893,
+    "beta_effective_95_ci_gb_s": [4.051054443503118, 4.0768595026297385],
+    "r_squared": 0.9999848359112145,
+    "rmse_us_over_payload_means": 20.136460341575635,
+    "largest_absolute_residual_us": 43.867687343652506,
+    "largest_payload_effective_bandwidth_gb_s": 4.030740585485008
+  },
+  "debug_retry1_comparison": {
+    "classification": "DEBUG_VALIDATION_RUN_NON_CANONICAL",
+    "intercept_absolute_difference_us": -1.8466563298325127,
+    "intercept_relative_difference_percent": -1.620133539474678,
+    "beta_absolute_difference_gb_s": -0.0013767393683625784,
+    "beta_relative_difference_percent": -0.03386568824194245,
+    "largest_payload_bandwidth_absolute_difference_gb_s": -0.0008611323968761297,
+    "largest_payload_bandwidth_relative_difference_percent": -0.0213595602228424,
+    "r_squared_absolute_difference": 2.2084789530474325e-06,
+    "confidence_intervals_overlap": true,
+    "assessment": "PLAUSIBLE_INDEPENDENT_RUN_VARIABILITY_NO_AVERAGING"
+  },
+  "claim_boundaries": {
+    "intercept_is_classical_transport_alpha": false,
+    "intercept_is_universal_pcie_or_phb_latency": false,
+    "fit_is_universal_tensor_parallel_scaling_law": false,
+    "causal_attribution": "UNSUPPORTED"
+  }
+}
