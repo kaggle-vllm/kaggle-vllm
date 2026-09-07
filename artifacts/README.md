@@ -36,9 +36,16 @@ metadata, licensing, and upstream attribution.
   at concurrency 16; all requests succeeded, with no CUDA OOM or capacity
   crossover through concurrency 64.
 
+- `kaggle-2026-09-07-milestone-3-measured-comm/` — canonical, checksummed
+  dual-T4 two-rank NCCL all-reduce evidence from clean source commit
+  `4df0dd183d78e48739f509637934adf33b98ce82`. It contains 5,000 critical-path
+  observations over ten payloads and five independent repetitions, PHB/P2P
+  topology, telemetry, fit/residual outputs, provenance, and the independent
+  canonical-review record.
+
 Files under `artifacts/` are retained as immutable execution evidence. They are
 excluded from source-formatting and linting tools so that post-capture tooling
 does not modify their bytes or invalidate recorded checksums.
 
-Future M3/M4 directories must not be added until their Kaggle runs occur and
+Future M4/M5 directories must not be added until their Kaggle runs occur and
 their provenance/checksums pass review. Prepared notebook source is not evidence.

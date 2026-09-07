@@ -1,11 +1,12 @@
 # Limitations and unsupported claims
 
-- No new M3 or M4 dual-T4 experiment was executed locally. Their state is
-  PREPARED_FOR_KAGGLE, not complete.
+- M3 is a single fresh Kaggle dual-T4 session with five fresh-process
+  repetitions; M4 has not yet been executed and remains PREPARED_FOR_KAGGLE.
 - M1/M2 are observations from one Kaggle dual-T4 environment. They do not imply
   universal T4, PCIe, PHB or tensor-parallel scaling laws.
-- M3 all-reduce measurements can establish consistency with application
-  behavior, not PHB/NCCL as the sole cause.
+- The M3 measured-all-reduce intercept is configuration-specific and combines
+  launch, synchronization, NCCL software, and transport effects. It is not
+  classical alpha, universal PCIe/PHB latency, or sole-cause evidence.
 - M1/M2 did not observe instantaneous scheduler/decode batch size. Concurrency
   is not used as a substitute.
 - Additional-model vLLM registry support was source-inspected. SM75 execution,

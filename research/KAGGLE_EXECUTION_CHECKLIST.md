@@ -3,17 +3,18 @@
 Use a new T4 x2 session for every numbered notebook. Internet must be enabled.
 Never run model notebooks back-to-back in one session.
 
-## 0. Publish and freeze the execution source
+## Completed M3 source freeze and execution
 
-Push `research/m3-measured-comm-t4-phb-v020` without force and verify that the
-remote branch resolves to the reviewed local commit. The prepared notebooks
-clone that branch and record the exact resolved commit plus notebook hash in
-their provenance. Do not start a Kaggle run when the remote ref differs from
-the reviewed local commit. Record the reviewed PR #25 head SHA outside the
-notebook; do not hardcode a commit into the notebook itself because changing the
-notebook would make that commit pin self-referential. PR #25 must remain draft.
+M3 was executed from the reviewed clean source commit
+`4df0dd183d78e48739f509637934adf33b98ce82`. The canonical ZIP SHA256 is
+`b5aedfdda06522d483042e55a4f9637dd582e72242936ee130cddeeae0ae5769`; the
+executed notebook SHA256 is
+`a2bf24a37a63d12318c5188829310f95d8f3106733be5d301b5570bd63e18383`.
+The accepted evidence is under
+`artifacts/kaggle-2026-09-07-milestone-3-measured-comm/`. Do not rerun or
+replace it when executing M4.
 
-## 1. M3 measured communication
+## M3 measured communication (COMPLETE)
 
 Start one brand-new Kaggle session with Internet enabled and the T4 x2
 accelerator. Import the repository
@@ -48,17 +49,17 @@ runtime identity, timestamps, and artifact hashes. Review the complete grid,
 fit, residuals, measured-interval telemetry, NCCL identity, resource ceilings,
 and claim classifications. Compare the result with the preserved retry-1 debug
 run only for plausibility; agreement does not make the debug run canonical.
-Commit evidence and mark M3 complete only after this review. Do not start the
-model notebooks, M4, or M5 before that acceptance.
+The canonical review passed every listed gate. The retry1 package remains a
+non-canonical `DEBUG_VALIDATION_RUN` comparison only.
 
-## 2–5. One-model sharded-state sessions
+## 1–4. One-model compatibility/artifact sessions
 
 Run in this order so lower-risk/public candidates provide early validation:
 
-2. `kaggle_vllm_research_phi4_mini_t4x2_sharded.ipynb`
-3. `kaggle_vllm_research_llama32_3b_t4x2_sharded.ipynb`
-4. `kaggle_vllm_research_mistral_mid_t4x2_sharded.ipynb`
-5. `kaggle_vllm_research_gemma3_4b_t4x2_sharded.ipynb`
+1. `kaggle_vllm_research_phi4_mini_t4x2_sharded.ipynb`
+2. `kaggle_vllm_research_llama32_3b_t4x2_sharded.ipynb`
+3. `kaggle_vllm_research_mistral_mid_t4x2_sharded.ipynb`
+4. `kaggle_vllm_research_gemma3_4b_t4x2_sharded.ipynb`
 
 Each evidence directory must contain `<slug>-t4x2-sharded.tar.gz.sha256`,
 `<slug>-t4x2-sharded-manifest.json`, `<slug>-t4x2-validation.json`,
@@ -69,17 +70,15 @@ For Llama/Gemma, expect `UPLOAD_BLOCKED_LICENSE_REVIEW`; retain the local
 artifact only as allowed by the applicable terms. An unsupported/OOM outcome
 must contain the negative validation JSON and checksums.
 
-## 6. M4 (only after M3 and artifact review)
+## 5. M4 (after per-model compatibility review)
 
-Create `research/m4-multimodel-tp-crossover-v020` from the accepted M3 commit.
-Include Qwen plus only candidates whose preceding validation passed. Execute the
-matrix in `m4_protocol.json`, preserve every repetition and negative result, run
-the standardized vLLM cross-check, then download raw JSON/JSONL, summaries,
+Use `research/m4-multimodel-tp-crossover-v020`, based on post-M3 `main`.
+Include Qwen plus only candidates whose preceding validation passed. Execute
+the matrix in `m4_protocol.json`, preserve every repetition and negative result,
+run the standardized cross-check, then download raw JSON/JSONL, summaries,
 server logs, telemetry, tokenizer prompt manifests, provenance and checksums.
-The M4 execution notebook intentionally is not created on the M3 preparation
-branch because real M3 evidence is a branch gate.
 
-## 7. M5 (optional)
+## 6. M5 (optional)
 
 Do not execute until the exact intended Vidur source is supplied and inspected.
 If mapping to vLLM 0.18.1 is invalid, publish

@@ -10,8 +10,10 @@ wire bytes divided by critical seconds, using decimal GB.
 
 Summary percentile values use nearest-rank calculation. Standard deviation over
 iterations is descriptive; the 95% confidence interval uses independent
-repetition means. `measured_allreduce_intercept_us` is a fitted proxy specific to
-the exact experiment.
+repetition means. `measured_allreduce_intercept_us` is a fitted parameter
+specific to the exact experiment. `beta_effective_gb_s` is the inverse fitted
+slope using decimal GB/s. `rmse_us_over_payload_means` is the square root of the
+mean squared residual across the ten payload-level means.
 
 ## Application comparisons
 

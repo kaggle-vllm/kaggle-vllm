@@ -1,0 +1,4 @@
+milestone,status,evidence_directory,source_commit,provenance_file,measurement_units,measurement_unit_definition
+M1,COMPLETE,artifacts/kaggle-2026-09-01-milestone-1,7e7355d64266e864a8113c30d52c612d98100350,notebook-provenance.json,20,independent offline benchmark trials
+M2,COMPLETE,artifacts/kaggle-2026-09-02-milestone-2,4f8dcc1c032d65d54b1cce3ca213535d68fd5099,run-metadata.json,12,TP/concurrency matrix cells
+M3,CANONICAL_ACCEPTED,artifacts/kaggle-2026-09-07-milestone-3-measured-comm,4df0dd183d78e48739f509637934adf33b98ce82,M3_PROVENANCE.json,5000,timed two-rank all-reduce critical paths

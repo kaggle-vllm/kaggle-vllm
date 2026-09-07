@@ -2,3 +2,9 @@
 # Prometheus exposition and terminal logs include intentional trailing bytes.
 artifacts/kaggle-2026-09-02-milestone-2/*.metrics.txt -whitespace
 artifacts/kaggle-2026-09-02-milestone-2/*.server.log -whitespace
+
+# Preserve canonical M3 Kaggle captures byte-for-byte. Python's CSV writer and
+# nvidia-smi retain CRLF/tabular trailing bytes authenticated by SHA256SUMS.txt.
+artifacts/kaggle-2026-09-07-milestone-3-measured-comm/*.csv -whitespace
+artifacts/kaggle-2026-09-07-milestone-3-measured-comm/nccl-info.log -whitespace
+artifacts/kaggle-2026-09-07-milestone-3-measured-comm/topology.txt -whitespace

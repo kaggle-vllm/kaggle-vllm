@@ -1,0 +1,105 @@
+{
+  "beta_effective_95_ci_gb_s": [
+    4.051054443503118,
+    4.0768595026297385
+  ],
+  "beta_effective_gb_s": 4.063916009229893,
+  "degrees_of_freedom": 8,
+  "equation": "T_us(S)=measured_allreduce_intercept_us + wire_bytes_per_rank / beta_effective",
+  "evidence_classification": "MEASURED_FIT",
+  "fit_observation": "payload-level critical-path latency means",
+  "limitations": [
+    "The intercept is specific to this NCCL/runtime/process/topology/methodology configuration; it is not universal PCIe latency.",
+    "A single linear model may not represent NCCL algorithm/protocol transitions across payload regimes.",
+    "The fit uses payload-level means; uncertainty in raw collectives and independent repetitions is reported separately.",
+    "The fit does not isolate PCIe, PHB, kernel launch, synchronization, or NCCL software contributions."
+  ],
+  "measured_allreduce_intercept_95_ci_us": [
+    93.11121046785493,
+    131.1589483812896
+  ],
+  "measured_allreduce_intercept_us": 112.13507942457227,
+  "point_count": 10,
+  "r_squared": 0.9999848359112145,
+  "residual_sum_squares_us2": 4054.770350878484,
+  "residuals": [
+    {
+      "fitted_mean_us": 112.38705313605506,
+      "observed_mean_us": 123.02822399139404,
+      "payload_bytes": 1024,
+      "residual_us": 10.641170855338984,
+      "ring_wire_bytes_per_rank": 1024.0
+    },
+    {
+      "fitted_mean_us": 113.14297427050344,
+      "observed_mean_us": 122.29830400645733,
+      "payload_bytes": 4096,
+      "residual_us": 9.155329735953885,
+      "ring_wire_bytes_per_rank": 4096.0
+    },
+    {
+      "fitted_mean_us": 116.16665880829697,
+      "observed_mean_us": 129.93664020299911,
+      "payload_bytes": 16384,
+      "residual_us": 13.769981394702143,
+      "ring_wire_bytes_per_rank": 16384.0
+    },
+    {
+      "fitted_mean_us": 128.26139695947109,
+      "observed_mean_us": 138.83174419403076,
+      "payload_bytes": 65536,
+      "residual_us": 10.570347234559677,
+      "ring_wire_bytes_per_rank": 65536.0
+    },
+    {
+      "fitted_mean_us": 176.64034956416748,
+      "observed_mean_us": 182.04851230978966,
+      "payload_bytes": 262144,
+      "residual_us": 5.408162745622178,
+      "ring_wire_bytes_per_rank": 262144.0
+    },
+    {
+      "fitted_mean_us": 370.15615998295317,
+      "observed_mean_us": 382.39852821826935,
+      "payload_bytes": 1048576,
+      "residual_us": 12.242368235316178,
+      "ring_wire_bytes_per_rank": 1048576.0
+    },
+    {
+      "fitted_mean_us": 1144.2194016580959,
+      "observed_mean_us": 1126.3678064346313,
+      "payload_bytes": 4194304,
+      "residual_us": -17.85159522346453,
+      "ring_wire_bytes_per_rank": 4194304.0
+    },
+    {
+      "fitted_mean_us": 4240.472368358667,
+      "observed_mean_us": 4196.604681015015,
+      "payload_bytes": 16777216,
+      "residual_us": -43.867687343652506,
+      "ring_wire_bytes_per_rank": 16777216.0
+    },
+    {
+      "fitted_mean_us": 8368.80965729276,
+      "observed_mean_us": 8344.96184539795,
+      "payload_bytes": 33554432,
+      "residual_us": -23.847811894811457,
+      "ring_wire_bytes_per_rank": 33554432.0
+    },
+    {
+      "fitted_mean_us": 16625.48423516095,
+      "observed_mean_us": 16649.263969421387,
+      "payload_bytes": 67108864,
+      "residual_us": 23.77973426043536,
+      "ring_wire_bytes_per_rank": 67108864.0
+    }
+  ],
+  "ring_volume_equation": "wire_bytes_per_rank = 2*(P-1)/P*S; for P=2, wire_bytes_per_rank=S",
+  "schema_version": "kaggle-vllm-m3-communication-fit-v1",
+  "slope_95_ci_us_per_byte": [
+    0.00024528684379605424,
+    0.0002468493114437775
+  ],
+  "slope_us_per_byte": 0.00024606807761991587,
+  "world_size": 2
+}

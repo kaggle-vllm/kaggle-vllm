@@ -9,14 +9,21 @@
   "milestones": {
     "M1": {"status": "COMPLETE", "evidence": "artifacts/kaggle-2026-09-01-milestone-1"},
     "M2": {"status": "COMPLETE", "evidence": "artifacts/kaggle-2026-09-02-milestone-2"},
-    "M3": {"status": "PREPARED_FOR_KAGGLE", "notebook": "kaggle-notebooks/kaggle_vllm_milestone_3_measured_nccl_phb.ipynb"},
-    "M4": {"status": "PREPARED_FOR_KAGGLE_AFTER_M3_REVIEW", "protocol": "research/m4_protocol.json"},
+    "M3": {
+      "status": "COMPLETE",
+      "evidence": "artifacts/kaggle-2026-09-07-milestone-3-measured-comm",
+      "source_commit": "4df0dd183d78e48739f509637934adf33b98ce82",
+      "evidence_zip_sha256": "b5aedfdda06522d483042e55a4f9637dd582e72242936ee130cddeeae0ae5769",
+      "executed_notebook_sha256": "a2bf24a37a63d12318c5188829310f95d8f3106733be5d301b5570bd63e18383"
+    },
+    "M4": {"status": "PREPARED_FOR_KAGGLE", "protocol": "research/m4_protocol.json"},
     "M5": {"status": "OPTIONAL_SIMULATOR_COMPATIBILITY_LIMITATION", "reason": "No supplied Vidur source found"}
   },
   "historical_boundaries": {
-    "github_pr_23": "OPEN_HISTORICAL_CONTEXT_ONLY_NOT_REUSED",
+    "github_pr_23": "CLOSED_UNMERGED_SUPERSEDED_REMOTE_BRANCH_DELETED_NOT_REUSED",
     "github_pr_24": "OPEN_GOVERNANCE_ONLY_NOT_RESEARCH_M4"
   },
   "analysis_entrypoint": "research/analysis/generate_figures.py",
-  "execution_checklist": "research/KAGGLE_EXECUTION_CHECKLIST.md"
+  "execution_checklist": "research/KAGGLE_EXECUTION_CHECKLIST.md",
+  "publication_readiness": "research/PUBLICATION_READINESS.md"
 }

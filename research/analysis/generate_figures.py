@@ -21,7 +21,26 @@ def load_object(path: Path) -> dict[str, Any]:
 
 def save_figure(figure: Any, destination: Path, stem: str) -> None:
     for suffix in ("svg", "png", "pdf"):
-        figure.savefig(destination / f"{stem}.{suffix}", bbox_inches="tight", dpi=240)
+        path = destination / f"{stem}.{suffix}"
+        if suffix == "svg":
+            metadata = {"Date": None}
+        elif suffix == "pdf":
+            metadata = {"CreationDate": None, "ModDate": None}
+        else:
+            metadata = {
+                "Software": "kaggle-vllm research/analysis/generate_figures.py"
+            }
+        figure.savefig(
+            path,
+            bbox_inches="tight",
+            dpi=240,
+            metadata=metadata,
+        )
+        if suffix == "svg":
+            normalized = "\n".join(
+                line.rstrip() for line in path.read_text(encoding="utf-8").splitlines()
+            )
+            path.write_text(normalized + "\n", encoding="utf-8")
 
 
 def m1_data(root: Path) -> list[dict[str, Any]]:
@@ -50,6 +69,84 @@ def m2_data(root: Path) -> list[dict[str, Any]]:
     return payload["matrix"]
 
 
+def m3_statistical_rows(summaries: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Flatten M3 summary distributions into a publication-friendly table."""
+
+    rows = []
+    for summary in summaries:
+        latency = summary["latency_us"]
+        bandwidth = summary["effective_bandwidth_gb_s"]
+        rows.append(
+            {
+                "payload_bytes": summary["payload_bytes"],
+                "timed_observations": latency["count"],
+                "independent_repetitions": latency["independent_count"],
+                "latency_mean_us": latency["mean"],
+                "latency_median_us": latency["median"],
+                "latency_std_us": latency["std"],
+                "latency_p50_us": latency["p50"],
+                "latency_p95_us": latency["p95"],
+                "latency_p99_us": latency["p99"],
+                "latency_mean_95_ci_low_us": latency["mean_95_ci"][0],
+                "latency_mean_95_ci_high_us": latency["mean_95_ci"][1],
+                "effective_payload_bandwidth_gb_s": summary[
+                    "effective_payload_bandwidth_gb_s"
+                ],
+                "bandwidth_mean_gb_s": bandwidth["mean"],
+                "bandwidth_median_gb_s": bandwidth["median"],
+                "bandwidth_std_gb_s": bandwidth["std"],
+                "bandwidth_p50_gb_s": bandwidth["p50"],
+                "bandwidth_p95_gb_s": bandwidth["p95"],
+                "bandwidth_p99_gb_s": bandwidth["p99"],
+                "bandwidth_mean_95_ci_low_gb_s": bandwidth["mean_95_ci"][0],
+                "bandwidth_mean_95_ci_high_gb_s": bandwidth["mean_95_ci"][1],
+            }
+        )
+    return rows
+
+
+def evidence_linkage_rows(
+    m1_root: Path, m2_root: Path, m3_root: Path
+) -> list[dict[str, Any]]:
+    """Build the M1/M2/M3 linkage table from evidence-side metadata."""
+
+    m1_provenance = load_object(m1_root / "notebook-provenance.json")
+    m1_rows = m1_data(m1_root)
+    m2_metadata = load_object(m2_root / "run-metadata.json")
+    m2_summary = load_object(m2_root / "summary.json")
+    m3_provenance = load_object(m3_root / "M3_PROVENANCE.json")
+    m3_raw = load_object(m3_root / "M3_RAW_ALLREDUCE.json")
+    return [
+        {
+            "milestone": "M1",
+            "status": "COMPLETE",
+            "evidence_directory": str(m1_root),
+            "source_commit": m1_provenance["source_identity"],
+            "provenance_file": "notebook-provenance.json",
+            "measurement_units": sum(row["trial_count"] for row in m1_rows),
+            "measurement_unit_definition": "independent offline benchmark trials",
+        },
+        {
+            "milestone": "M2",
+            "status": "COMPLETE",
+            "evidence_directory": str(m2_root),
+            "source_commit": m2_metadata["milestone_source_identity"],
+            "provenance_file": "run-metadata.json",
+            "measurement_units": len(m2_summary["matrix"]),
+            "measurement_unit_definition": "TP/concurrency matrix cells",
+        },
+        {
+            "milestone": "M3",
+            "status": "CANONICAL_ACCEPTED",
+            "evidence_directory": str(m3_root),
+            "source_commit": m3_provenance["repository"]["commit"],
+            "provenance_file": "M3_PROVENANCE.json",
+            "measurement_units": len(m3_raw["observations"]),
+            "measurement_unit_definition": "timed two-rank all-reduce critical paths",
+        },
+    ]
+
+
 def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     if not rows:
         raise ValueError(f"refusing empty table: {path}")
@@ -75,7 +172,12 @@ def svg_plot(
     if not points:
         raise ValueError("cannot plot empty series")
     xmin, xmax = min(x for x, _ in points), max(x for x, _ in points)
-    ymin, ymax = 0.0, max(y for _, y in points) * 1.1
+    observed_min = min(y for _, y in points)
+    observed_max = max(y for _, y in points)
+    ymin = min(0.0, observed_min * 1.1)
+    ymax = max(0.0, observed_max * 1.1)
+    if ymax == ymin:
+        ymax = ymin + 1
     if xmax == xmin:
         xmax = xmin + 1
     colors = ("#1f77b4", "#d62728", "#2ca02c")
@@ -142,10 +244,72 @@ def generate_svg_fallback(args: argparse.Namespace) -> dict[str, str]:
             for tp in (1, 2)
         ],
     )
+    if args.m3 is not None:
+        report = load_object(args.m3 / "M3_REPORT.json")
+        summaries = report.get("allreduce_summary")
+        fit = load_object(args.m3 / "M3_FIT.json")
+        if not isinstance(summaries, list) or not summaries:
+            raise ValueError("M3 report has no summaries")
+        write_csv(
+            args.tables / "m3_statistical_summary.csv",
+            m3_statistical_rows(summaries),
+        )
+        write_csv(
+            args.tables / "m1_m2_m3_evidence_linkage.csv",
+            evidence_linkage_rows(args.m1, args.m2, args.m3),
+        )
+        payload_log2 = [math.log2(row["payload_bytes"]) for row in summaries]
+        repetitions = min(
+            row["latency_us"]["independent_count"] for row in summaries
+        )
+        for stem, key, ylabel in (
+            ("03_m3_latency", "latency_us", "All-reduce critical latency (µs)"),
+            ("04_m3_bandwidth", "effective_bandwidth_gb_s", "Effective bandwidth (GB/s)"),
+        ):
+            values = []
+            for x_value, row in zip(payload_log2, summaries, strict=True):
+                stats = row[key]
+                mean = stats["mean"]
+                interval = stats["mean_95_ci"]
+                half_width = max(mean - interval[0], interval[1] - mean)
+                values.append((x_value, mean, half_width))
+            svg_plot(
+                args.figures / f"{stem}.svg",
+                title=(
+                    "M3 measured two-rank NCCL all-reduce "
+                    f"(n={repetitions} repetitions; 95% CI)"
+                ),
+                xlabel="log₂(payload bytes)",
+                ylabel=ylabel,
+                series=[("measured", values)],
+            )
+        residuals = fit.get("residuals")
+        if not isinstance(residuals, list) or not residuals:
+            raise ValueError("M3 fit has no residuals")
+        write_csv(args.tables / "m3_fit_residuals.csv", residuals)
+        svg_plot(
+            args.figures / "05_m3_fit_residuals.svg",
+            title="M3 all-reduce fit residuals",
+            xlabel="log₂(payload bytes)",
+            ylabel="Fit residual (µs)",
+            series=[
+                (
+                    "observed minus fitted",
+                    [
+                        (math.log2(row["payload_bytes"]), row["residual_us"], None)
+                        for row in residuals
+                    ],
+                )
+            ],
+        )
     status = {
         "m1": "GENERATED_SVG_FROM_MEASURED_EVIDENCE",
         "m2": "GENERATED_SVG_FROM_MEASURED_EVIDENCE",
-        "m3": "UNSUPPORTED_NO_M3_EVIDENCE" if args.m3 is None else "MATPLOTLIB_REQUIRED_FOR_M3",
+        "m3": (
+            "UNSUPPORTED_NO_M3_EVIDENCE"
+            if args.m3 is None
+            else "GENERATED_SVG_FROM_MEASURED_EVIDENCE"
+        ),
         "m4": "UNSUPPORTED_NO_M4_EVIDENCE" if args.m4 is None else "MATPLOTLIB_REQUIRED_FOR_M4",
         "m5": "UNSUPPORTED_NO_VALID_SIMULATOR_EVIDENCE" if args.m5 is None else "MATPLOTLIB_REQUIRED_FOR_M5",
         "format_note": "Matplotlib unavailable; dependency-free SVG generated. Install research-only Matplotlib for PNG/PDF.",
@@ -159,6 +323,7 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
         import matplotlib.pyplot as plt
     except ModuleNotFoundError:
         return generate_svg_fallback(args)
+    plt.rcParams["svg.hashsalt"] = "kaggle-vllm-paper-v1"
 
     args.figures.mkdir(parents=True, exist_ok=True)
     args.tables.mkdir(parents=True, exist_ok=True)
@@ -203,7 +368,14 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
         fit = load_object(args.m3 / "M3_FIT.json")
         if not isinstance(summaries, list) or not summaries:
             raise ValueError("M3 report has no summaries")
-        write_csv(args.tables / "m3_allreduce_summary.csv", summaries)
+        write_csv(
+            args.tables / "m3_statistical_summary.csv",
+            m3_statistical_rows(summaries),
+        )
+        write_csv(
+            args.tables / "m1_m2_m3_evidence_linkage.csv",
+            evidence_linkage_rows(args.m1, args.m2, args.m3),
+        )
         payloads = [row["payload_bytes"] for row in summaries]
         latency_stats = [row["latency_us"] for row in summaries]
         bandwidth_stats = [row["effective_bandwidth_gb_s"] for row in summaries]

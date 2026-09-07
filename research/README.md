@@ -10,8 +10,8 @@ new package release.
 |---|---|---|
 | M1 — runtime/TP characterization | COMPLETE | Preserved Kaggle evidence, 2026-09-01 |
 | M2 — Qwen serving crossover | COMPLETE | Preserved Kaggle evidence, 2026-09-02 |
-| M3 — measured NCCL/PHB communication | PREPARED_FOR_KAGGLE | Code and notebook tested on CPU; no new GPU measurements |
-| M4 — multi-model crossover | PREPARED_FOR_KAGGLE_AFTER_M3_REVIEW | Protocol and CPU analyzer only |
+| M3 — measured NCCL/PHB communication | COMPLETE | Canonical clean-source Kaggle evidence, 2026-09-07 |
+| M4 — multi-model crossover | PREPARED_FOR_KAGGLE | Protocol, compatibility gates, and CPU analyzer; no M4 GPU results |
 | M5 — simulator validation | OPTIONAL / SIMULATOR_COMPATIBILITY_LIMITATION | Required local Vidur source was not present |
 
 The research questions and evidence vocabulary are defined in
@@ -23,6 +23,7 @@ Machine-readable control files:
 - `model_matrix.json`: pinned model/access/license/compatibility decisions.
 - `m4_protocol.json`: M4 token workloads, matrix, repetitions and crossover rule.
 - `RESEARCH_MANIFEST.json`: research files, evidence sources and status gates.
+- `PUBLICATION_READINESS.md`: explicit paper-readiness gates and blockers.
 - `tooling_feasibility.md`: exact GuideLLM, Nsight and Vidur decisions.
 - `model_artifact_workflow.md`: audited save/reload/API/upload/cleanup stages.
 
