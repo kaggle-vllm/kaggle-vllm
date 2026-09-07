@@ -9,12 +9,30 @@ Push `research/m3-measured-comm-t4-phb-v020` without force and verify that the
 remote branch resolves to the reviewed local commit. The prepared notebooks
 clone that branch and record the exact resolved commit plus notebook hash in
 their provenance. Do not start a Kaggle run when the remote ref differs from
-the reviewed local commit.
+the reviewed local commit. Record the reviewed PR #25 head SHA outside the
+notebook; do not hardcode a commit into the notebook itself because changing the
+notebook would make that commit pin self-referential. PR #25 must remain draft.
 
 ## 1. M3 measured communication
 
-Run `kaggle_vllm_milestone_3_measured_nccl_phb.ipynb` top to bottom. Download
-the produced `kaggle-YYYY-MM-DD-milestone-3-measured-comm.zip`. It must contain:
+Start one brand-new Kaggle session with Internet enabled and the T4 x2
+accelerator. Import the repository
+`kaggle_vllm_milestone_3_measured_nccl_phb.ipynb` unchanged and run it top to
+bottom. Do not add or run any live source-patch cell. Confirm that the bootstrap
+prints the reviewed PR #25 head SHA before continuing.
+
+The run must validate CPython 3.12, two Tesla T4 devices, compute capability
+7.5, PHB topology, PyTorch/CUDA/NCCL identity, kaggle-vllm 0.2.0, upstream vLLM
+source identity, and native wheel SHA256
+`5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c`.
+It must use 20 warmups, 100 timed collectives per payload/repetition, and five
+fresh-process repetitions while retaining NCCL INFO logs and measured-interval
+telemetry. The primary run must not force `NCCL_ALGO` or `NCCL_PROTO`.
+
+The output directory and ZIP must be named
+`kaggle-YYYY-MM-DD-milestone-3-measured-comm` with no `retry` suffix. Treat the
+result as **CANONICAL_CANDIDATE** until its hashes and scientific content pass
+review. Download both the ZIP and the executed notebook. The ZIP must contain:
 
 - `M3_RAW_ALLREDUCE.csv`, `M3_RAW_ALLREDUCE.json`
 - `M3_FIT.json`, `M3_FIT_RESIDUALS.csv`, `M3_FIT_RESIDUALS.svg`
@@ -24,8 +42,14 @@ the produced `kaggle-YYYY-MM-DD-milestone-3-measured-comm.zip`. It must contain:
 - `M3_ENVIRONMENT.json`, `topology.txt`, `nccl-info.log`
 - `gpu-telemetry.csv`, `M3_PROVENANCE.json`, `SHA256SUMS.txt`
 
-Verify hashes locally, review measured-interval telemetry and NCCL identity, and
-commit accepted evidence before creating the M4 branch.
+Verify `SHA256SUMS.txt` before interpretation. Require provenance to record the
+reviewed commit, `dirty: false`, source-notebook hash, full runner command,
+runtime identity, timestamps, and artifact hashes. Review the complete grid,
+fit, residuals, measured-interval telemetry, NCCL identity, resource ceilings,
+and claim classifications. Compare the result with the preserved retry-1 debug
+run only for plausibility; agreement does not make the debug run canonical.
+Commit evidence and mark M3 complete only after this review. Do not start the
+model notebooks, M4, or M5 before that acceptance.
 
 ## 2–5. One-model sharded-state sessions
 
