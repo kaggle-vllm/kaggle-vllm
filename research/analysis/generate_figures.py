@@ -147,6 +147,124 @@ def evidence_linkage_rows(
     ]
 
 
+def hardware_runtime_rows(m3_root: Path) -> list[dict[str, Any]]:
+    """Flatten the canonical environment without transcribing runtime values."""
+
+    environment = load_object(m3_root / "M3_ENVIRONMENT.json")
+    topology = load_object(m3_root / "M3_PROVENANCE.json")["environment"]
+    rows = [
+        {"component": key, "observed_value": environment[key], "evidence": "M3_ENVIRONMENT.json"}
+        for key in (
+            "python",
+            "torch",
+            "torch_cuda",
+            "nccl",
+            "kaggle_vllm_version",
+            "vllm_distribution_version",
+            "vllm_source_commit",
+            "native_wheel_sha256",
+        )
+    ]
+    rows.extend(
+        {
+            "component": f"gpu_{gpu['index']}",
+            "observed_value": (
+                f"{gpu['name']}; SM{gpu['compute_capability'][0]}"
+                f"{gpu['compute_capability'][1]}; {gpu['total_memory_bytes']} bytes"
+            ),
+            "evidence": "M3_ENVIRONMENT.json",
+        }
+        for gpu in environment["gpus"]
+    )
+    rows.append(
+        {
+            "component": "platform",
+            "observed_value": topology["platform"],
+            "evidence": "M3_PROVENANCE.json",
+        }
+    )
+    return rows
+
+
+def model_table_rows(path: Path) -> list[dict[str, Any]]:
+    models = load_object(path)["models"]
+    return [
+        {
+            "model_key": key,
+            "hf_id": model["hf_id"],
+            "model_revision": model["revision"],
+            "tokenizer_revision": model.get("tokenizer_revision", model["revision"]),
+            "architecture": model["architecture"],
+            "parameters": model["parameters"],
+            "source_precision": model["source_precision"],
+            "selected_weight_bytes": model["selected_weight_bytes"],
+            "license": model["license"],
+            "gated": model["gated"],
+            "redistribution_status": model["redistribution_status"],
+            "vllm_0181_registry_support": model["vllm_0181_registry_support"],
+            "sm75_status": model["sm75_status"],
+        }
+        for key, model in models.items()
+    ]
+
+
+def workload_table_rows(path: Path) -> list[dict[str, Any]]:
+    protocol = load_object(path)
+    return [
+        {
+            "workload": name,
+            "input_tokens": values["input_tokens"],
+            "output_tokens": values["output_tokens"],
+            "principal_concurrency": ";".join(map(str, protocol["principal_concurrency"])),
+            "principal_repetitions": protocol["principal_repetitions"],
+            "near_crossover_repetitions": protocol["near_crossover_repetitions"],
+            "prefix_caching": protocol["prompt_control"]["prefix_caching"],
+        }
+        for name, values in protocol["workloads"].items()
+    ]
+
+
+def claim_boundary_rows(path: Path) -> list[dict[str, str]]:
+    boundaries = load_object(path)
+    return [
+        {"status": "ALLOWED_WITH_EVIDENCE", "claim": claim}
+        for claim in boundaries["allowed_contributions"]
+    ] + [
+        {"status": "UNSUPPORTED_DO_NOT_CLAIM", "claim": claim}
+        for claim in boundaries["unsupported_claims"]
+    ]
+
+
+def m3_fit_rows(m3_root: Path) -> list[dict[str, Any]]:
+    fit = load_object(m3_root / "M3_FIT.json")
+    return [
+        {
+            "point_count": fit["point_count"],
+            "measured_allreduce_intercept_us": fit["measured_allreduce_intercept_us"],
+            "intercept_95_ci_low_us": fit["measured_allreduce_intercept_95_ci_us"][0],
+            "intercept_95_ci_high_us": fit["measured_allreduce_intercept_95_ci_us"][1],
+            "beta_effective_gb_s": fit["beta_effective_gb_s"],
+            "beta_95_ci_low_gb_s": fit["beta_effective_95_ci_gb_s"][0],
+            "beta_95_ci_high_gb_s": fit["beta_effective_95_ci_gb_s"][1],
+            "r_squared": fit["r_squared"],
+            "residual_sum_squares_us2": fit["residual_sum_squares_us2"],
+            "equation": fit["equation"],
+        }
+    ]
+
+
+def write_control_tables(args: argparse.Namespace) -> None:
+    write_csv(args.tables / "model_matrix.csv", model_table_rows(args.model_matrix))
+    write_csv(args.tables / "workload_matrix.csv", workload_table_rows(args.m4_protocol))
+    write_csv(
+        args.tables / "claim_boundaries.csv",
+        claim_boundary_rows(args.claim_boundaries),
+    )
+    if args.m3 is not None:
+        write_csv(args.tables / "hardware_runtime.csv", hardware_runtime_rows(args.m3))
+        write_csv(args.tables / "m3_communication_fit.csv", m3_fit_rows(args.m3))
+
+
 def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     if not rows:
         raise ValueError(f"refusing empty table: {path}")
@@ -220,6 +338,7 @@ def svg_plot(
 def generate_svg_fallback(args: argparse.Namespace) -> dict[str, str]:
     args.figures.mkdir(parents=True, exist_ok=True)
     args.tables.mkdir(parents=True, exist_ok=True)
+    write_control_tables(args)
     first = m1_data(args.m1)
     second = m2_data(args.m2)
     write_csv(args.tables / "m1_tp1_tp2.csv", first)
@@ -327,6 +446,7 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
 
     args.figures.mkdir(parents=True, exist_ok=True)
     args.tables.mkdir(parents=True, exist_ok=True)
+    write_control_tables(args)
     status: dict[str, str] = {}
     first = m1_data(args.m1)
     write_csv(args.tables / "m1_tp1_tp2.csv", first)
@@ -542,6 +662,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--m3", type=Path)
     parser.add_argument("--m4", type=Path)
     parser.add_argument("--m5", type=Path)
+    parser.add_argument(
+        "--model-matrix", type=Path, default=Path("research/model_matrix.json")
+    )
+    parser.add_argument(
+        "--m4-protocol", type=Path, default=Path("research/m4_protocol.json")
+    )
+    parser.add_argument(
+        "--claim-boundaries",
+        type=Path,
+        default=Path("research/claim_boundaries.json"),
+    )
     parser.add_argument("--figures", type=Path, default=Path("research/figures"))
     parser.add_argument("--tables", type=Path, default=Path("research/tables"))
     return parser.parse_args()

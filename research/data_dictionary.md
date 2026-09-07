@@ -25,9 +25,22 @@ evidence exists.
 
 ## M4 serving rows
 
-Token counts are tokenizer-observed exact counts. TTFT is time to first token;
-TPOT is post-first-token time divided by generated-token transitions; ITL is
-the distribution of adjacent output-token intervals. Each benchmark tool must
-record its own definition. A request-concurrency setting is never instantaneous
-decode batch size. Missing optional scheduler/preemption/KV metrics are recorded
-as unobserved, never zero.
+`model_id` and `model_revision` identify immutable model input; the tokenizer
+revision is the same pinned revision unless provenance says otherwise.
+`prompt_manifest_sha256` authenticates full prompt text, UTF-8 hashes, token-ID
+hashes, and exact tokenizer counts. Server-reported input/output usage must equal
+the workload targets.
+
+TTFT is request start to first content-bearing SSE event. Primary-client TPOT
+is post-first-event time divided by generated-token transitions. Primary-client
+`itl_ms` is mean interarrival time between content-bearing SSE events and is
+explicitly an event-level approximation because one event need not equal one
+token. GuideLLM ITL instead uses `(last token - first token)/(output tokens-1)`;
+its TPOT includes the first token. These columns must not be silently equated.
+A request-concurrency setting is never instantaneous decode batch size. Missing
+optional scheduler/preemption/KV metrics are recorded as unobserved, never zero.
+
+Each raw M4 row is one fresh-server repetition for one model, workload, TP, and
+concurrency cell. `request_failures` and `oom` remain explicit. Throughput,
+TTFT, TPOT, ITL, and end-to-end values may be null only for a preserved failed
+cell. Resource fields are sampled and may miss sub-sample peaks.

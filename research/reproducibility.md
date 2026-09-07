@@ -17,7 +17,9 @@ Credentials and local usernames are excluded.
 Reproduce in the order specified by `KAGGLE_EXECUTION_CHECKLIST.md`. M3 is
 frozen under `artifacts/kaggle-2026-09-07-milestone-3-measured-comm/`; its
 external ZIP and executed-notebook hashes are recorded in the directory README
-and research manifest. M4 must branch from post-M3 `main`.
+and research manifest. M4 is based on post-M3 `main`. Its exact shard plan,
+model/tokenizer revisions, primary runner, local checksum-validating assembler,
+and isolated GuideLLM cross-check are committed, but remain unexecuted.
 Generate the currently supported figures from the immutable evidence with:
 
 ```bash
@@ -32,3 +34,11 @@ Generate the currently supported figures from the immutable evidence with:
 Pass reviewed M4/M5 evidence with the corresponding optional flags only after
 it exists. Unavailable milestones are reported as unsupported rather than
 synthesized.
+
+For M4, retain the ZIP SHA, downloaded executed-notebook SHA, clean source
+commit, prompt-manifest SHA, per-file checksums, server commands/logs, raw
+requests, metrics, and resource samples for every shard. Assemble only shards
+whose checksum and semantic audits pass. `M4_EXECUTION_PLAN.json` fixes the
+principal order; refinements are selected only after recording the observed
+transition boundary. GuideLLM remains an independently versioned client at
+commit `fc2dbe9edd4f7f1a4e9ccd752f6f43591adbcb73`.

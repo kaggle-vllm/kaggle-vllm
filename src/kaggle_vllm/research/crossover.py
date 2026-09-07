@@ -155,11 +155,22 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
             for rep in repetitions
         )
         metrics = (
+            "request_throughput_per_second",
+            "input_tokens_per_second",
             "output_tokens_per_second",
+            "total_tokens_per_second",
             "ttft_ms",
             "tpot_ms",
             "itl_ms",
             "e2e_latency_ms",
+            "request_failures",
+            "preemptions",
+            "kv_cache_occupancy_percent",
+            "gpu_utilization_percent",
+            "maximum_vram_mib",
+            "maximum_system_ram_bytes",
+            "mean_power_w",
+            "maximum_temperature_c",
         )
         tp_summaries = {}
         for tp in (1, 2):
@@ -167,7 +178,9 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
             for metric in metrics:
                 values = [by_tp[tp][rep][metric] for rep in sorted(repetitions)]
                 tp_summaries[f"tp{tp}"][metric] = (
-                    distribution(values) if all(value is not None for value in values) else None
+                    distribution(values)
+                    if all(value is not None for value in values)
+                    else None
                 )
         throughput_stats = None
         latency_stats = None

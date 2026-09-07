@@ -20,5 +20,13 @@
   validated runtime (local `ncu` is 2025.1.1 and canonical CUDA is 12.8).
   Installing it in the canonical runtime is deliberately excluded. An isolated
   auxiliary profiling environment may be evaluated later.
-- GuideLLM is feasible as optional research tooling but is dependency-heavy and
-  is not part of the lightweight SDK or assumed metric-equivalent to vLLM.
+- GuideLLM is prepared as isolated research tooling but remains GPU-unexecuted,
+  dependency-heavy, outside the lightweight SDK, and not assumed
+  metric-equivalent to the primary client. The two clients' TPOT and ITL
+  definitions differ explicitly.
+- M4 exact-token generation is tokenizer-specific and synthetic. The primary
+  client's event-interarrival ITL is not guaranteed to be a one-event-per-token
+  engine ITL. Loopback HTTP and client scheduling remain in latency timestamps.
+- The fully enumerated plan contains candidates, not promised successes. Gated
+  access failures, SM75 incompatibility, OOM, or resource-guard termination must
+  remain visible and may reduce the final multi-model breadth.

@@ -1,0 +1,21 @@
+{
+  "schema_version": "kaggle-vllm-paper-claim-boundaries-v1",
+  "allowed_contributions": [
+    "reproducible vLLM 0.18.1 dual-T4 execution and measurement environment",
+    "empirical TP1 versus TP2 characterization within recorded configurations",
+    "directly measured two-rank collective-communication regime",
+    "workload-dependent TP crossover where supported by repeated evidence",
+    "cross-model generalization where supported by accepted M4 evidence",
+    "open notebooks, evidence, hashes, and provenance"
+  ],
+  "unsupported_claims": [
+    "new inference engine",
+    "new scheduler",
+    "new CUDA kernels",
+    "new PagedAttention implementation",
+    "universal Tesla T4 behavior",
+    "universal PCIe behavior",
+    "universal PHB behavior",
+    "universal tensor-parallel scaling law"
+  ]
+}

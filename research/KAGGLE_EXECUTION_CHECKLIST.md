@@ -52,34 +52,92 @@ run only for plausibility; agreement does not make the debug run canonical.
 The canonical review passed every listed gate. The retry1 package remains a
 non-canonical `DEBUG_VALIDATION_RUN` comparison only.
 
-## 1–4. One-model compatibility/artifact sessions
+## M4 source and session controls
 
-Run in this order so lower-risk/public candidates provide early validation:
+Use the output-free
+`kaggle_vllm_m4_execute_shard.ipynb`. Its pinned source commit must equal the
+reviewed M4 source identity printed by the notebook. For every shard:
 
-1. `kaggle_vllm_research_phi4_mini_t4x2_sharded.ipynb`
-2. `kaggle_vllm_research_llama32_3b_t4x2_sharded.ipynb`
-3. `kaggle_vllm_research_mistral_mid_t4x2_sharded.ipynb`
-4. `kaggle_vllm_research_gemma3_4b_t4x2_sharded.ipynb`
+1. start a brand-new Kaggle session;
+2. select **GPU T4 x2** and enable Internet;
+3. configure `HF_TOKEN` without printing it; accept a gated model's terms first;
+4. set `M4_SHARD_ID` to exactly one ID from `M4_EXECUTION_PLAN.json`;
+5. run the unmodified notebook top to bottom;
+6. download the printed ZIP and the executed notebook;
+7. stop the session before starting another model/shard.
 
-Each evidence directory must contain `<slug>-t4x2-sharded.tar.gz.sha256`,
-`<slug>-t4x2-sharded-manifest.json`, `<slug>-t4x2-validation.json`,
-`<slug>-t4x2-provenance.json`, save/reload/API logs and JSON responses, and
-`SHA256SUMS.txt`. For a permitted and verified upload, the large tarball and
-local sharded/source state are removed only after remote object/size checks.
-For Llama/Gemma, expect `UPLOAD_BLOCKED_LICENSE_REVIEW`; retain the local
-artifact only as allowed by the applicable terms. An unsupported/OOM outcome
-must contain the negative validation JSON and checksums.
+The runner starts a fresh vLLM server for every TP/concurrency cell, disables
+prefix caching, uses tokenizer-controlled `/v1/completions` prompts, requires
+server-reported 128/512/2048 input tokens and 64/256/128 output tokens, and
+preserves failures. It actively terminates a server on a 14.5 GiB/GPU or 28
+GiB system-RAM guard breach and refuses projected `/kaggle/working` use above
+20 decimal GB. A zero return code means `CANONICAL_CANDIDATE`, not accepted.
 
-## 5. M4 (after per-model compatibility review)
+## M4 compatibility order
 
-Use `research/m4-multimodel-tp-crossover-v020`, based on post-M3 `main`.
-Include Qwen plus only candidates whose preceding validation passed. Execute
-the matrix in `m4_protocol.json`, preserve every repetition and negative result,
-run the standardized cross-check, then download raw JSON/JSONL, summaries,
-server logs, telemetry, tokenizer prompt manifests, provenance and checksums.
+Run and audit these five two-cell shards in this exact order:
 
-## 6. M5 (optional)
+1. `compat-qwen25_3b`
+2. `compat-phi4_mini`
+3. `compat-llama32_3b`
+4. `compat-ministral3_3b_bf16`
+5. `compat-gemma3_4b`
 
-Do not execute until the exact intended Vidur source is supplied and inspected.
-If mapping to vLLM 0.18.1 is invalid, publish
-`SIMULATOR_COMPATIBILITY_LIMITATION` instead of a prediction.
+For Llama and Gemma, lack of accepted gated access is an access result, not an
+architecture incompatibility. For any model, a preserved unsupported/OOM
+outcome is valid negative evidence. Do not run its principal shards unless the
+compatibility gate passes.
+
+## M4 principal order
+
+For each compatibility-passing model in the same model order above, run:
+
+1. workload order: `short`, `balanced`, `prefill_heavy`;
+2. within each workload: repetitions `r00`, `r01`, `r02`, `r03`, `r04`;
+3. within every shard the notebook fixes concurrency order to 1, 4, 8, 16, 32,
+   64 and interleaves TP1 then TP2.
+
+The 75 fully enumerated possible shard IDs and prerequisites are in
+`M4_EXECUTION_PLAN.json`; models that fail compatibility reduce the executed
+set. Audit every ZIP hash, source identity, prompt-manifest hash, exact token
+counts, resource telemetry, failures, and `SHA256SUMS.txt`. Assemble only
+accepted principal shards with:
+
+```bash
+PYTHONPATH=src /usr/local/bin/python3.11 scripts/assemble_m4_evidence.py \
+  --output-dir /absolute/non-git/path/m4-assembled \
+  /absolute/path/to/each/accepted/shard ...
+```
+
+If the signed TP2-minus-TP1 effect changes between adjacent principal points,
+run only justified refinement points (12, 20, 24, or 48 as appropriate) with
+repetitions 5–9 so those cells total ten independent repetitions. The runner's
+exact form is `--mode refinement --concurrency C --repetition R`; record the
+data-derived selection before execution.
+
+## Optional sharded-state infrastructure
+
+The four `kaggle_vllm_research_*_t4x2_sharded.ipynb` notebooks are optional
+repeatability infrastructure, not a prerequisite for the Transformers-based M4
+comparison. Run one only after its model compatibility and license review pass.
+Llama/Gemma uploads remain `UPLOAD_BLOCKED_LICENSE_REVIEW`. Never commit model
+archives to GitHub.
+
+## GuideLLM independent cross-check
+
+After accepting the matching Qwen M4 cells, run
+`kaggle_vllm_m5_guidellm_crosscheck.ipynb` in new sessions. Set
+`GUIDELLM_SHARD_ID` according to `M4_EXECUTION_PLAN.json`. The exact initial
+cross-check covers balanced Qwen at concurrency 1, 16, and 64, TP1/TP2, five
+repetitions each. The notebook pins GuideLLM commit
+`fc2dbe9edd4f7f1a4e9ccd752f6f43591adbcb73` in a separate client virtual
+environment. Download every ZIP and executed notebook. Do not equate GuideLLM
+metrics with primary-client metrics until definitions and raw records reconcile.
+
+## Vidur and optional profiling
+
+No Vidur source exists locally. Do not produce simulator predictions until the
+exact intended source is supplied and inspected. Current status is
+`SIMULATOR_COMPATIBILITY_LIMITATION`. Nsight Python is auxiliary-only and must
+not be installed in the canonical Kaggle runtime; use the already prepared CUDA
+events, NCCL INFO, Prometheus metrics, and nvidia-smi telemetry instead.

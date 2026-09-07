@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import concurrent.futures
+import hashlib
 import importlib.metadata
 import json
 import math
@@ -15,6 +16,7 @@ import urllib.request
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
+from itertools import pairwise
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
@@ -103,6 +105,9 @@ class ServingWorkloadSpec:
     ignore_eos: bool = True
     seed: int = 0
     request_timeout_seconds: float = 1800.0
+    prompt_manifest_sha256: str | None = None
+    prompt_manifest_file: str | None = None
+    retain_prompt_text_in_result: bool = True
 
     def __post_init__(self) -> None:
         if (
@@ -146,10 +151,29 @@ class ServingWorkloadSpec:
             or self.request_timeout_seconds <= 0
         ):
             raise ValueError("request_timeout_seconds must be positive and finite")
+        if self.prompt_manifest_sha256 is not None and not re.fullmatch(
+            r"[0-9a-f]{64}", self.prompt_manifest_sha256
+        ):
+            raise ValueError("prompt_manifest_sha256 must be lowercase SHA256")
+        if self.prompt_manifest_file is not None and (
+            not self.prompt_manifest_file
+            or Path(self.prompt_manifest_file).name != self.prompt_manifest_file
+        ):
+            raise ValueError("prompt_manifest_file must be a plain file name")
 
     def to_dict(self) -> dict[str, Any]:
         data = asdict(self)
-        data["prompts"] = list(self.prompts)
+        data["prompts"] = (
+            list(self.prompts)
+            if self.retain_prompt_text_in_result
+            else [
+                {
+                    "sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
+                    "utf8_bytes": len(prompt.encode("utf-8")),
+                }
+                for prompt in self.prompts
+            ]
+        )
         data["dispatch_policy"] = "closed_loop_up_to_concurrency_in_flight"
         data["minimum_waves"] = 3
         return data
@@ -175,6 +199,7 @@ class ServingBenchmarkSpec:
     max_num_seqs: int = 64
     enable_prefix_caching: bool = False
     telemetry_interval_seconds: float = 0.25
+    api_mode: str = "chat_completions"
 
     def __post_init__(self) -> None:
         if not self.model.strip():
@@ -195,6 +220,8 @@ class ServingBenchmarkSpec:
             raise ValueError("max_num_batched_tokens must be positive when set")
         if self.telemetry_interval_seconds <= 0:
             raise ValueError("telemetry_interval_seconds must be positive")
+        if self.api_mode not in {"chat_completions", "completions"}:
+            raise ValueError("api_mode must be 'chat_completions' or 'completions'")
         parsed = urlparse(self.base_url)
         if parsed.scheme != "http" or parsed.hostname not in {
             "127.0.0.1",
@@ -226,6 +253,7 @@ class RequestResult:
     tpot_seconds: float | None
     status: str
     http_status: int | None
+    inter_token_latency_seconds: float | None = None
     error_type: str | None = None
     error_message: str | None = None
 
@@ -339,6 +367,10 @@ def metric_definitions() -> dict[str, str]:
             "(completion timestamp - first-token timestamp) / "
             "(actual output tokens - 1); null for <=1 token"
         ),
+        "itl_seconds": (
+            "mean interval between successive content-bearing SSE events; this is "
+            "a client-observed stream-event measure and may differ from engine token ITL"
+        ),
         "output_throughput_tokens_per_second": (
             "successful actual output tokens / measured wall-clock interval"
         ),
@@ -397,20 +429,29 @@ def perform_streaming_request(
     clock: Callable[[], float] = time.perf_counter,
     utc_now: Callable[[], datetime] = _utc_now,
 ) -> RequestResult:
-    """Execute one genuine streaming chat-completion request."""
+    """Execute one genuine streaming chat- or text-completion request."""
 
-    payload = {
+    payload: dict[str, Any] = {
         "model": spec.served_model_name,
-        "messages": [{"role": "user", "content": prompt}],
         "temperature": spec.workload.temperature,
-        "max_completion_tokens": spec.workload.max_output_tokens,
         "ignore_eos": spec.workload.ignore_eos,
         "seed": spec.workload.seed,
         "stream": True,
         "stream_options": {"include_usage": True},
     }
+    if spec.api_mode == "completions":
+        payload.update({"prompt": prompt, "max_tokens": spec.workload.max_output_tokens})
+        endpoint = "/v1/completions"
+    else:
+        payload.update(
+            {
+                "messages": [{"role": "user", "content": prompt}],
+                "max_completion_tokens": spec.workload.max_output_tokens,
+            }
+        )
+        endpoint = "/v1/chat/completions"
     request = urllib.request.Request(
-        f"{spec.base_url.rstrip('/')}/v1/chat/completions",
+        f"{spec.base_url.rstrip('/')}{endpoint}",
         data=json.dumps(payload).encode("utf-8"),
         headers={
             "Content-Type": "application/json",
@@ -426,6 +467,7 @@ def perform_streaming_request(
     prompt_tokens: int | None = None
     output_tokens: int | None = None
     http_status: int | None = None
+    content_event_elapsed: list[float] = []
     try:
         with opener(request, timeout=spec.workload.request_timeout_seconds) as response:
             http_status = int(getattr(response, "status", 200))
@@ -452,14 +494,21 @@ def perform_streaming_request(
                         output_tokens = int(usage["completion_tokens"])
                 choices = event.get("choices")
                 if choices and isinstance(choices, list):
-                    delta = choices[0].get("delta", {})
-                    if (
-                        isinstance(delta, Mapping)
-                        and delta.get("content") is not None
-                        and first_elapsed is None
-                    ):
-                        first_elapsed = max(0.0, clock() - start)
-                        first_at = utc_now()
+                    if spec.api_mode == "completions":
+                        content = choices[0].get("text")
+                    else:
+                        delta = choices[0].get("delta", {})
+                        content = (
+                            delta.get("content")
+                            if isinstance(delta, Mapping)
+                            else None
+                        )
+                    if isinstance(content, str) and content:
+                        event_elapsed = max(0.0, clock() - start)
+                        content_event_elapsed.append(event_elapsed)
+                        if first_elapsed is None:
+                            first_elapsed = event_elapsed
+                            first_at = utc_now()
     except urllib.error.HTTPError as error:
         try:
             body = error.read().decode("utf-8", errors="replace")
@@ -519,6 +568,14 @@ def perform_streaming_request(
         ttft_seconds=first_elapsed,
         end_to_end_latency_seconds=completion_elapsed,
         tpot_seconds=calculate_tpot(first_elapsed, completion_elapsed, output_tokens),
+        inter_token_latency_seconds=(
+            statistics.fmean(
+                later - earlier
+                for earlier, later in pairwise(content_event_elapsed)
+            )
+            if len(content_event_elapsed) > 1
+            else None
+        ),
         status="completed",
         http_status=http_status,
     )
@@ -608,6 +665,11 @@ def aggregate_request_results(
     input_tokens = sum(request.input_tokens or 0 for request in successes)
     ttft = [request.ttft_seconds for request in successes if request.ttft_seconds is not None]
     tpot = [request.tpot_seconds for request in successes if request.tpot_seconds is not None]
+    itl = [
+        request.inter_token_latency_seconds
+        for request in successes
+        if request.inter_token_latency_seconds is not None
+    ]
     latency = [request.end_to_end_latency_seconds for request in successes]
     failure_counts: dict[str, int] = {}
     for request in failures:
@@ -631,6 +693,7 @@ def aggregate_request_results(
         "output_throughput_tokens_per_second": output_tokens / measured_wall_seconds,
         "ttft_seconds": distribution(ttft),
         "tpot_seconds": distribution(tpot),
+        "itl_seconds": distribution(itl),
         "latency_seconds": distribution(latency),
     }
 
@@ -706,7 +769,7 @@ def run_serving_benchmark(
 
     runtime = environment or collect()
     identity, hardware = runtime_identity(runtime)
-    identity["measurement_mode"] = "online_openai_chat_streaming"
+    identity["measurement_mode"] = f"online_openai_{spec.api_mode}_streaming"
     try:
         identity["vllm_distribution_version"] = importlib.metadata.version("vllm")
     except importlib.metadata.PackageNotFoundError:
@@ -749,7 +812,7 @@ def run_serving_benchmark(
             "base_url": spec.base_url,
             "served_model_name": spec.served_model_name,
             "streaming": True,
-            "api": "OpenAI-compatible chat completions",
+            "api": f"OpenAI-compatible {spec.api_mode.replace('_', ' ')}",
             "unexpected_exit_returncode": server_returncode,
             **dict(server_metadata or {}),
         },

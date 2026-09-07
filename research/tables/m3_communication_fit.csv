@@ -1,0 +1,2 @@
+point_count,measured_allreduce_intercept_us,intercept_95_ci_low_us,intercept_95_ci_high_us,beta_effective_gb_s,beta_95_ci_low_gb_s,beta_95_ci_high_gb_s,r_squared,residual_sum_squares_us2,equation
+10,112.13507942457227,93.11121046785493,131.1589483812896,4.063916009229893,4.051054443503118,4.0768595026297385,0.9999848359112145,4054.770350878484,T_us(S)=measured_allreduce_intercept_us + wire_bytes_per_rank / beta_effective

@@ -67,6 +67,9 @@ def test_robust_throughput_and_latency_crossovers(tmp_path: Path) -> None:
     ]
     assert cell["tp2_over_tp1_output_speedup"]["mean"] > 1
     assert cell["tp1"]["ttft_ms"]["independent_count"] == 5
+    assert cell["tp1"]["total_tokens_per_second"]["mean_95_ci"][0] is not None
+    assert cell["tp1"]["maximum_vram_mib"]["p99"] == 12000
+    assert cell["tp1"]["preemptions"] is None
 
 
 def test_incomplete_repetitions_fail_closed(tmp_path: Path) -> None:

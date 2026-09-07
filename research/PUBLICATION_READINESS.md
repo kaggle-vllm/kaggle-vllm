@@ -10,13 +10,13 @@ Overall status: **NOT_PAPER_READY — M4 and external validation remain**
 | M4 breadth | FAIL | No real multi-model serving measurements yet |
 | M4 independent repetitions | FAIL | No M4 GPU cells executed |
 | M4 uncertainty | FAIL | Cannot estimate before repeated M4 measurements |
-| External benchmark/simulator | FAIL | GuideLLM package prepared but not GPU-executed; Vidur source unavailable |
+| External benchmark/simulator | FAIL | Exact isolated GuideLLM package prepared but not GPU-executed; Vidur source unavailable |
 | Reproducibility | PASS | M1–M3 commands, provenance, runtime identities, and evidence retained |
 | Artifact hashes | PASS | M1–M3 committed checksum manifests verify |
 | License review | FAIL | Llama/Gemma redistribution remains blocked; runtime-use terms must be accepted |
 | Claim discipline | PASS | Unsupported causality and universal-scaling claims are explicitly excluded |
 | Paper figures | PASS | M1, M2, and M3 figures are generated; M4/M5 plots correctly absent |
-| Paper tables | PASS | M1–M3 tables are generated; M4/M5 tables correctly absent |
+| Paper tables | PASS | Hardware, model, workload, M1–M3, fit, linkage, and claim-boundary tables are generated; M4/M5 result tables correctly absent |
 | Manuscript skeleton | PASS | Data-bound outline exists without fabricated M4/M5 results |
 
 The figure/table gates mean that every figure or table currently supportable by

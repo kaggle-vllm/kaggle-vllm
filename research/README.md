@@ -22,10 +22,14 @@ Machine-readable control files:
 
 - `model_matrix.json`: pinned model/access/license/compatibility decisions.
 - `m4_protocol.json`: M4 token workloads, matrix, repetitions and crossover rule.
+- `M4_EXECUTION_PLAN.json`: exact compatibility, principal and GuideLLM shard order.
 - `RESEARCH_MANIFEST.json`: research files, evidence sources and status gates.
 - `PUBLICATION_READINESS.md`: explicit paper-readiness gates and blockers.
 - `tooling_feasibility.md`: exact GuideLLM, Nsight and Vidur decisions.
+- `claim_boundaries.json`: machine-readable allowed and unsupported paper claims.
 - `model_artifact_workflow.md`: audited save/reload/API/upload/cleanup stages.
 
 No generated number should enter a paper table manually. The scripts in
 `analysis/` read committed machine-readable evidence and emit figures/tables.
+The M4 runner, local assembler, and GuideLLM cross-check are prepared, but no
+M4/M5 GPU measurements exist yet.
