@@ -3,6 +3,14 @@
 Use a new T4 x2 session for every numbered notebook. Internet must be enabled.
 Never run model notebooks back-to-back in one session.
 
+## 0. Publish and freeze the execution source
+
+Push `research/m3-measured-comm-t4-phb-v020` without force and verify that the
+remote branch resolves to the reviewed local commit. The prepared notebooks
+clone that branch and record the exact resolved commit plus notebook hash in
+their provenance. Do not start a Kaggle run when the remote ref differs from
+the reviewed local commit.
+
 ## 1. M3 measured communication
 
 Run `kaggle_vllm_milestone_3_measured_nccl_phb.ipynb` top to bottom. Download
