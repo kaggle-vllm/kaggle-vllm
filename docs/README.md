@@ -37,6 +37,7 @@ operational detail close to the feature or failure it describes.
 - [Historical validation record](validation.md)
 - [Final 0.2.0 Kaggle acceptance](kaggle-v0.2.0-final-acceptance.md)
 - [Final acceptance procedure and recorded result](next-kaggle-acceptance.md)
+- [Systems-research roadmap and milestone gates](research-roadmap.md)
 
 ## Operations and maintenance
 

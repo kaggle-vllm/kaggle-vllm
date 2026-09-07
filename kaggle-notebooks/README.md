@@ -5,6 +5,17 @@ This directory contains Kaggle-specific validation material for
 under [`examples/`](../examples/) are starting points and do not claim a
 successful run until their outputs have been captured and reviewed.
 
+## Post-0.2.0 research notebooks (not yet executed)
+
+[`kaggle_vllm_milestone_3_measured_nccl_phb.ipynb`](kaggle_vllm_milestone_3_measured_nccl_phb.ipynb)
+is the output-free M3 source. It launches five fresh two-rank NCCL processes and
+measures all-reduce directly; its status is **PREPARED_FOR_KAGGLE**, not complete.
+
+The Llama 3.2 3B, Gemma 3 4B, Phi-4 Mini and Ministral 3 3B BF16 notebooks are
+one-model-per-session sharded-state workflows. They are also unexecuted. Llama
+and Gemma uploads are blocked pending redistribution review. Follow the exact
+[research execution checklist](../research/KAGGLE_EXECUTION_CHECKLIST.md).
+
 ## Post-0.2.0 Milestone 2 execution source
 
 [`kaggle_vllm_milestone_2_concurrency_crossover.ipynb`](kaggle_vllm_milestone_2_concurrency_crossover.ipynb)

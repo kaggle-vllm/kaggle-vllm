@@ -39,3 +39,6 @@ metadata, licensing, and upstream attribution.
 Files under `artifacts/` are retained as immutable execution evidence. They are
 excluded from source-formatting and linting tools so that post-capture tooling
 does not modify their bytes or invalidate recorded checksums.
+
+Future M3/M4 directories must not be added until their Kaggle runs occur and
+their provenance/checksums pass review. Prepared notebook source is not evidence.

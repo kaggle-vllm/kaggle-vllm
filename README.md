@@ -8,7 +8,7 @@ It is designed for users searching for a reliable way to **install vLLM on Kaggl
 > Validated profile: **Kaggle Notebook · 2 × NVIDIA Tesla T4 · SM75 / compute capability 7.5 · CUDA 12.8 · PyTorch 2.10 · CPython 3.12**  
 > Upstream runtime source: **vLLM v0.18.1** at commit `a26e8dc7ff2111a005144d775ecf9cebf56c45b2`
 
-[Documentation](docs/README.md) · [Installation](docs/installation.md) · [Compatibility](docs/compatibility.md) · [Benchmarks](docs/benchmarking.md) · [Troubleshooting](docs/troubleshooting.md)
+[Documentation](docs/README.md) · [Installation](docs/installation.md) · [Compatibility](docs/compatibility.md) · [Benchmarks](docs/benchmarking.md) · [Research](research/README.md) · [Troubleshooting](docs/troubleshooting.md)
 
 ---
 
