@@ -19,7 +19,8 @@ frozen under `artifacts/kaggle-2026-09-07-milestone-3-measured-comm/`; its
 external ZIP and executed-notebook hashes are recorded in the directory README
 and research manifest. M4 is based on post-M3 `main`. Its exact shard plan,
 model/tokenizer revisions, primary runner, local checksum-validating assembler,
-and isolated GuideLLM cross-check are committed, but remain unexecuted.
+and isolated GuideLLM cross-check are frozen at source commit
+`5176f1a133da0d8457937993be07f5a2a2b22a5f`, but remain unexecuted.
 Generate the currently supported figures from the immutable evidence with:
 
 ```bash
