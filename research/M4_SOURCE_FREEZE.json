@@ -1,0 +1,26 @@
+{
+  "schema_version": "kaggle-vllm-m4-source-freeze-v1",
+  "status": "PREPARED_FOR_KAGGLE_NO_GPU_RESULTS",
+  "post_m3_main_commit": "56ff0c605f1461e8d8d79adbba413670058c5fd0",
+  "implementation_source_commit": "5176f1a133da0d8457937993be07f5a2a2b22a5f",
+  "notebook_pin_commit": "9c0d2ea77a2886938256e9c8f65582a6ebeead6a",
+  "package_version": "0.2.0",
+  "execution_plan_sha256": "d97c8ed1ec8eec7e61e61c617b50d5d48287a253aa28f1e7834b0694fa419d8b",
+  "model_matrix_sha256": "7e6eae2f674c394d5db262a02ddd601dfadb17807c4c62e6a252f3e9656664c4",
+  "protocol_sha256": "0bb8c6d15b8a6f3d7acc0d1716f99ab34bb4f97ed0e38dd1e26b8f1c92fe99e3",
+  "notebooks": {
+    "kaggle-notebooks/kaggle_vllm_m4_execute_shard.ipynb": "0b40a210c9a24ed60c5b7246a4a6b862bedad1034c1084f7cb18d8be40dae5b7",
+    "kaggle-notebooks/kaggle_vllm_m5_guidellm_crosscheck.ipynb": "364c286844610748ba9b877d092136debd830968a0194a321c2d82ee38bf53e5",
+    "kaggle-notebooks/kaggle_vllm_research_gemma3_4b_t4x2_sharded.ipynb": "5a1af56a2c7bfdae0e62a220207c718c26266fff690f60397a7ce871e46d1632",
+    "kaggle-notebooks/kaggle_vllm_research_llama32_3b_t4x2_sharded.ipynb": "3cd24683eacbb22fe7790444e3cf94e57dc2f751e1a4d9dabaf37f276dbfbef8",
+    "kaggle-notebooks/kaggle_vllm_research_mistral_mid_t4x2_sharded.ipynb": "e10eac756eb1a00de2e1cd3439ac0083820cecbaaa7c972df3e7a30dac0028cd",
+    "kaggle-notebooks/kaggle_vllm_research_phi4_mini_t4x2_sharded.ipynb": "be4d4a50dba8f0c7acb11e57d3d461b12ba382fceeade9ecba7568a7a7d168af"
+  },
+  "external_tools": {
+    "guidellm_commit": "fc2dbe9edd4f7f1a4e9ccd752f6f43591adbcb73",
+    "guidellm_describe": "v0.7.3-47-gfc2dbe9e",
+    "nsight_python_commit": "b061ae742867a7ef551aba2508bd5c39d043eea6",
+    "vidur": "SOURCE_NOT_PRESENT_SIMULATOR_COMPATIBILITY_LIMITATION"
+  },
+  "evidence_boundary": "These hashes freeze unexecuted source packages; they are not GPU evidence. Downloaded executed-notebook and ZIP hashes must be added during each evidence audit."
+}

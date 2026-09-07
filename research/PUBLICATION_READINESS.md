@@ -12,7 +12,7 @@ Overall status: **NOT_PAPER_READY — M4 and external validation remain**
 | M4 uncertainty | FAIL | Cannot estimate before repeated M4 measurements |
 | External benchmark/simulator | FAIL | Exact isolated GuideLLM package prepared but not GPU-executed; Vidur source unavailable |
 | Reproducibility | PASS | M1–M3 commands, provenance, runtime identities, and evidence retained |
-| Artifact hashes | PASS | M1–M3 committed checksum manifests verify |
+| Artifact hashes | PASS | M1–M3 evidence manifests verify; unexecuted M4 package hashes are separately frozen and are not evidence |
 | License review | FAIL | Llama/Gemma redistribution remains blocked; runtime-use terms must be accepted |
 | Claim discipline | PASS | Unsupported causality and universal-scaling claims are explicitly excluded |
 | Paper figures | PASS | M1, M2, and M3 figures are generated; M4/M5 plots correctly absent |
