@@ -297,6 +297,20 @@ def worker_main(args: argparse.Namespace) -> int:
     return 0
 
 
+def format_command_capture(capture: dict[str, Any]) -> str:
+    return (
+        "COMMAND: {command}\n"
+        "RETURN_CODE: {returncode}\n"
+        "STDOUT:\n{stdout}\n"
+        "STDERR:\n{stderr}"
+    ).format(
+        **{
+            **capture,
+            "command": " ".join(capture["command"]),
+        }
+    )
+
+
 def parse_nccl_observations(log_path: Path) -> list[str]:
     patterns = re.compile(
         r"(NCCL version|NET/Plugin|NET/IB|NET/Socket|P2P|Channel|Trees|CollNet|NVLS|algorithm|protocol)",
@@ -362,10 +376,7 @@ def orchestrate(args: argparse.Namespace) -> int:
         run_capture(["nvidia-smi", "topo", "-p2p", "w"]),
     ]
     topology_text = "\n\n".join(
-        "COMMAND: {command}\nRETURN_CODE: {returncode}\nSTDOUT:\n{stdout}\nSTDERR:\n{stderr}".format(
-            command=" ".join(capture["command"]), **capture
-        )
-        for capture in topology_captures
+        format_command_capture(capture) for capture in topology_captures
     )
     (output_dir / "topology.txt").write_text(topology_text + "\n", encoding="utf-8")
     for capture in topology_captures:

@@ -36,6 +36,7 @@ from kaggle_vllm.research.measured_comm import (
 from kaggle_vllm.research.provenance import sha256_file, verify_sha256_manifest
 from kaggle_vllm.research.report import write_m3_outputs
 from kaggle_vllm.research.resources import require_disk_budget
+from scripts.kaggle_measured_allreduce import format_command_capture
 
 
 def observations(
@@ -64,6 +65,25 @@ def observations(
                     )
                 )
     return tuple(rows)
+
+
+def test_topology_capture_formats_command_once_without_mutating_input() -> None:
+    capture = {
+        "command": ["nvidia-smi", "topo", "-m"],
+        "returncode": 0,
+        "stdout": "GPU0 GPU1 PHB",
+        "stderr": "",
+    }
+    original = {**capture, "command": list(capture["command"])}
+
+    assert format_command_capture(capture) == (
+        "COMMAND: nvidia-smi topo -m\n"
+        "RETURN_CODE: 0\n"
+        "STDOUT:\n"
+        "GPU0 GPU1 PHB\n"
+        "STDERR:\n"
+    )
+    assert capture == original
 
 
 def write_raw(tmp_path: Path, rows: tuple[AllReduceObservation, ...]) -> tuple[Path, Path]:
