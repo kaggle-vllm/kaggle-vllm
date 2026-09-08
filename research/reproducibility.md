@@ -20,11 +20,12 @@ external ZIP and executed-notebook hashes are recorded in the directory README
 and research manifest. M4 is based on post-M3 `main`. Its exact shard plan,
 model/tokenizer revisions, primary runner, local checksum-validating assembler,
 and isolated GuideLLM cross-check are frozen at source commit
-`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. The clean Qwen and clean-rerun
-Phi compatibility shards are accepted under
+`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. The clean Qwen, clean-rerun Phi,
+and clean Ministral compatibility shards are accepted under
 `artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/` and
-`artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini/`; M4 remains
-in progress without an accepted principal matrix.
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini/`, and
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/`;
+M4 remains in progress without an accepted principal matrix.
 Generate the currently supported figures from the immutable evidence with:
 
 ```bash
@@ -63,3 +64,18 @@ the executed notebook SHA256 is
 The prior Phi candidate remains excluded `REJECTED_NOTEBOOK_DRIFT` evidence
 because its executed notebook used `M4_SHARD_ID_2`. It is not promoted,
 averaged, or copied into the canonical evidence directory.
+
+The accepted Ministral compatibility ZIP SHA256 is
+`516e37c160ca98a49795870aeeeeb8a381cd8780924f4d9d8836305ad68c77cc`;
+the executed notebook SHA256 is
+`5f988e506a35a21f59c1502ae77eb5c6df9118549d4cd95ce7f0ea8a397c3a1d`.
+The retained prompts are text-only. Although the multimodal-capable native
+implementation performs encoder warmup and Transformers warns about the
+legacy Mistral regex, an independent pinned-revision audit found identical
+token sequences and exact counts for all 64 prompts with the regex correction
+enabled.
+
+The prior Llama attempt remains an `ACCESS_PENDING_AT_EXECUTION` record and is
+not canonical compatibility evidence. The user reports access is now approved;
+the exact Kaggle `HF_TOKEN` still must be checked against that approved account
+before the fresh rerun.

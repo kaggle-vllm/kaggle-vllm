@@ -43,10 +43,11 @@ metadata, licensing, and upstream attribution.
   topology, telemetry, fit/residual outputs, provenance, and the independent
   canonical-review record.
 
-- `kaggle-2026-09-08-milestone-4/` — M4 work in progress. Its first two
-  accepted shards are the clean-source Qwen2.5-3B and Phi-4 Mini short-workload
-  TP1/TP2 compatibility gates. Three model gates and the principal matrix
-  remain unexecuted; the earlier notebook-drifted Phi candidate remains
+- `kaggle-2026-09-08-milestone-4/` — M4 work in progress. Its accepted shards
+  are the clean-source Qwen2.5-3B, Phi-4 Mini, and Ministral 3 3B BF16
+  short-workload TP1/TP2 compatibility gates. Llama remains not canonically
+  executed after a prior access-gated attempt, Gemma and the principal matrix
+  remain unexecuted, and the earlier notebook-drifted Phi candidate remains
   rejected and excluded.
 
 Files under `artifacts/` are retained as immutable execution evidence. They are

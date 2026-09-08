@@ -28,10 +28,16 @@
       "canonical": true
     },
     "llama32_3b": {
-      "status": "NOT_EXECUTED"
+      "status": "NOT_CANONICALLY_EXECUTED"
     },
     "ministral3_3b_bf16": {
-      "status": "NOT_EXECUTED"
+      "status": "COMPATIBILITY_PASS",
+      "canonical_source_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+      "executed_notebook_sha256": "5f988e506a35a21f59c1502ae77eb5c6df9118549d4cd95ce7f0ea8a397c3a1d",
+      "evidence_zip_sha256": "516e37c160ca98a49795870aeeeeb8a381cd8780924f4d9d8836305ad68c77cc",
+      "prompt_manifest_sha256": "18115fb6c768865cee71254f49fa6ac372d8f31bab59b3068a5aae918d06bc92",
+      "evidence_directory": "artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16",
+      "canonical": true
     },
     "gemma3_4b": {
       "status": "NOT_EXECUTED"
@@ -55,6 +61,17 @@
       "evidence_zip_sha256": "b319f1197546f9e147c2a39617b4e38d7408109726ac8c3c7093ca4dbb7af351",
       "executed_notebook_sha256": "507de88132845c70209e2706fe70eb34116041b9180f8fb7057bc8ab3cad2f96",
       "reason": "Executed notebook read M4_SHARD_ID_2 instead of the frozen M4_SHARD_ID secret key"
+    }
+  },
+  "access_gate_attempts": {
+    "llama32_3b": {
+      "status_at_execution": "ACCESS_PENDING_AT_EXECUTION",
+      "classification": "ACCESS_GATE_BLOCKED",
+      "canonical_compatibility_evidence": false,
+      "compatibility_failure": false,
+      "downloaded_evidence_supplied_for_this_review": false,
+      "current_access_status": "APPROVED_USER_CONFIRMED",
+      "next_action": "Rerun compat-llama32_3b in a fresh Kaggle T4 x2 session after confirming the Kaggle HF_TOKEN belongs to the approved account"
     }
   },
   "next_compatibility_shard": "compat-llama32_3b",

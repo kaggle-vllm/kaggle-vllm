@@ -15,3 +15,5 @@ artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/*.metrics.txt -w
 artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/*.server.log -whitespace
 artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini/*.metrics.txt -whitespace
 artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini/*.server.log -whitespace
+artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/*.metrics.txt -whitespace
+artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/*.server.log -whitespace

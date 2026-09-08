@@ -12,8 +12,12 @@ Accepted compatibility shards:
   concurrency-1 TP1/TP2 gate on a fresh Kaggle T4 x2 session.
 - `compatibility/phi4_mini/`: `COMPATIBILITY_PASS` for the short-workload,
   concurrency-1 TP1/TP2 gate from the independently audited clean rerun.
+- `compatibility/ministral3_3b_bf16/`: `COMPATIBILITY_PASS` for the text-only
+  short-workload, concurrency-1 TP1/TP2 gate on the multimodal-capable model.
 
 The prior Phi candidate remains separately classified `REJECTED_NOTEBOOK_DRIFT`
-and is not canonical evidence. Not yet executed: Llama 3.2 3B, Ministral 3 3B
-BF16, and Gemma 3 4B compatibility shards. No M4 principal shard is accepted
-here.
+and is not canonical evidence. A previous Llama 3.2 attempt was
+`ACCESS_PENDING_AT_EXECUTION`, not a compatibility failure; no downloaded
+payload from that attempt was supplied for canonical review. Llama remains
+`NOT_CANONICALLY_EXECUTED`, and Gemma remains `NOT_EXECUTED`. No M4 principal
+shard is accepted here.

@@ -38,6 +38,7 @@ vllm-0.18.1/
 !artifacts/kaggle-2026-09-02-milestone-2/*.log
 !artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/*.server.log
 !artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini/*.server.log
+!artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/*.server.log
 
 # Notebook transient files
 .ipynb_checkpoints/

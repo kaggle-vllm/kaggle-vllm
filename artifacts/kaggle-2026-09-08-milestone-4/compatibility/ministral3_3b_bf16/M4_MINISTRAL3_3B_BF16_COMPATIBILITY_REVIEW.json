@@ -1,0 +1,202 @@
+{
+  "schema_version": "kaggle-vllm-m4-compatibility-review-v1",
+  "decision": "COMPATIBILITY_PASS",
+  "scope": "Ministral 3 3B BF16 short-workload concurrency-1 TP1/TP2 text-only compatibility gate on Kaggle T4 x2",
+  "candidate_identity": {
+    "evidence_zip_sha256": "516e37c160ca98a49795870aeeeeb8a381cd8780924f4d9d8836305ad68c77cc",
+    "evidence_zip_size_bytes": 111387,
+    "executed_notebook_sha256": "5f988e506a35a21f59c1502ae77eb5c6df9118549d4cd95ce7f0ea8a397c3a1d",
+    "executed_notebook_size_bytes": 40791,
+    "source_notebook_sha256": "885c5b6278614c66ac72f1e9ed8d05dbad84a19c8b99be129ebeb25e48a91dd9",
+    "prompt_manifest_sha256": "18115fb6c768865cee71254f49fa6ac372d8f31bab59b3068a5aae918d06bc92"
+  },
+  "zip_safety": {
+    "entry_count": 17,
+    "duplicate_entries": 0,
+    "absolute_paths": 0,
+    "path_traversal_entries": 0,
+    "symlinks": 0,
+    "crc_failures": 0,
+    "unexpected_files": 0
+  },
+  "hash_verification": {
+    "sha256sum_check": "PASS_16_OF_16",
+    "project_hash_verifier": "PASS_16_OF_16",
+    "zip_digest_matches_executed_notebook_output": true
+  },
+  "executed_notebook_audit": {
+    "cell_count": 4,
+    "code_cell_count": 2,
+    "cell_sources_match_frozen_source_exactly": true,
+    "normalized_code_sha256": "6d6a53e48414ce06e7b8ac1180fa0094e8dd83e93ce88df8d833ee49b6ce2a6e",
+    "uses_unnumbered_m4_shard_id_secret": true,
+    "numbered_m4_shard_id_variant_detected": false,
+    "manual_patch_or_debug_cell": false,
+    "python_error_outputs": 0,
+    "tracebacks": 0,
+    "runner_returncode": 0,
+    "runner_stderr_classification": "NON_BLOCKING_PINNED_TOKENIZER_REGEX_WARNING",
+    "hash_verifier_stderr_empty": true,
+    "secret_exposure_detected": false
+  },
+  "provenance_gate": {
+    "source_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+    "source_dirty": false,
+    "dirty_paths": [],
+    "sdk_version": "0.2.0",
+    "model_key": "ministral3_3b_bf16",
+    "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+    "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+    "tokenizer_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+    "declared_architecture": "Mistral3ForConditionalGeneration",
+    "vllm_resolved_implementation": "PixtralForConditionalGeneration",
+    "mode": "compatibility",
+    "workload": "short",
+    "repetition": 0,
+    "started_at_utc": "2026-09-08T18:13:42.119443+00:00",
+    "completed_at_utc": "2026-09-08T18:19:52.399127+00:00"
+  },
+  "runtime": {
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_toolkit": "12.8.93",
+    "nccl": "2.27.5",
+    "vllm_source_tag": "v0.18.1",
+    "vllm_distribution_version": "0.18.2.dev0+ga26e8dc7f.d20260822",
+    "gpus": [
+      "Tesla T4 SM75",
+      "Tesla T4 SM75"
+    ],
+    "topology": "PHB",
+    "p2p_read_write": "SUPPORTED_REPORTED_BY_NVIDIA_SMI",
+    "attention_backend": "TRITON_ATTN",
+    "native_wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c"
+  },
+  "prompt_gate": {
+    "prompt_count": 64,
+    "text_only_prompts": 64,
+    "unique_utf8_hashes": 64,
+    "unique_token_id_hashes": 64,
+    "exact_input_tokens_per_prompt": 128,
+    "maximum_pairwise_textual_common_prefix_characters": 2,
+    "prefix_caching": false,
+    "result_references_match_manifest": true,
+    "legacy_regex_warning_observed": true,
+    "corrected_regex_token_sequences_changed": 0,
+    "corrected_regex_token_counts_changed": 0,
+    "corrected_regex_token_id_hash_mismatches": 0
+  },
+  "text_only_path_gate": {
+    "request_api": "OpenAI-compatible /v1/completions",
+    "request_payloads_contain_images": false,
+    "vision_input_required_for_measured_requests": false,
+    "multimodal_encoder_warmup_observed": true,
+    "supported_tasks": [
+      "generate"
+    ],
+    "trust_remote_code": false,
+    "assessment": "PASS_TEXT_ONLY_GENERATION_PATH_WITH_MULTIMODAL_STARTUP_OVERHEAD"
+  },
+  "cells": {
+    "ministral3_3b_bf16-short-r00-tp1-c01": {
+      "status": "executed",
+      "tensor_parallel_size": 1,
+      "concurrency": 1,
+      "warmup_requests_excluded": 1,
+      "measured_requests": 20,
+      "successful_requests": 20,
+      "failed_requests": 0,
+      "input_tokens_per_request": 128,
+      "output_tokens_per_request": 64,
+      "request_throughput_per_second": 0.5179546392393563,
+      "output_throughput_tokens_per_second": 33.1490969113188,
+      "mean_ttft_ms": 64.3998543500004,
+      "mean_tpot_ms": 29.50041313809529,
+      "mean_itl_ms": 29.498668803174745,
+      "mean_e2e_latency_ms": 1922.9258820500036,
+      "oom": false,
+      "maximum_vram_mib_gpu0": 12945.0,
+      "maximum_vram_mib_gpu1": 3.0,
+      "maximum_system_ram_bytes": 6421184512,
+      "maximum_process_tree_rss_bytes": 13915111424,
+      "maximum_gpu0_utilization_percent": 100.0,
+      "maximum_gpu1_utilization_percent": 0.0,
+      "maximum_gpu0_power_w": 73.78,
+      "maximum_gpu1_power_w": 27.34,
+      "maximum_gpu0_temperature_c": 67.0,
+      "maximum_gpu1_temperature_c": 44.0
+    },
+    "ministral3_3b_bf16-short-r00-tp2-c01": {
+      "status": "executed",
+      "tensor_parallel_size": 2,
+      "concurrency": 1,
+      "warmup_requests_excluded": 1,
+      "measured_requests": 20,
+      "successful_requests": 20,
+      "failed_requests": 0,
+      "input_tokens_per_request": 128,
+      "output_tokens_per_request": 64,
+      "request_throughput_per_second": 0.3020268075811954,
+      "output_throughput_tokens_per_second": 19.329715685196504,
+      "mean_ttft_ms": 58.94772290000674,
+      "mean_tpot_ms": 51.53432783412705,
+      "mean_itl_ms": 51.53215560317492,
+      "mean_e2e_latency_ms": 3305.610376450011,
+      "oom": false,
+      "maximum_vram_mib_gpu0": 13073.0,
+      "maximum_vram_mib_gpu1": 13073.0,
+      "maximum_system_ram_bytes": 8009932800,
+      "maximum_process_tree_rss_bytes": 21062291456,
+      "maximum_gpu0_utilization_percent": 100.0,
+      "maximum_gpu1_utilization_percent": 100.0,
+      "maximum_gpu0_power_w": 80.27,
+      "maximum_gpu1_power_w": 74.8,
+      "maximum_gpu0_temperature_c": 77.0,
+      "maximum_gpu1_temperature_c": 72.0
+    }
+  },
+  "resource_gate": {
+    "maximum_allowed_vram_mib_per_gpu": 14848.0,
+    "maximum_allowed_system_ram_bytes": 30064771072,
+    "maximum_allowed_working_storage_bytes": 20000000000,
+    "working_storage_bytes_at_preflight": 2355578106,
+    "free_storage_bytes_at_preflight": 18531704832,
+    "projected_working_storage_bytes": 13053819162,
+    "post_run_disk_high_water_not_sampled": true,
+    "resource_guard_violation": false
+  },
+  "server_log_findings": {
+    "blocking": [],
+    "non_blocking": [
+      "Transformers 4.57.6 warned about the checkpoint legacy Mistral regex; an independent pinned-revision comparison found identical token sequences for every retained prompt with the correction enabled",
+      "vLLM resolved the declared Mistral3 architecture to its native Pixtral implementation while preserving the expected text-generation task",
+      "TP1 reported one leaked semaphore at completed process shutdown",
+      "TP2 workers emitted termination warnings during deliberate completed shutdown"
+    ],
+    "expected": [
+      "BF16 checkpoint weights were cast to protocol-requested FP16",
+      "FlashAttention-2 rejection on SM75 was followed by successful TRITON_ATTN selection",
+      "Eager mode disabled Inductor and CUDA graphs",
+      "TP2 SymmMem unavailability on SM75 was followed by symmetric NCCL 2.27.5 TP initialization",
+      "Multimodal encoder-cache profiling and warmup completed before text-only generation",
+      "No FP8 or quantized kernel path was selected",
+      "trust_remote_code remained false"
+    ],
+    "scientific_limitations": [
+      "One repetition, one short text-only workload, and concurrency one do not establish a crossover",
+      "Multimodal startup and encoder-cache allocation are included in the resource footprint even though measured prompts contain no images",
+      "The tokenizer-regex result is bounded to the exact retained synthetic prompt corpus",
+      "Sampled telemetry can miss instantaneous peaks",
+      "Performance characterizes the SM75 Triton eager path, not FlashAttention-2 or compiled CUDA-graph paths",
+      "The pinned dev-build distribution derives from upstream vLLM 0.18.1 and must retain its exact wheel identity"
+    ]
+  },
+  "claim_boundaries": {
+    "m4_complete": false,
+    "ministral_principal_matrix_complete": false,
+    "m4_crossover_established": false,
+    "all_models_compatible": false,
+    "paper_ready": false
+  }
+}

@@ -1,9 +1,9 @@
 # Limitations and unsupported claims
 
 - M3 is a single fresh Kaggle dual-T4 session with five fresh-process
-  repetitions. M4 is in progress: the Qwen and Phi short-workload
-  concurrency-1 compatibility shards are accepted; three model gates and the
-  principal matrix remain unexecuted.
+  repetitions. M4 is in progress: the Qwen, Phi, and text-only Ministral
+  short-workload concurrency-1 compatibility shards are accepted; Llama and
+  Gemma canonical gates and the principal matrix remain unexecuted.
 - M1/M2 are observations from one Kaggle dual-T4 environment. They do not imply
   universal T4, PCIe, PHB or tensor-parallel scaling laws.
 - The M3 measured-all-reduce intercept is configuration-specific and combines
@@ -11,9 +11,18 @@
   classical alpha, universal PCIe/PHB latency, or sole-cause evidence.
 - M1/M2 did not observe instantaneous scheduler/decode batch size. Concurrency
   is not used as a substitute.
-- Additional-model vLLM registry support was source-inspected. Qwen and Phi
-  have accepted SM75 compatibility measurements; the remaining models' M4
+- Additional-model vLLM registry support was source-inspected. Qwen, Phi, and
+  Ministral have accepted SM75 compatibility measurements; Llama and Gemma M4
   SM75 execution, memory fit, artifact sizes and generation remain unmeasured.
+- Ministral compatibility covers text-only completions. Its multimodal-capable
+  native implementation still performs image-encoder cache profiling at
+  startup, so this evidence does not establish image-input compatibility. The
+  pinned Mistral regex correction did not alter this exact prompt corpus, but
+  that observation does not generalize to arbitrary text.
+- The earlier Llama attempt was blocked by gated access and is not a model
+  compatibility failure. Approval is user-confirmed, but canonical serving
+  behavior remains unmeasured until a fresh run with the approved token passes
+  audit.
 - Llama and Gemma derived-artifact uploads are blocked pending redistribution
   review even when token access permits downloads.
 - No Microsoft Vidur source tree/archive was found in the supplied working

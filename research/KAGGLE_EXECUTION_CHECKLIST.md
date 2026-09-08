@@ -95,30 +95,54 @@ The preceding Phi candidate remains `REJECTED_NOTEBOOK_DRIFT` because its
 executed notebook read `M4_SHARD_ID_2`; it is excluded from Git and was neither
 promoted nor averaged into the clean result.
 
+The clean `compat-ministral3_3b_bf16` candidate passed independent notebook,
+hash, semantic, exact-token, text-only path, resource, and log review. It is
+recorded as `COMPATIBILITY_PASS` under
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/`.
+Its ZIP SHA256 is
+`516e37c160ca98a49795870aeeeeb8a381cd8780924f4d9d8836305ad68c77cc`
+and executed-notebook SHA256 is
+`5f988e506a35a21f59c1502ae77eb5c6df9118549d4cd95ce7f0ea8a397c3a1d`.
+The known Mistral pre-tokenizer-regex warning did not change any token sequence
+or exact count in the retained 64-prompt corpus when independently checked
+with the correction enabled.
+
+A previous `compat-llama32_3b` attempt stopped at Hugging Face access. It is
+`ACCESS_PENDING_AT_EXECUTION`, not `COMPATIBILITY_FAIL` or `UNSUPPORTED`, and
+is not canonical compatibility evidence. The user now reports that the exact
+Llama 3.2 access request has been approved, so a clean rerun is the next shard.
+
 ## M4 compatibility order
 
-Run and audit these five two-cell shards in this exact order:
+The model order remains fixed below. The access-gated Llama attempt did not
+produce a canonical result, so Ministral was audited while Llama remained
+pending; return to the same Llama slot next rather than changing the matrix:
 
 1. `compat-qwen25_3b` — `COMPATIBILITY_PASS`
 2. `compat-phi4_mini` — `COMPATIBILITY_PASS`
-3. `compat-llama32_3b` — **NEXT**, `NOT_EXECUTED`
-4. `compat-ministral3_3b_bf16` — `NOT_EXECUTED`
+3. `compat-llama32_3b` — **NEXT**, `NOT_CANONICALLY_EXECUTED`; earlier attempt
+   was `ACCESS_PENDING_AT_EXECUTION`
+4. `compat-ministral3_3b_bf16` — `COMPATIBILITY_PASS`
 5. `compat-gemma3_4b` — `NOT_EXECUTED`
 
 For the next run, use the same `M4_SHARD_ID` secret key and change only its
 value to `compat-llama32_3b`. Start a fresh T4 x2 session and reuse the same
 unmodified `kaggle_vllm_m4_execute_shard.ipynb` pinned to implementation commit
 `42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. Do not execute Llama locally.
-Before starting, the same Hugging Face account/token used in Kaggle must have
-accepted manual gated access and the Llama 3.2 Community License for
+Before starting, verify that the exact `HF_TOKEN` configured in Kaggle belongs
+to the account whose Llama 3.2 access request is now approved and that the
+account has accepted the Llama 3.2 Community License for
 `meta-llama/Llama-3.2-3B-Instruct` at revision
 `0cb88a4f764b7a12671c53f0838cd831a0843b95`. Do not upload or redistribute
-Llama weights.
+Llama weights. Use Llama 3.2 exactly; do not substitute Llama 3.1.
 
 For Llama and Gemma, lack of accepted gated access is an access result, not an
 architecture incompatibility. For any model, a preserved unsupported/OOM
 outcome is valid negative evidence. Do not run its principal shards unless the
 compatibility gate passes.
+
+Do not run `compat-gemma3_4b`, any principal shard, or M5 until the clean Llama
+compatibility rerun has been downloaded and independently audited.
 
 ## M4 principal order
 
