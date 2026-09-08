@@ -74,15 +74,29 @@ preserves failures. It actively terminates a server on a 14.5 GiB/GPU or 28
 GiB system-RAM guard breach and refuses projected `/kaggle/working` use above
 20 decimal GB. A zero return code means `CANONICAL_CANDIDATE`, not accepted.
 
+The clean `compat-qwen25_3b` candidate has passed independent notebook, hash,
+semantic, request, resource, and log review. It is recorded as
+`COMPATIBILITY_PASS` under
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/`. Its ZIP
+SHA256 is `cd3c45dddf19830649b03a931cee0247d6f8b4ebbc953c433e3ade563b271ecb`
+and executed-notebook SHA256 is
+`d2106fcbd0df37cf34789499b90d71644c93b486d43265cc67c921b5ba91a94f`.
+The earlier live-edited run remains `DEBUG_COMPATIBILITY_PASS`, is excluded
+from Git, and was not averaged into the accepted result.
+
 ## M4 compatibility order
 
 Run and audit these five two-cell shards in this exact order:
 
-1. `compat-qwen25_3b`
-2. `compat-phi4_mini`
+1. `compat-qwen25_3b` — `COMPATIBILITY_PASS`
+2. `compat-phi4_mini` — **NEXT**, `NOT_EXECUTED`
 3. `compat-llama32_3b`
 4. `compat-ministral3_3b_bf16`
 5. `compat-gemma3_4b`
+
+For the next run, set `M4_SHARD_ID=compat-phi4_mini` in a fresh T4 x2
+session and reuse the same unmodified notebook pinned to implementation commit
+`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. Do not execute Phi locally.
 
 For Llama and Gemma, lack of accepted gated access is an access result, not an
 architecture incompatibility. For any model, a preserved unsupported/OOM

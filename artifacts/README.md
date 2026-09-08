@@ -43,9 +43,14 @@ metadata, licensing, and upstream attribution.
   topology, telemetry, fit/residual outputs, provenance, and the independent
   canonical-review record.
 
+- `kaggle-2026-09-08-milestone-4/` — M4 work in progress. Its first accepted
+  shard is the clean-source Qwen2.5-3B short-workload TP1/TP2 compatibility
+  gate. Other model gates and the principal matrix remain unexecuted.
+
 Files under `artifacts/` are retained as immutable execution evidence. They are
 excluded from source-formatting and linting tools so that post-capture tooling
 does not modify their bytes or invalidate recorded checksums.
 
-Future M4/M5 directories must not be added until their Kaggle runs occur and
-their provenance/checksums pass review. Prepared notebook source is not evidence.
+Future M4 shards and M5 directories must not be added until their Kaggle runs
+occur and their provenance/checksums pass review. Prepared notebook source is
+not evidence.

@@ -20,8 +20,10 @@ external ZIP and executed-notebook hashes are recorded in the directory README
 and research manifest. M4 is based on post-M3 `main`. Its exact shard plan,
 model/tokenizer revisions, primary runner, local checksum-validating assembler,
 and isolated GuideLLM cross-check are frozen at source commit
-`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. The corrected package remains
-without accepted canonical M4 GPU evidence.
+`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. The clean Qwen compatibility
+shard is accepted under
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/`; M4 remains
+in progress without an accepted principal matrix.
 Generate the currently supported figures from the immutable evidence with:
 
 ```bash
@@ -44,3 +46,11 @@ whose checksum and semantic audits pass. `M4_EXECUTION_PLAN.json` fixes the
 principal order; refinements are selected only after recording the observed
 transition boundary. GuideLLM remains an independently versioned client at
 commit `fc2dbe9edd4f7f1a4e9ccd752f6f43591adbcb73`.
+
+The accepted Qwen compatibility ZIP SHA256 is
+`cd3c45dddf19830649b03a931cee0247d6f8b4ebbc953c433e3ade563b271ecb`;
+the executed notebook SHA256 is
+`d2106fcbd0df37cf34789499b90d71644c93b486d43265cc67c921b5ba91a94f`.
+The earlier manually modified Qwen run remains excluded
+`DEBUG_COMPATIBILITY_PASS` evidence and is never combined with canonical
+measurements.

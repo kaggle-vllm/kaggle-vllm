@@ -6,4 +6,5 @@ values manually.
 Current generated tables cover the canonical hardware/runtime, candidate model
 matrix, exact workload matrix, M1/M2 results, M3 statistical summary and fit,
 M1–M3 evidence linkage, and paper claim boundaries. M4 crossover and external
-validation tables are intentionally absent until accepted GPU evidence exists.
+validation tables are intentionally absent until accepted principal and
+independent-validation evidence exists.

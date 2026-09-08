@@ -8,3 +8,8 @@ artifacts/kaggle-2026-09-02-milestone-2/*.server.log -whitespace
 artifacts/kaggle-2026-09-07-milestone-3-measured-comm/*.csv -whitespace
 artifacts/kaggle-2026-09-07-milestone-3-measured-comm/nccl-info.log -whitespace
 artifacts/kaggle-2026-09-07-milestone-3-measured-comm/topology.txt -whitespace
+
+# Preserve canonical M4 Kaggle captures byte-for-byte. Prometheus exposition
+# and terminal logs retain upstream trailing bytes authenticated by SHA256SUMS.txt.
+artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/*.metrics.txt -whitespace
+artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/*.server.log -whitespace

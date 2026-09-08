@@ -11,7 +11,7 @@ new package release.
 | M1 — runtime/TP characterization | COMPLETE | Preserved Kaggle evidence, 2026-09-01 |
 | M2 — Qwen serving crossover | COMPLETE | Preserved Kaggle evidence, 2026-09-02 |
 | M3 — measured NCCL/PHB communication | COMPLETE | Canonical clean-source Kaggle evidence, 2026-09-07 |
-| M4 — multi-model crossover | PREPARED_FOR_KAGGLE | Protocol, compatibility gates, and CPU analyzer; no M4 GPU results |
+| M4 — multi-model crossover | IN_PROGRESS | Qwen compatibility accepted; four model gates and principal matrix remain |
 | M5 — simulator validation | OPTIONAL / SIMULATOR_COMPATIBILITY_LIMITATION | Required local Vidur source was not present |
 
 The research questions and evidence vocabulary are defined in
@@ -24,6 +24,7 @@ Machine-readable control files:
 - `m4_protocol.json`: M4 token workloads, matrix, repetitions and crossover rule.
 - `M4_EXECUTION_PLAN.json`: exact compatibility, principal and GuideLLM shard order.
 - `M4_SOURCE_FREEZE.json`: reviewed source/notebook/tool hashes; not GPU evidence.
+- `M4_EVIDENCE_STATUS.json`: accepted-shard ledger and next compatibility gate.
 - `RESEARCH_MANIFEST.json`: research files, evidence sources and status gates.
 - `PUBLICATION_READINESS.md`: explicit paper-readiness gates and blockers.
 - `tooling_feasibility.md`: exact GuideLLM, Nsight and Vidur decisions.
@@ -32,5 +33,6 @@ Machine-readable control files:
 
 No generated number should enter a paper table manually. The scripts in
 `analysis/` read committed machine-readable evidence and emit figures/tables.
-The M4 runner, local assembler, and GuideLLM cross-check are prepared, but no
-M4/M5 GPU measurements exist yet.
+The M4 runner and local assembler are prepared. The Qwen compatibility shard is
+accepted, but the remaining compatibility gates, principal matrix, and M5
+independent validation are not complete.
