@@ -57,7 +57,7 @@ non-canonical `DEBUG_VALIDATION_RUN` comparison only.
 Use the output-free
 `kaggle_vllm_m4_execute_shard.ipynb`. Its pinned source commit must equal the
 reviewed M4 source identity
-`5176f1a133da0d8457937993be07f5a2a2b22a5f` printed by the notebook. For every shard:
+`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2` printed by the notebook. For every shard:
 
 1. start a brand-new Kaggle session;
 2. select **GPU T4 x2** and enable Internet;

@@ -20,7 +20,8 @@ external ZIP and executed-notebook hashes are recorded in the directory README
 and research manifest. M4 is based on post-M3 `main`. Its exact shard plan,
 model/tokenizer revisions, primary runner, local checksum-validating assembler,
 and isolated GuideLLM cross-check are frozen at source commit
-`5176f1a133da0d8457937993be07f5a2a2b22a5f`, but remain unexecuted.
+`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. The corrected package remains
+without accepted canonical M4 GPU evidence.
 Generate the currently supported figures from the immutable evidence with:
 
 ```bash
