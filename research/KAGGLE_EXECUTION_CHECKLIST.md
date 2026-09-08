@@ -84,19 +84,36 @@ and executed-notebook SHA256 is
 The earlier live-edited run remains `DEBUG_COMPATIBILITY_PASS`, is excluded
 from Git, and was not averaged into the accepted result.
 
+The clean rerun of `compat-phi4_mini` also passed independent notebook, hash,
+semantic, request, resource, and log review. It is recorded as
+`COMPATIBILITY_PASS` under
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini/`. Its ZIP
+SHA256 is `7a20d7058cdcf7362704acbc5513db65eb865b864fd47b555f72465a32a0ebfe`
+and executed-notebook SHA256 is
+`878c9b980787acec04ede93071771465f9897acd412006afc60277d92893e3b9`.
+The preceding Phi candidate remains `REJECTED_NOTEBOOK_DRIFT` because its
+executed notebook read `M4_SHARD_ID_2`; it is excluded from Git and was neither
+promoted nor averaged into the clean result.
+
 ## M4 compatibility order
 
 Run and audit these five two-cell shards in this exact order:
 
 1. `compat-qwen25_3b` — `COMPATIBILITY_PASS`
-2. `compat-phi4_mini` — **NEXT**, `NOT_EXECUTED`
-3. `compat-llama32_3b`
-4. `compat-ministral3_3b_bf16`
-5. `compat-gemma3_4b`
+2. `compat-phi4_mini` — `COMPATIBILITY_PASS`
+3. `compat-llama32_3b` — **NEXT**, `NOT_EXECUTED`
+4. `compat-ministral3_3b_bf16` — `NOT_EXECUTED`
+5. `compat-gemma3_4b` — `NOT_EXECUTED`
 
-For the next run, set `M4_SHARD_ID=compat-phi4_mini` in a fresh T4 x2
-session and reuse the same unmodified notebook pinned to implementation commit
-`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. Do not execute Phi locally.
+For the next run, use the same `M4_SHARD_ID` secret key and change only its
+value to `compat-llama32_3b`. Start a fresh T4 x2 session and reuse the same
+unmodified `kaggle_vllm_m4_execute_shard.ipynb` pinned to implementation commit
+`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. Do not execute Llama locally.
+Before starting, the same Hugging Face account/token used in Kaggle must have
+accepted manual gated access and the Llama 3.2 Community License for
+`meta-llama/Llama-3.2-3B-Instruct` at revision
+`0cb88a4f764b7a12671c53f0838cd831a0843b95`. Do not upload or redistribute
+Llama weights.
 
 For Llama and Gemma, lack of accepted gated access is an access result, not an
 architecture incompatibility. For any model, a preserved unsupported/OOM

@@ -20,9 +20,10 @@ external ZIP and executed-notebook hashes are recorded in the directory README
 and research manifest. M4 is based on post-M3 `main`. Its exact shard plan,
 model/tokenizer revisions, primary runner, local checksum-validating assembler,
 and isolated GuideLLM cross-check are frozen at source commit
-`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. The clean Qwen compatibility
-shard is accepted under
-`artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/`; M4 remains
+`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. The clean Qwen and clean-rerun
+Phi compatibility shards are accepted under
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/` and
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini/`; M4 remains
 in progress without an accepted principal matrix.
 Generate the currently supported figures from the immutable evidence with:
 
@@ -54,3 +55,11 @@ the executed notebook SHA256 is
 The earlier manually modified Qwen run remains excluded
 `DEBUG_COMPATIBILITY_PASS` evidence and is never combined with canonical
 measurements.
+
+The accepted Phi compatibility ZIP SHA256 is
+`7a20d7058cdcf7362704acbc5513db65eb865b864fd47b555f72465a32a0ebfe`;
+the executed notebook SHA256 is
+`878c9b980787acec04ede93071771465f9897acd412006afc60277d92893e3b9`.
+The prior Phi candidate remains excluded `REJECTED_NOTEBOOK_DRIFT` evidence
+because its executed notebook used `M4_SHARD_ID_2`. It is not promoted,
+averaged, or copied into the canonical evidence directory.

@@ -1,9 +1,9 @@
 # Limitations and unsupported claims
 
 - M3 is a single fresh Kaggle dual-T4 session with five fresh-process
-  repetitions. M4 is in progress: only the Qwen short-workload concurrency-1
-  compatibility shard is accepted; four model gates and the principal matrix
-  remain unexecuted.
+  repetitions. M4 is in progress: the Qwen and Phi short-workload
+  concurrency-1 compatibility shards are accepted; three model gates and the
+  principal matrix remain unexecuted.
 - M1/M2 are observations from one Kaggle dual-T4 environment. They do not imply
   universal T4, PCIe, PHB or tensor-parallel scaling laws.
 - The M3 measured-all-reduce intercept is configuration-specific and combines
@@ -11,9 +11,9 @@
   classical alpha, universal PCIe/PHB latency, or sole-cause evidence.
 - M1/M2 did not observe instantaneous scheduler/decode batch size. Concurrency
   is not used as a substitute.
-- Additional-model vLLM registry support was source-inspected. Except for the
-  accepted Qwen compatibility shard, M4 SM75 execution, memory fit, artifact
-  sizes and generation remain unmeasured.
+- Additional-model vLLM registry support was source-inspected. Qwen and Phi
+  have accepted SM75 compatibility measurements; the remaining models' M4
+  SM75 execution, memory fit, artifact sizes and generation remain unmeasured.
 - Llama and Gemma derived-artifact uploads are blocked pending redistribution
   review even when token access permits downloads.
 - No Microsoft Vidur source tree/archive was found in the supplied working

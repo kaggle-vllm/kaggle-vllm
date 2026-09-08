@@ -1,6 +1,6 @@
 # Artifact policy
 
-Large artifacts do not belong in Git. The validated wheel, Qwen archive,
+Large artifacts do not belong in Git. The validated wheel, benchmark archives,
 safetensors, staged runtime, dependency overlay, caches, and extracted model are
 excluded by `.gitignore`.
 
@@ -43,9 +43,11 @@ metadata, licensing, and upstream attribution.
   topology, telemetry, fit/residual outputs, provenance, and the independent
   canonical-review record.
 
-- `kaggle-2026-09-08-milestone-4/` — M4 work in progress. Its first accepted
-  shard is the clean-source Qwen2.5-3B short-workload TP1/TP2 compatibility
-  gate. Other model gates and the principal matrix remain unexecuted.
+- `kaggle-2026-09-08-milestone-4/` — M4 work in progress. Its first two
+  accepted shards are the clean-source Qwen2.5-3B and Phi-4 Mini short-workload
+  TP1/TP2 compatibility gates. Three model gates and the principal matrix
+  remain unexecuted; the earlier notebook-drifted Phi candidate remains
+  rejected and excluded.
 
 Files under `artifacts/` are retained as immutable execution evidence. They are
 excluded from source-formatting and linting tools so that post-capture tooling

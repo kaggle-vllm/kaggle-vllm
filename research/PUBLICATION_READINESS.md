@@ -7,12 +7,12 @@ Overall status: **NOT_PAPER_READY — M4 and external validation remain**
 | M1 evidence | PASS | Reviewed 2026-09-01 dual-T4 evidence |
 | M2 evidence | PASS | Reviewed 2026-09-02 Qwen crossover evidence |
 | M3 canonical evidence | PASS | Clean-source 2026-09-07 run; canonical review and hashes pass |
-| M4 breadth | FAIL | Only Qwen compatibility is accepted; four model gates and all principal shards remain |
-| M4 independent repetitions | FAIL | Compatibility has one Qwen repetition; principal repetitions are unexecuted |
+| M4 breadth | FAIL | Qwen and Phi compatibility are accepted; three model gates and all principal shards remain |
+| M4 independent repetitions | FAIL | Compatibility has one accepted repetition per passing model; principal repetitions are unexecuted |
 | M4 uncertainty | FAIL | Cannot estimate before repeated M4 measurements |
 | External benchmark/simulator | FAIL | Exact isolated GuideLLM package prepared but not GPU-executed; Vidur source unavailable |
 | Reproducibility | PASS | M1–M3 commands, provenance, runtime identities, and evidence retained |
-| Artifact hashes | PASS | M1–M3 and accepted Qwen M4 compatibility manifests verify; source-package hashes remain separately frozen |
+| Artifact hashes | PASS | M1–M3 and accepted Qwen/Phi M4 compatibility manifests verify; source-package hashes remain separately frozen |
 | License review | FAIL | Llama/Gemma redistribution remains blocked; runtime-use terms must be accepted |
 | Claim discipline | PASS | Unsupported causality and universal-scaling claims are explicitly excluded |
 | Paper figures | PASS | M1, M2, and M3 figures are generated; M4/M5 plots correctly absent |

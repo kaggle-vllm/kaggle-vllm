@@ -11,7 +11,7 @@ new package release.
 | M1 — runtime/TP characterization | COMPLETE | Preserved Kaggle evidence, 2026-09-01 |
 | M2 — Qwen serving crossover | COMPLETE | Preserved Kaggle evidence, 2026-09-02 |
 | M3 — measured NCCL/PHB communication | COMPLETE | Canonical clean-source Kaggle evidence, 2026-09-07 |
-| M4 — multi-model crossover | IN_PROGRESS | Qwen compatibility accepted; four model gates and principal matrix remain |
+| M4 — multi-model crossover | IN_PROGRESS | Qwen and Phi compatibility accepted; three model gates and principal matrix remain |
 | M5 — simulator validation | OPTIONAL / SIMULATOR_COMPATIBILITY_LIMITATION | Required local Vidur source was not present |
 
 The research questions and evidence vocabulary are defined in
@@ -33,6 +33,8 @@ Machine-readable control files:
 
 No generated number should enter a paper table manually. The scripts in
 `analysis/` read committed machine-readable evidence and emit figures/tables.
-The M4 runner and local assembler are prepared. The Qwen compatibility shard is
-accepted, but the remaining compatibility gates, principal matrix, and M5
-independent validation are not complete.
+The M4 runner and local assembler are prepared. The Qwen and clean-rerun Phi
+compatibility shards are accepted, but the remaining compatibility gates,
+principal matrix, and M5 independent validation are not complete. The earlier
+Phi notebook-drift candidate remains rejected and is not combined with the
+accepted rerun.

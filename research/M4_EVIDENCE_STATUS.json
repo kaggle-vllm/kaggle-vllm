@@ -19,7 +19,13 @@
       "canonical": true
     },
     "phi4_mini": {
-      "status": "NOT_EXECUTED"
+      "status": "COMPATIBILITY_PASS",
+      "canonical_source_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+      "executed_notebook_sha256": "878c9b980787acec04ede93071771465f9897acd412006afc60277d92893e3b9",
+      "evidence_zip_sha256": "7a20d7058cdcf7362704acbc5513db65eb865b864fd47b555f72465a32a0ebfe",
+      "prompt_manifest_sha256": "2d5778c3b75998fcfc6c219de3aa8500db216b0872919eb988d917a2d042c4ac",
+      "evidence_directory": "artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini",
+      "canonical": true
     },
     "llama32_3b": {
       "status": "NOT_EXECUTED"
@@ -40,8 +46,19 @@
       "executed_notebook_sha256": "3e3d30f0e040d65d6b55099b574e4a07c52cdbf021690fac81ab5dff6e9e9f1a"
     }
   },
-  "next_compatibility_shard": "compat-phi4_mini",
+  "rejected_candidates": {
+    "phi4_mini": {
+      "status": "REJECTED_NOTEBOOK_DRIFT",
+      "classification": "CANONICAL_CANDIDATE_REJECTED_NOTEBOOK_DRIFT",
+      "canonical": false,
+      "git_excluded": true,
+      "evidence_zip_sha256": "b319f1197546f9e147c2a39617b4e38d7408109726ac8c3c7093ca4dbb7af351",
+      "executed_notebook_sha256": "507de88132845c70209e2706fe70eb34116041b9180f8fb7057bc8ab3cad2f96",
+      "reason": "Executed notebook read M4_SHARD_ID_2 instead of the frozen M4_SHARD_ID secret key"
+    }
+  },
+  "next_compatibility_shard": "compat-llama32_3b",
   "principal_matrix_status": "NOT_STARTED",
-  "m5_status": "NOT_COMPLETE",
+  "m5_status": "INCOMPLETE",
   "paper_status": "NOT_PAPER_READY"
 }
