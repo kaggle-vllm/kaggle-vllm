@@ -25,6 +25,7 @@ from kaggle_vllm.benchmark import (
 )
 from kaggle_vllm.doctor import run_doctor
 from kaggle_vllm.environment import collect
+from kaggle_vllm.exceptions import BenchmarkError
 from kaggle_vllm.profiles import load_profile
 from kaggle_vllm.research.crossover import M4_RAW_SCHEMA, WORKLOAD_TOKENS
 from kaggle_vllm.research.errors import ResearchEvidenceError
@@ -372,6 +373,26 @@ def write_checksums(output_dir: Path) -> Path:
     return lifecycle.write_checksums(output_dir)
 
 
+def prepare_shard_evidence_directory(output_root: Path, shard_name: str) -> Path:
+    """Create the configured root, then create one fail-closed shard directory."""
+
+    expanded = output_root.expanduser()
+    lexical = Path(os.path.abspath(expanded))
+    resolved = expanded.resolve(strict=False)
+    if lexical != resolved:
+        raise BenchmarkError(
+            f"refusing evidence root that traverses a symlink: {lexical} -> {resolved}"
+        )
+    kaggle_input = Path("/kaggle/input")
+    if resolved == kaggle_input or kaggle_input in resolved.parents:
+        raise BenchmarkError(f"refusing to write evidence under /kaggle/input: {resolved}")
+    if resolved.exists() and not resolved.is_dir():
+        raise BenchmarkError(f"evidence root is not a directory: {resolved}")
+
+    resolved.mkdir(parents=True, exist_ok=True)
+    return prepare_evidence_directory(resolved / shard_name)
+
+
 def _dry_run(args: argparse.Namespace, model: Mapping[str, Any]) -> int:
     placeholder = "0" * 64
     prompts = ("TOKENIZER_GENERATED_AT_EXECUTION",)
@@ -436,9 +457,9 @@ def main(argv: list[str] | None = None) -> int:
         args.output_root.parent,
         projected_additional_bytes=selected_weight_bytes + PROJECTED_EVIDENCE_BYTES,
     )
-    output_dir = prepare_evidence_directory(
-        args.output_root
-        / f"{args.model_key}-{args.workload}-r{args.repetition:02d}-{args.mode}"
+    output_dir = prepare_shard_evidence_directory(
+        args.output_root,
+        f"{args.model_key}-{args.workload}-r{args.repetition:02d}-{args.mode}",
     )
     write_json_new(
         output_dir / "execution-start.json",
