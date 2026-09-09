@@ -11,7 +11,7 @@ new package release.
 | M1 — runtime/TP characterization | COMPLETE | Preserved Kaggle evidence, 2026-09-01 |
 | M2 — Qwen serving crossover | COMPLETE | Preserved Kaggle evidence, 2026-09-02 |
 | M3 — measured NCCL/PHB communication | COMPLETE | Canonical clean-source Kaggle evidence, 2026-09-07 |
-| M4 — multi-model crossover | IN_PROGRESS | Qwen, Phi, and Ministral compatibility accepted; Llama/Gemma gates and principal matrix remain |
+| M4 — multi-model crossover | IN_PROGRESS | Qwen, Phi, Llama, and Ministral compatibility accepted; Gemma gate and principal matrix remain |
 | M5 — simulator validation | OPTIONAL / SIMULATOR_COMPATIBILITY_LIMITATION | Required local Vidur source was not present |
 
 The research questions and evidence vocabulary are defined in
@@ -33,10 +33,11 @@ Machine-readable control files:
 
 No generated number should enter a paper table manually. The scripts in
 `analysis/` read committed machine-readable evidence and emit figures/tables.
-The M4 runner and local assembler are prepared. The Qwen, clean-rerun Phi, and
-text-only Ministral compatibility shards are accepted, but the Llama/Gemma
-compatibility gates, principal matrix, and M5 independent validation are not
-complete. The earlier Phi notebook-drift candidate remains rejected and is not
-combined with the accepted rerun. The earlier Llama attempt is an access-gate
-record, not a model compatibility failure; canonical Llama compatibility has
-not been executed.
+The M4 runner and local assembler are prepared. The Qwen, clean-rerun Phi,
+clean Llama 3.2, and text-only Ministral compatibility shards are accepted, but
+the Gemma compatibility gate, principal matrix, and M5 independent validation
+are not complete. The earlier Phi notebook-drift candidate remains rejected
+and is not combined with the accepted rerun. Llama's access-pending and token-
+authorization failures remain access records, while its manually edited retry
+remains excluded `DEBUG_COMPATIBILITY_PASS` evidence and is not combined with
+the accepted clean run.

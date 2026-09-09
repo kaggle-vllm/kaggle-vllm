@@ -28,7 +28,15 @@
       "canonical": true
     },
     "llama32_3b": {
-      "status": "NOT_CANONICALLY_EXECUTED"
+      "status": "COMPATIBILITY_PASS",
+      "canonical_source_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+      "model_revision": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+      "executed_notebook_sha256": "cf12cd6c829896f50ceaa5dcd71ea8c0fb9465ceacaa701069df5167e4157de5",
+      "evidence_zip_sha256": "37288c24065ddd2383c5e8dfebf08b61ca589bb2b8a37e9ae253ef9e6a1f9db4",
+      "runtime_json_sha256": "f6f15d4998e56c9acd7390ef222d8dc6bcd9bb8148149d1bf507f66c106a0577",
+      "prompt_manifest_sha256": "c4f02e02042d408756c5712690846de54184d69c9abb690dfc7d7b2db7a5bfbe",
+      "evidence_directory": "artifacts/kaggle-2026-09-08-milestone-4/compatibility/llama32_3b",
+      "canonical": true
     },
     "ministral3_3b_bf16": {
       "status": "COMPATIBILITY_PASS",
@@ -50,6 +58,14 @@
       "git_excluded": true,
       "evidence_zip_sha256": "9b4bfff4efdd7f707d0768bc23eb2545f095aadb41da677b68573ea0778962b2",
       "executed_notebook_sha256": "3e3d30f0e040d65d6b55099b574e4a07c52cdbf021690fac81ab5dff6e9e9f1a"
+    },
+    "llama32_3b": {
+      "status": "DEBUG_COMPATIBILITY_PASS",
+      "canonical": false,
+      "git_excluded": true,
+      "evidence_zip_sha256": "f676c4bc78294d4b0677111a8d21ae2aa47cdf3808a5202b2a85dd5ab07e8ef4",
+      "executed_notebook_sha256": "877173b1bcf9485aec5608d7141d3f30ad8712f72c9a6bf3107409f8d5f01451",
+      "reason": "Successful reviewed runner invocation from a manually edited live notebook and alternate retry output root; retained only for debug plausibility comparison"
     }
   },
   "rejected_candidates": {
@@ -70,11 +86,20 @@
       "canonical_compatibility_evidence": false,
       "compatibility_failure": false,
       "downloaded_evidence_supplied_for_this_review": false,
-      "current_access_status": "APPROVED_USER_CONFIRMED",
-      "next_action": "Rerun compat-llama32_3b in a fresh Kaggle T4 x2 session after confirming the Kaggle HF_TOKEN belongs to the approved account"
+      "additional_attempts": [
+        {
+          "status_at_execution": "ACCOUNT_APPROVED_TOKEN_PERMISSION_MISSING",
+          "classification": "TOKEN_AUTHORIZATION_BLOCKED",
+          "canonical_compatibility_evidence": false,
+          "compatibility_failure": false,
+          "reason": "The fine-grained token lacked permission to read public gated repositories"
+        }
+      ],
+      "current_access_status": "FUNCTIONAL_CONFIRMED_BY_CLEAN_CANONICAL_COMPATIBILITY_PASS",
+      "next_action": "Preserve both access-gate classifications as history; no Llama access rerun is required"
     }
   },
-  "next_compatibility_shard": "compat-llama32_3b",
+  "next_compatibility_shard": "compat-gemma3_4b",
   "principal_matrix_status": "NOT_STARTED",
   "m5_status": "INCOMPLETE",
   "paper_status": "NOT_PAPER_READY"

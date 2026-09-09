@@ -107,42 +107,51 @@ The known Mistral pre-tokenizer-regex warning did not change any token sequence
 or exact count in the retained 64-prompt corpus when independently checked
 with the correction enabled.
 
-A previous `compat-llama32_3b` attempt stopped at Hugging Face access. It is
-`ACCESS_PENDING_AT_EXECUTION`, not `COMPATIBILITY_FAIL` or `UNSUPPORTED`, and
-is not canonical compatibility evidence. The user now reports that the exact
-Llama 3.2 access request has been approved, so a clean rerun is the next shard.
+The clean `compat-llama32_3b` candidate passed independent notebook, hash,
+runtime, semantic, exact-token, resource, and log review. It is recorded as
+`COMPATIBILITY_PASS` under
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/llama32_3b/`. Its ZIP
+SHA256 is `37288c24065ddd2383c5e8dfebf08b61ca589bb2b8a37e9ae253ef9e6a1f9db4`
+and executed-notebook SHA256 is
+`cf12cd6c829896f50ceaa5dcd71ea8c0fb9465ceacaa701069df5167e4157de5`.
+The prior access-pending and token-authorization failures remain access-gate
+records, not compatibility failures. The successful manually edited retry
+remains excluded `DEBUG_COMPATIBILITY_PASS` evidence and was used only for
+plausibility comparison, never averaging.
 
 ## M4 compatibility order
 
-The model order remains fixed below. The access-gated Llama attempt did not
-produce a canonical result, so Ministral was audited while Llama remained
-pending; return to the same Llama slot next rather than changing the matrix:
+The model order remains fixed below. Ministral was audited while Llama access
+was pending; the later clean Llama run is now accepted, so Gemma is the final
+compatibility gate before any principal shard:
 
 1. `compat-qwen25_3b` — `COMPATIBILITY_PASS`
 2. `compat-phi4_mini` — `COMPATIBILITY_PASS`
-3. `compat-llama32_3b` — **NEXT**, `NOT_CANONICALLY_EXECUTED`; earlier attempt
-   was `ACCESS_PENDING_AT_EXECUTION`
+3. `compat-llama32_3b` — `COMPATIBILITY_PASS`; earlier access failures and
+   manual debug retry remain noncanonical history
 4. `compat-ministral3_3b_bf16` — `COMPATIBILITY_PASS`
-5. `compat-gemma3_4b` — `NOT_EXECUTED`
+5. `compat-gemma3_4b` — **NEXT**, `NOT_EXECUTED`
 
 For the next run, use the same `M4_SHARD_ID` secret key and change only its
-value to `compat-llama32_3b`. Start a fresh T4 x2 session and reuse the same
+value to `compat-gemma3_4b`. Start a fresh T4 x2 session and reuse the same
 unmodified `kaggle_vllm_m4_execute_shard.ipynb` pinned to implementation commit
-`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. Do not execute Llama locally.
-Before starting, verify that the exact `HF_TOKEN` configured in Kaggle belongs
-to the account whose Llama 3.2 access request is now approved and that the
-account has accepted the Llama 3.2 Community License for
-`meta-llama/Llama-3.2-3B-Instruct` at revision
-`0cb88a4f764b7a12671c53f0838cd831a0843b95`. Do not upload or redistribute
-Llama weights. Use Llama 3.2 exactly; do not substitute Llama 3.1.
+`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. Do not execute Gemma locally.
+Verify that the exact corrected `HF_TOKEN` configured in Kaggle has gated-
+repository read permission for the approved account and accepted Gemma terms.
+Use exactly `google/gemma-3-4b-it` at model and tokenizer revision
+`093f9f388b31de276ce2de164bdc2081324b9767`. Do not change the reviewed FP16
+runtime request, 0.9 GPU-memory utilization, maximum model length, TP settings,
+or any other runner argument to force a result. Gemma is a multimodal-capable,
+memory-risk gate; a preserved unsupported or resource-gate result is valid
+evidence and must not be relabeled.
 
 For Llama and Gemma, lack of accepted gated access is an access result, not an
 architecture incompatibility. For any model, a preserved unsupported/OOM
 outcome is valid negative evidence. Do not run its principal shards unless the
 compatibility gate passes.
 
-Do not run `compat-gemma3_4b`, any principal shard, or M5 until the clean Llama
-compatibility rerun has been downloaded and independently audited.
+Do not run any principal shard or M5 until `compat-gemma3_4b` has been executed
+in a fresh session, downloaded, and independently audited.
 
 ## M4 principal order
 

@@ -21,9 +21,10 @@ and research manifest. M4 is based on post-M3 `main`. Its exact shard plan,
 model/tokenizer revisions, primary runner, local checksum-validating assembler,
 and isolated GuideLLM cross-check are frozen at source commit
 `42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. The clean Qwen, clean-rerun Phi,
-and clean Ministral compatibility shards are accepted under
+clean Llama 3.2, and clean Ministral compatibility shards are accepted under
 `artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/` and
-`artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini/`, and
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini/`,
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/llama32_3b/`, and
 `artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/`;
 M4 remains in progress without an accepted principal matrix.
 Generate the currently supported figures from the immutable evidence with:
@@ -75,7 +76,14 @@ legacy Mistral regex, an independent pinned-revision audit found identical
 token sequences and exact counts for all 64 prompts with the regex correction
 enabled.
 
-The prior Llama attempt remains an `ACCESS_PENDING_AT_EXECUTION` record and is
-not canonical compatibility evidence. The user reports access is now approved;
-the exact Kaggle `HF_TOKEN` still must be checked against that approved account
-before the fresh rerun.
+The accepted Llama 3.2 compatibility ZIP SHA256 is
+`37288c24065ddd2383c5e8dfebf08b61ca589bb2b8a37e9ae253ef9e6a1f9db4`;
+the executed notebook SHA256 is
+`cf12cd6c829896f50ceaa5dcd71ea8c0fb9465ceacaa701069df5167e4157de5`,
+and the separately downloaded runtime JSON SHA256 is
+`f6f15d4998e56c9acd7390ef222d8dc6bcd9bb8148149d1bf507f66c106a0577`.
+The source-identical executed notebook used the ordinary evidence root and
+clean implementation commit `42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`.
+Earlier `ACCESS_PENDING_AT_EXECUTION` and `TOKEN_AUTHORIZATION_BLOCKED`
+attempts remain access records. The manually edited successful retry remains
+excluded `DEBUG_COMPATIBILITY_PASS` evidence and is not promoted or averaged.
