@@ -59,7 +59,17 @@ def test_gemma_canonical_negative_remains_auditable_and_blocks_principal():
     assert gemma["throughput"] is None
     assert gemma["principal_shard_status"] == "SKIPPED_BY_COMPATIBILITY_GATE"
     assert status["milestone_status"] == "IN_PROGRESS"
-    assert status["principal_matrix_status"] == "READY_FOR_KAGGLE"
+    assert status["principal_matrix_status"] == "IN_PROGRESS"
+    assert status["principal_preserved_shards"] == 1
+    assert status["principal_remaining_shards"] == 59
+    assert status["next_principal_shard"] == "qwen25_3b-short-r01"
+    assert status["principal_shards"]["qwen25_3b-short-r00"]["canonical"] is True
+    assert (
+        status["principal_shards"]["qwen25_3b-short-r00"][
+            "paper_aggregate_eligible"
+        ]
+        is False
+    )
 
     planned_gemma = [
         shard for shard in plan["principal_order"]

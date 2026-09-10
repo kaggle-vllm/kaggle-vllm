@@ -73,9 +73,12 @@ reviewed M4 source identity
 The runner starts a fresh vLLM server for every TP/concurrency cell, disables
 prefix caching, uses tokenizer-controlled `/v1/completions` prompts, requires
 server-reported 128/512/2048 input tokens and 64/256/128 output tokens, and
-preserves failures. It actively terminates a server on a 14.5 GiB/GPU or 28
-GiB system-RAM guard breach and refuses projected `/kaggle/working` use above
-20 decimal GB. A zero return code means `CANONICAL_CANDIDATE`, not accepted.
+preserves failures. It actively terminates a server when either physical GPU
+independently exceeds 14.5 GiB = 14,848 MiB = 15,569,256,448 bytes, or when
+system RAM exceeds 28 GiB. This is not decimal 14.5 GB, and the two GPUs are
+not summed against one limit. It also refuses projected `/kaggle/working` use
+above 20 decimal GB. A zero return code means `CANONICAL_CANDIDATE`, not
+accepted.
 
 The clean `compat-qwen25_3b` candidate has passed independent notebook, hash,
 semantic, request, resource, and log review. It is recorded as

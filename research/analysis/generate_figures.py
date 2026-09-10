@@ -19,6 +19,32 @@ def load_object(path: Path) -> dict[str, Any]:
     return value
 
 
+def incomplete_m4_status(evidence_path: Path) -> str:
+    """Report preserved-shard progress without promoting partial M4 analysis."""
+
+    evidence = load_object(evidence_path)
+    preserved = [
+        shard_id
+        for shard_id, record in evidence.get("principal_shards", {}).items()
+        if record.get("status") == "PRINCIPAL_SHARD_PRESERVED"
+    ]
+    if not preserved:
+        return "INCOMPLETE_NO_M4_PRINCIPAL_EVIDENCE"
+    groups: dict[str, int] = {}
+    for shard_id in preserved:
+        group = shard_id.rsplit("-r", maxsplit=1)[0]
+        groups[group] = groups.get(group, 0) + 1
+    group_status = ",".join(
+        f"{group.upper()}={count}_OF_5_REPETITIONS"
+        for group, count in sorted(groups.items())
+    )
+    planned = evidence.get("principal_planned_shards", 60)
+    return (
+        f"INCOMPLETE_M4_PRINCIPAL_EVIDENCE_{len(preserved)}_OF_{planned}_SHARDS;"
+        f"{group_status}"
+    )
+
+
 def save_figure(figure: Any, destination: Path, stem: str) -> None:
     for suffix in ("svg", "png", "pdf"):
         path = destination / f"{stem}.{suffix}"
@@ -499,7 +525,7 @@ def generate_svg_fallback(args: argparse.Namespace) -> dict[str, str]:
             else "GENERATED_SVG_FROM_MEASURED_EVIDENCE"
         ),
         "m4": (
-            "INCOMPLETE_NO_M4_PRINCIPAL_EVIDENCE"
+            incomplete_m4_status(args.m4_evidence_status)
             if args.m4 is None
             else "MATPLOTLIB_REQUIRED_FOR_M4"
         ),
@@ -612,7 +638,7 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
         status["m3"] = "GENERATED_FROM_MEASURED_EVIDENCE"
 
     if args.m4 is None:
-        status["m4"] = "INCOMPLETE_NO_M4_PRINCIPAL_EVIDENCE"
+        status["m4"] = incomplete_m4_status(args.m4_evidence_status)
     else:
         analysis = load_object(args.m4)
         cells = analysis.get("cells")

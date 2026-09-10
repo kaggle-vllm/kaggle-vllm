@@ -18,6 +18,7 @@ def load_object(path: Path) -> dict[str, Any]:
 
 def build_queue(plan: dict[str, Any], evidence: dict[str, Any]) -> dict[str, Any]:
     compatibility = evidence["compatibility"]
+    principal_evidence = evidence.get("principal_shards", {})
     rows = []
     active_order = 0
     for historical in plan["principal_order"]:
@@ -25,6 +26,15 @@ def build_queue(plan: dict[str, Any], evidence: dict[str, Any]) -> dict[str, Any
         eligible = model_status.get("status") == "COMPATIBILITY_PASS"
         if eligible:
             active_order += 1
+        status = "SKIPPED_BY_COMPATIBILITY_GATE"
+        if eligible:
+            status = principal_evidence.get(historical["shard_id"], {}).get(
+                "status", "QUEUED"
+            )
+            if status not in {"QUEUED", "PRINCIPAL_SHARD_PRESERVED"}:
+                raise ValueError(
+                    f"unsupported principal shard status: {historical['shard_id']}={status}"
+                )
         rows.append(
             {
                 "historical_order": historical["order"],
@@ -45,23 +55,31 @@ def build_queue(plan: dict[str, Any], evidence: dict[str, Any]) -> dict[str, Any
                     "separately downloaded bootstrap runtime.json; required for "
                     "runtime-identity audit"
                 ),
-                "status": "QUEUED" if eligible else "SKIPPED_BY_COMPATIBILITY_GATE",
+                "status": status,
                 "skip_reason": None if eligible else "FAILED_FROZEN_COMPATIBILITY_GATE",
             }
         )
-    queued = [row for row in rows if row["status"] == "QUEUED"]
-    skipped = [row for row in rows if row["status"] != "QUEUED"]
+    active = [row for row in rows if row["active_order"] is not None]
+    queued = [row for row in active if row["status"] == "QUEUED"]
+    preserved = [
+        row for row in active if row["status"] == "PRINCIPAL_SHARD_PRESERVED"
+    ]
+    skipped = [row for row in rows if row["status"] == "SKIPPED_BY_COMPATIBILITY_GATE"]
     return {
         "schema_version": "kaggle-vllm-m4-principal-queue-v1",
         "source_plan": "research/M4_EXECUTION_PLAN.json",
         "source_plan_unchanged": True,
         "compatibility_population": 5,
-        "principal_models": list(dict.fromkeys(row["model_key"] for row in queued)),
+        "principal_models": list(dict.fromkeys(row["model_key"] for row in active)),
         "principal_model_count": 4,
         "workloads": ["short", "balanced", "prefill_heavy"],
         "repetitions_per_model_workload": 5,
         "concurrency": [1, 4, 8, 16, 32, 64],
         "tensor_parallel_sizes": [1, 2],
+        "active_shards": len(active),
+        "active_serving_cells": sum(row["serving_cells"] for row in active),
+        "preserved_shards": len(preserved),
+        "preserved_serving_cells": sum(row["serving_cells"] for row in preserved),
         "queued_shards": len(queued),
         "queued_serving_cells": sum(row["serving_cells"] for row in queued),
         "skipped_gemma_shards": len(skipped),
@@ -89,6 +107,8 @@ def markdown(queue: dict[str, Any]) -> str:
         "`/kaggle/working/kaggle-vllm-runtime/runtime.json`; both are mandatory",
         "inputs to the local provenance audit.",
         "",
+        f"Progress: {queue['preserved_shards']} / {queue['active_shards']} active shards preserved.",
+        "",
         f"Next: `M4_SHARD_ID={queue['next_shard_id']}`",
         "",
         "| Active | M4_SHARD_ID | Model | Workload | Rep | Status | Artifact |",
@@ -104,7 +124,7 @@ def markdown(queue: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "Every queued shard contains concurrency 1, 4, 8, 16, 32, and 64 for",
+            "Every active shard contains concurrency 1, 4, 8, 16, 32, and 64 for",
             "TP1 and TP2 (12 serving cells). The 15 Gemma rows preserve frozen",
             "historical intent and are not executable. Their performance is N/A.",
             "",

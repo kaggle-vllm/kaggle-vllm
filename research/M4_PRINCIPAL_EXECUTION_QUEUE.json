@@ -28,10 +28,14 @@
     1,
     2
   ],
-  "queued_shards": 60,
-  "queued_serving_cells": 720,
+  "active_shards": 60,
+  "active_serving_cells": 720,
+  "preserved_shards": 1,
+  "preserved_serving_cells": 12,
+  "queued_shards": 59,
+  "queued_serving_cells": 708,
   "skipped_gemma_shards": 15,
-  "next_shard_id": "qwen25_3b-short-r00",
+  "next_shard_id": "qwen25_3b-short-r01",
   "session_policy": "one shard in one fresh Kaggle T4 x2 session",
   "planning_estimate": {
     "wall_clock_hours_per_shard_range": [
@@ -70,7 +74,7 @@
       "expected_artifact": "qwen25_3b-short-r00-principal.zip",
       "executed_notebook_role": "downloaded executed copy of the frozen M4 notebook; required for source-equivalence audit",
       "runtime_json_role": "separately downloaded bootstrap runtime.json; required for runtime-identity audit",
-      "status": "QUEUED",
+      "status": "PRINCIPAL_SHARD_PRESERVED",
       "skip_reason": null
     },
     {

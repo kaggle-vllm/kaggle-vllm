@@ -1,6 +1,6 @@
 # M4 principal execution guide
 
-Status: **READY_FOR_KAGGLE; NO PRINCIPAL RESULTS ACCEPTED**.
+Status: **IN_PROGRESS; 1 / 60 PRINCIPAL SHARDS PRESERVED**.
 
 The canonical order is generated in `M4_PRINCIPAL_EXECUTION_QUEUE.json`. It
 contains 60 active shard IDs and 15 non-executable Gemma historical rows. Use
@@ -52,12 +52,19 @@ secret. Never edit the notebook source.
     original downloads are retained. Stop the session, then advance to the
     next active queue row.
 
-## First controlled shard
+The frozen hard VRAM ceiling is exactly **14.5 GiB = 14,848 MiB =
+15,569,256,448 bytes per physical GPU**. The runner and local ingestion check
+GPU0 and GPU1 independently; they neither use decimal 14.5 GB nor sum the two
+devices against one ceiling.
 
-Run only `M4_SHARD_ID=qwen25_3b-short-r00` initially. The expected evidence ZIP
-is `qwen25_3b-short-r00-principal.zip`. Download the executed
+## Current controlled shard
+
+`qwen25_3b-short-r00` passed the reviewed local preservation and ingestion
+gates as one of five independent Qwen-short repetitions. Run only
+`M4_SHARD_ID=qwen25_3b-short-r01` next. The expected evidence ZIP is
+`qwen25_3b-short-r01-principal.zip`. Download the executed
 `kaggle_vllm_m4_execute_shard.ipynb` and `runtime.json` alongside it. Validate
-this shard end to end before scaling the same procedure to the other 59.
+this shard end to end before advancing to r02.
 
 ## Completion gate
 
@@ -72,12 +79,11 @@ performance N/A.
 
 ## Evidence size and storage policy
 
-The four successful two-cell compatibility directories occupy about 1.5--1.8
-MB each. Scaling that observed compact evidence to 12 cells gives a planning
-estimate near 10 MB per principal shard, or roughly 0.6 GB for 60 extracted
-shards. Allow **0.3--1.2 GiB** locally for compressed ZIP variation, executed
-notebooks, runtime files, audit records, and logs; replace this estimate with
-the measured first-shard size before bulk execution.
+The first principal ZIP measured 499,116 bytes and its 77 extracted members
+measured 6,097,928 bytes. A simple 60-shard scale is about 30 MB compressed or
+366 MB extracted before notebooks, runtime files, and audit records. Allow
+**0.3--1.2 GiB** locally for model/workload variation and those additional
+records, and continue replacing the planning range with observed totals.
 
 This evidence is JSON, JSONL, logs, telemetry, manifests, checksums, and later
 figures/tables. It is not a model checkpoint. Keep compact reviewed summaries

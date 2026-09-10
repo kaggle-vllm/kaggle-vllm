@@ -75,6 +75,36 @@
       "next_action": "NO_MORE_GEMMA_EXECUTION"
     }
   },
+  "principal_shards": {
+    "qwen25_3b-short-r00": {
+      "status": "PRINCIPAL_SHARD_PRESERVED",
+      "ingest_status": "VERIFIED_CANONICAL_CANDIDATE",
+      "canonical": true,
+      "reviewed_preservation": true,
+      "paper_aggregate_eligible": false,
+      "paper_aggregate_ineligibility_reason": "ONE_OF_FIVE_INDEPENDENT_REPETITIONS",
+      "source_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+      "source_dirty": false,
+      "executed_notebook_sha256": "fa076b7f7603d5f6116196f33e2fe876e2a1d536cb6b38adf29e1e0cb2b02a24",
+      "executable_cell_digest": "6d6a53e48414ce06e7b8ac1180fa0094e8dd83e93ce88df8d833ee49b6ce2a6e",
+      "evidence_zip_sha256": "b52ab1047e7480500d11f1d1492f4ca3c951ff8a6c48a29b193580584ec14fec",
+      "runtime_json_sha256": "66973673cf67106ab8fd2aed31cbba22449cb5db1a6cd63ec4584d287e42f13c",
+      "prompt_manifest_sha256": "4dceb1c15600fe097214205ff1adba344c7491c102979f365044131d4ef45586",
+      "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+      "valid_serving_cells": 12,
+      "measured_requests": 800,
+      "failed_requests": 0,
+      "resource_guard": {
+        "per_gpu_vram_limit_mib": 14848,
+        "gpu0_maximum_observed_mib": 14107,
+        "gpu1_maximum_observed_mib": 14107,
+        "system_ram_maximum_observed_bytes": 7616344064,
+        "status": "PASS"
+      },
+      "storage": "LOCAL_CONTENT_ADDRESSED_STAGING",
+      "tracked_raw_payload": false
+    }
+  },
   "debug_evidence": {
     "qwen25_3b": {
       "status": "DEBUG_COMPATIBILITY_PASS",
@@ -134,8 +164,11 @@
     "ministral3_3b_bf16",
     "llama32_3b"
   ],
-  "principal_matrix_status": "READY_FOR_KAGGLE",
-  "next_principal_shard": "qwen25_3b-short-r00",
+  "principal_matrix_status": "IN_PROGRESS",
+  "principal_preserved_shards": 1,
+  "principal_remaining_shards": 59,
+  "principal_preserved_serving_cells": 12,
+  "next_principal_shard": "qwen25_3b-short-r01",
   "principal_planned_shards": 60,
   "principal_planned_serving_cells": 720,
   "gemma_planned_principal_shards_retained": 15,

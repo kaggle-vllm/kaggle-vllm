@@ -7,11 +7,13 @@ For every active row, also download the executed copy of
 `/kaggle/working/kaggle-vllm-runtime/runtime.json`; both are mandatory
 inputs to the local provenance audit.
 
-Next: `M4_SHARD_ID=qwen25_3b-short-r00`
+Progress: 1 / 60 active shards preserved.
+
+Next: `M4_SHARD_ID=qwen25_3b-short-r01`
 
 | Active | M4_SHARD_ID | Model | Workload | Rep | Status | Artifact |
 |---:|---|---|---|---:|---|---|
-| 1 | `qwen25_3b-short-r00` | `qwen25_3b` | short | 0 | QUEUED | `qwen25_3b-short-r00-principal.zip` |
+| 1 | `qwen25_3b-short-r00` | `qwen25_3b` | short | 0 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-short-r00-principal.zip` |
 | 2 | `qwen25_3b-short-r01` | `qwen25_3b` | short | 1 | QUEUED | `qwen25_3b-short-r01-principal.zip` |
 | 3 | `qwen25_3b-short-r02` | `qwen25_3b` | short | 2 | QUEUED | `qwen25_3b-short-r02-principal.zip` |
 | 4 | `qwen25_3b-short-r03` | `qwen25_3b` | short | 3 | QUEUED | `qwen25_3b-short-r03-principal.zip` |
@@ -87,6 +89,6 @@ Next: `M4_SHARD_ID=qwen25_3b-short-r00`
 | — | `gemma3_4b-prefill_heavy-r03` | `gemma3_4b` | prefill_heavy | 3 | SKIPPED_BY_COMPATIBILITY_GATE | `gemma3_4b-prefill_heavy-r03-principal.zip` |
 | — | `gemma3_4b-prefill_heavy-r04` | `gemma3_4b` | prefill_heavy | 4 | SKIPPED_BY_COMPATIBILITY_GATE | `gemma3_4b-prefill_heavy-r04-principal.zip` |
 
-Every queued shard contains concurrency 1, 4, 8, 16, 32, and 64 for
+Every active shard contains concurrency 1, 4, 8, 16, 32, and 64 for
 TP1 and TP2 (12 serving cells). The 15 Gemma rows preserve frozen
 historical intent and are not executable. Their performance is N/A.

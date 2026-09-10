@@ -13,10 +13,15 @@ def test_queue_preserves_negative_compatibility_and_historical_shards() -> None:
 
     assert queue["compatibility_population"] == 5
     assert queue["principal_model_count"] == 4
-    assert queue["queued_shards"] == 60
-    assert queue["queued_serving_cells"] == 720
+    assert queue["active_shards"] == 60
+    assert queue["active_serving_cells"] == 720
+    assert queue["preserved_shards"] == 1
+    assert queue["preserved_serving_cells"] == 12
+    assert queue["queued_shards"] == 59
+    assert queue["queued_serving_cells"] == 708
     assert queue["skipped_gemma_shards"] == 15
-    assert queue["next_shard_id"] == "qwen25_3b-short-r00"
+    assert queue["next_shard_id"] == "qwen25_3b-short-r01"
+    assert queue["queue"][0]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert queue["queue"][0]["expected_artifact"] == (
         "qwen25_3b-short-r00-principal.zip"
     )
