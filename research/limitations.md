@@ -46,6 +46,14 @@
   dependency-heavy, outside the lightweight SDK, and not assumed
   metric-equivalent to the primary client. The two clients' TPOT and ITL
   definitions differ explicitly.
+- Multi-model TP-aware sharded-state creation is
+  `OUT_OF_SCOPE_FOR_PRIMARY_M4`. M4 uses pinned Hugging Face checkpoints, so
+  new Phi, Ministral, or Llama persistence archives would add GPU/storage,
+  checkpoint-format, provenance, and license/redistribution obligations without
+  improving the principal comparison. Llama requires gated license handling;
+  Gemma never reached frozen-protocol readiness and receives no persistence
+  artifact. Generating archives only after observing compatibility outcomes
+  could also look post-hoc if presented as part of the original study.
 - M4 exact-token generation is tokenizer-specific and synthetic. The primary
   client's event-interarrival ITL is not guaranteed to be a one-event-per-token
   engine ITL. Loopback HTTP and client scheduling remain in latency timestamps.

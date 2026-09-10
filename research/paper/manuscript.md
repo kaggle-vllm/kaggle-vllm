@@ -73,6 +73,15 @@ Describe source/model revisions, prompt and notebook hashes, runtime manifests,
 server logs, resource guards, evidence manifests, ingestion, assembly, and
 deterministic figure/table generation.
 
+Earlier kaggle-vllm acceptance evidence also demonstrated persistence and
+reload of a TP=2 Qwen2.5-3B vLLM sharded state on the same dual-T4 runtime. The
+external archive is 4,773,220,584 bytes with SHA256
+`12dcb264cb74e6fa2947b5f1fbebfa14562afa2292387f49e447b3290bc0b83b`.
+This is historical platform-capability evidence, not an M4 benchmark input;
+M4 loads regular pinned Hugging Face checkpoints. The sharded-state mechanism
+is upstream vLLM functionality and is not claimed as a novel kaggle-vllm
+checkpoint format.
+
 ## 6. Results
 
 ### 6.1 Reproducible T4 platform
@@ -136,3 +145,5 @@ credentials.
 The repository retains source notebooks, protocol files, small evidence,
 checksums, analysis code, and generated outputs. Large native/model artifacts
 remain in documented external stores subject to identity and license controls.
+The historical Qwen archive is identified by checksum but is not stored in the
+repository and is not required to reproduce M4.
