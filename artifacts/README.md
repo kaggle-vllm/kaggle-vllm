@@ -45,10 +45,13 @@ metadata, licensing, and upstream attribution.
 
 - `kaggle-2026-09-08-milestone-4/` — M4 work in progress. Its accepted shards
   are the clean-source Qwen2.5-3B, Phi-4 Mini, Llama 3.2 3B, and Ministral 3 3B
-  BF16 short-workload TP1/TP2 compatibility gates. Gemma and the principal
-  matrix remain unexecuted. The earlier Llama access failures and manual debug
-  retry remain noncanonical history, and the earlier notebook-drifted Phi
-  candidate remains rejected and excluded.
+  BF16 short-workload TP1/TP2 compatibility gates. Three locally preserved,
+  hash-verified Gemma ZIPs reproduce the same pre-readiness FP16 rejection, but
+  their notebook provenance is modified or unavailable, so they are diagnostic
+  only and are not committed as canonical evidence. One clean Gemma
+  canonicalization run and the principal matrix remain. The earlier Llama
+  access failures and manual debug retry remain noncanonical history, and the
+  earlier notebook-drifted Phi candidate remains rejected and excluded.
 
 Files under `artifacts/` are retained as immutable execution evidence. They are
 excluded from source-formatting and linting tools so that post-capture tooling

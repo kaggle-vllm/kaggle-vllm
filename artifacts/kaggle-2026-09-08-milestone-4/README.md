@@ -21,5 +21,9 @@ The prior Phi candidate remains separately classified `REJECTED_NOTEBOOK_DRIFT`
 and is not canonical evidence. The Llama access-pending and token-authorization
 failures remain access records rather than compatibility failures. Its later
 manually edited retry remains excluded `DEBUG_COMPATIBILITY_PASS` evidence and
-was not averaged with the accepted clean run. Gemma remains `NOT_EXECUTED`, and
-no M4 principal shard is accepted here.
+was not averaged with the accepted clean run. Gemma currently has
+`REPRODUCED_NEGATIVE_DIAGNOSTIC_EVIDENCE`: three local evidence ZIPs pass their
+hash audits and reproduce FP16 rejection before readiness, but no associated
+available executed notebook is source-equivalent to the frozen notebook. No
+Gemma evidence is promoted here pending one clean canonicalization run, and no
+M4 principal shard is accepted here.

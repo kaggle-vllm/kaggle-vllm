@@ -87,3 +87,19 @@ clean implementation commit `42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`.
 Earlier `ACCESS_PENDING_AT_EXECUTION` and `TOKEN_AUTHORIZATION_BLOCKED`
 attempts remain access records. The manually edited successful retry remains
 excluded `DEBUG_COMPATIBILITY_PASS` evidence and is not promoted or averaged.
+
+The Gemma diagnostic review is recorded in
+`M4_GEMMA3_DIAGNOSTIC_REVIEW.json`. Three independently verified ZIPs have
+SHA256 values
+`f560479c6f5b119a17a7dbb5ce582e7fc72623bd586c2755f1e36e7e76f0bcdf`,
+`9c3e77dba701d4f051d1edcab59431759630bab9a3494cf68e69c2e9c725d67a`,
+and `0d975c5027df188bc3633cab50f98b3dfdcc43e923c97be0f97cb3a303b960f5`.
+Each preserves the same TP1 and TP2 FP16 model-config rejection with no issued
+requests. Available executed-notebook SHA256 values are
+`bea77a4c2e633be3d6ab6c65829dca7f94da3beec5dee9037580ce160a97fff8`
+and `54e53c09925ff45a2791edadef85d7e4ed6bda2509735f64d21b38fc06cfcac1`;
+both contain replacement diagnostic execution code, while the middle ZIP has
+no available notebook. These attempts are therefore diagnostic only. A single
+fresh `compat-gemma3_4b` run from the unchanged frozen notebook is required to
+canonicalize the expected negative result; it must not change dtype or attempt
+to make Gemma pass.

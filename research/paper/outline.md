@@ -70,13 +70,28 @@ configuration-specific measured-all-reduce intercept and effective beta with
 confidence intervals, residuals, R², and RMSE. Do not rename the intercept to
 classical alpha or universal PCIe/PHB latency.
 
-### 5.4 M4 model/workload generalization
+### 5.4 M4 five-model compatibility gate
 
-Placeholder blocked on accepted M4 evidence. Populate per-model crossover
-curves, speedup heatmap, TTFT, TPOT, failure/capacity outcomes, and uncertainty
-only from the M4 analyzer output.
+Report the original five-model compatibility population: four accepted
+compatible models and, only after clean canonicalization, the narrowly scoped
+Gemma 3 FP16 on SM75 precision boundary. Gemma has no serving observation and
+must appear as N/A / compatibility-gated, never throughput zero. Do not
+substitute Gemma 4.
 
-### 5.5 Independent validation
+### 5.5 M4 principal TP1/TP2 crossover study
+
+Preserve the central question: when does TP2 overcome TP1 overhead on dual
+PCIe/PHB Tesla T4 GPUs? Populate the model/workload crossover curves, speedup
+heatmap, TTFT, TPOT, failure/capacity outcomes, and uncertainty only for
+compatibility-passing models and only from accepted M4 analyzer output.
+
+### 5.6 Mechanistic analysis
+
+Relate M3 collective observations to M4 serving behavior conservatively.
+Separate communication-consistent evidence from causal attribution, and keep
+throughput, latency, and capacity crossovers distinct.
+
+### 5.7 Independent validation
 
 Placeholder blocked on a real GuideLLM cross-check or defensible simulator
 comparison. Report metric-definition differences and prediction/measurement
@@ -93,7 +108,10 @@ with serving behavior without causal attribution.
 Single hosted hardware topology; runtime/version specificity; model selection;
 tokenizer-controlled synthetic workload limits; session variability; limited M2
 repetition; collective microbenchmark versus serving-path gap; unavailable or
-incompatible simulator risk; gated-model access and redistribution constraints.
+incompatible simulator risk; gated-model access and redistribution constraints;
+and the separation between the five-model compatibility population and the
+four-model principal performance population if Gemma's negative gate is
+canonically reproduced. Gemma 4 is future work, not a post-hoc substitute.
 
 ## 8. Conclusion
 

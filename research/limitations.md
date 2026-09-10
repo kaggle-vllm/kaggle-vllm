@@ -1,9 +1,10 @@
 # Limitations and unsupported claims
 
 - M3 is a single fresh Kaggle dual-T4 session with five fresh-process
-  repetitions. M4 is in progress: the Qwen, Phi, and text-only Ministral
-  short-workload concurrency-1 compatibility shards are accepted; Llama and
-  Gemma canonical gates and the principal matrix remain unexecuted.
+  repetitions. M4 is in progress: Qwen, Phi, Llama, and text-only Ministral
+  short-workload concurrency-1 compatibility shards are accepted. Gemma has a
+  reproduced diagnostic negative result but no source-equivalent executed
+  notebook, so its canonicalization run and the principal matrix remain.
 - M1/M2 are observations from one Kaggle dual-T4 environment. They do not imply
   universal T4, PCIe, PHB or tensor-parallel scaling laws.
 - The M3 measured-all-reduce intercept is configuration-specific and combines
@@ -11,18 +12,27 @@
   classical alpha, universal PCIe/PHB latency, or sole-cause evidence.
 - M1/M2 did not observe instantaneous scheduler/decode batch size. Concurrency
   is not used as a substitute.
-- Additional-model vLLM registry support was source-inspected. Qwen, Phi, and
-  Ministral have accepted SM75 compatibility measurements; Llama and Gemma M4
-  SM75 execution, memory fit, artifact sizes and generation remain unmeasured.
+- Additional-model vLLM registry support was source-inspected. Qwen, Phi,
+  Ministral, and Llama have accepted SM75 compatibility measurements. Gemma's
+  diagnostic executions resolve `Gemma3ForConditionalGeneration` but stop at
+  the frozen vLLM FP16 numerical-stability guard before server readiness; they
+  do not measure generation, serving memory fit, latency, or throughput.
 - Ministral compatibility covers text-only completions. Its multimodal-capable
   native implementation still performs image-encoder cache profiling at
   startup, so this evidence does not establish image-input compatibility. The
   pinned Mistral regex correction did not alter this exact prompt corpus, but
   that observation does not generalize to arbitrary text.
-- The earlier Llama attempt was blocked by gated access and is not a model
-  compatibility failure. Approval is user-confirmed, but canonical serving
-  behavior remains unmeasured until a fresh run with the approved token passes
-  audit.
+- Earlier Llama attempts blocked by access and token authorization are not
+  model compatibility failures. The later clean source-equivalent run passed
+  and is the only accepted Llama compatibility evidence.
+- The Gemma result is scoped to `google/gemma-3-4b-it` revision
+  `093f9f388b31de276ce2de164bdc2081324b9767`, the frozen FP16 M4 protocol,
+  native vLLM wheel, and Tesla T4 SM75. It is not a universal Gemma 3 claim.
+  FP32 was not executed: its approximately 17.20 GB weight floor exceeds both
+  one T4's physical memory and the M4 hard per-GPU budget before runtime, KV
+  cache, multimodal, activation, and allocator overhead, and it would define a
+  materially different protocol. Gemma 4 was not substituted and remains
+  out-of-scope future work requiring a new freeze and compatibility study.
 - Llama and Gemma derived-artifact uploads are blocked pending redistribution
   review even when token access permits downloads.
 - No Microsoft Vidur source tree/archive was found in the supplied working

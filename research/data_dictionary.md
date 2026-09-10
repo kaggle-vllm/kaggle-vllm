@@ -44,3 +44,11 @@ Each raw M4 row is one fresh-server repetition for one model, workload, TP, and
 concurrency cell. `request_failures` and `oom` remain explicit. Throughput,
 TTFT, TPOT, ITL, and end-to-end values may be null only for a preserved failed
 cell. Resource fields are sampled and may miss sub-sample peaks.
+
+Compatibility-gated models have no benchmark throughput observation. A
+pre-readiness failure is represented by `status=failed`, a specific failure
+classification, zero issued requests, and null throughput/latency metrics. It
+must not be converted to throughput zero or plotted as a measured performance
+point. `principal_eligible=false` means the model cannot enter principal shards
+unless and until its frozen compatibility gate passes; planned shard IDs remain
+auditable rather than being deleted.
