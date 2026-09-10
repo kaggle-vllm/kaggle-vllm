@@ -29,7 +29,7 @@ def test_m4_source_freeze_hashes_match_repository_files():
         assert hashlib.sha256((root / relative).read_bytes()).hexdigest() == freeze[field]
 
 
-def test_gemma_diagnostic_negative_remains_auditable_and_blocks_principal():
+def test_gemma_canonical_negative_remains_auditable_and_blocks_principal():
     root = Path(__file__).resolve().parents[1]
     status = json.loads((root / "research/M4_EVIDENCE_STATUS.json").read_text())
     review = json.loads(
@@ -42,13 +42,24 @@ def test_gemma_diagnostic_negative_remains_auditable_and_blocks_principal():
         key for key, value in status["compatibility"].items()
         if value["status"] == "COMPATIBILITY_PASS"
     } == accepted
+    assert {
+        key: status["compatibility"][key]["evidence_zip_sha256"]
+        for key in sorted(accepted)
+    } == {
+        "llama32_3b": "37288c24065ddd2383c5e8dfebf08b61ca589bb2b8a37e9ae253ef9e6a1f9db4",
+        "ministral3_3b_bf16": "516e37c160ca98a49795870aeeeeb8a381cd8780924f4d9d8836305ad68c77cc",
+        "phi4_mini": "7a20d7058cdcf7362704acbc5513db65eb865b864fd47b555f72465a32a0ebfe",
+        "qwen25_3b": "cd3c45dddf19830649b03a931cee0247d6f8b4ebbc953c433e3ade563b271ecb",
+    }
 
     gemma = status["compatibility"]["gemma3_4b"]
-    assert gemma["status"] == "REPRODUCED_NEGATIVE_DIAGNOSTIC_EVIDENCE"
-    assert gemma["canonical"] is False
+    assert gemma["status"] == "UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK"
+    assert gemma["canonical"] is True
     assert gemma["principal_eligible"] is False
+    assert gemma["throughput"] is None
+    assert gemma["principal_shard_status"] == "SKIPPED_BY_COMPATIBILITY_GATE"
     assert status["milestone_status"] == "IN_PROGRESS"
-    assert status["principal_matrix_status"] == "NOT_STARTED"
+    assert status["principal_matrix_status"] == "READY_FOR_KAGGLE"
 
     planned_gemma = [
         shard for shard in plan["principal_order"]
@@ -64,7 +75,5 @@ def test_gemma_diagnostic_negative_remains_auditable_and_blocks_principal():
     assert observations["measured_requests_issued"] == 0
     assert observations["throughput"] is None
     assert observations["oom_observed"] is False
-    assert review["canonical"] is False
-    assert review["next_action"]["decision"] == (
-        "ONE_FINAL_CLEAN_GEMMA_CANONICALIZATION_RUN_REQUIRED"
-    )
+    assert review["canonical"] is True
+    assert review["next_action"]["decision"] == "NO_MORE_GEMMA_EXECUTION"

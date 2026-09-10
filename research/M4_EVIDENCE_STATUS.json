@@ -48,18 +48,31 @@
       "canonical": true
     },
     "gemma3_4b": {
-      "status": "REPRODUCED_NEGATIVE_DIAGNOSTIC_EVIDENCE",
-      "canonical": false,
+      "status": "UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK",
+      "provenance": "CANONICAL_NEGATIVE_COMPATIBILITY_RESULT",
+      "canonical": true,
+      "canonical_source_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+      "model_revision": "093f9f388b31de276ce2de164bdc2081324b9767",
+      "executed_notebook_sha256": "f1800e9be84fa297880960159da906612e1ef79d46b2c34344d27f0bbe2feee8",
+      "evidence_zip_sha256": "6404b8abe22fc06211409288e59ae1d844354c1b12282a8c9140161c30347c12",
+      "runtime_json_sha256": "8e747082b76d39852fa5838a3ce17f0ca8e392e7bac6ae4e0718700470e90ff5",
+      "prompt_manifest_sha256": "959066d6d2d9613230270fcf4dc3c5e842842865bbf3c8979681b8eebe855c39",
+      "evidence_directory": "artifacts/kaggle-2026-09-08-milestone-4/compatibility/gemma3_4b",
       "diagnostic_review": "research/M4_GEMMA3_DIAGNOSTIC_REVIEW.json",
       "verified_evidence_zip_sha256": [
         "f560479c6f5b119a17a7dbb5ce582e7fc72623bd586c2755f1e36e7e76f0bcdf",
         "9c3e77dba701d4f051d1edcab59431759630bab9a3494cf68e69c2e9c725d67a",
-        "0d975c5027df188bc3633cab50f98b3dfdcc43e923c97be0f97cb3a303b960f5"
+        "0d975c5027df188bc3633cab50f98b3dfdcc43e923c97be0f97cb3a303b960f5",
+        "6404b8abe22fc06211409288e59ae1d844354c1b12282a8c9140161c30347c12"
       ],
       "reproduced_failure": "GEMMA3_FLOAT16_REJECTED_NUMERICAL_STABILITY",
       "principal_eligible": false,
-      "principal_ineligibility_reason": "CANONICAL_COMPATIBILITY_GATE_NOT_PASSED",
-      "next_action": "ONE_FINAL_CLEAN_GEMMA_CANONICALIZATION_RUN_REQUIRED"
+      "principal_ineligibility_reason": "FAILED_FROZEN_COMPATIBILITY_GATE",
+      "principal_shard_status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "throughput": null,
+      "measured_requests_issued": 0,
+      "gemma_retries_closed": true,
+      "next_action": "NO_MORE_GEMMA_EXECUTION"
     }
   },
   "debug_evidence": {
@@ -110,16 +123,23 @@
       "next_action": "Preserve both access-gate classifications as history; no Llama access rerun is required"
     }
   },
-  "next_compatibility_shard": "compat-gemma3_4b",
+  "compatibility_phase_status": "CLOSED",
+  "next_compatibility_shard": null,
   "compatibility_population": 5,
   "canonical_compatibility_pass_count": 4,
-  "principal_population_if_gemma_negative_is_canonicalized": [
+  "canonical_negative_compatibility_count": 1,
+  "principal_population": [
     "qwen25_3b",
     "phi4_mini",
     "ministral3_3b_bf16",
     "llama32_3b"
   ],
-  "principal_matrix_status": "NOT_STARTED",
+  "principal_matrix_status": "READY_FOR_KAGGLE",
+  "next_principal_shard": "qwen25_3b-short-r00",
+  "principal_planned_shards": 60,
+  "principal_planned_serving_cells": 720,
+  "gemma_planned_principal_shards_retained": 15,
+  "gemma_principal_shard_status": "SKIPPED_BY_COMPATIBILITY_GATE",
   "m5_status": "INCOMPLETE",
   "paper_status": "NOT_PAPER_READY"
 }

@@ -2,9 +2,9 @@
 
 - M3 is a single fresh Kaggle dual-T4 session with five fresh-process
   repetitions. M4 is in progress: Qwen, Phi, Llama, and text-only Ministral
-  short-workload concurrency-1 compatibility shards are accepted. Gemma has a
-  reproduced diagnostic negative result but no source-equivalent executed
-  notebook, so its canonicalization run and the principal matrix remain.
+  short-workload concurrency-1 compatibility shards are accepted. Final p13
+  canonically preserves Gemma's pre-readiness dtype boundary. The four-model
+  principal matrix remains unexecuted.
 - M1/M2 are observations from one Kaggle dual-T4 environment. They do not imply
   universal T4, PCIe, PHB or tensor-parallel scaling laws.
 - The M3 measured-all-reduce intercept is configuration-specific and combines
@@ -14,7 +14,7 @@
   is not used as a substitute.
 - Additional-model vLLM registry support was source-inspected. Qwen, Phi,
   Ministral, and Llama have accepted SM75 compatibility measurements. Gemma's
-  diagnostic executions resolve `Gemma3ForConditionalGeneration` but stop at
+  canonical and diagnostic executions resolve `Gemma3ForConditionalGeneration` but stop at
   the frozen vLLM FP16 numerical-stability guard before server readiness; they
   do not measure generation, serving memory fit, latency, or throughput.
 - Ministral compatibility covers text-only completions. Its multimodal-capable
