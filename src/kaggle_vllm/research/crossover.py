@@ -235,9 +235,39 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
                 "evidence": "MEASURED_INPUT_DERIVED_COMPARISON",
             }
         )
+    by_series: dict[tuple[str, str, str], list[dict[str, Any]]] = defaultdict(list)
+    for cell in results:
+        by_series[(cell["model_id"], cell["model_revision"], cell["workload"])].append(cell)
+    crossover_summary = []
+    for key, series in sorted(by_series.items()):
+        ordered = sorted(series, key=lambda item: item["concurrency"])
+        observed = [item["concurrency"] for item in ordered]
+
+        def sustained(label: str, cells: list[dict[str, Any]] = ordered) -> int | None:
+            flags = [label in item["classifications"] for item in cells]
+            for index, enabled in enumerate(flags):
+                if enabled and all(flags[index:]):
+                    return cells[index]["concurrency"]
+            return None
+
+        complete = observed == list(PRINCIPAL_CONCURRENCY)
+        crossover_summary.append(
+            {
+                "model_id": key[0],
+                "model_revision": key[1],
+                "workload": key[2],
+                "observed_concurrency": observed,
+                "principal_grid_complete": complete,
+                "throughput_crossover_concurrency": sustained("THROUGHPUT_CROSSOVER") if complete else None,
+                "latency_crossover_concurrency": sustained("LATENCY_CROSSOVER") if complete else None,
+                "capacity_crossover_concurrency": sustained("CAPACITY_CROSSOVER") if complete else None,
+                "criterion": "first robust favorable point sustained through all higher frozen concurrency points",
+            }
+        )
     return {
         "schema_version": "kaggle-vllm-m4-analysis-v1",
         "status": "ANALYZED",
         "crossover_criterion": "paired-repetition mean-delta 95% CI excludes zero in the favorable direction",
         "cells": results,
+        "crossover_summary": crossover_summary,
     }

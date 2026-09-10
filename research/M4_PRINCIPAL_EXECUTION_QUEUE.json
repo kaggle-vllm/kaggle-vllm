@@ -1,0 +1,1851 @@
+{
+  "schema_version": "kaggle-vllm-m4-principal-queue-v1",
+  "source_plan": "research/M4_EXECUTION_PLAN.json",
+  "source_plan_unchanged": true,
+  "compatibility_population": 5,
+  "principal_models": [
+    "qwen25_3b",
+    "phi4_mini",
+    "llama32_3b",
+    "ministral3_3b_bf16"
+  ],
+  "principal_model_count": 4,
+  "workloads": [
+    "short",
+    "balanced",
+    "prefill_heavy"
+  ],
+  "repetitions_per_model_workload": 5,
+  "concurrency": [
+    1,
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "tensor_parallel_sizes": [
+    1,
+    2
+  ],
+  "queued_shards": 60,
+  "queued_serving_cells": 720,
+  "skipped_gemma_shards": 15,
+  "next_shard_id": "qwen25_3b-short-r00",
+  "session_policy": "one shard in one fresh Kaggle T4 x2 session",
+  "planning_estimate": {
+    "wall_clock_hours_per_shard_range": [
+      0.5,
+      1.5
+    ],
+    "dual_gpu_hours_total_range": [
+      60,
+      180
+    ],
+    "basis": "12 fresh-server cells per shard; observed compatibility startup plus workload-dependent request time",
+    "not_a_measured_result": true
+  },
+  "protocol_reduction_recommendation": "KEEP_FROZEN_60_SHARD_DESIGN",
+  "queue": [
+    {
+      "historical_order": 1,
+      "active_order": 1,
+      "shard_id": "qwen25_3b-short-r00",
+      "model_key": "qwen25_3b",
+      "workload": "short",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-short-r00.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 2,
+      "active_order": 2,
+      "shard_id": "qwen25_3b-short-r01",
+      "model_key": "qwen25_3b",
+      "workload": "short",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-short-r01.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 3,
+      "active_order": 3,
+      "shard_id": "qwen25_3b-short-r02",
+      "model_key": "qwen25_3b",
+      "workload": "short",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-short-r02.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 4,
+      "active_order": 4,
+      "shard_id": "qwen25_3b-short-r03",
+      "model_key": "qwen25_3b",
+      "workload": "short",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-short-r03.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 5,
+      "active_order": 5,
+      "shard_id": "qwen25_3b-short-r04",
+      "model_key": "qwen25_3b",
+      "workload": "short",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-short-r04.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 6,
+      "active_order": 6,
+      "shard_id": "qwen25_3b-balanced-r00",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-balanced-r00.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 7,
+      "active_order": 7,
+      "shard_id": "qwen25_3b-balanced-r01",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-balanced-r01.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 8,
+      "active_order": 8,
+      "shard_id": "qwen25_3b-balanced-r02",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-balanced-r02.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 9,
+      "active_order": 9,
+      "shard_id": "qwen25_3b-balanced-r03",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-balanced-r03.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 10,
+      "active_order": 10,
+      "shard_id": "qwen25_3b-balanced-r04",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-balanced-r04.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 11,
+      "active_order": 11,
+      "shard_id": "qwen25_3b-prefill_heavy-r00",
+      "model_key": "qwen25_3b",
+      "workload": "prefill_heavy",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-prefill_heavy-r00.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 12,
+      "active_order": 12,
+      "shard_id": "qwen25_3b-prefill_heavy-r01",
+      "model_key": "qwen25_3b",
+      "workload": "prefill_heavy",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-prefill_heavy-r01.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 13,
+      "active_order": 13,
+      "shard_id": "qwen25_3b-prefill_heavy-r02",
+      "model_key": "qwen25_3b",
+      "workload": "prefill_heavy",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-prefill_heavy-r02.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 14,
+      "active_order": 14,
+      "shard_id": "qwen25_3b-prefill_heavy-r03",
+      "model_key": "qwen25_3b",
+      "workload": "prefill_heavy",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-prefill_heavy-r03.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 15,
+      "active_order": 15,
+      "shard_id": "qwen25_3b-prefill_heavy-r04",
+      "model_key": "qwen25_3b",
+      "workload": "prefill_heavy",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "qwen25_3b-prefill_heavy-r04.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 16,
+      "active_order": 16,
+      "shard_id": "phi4_mini-short-r00",
+      "model_key": "phi4_mini",
+      "workload": "short",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-short-r00.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 17,
+      "active_order": 17,
+      "shard_id": "phi4_mini-short-r01",
+      "model_key": "phi4_mini",
+      "workload": "short",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-short-r01.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 18,
+      "active_order": 18,
+      "shard_id": "phi4_mini-short-r02",
+      "model_key": "phi4_mini",
+      "workload": "short",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-short-r02.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 19,
+      "active_order": 19,
+      "shard_id": "phi4_mini-short-r03",
+      "model_key": "phi4_mini",
+      "workload": "short",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-short-r03.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 20,
+      "active_order": 20,
+      "shard_id": "phi4_mini-short-r04",
+      "model_key": "phi4_mini",
+      "workload": "short",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-short-r04.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 21,
+      "active_order": 21,
+      "shard_id": "phi4_mini-balanced-r00",
+      "model_key": "phi4_mini",
+      "workload": "balanced",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-balanced-r00.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 22,
+      "active_order": 22,
+      "shard_id": "phi4_mini-balanced-r01",
+      "model_key": "phi4_mini",
+      "workload": "balanced",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-balanced-r01.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 23,
+      "active_order": 23,
+      "shard_id": "phi4_mini-balanced-r02",
+      "model_key": "phi4_mini",
+      "workload": "balanced",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-balanced-r02.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 24,
+      "active_order": 24,
+      "shard_id": "phi4_mini-balanced-r03",
+      "model_key": "phi4_mini",
+      "workload": "balanced",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-balanced-r03.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 25,
+      "active_order": 25,
+      "shard_id": "phi4_mini-balanced-r04",
+      "model_key": "phi4_mini",
+      "workload": "balanced",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-balanced-r04.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 26,
+      "active_order": 26,
+      "shard_id": "phi4_mini-prefill_heavy-r00",
+      "model_key": "phi4_mini",
+      "workload": "prefill_heavy",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-prefill_heavy-r00.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 27,
+      "active_order": 27,
+      "shard_id": "phi4_mini-prefill_heavy-r01",
+      "model_key": "phi4_mini",
+      "workload": "prefill_heavy",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-prefill_heavy-r01.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 28,
+      "active_order": 28,
+      "shard_id": "phi4_mini-prefill_heavy-r02",
+      "model_key": "phi4_mini",
+      "workload": "prefill_heavy",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-prefill_heavy-r02.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 29,
+      "active_order": 29,
+      "shard_id": "phi4_mini-prefill_heavy-r03",
+      "model_key": "phi4_mini",
+      "workload": "prefill_heavy",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-prefill_heavy-r03.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 30,
+      "active_order": 30,
+      "shard_id": "phi4_mini-prefill_heavy-r04",
+      "model_key": "phi4_mini",
+      "workload": "prefill_heavy",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "phi4_mini-prefill_heavy-r04.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 31,
+      "active_order": 31,
+      "shard_id": "llama32_3b-short-r00",
+      "model_key": "llama32_3b",
+      "workload": "short",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-short-r00.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 32,
+      "active_order": 32,
+      "shard_id": "llama32_3b-short-r01",
+      "model_key": "llama32_3b",
+      "workload": "short",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-short-r01.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 33,
+      "active_order": 33,
+      "shard_id": "llama32_3b-short-r02",
+      "model_key": "llama32_3b",
+      "workload": "short",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-short-r02.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 34,
+      "active_order": 34,
+      "shard_id": "llama32_3b-short-r03",
+      "model_key": "llama32_3b",
+      "workload": "short",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-short-r03.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 35,
+      "active_order": 35,
+      "shard_id": "llama32_3b-short-r04",
+      "model_key": "llama32_3b",
+      "workload": "short",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-short-r04.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 36,
+      "active_order": 36,
+      "shard_id": "llama32_3b-balanced-r00",
+      "model_key": "llama32_3b",
+      "workload": "balanced",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-balanced-r00.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 37,
+      "active_order": 37,
+      "shard_id": "llama32_3b-balanced-r01",
+      "model_key": "llama32_3b",
+      "workload": "balanced",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-balanced-r01.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 38,
+      "active_order": 38,
+      "shard_id": "llama32_3b-balanced-r02",
+      "model_key": "llama32_3b",
+      "workload": "balanced",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-balanced-r02.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 39,
+      "active_order": 39,
+      "shard_id": "llama32_3b-balanced-r03",
+      "model_key": "llama32_3b",
+      "workload": "balanced",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-balanced-r03.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 40,
+      "active_order": 40,
+      "shard_id": "llama32_3b-balanced-r04",
+      "model_key": "llama32_3b",
+      "workload": "balanced",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-balanced-r04.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 41,
+      "active_order": 41,
+      "shard_id": "llama32_3b-prefill_heavy-r00",
+      "model_key": "llama32_3b",
+      "workload": "prefill_heavy",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-prefill_heavy-r00.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 42,
+      "active_order": 42,
+      "shard_id": "llama32_3b-prefill_heavy-r01",
+      "model_key": "llama32_3b",
+      "workload": "prefill_heavy",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-prefill_heavy-r01.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 43,
+      "active_order": 43,
+      "shard_id": "llama32_3b-prefill_heavy-r02",
+      "model_key": "llama32_3b",
+      "workload": "prefill_heavy",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-prefill_heavy-r02.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 44,
+      "active_order": 44,
+      "shard_id": "llama32_3b-prefill_heavy-r03",
+      "model_key": "llama32_3b",
+      "workload": "prefill_heavy",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-prefill_heavy-r03.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 45,
+      "active_order": 45,
+      "shard_id": "llama32_3b-prefill_heavy-r04",
+      "model_key": "llama32_3b",
+      "workload": "prefill_heavy",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "llama32_3b-prefill_heavy-r04.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 46,
+      "active_order": 46,
+      "shard_id": "ministral3_3b_bf16-short-r00",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "short",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-short-r00.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 47,
+      "active_order": 47,
+      "shard_id": "ministral3_3b_bf16-short-r01",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "short",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-short-r01.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 48,
+      "active_order": 48,
+      "shard_id": "ministral3_3b_bf16-short-r02",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "short",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-short-r02.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 49,
+      "active_order": 49,
+      "shard_id": "ministral3_3b_bf16-short-r03",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "short",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-short-r03.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 50,
+      "active_order": 50,
+      "shard_id": "ministral3_3b_bf16-short-r04",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "short",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-short-r04.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 51,
+      "active_order": 51,
+      "shard_id": "ministral3_3b_bf16-balanced-r00",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "balanced",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-balanced-r00.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 52,
+      "active_order": 52,
+      "shard_id": "ministral3_3b_bf16-balanced-r01",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "balanced",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-balanced-r01.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 53,
+      "active_order": 53,
+      "shard_id": "ministral3_3b_bf16-balanced-r02",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "balanced",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-balanced-r02.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 54,
+      "active_order": 54,
+      "shard_id": "ministral3_3b_bf16-balanced-r03",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "balanced",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-balanced-r03.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 55,
+      "active_order": 55,
+      "shard_id": "ministral3_3b_bf16-balanced-r04",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "balanced",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-balanced-r04.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 56,
+      "active_order": 56,
+      "shard_id": "ministral3_3b_bf16-prefill_heavy-r00",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "prefill_heavy",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-prefill_heavy-r00.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 57,
+      "active_order": 57,
+      "shard_id": "ministral3_3b_bf16-prefill_heavy-r01",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "prefill_heavy",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-prefill_heavy-r01.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 58,
+      "active_order": 58,
+      "shard_id": "ministral3_3b_bf16-prefill_heavy-r02",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "prefill_heavy",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-prefill_heavy-r02.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 59,
+      "active_order": 59,
+      "shard_id": "ministral3_3b_bf16-prefill_heavy-r03",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "prefill_heavy",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-prefill_heavy-r03.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 60,
+      "active_order": 60,
+      "shard_id": "ministral3_3b_bf16-prefill_heavy-r04",
+      "model_key": "ministral3_3b_bf16",
+      "workload": "prefill_heavy",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "ministral3_3b_bf16-prefill_heavy-r04.zip",
+      "status": "QUEUED",
+      "skip_reason": null
+    },
+    {
+      "historical_order": 61,
+      "active_order": null,
+      "shard_id": "gemma3_4b-short-r00",
+      "model_key": "gemma3_4b",
+      "workload": "short",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-short-r00.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 62,
+      "active_order": null,
+      "shard_id": "gemma3_4b-short-r01",
+      "model_key": "gemma3_4b",
+      "workload": "short",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-short-r01.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 63,
+      "active_order": null,
+      "shard_id": "gemma3_4b-short-r02",
+      "model_key": "gemma3_4b",
+      "workload": "short",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-short-r02.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 64,
+      "active_order": null,
+      "shard_id": "gemma3_4b-short-r03",
+      "model_key": "gemma3_4b",
+      "workload": "short",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-short-r03.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 65,
+      "active_order": null,
+      "shard_id": "gemma3_4b-short-r04",
+      "model_key": "gemma3_4b",
+      "workload": "short",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-short-r04.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 66,
+      "active_order": null,
+      "shard_id": "gemma3_4b-balanced-r00",
+      "model_key": "gemma3_4b",
+      "workload": "balanced",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-balanced-r00.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 67,
+      "active_order": null,
+      "shard_id": "gemma3_4b-balanced-r01",
+      "model_key": "gemma3_4b",
+      "workload": "balanced",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-balanced-r01.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 68,
+      "active_order": null,
+      "shard_id": "gemma3_4b-balanced-r02",
+      "model_key": "gemma3_4b",
+      "workload": "balanced",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-balanced-r02.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 69,
+      "active_order": null,
+      "shard_id": "gemma3_4b-balanced-r03",
+      "model_key": "gemma3_4b",
+      "workload": "balanced",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-balanced-r03.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 70,
+      "active_order": null,
+      "shard_id": "gemma3_4b-balanced-r04",
+      "model_key": "gemma3_4b",
+      "workload": "balanced",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-balanced-r04.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 71,
+      "active_order": null,
+      "shard_id": "gemma3_4b-prefill_heavy-r00",
+      "model_key": "gemma3_4b",
+      "workload": "prefill_heavy",
+      "repetition": 0,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-prefill_heavy-r00.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 72,
+      "active_order": null,
+      "shard_id": "gemma3_4b-prefill_heavy-r01",
+      "model_key": "gemma3_4b",
+      "workload": "prefill_heavy",
+      "repetition": 1,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-prefill_heavy-r01.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 73,
+      "active_order": null,
+      "shard_id": "gemma3_4b-prefill_heavy-r02",
+      "model_key": "gemma3_4b",
+      "workload": "prefill_heavy",
+      "repetition": 2,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-prefill_heavy-r02.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 74,
+      "active_order": null,
+      "shard_id": "gemma3_4b-prefill_heavy-r03",
+      "model_key": "gemma3_4b",
+      "workload": "prefill_heavy",
+      "repetition": 3,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-prefill_heavy-r03.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    },
+    {
+      "historical_order": 75,
+      "active_order": null,
+      "shard_id": "gemma3_4b-prefill_heavy-r04",
+      "model_key": "gemma3_4b",
+      "workload": "prefill_heavy",
+      "repetition": 4,
+      "concurrency": [
+        1,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "tensor_parallel_sizes": [
+        1,
+        2
+      ],
+      "serving_cells": 12,
+      "expected_artifact": "gemma3_4b-prefill_heavy-r04.zip",
+      "status": "SKIPPED_BY_COMPATIBILITY_GATE",
+      "skip_reason": "FAILED_FROZEN_COMPATIBILITY_GATE"
+    }
+  ]
+}

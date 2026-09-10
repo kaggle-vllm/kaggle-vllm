@@ -1,0 +1,32 @@
+import json
+from pathlib import Path
+
+from scripts.generate_m4_queue import build_queue
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_queue_preserves_negative_compatibility_and_historical_shards() -> None:
+    plan = json.loads((ROOT / "research/M4_EXECUTION_PLAN.json").read_text())
+    evidence = json.loads((ROOT / "research/M4_EVIDENCE_STATUS.json").read_text())
+    queue = build_queue(plan, evidence)
+
+    assert queue["compatibility_population"] == 5
+    assert queue["principal_model_count"] == 4
+    assert queue["queued_shards"] == 60
+    assert queue["queued_serving_cells"] == 720
+    assert queue["skipped_gemma_shards"] == 15
+    assert queue["next_shard_id"] == "qwen25_3b-short-r00"
+    gemma = [row for row in queue["queue"] if row["model_key"] == "gemma3_4b"]
+    assert len(gemma) == 15
+    assert {row["status"] for row in gemma} == {"SKIPPED_BY_COMPATIBILITY_GATE"}
+    assert all(row["active_order"] is None for row in gemma)
+
+
+def test_negative_compatibility_is_not_a_zero_throughput_result() -> None:
+    evidence = json.loads((ROOT / "research/M4_EVIDENCE_STATUS.json").read_text())
+    gemma = evidence["compatibility"]["gemma3_4b"]
+    assert gemma["status"] == "UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK"
+    assert gemma["throughput"] is None
+    assert gemma["principal_eligible"] is False
+    assert evidence["milestone_status"] == "IN_PROGRESS"

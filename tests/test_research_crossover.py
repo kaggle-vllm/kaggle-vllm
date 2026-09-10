@@ -9,7 +9,14 @@ from kaggle_vllm.research.crossover import M4_RAW_SCHEMA, analyze_m4
 from kaggle_vllm.research.errors import ResearchEvidenceError
 
 
-def row(tp: int, repetition: int, *, throughput: float, latency: float) -> dict:
+def row(
+    tp: int,
+    repetition: int,
+    *,
+    throughput: float,
+    latency: float,
+    concurrency: int = 16,
+) -> dict:
     return {
         "schema_version": M4_RAW_SCHEMA,
         "model_id": "example/model",
@@ -18,7 +25,7 @@ def row(tp: int, repetition: int, *, throughput: float, latency: float) -> dict:
         "input_tokens": 128,
         "output_tokens_requested": 64,
         "tensor_parallel_size": tp,
-        "concurrency": 16,
+        "concurrency": concurrency,
         "repetition": repetition,
         "request_throughput_per_second": throughput / 64,
         "input_tokens_per_second": throughput * 2,
@@ -109,3 +116,25 @@ def test_capacity_is_not_mislabeled_as_throughput(tmp_path: Path) -> None:
     cell = analyze_m4(write(tmp_path, rows))["cells"][0]
     assert cell["classifications"] == ["CAPACITY_CROSSOVER"]
     assert cell["tp2_over_tp1_output_speedup"] is None
+
+
+def test_crossover_summary_uses_first_sustained_robust_point(tmp_path: Path) -> None:
+    rows = []
+    for concurrency in (1, 4, 8, 16, 32, 64):
+        for repetition in range(5):
+            rows.extend(
+                [
+                    row(1, repetition, throughput=100, latency=100, concurrency=concurrency),
+                    row(
+                        2,
+                        repetition,
+                        throughput=90 if concurrency < 16 else 130,
+                        latency=110 if concurrency < 16 else 80,
+                        concurrency=concurrency,
+                    ),
+                ]
+            )
+    summary = analyze_m4(write(tmp_path, rows))["crossover_summary"][0]
+    assert summary["principal_grid_complete"] is True
+    assert summary["throughput_crossover_concurrency"] == 16
+    assert summary["latency_crossover_concurrency"] == 16

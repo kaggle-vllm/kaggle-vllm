@@ -224,6 +224,30 @@ def workload_table_rows(path: Path) -> list[dict[str, Any]]:
     ]
 
 
+def compatibility_table_rows(model_path: Path, evidence_path: Path) -> list[dict[str, Any]]:
+    models = load_object(model_path)["models"]
+    outcomes = load_object(evidence_path)["compatibility"]
+    order = ["qwen25_3b", "phi4_mini", "ministral3_3b_bf16", "llama32_3b", "gemma3_4b"]
+    rows = []
+    for key in order:
+        outcome = outcomes[key]
+        passed = outcome["status"] == "COMPATIBILITY_PASS"
+        rows.append(
+            {
+                "model_key": key,
+                "model_id": models[key]["hf_id"],
+                "architecture": models[key]["architecture"],
+                "frozen_dtype": "float16",
+                "tp1": "PASS" if passed else "FAIL_BEFORE_READINESS",
+                "tp2": "PASS" if passed else "FAIL_BEFORE_READINESS",
+                "compatibility_status": outcome["status"],
+                "principal_eligible": passed,
+                "performance": "MEASURED_GATE_ONLY" if passed else "N/A_COMPATIBILITY_GATED",
+            }
+        )
+    return rows
+
+
 def claim_boundary_rows(path: Path) -> list[dict[str, str]]:
     boundaries = load_object(path)
     return [
@@ -257,12 +281,42 @@ def write_control_tables(args: argparse.Namespace) -> None:
     write_csv(args.tables / "model_matrix.csv", model_table_rows(args.model_matrix))
     write_csv(args.tables / "workload_matrix.csv", workload_table_rows(args.m4_protocol))
     write_csv(
+        args.tables / "m4_compatibility_gate.csv",
+        compatibility_table_rows(args.model_matrix, args.m4_evidence_status),
+    )
+    write_csv(
         args.tables / "claim_boundaries.csv",
         claim_boundary_rows(args.claim_boundaries),
     )
     if args.m3 is not None:
         write_csv(args.tables / "hardware_runtime.csv", hardware_runtime_rows(args.m3))
         write_csv(args.tables / "m3_communication_fit.csv", m3_fit_rows(args.m3))
+
+
+def write_architecture_svg(path: Path) -> None:
+    """Write the data-independent system/runtime architecture panel."""
+
+    boxes = [
+        (40, 75, 180, 70, "Frozen notebook\nM4_SHARD_ID"),
+        (270, 75, 180, 70, "kaggle-vllm 0.2.0\nidentity + guards"),
+        (500, 30, 180, 70, "vLLM TP1\nTesla T4 GPU 0"),
+        (500, 120, 180, 70, "vLLM TP2\nT4 0 ↔ PHB ↔ T4 1"),
+        (730, 75, 180, 70, "Checksummed evidence\nlogs + metrics + telemetry"),
+    ]
+    parts = [
+        '<svg xmlns="http://www.w3.org/2000/svg" width="950" height="230" viewBox="0 0 950 230">',
+        '<rect width="100%" height="100%" fill="white"/>',
+        '<text x="475" y="22" text-anchor="middle" font-size="18">kaggle-vllm experimental and evidence architecture</text>',
+        '<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#444"/></marker></defs>',
+    ]
+    for x, y, width, height, label in boxes:
+        parts.append(f'<rect x="{x}" y="{y}" width="{width}" height="{height}" rx="8" fill="#eef4fb" stroke="#315a87"/>')
+        for index, line in enumerate(label.split("\n")):
+            parts.append(f'<text x="{x + width / 2}" y="{y + 30 + index * 20}" text-anchor="middle" font-size="14">{html.escape(line)}</text>')
+    for x1, y1, x2, y2 in ((220, 110, 270, 110), (450, 110, 500, 65), (450, 110, 500, 155), (680, 65, 730, 110), (680, 155, 730, 110)):
+        parts.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="#444" stroke-width="2" marker-end="url(#arrow)"/>')
+    parts.append("</svg>")
+    path.write_text("\n".join(parts) + "\n", encoding="utf-8")
 
 
 def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
@@ -339,6 +393,7 @@ def generate_svg_fallback(args: argparse.Namespace) -> dict[str, str]:
     args.figures.mkdir(parents=True, exist_ok=True)
     args.tables.mkdir(parents=True, exist_ok=True)
     write_control_tables(args)
+    write_architecture_svg(args.figures / "00_runtime_architecture.svg")
     first = m1_data(args.m1)
     second = m2_data(args.m2)
     write_csv(args.tables / "m1_tp1_tp2.csv", first)
@@ -429,7 +484,7 @@ def generate_svg_fallback(args: argparse.Namespace) -> dict[str, str]:
             if args.m3 is None
             else "GENERATED_SVG_FROM_MEASURED_EVIDENCE"
         ),
-        "m4": "UNSUPPORTED_NO_M4_EVIDENCE" if args.m4 is None else "MATPLOTLIB_REQUIRED_FOR_M4",
+        "m4": "UNSUPPORTED_NO_M4_PRINCIPAL_EVIDENCE" if args.m4 is None else "MATPLOTLIB_REQUIRED_FOR_M4",
         "m5": "UNSUPPORTED_NO_VALID_SIMULATOR_EVIDENCE" if args.m5 is None else "MATPLOTLIB_REQUIRED_FOR_M5",
         "format_note": "Matplotlib unavailable; dependency-free SVG generated. Install research-only Matplotlib for PNG/PDF.",
     }
@@ -447,6 +502,7 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
     args.figures.mkdir(parents=True, exist_ok=True)
     args.tables.mkdir(parents=True, exist_ok=True)
     write_control_tables(args)
+    write_architecture_svg(args.figures / "00_runtime_architecture.svg")
     status: dict[str, str] = {}
     first = m1_data(args.m1)
     write_csv(args.tables / "m1_tp1_tp2.csv", first)
@@ -534,7 +590,7 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
         status["m3"] = "GENERATED_FROM_MEASURED_EVIDENCE"
 
     if args.m4 is None:
-        status["m4"] = "UNSUPPORTED_NO_M4_EVIDENCE"
+        status["m4"] = "UNSUPPORTED_NO_M4_PRINCIPAL_EVIDENCE"
     else:
         analysis = load_object(args.m4)
         cells = analysis.get("cells")
@@ -557,11 +613,23 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
                 "tp2_ttft_ms": mean_or_none(cell["tp2"]["ttft_ms"]),
                 "tp1_tpot_ms": mean_or_none(cell["tp1"]["tpot_ms"]),
                 "tp2_tpot_ms": mean_or_none(cell["tp2"]["tpot_ms"]),
+                "tp1_itl_ms": mean_or_none(cell["tp1"]["itl_ms"]),
+                "tp2_itl_ms": mean_or_none(cell["tp2"]["itl_ms"]),
+                "tp1_e2e_latency_ms": mean_or_none(cell["tp1"]["e2e_latency_ms"]),
+                "tp2_e2e_latency_ms": mean_or_none(cell["tp2"]["e2e_latency_ms"]),
+                "tp1_maximum_vram_mib": mean_or_none(cell["tp1"]["maximum_vram_mib"]),
+                "tp2_maximum_vram_mib": mean_or_none(cell["tp2"]["maximum_vram_mib"]),
+                "tp1_gpu_utilization_percent": mean_or_none(cell["tp1"]["gpu_utilization_percent"]),
+                "tp2_gpu_utilization_percent": mean_or_none(cell["tp2"]["gpu_utilization_percent"]),
                 "classifications": ";".join(cell["classifications"]),
             }
             for cell in cells
         ]
         write_csv(args.tables / "m4_crossover_cells.csv", flat_cells)
+        summaries = analysis.get("crossover_summary")
+        if not isinstance(summaries, list) or not summaries:
+            raise ValueError("M4 analysis has no predefined crossover summary")
+        write_csv(args.tables / "m4_crossover_summary.csv", summaries)
         models = sorted({cell["model_id"] for cell in cells})
         workloads = sorted({cell["workload"] for cell in cells})
         minimum_repetitions = min(cell["repetitions"] for cell in cells)
@@ -569,6 +637,8 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
             ("06_m4_multimodel_crossover", "output_tokens_per_second", "Output tokens/s"),
             ("08_m4_ttft", "ttft_ms", "TTFT (ms)"),
             ("09_m4_tpot", "tpot_ms", "TPOT (ms/token)"),
+            ("10_m4_itl", "itl_ms", "ITL (ms/event)"),
+            ("11_m4_e2e_latency", "e2e_latency_ms", "E2E latency (ms)"),
         ):
             figure, axis = plt.subplots(figsize=(10, 6))
             for model in models:
@@ -667,6 +737,11 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--m4-protocol", type=Path, default=Path("research/m4_protocol.json")
+    )
+    parser.add_argument(
+        "--m4-evidence-status",
+        type=Path,
+        default=Path("research/M4_EVIDENCE_STATUS.json"),
     )
     parser.add_argument(
         "--claim-boundaries",

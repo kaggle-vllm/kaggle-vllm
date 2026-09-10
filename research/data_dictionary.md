@@ -49,6 +49,6 @@ Compatibility-gated models have no benchmark throughput observation. A
 pre-readiness failure is represented by `status=failed`, a specific failure
 classification, zero issued requests, and null throughput/latency metrics. It
 must not be converted to throughput zero or plotted as a measured performance
-point. `principal_eligible=false` means the model cannot enter principal shards
-unless and until its frozen compatibility gate passes; planned shard IDs remain
-auditable rather than being deleted.
+point. `principal_eligible=false` means the model cannot enter principal shards.
+A canonical failed gate uses `SKIPPED_BY_COMPATIBILITY_GATE`; planned shard IDs
+remain auditable rather than being deleted.

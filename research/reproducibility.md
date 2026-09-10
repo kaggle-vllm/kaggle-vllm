@@ -25,7 +25,9 @@ clean Llama 3.2, and clean Ministral compatibility shards are accepted under
 `artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/` and
 `artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini/`,
 `artifacts/kaggle-2026-09-08-milestone-4/compatibility/llama32_3b/`, and
-`artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/`;
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/`.
+The canonical Gemma negative is under
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/gemma3_4b/`;
 M4 remains in progress without an accepted principal matrix.
 Generate the currently supported figures from the immutable evidence with:
 
@@ -49,6 +51,20 @@ whose checksum and semantic audits pass. `M4_EXECUTION_PLAN.json` fixes the
 principal order; refinements are selected only after recording the observed
 transition boundary. GuideLLM remains an independently versioned client at
 commit `fc2dbe9edd4f7f1a4e9ccd752f6f43591adbcb73`.
+
+Audit and stage each downloaded shard without editing the notebook:
+
+```bash
+PYTHONPATH=src /usr/local/bin/python3.11 -m kaggle_vllm.research ingest-m4 \
+  --notebook /absolute/path/to/executed.ipynb \
+  --evidence-zip /absolute/path/to/shard.zip \
+  --runtime /absolute/path/to/runtime.json
+```
+
+The command refuses notebook-source drift, unsafe ZIP members, checksum drift,
+source/runtime/model/token/grid mismatches, resource-limit violations, and
+duplicate content. It stages a content-addressed candidate under excluded
+`.local-evidence/`; canonical repository promotion remains a reviewed action.
 
 The accepted Qwen compatibility ZIP SHA256 is
 `cd3c45dddf19830649b03a931cee0247d6f8b4ebbc953c433e3ade563b271ecb`;
@@ -88,8 +104,8 @@ Earlier `ACCESS_PENDING_AT_EXECUTION` and `TOKEN_AUTHORIZATION_BLOCKED`
 attempts remain access records. The manually edited successful retry remains
 excluded `DEBUG_COMPATIBILITY_PASS` evidence and is not promoted or averaged.
 
-The Gemma diagnostic review is recorded in
-`M4_GEMMA3_DIAGNOSTIC_REVIEW.json`. Three independently verified ZIPs have
+The Gemma diagnostic history and final closure are recorded in
+`M4_GEMMA3_DIAGNOSTIC_REVIEW.json`. Three earlier independently verified ZIPs have
 SHA256 values
 `f560479c6f5b119a17a7dbb5ce582e7fc72623bd586c2755f1e36e7e76f0bcdf`,
 `9c3e77dba701d4f051d1edcab59431759630bab9a3494cf68e69c2e9c725d67a`,
@@ -99,7 +115,12 @@ requests. Available executed-notebook SHA256 values are
 `bea77a4c2e633be3d6ab6c65829dca7f94da3beec5dee9037580ce160a97fff8`
 and `54e53c09925ff45a2791edadef85d7e4ed6bda2509735f64d21b38fc06cfcac1`;
 both contain replacement diagnostic execution code, while the middle ZIP has
-no available notebook. These attempts are therefore diagnostic only. A single
-fresh `compat-gemma3_4b` run from the unchanged frozen notebook is required to
-canonicalize the expected negative result; it must not change dtype or attempt
-to make Gemma pass.
+no available notebook. These attempts remain diagnostic only. Final p13 used a
+source-equivalent frozen notebook; its ZIP SHA256 is
+`6404b8abe22fc06211409288e59ae1d844354c1b12282a8c9140161c30347c12`, executed
+notebook SHA256 is
+`f1800e9be84fa297880960159da906612e1ef79d46b2c34344d27f0bbe2feee8`, and runtime
+JSON SHA256 is
+`8e747082b76d39852fa5838a3ce17f0ca8e392e7bac6ae4e0718700470e90ff5`.
+Both TP modes reproduce the negative dtype boundary. No further Gemma run is
+requested.

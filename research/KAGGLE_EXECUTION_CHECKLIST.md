@@ -119,49 +119,34 @@ records, not compatibility failures. The successful manually edited retry
 remains excluded `DEBUG_COMPATIBILITY_PASS` evidence and was used only for
 plausibility comparison, never averaging.
 
-Gemma has been attempted repeatedly. Three available evidence ZIPs pass CRC,
-archive-safety, internal SHA256, and repository-verifier checks. In all three,
+Gemma was attempted repeatedly. The final p13 evidence ZIP passes CRC,
+archive-safety, internal SHA256, and repository-verifier checks. Its executed
+notebook exactly matches the frozen notebook sources. In p13 and three earlier
+verified diagnostic ZIPs,
 both TP1 and TP2 resolve `Gemma3ForConditionalGeneration` and then fail before
 readiness because the frozen `float16` request is rejected by the Gemma3
 numerical-stability guard. No requests were issued; OOM, NCCL, authentication,
-wheel mismatch, and dirty source are not the observed cause. However, the
-available associated executed notebooks contain replacement diagnostic code,
-or the executed notebook is unavailable. This is
-`REPRODUCED_NEGATIVE_DIAGNOSTIC_EVIDENCE`, not canonical evidence. See
-`M4_GEMMA3_DIAGNOSTIC_REVIEW.json`.
+wheel mismatch, and dirty source are not the observed cause. The final result
+is the canonical, narrowly scoped
+`UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK`; earlier attempts remain
+diagnostic history. See `M4_GEMMA3_DIAGNOSTIC_REVIEW.json` and the canonical
+artifact directory.
 
 ## M4 compatibility order
 
-The model order remains fixed below. Ministral was audited while Llama access
-was pending; the later clean Llama run is now accepted, so Gemma is the final
-compatibility gate before any principal shard:
+The historical model order remains fixed below. The compatibility phase is now
+closed:
 
 1. `compat-qwen25_3b` — `COMPATIBILITY_PASS`
 2. `compat-phi4_mini` — `COMPATIBILITY_PASS`
 3. `compat-llama32_3b` — `COMPATIBILITY_PASS`; earlier access failures and
    manual debug retry remain noncanonical history
 4. `compat-ministral3_3b_bf16` — `COMPATIBILITY_PASS`
-5. `compat-gemma3_4b` — **NEXT**,
-   `ONE_FINAL_CLEAN_GEMMA_CANONICALIZATION_RUN_REQUIRED`
+5. `compat-gemma3_4b` —
+   `UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK`
 
-For the next run, use the same `M4_SHARD_ID` secret key and change only its
-value to `compat-gemma3_4b`. Start a fresh T4 x2 session and reuse the same
-unmodified `kaggle_vllm_m4_execute_shard.ipynb` pinned to implementation commit
-`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. Do not execute Gemma locally.
-Verify that the exact corrected `HF_TOKEN` configured in Kaggle has gated-
-repository read permission for the approved account and accepted Gemma terms.
-Use exactly `google/gemma-3-4b-it` at model and tokenizer revision
-`093f9f388b31de276ce2de164bdc2081324b9767`. Do not change the reviewed FP16
-runtime request, 0.9 GPU-memory utilization, maximum model length, TP settings,
-or any other runner argument to force a result. Gemma is a multimodal-capable,
-memory-risk gate. The expected outcome is the same preserved negative dtype
-result; the purpose is provenance canonicalization, not making Gemma pass. Do
-not run BF16 or FP32. A preserved unsupported or resource-gate result is valid
-evidence and must not be relabeled.
-
-If the clean run reproduces the exact dtype gate and passes provenance review,
-classify it narrowly for the pinned model/revision, native wheel, FP16 protocol,
-and SM75 hardware. Retain the 15 planned Gemma principal shard IDs as
+No further Gemma run is requested. Retain the 15 planned Gemma principal shard
+IDs as
 `SKIPPED_BY_COMPATIBILITY_GATE`; do not delete them or represent their
 throughput as zero. The remaining principal population is Qwen, Phi, Ministral,
 and Llama (60 planned shards). Gemma 4 is not a substitute and is out of scope
@@ -172,8 +157,7 @@ architecture incompatibility. For any model, a preserved unsupported/OOM
 outcome is valid negative evidence. Do not run its principal shards unless the
 compatibility gate passes.
 
-Do not run any principal shard or M5 until `compat-gemma3_4b` has been executed
-in a fresh session, downloaded, and independently audited.
+The exact next execution is `M4_SHARD_ID=qwen25_3b-short-r00`.
 
 ## M4 principal order
 
@@ -184,11 +168,12 @@ For each compatibility-passing model in the same model order above, run:
 3. within every shard the notebook fixes concurrency order to 1, 4, 8, 16, 32,
    64 and interleaves TP1 then TP2.
 
-The 75 fully enumerated possible shard IDs and prerequisites are in
+The 75 historically enumerated possible shard IDs and prerequisites are in
 `M4_EXECUTION_PLAN.json`; models that fail compatibility reduce the executed
-set. After a canonical Gemma negative, the first principal shard is
-`qwen25_3b-short-r00`. Audit every ZIP hash, source identity, prompt-manifest
-hash, exact token counts, resource telemetry, failures, and `SHA256SUMS.txt`.
+set. The active 60-shard queue and 15 explicit Gemma skips are in
+`M4_PRINCIPAL_EXECUTION_QUEUE.json`. Audit every ZIP hash, source identity,
+prompt-manifest hash, exact token counts, resource telemetry, failures, and
+`SHA256SUMS.txt`.
 Assemble only accepted principal shards with:
 
 ```bash

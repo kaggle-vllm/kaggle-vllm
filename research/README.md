@@ -11,7 +11,7 @@ new package release.
 | M1 — runtime/TP characterization | COMPLETE | Preserved Kaggle evidence, 2026-09-01 |
 | M2 — Qwen serving crossover | COMPLETE | Preserved Kaggle evidence, 2026-09-02 |
 | M3 — measured NCCL/PHB communication | COMPLETE | Canonical clean-source Kaggle evidence, 2026-09-07 |
-| M4 — multi-model crossover | IN_PROGRESS | Four compatibility passes accepted; Gemma diagnostic negative reproduced but needs one clean canonicalization run; principal matrix not started |
+| M4 — multi-model crossover | IN_PROGRESS | Five-model gate closed: four passes and one canonical Gemma negative; four-model principal matrix ready for Kaggle |
 | M5 — simulator validation | OPTIONAL / SIMULATOR_COMPATIBILITY_LIMITATION | Required local Vidur source was not present |
 
 The research questions and evidence vocabulary are defined in
@@ -24,8 +24,11 @@ Machine-readable control files:
 - `m4_protocol.json`: M4 token workloads, matrix, repetitions and crossover rule.
 - `M4_EXECUTION_PLAN.json`: exact compatibility, principal and GuideLLM shard order.
 - `M4_SOURCE_FREEZE.json`: reviewed source/notebook/tool hashes; not GPU evidence.
-- `M4_EVIDENCE_STATUS.json`: accepted-shard ledger and next compatibility gate.
-- `M4_GEMMA3_DIAGNOSTIC_REVIEW.json`: diagnostic failure audit and canonicalization decision.
+- `M4_EVIDENCE_STATUS.json`: accepted compatibility ledger and next principal shard.
+- `M4_GEMMA3_DIAGNOSTIC_REVIEW.json`: diagnostic history and final p13 canonical closure.
+- `M4_PRINCIPAL_EXECUTION_QUEUE.json`: active principal queue plus auditable Gemma skips.
+- `../scripts/generate_m4_queue.py`: deterministic active-queue generator.
+- `python -m kaggle_vllm.research ingest-m4`: fail-closed download audit and local staging.
 - `RESEARCH_MANIFEST.json`: research files, evidence sources and status gates.
 - `PUBLICATION_READINESS.md`: explicit paper-readiness gates and blockers.
 - `tooling_feasibility.md`: exact GuideLLM, Nsight and Vidur decisions.
@@ -36,14 +39,12 @@ No generated number should enter a paper table manually. The scripts in
 `analysis/` read committed machine-readable evidence and emit figures/tables.
 The M4 runner and local assembler are prepared. Five models entered the frozen
 compatibility population. Qwen, clean-rerun Phi, clean Llama 3.2, and text-only
-Ministral passed. Three hash-verified Gemma evidence ZIPs reproduce the same
-FP16 model-config rejection on SM75, but no available executed Gemma notebook
-matches the frozen source cells. Gemma therefore remains
-`REPRODUCED_NEGATIVE_DIAGNOSTIC_EVIDENCE` pending one unchanged clean
-canonicalization run; the principal matrix and M5 independent validation are
-not complete. If the clean run reproduces the boundary, the principal study
-population is the four compatibility-passing models and Gemma remains a
-negative compatibility result, not throughput zero. The earlier Phi
+Ministral passed. The final hash-verified p13 Gemma ZIP and source-equivalent
+executed notebook establish the canonical, narrowly scoped
+`UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK`. The principal matrix and
+M5 independent validation are not complete. The principal study population is
+the four compatibility-passing models; Gemma remains a negative compatibility
+result with N/A throughput, not throughput zero. The earlier Phi
 notebook-drift candidate remains rejected
 and is not combined with the accepted rerun. Llama's access-pending and token-
 authorization failures remain access records, while its manually edited retry
