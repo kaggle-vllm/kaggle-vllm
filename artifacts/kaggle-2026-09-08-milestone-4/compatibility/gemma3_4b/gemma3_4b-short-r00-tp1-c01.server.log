@@ -1,0 +1,57 @@
+(APIServer pid=253) INFO 09-10 15:42:07 [utils.py:297] 
+(APIServer pid=253) INFO 09-10 15:42:07 [utils.py:297]        █     █     █▄   ▄█
+(APIServer pid=253) INFO 09-10 15:42:07 [utils.py:297]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.18.2.dev0+ga26e8dc7f.d20260822
+(APIServer pid=253) INFO 09-10 15:42:07 [utils.py:297]   █▄█▀ █     █     █     █  model   google/gemma-3-4b-it
+(APIServer pid=253) INFO 09-10 15:42:07 [utils.py:297]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=253) INFO 09-10 15:42:07 [utils.py:297] 
+(APIServer pid=253) INFO 09-10 15:42:07 [utils.py:233] non-default args: {'model_tag': 'google/gemma-3-4b-it', 'host': '127.0.0.1', 'model': 'google/gemma-3-4b-it', 'dtype': 'float16', 'revision': '093f9f388b31de276ce2de164bdc2081324b9767', 'max_model_len': 4096, 'enforce_eager': True, 'served_model_name': ['gemma3_4b'], 'disable_custom_all_reduce': True, 'enable_prefix_caching': False, 'max_num_seqs': 64}
+(APIServer pid=253) INFO 09-10 15:42:25 [model.py:533] Resolved architecture: Gemma3ForConditionalGeneration
+(APIServer pid=253) Traceback (most recent call last):
+(APIServer pid=253)   File "/kaggle/working/kaggle-vllm-runtime/staged/bin/vllm", line 8, in <module>
+(APIServer pid=253)     sys.exit(main())
+(APIServer pid=253)              ^^^^^^
+(APIServer pid=253)   File "/kaggle/working/kaggle-vllm-runtime/staged/vllm/entrypoints/cli/main.py", line 75, in main
+(APIServer pid=253)     args.dispatch_function(args)
+(APIServer pid=253)   File "/kaggle/working/kaggle-vllm-runtime/staged/vllm/entrypoints/cli/serve.py", line 118, in cmd
+(APIServer pid=253)     uvloop.run(run_server(args))
+(APIServer pid=253)   File "/usr/local/lib/python3.12/dist-packages/uvloop/__init__.py", line 96, in run
+(APIServer pid=253)     return __asyncio.run(
+(APIServer pid=253)            ^^^^^^^^^^^^^^
+(APIServer pid=253)   File "/usr/lib/python3.12/asyncio/runners.py", line 195, in run
+(APIServer pid=253)     return runner.run(main)
+(APIServer pid=253)            ^^^^^^^^^^^^^^^^
+(APIServer pid=253)   File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+(APIServer pid=253)     return self._loop.run_until_complete(task)
+(APIServer pid=253)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=253)   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+(APIServer pid=253)   File "/usr/local/lib/python3.12/dist-packages/uvloop/__init__.py", line 48, in wrapper
+(APIServer pid=253)     return await main
+(APIServer pid=253)            ^^^^^^^^^^
+(APIServer pid=253)   File "/kaggle/working/kaggle-vllm-runtime/staged/vllm/entrypoints/openai/api_server.py", line 656, in run_server
+(APIServer pid=253)     await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+(APIServer pid=253)   File "/kaggle/working/kaggle-vllm-runtime/staged/vllm/entrypoints/openai/api_server.py", line 670, in run_server_worker
+(APIServer pid=253)     async with build_async_engine_client(
+(APIServer pid=253)                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=253)   File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=253)     return await anext(self.gen)
+(APIServer pid=253)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=253)   File "/kaggle/working/kaggle-vllm-runtime/staged/vllm/entrypoints/openai/api_server.py", line 103, in build_async_engine_client
+(APIServer pid=253)     async with build_async_engine_client_from_engine_args(
+(APIServer pid=253)                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=253)   File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=253)     return await anext(self.gen)
+(APIServer pid=253)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=253)   File "/kaggle/working/kaggle-vllm-runtime/staged/vllm/entrypoints/openai/api_server.py", line 129, in build_async_engine_client_from_engine_args
+(APIServer pid=253)     vllm_config = engine_args.create_engine_config(usage_context=usage_context)
+(APIServer pid=253)                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=253)   File "/kaggle/working/kaggle-vllm-runtime/staged/vllm/engine/arg_utils.py", line 1508, in create_engine_config
+(APIServer pid=253)     model_config = self.create_model_config()
+(APIServer pid=253)                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=253)   File "/kaggle/working/kaggle-vllm-runtime/staged/vllm/engine/arg_utils.py", line 1360, in create_model_config
+(APIServer pid=253)     return ModelConfig(
+(APIServer pid=253)            ^^^^^^^^^^^^
+(APIServer pid=253)   File "/usr/local/lib/python3.12/dist-packages/pydantic/_internal/_dataclasses.py", line 121, in __init__
+(APIServer pid=253)     s.__pydantic_validator__.validate_python(ArgsKwargs(args, kwargs), self_instance=s)
+(APIServer pid=253) pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+(APIServer pid=253)   Value error, The model type 'gemma3' does not support float16. Reason: Numerical instability. Please use bfloat16 or float32 instead. [type=value_error, input_value=ArgsKwargs((), {'model': ...rocessor_plugin': None}), input_type=ArgsKwargs]
+(APIServer pid=253)     For further information visit https://errors.pydantic.dev/2.12/v/value_error
