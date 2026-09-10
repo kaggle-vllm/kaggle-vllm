@@ -12,7 +12,7 @@ new package release.
 | M2 — Qwen serving crossover | COMPLETE | Preserved Kaggle evidence, 2026-09-02 |
 | M3 — measured NCCL/PHB communication | COMPLETE | Canonical clean-source Kaggle evidence, 2026-09-07 |
 | M4 — multi-model crossover | IN_PROGRESS | Five-model gate closed: four passes and one canonical Gemma negative; four-model principal matrix ready for Kaggle |
-| M5 — simulator validation | OPTIONAL / SIMULATOR_COMPATIBILITY_LIMITATION | Required local Vidur source was not present |
+| M5 — GuideLLM external validation | INCOMPLETE / POST-M4 | Prepared 30-shard Qwen balanced cross-check; Vidur source absent and no simulation fabricated |
 
 The research questions and evidence vocabulary are defined in
 [experiment_protocol.md](experiment_protocol.md). Run notebooks only in the
@@ -27,6 +27,9 @@ Machine-readable control files:
 - `M4_EVIDENCE_STATUS.json`: accepted compatibility ledger and next principal shard.
 - `M4_GEMMA3_DIAGNOSTIC_REVIEW.json`: diagnostic history and final p13 canonical closure.
 - `M4_PRINCIPAL_EXECUTION_QUEUE.json`: active principal queue plus auditable Gemma skips.
+- `M4_PRINCIPAL_EXECUTION_GUIDE.md`: one-shard download and ingestion procedure.
+- `HISTORICAL_QWEN_SHARDED_STATE.md`: scope of the external Qwen persistence evidence.
+- `M5_DECISION.md`: post-M4 GuideLLM gate and claim boundary.
 - `../scripts/generate_m4_queue.py`: deterministic active-queue generator.
 - `python -m kaggle_vllm.research ingest-m4`: fail-closed download audit and local staging.
 - `RESEARCH_MANIFEST.json`: research files, evidence sources and status gates.

@@ -208,6 +208,16 @@ def model_table_rows(path: Path) -> list[dict[str, Any]]:
     ]
 
 
+def principal_model_table_rows(
+    model_path: Path, evidence_path: Path
+) -> list[dict[str, Any]]:
+    """Select the predeclared principal population from the frozen model table."""
+
+    rows = {row["model_key"]: row for row in model_table_rows(model_path)}
+    principal = load_object(evidence_path)["principal_population"]
+    return [rows[key] for key in principal]
+
+
 def workload_table_rows(path: Path) -> list[dict[str, Any]]:
     protocol = load_object(path)
     return [
@@ -279,6 +289,10 @@ def m3_fit_rows(m3_root: Path) -> list[dict[str, Any]]:
 
 def write_control_tables(args: argparse.Namespace) -> None:
     write_csv(args.tables / "model_matrix.csv", model_table_rows(args.model_matrix))
+    write_csv(
+        args.tables / "m4_principal_model_metadata.csv",
+        principal_model_table_rows(args.model_matrix, args.m4_evidence_status),
+    )
     write_csv(args.tables / "workload_matrix.csv", workload_table_rows(args.m4_protocol))
     write_csv(
         args.tables / "m4_compatibility_gate.csv",
@@ -484,8 +498,16 @@ def generate_svg_fallback(args: argparse.Namespace) -> dict[str, str]:
             if args.m3 is None
             else "GENERATED_SVG_FROM_MEASURED_EVIDENCE"
         ),
-        "m4": "UNSUPPORTED_NO_M4_PRINCIPAL_EVIDENCE" if args.m4 is None else "MATPLOTLIB_REQUIRED_FOR_M4",
-        "m5": "UNSUPPORTED_NO_VALID_SIMULATOR_EVIDENCE" if args.m5 is None else "MATPLOTLIB_REQUIRED_FOR_M5",
+        "m4": (
+            "INCOMPLETE_NO_M4_PRINCIPAL_EVIDENCE"
+            if args.m4 is None
+            else "MATPLOTLIB_REQUIRED_FOR_M4"
+        ),
+        "m5": (
+            "INCOMPLETE_POST_M4_GUIDELLM_NOT_RUN"
+            if args.m5 is None
+            else "MATPLOTLIB_REQUIRED_FOR_M5"
+        ),
         "format_note": "Matplotlib unavailable; dependency-free SVG generated. Install research-only Matplotlib for PNG/PDF.",
     }
     (args.figures / "generation-status.json").write_text(json.dumps(status, indent=2) + "\n")
@@ -590,12 +612,48 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
         status["m3"] = "GENERATED_FROM_MEASURED_EVIDENCE"
 
     if args.m4 is None:
-        status["m4"] = "UNSUPPORTED_NO_M4_PRINCIPAL_EVIDENCE"
+        status["m4"] = "INCOMPLETE_NO_M4_PRINCIPAL_EVIDENCE"
     else:
         analysis = load_object(args.m4)
         cells = analysis.get("cells")
         if not isinstance(cells, list) or not cells:
             raise ValueError("M4 analysis has no cells")
+        evidence = load_object(args.m4_evidence_status)
+        models_by_key = load_object(args.model_matrix)["models"]
+        expected_models = {
+            (models_by_key[key]["hf_id"], models_by_key[key]["revision"])
+            for key in evidence["principal_population"]
+        }
+        protocol = load_object(args.m4_protocol)
+        expected_identities = {
+            (model_id, revision, workload, concurrency)
+            for model_id, revision in expected_models
+            for workload in protocol["workloads"]
+            for concurrency in protocol["principal_concurrency"]
+        }
+        actual_identities = {
+            (
+                cell.get("model_id"),
+                cell.get("model_revision"),
+                cell.get("workload"),
+                cell.get("concurrency"),
+            )
+            for cell in cells
+        }
+        if actual_identities != expected_identities or len(cells) != len(
+            expected_identities
+        ):
+            raise ValueError("M4 analysis does not contain the complete frozen principal grid")
+        minimum_required = protocol["principal_repetitions"]
+        if any(
+            cell.get("repetitions", 0) < minimum_required
+            or cell.get("tp1_failed_repetitions") != 0
+            or cell.get("tp2_failed_repetitions") != 0
+            for cell in cells
+        ):
+            raise ValueError(
+                "M4 analysis lacks five valid repetitions or contains unexpected failures"
+            )
         def mean_or_none(value: Any) -> Any:
             return value.get("mean") if isinstance(value, dict) else None
 
@@ -621,6 +679,10 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
                 "tp2_maximum_vram_mib": mean_or_none(cell["tp2"]["maximum_vram_mib"]),
                 "tp1_gpu_utilization_percent": mean_or_none(cell["tp1"]["gpu_utilization_percent"]),
                 "tp2_gpu_utilization_percent": mean_or_none(cell["tp2"]["gpu_utilization_percent"]),
+                "tp1_oom_repetitions": cell["tp1_oom_repetitions"],
+                "tp2_oom_repetitions": cell["tp2_oom_repetitions"],
+                "tp1_failed_repetitions": cell["tp1_failed_repetitions"],
+                "tp2_failed_repetitions": cell["tp2_failed_repetitions"],
                 "classifications": ";".join(cell["classifications"]),
             }
             for cell in cells
@@ -629,7 +691,43 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
         summaries = analysis.get("crossover_summary")
         if not isinstance(summaries, list) or not summaries:
             raise ValueError("M4 analysis has no predefined crossover summary")
+        if len(summaries) != len(expected_models) * len(protocol["workloads"]) or any(
+            summary.get("principal_grid_complete") is not True for summary in summaries
+        ):
+            raise ValueError("M4 crossover summary is incomplete")
         write_csv(args.tables / "m4_crossover_summary.csv", summaries)
+        resource_rows = []
+        for cell in cells:
+            for tp in (1, 2):
+                summary = cell[f"tp{tp}"]
+                resource_rows.append(
+                    {
+                        "model_id": cell["model_id"],
+                        "model_revision": cell["model_revision"],
+                        "workload": cell["workload"],
+                        "concurrency": cell["concurrency"],
+                        "tp": tp,
+                        "repetitions": cell["repetitions"],
+                        "maximum_vram_mib_mean": mean_or_none(
+                            summary["maximum_vram_mib"]
+                        ),
+                        "maximum_system_ram_bytes_mean": mean_or_none(
+                            summary["maximum_system_ram_bytes"]
+                        ),
+                        "gpu_utilization_percent_mean": mean_or_none(
+                            summary["gpu_utilization_percent"]
+                        ),
+                        "mean_power_w": mean_or_none(summary["mean_power_w"]),
+                        "maximum_temperature_c_mean": mean_or_none(
+                            summary["maximum_temperature_c"]
+                        ),
+                        "request_failures_mean": mean_or_none(
+                            summary["request_failures"]
+                        ),
+                        "oom_repetitions": cell[f"tp{tp}_oom_repetitions"],
+                    }
+                )
+        write_csv(args.tables / "m4_resource_summary.csv", resource_rows)
         models = sorted({cell["model_id"] for cell in cells})
         workloads = sorted({cell["workload"] for cell in cells})
         minimum_repetitions = min(cell["repetitions"] for cell in cells)
@@ -697,7 +795,7 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
         save_figure(figure, args.figures, "07_m4_speedup_heatmap"); plt.close(figure)
         status["m4"] = "FIGURES_AND_TABLE_GENERATED_FROM_MEASURED_EVIDENCE"
     if args.m5 is None:
-        status["m5"] = "UNSUPPORTED_NO_VALID_SIMULATOR_EVIDENCE"
+        status["m5"] = "INCOMPLETE_POST_M4_GUIDELLM_NOT_RUN"
     else:
         simulation = load_object(args.m5)
         if simulation.get("schema_version") != "kaggle-vllm-m5-simulator-comparison-v1":

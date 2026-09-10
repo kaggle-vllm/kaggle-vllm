@@ -65,7 +65,10 @@ reviewed M4 source identity
 4. set `M4_SHARD_ID` to exactly one ID from `M4_EXECUTION_PLAN.json`;
 5. run the unmodified notebook top to bottom;
 6. download the printed ZIP and the executed notebook;
-7. stop the session before starting another model/shard.
+7. separately download `/kaggle/working/kaggle-vllm-runtime/runtime.json`;
+8. run the local `ingest-m4` audit described in
+   `M4_PRINCIPAL_EXECUTION_GUIDE.md` and require PASS;
+9. stop the session before starting another model/shard.
 
 The runner starts a fresh vLLM server for every TP/concurrency cell, disables
 prefix caching, uses tokenizer-controlled `/v1/completions` prompts, requires

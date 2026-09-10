@@ -231,6 +231,16 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
                 "tp2_over_tp1_output_speedup": speedup_stats,
                 "tp1": tp_summaries["tp1"],
                 "tp2": tp_summaries["tp2"],
+                "tp1_oom_repetitions": sum(by_tp[1][rep]["oom"] for rep in repetitions),
+                "tp2_oom_repetitions": sum(by_tp[2][rep]["oom"] for rep in repetitions),
+                "tp1_failed_repetitions": sum(
+                    by_tp[1][rep]["oom"] or by_tp[1][rep]["request_failures"] > 0
+                    for rep in repetitions
+                ),
+                "tp2_failed_repetitions": sum(
+                    by_tp[2][rep]["oom"] or by_tp[2][rep]["request_failures"] > 0
+                    for rep in repetitions
+                ),
                 "classifications": classifications,
                 "evidence": "MEASURED_INPUT_DERIVED_COMPARISON",
             }

@@ -17,6 +17,11 @@ def test_queue_preserves_negative_compatibility_and_historical_shards() -> None:
     assert queue["queued_serving_cells"] == 720
     assert queue["skipped_gemma_shards"] == 15
     assert queue["next_shard_id"] == "qwen25_3b-short-r00"
+    assert queue["queue"][0]["expected_artifact"] == (
+        "qwen25_3b-short-r00-principal.zip"
+    )
+    assert "source-equivalence" in queue["queue"][0]["executed_notebook_role"]
+    assert "runtime-identity" in queue["queue"][0]["runtime_json_role"]
     gemma = [row for row in queue["queue"] if row["model_key"] == "gemma3_4b"]
     assert len(gemma) == 15
     assert {row["status"] for row in gemma} == {"SKIPPED_BY_COMPATIBILITY_GATE"}

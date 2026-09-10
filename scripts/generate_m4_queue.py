@@ -36,7 +36,15 @@ def build_queue(plan: dict[str, Any], evidence: dict[str, Any]) -> dict[str, Any
                 "concurrency": [1, 4, 8, 16, 32, 64],
                 "tensor_parallel_sizes": [1, 2],
                 "serving_cells": 12,
-                "expected_artifact": f"{historical['shard_id']}.zip",
+                "expected_artifact": f"{historical['shard_id']}-principal.zip",
+                "executed_notebook_role": (
+                    "downloaded executed copy of the frozen M4 notebook; "
+                    "required for source-equivalence audit"
+                ),
+                "runtime_json_role": (
+                    "separately downloaded bootstrap runtime.json; required for "
+                    "runtime-identity audit"
+                ),
                 "status": "QUEUED" if eligible else "SKIPPED_BY_COMPATIBILITY_GATE",
                 "skip_reason": None if eligible else "FAILED_FROZEN_COMPATIBILITY_GATE",
             }
@@ -76,6 +84,10 @@ def markdown(queue: dict[str, Any]) -> str:
         "",
         "Compatibility is closed. Use the unchanged frozen notebook in one fresh",
         "Kaggle T4 x2 session per row and change only the `M4_SHARD_ID` secret value.",
+        "For every active row, also download the executed copy of",
+        "`kaggle_vllm_m4_execute_shard.ipynb` and the separately generated",
+        "`/kaggle/working/kaggle-vllm-runtime/runtime.json`; both are mandatory",
+        "inputs to the local provenance audit.",
         "",
         f"Next: `M4_SHARD_ID={queue['next_shard_id']}`",
         "",

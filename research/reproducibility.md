@@ -65,6 +65,10 @@ The command refuses notebook-source drift, unsafe ZIP members, checksum drift,
 source/runtime/model/token/grid mismatches, resource-limit violations, and
 duplicate content. It stages a content-addressed candidate under excluded
 `.local-evidence/`; canonical repository promotion remains a reviewed action.
+The exact repetitive procedure and evidence-size policy are in
+`M4_PRINCIPAL_EXECUTION_GUIDE.md`. Historical Qwen sharded-state capability
+evidence is separately scoped in `HISTORICAL_QWEN_SHARDED_STATE.md` and is not
+an M4 input.
 
 The accepted Qwen compatibility ZIP SHA256 is
 `cd3c45dddf19830649b03a931cee0247d6f8b4ebbc953c433e3ade563b271ecb`;
