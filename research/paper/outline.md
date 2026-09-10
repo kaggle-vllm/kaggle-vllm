@@ -73,7 +73,7 @@ classical alpha or universal PCIe/PHB latency.
 ### 5.4 M4 five-model compatibility gate
 
 Report the original five-model compatibility population: four accepted
-compatible models and, only after clean canonicalization, the narrowly scoped
+compatible models and the canonically preserved, narrowly scoped
 Gemma 3 FP16 on SM75 precision boundary. Gemma has no serving observation and
 must appear as N/A / compatibility-gated, never throughput zero. Do not
 substitute Gemma 4.
@@ -110,8 +110,8 @@ tokenizer-controlled synthetic workload limits; session variability; limited M2
 repetition; collective microbenchmark versus serving-path gap; unavailable or
 incompatible simulator risk; gated-model access and redistribution constraints;
 and the separation between the five-model compatibility population and the
-four-model principal performance population if Gemma's negative gate is
-canonically reproduced. Gemma 4 is future work, not a post-hoc substitute.
+four-model principal performance population after Gemma's canonical negative
+gate. Gemma 4 is future work, not a post-hoc substitute.
 
 ## 8. Conclusion
 
