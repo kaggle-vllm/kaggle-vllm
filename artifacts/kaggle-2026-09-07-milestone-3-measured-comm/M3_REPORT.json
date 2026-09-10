@@ -1,0 +1,818 @@
+{
+  "allreduce_summary": [
+    {
+      "bandwidth_definition": "payload_bytes / critical_path_latency; decimal GB/s",
+      "dtype": "float16",
+      "effective_bandwidth_gb_s": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 0.013195875899446353,
+        "mean": 0.009340713562132162,
+        "mean_95_ci": [
+          0.007900911108036326,
+          0.010780516016227995
+        ],
+        "median": 0.00987809611640339,
+        "minimum": 0.0010087954470213356,
+        "p50": 0.009861325027485855,
+        "p95": 0.012733784103087365,
+        "p99": 0.0131578953211761,
+        "std": 0.0024805388878721656
+      },
+      "effective_payload_bandwidth_gb_s": 0.008323293361299191,
+      "latency_us": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 1015.0719881057739,
+        "mean": 123.02822399139404,
+        "mean_95_ci": [
+          98.54280623901518,
+          147.5136417437729
+        ],
+        "median": 103.66399958729744,
+        "minimum": 77.60000228881836,
+        "p50": 103.4879982471466,
+        "p95": 176.15999281406403,
+        "p99": 202.81599462032318,
+        "std": 74.57373018143413
+      },
+      "payload_bytes": 1024,
+      "repetition_mean_latency_us": [
+        117.55071990191936,
+        111.78687982261181,
+        141.618879660964,
+        99.15487997233868,
+        145.02976059913635
+      ],
+      "world_size": 2
+    },
+    {
+      "bandwidth_definition": "payload_bytes / critical_path_latency; decimal GB/s",
+      "dtype": "float16",
+      "effective_bandwidth_gb_s": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 0.05248052598228711,
+        "mean": 0.03891419648115407,
+        "mean_95_ci": [
+          0.03170072905003385,
+          0.0461276639122743
+        ],
+        "median": 0.04288107329298278,
+        "minimum": 0.0027496134121337778,
+        "p50": 0.04288107329298278,
+        "p95": 0.05013709135971266,
+        "p99": 0.05128205305591163,
+        "std": 0.010656180348267187
+      },
+      "effective_payload_bandwidth_gb_s": 0.033491879002539,
+      "latency_us": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 1489.6639585494995,
+        "mean": 122.29830400645733,
+        "mean_95_ci": [
+          89.22079865653947,
+          155.37580935637519
+        ],
+        "median": 95.51999717950821,
+        "minimum": 78.04799824953079,
+        "p50": 95.51999717950821,
+        "p95": 204.70400154590607,
+        "p99": 303.1040132045746,
+        "std": 97.89831507985075
+      },
+      "payload_bytes": 4096,
+      "repetition_mean_latency_us": [
+        126.23680025339127,
+        96.34912006556988,
+        117.78944000601768,
+        105.73568038642406,
+        165.38047932088375
+      ],
+      "world_size": 2
+    },
+    {
+      "bandwidth_definition": "payload_bytes / critical_path_latency; decimal GB/s",
+      "dtype": "float16",
+      "effective_bandwidth_gb_s": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 0.20838420139916333,
+        "mean": 0.14196058878209944,
+        "mean_95_ci": [
+          0.11764549434027685,
+          0.16627568322392203
+        ],
+        "median": 0.1504776164178292,
+        "minimum": 0.010668222316454763,
+        "p50": 0.1504112775084714,
+        "p95": 0.19541985280766216,
+        "p99": 0.20422816135878738,
+        "std": 0.041476630935374154
+      },
+      "effective_payload_bandwidth_gb_s": 0.12609222444418594,
+      "latency_us": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 1535.7760190963745,
+        "mean": 129.93664020299911,
+        "mean_95_ci": [
+          102.57707150707566,
+          157.29620889892257
+        ],
+        "median": 108.88000205159187,
+        "minimum": 78.62400263547897,
+        "p50": 108.83200168609619,
+        "p95": 198.71999323368073,
+        "p99": 247.8400021791458,
+        "std": 76.48363530956031
+      },
+      "payload_bytes": 16384,
+      "repetition_mean_latency_us": [
+        155.0656009465456,
+        104.79135997593403,
+        149.0335998684168,
+        112.2649597376585,
+        128.52768048644066
+      ],
+      "world_size": 2
+    },
+    {
+      "bandwidth_definition": "payload_bytes / critical_path_latency; decimal GB/s",
+      "dtype": "float16",
+      "effective_bandwidth_gb_s": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 0.7529411793786349,
+        "mean": 0.6110365142546668,
+        "mean_95_ci": [
+          0.5717942073070144,
+          0.650278821202319
+        ],
+        "median": 0.6528530640578946,
+        "minimum": 0.017112156381199593,
+        "p50": 0.6528530640578946,
+        "p95": 0.7188487086446118,
+        "p99": 0.7311674642737117,
+        "std": 0.11861728072595586
+      },
+      "effective_payload_bandwidth_gb_s": 0.47205342251126026,
+      "latency_us": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 3829.792022705078,
+        "mean": 138.83174419403076,
+        "mean_95_ci": [
+          105.34895134573989,
+          172.31453704232163
+        ],
+        "median": 100.38399696350098,
+        "minimum": 87.0399996638298,
+        "p50": 100.38399696350098,
+        "p95": 174.40000176429749,
+        "p99": 281.0559868812561,
+        "std": 290.0827026057174
+      },
+      "payload_bytes": 65536,
+      "repetition_mean_latency_us": [
+        102.89600029587746,
+        137.1532804518938,
+        124.11039985716343,
+        168.8198409229517,
+        161.17919944226742
+      ],
+      "world_size": 2
+    },
+    {
+      "bandwidth_definition": "payload_bytes / critical_path_latency; decimal GB/s",
+      "dtype": "float16",
+      "effective_bandwidth_gb_s": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 1.828571379732114,
+        "mean": 1.515082519241178,
+        "mean_95_ci": [
+          1.4193395773113455,
+          1.6108254611710107
+        ],
+        "median": 1.5752331950342842,
+        "minimum": 0.07950310382590631,
+        "p50": 1.5750817789726657,
+        "p95": 1.7006435100879904,
+        "p99": 1.7515501427615754,
+        "std": 0.19236434897487642
+      },
+      "effective_payload_bandwidth_gb_s": 1.439967823268519,
+      "latency_us": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 3297.2800731658936,
+        "mean": 182.04851230978966,
+        "mean_95_ci": [
+          164.6126044291272,
+          199.4844201904521
+        ],
+        "median": 166.4159968495369,
+        "minimum": 143.36000382900238,
+        "p50": 166.4000004529953,
+        "p95": 232.96000063419342,
+        "p99": 280.9920012950897,
+        "std": 142.0702325128967
+      },
+      "payload_bytes": 262144,
+      "repetition_mean_latency_us": [
+        197.15808033943176,
+        197.2393600642681,
+        171.6403202712536,
+        168.6553604900837,
+        175.54944038391113
+      ],
+      "world_size": 2
+    },
+    {
+      "bandwidth_definition": "payload_bytes / critical_path_latency; decimal GB/s",
+      "dtype": "float16",
+      "effective_bandwidth_gb_s": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 3.2179122047918254,
+        "mean": 2.9056937957797606,
+        "mean_95_ci": [
+          2.820076562834924,
+          2.9913110287245965
+        ],
+        "median": 2.956333447179672,
+        "minimum": 0.33083284453164596,
+        "p50": 2.9560667864432366,
+        "p95": 3.1009746928126787,
+        "p99": 3.1261209134985974,
+        "std": 0.3077941856215419
+      },
+      "effective_payload_bandwidth_gb_s": 2.7421026040180863,
+      "latency_us": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 3169.503927230835,
+        "mean": 382.39852821826935,
+        "mean_95_ci": [
+          351.06621893063414,
+          413.73083750590456
+        ],
+        "median": 354.68800365924835,
+        "minimum": 325.8560001850128,
+        "p50": 354.65601086616516,
+        "p95": 395.26399970054626,
+        "p99": 1896.0319757461548,
+        "std": 225.46411764452836
+      },
+      "payload_bytes": 1048576,
+      "repetition_mean_latency_us": [
+        346.7231997847557,
+        366.3196796178818,
+        391.0739216208458,
+        401.34463995695114,
+        406.5312001109123
+      ],
+      "world_size": 2
+    },
+    {
+      "bandwidth_definition": "payload_bytes / critical_path_latency; decimal GB/s",
+      "dtype": "float16",
+      "effective_bandwidth_gb_s": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 4.049806672675627,
+        "mean": 3.73392957595104,
+        "mean_95_ci": [
+          3.705672363655621,
+          3.762186788246459
+        ],
+        "median": 3.742454960622851,
+        "minimum": 2.1628328439286473,
+        "p50": 3.74224119510842,
+        "p95": 3.886033003411177,
+        "p99": 3.938461527739756,
+        "std": 0.16214898863070099
+      },
+      "effective_payload_bandwidth_gb_s": 3.72374279168766,
+      "latency_us": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 1939.2640590667725,
+        "mean": 1126.3678064346313,
+        "mean_95_ci": [
+          1114.630971236174,
+          1138.1046416330887
+        ],
+        "median": 1120.736002922058,
+        "minimum": 1035.6800556182861,
+        "p50": 1120.6719875335693,
+        "p95": 1156.4160585403442,
+        "p99": 1407.7119827270508,
+        "std": 72.264571615055
+      },
+      "payload_bytes": 4194304,
+      "repetition_mean_latency_us": [
+        1120.9529602527618,
+        1121.7430365085602,
+        1121.372480392456,
+        1124.697597026825,
+        1143.0729579925537
+      ],
+      "world_size": 2
+    },
+    {
+      "bandwidth_definition": "payload_bytes / critical_path_latency; decimal GB/s",
+      "dtype": "float16",
+      "effective_bandwidth_gb_s": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 4.154157973555541,
+        "mean": 3.9982286294679463,
+        "mean_95_ci": [
+          3.9892213573535242,
+          4.007235901582368
+        ],
+        "median": 3.9862079503726022,
+        "minimum": 3.9195293059621243,
+        "p50": 3.986132078748841,
+        "p95": 4.100099936412299,
+        "p99": 4.1358073730039395,
+        "std": 0.04146559132026652
+      },
+      "effective_payload_bandwidth_gb_s": 3.9978071024650736,
+      "latency_us": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 4280.416011810303,
+        "mean": 4196.604681015015,
+        "mean_95_ci": [
+          4187.22207862687,
+          4205.987283403159
+        ],
+        "median": 4208.816051483154,
+        "minimum": 4038.656234741211,
+        "p50": 4208.735942840576,
+        "p95": 4240.608215332031,
+        "p99": 4254.111766815186,
+        "std": 42.751033677507756
+      },
+      "payload_bytes": 16777216,
+      "repetition_mean_latency_us": [
+        4202.910742759705,
+        4191.934404373169,
+        4198.583369255066,
+        4185.952978134155,
+        4203.6419105529785
+      ],
+      "world_size": 2
+    },
+    {
+      "bandwidth_definition": "payload_bytes / critical_path_latency; decimal GB/s",
+      "dtype": "float16",
+      "effective_bandwidth_gb_s": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 4.137406454120241,
+        "mean": 4.021154191730668,
+        "mean_95_ci": [
+          4.015301987963514,
+          4.027006395497822
+        ],
+        "median": 4.0129044914978795,
+        "minimum": 3.9616147292539026,
+        "p50": 4.0128738265207735,
+        "p95": 4.088031652727336,
+        "p99": 4.12213356218587,
+        "std": 0.03082030715666677
+      },
+      "effective_payload_bandwidth_gb_s": 4.020920960651783,
+      "latency_us": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 8469.887733459473,
+        "mean": 8344.96184539795,
+        "mean_95_ci": [
+          8332.73701883201,
+          8357.18667196389
+        ],
+        "median": 8361.632347106934,
+        "minimum": 8110.015869140625,
+        "p50": 8361.568450927734,
+        "p95": 8418.111801147461,
+        "p99": 8450.431823730469,
+        "std": 63.28052776375839
+      },
+      "payload_bytes": 33554432,
+      "repetition_mean_latency_us": [
+        8340.720014572144,
+        8350.22653579712,
+        8336.862077713013,
+        8337.286386489868,
+        8359.714212417603
+      ],
+      "world_size": 2
+    },
+    {
+      "bandwidth_definition": "payload_bytes / critical_path_latency; decimal GB/s",
+      "dtype": "float16",
+      "effective_bandwidth_gb_s": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 4.110370419948918,
+        "mean": 4.030822065585415,
+        "mean_95_ci": [
+          4.026633544166604,
+          4.035010587004226
+        ],
+        "median": 4.026507341249657,
+        "minimum": 3.993662249534055,
+        "p50": 4.02647255127301,
+        "p95": 4.070566862880939,
+        "p99": 4.097024307756119,
+        "std": 0.01820163555145877
+      },
+      "effective_payload_bandwidth_gb_s": 4.030740585485008,
+      "latency_us": {
+        "ci_unit": "independent_repetition_means",
+        "count": 500,
+        "independent_count": 5,
+        "maximum": 16803.84063720703,
+        "mean": 16649.263969421387,
+        "mean_95_ci": [
+          16631.95085642642,
+          16666.577082416352
+        ],
+        "median": 16666.768074035645,
+        "minimum": 16326.719284057617,
+        "p50": 16666.624069213867,
+        "p95": 16736.064910888672,
+        "p99": 16772.768020629883,
+        "std": 74.68205861713048
+      },
+      "payload_bytes": 67108864,
+      "repetition_mean_latency_us": [
+        16665.18476486206,
+        16656.19394302368,
+        16637.653102874756,
+        16631.844539642334,
+        16655.4434967041
+      ],
+      "world_size": 2
+    }
+  ],
+  "communication_fit": {
+    "beta_effective_95_ci_gb_s": [
+      4.051054443503118,
+      4.0768595026297385
+    ],
+    "beta_effective_gb_s": 4.063916009229893,
+    "degrees_of_freedom": 8,
+    "equation": "T_us(S)=measured_allreduce_intercept_us + wire_bytes_per_rank / beta_effective",
+    "evidence_classification": "MEASURED_FIT",
+    "fit_observation": "payload-level critical-path latency means",
+    "limitations": [
+      "The intercept is specific to this NCCL/runtime/process/topology/methodology configuration; it is not universal PCIe latency.",
+      "A single linear model may not represent NCCL algorithm/protocol transitions across payload regimes.",
+      "The fit uses payload-level means; uncertainty in raw collectives and independent repetitions is reported separately.",
+      "The fit does not isolate PCIe, PHB, kernel launch, synchronization, or NCCL software contributions."
+    ],
+    "measured_allreduce_intercept_95_ci_us": [
+      93.11121046785493,
+      131.1589483812896
+    ],
+    "measured_allreduce_intercept_us": 112.13507942457227,
+    "point_count": 10,
+    "r_squared": 0.9999848359112145,
+    "residual_sum_squares_us2": 4054.770350878484,
+    "residuals": [
+      {
+        "fitted_mean_us": 112.38705313605506,
+        "observed_mean_us": 123.02822399139404,
+        "payload_bytes": 1024,
+        "residual_us": 10.641170855338984,
+        "ring_wire_bytes_per_rank": 1024.0
+      },
+      {
+        "fitted_mean_us": 113.14297427050344,
+        "observed_mean_us": 122.29830400645733,
+        "payload_bytes": 4096,
+        "residual_us": 9.155329735953885,
+        "ring_wire_bytes_per_rank": 4096.0
+      },
+      {
+        "fitted_mean_us": 116.16665880829697,
+        "observed_mean_us": 129.93664020299911,
+        "payload_bytes": 16384,
+        "residual_us": 13.769981394702143,
+        "ring_wire_bytes_per_rank": 16384.0
+      },
+      {
+        "fitted_mean_us": 128.26139695947109,
+        "observed_mean_us": 138.83174419403076,
+        "payload_bytes": 65536,
+        "residual_us": 10.570347234559677,
+        "ring_wire_bytes_per_rank": 65536.0
+      },
+      {
+        "fitted_mean_us": 176.64034956416748,
+        "observed_mean_us": 182.04851230978966,
+        "payload_bytes": 262144,
+        "residual_us": 5.408162745622178,
+        "ring_wire_bytes_per_rank": 262144.0
+      },
+      {
+        "fitted_mean_us": 370.15615998295317,
+        "observed_mean_us": 382.39852821826935,
+        "payload_bytes": 1048576,
+        "residual_us": 12.242368235316178,
+        "ring_wire_bytes_per_rank": 1048576.0
+      },
+      {
+        "fitted_mean_us": 1144.2194016580959,
+        "observed_mean_us": 1126.3678064346313,
+        "payload_bytes": 4194304,
+        "residual_us": -17.85159522346453,
+        "ring_wire_bytes_per_rank": 4194304.0
+      },
+      {
+        "fitted_mean_us": 4240.472368358667,
+        "observed_mean_us": 4196.604681015015,
+        "payload_bytes": 16777216,
+        "residual_us": -43.867687343652506,
+        "ring_wire_bytes_per_rank": 16777216.0
+      },
+      {
+        "fitted_mean_us": 8368.80965729276,
+        "observed_mean_us": 8344.96184539795,
+        "payload_bytes": 33554432,
+        "residual_us": -23.847811894811457,
+        "ring_wire_bytes_per_rank": 33554432.0
+      },
+      {
+        "fitted_mean_us": 16625.48423516095,
+        "observed_mean_us": 16649.263969421387,
+        "payload_bytes": 67108864,
+        "residual_us": 23.77973426043536,
+        "ring_wire_bytes_per_rank": 67108864.0
+      }
+    ],
+    "ring_volume_equation": "wire_bytes_per_rank = 2*(P-1)/P*S; for P=2, wire_bytes_per_rank=S",
+    "schema_version": "kaggle-vllm-m3-communication-fit-v1",
+    "slope_95_ci_us_per_byte": [
+      0.00024528684379605424,
+      0.0002468493114437775
+    ],
+    "slope_us_per_byte": 0.00024606807761991587,
+    "world_size": 2
+  },
+  "evidence_classification": {
+    "allreduce": "MEASURED",
+    "causal_attribution": "UNSUPPORTED",
+    "fit": "DERIVED_FROM_MEASURED",
+    "m1_m2_throughput": "MEASURED_HISTORICAL"
+  },
+  "model_vs_observed": {
+    "instantaneous_decode_batch": "unobserved",
+    "limitations": [
+      "Request concurrency is not instantaneous scheduler/decode batch size.",
+      "Throughput-reciprocal deltas mix compute, scheduling, memory, communication, and serving effects.",
+      "A fitted all-reduce value is consistency evidence, not proof that PHB/NCCL solely caused an application delta.",
+      "Unexplained component is intentionally null because the application evidence does not isolate per-token service time."
+    ],
+    "rows": [
+      {
+        "collective_payload_bytes": null,
+        "instantaneous_decode_batch": "unobserved",
+        "instantaneous_decode_batch_source": null,
+        "m3_predicted_collective_us": null,
+        "milestone": "M1",
+        "model": "facebook/opt-125m",
+        "observed_regime": "TP2_SLOWER",
+        "payload_derivation": null,
+        "payload_evidence": "UNSUPPORTED",
+        "payload_status": "unknown",
+        "scenario_key": "m1-opt125m-graph",
+        "signed_delta_definition": "1000*(1/TP2_output_tok_s - 1/TP1_output_tok_s)",
+        "signed_delta_evidence": "DERIVED",
+        "signed_service_time_difference_status": "UNSUPPORTED: aggregate throughput does not isolate service time",
+        "signed_service_time_difference_us": null,
+        "signed_throughput_reciprocal_delta_ms_per_output_token": 0.18991179335938738,
+        "throughput_evidence": "MEASURED",
+        "tp1_output_tokens_per_second": 1921.1689664766213,
+        "tp2_minus_tp1_output_tokens_per_second": -513.5672189575657,
+        "tp2_output_tokens_per_second": 1407.6017475190556,
+        "tp2_over_tp1_speedup": 0.7326798277928485,
+        "unexplained_component_status": "UNSUPPORTED: application throughput reciprocal is not isolated per-token service time",
+        "unexplained_component_us": null,
+        "workload": "offline_generate_graph"
+      },
+      {
+        "collective_payload_bytes": null,
+        "instantaneous_decode_batch": "unobserved",
+        "instantaneous_decode_batch_source": null,
+        "m3_predicted_collective_us": null,
+        "milestone": "M1",
+        "model": "facebook/opt-125m",
+        "observed_regime": "TP2_SLOWER",
+        "payload_derivation": null,
+        "payload_evidence": "UNSUPPORTED",
+        "payload_status": "unknown",
+        "scenario_key": "m1-opt125m-eager",
+        "signed_delta_definition": "1000*(1/TP2_output_tok_s - 1/TP1_output_tok_s)",
+        "signed_delta_evidence": "DERIVED",
+        "signed_service_time_difference_status": "UNSUPPORTED: aggregate throughput does not isolate service time",
+        "signed_service_time_difference_us": null,
+        "signed_throughput_reciprocal_delta_ms_per_output_token": 2.598861916796835,
+        "throughput_evidence": "MEASURED",
+        "tp1_output_tokens_per_second": 312.0794092620273,
+        "tp2_minus_tp1_output_tokens_per_second": -139.759933450333,
+        "tp2_output_tokens_per_second": 172.3194758116943,
+        "tp2_over_tp1_speedup": 0.5521654767905942,
+        "unexplained_component_status": "UNSUPPORTED: application throughput reciprocal is not isolated per-token service time",
+        "unexplained_component_us": null,
+        "workload": "offline_generate_eager"
+      },
+      {
+        "collective_payload_bytes": null,
+        "instantaneous_decode_batch": "unobserved",
+        "instantaneous_decode_batch_source": null,
+        "m3_predicted_collective_us": null,
+        "milestone": "M2",
+        "model": "Qwen/Qwen2.5-3B-Instruct",
+        "observed_regime": "TP2_SLOWER",
+        "payload_derivation": null,
+        "payload_evidence": "UNSUPPORTED",
+        "payload_status": "unknown",
+        "scenario_key": "m2-qwen-c01",
+        "signed_delta_definition": "1000*(1/TP2_output_tok_s - 1/TP1_output_tok_s)",
+        "signed_delta_evidence": "DERIVED",
+        "signed_service_time_difference_status": "UNSUPPORTED: aggregate throughput does not isolate service time",
+        "signed_service_time_difference_us": null,
+        "signed_throughput_reciprocal_delta_ms_per_output_token": 28.857743543750008,
+        "throughput_evidence": "MEASURED",
+        "tp1_output_tokens_per_second": 26.294877775905213,
+        "tp2_minus_tp1_output_tokens_per_second": -11.344504951671228,
+        "tp2_output_tokens_per_second": 14.950372824233986,
+        "tp2_over_tp1_speedup": 0.5685659751548061,
+        "unexplained_component_status": "UNSUPPORTED: application throughput reciprocal is not isolated per-token service time",
+        "unexplained_component_us": null,
+        "workload": "online_serving_concurrency_1"
+      },
+      {
+        "collective_payload_bytes": null,
+        "instantaneous_decode_batch": "unobserved",
+        "instantaneous_decode_batch_source": null,
+        "m3_predicted_collective_us": null,
+        "milestone": "M2",
+        "model": "Qwen/Qwen2.5-3B-Instruct",
+        "observed_regime": "TP2_SLOWER",
+        "payload_derivation": null,
+        "payload_evidence": "UNSUPPORTED",
+        "payload_status": "unknown",
+        "scenario_key": "m2-qwen-c04",
+        "signed_delta_definition": "1000*(1/TP2_output_tok_s - 1/TP1_output_tok_s)",
+        "signed_delta_evidence": "DERIVED",
+        "signed_service_time_difference_status": "UNSUPPORTED: aggregate throughput does not isolate service time",
+        "signed_service_time_difference_us": null,
+        "signed_throughput_reciprocal_delta_ms_per_output_token": 5.104536872753895,
+        "throughput_evidence": "MEASURED",
+        "tp1_output_tokens_per_second": 76.87029600852728,
+        "tp2_minus_tp1_output_tokens_per_second": -21.662741188815403,
+        "tp2_output_tokens_per_second": 55.20755481971187,
+        "tp2_over_tp1_speedup": 0.7181910007681986,
+        "unexplained_component_status": "UNSUPPORTED: application throughput reciprocal is not isolated per-token service time",
+        "unexplained_component_us": null,
+        "workload": "online_serving_concurrency_4"
+      },
+      {
+        "collective_payload_bytes": null,
+        "instantaneous_decode_batch": "unobserved",
+        "instantaneous_decode_batch_source": null,
+        "m3_predicted_collective_us": null,
+        "milestone": "M2",
+        "model": "Qwen/Qwen2.5-3B-Instruct",
+        "observed_regime": "TP2_SLOWER",
+        "payload_derivation": null,
+        "payload_evidence": "UNSUPPORTED",
+        "payload_status": "unknown",
+        "scenario_key": "m2-qwen-c08",
+        "signed_delta_definition": "1000*(1/TP2_output_tok_s - 1/TP1_output_tok_s)",
+        "signed_delta_evidence": "DERIVED",
+        "signed_service_time_difference_status": "UNSUPPORTED: aggregate throughput does not isolate service time",
+        "signed_service_time_difference_us": null,
+        "signed_throughput_reciprocal_delta_ms_per_output_token": 0.8055368754882695,
+        "throughput_evidence": "MEASURED",
+        "tp1_output_tokens_per_second": 108.5268807697579,
+        "tp2_minus_tp1_output_tokens_per_second": -8.724926785306508,
+        "tp2_output_tokens_per_second": 99.80195398445139,
+        "tp2_over_tp1_speedup": 0.9196058458197409,
+        "unexplained_component_status": "UNSUPPORTED: application throughput reciprocal is not isolated per-token service time",
+        "unexplained_component_us": null,
+        "workload": "online_serving_concurrency_8"
+      },
+      {
+        "collective_payload_bytes": null,
+        "instantaneous_decode_batch": "unobserved",
+        "instantaneous_decode_batch_source": null,
+        "m3_predicted_collective_us": null,
+        "milestone": "M2",
+        "model": "Qwen/Qwen2.5-3B-Instruct",
+        "observed_regime": "TP2_FASTER",
+        "payload_derivation": null,
+        "payload_evidence": "UNSUPPORTED",
+        "payload_status": "unknown",
+        "scenario_key": "m2-qwen-c16",
+        "signed_delta_definition": "1000*(1/TP2_output_tok_s - 1/TP1_output_tok_s)",
+        "signed_delta_evidence": "DERIVED",
+        "signed_service_time_difference_status": "UNSUPPORTED: aggregate throughput does not isolate service time",
+        "signed_service_time_difference_us": null,
+        "signed_throughput_reciprocal_delta_ms_per_output_token": -1.4690948021647094,
+        "throughput_evidence": "MEASURED",
+        "tp1_output_tokens_per_second": 138.74944716864707,
+        "tp2_minus_tp1_output_tokens_per_second": 35.52301822635556,
+        "tp2_output_tokens_per_second": 174.27246539500263,
+        "tp2_over_tp1_speedup": 1.2560227730722275,
+        "unexplained_component_status": "UNSUPPORTED: application throughput reciprocal is not isolated per-token service time",
+        "unexplained_component_us": null,
+        "workload": "online_serving_concurrency_16"
+      },
+      {
+        "collective_payload_bytes": null,
+        "instantaneous_decode_batch": "unobserved",
+        "instantaneous_decode_batch_source": null,
+        "m3_predicted_collective_us": null,
+        "milestone": "M2",
+        "model": "Qwen/Qwen2.5-3B-Instruct",
+        "observed_regime": "TP2_FASTER",
+        "payload_derivation": null,
+        "payload_evidence": "UNSUPPORTED",
+        "payload_status": "unknown",
+        "scenario_key": "m2-qwen-c32",
+        "signed_delta_definition": "1000*(1/TP2_output_tok_s - 1/TP1_output_tok_s)",
+        "signed_delta_evidence": "DERIVED",
+        "signed_service_time_difference_status": "UNSUPPORTED: aggregate throughput does not isolate service time",
+        "signed_service_time_difference_us": null,
+        "signed_throughput_reciprocal_delta_ms_per_output_token": -2.5687602938029115,
+        "throughput_evidence": "MEASURED",
+        "tp1_output_tokens_per_second": 158.65474999851432,
+        "tp2_minus_tp1_output_tokens_per_second": 109.13778064303193,
+        "tp2_output_tokens_per_second": 267.79253064154625,
+        "tp2_over_tp1_speedup": 1.6878948196890036,
+        "unexplained_component_status": "UNSUPPORTED: application throughput reciprocal is not isolated per-token service time",
+        "unexplained_component_us": null,
+        "workload": "online_serving_concurrency_32"
+      },
+      {
+        "collective_payload_bytes": null,
+        "instantaneous_decode_batch": "unobserved",
+        "instantaneous_decode_batch_source": null,
+        "m3_predicted_collective_us": null,
+        "milestone": "M2",
+        "model": "Qwen/Qwen2.5-3B-Instruct",
+        "observed_regime": "TP2_FASTER",
+        "payload_derivation": null,
+        "payload_evidence": "UNSUPPORTED",
+        "payload_status": "unknown",
+        "scenario_key": "m2-qwen-c64",
+        "signed_delta_definition": "1000*(1/TP2_output_tok_s - 1/TP1_output_tok_s)",
+        "signed_delta_evidence": "DERIVED",
+        "signed_service_time_difference_status": "UNSUPPORTED: aggregate throughput does not isolate service time",
+        "signed_service_time_difference_us": null,
+        "signed_throughput_reciprocal_delta_ms_per_output_token": -2.417913691518142,
+        "throughput_evidence": "MEASURED",
+        "tp1_output_tokens_per_second": 177.81976781250506,
+        "tp2_minus_tp1_output_tokens_per_second": 134.11893443687478,
+        "tp2_output_tokens_per_second": 311.93870224937984,
+        "tp2_over_tp1_speedup": 1.7542408590831764,
+        "unexplained_component_status": "UNSUPPORTED: application throughput reciprocal is not isolated per-token service time",
+        "unexplained_component_us": null,
+        "workload": "online_serving_concurrency_64"
+      }
+    ],
+    "schema_version": "kaggle-vllm-m3-model-vs-observed-v1",
+    "status": "comparison_generated"
+  },
+  "schema_version": "kaggle-vllm-m3-report-v1",
+  "status": "MEASURED_ON_KAGGLE_PENDING_REVIEW"
+}

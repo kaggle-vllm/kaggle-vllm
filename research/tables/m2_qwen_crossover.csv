@@ -1,0 +1,13 @@
+concurrency,cuda_oom_observed,failed_requests,maximum_aggregate_sampled_memory_used_mib,output_throughput_tokens_per_second,per_gpu_peak_sampled_memory_used_mib,successful_requests,tensor_parallel_size,tpot_p95_seconds,ttft_p95_seconds
+1,False,0,13734.0,26.294877775905213,"[{'index': 0, 'peak_memory_used_mib': 13731.0}, {'index': 1, 'peak_memory_used_mib': 3.0}]",20,1,0.03530823862817995,1.6057877169998847
+1,False,0,27594.0,14.950372824233986,"[{'index': 0, 'peak_memory_used_mib': 13797.0}, {'index': 1, 'peak_memory_used_mib': 13797.0}]",20,2,0.06630317080626186,0.9500490320001518
+4,False,0,13734.0,76.87029600852728,"[{'index': 0, 'peak_memory_used_mib': 13731.0}, {'index': 1, 'peak_memory_used_mib': 3.0}]",20,1,0.046307528230919034,5.86202942600039
+4,False,0,27594.0,55.20755481971187,"[{'index': 0, 'peak_memory_used_mib': 13797.0}, {'index': 1, 'peak_memory_used_mib': 13797.0}]",20,2,0.06970086603131073,3.2234671579999485
+8,False,0,13734.0,108.5268807697579,"[{'index': 0, 'peak_memory_used_mib': 13731.0}, {'index': 1, 'peak_memory_used_mib': 3.0}]",24,1,0.06765856585322942,11.695949558999928
+8,False,0,27594.0,99.80195398445139,"[{'index': 0, 'peak_memory_used_mib': 13797.0}, {'index': 1, 'peak_memory_used_mib': 13797.0}]",24,2,0.07916768069080254,6.293311308999819
+16,False,0,13734.0,138.74944716864707,"[{'index': 0, 'peak_memory_used_mib': 13731.0}, {'index': 1, 'peak_memory_used_mib': 3.0}]",48,1,0.10859214394716249,21.905747577000056
+16,False,0,27594.0,174.27246539500263,"[{'index': 0, 'peak_memory_used_mib': 13797.0}, {'index': 1, 'peak_memory_used_mib': 13797.0}]",48,2,0.08868218973189787,11.876112908999858
+32,False,0,13736.0,158.65474999851432,"[{'index': 0, 'peak_memory_used_mib': 13733.0}, {'index': 1, 'peak_memory_used_mib': 3.0}]",96,1,0.1919652750763217,43.826062518999606
+32,False,0,27594.0,267.79253064154625,"[{'index': 0, 'peak_memory_used_mib': 13797.0}, {'index': 1, 'peak_memory_used_mib': 13797.0}]",96,2,0.11378735690606788,23.502741418999904
+64,False,0,14258.0,177.81976781250506,"[{'index': 0, 'peak_memory_used_mib': 14255.0}, {'index': 1, 'peak_memory_used_mib': 3.0}]",192,1,0.3451980063170244,84.77821653199953
+64,False,0,29402.0,311.93870224937984,"[{'index': 0, 'peak_memory_used_mib': 14701.0}, {'index': 1, 'peak_memory_used_mib': 14701.0}]",192,2,0.1987743648454009,46.288379392000024
