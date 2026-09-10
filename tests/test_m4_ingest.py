@@ -118,8 +118,25 @@ def _successful_cell(tmp_path: Path) -> tuple[dict, dict, str]:
     (tmp_path / f"{stem}-requests.jsonl").write_text(
         "".join(json.dumps(row) + "\n" for row in requests), encoding="utf-8"
     )
-    (tmp_path / f"{stem}.resources.jsonl").write_text("{}\n", encoding="utf-8")
-    (tmp_path / f"{stem}.telemetry.jsonl").write_text("{}\n", encoding="utf-8")
+    resources = [
+        {
+            "gpu_index": index,
+            "phase": stem,
+            "memory_used_mib": 12_000.0 if index == 0 else 3.0,
+            "system_used_bytes": 10_000_000_000,
+        }
+        for index in (0, 1)
+    ]
+    (tmp_path / f"{stem}.resources.jsonl").write_text(
+        "".join(json.dumps(row) + "\n" for row in resources), encoding="utf-8"
+    )
+    telemetry = [
+        {"index": index, "memory_used_mib": 12_000.0 if index == 0 else 3.0}
+        for index in (0, 1)
+    ]
+    (tmp_path / f"{stem}.telemetry.jsonl").write_text(
+        "".join(json.dumps(row) + "\n" for row in telemetry), encoding="utf-8"
+    )
     prompt_hash = "a" * 64
     result = {
         "status": "executed",
@@ -145,7 +162,14 @@ def _successful_cell(tmp_path: Path) -> tuple[dict, dict, str]:
                 "storage": "jsonl",
             },
         },
-        "gpu_telemetry": {"telemetry_sample_count": 2, "summaries": [{"index": 0}]},
+        "server": {"visible_physical_gpu_indices": [0]},
+        "gpu_telemetry": {
+            "telemetry_sample_count": 2,
+            "summaries": [
+                {"index": 0, "peak_memory_used_mib": 12_000.0},
+                {"index": 1, "peak_memory_used_mib": 3.0},
+            ],
+        },
     }
     row = {
         "measured_requests": 20,
@@ -153,6 +177,8 @@ def _successful_cell(tmp_path: Path) -> tuple[dict, dict, str]:
         "request_failures": 0,
         "oom": False,
         **dict.fromkeys(SUCCESS_METRICS, 1.0),
+        "maximum_vram_mib": 12_000.0,
+        "maximum_system_ram_bytes": 10_000_000_000,
     }
     return result, row, stem
 
@@ -171,6 +197,76 @@ def test_successful_cell_validates_request_tokens_and_resources(tmp_path: Path) 
     )
     result["measurements"]["successful_requests"] = 19
     with pytest.raises(ResearchEvidenceError, match="successful-cell invariant"):
+        _validate_successful_cell(
+            root=tmp_path,
+            result=result,
+            row=row,
+            stem=stem,
+            concurrency=1,
+            input_tokens=128,
+            output_tokens=64,
+            prompt_sha256="a" * 64,
+        )
+
+
+def test_successful_cell_rejects_per_gpu_vram_limit(tmp_path: Path) -> None:
+    result, row, stem = _successful_cell(tmp_path)
+    resource_path = tmp_path / f"{stem}.resources.jsonl"
+    rows = [json.loads(line) for line in resource_path.read_text().splitlines()]
+    rows[1]["memory_used_mib"] = 14_849.0
+    resource_path.write_text(
+        "".join(json.dumps(item) + "\n" for item in rows), encoding="utf-8"
+    )
+    with pytest.raises(ResearchEvidenceError, match="per-GPU VRAM limit exceeded"):
+        _validate_successful_cell(
+            root=tmp_path,
+            result=result,
+            row=row,
+            stem=stem,
+            concurrency=1,
+            input_tokens=128,
+            output_tokens=64,
+            prompt_sha256="a" * 64,
+        )
+
+
+def test_successful_cell_accepts_exact_14848_mib_per_gpu(tmp_path: Path) -> None:
+    result, row, stem = _successful_cell(tmp_path)
+    resource_path = tmp_path / f"{stem}.resources.jsonl"
+    rows = [json.loads(line) for line in resource_path.read_text().splitlines()]
+    rows[0]["memory_used_mib"] = 14_848.0
+    resource_path.write_text(
+        "".join(json.dumps(item) + "\n" for item in rows), encoding="utf-8"
+    )
+    telemetry_path = tmp_path / f"{stem}.telemetry.jsonl"
+    telemetry = [json.loads(line) for line in telemetry_path.read_text().splitlines()]
+    telemetry[0]["memory_used_mib"] = 14_848.0
+    telemetry_path.write_text(
+        "".join(json.dumps(item) + "\n" for item in telemetry), encoding="utf-8"
+    )
+    result["gpu_telemetry"]["summaries"][0]["peak_memory_used_mib"] = 14_848.0
+    row["maximum_vram_mib"] = 14_848.0
+    _validate_successful_cell(
+        root=tmp_path,
+        result=result,
+        row=row,
+        stem=stem,
+        concurrency=1,
+        input_tokens=128,
+        output_tokens=64,
+        prompt_sha256="a" * 64,
+    )
+
+
+def test_successful_cell_rejects_telemetry_per_gpu_vram_limit(tmp_path: Path) -> None:
+    result, row, stem = _successful_cell(tmp_path)
+    telemetry_path = tmp_path / f"{stem}.telemetry.jsonl"
+    telemetry = [json.loads(line) for line in telemetry_path.read_text().splitlines()]
+    telemetry[1]["memory_used_mib"] = 14_849.0
+    telemetry_path.write_text(
+        "".join(json.dumps(item) + "\n" for item in telemetry), encoding="utf-8"
+    )
+    with pytest.raises(ResearchEvidenceError, match="per-GPU VRAM limit exceeded"):
         _validate_successful_cell(
             root=tmp_path,
             result=result,

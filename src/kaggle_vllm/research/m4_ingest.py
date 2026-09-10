@@ -14,6 +14,7 @@ from typing import Any
 
 from .errors import ResearchEvidenceError
 from .provenance import sha256_file, verify_sha256_manifest
+from .resources import GPU_MEMORY_LIMIT_MIB, SYSTEM_RAM_LIMIT_BYTES
 
 EXPECTED_SOURCE_COMMIT = "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2"
 EXPECTED_WHEEL_SHA256 = "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c"
@@ -204,6 +205,15 @@ def _positive_number(value: Any, *, field: str) -> float:
     return normalized
 
 
+def _nonnegative_number(value: Any, *, field: str) -> float:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ResearchEvidenceError(f"{field} must be a nonnegative finite number")
+    normalized = float(value)
+    if not math.isfinite(normalized) or normalized < 0:
+        raise ResearchEvidenceError(f"{field} must be a nonnegative finite number")
+    return normalized
+
+
 def _validate_successful_cell(
     *,
     root: Path,
@@ -273,13 +283,84 @@ def _validate_successful_cell(
         for request in request_rows
     ):
         raise ResearchEvidenceError(f"request ledger semantic mismatch: {stem}")
-    if not _jsonl(root / f"{stem}.resources.jsonl"):
+    resource_rows = _jsonl(root / f"{stem}.resources.jsonl")
+    if not resource_rows:
         raise ResearchEvidenceError(f"resource ledger is empty: {stem}")
-    if not _jsonl(root / f"{stem}.telemetry.jsonl"):
+    resource_gpus: dict[int, list[float]] = {0: [], 1: []}
+    maximum_system_ram_bytes = 0.0
+    for sample_number, sample in enumerate(resource_rows, 1):
+        gpu_index = sample.get("gpu_index")
+        if gpu_index not in resource_gpus or sample.get("phase") != stem:
+            raise ResearchEvidenceError(
+                f"resource ledger GPU/phase mismatch: {stem}:{sample_number}"
+            )
+        memory_mib = _nonnegative_number(
+            sample.get("memory_used_mib"),
+            field=f"{stem}.resources[{sample_number}].memory_used_mib",
+        )
+        system_ram_bytes = _nonnegative_number(
+            sample.get("system_used_bytes"),
+            field=f"{stem}.resources[{sample_number}].system_used_bytes",
+        )
+        resource_gpus[gpu_index].append(memory_mib)
+        maximum_system_ram_bytes = max(maximum_system_ram_bytes, system_ram_bytes)
+        if memory_mib > GPU_MEMORY_LIMIT_MIB:
+            raise ResearchEvidenceError(
+                f"per-GPU VRAM limit exceeded: {stem} GPU{gpu_index} "
+                f"{memory_mib} MiB > {GPU_MEMORY_LIMIT_MIB} MiB"
+            )
+        if system_ram_bytes > SYSTEM_RAM_LIMIT_BYTES:
+            raise ResearchEvidenceError(
+                f"system RAM limit exceeded: {stem} {system_ram_bytes} bytes"
+            )
+    if any(not samples for samples in resource_gpus.values()):
+        raise ResearchEvidenceError(
+            f"resource ledger does not cover both physical GPUs: {stem}"
+        )
+    visible_gpus = result.get("server", {}).get("visible_physical_gpu_indices")
+    if visible_gpus not in ([0], [0, 1]):
+        raise ResearchEvidenceError(f"visible physical GPU identity is invalid: {stem}")
+    recomputed_vram = max(
+        memory_mib for gpu_index in visible_gpus for memory_mib in resource_gpus[gpu_index]
+    )
+    if row.get("maximum_vram_mib") != recomputed_vram:
+        raise ResearchEvidenceError(f"raw/resource VRAM summary mismatch: {stem}")
+    if row.get("maximum_system_ram_bytes") != maximum_system_ram_bytes:
+        raise ResearchEvidenceError(f"raw/resource RAM summary mismatch: {stem}")
+
+    telemetry_rows = _jsonl(root / f"{stem}.telemetry.jsonl")
+    if not telemetry_rows:
         raise ResearchEvidenceError(f"telemetry ledger is empty: {stem}")
     telemetry = result.get("gpu_telemetry", {})
     if not telemetry.get("telemetry_sample_count") or not telemetry.get("summaries"):
         raise ResearchEvidenceError(f"GPU telemetry summary is absent: {stem}")
+    telemetry_gpus: dict[int, list[float]] = {0: [], 1: []}
+    for sample_number, sample in enumerate(telemetry_rows, 1):
+        gpu_index = sample.get("index")
+        if gpu_index not in telemetry_gpus:
+            raise ResearchEvidenceError(
+                f"telemetry GPU identity mismatch: {stem}:{sample_number}"
+            )
+        memory_mib = _nonnegative_number(
+            sample.get("memory_used_mib"),
+            field=f"{stem}.telemetry[{sample_number}].memory_used_mib",
+        )
+        telemetry_gpus[gpu_index].append(memory_mib)
+        if memory_mib > GPU_MEMORY_LIMIT_MIB:
+            raise ResearchEvidenceError(
+                f"per-GPU VRAM limit exceeded: {stem} GPU{gpu_index} "
+                f"{memory_mib} MiB > {GPU_MEMORY_LIMIT_MIB} MiB"
+            )
+    summaries = telemetry["summaries"]
+    if (
+        {item.get("index") for item in summaries} != {0, 1}
+        or telemetry.get("telemetry_sample_count") != len(telemetry_rows)
+    ):
+        raise ResearchEvidenceError(f"GPU telemetry coverage mismatch: {stem}")
+    for summary in summaries:
+        gpu_index = summary["index"]
+        if summary.get("peak_memory_used_mib") != max(telemetry_gpus[gpu_index]):
+            raise ResearchEvidenceError(f"GPU telemetry peak mismatch: {stem} GPU{gpu_index}")
 
 
 def _check_existing_shard(repository: Path, shard_id: str, destination: Path) -> None:
@@ -410,10 +491,13 @@ def audit_download(
         ):
             raise ResearchEvidenceError("prompt manifest hash is not bound to every raw row")
         if any(
-            (row.get("maximum_vram_mib") is not None and row["maximum_vram_mib"] > 14848)
+            (
+                row.get("maximum_vram_mib") is not None
+                and row["maximum_vram_mib"] > GPU_MEMORY_LIMIT_MIB
+            )
             or (
                 row.get("maximum_system_ram_bytes") is not None
-                and row["maximum_system_ram_bytes"] > 30064771072
+                and row["maximum_system_ram_bytes"] > SYSTEM_RAM_LIMIT_BYTES
             )
             for row in raw["rows"]
         ):
