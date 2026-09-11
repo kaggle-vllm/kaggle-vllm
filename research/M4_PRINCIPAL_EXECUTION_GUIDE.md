@@ -1,6 +1,6 @@
 # M4 principal execution guide
 
-Status: **IN_PROGRESS; 1 / 60 PRINCIPAL SHARDS PRESERVED**.
+Status: **IN_PROGRESS; 2 / 60 PRINCIPAL SHARDS PRESERVED**.
 
 The canonical order is generated in `M4_PRINCIPAL_EXECUTION_QUEUE.json`. It
 contains 60 active shard IDs and 15 non-executable Gemma historical rows. Use
@@ -59,12 +59,14 @@ devices against one ceiling.
 
 ## Current controlled shard
 
-`qwen25_3b-short-r00` passed the reviewed local preservation and ingestion
-gates as one of five independent Qwen-short repetitions. Run only
-`M4_SHARD_ID=qwen25_3b-short-r01` next. The expected evidence ZIP is
-`qwen25_3b-short-r01-principal.zip`. Download the executed
+`qwen25_3b-short-r00` and `qwen25_3b-short-r01` passed the reviewed local
+preservation and ingestion gates as two of five Qwen-short repetitions. For a
+standalone continuation, the next queue row is
+`M4_SHARD_ID=qwen25_3b-short-r02` and its expected evidence ZIP is
+`qwen25_3b-short-r02-principal.zip`. Download the executed
 `kaggle_vllm_m4_execute_shard.ipynb` and `runtime.json` alongside it. Validate
-this shard end to end before advancing to r02.
+this shard end to end before advancing. For the preferred repetition-batched
+path, follow `M4_BATCH_EXECUTION_GUIDE.md` instead.
 
 ## Completion gate
 

@@ -4,7 +4,11 @@
   repetitions. M4 is in progress: Qwen, Phi, Llama, and text-only Ministral
   short-workload concurrency-1 compatibility shards are accepted. Final p13
   canonically preserves Gemma's pre-readiness dtype boundary. The four-model
-  principal matrix remains unexecuted.
+  principal matrix is in progress, with two of 60 logical shards preserved.
+  Later shards may share a physical Kaggle allocation under dated amendment
+  `M4-BATCH-1`; such shards are not fully independent environment realizations.
+  Session/block IDs and within-session order are retained, while repetitions of
+  the same model/workload are intentionally separated across allocations.
 - M1/M2 are observations from one Kaggle dual-T4 environment. They do not imply
   universal T4, PCIe, PHB or tensor-parallel scaling laws.
 - The M3 measured-all-reduce intercept is configuration-specific and combines

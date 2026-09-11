@@ -51,13 +51,20 @@ pinned tokenizer to exact lengths, then the server-reported input and output
 usage must match the requested counts. The runner uses `/v1/completions`, sets
 `ignore_eos`, disables prefix caching, and starts a fresh server for every
 model/workload/TP/concurrency/repetition cell. Every principal cell has at
-least five independent repetitions and transition cells have ten. A crossover is robust
+least five logical repetitions and transition cells have ten. Amendment
+`M4-BATCH-1`, adopted after the first two Qwen-short shards, permits multiple
+logical shards from one repetition index to run sequentially in one Kaggle
+allocation. A logical shard still contains twelve fresh-server cells. The
+allocation/session ID and within-session order are retained as blocking
+provenance, and repetitions of one model/workload are never intentionally
+colocated. A crossover is robust
 only when the paired-repetition mean-delta 95% confidence interval excludes zero
 in the favorable direction. Capacity, throughput and latency crossover labels
 remain distinct. Failed runs remain evidence unless a documented technical
 invalidity justifies exclusion.
 
-Use `scripts/kaggle_m4_multimodel_crossover.py` for primary evidence and
+Use `scripts/kaggle_m4_multimodel_crossover.py` for each logical shard,
+`scripts/kaggle_m4_execute_batch.py` only as its orchestration layer, and
 `scripts/assemble_m4_evidence.py` for fail-closed local assembly. GuideLLM at commit
 `fc2dbe9edd4f7f1a4e9ccd752f6f43591adbcb73`
 (`v0.7.3-47-gfc2dbe9e`) is the prepared independent research-only cross-check.

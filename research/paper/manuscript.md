@@ -56,14 +56,21 @@ and exact Python, Torch, CUDA, NCCL, wheel, and source identities.
 ### 5.2 Workloads and metrics
 
 Use the frozen short, balanced, and prefill-heavy exact-token workloads;
-concurrency 1/4/8/16/32/64; TP1/TP2; five independent repetitions. Define
+concurrency 1/4/8/16/32/64; TP1/TP2; five logical repetitions. A logical shard
+is one model/workload/repetition and contains twelve serving cells, each with a
+fresh vLLM server. Under dated amendment `M4-BATCH-1`, multiple logical shards
+from one repetition may be scheduled sequentially in one Kaggle allocation;
+the batch/session ID and within-session order are retained. Repetitions of the
+same model/workload are not intentionally placed in one allocation. Define
 TTFT, TPOT, event-level ITL, E2E latency, request/output/total throughput,
 failures, OOM, utilization, VRAM, RAM, power, and temperature.
 
 ### 5.3 Statistics and crossover rule
 
-The experimental unit is a fresh serving run/session. Preserve raw requests but
-do not treat requests within a run as independent replicates. Use matched TP1
+The experimental unit is one logical repetition of a specific
+model/workload/TP/concurrency condition, not an individual request or the whole
+Kaggle allocation. Preserve raw requests but do not treat requests within a run
+as independent replicates or all shards as globally independent. Use matched TP1
 and TP2 repetition deltas, descriptive mean/median/standard deviation, and 95%
 confidence intervals. Apply the predeclared favorable paired-mean CI rule.
 
@@ -128,7 +135,10 @@ latency and capacity crossovers and practical deployment implications.]
 Address a single hosted hardware topology, exact runtime/version specificity,
 synthetic tokenizer-controlled workloads, session variability, telemetry
 sampling, client metric definitions, gated licenses, multimodal components,
-and absence of Vidur validation. Do not universalize the Gemma boundary.
+and absence of Vidur validation. State that shards within a batch share a
+physical allocation and may be correlated; retain session as a blocking factor
+for limitations and justified sensitivity analysis. Do not universalize the
+Gemma boundary.
 
 ## 9. Ethics and licensing
 

@@ -8,8 +8,8 @@ Overall status: **NOT_PAPER_READY — M4 and external validation remain**
 | M2 evidence | PASS | Reviewed 2026-09-02 Qwen crossover evidence |
 | M3 canonical evidence | PASS | Clean-source 2026-09-07 run; canonical review and hashes pass |
 | M4 compatibility breadth | PASS | Frozen five-model gate closed: four passes and one canonical, narrowly scoped Gemma negative |
-| M4 principal breadth | FAIL | All 60 four-model principal shards remain |
-| M4 independent repetitions | FAIL | Compatibility has one accepted repetition per passing model; principal repetitions are unexecuted |
+| M4 principal breadth | FAIL | 2/60 four-model principal shards are preserved; 58 remain |
+| M4 logical repetitions | FAIL | Qwen-short has 2/5 preserved; no condition has the complete five repetitions |
 | M4 uncertainty | FAIL | Cannot estimate before repeated M4 measurements |
 | External benchmark/simulator | FAIL | Exact isolated GuideLLM package prepared but not GPU-executed; Vidur source unavailable |
 | Reproducibility | PASS | M1–M3 commands, provenance, runtime identities, and evidence retained |

@@ -1,0 +1,822 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-execution-plan-v1",
+  "status": "FROZEN_BEFORE_BULK_PRINCIPAL_COLLECTION",
+  "protocol_amendment": {
+    "version": "M4-BATCH-1",
+    "path": "research/M4_BATCH_PROTOCOL_AMENDMENT.md",
+    "reason": "The frozen one-session-per-shard rule is amended transparently for operational orchestration only."
+  },
+  "source_queue": "research/M4_PRINCIPAL_EXECUTION_QUEUE.json",
+  "scientific_matrix": {
+    "models": [
+      "qwen25_3b",
+      "phi4_mini",
+      "llama32_3b",
+      "ministral3_3b_bf16"
+    ],
+    "workloads": [
+      "short",
+      "balanced",
+      "prefill_heavy"
+    ],
+    "repetitions": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "concurrency": [
+      1,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "tensor_parallel_sizes": [
+      1,
+      2
+    ],
+    "logical_shards": 60,
+    "serving_cells": 720,
+    "fresh_server_per_cell": true
+  },
+  "ordering_strategy": {
+    "name": "pre_frozen_cyclic_model_and_workload_rotation",
+    "performance_adaptive": false,
+    "model_rotation_offset": "repetition modulo active model count",
+    "workload_rotation_offset": "repetition modulo workload count",
+    "model_grouping_reason": "reuse one ordinary pinned Hugging Face checkpoint across that model's workloads"
+  },
+  "session_blocking_policy": {
+    "one_repetition_per_batch": true,
+    "same_model_workload_repetitions_in_one_session": false,
+    "kaggle_allocation_is_blocking_variable": true,
+    "required_metadata": [
+      "batch_id",
+      "session_id",
+      "repetition",
+      "within_session_order",
+      "start_utc",
+      "end_utc",
+      "gpu_names",
+      "gpu_uuids",
+      "runtime_identity"
+    ]
+  },
+  "resource_policy": {
+    "hard_vram_limit_mib_per_gpu": 14848,
+    "independent_per_gpu_enforcement": true,
+    "disk_capacity_source": "shutil.disk_usage(/kaggle/working)",
+    "disk_safety_reserve_bytes": 2147483648,
+    "projected_evidence_bytes_per_shard": 16777216,
+    "maximum_batch_wall_clock_seconds": 37800,
+    "minimum_remaining_seconds_to_start_shard": 5400,
+    "idle_gpu_memory_limit_mib_per_gpu": 64
+  },
+  "failure_policy": {
+    "unexpected_or_scientific_failure": "preserve completed/current evidence, finalize manifest and outer ZIP, then stop",
+    "wall_clock_or_disk_guard": "graceful stop; remaining rows are NOT_EXECUTED_IN_THIS_BATCH_ATTEMPT",
+    "unexpected_residual_gpu_process": "do not kill unrelated processes; preserve evidence and stop",
+    "partial_completion_is_not_failure": true,
+    "overwrite_existing_evidence": false
+  },
+  "cache_policy": {
+    "model_source": "ordinary pinned Hugging Face checkpoints from research/model_matrix.json",
+    "controlled_hf_home": "/kaggle/working/hf-cache",
+    "group_workloads_by_model": true,
+    "delete_only_exact_completed_model_repo_cache": true,
+    "delete_weights_before_evidence_verified_and_zipped": false,
+    "historical_qwen_tp2_sharded_state_allowed": false,
+    "historical_dataset_repo_allowed_as_model_source": false,
+    "forbidden_model_source": "waqasm86/kaggle-vllm-models"
+  },
+  "resume_policy": {
+    "automatic_cross_session_resume": false,
+    "prior_manifest_import_required": true,
+    "continuation_batch_id_format": "<batch_id>-part<N>",
+    "new_physical_allocation_requires_new_session_id": true
+  },
+  "batch_ids": [
+    "fill-r00",
+    "fill-r01",
+    "r02",
+    "r03",
+    "r04"
+  ],
+  "remaining_logical_shards": 58,
+  "batches": [
+    {
+      "batch_id": "fill-r00",
+      "label": "BATCH_FILL_R00",
+      "repetition": 0,
+      "model_order": [
+        "qwen25_3b",
+        "phi4_mini",
+        "llama32_3b",
+        "ministral3_3b_bf16"
+      ],
+      "workload_order_within_model": [
+        "short",
+        "balanced",
+        "prefill_heavy"
+      ],
+      "all_logical_shard_ids": [
+        "qwen25_3b-short-r00",
+        "qwen25_3b-balanced-r00",
+        "qwen25_3b-prefill_heavy-r00",
+        "phi4_mini-short-r00",
+        "phi4_mini-balanced-r00",
+        "phi4_mini-prefill_heavy-r00",
+        "llama32_3b-short-r00",
+        "llama32_3b-balanced-r00",
+        "llama32_3b-prefill_heavy-r00",
+        "ministral3_3b_bf16-short-r00",
+        "ministral3_3b_bf16-balanced-r00",
+        "ministral3_3b_bf16-prefill_heavy-r00"
+      ],
+      "ordered_shard_ids": [
+        "qwen25_3b-balanced-r00",
+        "qwen25_3b-prefill_heavy-r00",
+        "phi4_mini-short-r00",
+        "phi4_mini-balanced-r00",
+        "phi4_mini-prefill_heavy-r00",
+        "llama32_3b-short-r00",
+        "llama32_3b-balanced-r00",
+        "llama32_3b-prefill_heavy-r00",
+        "ministral3_3b_bf16-short-r00",
+        "ministral3_3b_bf16-balanced-r00",
+        "ministral3_3b_bf16-prefill_heavy-r00"
+      ],
+      "execution_order": [
+        {
+          "within_session_order": 1,
+          "shard_id": "qwen25_3b-balanced-r00",
+          "model_key": "qwen25_3b",
+          "workload": "balanced",
+          "repetition": 0,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 2,
+          "shard_id": "qwen25_3b-prefill_heavy-r00",
+          "model_key": "qwen25_3b",
+          "workload": "prefill_heavy",
+          "repetition": 0,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 3,
+          "shard_id": "phi4_mini-short-r00",
+          "model_key": "phi4_mini",
+          "workload": "short",
+          "repetition": 0,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 4,
+          "shard_id": "phi4_mini-balanced-r00",
+          "model_key": "phi4_mini",
+          "workload": "balanced",
+          "repetition": 0,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 5,
+          "shard_id": "phi4_mini-prefill_heavy-r00",
+          "model_key": "phi4_mini",
+          "workload": "prefill_heavy",
+          "repetition": 0,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 6,
+          "shard_id": "llama32_3b-short-r00",
+          "model_key": "llama32_3b",
+          "workload": "short",
+          "repetition": 0,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 7,
+          "shard_id": "llama32_3b-balanced-r00",
+          "model_key": "llama32_3b",
+          "workload": "balanced",
+          "repetition": 0,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 8,
+          "shard_id": "llama32_3b-prefill_heavy-r00",
+          "model_key": "llama32_3b",
+          "workload": "prefill_heavy",
+          "repetition": 0,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 9,
+          "shard_id": "ministral3_3b_bf16-short-r00",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "short",
+          "repetition": 0,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 10,
+          "shard_id": "ministral3_3b_bf16-balanced-r00",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "balanced",
+          "repetition": 0,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 11,
+          "shard_id": "ministral3_3b_bf16-prefill_heavy-r00",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "prefill_heavy",
+          "repetition": 0,
+          "serving_cells": 12
+        }
+      ],
+      "already_completed_skips": [
+        "qwen25_3b-short-r00"
+      ],
+      "logical_shard_count": 11,
+      "serving_cell_count": 132
+    },
+    {
+      "batch_id": "fill-r01",
+      "label": "BATCH_FILL_R01",
+      "repetition": 1,
+      "model_order": [
+        "phi4_mini",
+        "llama32_3b",
+        "ministral3_3b_bf16",
+        "qwen25_3b"
+      ],
+      "workload_order_within_model": [
+        "balanced",
+        "prefill_heavy",
+        "short"
+      ],
+      "all_logical_shard_ids": [
+        "phi4_mini-balanced-r01",
+        "phi4_mini-prefill_heavy-r01",
+        "phi4_mini-short-r01",
+        "llama32_3b-balanced-r01",
+        "llama32_3b-prefill_heavy-r01",
+        "llama32_3b-short-r01",
+        "ministral3_3b_bf16-balanced-r01",
+        "ministral3_3b_bf16-prefill_heavy-r01",
+        "ministral3_3b_bf16-short-r01",
+        "qwen25_3b-balanced-r01",
+        "qwen25_3b-prefill_heavy-r01",
+        "qwen25_3b-short-r01"
+      ],
+      "ordered_shard_ids": [
+        "phi4_mini-balanced-r01",
+        "phi4_mini-prefill_heavy-r01",
+        "phi4_mini-short-r01",
+        "llama32_3b-balanced-r01",
+        "llama32_3b-prefill_heavy-r01",
+        "llama32_3b-short-r01",
+        "ministral3_3b_bf16-balanced-r01",
+        "ministral3_3b_bf16-prefill_heavy-r01",
+        "ministral3_3b_bf16-short-r01",
+        "qwen25_3b-balanced-r01",
+        "qwen25_3b-prefill_heavy-r01"
+      ],
+      "execution_order": [
+        {
+          "within_session_order": 1,
+          "shard_id": "phi4_mini-balanced-r01",
+          "model_key": "phi4_mini",
+          "workload": "balanced",
+          "repetition": 1,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 2,
+          "shard_id": "phi4_mini-prefill_heavy-r01",
+          "model_key": "phi4_mini",
+          "workload": "prefill_heavy",
+          "repetition": 1,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 3,
+          "shard_id": "phi4_mini-short-r01",
+          "model_key": "phi4_mini",
+          "workload": "short",
+          "repetition": 1,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 4,
+          "shard_id": "llama32_3b-balanced-r01",
+          "model_key": "llama32_3b",
+          "workload": "balanced",
+          "repetition": 1,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 5,
+          "shard_id": "llama32_3b-prefill_heavy-r01",
+          "model_key": "llama32_3b",
+          "workload": "prefill_heavy",
+          "repetition": 1,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 6,
+          "shard_id": "llama32_3b-short-r01",
+          "model_key": "llama32_3b",
+          "workload": "short",
+          "repetition": 1,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 7,
+          "shard_id": "ministral3_3b_bf16-balanced-r01",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "balanced",
+          "repetition": 1,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 8,
+          "shard_id": "ministral3_3b_bf16-prefill_heavy-r01",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "prefill_heavy",
+          "repetition": 1,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 9,
+          "shard_id": "ministral3_3b_bf16-short-r01",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "short",
+          "repetition": 1,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 10,
+          "shard_id": "qwen25_3b-balanced-r01",
+          "model_key": "qwen25_3b",
+          "workload": "balanced",
+          "repetition": 1,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 11,
+          "shard_id": "qwen25_3b-prefill_heavy-r01",
+          "model_key": "qwen25_3b",
+          "workload": "prefill_heavy",
+          "repetition": 1,
+          "serving_cells": 12
+        }
+      ],
+      "already_completed_skips": [
+        "qwen25_3b-short-r01"
+      ],
+      "logical_shard_count": 11,
+      "serving_cell_count": 132
+    },
+    {
+      "batch_id": "r02",
+      "label": "BATCH_R02",
+      "repetition": 2,
+      "model_order": [
+        "llama32_3b",
+        "ministral3_3b_bf16",
+        "qwen25_3b",
+        "phi4_mini"
+      ],
+      "workload_order_within_model": [
+        "prefill_heavy",
+        "short",
+        "balanced"
+      ],
+      "all_logical_shard_ids": [
+        "llama32_3b-prefill_heavy-r02",
+        "llama32_3b-short-r02",
+        "llama32_3b-balanced-r02",
+        "ministral3_3b_bf16-prefill_heavy-r02",
+        "ministral3_3b_bf16-short-r02",
+        "ministral3_3b_bf16-balanced-r02",
+        "qwen25_3b-prefill_heavy-r02",
+        "qwen25_3b-short-r02",
+        "qwen25_3b-balanced-r02",
+        "phi4_mini-prefill_heavy-r02",
+        "phi4_mini-short-r02",
+        "phi4_mini-balanced-r02"
+      ],
+      "ordered_shard_ids": [
+        "llama32_3b-prefill_heavy-r02",
+        "llama32_3b-short-r02",
+        "llama32_3b-balanced-r02",
+        "ministral3_3b_bf16-prefill_heavy-r02",
+        "ministral3_3b_bf16-short-r02",
+        "ministral3_3b_bf16-balanced-r02",
+        "qwen25_3b-prefill_heavy-r02",
+        "qwen25_3b-short-r02",
+        "qwen25_3b-balanced-r02",
+        "phi4_mini-prefill_heavy-r02",
+        "phi4_mini-short-r02",
+        "phi4_mini-balanced-r02"
+      ],
+      "execution_order": [
+        {
+          "within_session_order": 1,
+          "shard_id": "llama32_3b-prefill_heavy-r02",
+          "model_key": "llama32_3b",
+          "workload": "prefill_heavy",
+          "repetition": 2,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 2,
+          "shard_id": "llama32_3b-short-r02",
+          "model_key": "llama32_3b",
+          "workload": "short",
+          "repetition": 2,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 3,
+          "shard_id": "llama32_3b-balanced-r02",
+          "model_key": "llama32_3b",
+          "workload": "balanced",
+          "repetition": 2,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 4,
+          "shard_id": "ministral3_3b_bf16-prefill_heavy-r02",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "prefill_heavy",
+          "repetition": 2,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 5,
+          "shard_id": "ministral3_3b_bf16-short-r02",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "short",
+          "repetition": 2,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 6,
+          "shard_id": "ministral3_3b_bf16-balanced-r02",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "balanced",
+          "repetition": 2,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 7,
+          "shard_id": "qwen25_3b-prefill_heavy-r02",
+          "model_key": "qwen25_3b",
+          "workload": "prefill_heavy",
+          "repetition": 2,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 8,
+          "shard_id": "qwen25_3b-short-r02",
+          "model_key": "qwen25_3b",
+          "workload": "short",
+          "repetition": 2,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 9,
+          "shard_id": "qwen25_3b-balanced-r02",
+          "model_key": "qwen25_3b",
+          "workload": "balanced",
+          "repetition": 2,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 10,
+          "shard_id": "phi4_mini-prefill_heavy-r02",
+          "model_key": "phi4_mini",
+          "workload": "prefill_heavy",
+          "repetition": 2,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 11,
+          "shard_id": "phi4_mini-short-r02",
+          "model_key": "phi4_mini",
+          "workload": "short",
+          "repetition": 2,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 12,
+          "shard_id": "phi4_mini-balanced-r02",
+          "model_key": "phi4_mini",
+          "workload": "balanced",
+          "repetition": 2,
+          "serving_cells": 12
+        }
+      ],
+      "already_completed_skips": [],
+      "logical_shard_count": 12,
+      "serving_cell_count": 144
+    },
+    {
+      "batch_id": "r03",
+      "label": "BATCH_R03",
+      "repetition": 3,
+      "model_order": [
+        "ministral3_3b_bf16",
+        "qwen25_3b",
+        "phi4_mini",
+        "llama32_3b"
+      ],
+      "workload_order_within_model": [
+        "short",
+        "balanced",
+        "prefill_heavy"
+      ],
+      "all_logical_shard_ids": [
+        "ministral3_3b_bf16-short-r03",
+        "ministral3_3b_bf16-balanced-r03",
+        "ministral3_3b_bf16-prefill_heavy-r03",
+        "qwen25_3b-short-r03",
+        "qwen25_3b-balanced-r03",
+        "qwen25_3b-prefill_heavy-r03",
+        "phi4_mini-short-r03",
+        "phi4_mini-balanced-r03",
+        "phi4_mini-prefill_heavy-r03",
+        "llama32_3b-short-r03",
+        "llama32_3b-balanced-r03",
+        "llama32_3b-prefill_heavy-r03"
+      ],
+      "ordered_shard_ids": [
+        "ministral3_3b_bf16-short-r03",
+        "ministral3_3b_bf16-balanced-r03",
+        "ministral3_3b_bf16-prefill_heavy-r03",
+        "qwen25_3b-short-r03",
+        "qwen25_3b-balanced-r03",
+        "qwen25_3b-prefill_heavy-r03",
+        "phi4_mini-short-r03",
+        "phi4_mini-balanced-r03",
+        "phi4_mini-prefill_heavy-r03",
+        "llama32_3b-short-r03",
+        "llama32_3b-balanced-r03",
+        "llama32_3b-prefill_heavy-r03"
+      ],
+      "execution_order": [
+        {
+          "within_session_order": 1,
+          "shard_id": "ministral3_3b_bf16-short-r03",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "short",
+          "repetition": 3,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 2,
+          "shard_id": "ministral3_3b_bf16-balanced-r03",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "balanced",
+          "repetition": 3,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 3,
+          "shard_id": "ministral3_3b_bf16-prefill_heavy-r03",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "prefill_heavy",
+          "repetition": 3,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 4,
+          "shard_id": "qwen25_3b-short-r03",
+          "model_key": "qwen25_3b",
+          "workload": "short",
+          "repetition": 3,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 5,
+          "shard_id": "qwen25_3b-balanced-r03",
+          "model_key": "qwen25_3b",
+          "workload": "balanced",
+          "repetition": 3,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 6,
+          "shard_id": "qwen25_3b-prefill_heavy-r03",
+          "model_key": "qwen25_3b",
+          "workload": "prefill_heavy",
+          "repetition": 3,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 7,
+          "shard_id": "phi4_mini-short-r03",
+          "model_key": "phi4_mini",
+          "workload": "short",
+          "repetition": 3,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 8,
+          "shard_id": "phi4_mini-balanced-r03",
+          "model_key": "phi4_mini",
+          "workload": "balanced",
+          "repetition": 3,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 9,
+          "shard_id": "phi4_mini-prefill_heavy-r03",
+          "model_key": "phi4_mini",
+          "workload": "prefill_heavy",
+          "repetition": 3,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 10,
+          "shard_id": "llama32_3b-short-r03",
+          "model_key": "llama32_3b",
+          "workload": "short",
+          "repetition": 3,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 11,
+          "shard_id": "llama32_3b-balanced-r03",
+          "model_key": "llama32_3b",
+          "workload": "balanced",
+          "repetition": 3,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 12,
+          "shard_id": "llama32_3b-prefill_heavy-r03",
+          "model_key": "llama32_3b",
+          "workload": "prefill_heavy",
+          "repetition": 3,
+          "serving_cells": 12
+        }
+      ],
+      "already_completed_skips": [],
+      "logical_shard_count": 12,
+      "serving_cell_count": 144
+    },
+    {
+      "batch_id": "r04",
+      "label": "BATCH_R04",
+      "repetition": 4,
+      "model_order": [
+        "qwen25_3b",
+        "phi4_mini",
+        "llama32_3b",
+        "ministral3_3b_bf16"
+      ],
+      "workload_order_within_model": [
+        "balanced",
+        "prefill_heavy",
+        "short"
+      ],
+      "all_logical_shard_ids": [
+        "qwen25_3b-balanced-r04",
+        "qwen25_3b-prefill_heavy-r04",
+        "qwen25_3b-short-r04",
+        "phi4_mini-balanced-r04",
+        "phi4_mini-prefill_heavy-r04",
+        "phi4_mini-short-r04",
+        "llama32_3b-balanced-r04",
+        "llama32_3b-prefill_heavy-r04",
+        "llama32_3b-short-r04",
+        "ministral3_3b_bf16-balanced-r04",
+        "ministral3_3b_bf16-prefill_heavy-r04",
+        "ministral3_3b_bf16-short-r04"
+      ],
+      "ordered_shard_ids": [
+        "qwen25_3b-balanced-r04",
+        "qwen25_3b-prefill_heavy-r04",
+        "qwen25_3b-short-r04",
+        "phi4_mini-balanced-r04",
+        "phi4_mini-prefill_heavy-r04",
+        "phi4_mini-short-r04",
+        "llama32_3b-balanced-r04",
+        "llama32_3b-prefill_heavy-r04",
+        "llama32_3b-short-r04",
+        "ministral3_3b_bf16-balanced-r04",
+        "ministral3_3b_bf16-prefill_heavy-r04",
+        "ministral3_3b_bf16-short-r04"
+      ],
+      "execution_order": [
+        {
+          "within_session_order": 1,
+          "shard_id": "qwen25_3b-balanced-r04",
+          "model_key": "qwen25_3b",
+          "workload": "balanced",
+          "repetition": 4,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 2,
+          "shard_id": "qwen25_3b-prefill_heavy-r04",
+          "model_key": "qwen25_3b",
+          "workload": "prefill_heavy",
+          "repetition": 4,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 3,
+          "shard_id": "qwen25_3b-short-r04",
+          "model_key": "qwen25_3b",
+          "workload": "short",
+          "repetition": 4,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 4,
+          "shard_id": "phi4_mini-balanced-r04",
+          "model_key": "phi4_mini",
+          "workload": "balanced",
+          "repetition": 4,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 5,
+          "shard_id": "phi4_mini-prefill_heavy-r04",
+          "model_key": "phi4_mini",
+          "workload": "prefill_heavy",
+          "repetition": 4,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 6,
+          "shard_id": "phi4_mini-short-r04",
+          "model_key": "phi4_mini",
+          "workload": "short",
+          "repetition": 4,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 7,
+          "shard_id": "llama32_3b-balanced-r04",
+          "model_key": "llama32_3b",
+          "workload": "balanced",
+          "repetition": 4,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 8,
+          "shard_id": "llama32_3b-prefill_heavy-r04",
+          "model_key": "llama32_3b",
+          "workload": "prefill_heavy",
+          "repetition": 4,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 9,
+          "shard_id": "llama32_3b-short-r04",
+          "model_key": "llama32_3b",
+          "workload": "short",
+          "repetition": 4,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 10,
+          "shard_id": "ministral3_3b_bf16-balanced-r04",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "balanced",
+          "repetition": 4,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 11,
+          "shard_id": "ministral3_3b_bf16-prefill_heavy-r04",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "prefill_heavy",
+          "repetition": 4,
+          "serving_cells": 12
+        },
+        {
+          "within_session_order": 12,
+          "shard_id": "ministral3_3b_bf16-short-r04",
+          "model_key": "ministral3_3b_bf16",
+          "workload": "short",
+          "repetition": 4,
+          "serving_cells": 12
+        }
+      ],
+      "already_completed_skips": [],
+      "logical_shard_count": 12,
+      "serving_cell_count": 144
+    }
+  ]
+}

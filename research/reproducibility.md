@@ -28,7 +28,10 @@ clean Llama 3.2, and clean Ministral compatibility shards are accepted under
 `artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/`.
 The canonical Gemma negative is under
 `artifacts/kaggle-2026-09-08-milestone-4/compatibility/gemma3_4b/`;
-M4 remains in progress without an accepted principal matrix.
+M4 remains in progress without an accepted principal matrix. The original
+one-shard/fresh-session path remains frozen. Dated amendment `M4-BATCH-1`
+separately freezes a repetition-batched orchestration path and records the
+shared Kaggle allocation as a blocking variable.
 Generate the currently supported figures from the immutable evidence with:
 
 ```bash
@@ -69,6 +72,21 @@ The exact repetitive procedure and evidence-size policy are in
 `M4_PRINCIPAL_EXECUTION_GUIDE.md`. Historical Qwen sharded-state capability
 evidence is separately scoped in `HISTORICAL_QWEN_SHARDED_STATE.md` and is not
 an M4 input.
+
+Batch downloads use the same inner-shard semantic validator:
+
+```bash
+PYTHONPATH=src /usr/local/bin/python3.11 -m kaggle_vllm.research \
+  ingest-m4-batch \
+  --notebook /absolute/path/to/executed-batch.ipynb \
+  --batch-zip /absolute/path/to/m4-batch-BATCH_ID.zip \
+  --runtime /absolute/path/to/runtime.json
+```
+
+The outer archive and source freeze are checked first. Accepted inner shards
+stage independently with execution mode, session ID, batch ID, repetition, and
+within-session order. A later invalid shard does not erase earlier valid local
+staging, but the overall command returns review-required status.
 
 The accepted Qwen compatibility ZIP SHA256 is
 `cd3c45dddf19830649b03a931cee0247d6f8b4ebbc953c433e3ade563b271ecb`;

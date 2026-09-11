@@ -386,9 +386,17 @@ def _check_existing_shard(repository: Path, shard_id: str, destination: Path) ->
 
 
 def audit_download(
-    *, repository: Path, notebook: Path, evidence_zip: Path, runtime_path: Path
+    *,
+    repository: Path,
+    notebook: Path,
+    evidence_zip: Path,
+    runtime_path: Path,
+    expected_source_commit: str = EXPECTED_SOURCE_COMMIT,
+    frozen_notebook: Path | None = None,
 ) -> tuple[dict[str, Any], Path]:
-    frozen = repository / "kaggle-notebooks/kaggle_vllm_m4_execute_shard.ipynb"
+    frozen = frozen_notebook or (
+        repository / "kaggle-notebooks/kaggle_vllm_m4_execute_shard.ipynb"
+    )
     if notebook_sources(notebook) != notebook_sources(frozen):
         raise ResearchEvidenceError("executed notebook source differs from frozen source")
     members = inspect_zip(evidence_zip)
@@ -415,7 +423,7 @@ def audit_download(
         expected_model = matrix.get(model_key)
         if expected_model is None:
             raise ResearchEvidenceError(f"unknown M4 model key: {model_key}")
-        if source.get("commit") != EXPECTED_SOURCE_COMMIT or source.get("dirty") is not False:
+        if source.get("commit") != expected_source_commit or source.get("dirty") is not False:
             raise ResearchEvidenceError("evidence does not use the clean frozen source commit")
         if start.get("sdk_version") != EXPECTED_VERSION:
             raise ResearchEvidenceError("evidence SDK version is not 0.2.0")
@@ -529,7 +537,7 @@ def audit_download(
                 or engine.get("model_source") != "huggingface"
                 or engine.get("served_model_name") != model_key
                 or engine.get("api_mode") != "completions"
-                or identity.get("source_git_commit") != EXPECTED_SOURCE_COMMIT
+                or identity.get("source_git_commit") != expected_source_commit
                 or identity.get("kaggle_vllm_version") != EXPECTED_VERSION
                 or workload.get("prompt_profile")
                 != "M4 exact tokenizer-controlled completion prompts v1"
@@ -591,7 +599,7 @@ def audit_download(
             "status": "VERIFIED_CANONICAL_CANDIDATE",
             "classification": classification,
             "shard_id": shard_id,
-            "source_commit": EXPECTED_SOURCE_COMMIT,
+            "source_commit": expected_source_commit,
             "source_equivalent_notebook": True,
             "evidence_zip_sha256": sha256_file(evidence_zip),
             "executed_notebook_sha256": sha256_file(notebook),
