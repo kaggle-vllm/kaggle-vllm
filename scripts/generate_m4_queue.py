@@ -31,7 +31,11 @@ def build_queue(plan: dict[str, Any], evidence: dict[str, Any]) -> dict[str, Any
             status = principal_evidence.get(historical["shard_id"], {}).get(
                 "status", "QUEUED"
             )
-            if status not in {"QUEUED", "PRINCIPAL_SHARD_PRESERVED"}:
+            if status not in {
+                "QUEUED",
+                "PRINCIPAL_SHARD_PRESERVED",
+                "FAILED_RESOURCE_GATE",
+            }:
                 raise ValueError(
                     f"unsupported principal shard status: {historical['shard_id']}={status}"
                 )
@@ -64,6 +68,9 @@ def build_queue(plan: dict[str, Any], evidence: dict[str, Any]) -> dict[str, Any
     preserved = [
         row for row in active if row["status"] == "PRINCIPAL_SHARD_PRESERVED"
     ]
+    review_required = [
+        row for row in active if row["status"] == "FAILED_RESOURCE_GATE"
+    ]
     skipped = [row for row in rows if row["status"] == "SKIPPED_BY_COMPATIBILITY_GATE"]
     return {
         "schema_version": "kaggle-vllm-m4-principal-queue-v1",
@@ -82,6 +89,8 @@ def build_queue(plan: dict[str, Any], evidence: dict[str, Any]) -> dict[str, Any
         "preserved_serving_cells": sum(row["serving_cells"] for row in preserved),
         "queued_shards": len(queued),
         "queued_serving_cells": sum(row["serving_cells"] for row in queued),
+        "review_required_shards": len(review_required),
+        "remaining_shards": len(queued) + len(review_required),
         "skipped_gemma_shards": len(skipped),
         "next_shard_id": queued[0]["shard_id"] if queued else None,
         "session_policy": "one shard in one fresh Kaggle T4 x2 session",
@@ -108,6 +117,7 @@ def markdown(queue: dict[str, Any]) -> str:
         "inputs to the local provenance audit.",
         "",
         f"Progress: {queue['preserved_shards']} / {queue['active_shards']} active shards preserved.",
+        f"Review required: {queue['review_required_shards']} resource-gated shard.",
         "",
         f"Next: `M4_SHARD_ID={queue['next_shard_id']}`",
         "",

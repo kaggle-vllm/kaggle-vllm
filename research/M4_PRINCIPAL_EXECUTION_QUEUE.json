@@ -30,10 +30,12 @@
   ],
   "active_shards": 60,
   "active_serving_cells": 720,
-  "preserved_shards": 2,
-  "preserved_serving_cells": 24,
-  "queued_shards": 58,
-  "queued_serving_cells": 696,
+  "preserved_shards": 3,
+  "preserved_serving_cells": 36,
+  "queued_shards": 56,
+  "queued_serving_cells": 672,
+  "review_required_shards": 1,
+  "remaining_shards": 57,
   "skipped_gemma_shards": 15,
   "next_shard_id": "qwen25_3b-short-r02",
   "session_policy": "one shard in one fresh Kaggle T4 x2 session",
@@ -204,7 +206,7 @@
       "expected_artifact": "qwen25_3b-balanced-r00-principal.zip",
       "executed_notebook_role": "downloaded executed copy of the frozen M4 notebook; required for source-equivalence audit",
       "runtime_json_role": "separately downloaded bootstrap runtime.json; required for runtime-identity audit",
-      "status": "QUEUED",
+      "status": "PRINCIPAL_SHARD_PRESERVED",
       "skip_reason": null
     },
     {
@@ -334,7 +336,7 @@
       "expected_artifact": "qwen25_3b-prefill_heavy-r00-principal.zip",
       "executed_notebook_role": "downloaded executed copy of the frozen M4 notebook; required for source-equivalence audit",
       "runtime_json_role": "separately downloaded bootstrap runtime.json; required for runtime-identity audit",
-      "status": "QUEUED",
+      "status": "FAILED_RESOURCE_GATE",
       "skip_reason": null
     },
     {

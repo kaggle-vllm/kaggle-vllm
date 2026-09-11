@@ -15,14 +15,19 @@ def test_queue_preserves_negative_compatibility_and_historical_shards() -> None:
     assert queue["principal_model_count"] == 4
     assert queue["active_shards"] == 60
     assert queue["active_serving_cells"] == 720
-    assert queue["preserved_shards"] == 2
-    assert queue["preserved_serving_cells"] == 24
-    assert queue["queued_shards"] == 58
-    assert queue["queued_serving_cells"] == 696
+    assert queue["preserved_shards"] == 3
+    assert queue["preserved_serving_cells"] == 36
+    assert queue["queued_shards"] == 56
+    assert queue["queued_serving_cells"] == 672
+    assert queue["review_required_shards"] == 1
+    assert queue["remaining_shards"] == 57
     assert queue["skipped_gemma_shards"] == 15
     assert queue["next_shard_id"] == "qwen25_3b-short-r02"
     assert queue["queue"][0]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert queue["queue"][1]["status"] == "PRINCIPAL_SHARD_PRESERVED"
+    by_id = {row["shard_id"]: row for row in queue["queue"]}
+    assert by_id["qwen25_3b-balanced-r00"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
+    assert by_id["qwen25_3b-prefill_heavy-r00"]["status"] == "FAILED_RESOURCE_GATE"
     assert queue["queue"][0]["expected_artifact"] == (
         "qwen25_3b-short-r00-principal.zip"
     )
