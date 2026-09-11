@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import shutil
@@ -36,6 +37,20 @@ SESSION_ID = re.compile(r"^m4-[a-z0-9-]+-[0-9]{8}T[0-9]{6}Z-[0-9a-f]{8}$")
 MAX_OUTER_MEMBERS = 128
 MAX_OUTER_MEMBER_BYTES = 1024**3
 MAX_OUTER_UNCOMPRESSED_BYTES = 4 * 1024**3
+
+
+def notebook_source_digest(path: Path) -> str:
+    sources = [source for cell_type, _cell_id, source in notebook_sources(path) if cell_type == "code"]
+    normalized = [
+        re.sub(
+            r"BATCH_NOTEBOOK_SOURCE_DIGEST = '[0-9a-f]{64}'",
+            "BATCH_NOTEBOOK_SOURCE_DIGEST = '<NORMALIZED>'",
+            source,
+        )
+        for source in sources
+    ]
+    payload = json.dumps(normalized, separators=(",", ":"), ensure_ascii=False).encode()
+    return hashlib.sha256(payload).hexdigest()
 
 
 def load_object(path: Path) -> dict[str, Any]:
@@ -228,6 +243,10 @@ def verify_batch_source_freeze(repository: Path) -> dict[str, Any]:
     commit = freeze.get("implementation_source_commit")
     if not isinstance(commit, str) or re.fullmatch(r"[0-9a-f]{40}", commit) is None:
         raise ResearchEvidenceError("invalid batch implementation source commit")
+    if freeze.get("batch_notebook_source_digest") != notebook_source_digest(
+        repository / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+    ):
+        raise ResearchEvidenceError("M4 batch notebook source digest mismatch")
     return freeze
 
 
@@ -344,6 +363,11 @@ def stage_batch_download(
             raise ResearchEvidenceError("batch source identity differs from source freeze")
         if source_identity.get("batch_runner_sha256") != freeze["batch_runner_sha256"]:
             raise ResearchEvidenceError("batch runner identity differs from source freeze")
+        if (
+            source_identity.get("batch_notebook_source_digest")
+            != freeze["batch_notebook_source_digest"]
+        ):
+            raise ResearchEvidenceError("batch notebook source identity differs from freeze")
         plan = load_object(repository / "research/M4_BATCH_EXECUTION_PLAN.json")
         manifest = load_object(temporary / "BATCH_MANIFEST.json")
         batch = select_batch(plan, str(manifest.get("batch_id")))

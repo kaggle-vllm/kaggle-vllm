@@ -168,7 +168,11 @@ def _write_outer(root: Path, manifest: dict, inner: dict[str, bytes]) -> Path:
     files = {
         "BATCH_MANIFEST.json": json.dumps(manifest).encode(),
         "BATCH_SOURCE_IDENTITY.json": json.dumps(
-            {"source_commit": "a" * 40, "batch_runner_sha256": "b" * 64}
+            {
+                "source_commit": "a" * 40,
+                "batch_runner_sha256": "b" * 64,
+                "batch_notebook_source_digest": "c" * 64,
+            }
         ).encode(),
         "batch.log": b"test fixture; no benchmark measurements\n",
         "runtime.json": b"{}",
@@ -221,6 +225,7 @@ def test_batch_ingest_preserves_first_valid_inner_when_later_inner_is_invalid(
         lambda _repository: {
             "implementation_source_commit": "a" * 40,
             "batch_runner_sha256": "b" * 64,
+            "batch_notebook_source_digest": "c" * 64,
         },
     )
     monkeypatch.setattr(m4_batch, "notebook_sources", lambda _path: [])
