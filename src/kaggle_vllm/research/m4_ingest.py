@@ -51,11 +51,26 @@ def _object(path: Path) -> dict[str, Any]:
     return value
 
 
-def notebook_sources(path: Path) -> list[tuple[Any, Any, str]]:
+def notebook_sources(
+    path: Path, *, allow_trailing_empty_code_cells: bool = False
+) -> list[tuple[Any, Any, str]]:
     notebook = _object(path)
     cells = notebook.get("cells")
     if not isinstance(cells, list):
         raise ResearchEvidenceError(f"notebook has no cells: {path}")
+    if allow_trailing_empty_code_cells:
+        cells = list(cells)
+        while cells:
+            cell = cells[-1]
+            if (
+                not isinstance(cell, dict)
+                or cell.get("cell_type") != "code"
+                or "".join(cell.get("source", [])).strip()
+                or cell.get("outputs", [])
+                or cell.get("execution_count") is not None
+            ):
+                break
+            cells.pop()
     return [
         (cell.get("cell_type"), cell.get("id"), "".join(cell.get("source", [])))
         for cell in cells
@@ -393,11 +408,15 @@ def audit_download(
     runtime_path: Path,
     expected_source_commit: str = EXPECTED_SOURCE_COMMIT,
     frozen_notebook: Path | None = None,
+    allow_trailing_empty_notebook_cells: bool = False,
 ) -> tuple[dict[str, Any], Path]:
     frozen = frozen_notebook or (
         repository / "kaggle-notebooks/kaggle_vllm_m4_execute_shard.ipynb"
     )
-    if notebook_sources(notebook) != notebook_sources(frozen):
+    if notebook_sources(
+        notebook,
+        allow_trailing_empty_code_cells=allow_trailing_empty_notebook_cells,
+    ) != notebook_sources(frozen):
         raise ResearchEvidenceError("executed notebook source differs from frozen source")
     members = inspect_zip(evidence_zip)
     runtime = _object(runtime_path)

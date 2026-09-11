@@ -22,6 +22,7 @@ from kaggle_vllm.research.m4_batch import (
     validate_batch_manifest,
     verify_batch_source_freeze,
 )
+from kaggle_vllm.research.m4_ingest import notebook_sources
 from kaggle_vllm.research.provenance import sha256_file, verify_sha256_manifest
 from scripts.kaggle_m4_execute_batch import (
     _add_batch_shard_provenance,
@@ -159,6 +160,50 @@ def test_outer_zip_rejects_traversal_and_duplicate(tmp_path: Path) -> None:
         inspect_batch_zip(duplicate)
 
 
+def test_batch_notebook_allows_only_inert_trailing_empty_code_cells(
+    tmp_path: Path,
+) -> None:
+    frozen = tmp_path / "frozen.ipynb"
+    executed = tmp_path / "executed.ipynb"
+    notebook = {
+        "nbformat": 4,
+        "nbformat_minor": 5,
+        "metadata": {},
+        "cells": [
+            {
+                "cell_type": "code",
+                "id": "source",
+                "metadata": {},
+                "source": ["print('frozen')\n"],
+                "outputs": [],
+                "execution_count": None,
+            }
+        ],
+    }
+    frozen.write_text(json.dumps(notebook))
+    notebook["cells"].append(
+        {
+            "cell_type": "code",
+            "id": "kaggle-added-empty-cell",
+            "metadata": {},
+            "source": [],
+            "outputs": [],
+            "execution_count": None,
+        }
+    )
+    executed.write_text(json.dumps(notebook))
+    assert notebook_sources(executed) != notebook_sources(frozen)
+    assert notebook_sources(
+        executed, allow_trailing_empty_code_cells=True
+    ) == notebook_sources(frozen)
+
+    notebook["cells"][-1]["source"] = ["print('drift')\n"]
+    executed.write_text(json.dumps(notebook))
+    assert notebook_sources(
+        executed, allow_trailing_empty_code_cells=True
+    ) != notebook_sources(frozen)
+
+
 def test_partial_manifest_and_duplicate_shards() -> None:
     batch = _batch()
     manifest = _manifest(batch, completed=2)
@@ -173,6 +218,17 @@ def test_manifest_enforces_fail_fast_execution_prefix() -> None:
     manifest = _manifest(batch, completed=3)
     manifest["shards"][2]["status"] = "FAILED"
     with pytest.raises(ResearchEvidenceError, match="not a prefix"):
+        validate_batch_manifest(manifest, batch, expected_source_commit="a" * 40)
+
+
+def test_v2_manifest_binds_protocol_revision() -> None:
+    batch = _batch()
+    batch["protocol_amendment_version"] = "M4-BATCH-2"
+    manifest = _manifest(batch)
+    manifest["protocol_amendment_version"] = "M4-BATCH-2"
+    validate_batch_manifest(manifest, batch, expected_source_commit="a" * 40)
+    manifest["protocol_amendment_version"] = "M4-BATCH-1"
+    with pytest.raises(ResearchEvidenceError, match="protocol amendment"):
         validate_batch_manifest(manifest, batch, expected_source_commit="a" * 40)
 
 
@@ -264,6 +320,9 @@ def _write_outer(root: Path, manifest: dict, inner: dict[str, bytes]) -> Path:
             {
                 "source_commit": "a" * 40,
                 "batch_runner_sha256": "b" * 64,
+                "batch_plan_sha256": sha256_file(
+                    ROOT / "research/M4_BATCH_EXECUTION_PLAN.json"
+                ),
                 "batch_notebook_source_digest": "c" * 64,
             }
         ).encode(),
@@ -314,14 +373,22 @@ def test_batch_ingest_preserves_first_valid_inner_when_later_inner_is_invalid(
     outer = _write_outer(tmp_path, manifest, inner)
     monkeypatch.setattr(
         m4_batch,
-        "verify_batch_source_freeze",
-        lambda _repository: {
-            "implementation_source_commit": "a" * 40,
-            "batch_runner_sha256": "b" * 64,
-            "batch_notebook_source_digest": "c" * 64,
-        },
+        "select_batch_source_freeze",
+        lambda _repository, _source: (
+            repository / "research/M4_BATCH_SOURCE_FREEZE.json",
+            {
+                "implementation_source_commit": "a" * 40,
+                "notebook_pin_commit": "b" * 40,
+                "batch_runner_sha256": "b" * 64,
+                "batch_plan_sha256": sha256_file(
+                    ROOT / "research/M4_BATCH_EXECUTION_PLAN.json"
+                ),
+                "batch_notebook_source_digest": "c" * 64,
+            },
+        ),
     )
-    monkeypatch.setattr(m4_batch, "notebook_sources", lambda _path: [])
+    monkeypatch.setattr(m4_batch, "_git_blob", lambda *_args: b"{}")
+    monkeypatch.setattr(m4_batch, "notebook_sources", lambda *_args, **_kwargs: [])
     monkeypatch.setattr(m4_batch, "verify_runtime", lambda _runtime: None)
     calls = 0
 
@@ -371,3 +438,107 @@ def test_batch_ingest_preserves_first_valid_inner_when_later_inner_is_invalid(
     assert len(report["invalid_shards"]) == 1
     staged = repository / ".local-evidence/m4-ingest"
     assert len(list(staged.iterdir())) == 1
+
+
+def test_partial_batch_reports_failed_and_not_executed_without_promoting_them(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    repository = tmp_path / "repo"
+    (repository / "research").mkdir(parents=True)
+    (repository / "kaggle-notebooks").mkdir()
+    shutil.copy2(
+        ROOT / "research/M4_BATCH_EXECUTION_PLAN.json",
+        repository / "research/M4_BATCH_EXECUTION_PLAN.json",
+    )
+    notebook = tmp_path / "executed.ipynb"
+    notebook.write_text("{}")
+    runtime = tmp_path / "runtime.json"
+    runtime.write_text("{}")
+    batch = _batch()
+    manifest = _manifest(batch, completed=1)
+    failed_id = batch["ordered_shard_ids"][1]
+    manifest["actual_execution_order"].append(failed_id)
+    manifest["shards"][2].update(
+        {
+            "status": "FAILED",
+            "reason": "per-GPU VRAM limit exceeded",
+            "runner_returncode": 3,
+            "evidence_zip": f"{failed_id}-principal.zip",
+            "evidence_zip_sha256": hashlib.sha256(failed_id.encode()).hexdigest(),
+        }
+    )
+    manifest["status"] = "STOPPED_ON_FAILURE"
+    completed_id = batch["ordered_shard_ids"][0]
+    completed_name = f"{completed_id}-principal.zip"
+    completed_bytes = completed_id.encode()
+    manifest["shards"][1]["evidence_zip_sha256"] = hashlib.sha256(
+        completed_bytes
+    ).hexdigest()
+    outer = _write_outer(
+        tmp_path,
+        manifest,
+        {
+            completed_name: completed_bytes,
+            f"{failed_id}-principal.zip": failed_id.encode(),
+        },
+    )
+    monkeypatch.setattr(
+        m4_batch,
+        "select_batch_source_freeze",
+        lambda _repository, _source: (
+            repository / "research/M4_BATCH_SOURCE_FREEZE.json",
+            {
+                "implementation_source_commit": "a" * 40,
+                "notebook_pin_commit": "b" * 40,
+                "batch_runner_sha256": "b" * 64,
+                "batch_plan_sha256": sha256_file(
+                    ROOT / "research/M4_BATCH_EXECUTION_PLAN.json"
+                ),
+                "batch_notebook_source_digest": "c" * 64,
+            },
+        ),
+    )
+    monkeypatch.setattr(m4_batch, "_git_blob", lambda *_args: b"{}")
+    monkeypatch.setattr(m4_batch, "notebook_sources", lambda *_args, **_kwargs: [])
+    monkeypatch.setattr(m4_batch, "verify_runtime", lambda _runtime: None)
+
+    def fake_audit(**_kwargs):
+        extracted = tmp_path / "valid-inner"
+        extracted.mkdir()
+        (extracted / "batch-shard-provenance.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": "kaggle-vllm-m4-batch-shard-provenance-v1",
+                    "execution_mode": "batch_orchestrated",
+                    "shard_id": completed_id,
+                    "batch_id": manifest["batch_id"],
+                    "session_id": manifest["session_id"],
+                    "repetition": manifest["repetition"],
+                    "within_session_order": 1,
+                    "source_commit": "a" * 40,
+                }
+            )
+        )
+        return (
+            {
+                "shard_id": completed_id,
+                "evidence_zip_sha256": hashlib.sha256(completed_bytes).hexdigest(),
+                "status": "VERIFIED_CANONICAL_CANDIDATE",
+            },
+            extracted,
+        )
+
+    monkeypatch.setattr(m4_batch, "audit_download", fake_audit)
+    report = stage_batch_download(
+        repository=repository,
+        notebook=notebook,
+        batch_zip=outer,
+        runtime_path=runtime,
+    )
+    assert report["status"] == "BATCH_REVIEW_REQUIRED"
+    assert [item["shard_id"] for item in report["accepted_shards"]] == [
+        completed_id
+    ]
+    assert [item["shard_id"] for item in report["failed_shards"]] == [failed_id]
+    assert failed_id not in report["planned_not_executed"]
+    assert len(report["planned_not_executed"]) == 9

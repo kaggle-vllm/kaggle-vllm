@@ -212,6 +212,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output-root", type=Path, required=True)
     parser.add_argument("--runtime", type=Path, required=True)
     parser.add_argument("--batch-id", required=True)
+    parser.add_argument(
+        "--batch-plan",
+        default="research/M4_BATCH_EXECUTION_PLAN.json",
+        help="Repository-relative frozen batch plan path",
+    )
     parser.add_argument("--source-identity", required=True)
     parser.add_argument("--batch-notebook-source-digest", required=True)
     parser.add_argument("--maximum-wall-clock-seconds", type=int)
@@ -231,7 +236,9 @@ def main(argv: list[str] | None = None) -> int:
     commit, dirty = _git_identity(repository)
     if commit != args.source_identity or dirty:
         raise SystemExit("batch source must be the exact clean reviewed commit")
-    plan_path = repository / "research/M4_BATCH_EXECUTION_PLAN.json"
+    plan_path = (repository / args.batch_plan).resolve()
+    if repository not in plan_path.parents or plan_path.suffix != ".json":
+        raise SystemExit("batch plan must be a repository-relative JSON path")
     plan = load_object(plan_path)
     batch = select_batch(plan, args.batch_id)
     policies = plan["resource_policy"]
@@ -264,6 +271,7 @@ def main(argv: list[str] | None = None) -> int:
             repository / "scripts/kaggle_m4_multimodel_crossover.py"
         ),
         "batch_plan_sha256": sha256_file(plan_path),
+        "batch_plan_path": plan_path.relative_to(repository).as_posix(),
         "batch_notebook_source_digest": args.batch_notebook_source_digest,
     }
     _write_json(bundle / "BATCH_SOURCE_IDENTITY.json", source_identity)
@@ -290,6 +298,12 @@ def main(argv: list[str] | None = None) -> int:
         "status": "RUNNING",
         "execution_mode": "batch_orchestrated",
         "batch_id": args.batch_id,
+        "protocol_amendment_version": batch.get(
+            "protocol_amendment_version",
+            plan.get("protocol_amendment", {}).get("version"),
+        ),
+        "parent_batch_id": batch.get("parent_batch_id"),
+        "continuation_group": batch.get("continuation_group"),
         "session_id": session_id,
         "repetition": batch["repetition"],
         "start_utc": started_utc,
@@ -445,6 +459,12 @@ def main(argv: list[str] | None = None) -> int:
                     "evidence_zip_sha256": archive_sha,
                 }
             )
+            cleanup = _wait_for_gpu_cleanliness(
+                baseline_pids=baseline_pids,
+                memory_limit_mib=policies["idle_gpu_memory_limit_mib_per_gpu"],
+                timeout_seconds=args.gpu_cleanup_timeout_seconds,
+            )
+            outcome["post_shard_gpu_cleanup"] = cleanup
             peaks = measure_shard_peaks(directory)
             outcome.update(
                 {
@@ -459,12 +479,6 @@ def main(argv: list[str] | None = None) -> int:
                 return_code = 2
             else:
                 outcome["status"] = "COMPLETED"
-            cleanup = _wait_for_gpu_cleanliness(
-                baseline_pids=baseline_pids,
-                memory_limit_mib=policies["idle_gpu_memory_limit_mib_per_gpu"],
-                timeout_seconds=args.gpu_cleanup_timeout_seconds,
-            )
-            outcome["post_shard_gpu_cleanup"] = cleanup
             if cleanup["status"] != "PASS":
                 stop = True
                 return_code = 2

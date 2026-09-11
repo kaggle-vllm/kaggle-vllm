@@ -7,6 +7,7 @@ import json
 import re
 import shutil
 import stat
+import subprocess
 import tempfile
 import zipfile
 from collections.abc import Callable
@@ -25,6 +26,7 @@ from .resources import GPU_MEMORY_LIMIT_MIB
 
 BATCH_SCHEMA = "kaggle-vllm-m4-batch-manifest-v1"
 BATCH_PLAN_SCHEMA = "kaggle-vllm-m4-batch-execution-plan-v1"
+BATCH_PLAN_SCHEMA_V2 = "kaggle-vllm-m4-batch-execution-plan-v2"
 OUTER_AUDIT_SCHEMA = "kaggle-vllm-m4-batch-ingest-audit-v1"
 ALLOWED_OUTCOMES = {
     "PLANNED",
@@ -64,7 +66,7 @@ def load_object(path: Path) -> dict[str, Any]:
 
 
 def select_batch(plan: dict[str, Any], batch_id: str) -> dict[str, Any]:
-    if plan.get("schema_version") != BATCH_PLAN_SCHEMA:
+    if plan.get("schema_version") not in {BATCH_PLAN_SCHEMA, BATCH_PLAN_SCHEMA_V2}:
         raise ResearchEvidenceError("unsupported M4 batch plan schema")
     matches = [batch for batch in plan.get("batches", []) if batch.get("batch_id") == batch_id]
     if len(matches) != 1:
@@ -225,8 +227,28 @@ def inspect_batch_zip(path: Path) -> list[str]:
     return sorted(names)
 
 
-def verify_batch_source_freeze(repository: Path) -> dict[str, Any]:
-    freeze = load_object(repository / "research/M4_BATCH_SOURCE_FREEZE.json")
+def _git_blob(repository: Path, commit: str, relative: str) -> bytes | None:
+    completed = subprocess.run(
+        ["git", "show", f"{commit}:{relative}"],
+        cwd=repository,
+        check=False,
+        capture_output=True,
+    )
+    return completed.stdout if completed.returncode == 0 else None
+
+
+def verify_batch_source_freeze(
+    repository: Path,
+    freeze_path: Path | None = None,
+) -> dict[str, Any]:
+    freeze_path = freeze_path or repository / "research/M4_BATCH_SOURCE_FREEZE.json"
+    freeze = load_object(freeze_path)
+    batch_plan_path = freeze.get(
+        "batch_plan_path", "research/M4_BATCH_EXECUTION_PLAN.json"
+    )
+    amendment_path = freeze.get(
+        "protocol_amendment_path", "research/M4_BATCH_PROTOCOL_AMENDMENT.md"
+    )
     paths = {
         "batch_notebook_sha256": "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb",
         "batch_runner_sha256": "scripts/kaggle_m4_execute_batch.py",
@@ -234,20 +256,52 @@ def verify_batch_source_freeze(repository: Path) -> dict[str, Any]:
         "m4_execution_plan_sha256": "research/M4_EXECUTION_PLAN.json",
         "model_matrix_sha256": "research/model_matrix.json",
         "protocol_sha256": "research/m4_protocol.json",
-        "batch_plan_sha256": "research/M4_BATCH_EXECUTION_PLAN.json",
-        "protocol_amendment_sha256": "research/M4_BATCH_PROTOCOL_AMENDMENT.md",
+        "batch_plan_sha256": batch_plan_path,
+        "protocol_amendment_sha256": amendment_path,
     }
+    implementation_commit = str(freeze.get("implementation_source_commit", ""))
+    notebook_commit = str(freeze.get("notebook_pin_commit", ""))
     for field, relative in paths.items():
-        if freeze.get(field) != sha256_file(repository / relative):
+        commit = notebook_commit if field == "batch_notebook_sha256" else implementation_commit
+        blob = _git_blob(repository, commit, relative)
+        digest = (
+            hashlib.sha256(blob).hexdigest()
+            if blob is not None
+            else sha256_file(repository / relative)
+        )
+        if freeze.get(field) != digest:
             raise ResearchEvidenceError(f"M4 batch source-freeze mismatch: {relative}")
-    commit = freeze.get("implementation_source_commit")
+    commit = implementation_commit
     if not isinstance(commit, str) or re.fullmatch(r"[0-9a-f]{40}", commit) is None:
         raise ResearchEvidenceError("invalid batch implementation source commit")
-    if freeze.get("batch_notebook_source_digest") != notebook_source_digest(
-        repository / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
-    ):
+    notebook_blob = _git_blob(
+        repository, notebook_commit, "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+    )
+    if notebook_blob is None:
+        notebook_path = repository / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+        source_digest = notebook_source_digest(notebook_path)
+    else:
+        with tempfile.NamedTemporaryFile(suffix=".ipynb") as temporary:
+            temporary.write(notebook_blob)
+            temporary.flush()
+            source_digest = notebook_source_digest(Path(temporary.name))
+    if freeze.get("batch_notebook_source_digest") != source_digest:
         raise ResearchEvidenceError("M4 batch notebook source digest mismatch")
     return freeze
+
+
+def select_batch_source_freeze(repository: Path, source_commit: str) -> tuple[Path, dict[str, Any]]:
+    candidates = sorted(repository.glob("research/M4_BATCH_SOURCE_FREEZE*.json"))
+    matches = [
+        path
+        for path in candidates
+        if load_object(path).get("implementation_source_commit") == source_commit
+    ]
+    if len(matches) != 1:
+        raise ResearchEvidenceError(
+            f"unknown or ambiguous M4 batch source freeze for commit: {source_commit}"
+        )
+    return matches[0], verify_batch_source_freeze(repository, matches[0])
 
 
 def validate_batch_manifest(
@@ -266,6 +320,10 @@ def validate_batch_manifest(
         "session ID": isinstance(manifest.get("session_id"), str)
         and SESSION_ID.fullmatch(manifest["session_id"]) is not None,
     }
+    if plan_version := batch.get("protocol_amendment_version"):
+        checks["protocol amendment"] = (
+            manifest.get("protocol_amendment_version") == plan_version
+        )
     failed = [name for name, passed in checks.items() if not passed]
     if failed:
         raise ResearchEvidenceError(f"batch manifest identity mismatch: {failed}")
@@ -338,10 +396,6 @@ def stage_batch_download(
     *, repository: Path, notebook: Path, batch_zip: Path, runtime_path: Path
 ) -> dict[str, Any]:
     members = inspect_batch_zip(batch_zip)
-    freeze = verify_batch_source_freeze(repository)
-    frozen_notebook = repository / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
-    if notebook_sources(notebook) != notebook_sources(frozen_notebook):
-        raise ResearchEvidenceError("executed batch notebook source differs from frozen source")
     runtime = load_object(runtime_path)
     verify_runtime(runtime)
     temporary = Path(tempfile.mkdtemp(prefix="kaggle-vllm-m4-batch-ingest-"))
@@ -358,18 +412,47 @@ def stage_batch_download(
         bundled_runtime = temporary / "runtime.json"
         if sha256_file(bundled_runtime) != sha256_file(runtime_path):
             raise ResearchEvidenceError("separate runtime.json differs from batch bundle")
+        manifest = load_object(temporary / "BATCH_MANIFEST.json")
+        freeze_path, freeze = select_batch_source_freeze(
+            repository, str(manifest.get("source_commit"))
+        )
+        frozen_notebook = repository / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+        notebook_commit = str(freeze["notebook_pin_commit"])
+        notebook_blob = _git_blob(
+            repository,
+            notebook_commit,
+            "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb",
+        )
+        if notebook_blob is None:
+            raise ResearchEvidenceError("cannot load frozen batch notebook from Git history")
+        frozen_notebook = temporary / "FROZEN_BATCH_NOTEBOOK.ipynb"
+        frozen_notebook.write_bytes(notebook_blob)
+        if notebook_sources(
+            notebook, allow_trailing_empty_code_cells=True
+        ) != notebook_sources(frozen_notebook):
+            raise ResearchEvidenceError("executed batch notebook source differs from frozen source")
         source_identity = load_object(temporary / "BATCH_SOURCE_IDENTITY.json")
         if source_identity.get("source_commit") != freeze["implementation_source_commit"]:
             raise ResearchEvidenceError("batch source identity differs from source freeze")
         if source_identity.get("batch_runner_sha256") != freeze["batch_runner_sha256"]:
             raise ResearchEvidenceError("batch runner identity differs from source freeze")
+        expected_plan_path = freeze.get(
+            "batch_plan_path", "research/M4_BATCH_EXECUTION_PLAN.json"
+        )
+        if source_identity.get("batch_plan_sha256") != freeze["batch_plan_sha256"]:
+            raise ResearchEvidenceError("batch plan identity differs from source freeze")
+        recorded_plan_path = source_identity.get(
+            "batch_plan_path", "research/M4_BATCH_EXECUTION_PLAN.json"
+        )
+        if recorded_plan_path != expected_plan_path:
+            raise ResearchEvidenceError("batch plan path differs from source freeze")
         if (
             source_identity.get("batch_notebook_source_digest")
             != freeze["batch_notebook_source_digest"]
         ):
             raise ResearchEvidenceError("batch notebook source identity differs from freeze")
-        plan = load_object(repository / "research/M4_BATCH_EXECUTION_PLAN.json")
-        manifest = load_object(temporary / "BATCH_MANIFEST.json")
+        plan_path = repository / expected_plan_path
+        plan = load_object(plan_path)
         batch = select_batch(plan, str(manifest.get("batch_id")))
         validate_batch_manifest(
             manifest,
@@ -396,6 +479,7 @@ def stage_batch_download(
                     runtime_path=runtime_path,
                     expected_source_commit=freeze["implementation_source_commit"],
                     frozen_notebook=frozen_notebook,
+                    allow_trailing_empty_notebook_cells=True,
                 )
                 if audit["shard_id"] != shard_id:
                     raise ResearchEvidenceError("inner shard identity differs from manifest")
@@ -446,12 +530,31 @@ def stage_batch_download(
                 if extracted is not None:
                     shutil.rmtree(extracted, ignore_errors=True)
                 invalid.append({"shard_id": shard_id, "error": str(error)})
+        failed_shards = [
+            {
+                "shard_id": item["shard_id"],
+                "status": item["status"],
+                "reason": item.get("reason"),
+                "runner_returncode": item.get("runner_returncode"),
+                "evidence_zip": item.get("evidence_zip"),
+                "evidence_zip_sha256": item.get("evidence_zip_sha256"),
+                "preservation_status": "PRESERVED_IN_ORIGINAL_OUTER_BATCH_FOR_REVIEW",
+            }
+            for item in manifest["shards"]
+            if item["status"] == "FAILED"
+        ]
+        planned_not_executed = [
+            item["shard_id"]
+            for item in manifest["shards"]
+            if item["status"] == "NOT_EXECUTED"
+        ]
+        review_required = bool(invalid or failed_shards or planned_not_executed)
         return {
             "schema_version": OUTER_AUDIT_SCHEMA,
             "status": (
-                "VERIFIED_BATCH_CANDIDATE"
-                if not invalid
-                else "BATCH_REVIEW_REQUIRED"
+                "BATCH_REVIEW_REQUIRED"
+                if review_required
+                else "VERIFIED_BATCH_CANDIDATE"
             ),
             "batch_id": manifest["batch_id"],
             "session_id": manifest["session_id"],
@@ -459,11 +562,10 @@ def stage_batch_download(
             "source_equivalent_notebook": True,
             "accepted_shards": accepted,
             "invalid_shards": invalid,
-            "planned_not_executed": [
-                item["shard_id"]
-                for item in manifest["shards"]
-                if item["status"] == "NOT_EXECUTED"
-            ],
+            "failed_shards": failed_shards,
+            "planned_not_executed": planned_not_executed,
+            "batch_manifest_status": manifest.get("status", "UNKNOWN"),
+            "source_freeze": str(freeze_path.relative_to(repository)),
             "destination_status": "INDIVIDUAL_LOCAL_STAGING_ONLY_REQUIRES_REVIEWED_PROMOTION",
         }
     finally:
