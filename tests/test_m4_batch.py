@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+import subprocess
 import warnings
 import zipfile
 from pathlib import Path
@@ -255,6 +256,53 @@ def test_batch_source_freeze_validates_and_rejects_drift(tmp_path: Path) -> None
         shutil.copy2(ROOT / relative, target)
     (repository / "scripts/kaggle_m4_execute_batch.py").write_text("drift")
     with pytest.raises(ResearchEvidenceError, match="source-freeze mismatch"):
+        verify_batch_source_freeze(repository)
+
+
+def test_historical_batch_freeze_survives_shallow_git_checkout(
+    tmp_path: Path,
+) -> None:
+    repository = tmp_path / "repository"
+    paths = [
+        "research/M4_BATCH_SOURCE_FREEZE.json",
+        "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb",
+        "scripts/kaggle_m4_execute_batch.py",
+        "scripts/kaggle_m4_multimodel_crossover.py",
+        "research/M4_EXECUTION_PLAN.json",
+        "research/model_matrix.json",
+        "research/m4_protocol.json",
+        "research/M4_BATCH_EXECUTION_PLAN.json",
+        "research/M4_BATCH_PROTOCOL_AMENDMENT.md",
+    ]
+    for relative in paths:
+        target = repository / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT / relative, target)
+    subprocess.run(["git", "init"], cwd=repository, check=True, capture_output=True)
+    subprocess.run(["git", "add", "."], cwd=repository, check=True, capture_output=True)
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=M4 test",
+            "-c",
+            "user.email=m4-test@example.invalid",
+            "commit",
+            "-m",
+            "shallow fixture",
+        ],
+        cwd=repository,
+        check=True,
+        capture_output=True,
+    )
+    assert verify_batch_source_freeze(repository)["protocol_amendment_version"] == (
+        "M4-BATCH-1"
+    )
+    freeze_path = repository / "research/M4_BATCH_SOURCE_FREEZE.json"
+    freeze = json.loads(freeze_path.read_text())
+    freeze["batch_notebook_sha256"] = "0" * 64
+    freeze_path.write_text(json.dumps(freeze))
+    with pytest.raises(ResearchEvidenceError, match="differs from HEAD"):
         verify_batch_source_freeze(repository)
 
 

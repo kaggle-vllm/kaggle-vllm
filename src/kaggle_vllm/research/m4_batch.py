@@ -237,6 +237,17 @@ def _git_blob(repository: Path, commit: str, relative: str) -> bytes | None:
     return completed.stdout if completed.returncode == 0 else None
 
 
+def _is_git_worktree(repository: Path) -> bool:
+    completed = subprocess.run(
+        ["git", "rev-parse", "--is-inside-work-tree"],
+        cwd=repository,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    return completed.returncode == 0 and completed.stdout.strip() == "true"
+
+
 def verify_batch_source_freeze(
     repository: Path,
     freeze_path: Path | None = None,
@@ -261,22 +272,45 @@ def verify_batch_source_freeze(
     }
     implementation_commit = str(freeze.get("implementation_source_commit", ""))
     notebook_commit = str(freeze.get("notebook_pin_commit", ""))
+    is_git_worktree = _is_git_worktree(repository)
+    try:
+        freeze_relative = freeze_path.resolve().relative_to(repository.resolve()).as_posix()
+    except ValueError:
+        freeze_relative = ""
+    head_freeze = (
+        _git_blob(repository, "HEAD", freeze_relative)
+        if is_git_worktree and freeze_relative
+        else None
+    )
+    tracked_freeze_is_clean = head_freeze == freeze_path.read_bytes()
+    if head_freeze is not None and not tracked_freeze_is_clean:
+        raise ResearchEvidenceError("M4 batch source-freeze record differs from HEAD")
     for field, relative in paths.items():
         commit = notebook_commit if field == "batch_notebook_sha256" else implementation_commit
         blob = _git_blob(repository, commit, relative)
-        digest = (
-            hashlib.sha256(blob).hexdigest()
-            if blob is not None
-            else sha256_file(repository / relative)
-        )
+        if blob is None and tracked_freeze_is_clean:
+            recorded = freeze.get(field)
+            if not isinstance(recorded, str) or re.fullmatch(r"[0-9a-f]{64}", recorded) is None:
+                raise ResearchEvidenceError(f"invalid M4 batch source-freeze hash: {field}")
+            continue
+        digest = hashlib.sha256(blob).hexdigest() if blob is not None else sha256_file(repository / relative)
         if freeze.get(field) != digest:
             raise ResearchEvidenceError(f"M4 batch source-freeze mismatch: {relative}")
     commit = implementation_commit
     if not isinstance(commit, str) or re.fullmatch(r"[0-9a-f]{40}", commit) is None:
         raise ResearchEvidenceError("invalid batch implementation source commit")
+    if re.fullmatch(r"[0-9a-f]{40}", notebook_commit) is None:
+        raise ResearchEvidenceError("invalid batch notebook pin commit")
     notebook_blob = _git_blob(
         repository, notebook_commit, "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
     )
+    if notebook_blob is None and tracked_freeze_is_clean:
+        recorded_source_digest = freeze.get("batch_notebook_source_digest")
+        if not isinstance(recorded_source_digest, str) or re.fullmatch(
+            r"[0-9a-f]{64}", recorded_source_digest
+        ) is None:
+            raise ResearchEvidenceError("invalid M4 batch notebook source digest")
+        return freeze
     if notebook_blob is None:
         notebook_path = repository / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
         source_digest = notebook_source_digest(notebook_path)
