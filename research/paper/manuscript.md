@@ -58,10 +58,12 @@ and exact Python, Torch, CUDA, NCCL, wheel, and source identities.
 Use the frozen short, balanced, and prefill-heavy exact-token workloads;
 concurrency 1/4/8/16/32/64; TP1/TP2; five logical repetitions. A logical shard
 is one model/workload/repetition and contains twelve serving cells, each with a
-fresh vLLM server. Under dated amendment `M4-BATCH-1`, multiple logical shards
-from one repetition may be scheduled sequentially in one Kaggle allocation;
-the batch/session ID and within-session order are retained. Repetitions of the
-same model/workload are not intentionally placed in one allocation. Define
+fresh vLLM server. Historical amendment `M4-BATCH-1` allowed multiple logical
+shards from one repetition in one Kaggle allocation. After its first partial
+batch, `M4-BATCH-2` narrowed future allocations to one model and one repetition.
+The logical repetition, physical session, continuation batch, and within-session
+workload order are retained separately. Repetitions of the same model/workload
+are not intentionally placed in one allocation. Define
 TTFT, TPOT, event-level ITL, E2E latency, request/output/total throughput,
 failures, OOM, utilization, VRAM, RAM, power, and temperature.
 

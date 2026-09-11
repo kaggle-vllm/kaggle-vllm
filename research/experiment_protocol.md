@@ -57,7 +57,11 @@ logical shards from one repetition index to run sequentially in one Kaggle
 allocation. A logical shard still contains twelve fresh-server cells. The
 allocation/session ID and within-session order are retained as blocking
 provenance, and repetitions of one model/workload are never intentionally
-colocated. A crossover is robust
+colocated. After the first partial `fill-r00` allocation, amendment
+`M4-BATCH-2` limits future continuation allocations to one model within one
+repetition. It preserves logical shard IDs and all cell semantics, skips only
+already canonical shards, and excludes review-required failed shards without
+promoting them. A crossover is robust
 only when the paired-repetition mean-delta 95% confidence interval excludes zero
 in the favorable direction. Capacity, throughput and latency crossover labels
 remain distinct. Failed runs remain evidence unless a documented technical

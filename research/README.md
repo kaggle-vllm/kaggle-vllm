@@ -28,10 +28,14 @@ Machine-readable control files:
 - `M4_GEMMA3_DIAGNOSTIC_REVIEW.json`: diagnostic history and final p13 canonical closure.
 - `M4_PRINCIPAL_EXECUTION_QUEUE.json`: active principal queue plus auditable Gemma skips.
 - `M4_PRINCIPAL_EXECUTION_GUIDE.md`: one-shard download and ingestion procedure.
-- `M4_BATCH_PROTOCOL_AMENDMENT.md`: dated batching amendment and limitation.
-- `M4_BATCH_EXECUTION_PLAN.json`: deterministic repetition batches and guards.
+- `M4_BATCH_PROTOCOL_AMENDMENT.md`: retained M4-BATCH-1 amendment.
+- `M4_BATCH_EXECUTION_PLAN.json`: retained M4-BATCH-1 repetition batches.
+- `M4_FILL_R00_ATTEMPT_1_REVIEW.json`: first batch-attempt forensic record.
+- `M4_BATCH_PROTOCOL_AMENDMENT_V2.md`: M4-BATCH-2 continuation rules.
+- `M4_BATCH_EXECUTION_PLAN_V2.json`: deterministic model-scoped continuations.
 - `M4_BATCH_EXECUTION_GUIDE.md`: batch notebook, evidence, and ingestion procedure.
-- `M4_BATCH_SOURCE_FREEZE.json`: separate batch notebook/runner/plan hash freeze.
+- `M4_BATCH_SOURCE_FREEZE.json`: retained M4-BATCH-1 source freeze.
+- `M4_BATCH_SOURCE_FREEZE_V2.json`: M4-BATCH-2 notebook/runner/plan freeze.
 - `HISTORICAL_QWEN_SHARDED_STATE.md`: scope of the external Qwen persistence evidence.
 - `M5_DECISION.md`: post-M4 GuideLLM gate and claim boundary.
 - `../scripts/generate_m4_queue.py`: deterministic active-queue generator.
@@ -50,8 +54,10 @@ compatibility population. Qwen, clean-rerun Phi, clean Llama 3.2, and text-only
 Ministral passed. The final hash-verified p13 Gemma ZIP and source-equivalent
 executed notebook establish the canonical, narrowly scoped
 `UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK`. Two standalone
-Qwen-short repetitions are preserved; the remaining principal matrix and
-M5 independent validation are not complete. The principal study population is
+Qwen-short repetitions and one batch-orchestrated Qwen-balanced shard are
+preserved. The Qwen prefill-heavy r00 resource-gated attempt remains
+review-required, and the remaining principal matrix and M5 independent
+validation are not complete. The principal study population is
 the four compatibility-passing models; Gemma remains a negative compatibility
 result with N/A throughput, not throughput zero. The earlier Phi
 notebook-drift candidate remains rejected

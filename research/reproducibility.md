@@ -31,7 +31,10 @@ The canonical Gemma negative is under
 M4 remains in progress without an accepted principal matrix. The original
 one-shard/fresh-session path remains frozen. Dated amendment `M4-BATCH-1`
 separately freezes a repetition-batched orchestration path and records the
-shared Kaggle allocation as a blocking variable.
+shared Kaggle allocation as a blocking variable. Its first `fill-r00` attempt
+is retained as a one-completed, one-resource-gated, nine-not-executed partial
+batch. `M4-BATCH-2` keeps the scientific matrix fixed and narrows future
+continuations to one model and one repetition per new physical allocation.
 Generate the currently supported figures from the immutable evidence with:
 
 ```bash
@@ -86,7 +89,9 @@ PYTHONPATH=src /usr/local/bin/python3.11 -m kaggle_vllm.research \
 The outer archive and source freeze are checked first. Accepted inner shards
 stage independently with execution mode, session ID, batch ID, repetition, and
 within-session order. A later invalid shard does not erase earlier valid local
-staging, but the overall command returns review-required status.
+staging. Failed inner evidence remains review-only, not-executed rows remain
+distinct from failures, and any partial outer batch returns review-required
+status.
 
 The accepted Qwen compatibility ZIP SHA256 is
 `cd3c45dddf19830649b03a931cee0247d6f8b4ebbc953c433e3ade563b271ecb`;

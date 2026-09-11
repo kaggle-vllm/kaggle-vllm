@@ -59,14 +59,17 @@ devices against one ceiling.
 
 ## Current controlled shard
 
-`qwen25_3b-short-r00` and `qwen25_3b-short-r01` passed the reviewed local
-preservation and ingestion gates as two of five Qwen-short repetitions. For a
-standalone continuation, the next queue row is
+`qwen25_3b-short-r00`, `qwen25_3b-short-r01`, and
+`qwen25_3b-balanced-r00` passed reviewed local preservation and ingestion.
+`qwen25_3b-prefill_heavy-r00` remains failed/review-required after crossing the
+per-GPU resource guard. For a standalone continuation, the next historical
+queue row is
 `M4_SHARD_ID=qwen25_3b-short-r02` and its expected evidence ZIP is
 `qwen25_3b-short-r02-principal.zip`. Download the executed
 `kaggle_vllm_m4_execute_shard.ipynb` and `runtime.json` alongside it. Validate
-this shard end to end before advancing. For the preferred repetition-batched
-path, follow `M4_BATCH_EXECUTION_GUIDE.md` instead.
+this shard end to end before advancing. The current preferred operation is the
+model-scoped `M4_BATCH_ID=fill-r00-phi`; follow
+`M4_BATCH_EXECUTION_GUIDE.md` instead.
 
 ## Completion gate
 

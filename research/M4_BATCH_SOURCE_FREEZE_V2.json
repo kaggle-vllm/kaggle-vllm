@@ -1,0 +1,44 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-source-freeze-v2",
+  "status": "FROZEN_FOR_KAGGLE_NO_M4_BATCH_2_GPU_RESULTS",
+  "protocol_amendment_version": "M4-BATCH-2",
+  "protocol_amendment_date_utc": "2026-09-11",
+  "protocol_amendment_path": "research/M4_BATCH_PROTOCOL_AMENDMENT_V2.md",
+  "batch_plan_path": "research/M4_BATCH_EXECUTION_PLAN_V2.json",
+  "package_version": "0.2.0",
+  "implementation_source_commit": "cf0ce4f85a0753380468c48856ddb2579d31cf19",
+  "notebook_pin_commit": "35049f69e9b7bbc465870d92e97a7bd7064ee779",
+  "historical_batch_1_freeze": {
+    "path": "research/M4_BATCH_SOURCE_FREEZE.json",
+    "sha256": "fb4b8eb5ee917b3e16981557a12bab3cc47e7f8450e37f1ebaec6ac75758485e",
+    "status": "RETAINED_UNCHANGED"
+  },
+  "execution_paths": {
+    "single_shard": {
+      "status": "UNCHANGED_AND_SUPPORTED",
+      "source_freeze": "research/M4_SOURCE_FREEZE.json",
+      "source_freeze_sha256": "36de26730a3f444f7ff352aa62af6383d99d3e4cbcae534c7eb2bd458928b1ce",
+      "notebook_sha256": "885c5b6278614c66ac72f1e9ed8d05dbad84a19c8b99be129ebeb25e48a91dd9"
+    },
+    "batch_orchestrated": {
+      "status": "M4_BATCH_2_CONTINUATION_READY",
+      "notebook": "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb",
+      "runner": "scripts/kaggle_m4_execute_batch.py"
+    }
+  },
+  "batch_notebook_sha256": "ebf6826f8fd0df7f16e1596d33a1f32f24e96bb6102eb2e52a1fd84ebc49e500",
+  "batch_notebook_source_digest": "25d857d7df5a0ab4bb54735d852f293865f5bf3d0419d7fb612204775599a297",
+  "batch_runner_sha256": "d33bf59464a84b143806c859b464f39fbaff07d6850169399e1275fd38531d10",
+  "base_shard_runner_sha256": "70e8b21d70322fcfb409ccb951f0d540b185c793f03a56b2ba4f9095e3ed948f",
+  "m4_execution_plan_sha256": "d97c8ed1ec8eec7e61e61c617b50d5d48287a253aa28f1e7834b0694fa419d8b",
+  "model_matrix_sha256": "7e6eae2f674c394d5db262a02ddd601dfadb17807c4c62e6a252f3e9656664c4",
+  "protocol_sha256": "0bb8c6d15b8a6f3d7acc0d1716f99ab34bb4f97ed0e38dd1e26b8f1c92fe99e3",
+  "batch_plan_sha256": "dc637d8e98a0478833716617e64026a91791aa4518906381d388db3fbe762461",
+  "protocol_amendment_sha256": "6194397fa1a9f6a80cf6a0df45f689667c75d36644cbbaa2e9d55ac8a4ec8a55",
+  "model_source_policy": {
+    "source": "ordinary pinned Hugging Face checkpoints in research/model_matrix.json",
+    "historical_qwen_tp2_sharded_state_allowed": false,
+    "waqasm86_kaggle_vllm_models_allowed": false
+  },
+  "evidence_boundary": "This freeze contains no M4-BATCH-2 GPU measurements. It versions only continuation orchestration and partial-batch validation."
+}

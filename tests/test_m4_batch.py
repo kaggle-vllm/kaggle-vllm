@@ -234,6 +234,9 @@ def test_v2_manifest_binds_protocol_revision() -> None:
 
 def test_batch_source_freeze_validates_and_rejects_drift(tmp_path: Path) -> None:
     assert verify_batch_source_freeze(ROOT)["package_version"] == "0.2.0"
+    assert verify_batch_source_freeze(
+        ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V2.json"
+    )["protocol_amendment_version"] == "M4-BATCH-2"
     repository = tmp_path / "repository"
     paths = [
         "research/M4_BATCH_SOURCE_FREEZE.json",

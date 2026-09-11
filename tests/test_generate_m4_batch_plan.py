@@ -1,8 +1,10 @@
 import json
+from copy import deepcopy
 from pathlib import Path
 
+from kaggle_vllm.research.m4_batch import verify_batch_source_freeze
 from scripts.generate_m4_batch_plan import build_batch_plan
-from scripts.generate_m4_batch_source_freeze import build_freeze
+from scripts.generate_m4_batch_source_freeze_v2 import build_freeze as build_freeze_v2
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -11,7 +13,19 @@ def _plan() -> dict:
     queue = json.loads(
         (ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text()
     )
-    return build_batch_plan(queue)
+    historical = deepcopy(queue)
+    by_id = {row["shard_id"]: row for row in historical["queue"]}
+    by_id["qwen25_3b-balanced-r00"]["status"] = "QUEUED"
+    by_id["qwen25_3b-prefill_heavy-r00"]["status"] = "QUEUED"
+    historical.update(
+        {
+            "preserved_shards": 2,
+            "preserved_serving_cells": 24,
+            "queued_shards": 58,
+            "queued_serving_cells": 696,
+        }
+    )
+    return build_batch_plan(historical)
 
 
 def test_batch_plan_preserves_matrix_and_canonical_skips() -> None:
@@ -78,5 +92,12 @@ def test_batch_plan_uses_per_gpu_binary_vram_guard() -> None:
 
 def test_batch_source_freeze_generation_is_deterministic() -> None:
     expected = json.loads((ROOT / "research/M4_BATCH_SOURCE_FREEZE.json").read_text())
-    assert build_freeze(ROOT) == expected
-    assert build_freeze(ROOT) == build_freeze(ROOT)
+    assert verify_batch_source_freeze(ROOT) == expected
+
+
+def test_batch_v2_source_freeze_generation_is_deterministic() -> None:
+    expected = json.loads(
+        (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V2.json").read_text()
+    )
+    assert build_freeze_v2(ROOT) == expected
+    assert build_freeze_v2(ROOT) == build_freeze_v2(ROOT)
