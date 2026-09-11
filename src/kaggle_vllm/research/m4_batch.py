@@ -399,6 +399,32 @@ def stage_batch_download(
                 )
                 if audit["shard_id"] != shard_id:
                     raise ResearchEvidenceError("inner shard identity differs from manifest")
+                shard_provenance = load_object(
+                    extracted / "batch-shard-provenance.json"
+                )
+                provenance_checks = {
+                    "schema": shard_provenance.get("schema_version")
+                    == "kaggle-vllm-m4-batch-shard-provenance-v1",
+                    "mode": shard_provenance.get("execution_mode")
+                    == "batch_orchestrated",
+                    "shard": shard_provenance.get("shard_id") == shard_id,
+                    "batch": shard_provenance.get("batch_id")
+                    == manifest["batch_id"],
+                    "session": shard_provenance.get("session_id")
+                    == manifest["session_id"],
+                    "repetition": shard_provenance.get("repetition")
+                    == manifest["repetition"],
+                    "order": shard_provenance.get("within_session_order")
+                    == outcome["within_session_order"],
+                    "source": shard_provenance.get("source_commit")
+                    == freeze["implementation_source_commit"],
+                }
+                if failed := [
+                    name for name, passed in provenance_checks.items() if not passed
+                ]:
+                    raise ResearchEvidenceError(
+                        f"inner batch-shard provenance mismatch: {failed}"
+                    )
                 _stage_inner(
                     repository=repository,
                     extracted=extracted,

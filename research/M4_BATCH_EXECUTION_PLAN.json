@@ -71,6 +71,8 @@
     "disk_capacity_source": "shutil.disk_usage(/kaggle/working)",
     "disk_safety_reserve_bytes": 2147483648,
     "projected_evidence_bytes_per_shard": 16777216,
+    "base_shard_runner_projected_evidence_allowance_bytes": 3000000000,
+    "pre_shard_free_bytes_rule": "max(selected weights + base runner 3 GB allowance, uncached selected weights + compact evidence + 2 GiB reserve)",
     "maximum_batch_wall_clock_seconds": 37800,
     "minimum_remaining_seconds_to_start_shard": 5400,
     "idle_gpu_memory_limit_mib_per_gpu": 64

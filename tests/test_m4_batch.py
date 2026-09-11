@@ -21,6 +21,11 @@ from kaggle_vllm.research.m4_batch import (
     stage_batch_download,
     validate_batch_manifest,
 )
+from kaggle_vllm.research.provenance import sha256_file, verify_sha256_manifest
+from scripts.kaggle_m4_execute_batch import (
+    _add_batch_shard_provenance,
+    _cleanup_model_cache,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -162,6 +167,62 @@ def test_partial_manifest_and_duplicate_shards() -> None:
         validate_batch_manifest(manifest, batch, expected_source_commit="a" * 40)
 
 
+def test_batch_sidecar_preserves_runner_manifest_and_is_hashed(tmp_path: Path) -> None:
+    evidence = tmp_path / "shard"
+    evidence.mkdir()
+    payload = evidence / "payload.json"
+    payload.write_text("{}")
+    (evidence / "SHA256SUMS.txt").write_text(
+        f"{sha256_file(payload)}  payload.json\n"
+    )
+    _add_batch_shard_provenance(
+        evidence,
+        {
+            "schema_version": "kaggle-vllm-m4-batch-shard-provenance-v1",
+            "session_id": "fixture",
+        },
+    )
+    verified = verify_sha256_manifest(evidence, evidence / "SHA256SUMS.txt")
+    assert set(verified) == {
+        "RUNNER_SHA256SUMS.txt",
+        "batch-shard-provenance.json",
+        "payload.json",
+    }
+
+
+def test_cache_cleanup_deletes_only_exact_completed_model_cache(tmp_path: Path) -> None:
+    hf_home = tmp_path / "hf"
+    target = hf_home / "hub/models--Qwen--Qwen2.5-3B-Instruct"
+    sibling = hf_home / "hub/models--other--keep"
+    target.mkdir(parents=True)
+    sibling.mkdir()
+    (target / "weights").write_text("fixture")
+    evidence_root = tmp_path / "evidence"
+    directory = evidence_root / "qwen25_3b-short-r02-principal"
+    directory.mkdir(parents=True)
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    archive = bundle / "qwen25_3b-short-r02-principal.zip"
+    archive.write_bytes(b"fixture archive")
+    outcome = {
+        "shard_id": "qwen25_3b-short-r02",
+        "status": "COMPLETED",
+        "evidence_zip": archive.name,
+        "evidence_zip_sha256": sha256_file(archive),
+    }
+    result = _cleanup_model_cache(
+        hf_home=hf_home,
+        hf_id="Qwen/Qwen2.5-3B-Instruct",
+        model_outcomes=[outcome],
+        evidence_root=evidence_root,
+        bundle=bundle,
+    )
+    assert result["status"] == "DELETED_EXACT_MODEL_REPO_CACHE"
+    assert not target.exists()
+    assert sibling.is_dir()
+    assert directory.is_dir()
+
+
 def _write_outer(root: Path, manifest: dict, inner: dict[str, bytes]) -> Path:
     bundle = root / "bundle"
     bundle.mkdir()
@@ -240,9 +301,24 @@ def test_batch_ingest_preserves_first_valid_inner_when_later_inner_is_invalid(
         extracted = Path(tmp_path / "audit-extracted")
         extracted.mkdir()
         (extracted / "evidence.txt").write_text("validated fixture")
+        shard_id = manifest["actual_execution_order"][calls - 1]
+        (extracted / "batch-shard-provenance.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": "kaggle-vllm-m4-batch-shard-provenance-v1",
+                    "execution_mode": "batch_orchestrated",
+                    "shard_id": shard_id,
+                    "batch_id": manifest["batch_id"],
+                    "session_id": manifest["session_id"],
+                    "repetition": manifest["repetition"],
+                    "within_session_order": calls,
+                    "source_commit": "a" * 40,
+                }
+            )
+        )
         return (
             {
-                "shard_id": manifest["actual_execution_order"][0],
+                "shard_id": shard_id,
                 "evidence_zip_sha256": hashlib.sha256(
                     kwargs["evidence_zip"].read_bytes()
                 ).hexdigest(),

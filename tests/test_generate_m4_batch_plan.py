@@ -69,4 +69,7 @@ def test_batch_plan_uses_per_gpu_binary_vram_guard() -> None:
     assert resource["hard_vram_limit_mib_per_gpu"] == 14848
     assert resource["independent_per_gpu_enforcement"] is True
     assert resource["disk_safety_reserve_bytes"] == 2 * 1024**3
+    assert resource["base_shard_runner_projected_evidence_allowance_bytes"] == (
+        3_000_000_000
+    )
     assert resource["maximum_batch_wall_clock_seconds"] == int(10.5 * 3600)

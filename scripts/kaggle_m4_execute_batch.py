@@ -28,6 +28,8 @@ from kaggle_vllm.research.m4_batch import (
 )
 from kaggle_vllm.research.provenance import sha256_file, verify_sha256_manifest
 
+BASE_RUNNER_PROJECTED_EVIDENCE_BYTES = 3_000_000_000
+
 
 def _utc_now() -> str:
     return datetime.now(UTC).isoformat()
@@ -139,6 +141,23 @@ def _make_zip(directory: Path, archive: Path) -> str:
                 raise ResearchEvidenceError(f"unexpected shard evidence entry: {path}")
             output.write(path, arcname=path.name)
     return sha256_file(archive)
+
+
+def _add_batch_shard_provenance(
+    directory: Path, provenance: dict[str, Any]
+) -> None:
+    runner_manifest = directory / "SHA256SUMS.txt"
+    verify_sha256_manifest(directory, runner_manifest)
+    shutil.copy2(runner_manifest, directory / "RUNNER_SHA256SUMS.txt")
+    _write_json(directory / "batch-shard-provenance.json", provenance)
+    members = sorted(
+        path for path in directory.iterdir() if path.is_file() and path != runner_manifest
+    )
+    runner_manifest.write_text(
+        "".join(f"{sha256_file(path)}  {path.name}\n" for path in members),
+        encoding="utf-8",
+    )
+    verify_sha256_manifest(directory, runner_manifest)
 
 
 def _cleanup_model_cache(
@@ -330,17 +349,28 @@ def main(argv: list[str] | None = None) -> int:
             cache_path = exact_hf_repo_cache_path(
                 Path(os.environ["HF_HOME"]), model_matrix[model_key]["hf_id"]
             )
-            projected_model = 0 if cache_path.is_dir() else int(
-                model_matrix[model_key]["selected_weight_bytes"]
+            selected_weight_bytes = int(model_matrix[model_key]["selected_weight_bytes"])
+            projected_model = 0 if cache_path.is_dir() else selected_weight_bytes
+            evidence_allowance = policies["projected_evidence_bytes_per_shard"]
+            required_free = max(
+                selected_weight_bytes + BASE_RUNNER_PROJECTED_EVIDENCE_BYTES,
+                projected_model + evidence_allowance + reserve,
             )
             disk = check_disk_capacity(
                 output_root.parent,
-                projected_additional_bytes=projected_model
-                + policies["projected_evidence_bytes_per_shard"],
+                projected_additional_bytes=required_free - reserve,
                 reserve_bytes=reserve,
             )
             manifest["disk"]["samples"].append(
-                {"before_shard": item["shard_id"], "captured_at_utc": _utc_now(), **disk}
+                {
+                    "before_shard": item["shard_id"],
+                    "captured_at_utc": _utc_now(),
+                    "model_cache_present": cache_path.is_dir(),
+                    "selected_weight_bytes": selected_weight_bytes,
+                    "base_runner_required_free_bytes": selected_weight_bytes
+                    + BASE_RUNNER_PROJECTED_EVIDENCE_BYTES,
+                    **disk,
+                }
             )
             manifest["disk"]["high_water_used_bytes"] = max(
                 manifest["disk"]["high_water_used_bytes"], disk["used_bytes"]
@@ -383,6 +413,29 @@ def main(argv: list[str] | None = None) -> int:
                     f"runner returned {completed.returncode} without evidence directory"
                 )
             verify_sha256_manifest(directory, directory / "SHA256SUMS.txt")
+            shard_end_utc = _utc_now()
+            outcome.update(
+                {
+                    "end_utc": shard_end_utc,
+                    "runner_returncode": completed.returncode,
+                }
+            )
+            _add_batch_shard_provenance(
+                directory,
+                {
+                    "schema_version": "kaggle-vllm-m4-batch-shard-provenance-v1",
+                    "execution_mode": "batch_orchestrated",
+                    "batch_id": args.batch_id,
+                    "session_id": session_id,
+                    "repetition": item["repetition"],
+                    "within_session_order": item["within_session_order"],
+                    "shard_id": item["shard_id"],
+                    "start_utc": outcome["start_utc"],
+                    "end_utc": shard_end_utc,
+                    "source_commit": commit,
+                    "runner_returncode": completed.returncode,
+                },
+            )
             archive = bundle / f"{item['shard_id']}-principal.zip"
             archive_sha = _make_zip(directory, archive)
             outcome.update(
@@ -395,8 +448,6 @@ def main(argv: list[str] | None = None) -> int:
             peaks = measure_shard_peaks(directory)
             outcome.update(
                 {
-                    "end_utc": _utc_now(),
-                    "runner_returncode": completed.returncode,
                     "resource_guard": peaks,
                 }
             )
