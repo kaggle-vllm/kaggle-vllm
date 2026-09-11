@@ -12,7 +12,7 @@ import sys
 import time
 import uuid
 import zipfile
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -32,11 +32,11 @@ BASE_RUNNER_PROJECTED_EVIDENCE_BYTES = 3_000_000_000
 
 
 def _utc_now() -> str:
-    return datetime.now(UTC).isoformat()
+    return datetime.now(timezone.utc).isoformat()
 
 
 def _session_id(batch_id: str) -> str:
-    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     return f"m4-{batch_id}-{stamp}-{uuid.uuid4().hex[:8]}"
 
 
