@@ -10,7 +10,7 @@ inputs to the local provenance audit.
 Progress: 3 / 60 active shards preserved.
 Review required: 1 resource-gated shard.
 
-Next: `M4_SHARD_ID=qwen25_3b-short-r02`
+Next: `M4_SHARD_ID=phi4_mini-short-r00`
 
 | Active | M4_SHARD_ID | Model | Workload | Rep | Status | Artifact |
 |---:|---|---|---|---:|---|---|

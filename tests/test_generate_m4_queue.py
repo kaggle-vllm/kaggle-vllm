@@ -22,7 +22,7 @@ def test_queue_preserves_negative_compatibility_and_historical_shards() -> None:
     assert queue["review_required_shards"] == 1
     assert queue["remaining_shards"] == 57
     assert queue["skipped_gemma_shards"] == 15
-    assert queue["next_shard_id"] == "qwen25_3b-short-r02"
+    assert queue["next_shard_id"] == "phi4_mini-short-r00"
     assert queue["queue"][0]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert queue["queue"][1]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     by_id = {row["shard_id"]: row for row in queue["queue"]}

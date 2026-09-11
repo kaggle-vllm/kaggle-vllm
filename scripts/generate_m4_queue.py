@@ -72,6 +72,9 @@ def build_queue(plan: dict[str, Any], evidence: dict[str, Any]) -> dict[str, Any
         row for row in active if row["status"] == "FAILED_RESOURCE_GATE"
     ]
     skipped = [row for row in rows if row["status"] == "SKIPPED_BY_COMPATIBILITY_GATE"]
+    next_shard_id = evidence.get("next_principal_shard")
+    if next_shard_id not in {row["shard_id"] for row in queued}:
+        next_shard_id = queued[0]["shard_id"] if queued else None
     return {
         "schema_version": "kaggle-vllm-m4-principal-queue-v1",
         "source_plan": "research/M4_EXECUTION_PLAN.json",
@@ -92,7 +95,7 @@ def build_queue(plan: dict[str, Any], evidence: dict[str, Any]) -> dict[str, Any
         "review_required_shards": len(review_required),
         "remaining_shards": len(queued) + len(review_required),
         "skipped_gemma_shards": len(skipped),
-        "next_shard_id": queued[0]["shard_id"] if queued else None,
+        "next_shard_id": next_shard_id,
         "session_policy": "one shard in one fresh Kaggle T4 x2 session",
         "planning_estimate": {
             "wall_clock_hours_per_shard_range": [0.5, 1.5],

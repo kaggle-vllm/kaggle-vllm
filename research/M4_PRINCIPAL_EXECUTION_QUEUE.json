@@ -37,7 +37,7 @@
   "review_required_shards": 1,
   "remaining_shards": 57,
   "skipped_gemma_shards": 15,
-  "next_shard_id": "qwen25_3b-short-r02",
+  "next_shard_id": "phi4_mini-short-r00",
   "session_policy": "one shard in one fresh Kaggle T4 x2 session",
   "planning_estimate": {
     "wall_clock_hours_per_shard_range": [
