@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from scripts.generate_m4_batch_plan import build_batch_plan
+from scripts.generate_m4_batch_source_freeze import build_freeze
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -73,3 +74,9 @@ def test_batch_plan_uses_per_gpu_binary_vram_guard() -> None:
         3_000_000_000
     )
     assert resource["maximum_batch_wall_clock_seconds"] == int(10.5 * 3600)
+
+
+def test_batch_source_freeze_generation_is_deterministic() -> None:
+    expected = json.loads((ROOT / "research/M4_BATCH_SOURCE_FREEZE.json").read_text())
+    assert build_freeze(ROOT) == expected
+    assert build_freeze(ROOT) == build_freeze(ROOT)

@@ -4,6 +4,10 @@ This guide applies amendment `M4-BATCH-1`. It reduces manual launches while
 retaining all 60 logical shards and all 720 fresh-server serving cells. The
 single-shard notebook remains valid for standalone execution.
 
+The batch notebook fetches exact clean source commit
+`273e0fff38323e3d8e5642e02e8b747a1e038736`. Its source and all required
+runner/plan hashes are frozen in `M4_BATCH_SOURCE_FREEZE.json`.
+
 ## Frozen batches
 
 Use one new Kaggle T4 x2 allocation for one batch ID. The five IDs are
@@ -26,6 +30,24 @@ observed performance.
 4. Set `M4_BATCH_ID` to exactly one frozen batch ID and run all cells.
 5. Do not edit the source cells, source commit, plan, order, revisions, runtime,
    memory threshold, or benchmark settings.
+
+## Next controlled execution
+
+Run `M4_BATCH_ID=fill-r00`. It contains 11 unexecuted logical shards (132
+fresh-server cells) and skips the preserved `qwen25_3b-short-r00`. The frozen
+model order is Qwen, Phi, Llama, then Ministral. Within each model the r00
+workload order is short, balanced, then prefill-heavy, with the already
+preserved Qwen-short position omitted.
+
+The two observed Qwen-short evidence directories are 6.10 MB and 6.25 MB
+uncompressed, while their ZIPs are 0.50 MB and 0.51 MB. At that scale,
+`fill-r00` is expected to use roughly 68 MB of unpacked evidence plus about
+5.6 MB of inner ZIPs; the downloadable outer ZIP should be approximately
+6 MB. This is an evidence-size estimate, not a benchmark result. Only one model
+cache is retained at a time. The largest active selected-weight estimate is
+7,698,241,056 bytes for Ministral, plus small tokenizer/config metadata; actual
+capacity/free bytes are measured before every shard and a 2 GiB reserve is
+maintained.
 
 The notebook measures `/kaggle/working` with `shutil.disk_usage`, retains a
 2 GiB safety reserve, and uses a 10.5-hour start cutoff with a 1.5-hour

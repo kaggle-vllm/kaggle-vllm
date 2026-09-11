@@ -20,6 +20,7 @@ from kaggle_vllm.research.m4_batch import (
     select_batch,
     stage_batch_download,
     validate_batch_manifest,
+    verify_batch_source_freeze,
 )
 from kaggle_vllm.research.provenance import sha256_file, verify_sha256_manifest
 from scripts.kaggle_m4_execute_batch import (
@@ -165,6 +166,37 @@ def test_partial_manifest_and_duplicate_shards() -> None:
     manifest["shards"][-1]["shard_id"] = manifest["shards"][-2]["shard_id"]
     with pytest.raises(ResearchEvidenceError, match="duplicate shard IDs"):
         validate_batch_manifest(manifest, batch, expected_source_commit="a" * 40)
+
+
+def test_manifest_enforces_fail_fast_execution_prefix() -> None:
+    batch = _batch()
+    manifest = _manifest(batch, completed=3)
+    manifest["shards"][2]["status"] = "FAILED"
+    with pytest.raises(ResearchEvidenceError, match="not a prefix"):
+        validate_batch_manifest(manifest, batch, expected_source_commit="a" * 40)
+
+
+def test_batch_source_freeze_validates_and_rejects_drift(tmp_path: Path) -> None:
+    assert verify_batch_source_freeze(ROOT)["package_version"] == "0.2.0"
+    repository = tmp_path / "repository"
+    paths = [
+        "research/M4_BATCH_SOURCE_FREEZE.json",
+        "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb",
+        "scripts/kaggle_m4_execute_batch.py",
+        "scripts/kaggle_m4_multimodel_crossover.py",
+        "research/M4_EXECUTION_PLAN.json",
+        "research/model_matrix.json",
+        "research/m4_protocol.json",
+        "research/M4_BATCH_EXECUTION_PLAN.json",
+        "research/M4_BATCH_PROTOCOL_AMENDMENT.md",
+    ]
+    for relative in paths:
+        target = repository / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT / relative, target)
+    (repository / "scripts/kaggle_m4_execute_batch.py").write_text("drift")
+    with pytest.raises(ResearchEvidenceError, match="source-freeze mismatch"):
+        verify_batch_source_freeze(repository)
 
 
 def test_batch_sidecar_preserves_runner_manifest_and_is_hashed(tmp_path: Path) -> None:

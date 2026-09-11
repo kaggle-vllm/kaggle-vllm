@@ -31,10 +31,12 @@ Machine-readable control files:
 - `M4_BATCH_PROTOCOL_AMENDMENT.md`: dated batching amendment and limitation.
 - `M4_BATCH_EXECUTION_PLAN.json`: deterministic repetition batches and guards.
 - `M4_BATCH_EXECUTION_GUIDE.md`: batch notebook, evidence, and ingestion procedure.
+- `M4_BATCH_SOURCE_FREEZE.json`: separate batch notebook/runner/plan hash freeze.
 - `HISTORICAL_QWEN_SHARDED_STATE.md`: scope of the external Qwen persistence evidence.
 - `M5_DECISION.md`: post-M4 GuideLLM gate and claim boundary.
 - `../scripts/generate_m4_queue.py`: deterministic active-queue generator.
 - `python -m kaggle_vllm.research ingest-m4`: fail-closed download audit and local staging.
+- `python -m kaggle_vllm.research ingest-m4-batch`: outer-bundle audit and independent inner-shard staging.
 - `RESEARCH_MANIFEST.json`: research files, evidence sources and status gates.
 - `PUBLICATION_READINESS.md`: explicit paper-readiness gates and blockers.
 - `tooling_feasibility.md`: exact GuideLLM, Nsight and Vidur decisions.
