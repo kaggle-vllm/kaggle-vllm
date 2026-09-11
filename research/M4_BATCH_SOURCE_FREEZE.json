@@ -4,8 +4,8 @@
   "protocol_amendment_version": "M4-BATCH-1",
   "protocol_amendment_date_utc": "2026-09-11",
   "package_version": "0.2.0",
-  "implementation_source_commit": "273e0fff38323e3d8e5642e02e8b747a1e038736",
-  "notebook_pin_commit": "b3ee0fbf1d7ae488404a006fcdc603f7327a135c",
+  "implementation_source_commit": "8cd6b224684f03810116c9a91370f25a7c2be297",
+  "notebook_pin_commit": "5e0415261418801b1c45735af3a8056dee330be3",
   "execution_paths": {
     "single_shard": {
       "status": "UNCHANGED_AND_SUPPORTED",
@@ -19,9 +19,9 @@
       "runner": "scripts/kaggle_m4_execute_batch.py"
     }
   },
-  "batch_notebook_sha256": "9e5f05073839337049004ee8fc62990fba59c37691607194755525854a0b8fc5",
-  "batch_notebook_source_digest": "a6a69a16808b777b3cbae98b8e87e293ffcabe62206fa14fdd90ff3676eb7e03",
-  "batch_runner_sha256": "3d38d50c6928fedb772fc87147cb16ab441733dadfc656a36aee5ab90dd0ba4b",
+  "batch_notebook_sha256": "5b452040a6537270a3598ef525e7ff68afa634047cf968b699fd5359eb62d82d",
+  "batch_notebook_source_digest": "98abd1182facf94ae6c62d7d92c097a73466d4f20d889ab72e9a421268f02726",
+  "batch_runner_sha256": "381d592c9bdcdbb72c3e754ece5979a771a2c3854350a570ed1b3b4727608aea",
   "base_shard_runner_sha256": "70e8b21d70322fcfb409ccb951f0d540b185c793f03a56b2ba4f9095e3ed948f",
   "m4_execution_plan_sha256": "d97c8ed1ec8eec7e61e61c617b50d5d48287a253aa28f1e7834b0694fa419d8b",
   "model_matrix_sha256": "7e6eae2f674c394d5db262a02ddd601dfadb17807c4c62e6a252f3e9656664c4",

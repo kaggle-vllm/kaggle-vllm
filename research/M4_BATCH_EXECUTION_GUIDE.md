@@ -5,7 +5,7 @@ retaining all 60 logical shards and all 720 fresh-server serving cells. The
 single-shard notebook remains valid for standalone execution.
 
 The batch notebook fetches exact clean source commit
-`273e0fff38323e3d8e5642e02e8b747a1e038736`. Its source and all required
+`8cd6b224684f03810116c9a91370f25a7c2be297`. Its source and all required
 runner/plan hashes are frozen in `M4_BATCH_SOURCE_FREEZE.json`.
 
 ## Frozen batches

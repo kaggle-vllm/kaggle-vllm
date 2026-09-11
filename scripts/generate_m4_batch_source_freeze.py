@@ -11,8 +11,8 @@ from kaggle_vllm.research.m4_batch import notebook_source_digest
 from kaggle_vllm.research.provenance import sha256_file
 
 ROOT = Path(__file__).resolve().parents[1]
-IMPLEMENTATION_COMMIT = "273e0fff38323e3d8e5642e02e8b747a1e038736"
-NOTEBOOK_PIN_COMMIT = "b3ee0fbf1d7ae488404a006fcdc603f7327a135c"
+IMPLEMENTATION_COMMIT = "8cd6b224684f03810116c9a91370f25a7c2be297"
+NOTEBOOK_PIN_COMMIT = "5e0415261418801b1c45735af3a8056dee330be3"
 
 
 def build_freeze(repository: Path = ROOT) -> dict:
