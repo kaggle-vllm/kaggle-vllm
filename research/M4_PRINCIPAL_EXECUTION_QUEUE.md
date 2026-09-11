@@ -7,14 +7,14 @@ For every active row, also download the executed copy of
 `/kaggle/working/kaggle-vllm-runtime/runtime.json`; both are mandatory
 inputs to the local provenance audit.
 
-Progress: 1 / 60 active shards preserved.
+Progress: 2 / 60 active shards preserved.
 
-Next: `M4_SHARD_ID=qwen25_3b-short-r01`
+Next: `M4_SHARD_ID=qwen25_3b-short-r02`
 
 | Active | M4_SHARD_ID | Model | Workload | Rep | Status | Artifact |
 |---:|---|---|---|---:|---|---|
 | 1 | `qwen25_3b-short-r00` | `qwen25_3b` | short | 0 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-short-r00-principal.zip` |
-| 2 | `qwen25_3b-short-r01` | `qwen25_3b` | short | 1 | QUEUED | `qwen25_3b-short-r01-principal.zip` |
+| 2 | `qwen25_3b-short-r01` | `qwen25_3b` | short | 1 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-short-r01-principal.zip` |
 | 3 | `qwen25_3b-short-r02` | `qwen25_3b` | short | 2 | QUEUED | `qwen25_3b-short-r02-principal.zip` |
 | 4 | `qwen25_3b-short-r03` | `qwen25_3b` | short | 3 | QUEUED | `qwen25_3b-short-r03-principal.zip` |
 | 5 | `qwen25_3b-short-r04` | `qwen25_3b` | short | 4 | QUEUED | `qwen25_3b-short-r04-principal.zip` |
