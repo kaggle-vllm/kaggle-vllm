@@ -36,6 +36,9 @@ Machine-readable control files:
 - `M4_BATCH_EXECUTION_GUIDE.md`: batch notebook, evidence, and ingestion procedure.
 - `M4_BATCH_SOURCE_FREEZE.json`: retained M4-BATCH-1 source freeze.
 - `M4_BATCH_SOURCE_FREEZE_V2.json`: M4-BATCH-2 notebook/runner/plan freeze.
+- `M4_BATCH_SOURCE_FREEZE_V3.json`: reconciled M4-BATCH-2 no-rerun source freeze.
+- `M4_EXECUTION_RECONCILIATION.json`: authoritative 60-shard terminal/pending ledger.
+- `M4_REMAINING_EXECUTION_PLAN.json`: deterministic schedule of only not-executed shards.
 - `HISTORICAL_QWEN_SHARDED_STATE.md`: scope of the external Qwen persistence evidence.
 - `M5_DECISION.md`: post-M4 GuideLLM gate and claim boundary.
 - `../scripts/generate_m4_queue.py`: deterministic active-queue generator.

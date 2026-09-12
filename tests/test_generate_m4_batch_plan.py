@@ -5,6 +5,7 @@ from pathlib import Path
 from kaggle_vllm.research.m4_batch import verify_batch_source_freeze
 from scripts.generate_m4_batch_plan import build_batch_plan
 from scripts.generate_m4_batch_source_freeze_v2 import build_freeze as build_freeze_v2
+from scripts.generate_m4_batch_source_freeze_v3 import build_freeze as build_freeze_v3
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -104,3 +105,13 @@ def test_batch_v2_source_freeze_generation_is_deterministic() -> None:
     )
     assert build_freeze_v2(ROOT) == expected
     assert build_freeze_v2(ROOT) == build_freeze_v2(ROOT)
+
+
+def test_reconciled_batch_source_freeze_generation_is_deterministic() -> None:
+    expected = json.loads(
+        (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V3.json").read_text()
+    )
+    assert build_freeze_v3(ROOT) == expected
+    assert verify_batch_source_freeze(
+        ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V3.json"
+    ) == expected
