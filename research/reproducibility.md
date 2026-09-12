@@ -36,7 +36,12 @@ is retained as a one-completed, one-resource-gated, nine-not-executed partial
 batch. `M4-BATCH-2` keeps the scientific matrix fixed and narrows future
 continuations to one model and one repetition per new physical allocation. Its
 `fill-r00-phi` continuation preserves three independently canonical Phi r00
-shards from one explicitly recorded physical session. Batch ingestion permits
+shards from one explicitly recorded physical session. The subsequent
+`fill-r00-llama` continuation likewise preserves all three Llama r00 shards in
+session `m4-fill-r00-llama-20260912T044444Z-dd577e28`; its outer ZIP SHA256 is
+`9f27731cbaad5c43c52f56228534f8ef4f12d293681f10a8d2b67ee0ad7d4531`.
+The tracked reconciliation ledger excludes every canonical and reviewed
+terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
 wall-clock window; the standalone one-hour temporal rule remains unchanged.
 Generate the currently supported figures from the immutable evidence with:

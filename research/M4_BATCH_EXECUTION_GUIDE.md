@@ -49,10 +49,16 @@ observed blast radius, but no throughput result is used to reorder conditions.
 
 ## Next controlled execution
 
-Run `M4_BATCH_ID=fill-r00-llama` in a fresh T4 x2 allocation. It contains
-`llama32_3b-short-r00`, `llama32_3b-balanced-r00`, and
-`llama32_3b-prefill_heavy-r00`. Do not rerun the original `fill-r00` container
-or the completed `fill-r00-phi` continuation.
+Run `M4_BATCH_ID=fill-r00-ministral` in a fresh T4 x2 allocation. It contains
+`ministral3_3b_bf16-short-r00`, `ministral3_3b_bf16-balanced-r00`, and
+`ministral3_3b_bf16-prefill_heavy-r00`. Do not rerun the original `fill-r00`
+container or the completed `fill-r00-phi` and `fill-r00-llama` continuations.
+
+The Llama continuation completed all three planned shards in session
+`m4-fill-r00-llama-20260912T044444Z-dd577e28`. Its independent review is
+`M4_FILL_R00_LLAMA_ATTEMPT_1_REVIEW.json`. The authoritative no-rerun ledger and
+full derived schedule are `M4_EXECUTION_RECONCILIATION.json` and
+`M4_REMAINING_EXECUTION_PLAN.json`.
 
 The next allocation has three logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before

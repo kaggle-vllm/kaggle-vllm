@@ -109,7 +109,7 @@ def build_continuation_plan(
     )
     return {
         "schema_version": "kaggle-vllm-m4-batch-execution-plan-v2",
-        "status": "FROZEN_AFTER_FILL_R00_ATTEMPT_1",
+        "status": "DERIVED_FROM_CURRENT_PRINCIPAL_QUEUE",
         "protocol_amendment": {
             "version": "M4-BATCH-2",
             "path": "research/M4_BATCH_PROTOCOL_AMENDMENT_V2.md",
