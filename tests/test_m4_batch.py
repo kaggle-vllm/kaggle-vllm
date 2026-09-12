@@ -445,6 +445,7 @@ def test_batch_ingest_preserves_first_valid_inner_when_later_inner_is_invalid(
 
     def fake_audit(**kwargs):
         nonlocal calls
+        assert kwargs["maximum_runtime_delay_seconds"] == 11.5 * 3600
         calls += 1
         if calls == 2:
             raise ResearchEvidenceError("invalid second inner shard")

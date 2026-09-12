@@ -16,6 +16,7 @@ from typing import Any
 
 from .errors import ResearchEvidenceError
 from .m4_ingest import (
+    MAX_RUNTIME_TO_EXECUTION_DELAY_SECONDS,
     _check_existing_shard,
     audit_download,
     notebook_sources,
@@ -486,7 +487,18 @@ def stage_batch_download(
         ):
             raise ResearchEvidenceError("batch notebook source identity differs from freeze")
         plan_path = repository / expected_plan_path
+        if sha256_file(plan_path) != freeze["batch_plan_sha256"]:
+            raise ResearchEvidenceError("current batch plan differs from source freeze")
         plan = load_object(plan_path)
+        maximum_batch_seconds = plan.get("resource_policy", {}).get(
+            "maximum_batch_wall_clock_seconds"
+        )
+        if (
+            isinstance(maximum_batch_seconds, bool)
+            or not isinstance(maximum_batch_seconds, int)
+            or maximum_batch_seconds <= 0
+        ):
+            raise ResearchEvidenceError("batch plan has invalid wall-clock limit")
         batch = select_batch(plan, str(manifest.get("batch_id")))
         validate_batch_manifest(
             manifest,
@@ -514,6 +526,9 @@ def stage_batch_download(
                     expected_source_commit=freeze["implementation_source_commit"],
                     frozen_notebook=frozen_notebook,
                     allow_trailing_empty_notebook_cells=True,
+                    maximum_runtime_delay_seconds=(
+                        MAX_RUNTIME_TO_EXECUTION_DELAY_SECONDS + maximum_batch_seconds
+                    ),
                 )
                 if audit["shard_id"] != shard_id:
                     raise ResearchEvidenceError("inner shard identity differs from manifest")

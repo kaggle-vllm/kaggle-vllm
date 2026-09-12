@@ -20,6 +20,7 @@ EXPECTED_SOURCE_COMMIT = "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2"
 EXPECTED_WHEEL_SHA256 = "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c"
 EXPECTED_PROFILE = "kaggle-t4x2-cu128"
 EXPECTED_VERSION = "0.2.0"
+MAX_RUNTIME_TO_EXECUTION_DELAY_SECONDS = 3600
 CONCURRENCY = [1, 4, 8, 16, 32, 64]
 MAX_ZIP_MEMBERS = 1_000
 MAX_ZIP_MEMBER_BYTES = 512 * 1024**2
@@ -163,7 +164,12 @@ def verify_runtime(runtime: dict[str, Any]) -> None:
         raise ResearchEvidenceError(f"runtime identity mismatch: {failed}")
 
 
-def _verify_runtime_binding(runtime: dict[str, Any], start: dict[str, Any]) -> None:
+def _verify_runtime_binding(
+    runtime: dict[str, Any],
+    start: dict[str, Any],
+    *,
+    maximum_delay_seconds: int = MAX_RUNTIME_TO_EXECUTION_DELAY_SECONDS,
+) -> None:
     captured = start.get("runtime")
     if not isinstance(captured, list) or len(captured) < 2:
         raise ResearchEvidenceError("execution-start lacks captured runtime identity")
@@ -180,7 +186,13 @@ def _verify_runtime_binding(runtime: dict[str, Any], start: dict[str, Any]) -> N
     except (KeyError, TypeError, ValueError) as error:
         raise ResearchEvidenceError("runtime/execution timestamps are invalid") from error
     delay = (started - completed).total_seconds()
-    if delay < 0 or delay > 3600:
+    if (
+        isinstance(maximum_delay_seconds, bool)
+        or not isinstance(maximum_delay_seconds, int)
+        or maximum_delay_seconds <= 0
+    ):
+        raise ResearchEvidenceError("runtime binding delay limit must be positive")
+    if delay < 0 or delay > maximum_delay_seconds:
         raise ResearchEvidenceError(
             "runtime.json is not temporally bound to the shard execution"
         )
@@ -409,6 +421,7 @@ def audit_download(
     expected_source_commit: str = EXPECTED_SOURCE_COMMIT,
     frozen_notebook: Path | None = None,
     allow_trailing_empty_notebook_cells: bool = False,
+    maximum_runtime_delay_seconds: int = MAX_RUNTIME_TO_EXECUTION_DELAY_SECONDS,
 ) -> tuple[dict[str, Any], Path]:
     frozen = frozen_notebook or (
         repository / "kaggle-notebooks/kaggle_vllm_m4_execute_shard.ipynb"
@@ -431,7 +444,11 @@ def audit_download(
                 "SHA256SUMS.txt must cover every non-manifest ZIP member exactly"
             )
         start = _object(temporary / "execution-start.json")
-        _verify_runtime_binding(runtime, start)
+        _verify_runtime_binding(
+            runtime,
+            start,
+            maximum_delay_seconds=maximum_runtime_delay_seconds,
+        )
         summary = _object(temporary / "execution-summary.json")
         raw = _object(temporary / "m4-raw.json")
         prompt = _object(temporary / "prompt-manifest.json")

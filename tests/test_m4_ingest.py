@@ -101,6 +101,10 @@ def test_runtime_manifest_is_temporally_bound_to_execution() -> None:
     start["started_at_utc"] = "2026-09-11T12:00:00+00:00"
     with pytest.raises(ResearchEvidenceError, match="temporally bound"):
         _verify_runtime_binding(runtime, start)
+    _verify_runtime_binding(runtime, start, maximum_delay_seconds=3 * 3600)
+
+    with pytest.raises(ResearchEvidenceError, match="delay limit"):
+        _verify_runtime_binding(runtime, start, maximum_delay_seconds=0)
 
 
 def _successful_cell(tmp_path: Path) -> tuple[dict, dict, str]:
