@@ -34,7 +34,11 @@ separately freezes a repetition-batched orchestration path and records the
 shared Kaggle allocation as a blocking variable. Its first `fill-r00` attempt
 is retained as a one-completed, one-resource-gated, nine-not-executed partial
 batch. `M4-BATCH-2` keeps the scientific matrix fixed and narrows future
-continuations to one model and one repetition per new physical allocation.
+continuations to one model and one repetition per new physical allocation. Its
+`fill-r00-phi` continuation preserves three independently canonical Phi r00
+shards from one explicitly recorded physical session. Batch ingestion permits
+the runtime-to-later-shard interval only within the hash-frozen batch
+wall-clock window; the standalone one-hour temporal rule remains unchanged.
 Generate the currently supported figures from the immutable evidence with:
 
 ```bash

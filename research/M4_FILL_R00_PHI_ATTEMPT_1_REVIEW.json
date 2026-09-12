@@ -1,0 +1,242 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-attempt-review-v1",
+  "review_status": "COMPLETE",
+  "batch_id": "fill-r00-phi",
+  "session_id": "m4-fill-r00-phi-20260911T161206Z-8986fae2",
+  "batch_protocol_version": "M4-BATCH-2",
+  "batch_status": "COMPLETED",
+  "batch_runner_returncode": 0,
+  "source_commit": "cf0ce4f85a0753380468c48856ddb2579d31cf19",
+  "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V2.json",
+  "source_freeze_notebook_pin_commit": "35049f69e9b7bbc465870d92e97a7bd7064ee779",
+  "downloads": {
+    "outer_zip": {
+      "filename": "m4-batch-fill-r00-phi.zip",
+      "size_bytes": 2213919,
+      "sha256": "3f2fd66425a7e087110f453e5b7eec007423d98e467f474de340d70be67f8844"
+    },
+    "executed_notebook": {
+      "filename": "p2-kaggle-vllm-m4-execute-batch.ipynb",
+      "size_bytes": 37221,
+      "sha256": "7fb262c50faa0aeaef4a4eafcfa0e647ea249715f3d23fa9106144cb9e476e23",
+      "frozen_notebook_sha256": "ebf6826f8fd0df7f16e1596d33a1f32f24e96bb6102eb2e52a1fd84ebc49e500",
+      "source_digest": "25d857d7df5a0ab4bb54735d852f293865f5bf3d0419d7fb612204775599a297",
+      "source_equivalence": "PASS_EXECUTABLE_SOURCES_IDENTICAL"
+    },
+    "runtime": {
+      "filename": "runtime.json",
+      "size_bytes": 3645,
+      "sha256": "36bc023ecb1be67f103fc1504656045610422028374343c93bb16df2d9d8c43e",
+      "matches_bundled_runtime": true,
+      "profile": "kaggle-t4x2-cu128",
+      "strict": true
+    }
+  },
+  "outer_verification": {
+    "zip_safety": "PASS",
+    "crc": "PASS",
+    "member_count": 8,
+    "uncompressed_bytes": 2340076,
+    "batch_sha256s": "PASS_ALL_7_PAYLOADS",
+    "absolute_paths": 0,
+    "traversal_paths": 0,
+    "duplicate_members": 0,
+    "symlinks": 0,
+    "encrypted_members": 0,
+    "oversized_members": 0,
+    "unexpected_recursive_archives": 0
+  },
+  "runtime_validation": {
+    "status": "PASS",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_toolkit": "12.8.93",
+    "cuda_usable": true,
+    "gpu_names": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "gpu_compute_capabilities": [
+      "SM75",
+      "SM75"
+    ],
+    "nccl": "2.27.5",
+    "driver": "580.159.04",
+    "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "wheel_repository": "waqasm86/kaggle-vllm-binaries",
+    "wheel_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6"
+  },
+  "execution": {
+    "planned_shard_count": 3,
+    "attempted_shard_count": 3,
+    "planned_shards": [
+      "phi4_mini-short-r00",
+      "phi4_mini-balanced-r00",
+      "phi4_mini-prefill_heavy-r00"
+    ],
+    "actual_attempt_order": [
+      "phi4_mini-short-r00",
+      "phi4_mini-balanced-r00",
+      "phi4_mini-prefill_heavy-r00"
+    ],
+    "completed_canonical_shards": [
+      "phi4_mini-short-r00",
+      "phi4_mini-balanced-r00",
+      "phi4_mini-prefill_heavy-r00"
+    ],
+    "failed_review_required_shards": [],
+    "not_executed_shards": []
+  },
+  "model_identity": {
+    "model_key": "phi4_mini",
+    "model_id": "microsoft/Phi-4-mini-instruct",
+    "model_revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+    "tokenizer_revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+    "sdk_version": "0.2.0"
+  },
+  "completed_shards": [
+    {
+      "shard_id": "phi4_mini-short-r00",
+      "workload": "short",
+      "runner_returncode": 0,
+      "start_utc": "2026-09-11T16:12:06.674566+00:00",
+      "end_utc": "2026-09-11T16:34:36.477780+00:00",
+      "inner_zip": "phi4_mini-short-r00-principal.zip",
+      "inner_zip_sha256": "75761ca44b1134c7c452fe1dcd4bad8f08feb943bd95c5c1aa713c9bb63aaacc",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 102400,
+      "exact_output_tokens": 51200,
+      "gpu0_peak_mib": 13739,
+      "gpu1_peak_mib": 13739,
+      "peak_cell": "tp2-c04",
+      "maximum_system_ram_bytes": 7906062336,
+      "oom_observed": false,
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "phi4_mini-balanced-r00",
+      "workload": "balanced",
+      "runner_returncode": 0,
+      "start_utc": "2026-09-11T16:34:36.761145+00:00",
+      "end_utc": "2026-09-11T17:20:22.876910+00:00",
+      "inner_zip": "phi4_mini-balanced-r00-principal.zip",
+      "inner_zip_sha256": "f1cc85b7020843d6d075e40bf99030ffef6ac271f74924c69ab230503667c23e",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 409600,
+      "exact_output_tokens": 204800,
+      "gpu0_peak_mib": 13739,
+      "gpu1_peak_mib": 13739,
+      "peak_cell": "tp2-c32",
+      "maximum_system_ram_bytes": 7545761792,
+      "oom_observed": false,
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "phi4_mini-prefill_heavy-r00",
+      "workload": "prefill_heavy",
+      "runner_returncode": 0,
+      "start_utc": "2026-09-11T17:20:23.371945+00:00",
+      "end_utc": "2026-09-11T18:24:26.023808+00:00",
+      "inner_zip": "phi4_mini-prefill_heavy-r00-principal.zip",
+      "inner_zip_sha256": "76b27a1b3acc47bde722e576448ca8ec62d89ff2f6cb2dcc9d636e0684217150",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 1638400,
+      "exact_output_tokens": 102400,
+      "gpu0_peak_mib": 13739,
+      "gpu1_peak_mib": 13739,
+      "peak_cell": "tp2-c16",
+      "maximum_system_ram_bytes": 7579168768,
+      "oom_observed": false,
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    }
+  ],
+  "guards": {
+    "disk": {
+      "classification": "PASS_NOT_DISK_RELATED",
+      "notebook_preflight_total_bytes": 20957446144,
+      "notebook_preflight_free_bytes": 20911005696,
+      "batch_start_total_bytes": 20957446144,
+      "batch_start_free_bytes": 18523631616,
+      "minimum_free_bytes": 10807107584,
+      "minimum_required_free_bytes": 10672066216,
+      "minimum_margin_bytes": 135041368,
+      "safety_reserve_bytes": 2147483648,
+      "reserve_status": "PASS"
+    },
+    "wallclock": {
+      "classification": "PASS_NOT_WALLCLOCK_RELATED",
+      "batch_wall_clock_seconds": 7941.169943045,
+      "maximum_seconds": 37800,
+      "remaining_seconds_at_batch_end": 29858.830056955,
+      "pre_shard_remaining_seconds": {
+        "phi4_mini-short-r00": 37799.925615571,
+        "phi4_mini-balanced-r00": 36449.839021386,
+        "phi4_mini-prefill_heavy-r00": 33703.228237313
+      }
+    },
+    "gpu_cleanup": {
+      "phi4_mini-short-r00": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "phi4_mini-balanced-r00": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "phi4_mini-prefill_heavy-r00": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "unexpected_child_processes": false
+    },
+    "cache_cleanup": {
+      "status": "DELETED_EXACT_MODEL_REPO_CACHE",
+      "path": "/kaggle/working/hf-cache/hub/models--microsoft--Phi-4-mini-instruct",
+      "broad_cleanup_observed": false
+    }
+  },
+  "ingestion": {
+    "status": "VERIFIED_BATCH_CANDIDATE",
+    "returncode": 0,
+    "accepted_shards": 3,
+    "invalid_shards": 0,
+    "failed_shards": 0,
+    "planned_not_executed": 0,
+    "stderr": "EMPTY"
+  },
+  "validator_correction": {
+    "classification": "PROVENANCE_VALIDATOR_BUG",
+    "symptom": "The third same-session shard started 4406.334746 seconds after runtime capture and exceeded the single-shard 3600-second age bound.",
+    "correction": "Batch ingestion now extends only its temporal window by the hash-frozen 37800-second batch wall-clock limit; standalone ingestion retains the 3600-second default.",
+    "scientific_parameters_changed": false,
+    "batch_runner_changed": false,
+    "single_shard_semantics_changed": false
+  },
+  "next_continuation": {
+    "batch_id": "fill-r00-llama",
+    "ordered_shard_ids": [
+      "llama32_3b-short-r00",
+      "llama32_3b-balanced-r00",
+      "llama32_3b-prefill_heavy-r00"
+    ],
+    "logical_shard_count": 3,
+    "serving_cell_count": 36
+  },
+  "methodology": {
+    "result_label": "PRELIMINARY_SINGLE_REPETITION",
+    "logical_design": "60_SHARDS_720_FRESH_SERVER_CELLS_UNCHANGED",
+    "per_gpu_ceiling_mib": 14848,
+    "post_hoc_benchmark_tuning": false,
+    "historical_qwen_sharded_state_used": false,
+    "new_multigigabyte_checkpoint_created": false,
+    "gemma_status": "CLOSED_NO_FURTHER_EXECUTION"
+  }
+}
