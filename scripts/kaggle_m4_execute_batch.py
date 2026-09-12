@@ -25,6 +25,7 @@ from kaggle_vllm.research.m4_batch import (
     load_object,
     measure_shard_peaks,
     select_batch,
+    validate_batch_against_queue,
 )
 from kaggle_vllm.research.provenance import sha256_file, verify_sha256_manifest
 
@@ -217,6 +218,11 @@ def build_parser() -> argparse.ArgumentParser:
         default="research/M4_BATCH_EXECUTION_PLAN.json",
         help="Repository-relative frozen batch plan path",
     )
+    parser.add_argument(
+        "--principal-queue",
+        default="research/M4_PRINCIPAL_EXECUTION_QUEUE.json",
+        help="Repository-relative authoritative principal queue path",
+    )
     parser.add_argument("--source-identity", required=True)
     parser.add_argument("--batch-notebook-source-digest", required=True)
     parser.add_argument("--maximum-wall-clock-seconds", type=int)
@@ -241,6 +247,11 @@ def main(argv: list[str] | None = None) -> int:
         raise SystemExit("batch plan must be a repository-relative JSON path")
     plan = load_object(plan_path)
     batch = select_batch(plan, args.batch_id)
+    queue_path = (repository / args.principal_queue).resolve()
+    if repository not in queue_path.parents or queue_path.suffix != ".json":
+        raise SystemExit("principal queue must be a repository-relative JSON path")
+    queue = load_object(queue_path)
+    validate_batch_against_queue(batch, queue)
     policies = plan["resource_policy"]
     maximum_seconds = args.maximum_wall_clock_seconds or policies[
         "maximum_batch_wall_clock_seconds"
@@ -272,6 +283,8 @@ def main(argv: list[str] | None = None) -> int:
         ),
         "batch_plan_sha256": sha256_file(plan_path),
         "batch_plan_path": plan_path.relative_to(repository).as_posix(),
+        "principal_queue_sha256": sha256_file(queue_path),
+        "principal_queue_path": queue_path.relative_to(repository).as_posix(),
         "batch_notebook_source_digest": args.batch_notebook_source_digest,
     }
     _write_json(bundle / "BATCH_SOURCE_IDENTITY.json", source_identity)

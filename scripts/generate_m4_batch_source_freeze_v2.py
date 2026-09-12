@@ -4,7 +4,10 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import subprocess
+import tempfile
 from pathlib import Path
 
 from kaggle_vllm.research.m4_batch import notebook_source_digest
@@ -17,8 +20,23 @@ BATCH_PLAN = "research/M4_BATCH_EXECUTION_PLAN_V2.json"
 AMENDMENT = "research/M4_BATCH_PROTOCOL_AMENDMENT_V2.md"
 
 
+def _blob(repository: Path, commit: str, relative: str) -> bytes:
+    return subprocess.check_output(
+        ["git", "show", f"{commit}:{relative}"], cwd=repository
+    )
+
+
+def _blob_sha256(repository: Path, commit: str, relative: str) -> str:
+    return hashlib.sha256(_blob(repository, commit, relative)).hexdigest()
+
+
 def build_freeze(repository: Path = ROOT) -> dict:
-    notebook = repository / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+    notebook_relative = "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+    notebook_blob = _blob(repository, NOTEBOOK_PIN_COMMIT, notebook_relative)
+    with tempfile.NamedTemporaryFile(suffix=".ipynb") as temporary:
+        temporary.write(notebook_blob)
+        temporary.flush()
+        source_digest = notebook_source_digest(Path(temporary.name))
     return {
         "schema_version": "kaggle-vllm-m4-batch-source-freeze-v2",
         "status": "FROZEN_FOR_KAGGLE_NO_M4_BATCH_2_GPU_RESULTS",
@@ -53,21 +71,31 @@ def build_freeze(repository: Path = ROOT) -> dict:
                 "runner": "scripts/kaggle_m4_execute_batch.py",
             },
         },
-        "batch_notebook_sha256": sha256_file(notebook),
-        "batch_notebook_source_digest": notebook_source_digest(notebook),
-        "batch_runner_sha256": sha256_file(
-            repository / "scripts/kaggle_m4_execute_batch.py"
+        "batch_notebook_sha256": hashlib.sha256(notebook_blob).hexdigest(),
+        "batch_notebook_source_digest": source_digest,
+        "batch_runner_sha256": _blob_sha256(
+            repository, IMPLEMENTATION_COMMIT, "scripts/kaggle_m4_execute_batch.py"
         ),
-        "base_shard_runner_sha256": sha256_file(
-            repository / "scripts/kaggle_m4_multimodel_crossover.py"
+        "base_shard_runner_sha256": _blob_sha256(
+            repository,
+            IMPLEMENTATION_COMMIT,
+            "scripts/kaggle_m4_multimodel_crossover.py",
         ),
-        "m4_execution_plan_sha256": sha256_file(
-            repository / "research/M4_EXECUTION_PLAN.json"
+        "m4_execution_plan_sha256": _blob_sha256(
+            repository, IMPLEMENTATION_COMMIT, "research/M4_EXECUTION_PLAN.json"
         ),
-        "model_matrix_sha256": sha256_file(repository / "research/model_matrix.json"),
-        "protocol_sha256": sha256_file(repository / "research/m4_protocol.json"),
-        "batch_plan_sha256": sha256_file(repository / BATCH_PLAN),
-        "protocol_amendment_sha256": sha256_file(repository / AMENDMENT),
+        "model_matrix_sha256": _blob_sha256(
+            repository, IMPLEMENTATION_COMMIT, "research/model_matrix.json"
+        ),
+        "protocol_sha256": _blob_sha256(
+            repository, IMPLEMENTATION_COMMIT, "research/m4_protocol.json"
+        ),
+        "batch_plan_sha256": _blob_sha256(
+            repository, IMPLEMENTATION_COMMIT, BATCH_PLAN
+        ),
+        "protocol_amendment_sha256": _blob_sha256(
+            repository, IMPLEMENTATION_COMMIT, AMENDMENT
+        ),
         "model_source_policy": {
             "source": "ordinary pinned Hugging Face checkpoints in research/model_matrix.json",
             "historical_qwen_tp2_sharded_state_allowed": False,

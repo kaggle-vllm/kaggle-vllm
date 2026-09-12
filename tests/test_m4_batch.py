@@ -20,6 +20,7 @@ from kaggle_vllm.research.m4_batch import (
     measure_shard_peaks,
     select_batch,
     stage_batch_download,
+    validate_batch_against_queue,
     validate_batch_manifest,
     verify_batch_source_freeze,
 )
@@ -94,6 +95,60 @@ def test_select_batch_rejects_mixed_repetition() -> None:
     }
     with pytest.raises(ResearchEvidenceError, match="mixes repetition"):
         select_batch(plan, "bad")
+
+
+def test_current_batch_passes_authoritative_no_rerun_queue() -> None:
+    plan = json.loads((ROOT / "research/M4_REMAINING_EXECUTION_PLAN.json").read_text())
+    queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
+    batch = select_batch(plan, "fill-r00-ministral")
+    result = validate_batch_against_queue(batch, queue)
+    assert result["status"] == "PASS_NO_SETTLED_SHARD_RESCHEDULED"
+    assert result["queued_shard_ids"] == [
+        "ministral3_3b_bf16-short-r00",
+        "ministral3_3b_bf16-balanced-r00",
+        "ministral3_3b_bf16-prefill_heavy-r00",
+    ]
+
+
+def test_promoted_canonical_batch_cannot_be_rescheduled() -> None:
+    plan = json.loads((ROOT / "research/M4_BATCH_EXECUTION_PLAN_V2.json").read_text())
+    queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
+    stale_batch = select_batch(plan, "fill-r00-llama")
+    with pytest.raises(ResearchEvidenceError, match="refusing to reschedule settled"):
+        validate_batch_against_queue(stale_batch, queue)
+
+
+def test_resource_gated_shard_cannot_be_rescheduled() -> None:
+    queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
+    batch = {
+        "ordered_shard_ids": ["qwen25_3b-prefill_heavy-r00"],
+        "execution_order": [{"shard_id": "qwen25_3b-prefill_heavy-r00"}],
+        "already_completed_skips": [],
+        "review_required_exclusions": [],
+    }
+    with pytest.raises(ResearchEvidenceError, match="refusing to reschedule settled"):
+        validate_batch_against_queue(batch, queue)
+
+
+def test_zero_remaining_batch_refuses_execution_cleanly() -> None:
+    queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
+    batch = {
+        "ordered_shard_ids": [],
+        "execution_order": [],
+        "already_completed_skips": ["qwen25_3b-short-r00"],
+        "review_required_exclusions": [],
+    }
+    with pytest.raises(ResearchEvidenceError, match="zero remaining shards"):
+        validate_batch_against_queue(batch, queue)
+
+
+def test_pr_prose_cannot_override_machine_readable_queue() -> None:
+    queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
+    stale_pr_claim = "Next operational batch: fill-r00-llama"
+    assert stale_pr_claim
+    plan = json.loads((ROOT / "research/M4_BATCH_EXECUTION_PLAN_V2.json").read_text())
+    with pytest.raises(ResearchEvidenceError, match="refusing to reschedule settled"):
+        validate_batch_against_queue(select_batch(plan, "fill-r00-llama"), queue)
 
 
 def test_disk_and_wall_clock_guards() -> None:

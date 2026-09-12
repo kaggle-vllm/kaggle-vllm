@@ -40,6 +40,11 @@ SESSION_ID = re.compile(r"^m4-[a-z0-9-]+-[0-9]{8}T[0-9]{6}Z-[0-9a-f]{8}$")
 MAX_OUTER_MEMBERS = 128
 MAX_OUTER_MEMBER_BYTES = 1024**3
 MAX_OUTER_UNCOMPRESSED_BYTES = 4 * 1024**3
+TERMINAL_QUEUE_STATUSES = {
+    "PRINCIPAL_SHARD_PRESERVED",
+    "FAILED_RESOURCE_GATE",
+    "FAILED_OTHER_REVIEW_REQUIRED",
+}
 
 
 def notebook_source_digest(path: Path) -> str:
@@ -83,6 +88,54 @@ def select_batch(plan: dict[str, Any], batch_id: str) -> dict[str, Any]:
     if len(identities) != len(batch.get("execution_order", [])):
         raise ResearchEvidenceError("batch duplicates a model/workload identity")
     return batch
+
+
+def validate_batch_against_queue(
+    batch: dict[str, Any], queue: dict[str, Any]
+) -> dict[str, Any]:
+    """Refuse stale batches that would execute any settled logical shard."""
+    if queue.get("schema_version") != "kaggle-vllm-m4-principal-queue-v1":
+        raise ResearchEvidenceError("unsupported M4 principal queue schema")
+    if queue.get("active_shards") != 60 or queue.get("active_serving_cells") != 720:
+        raise ResearchEvidenceError("principal queue does not preserve the 60-shard/720-cell design")
+    active_rows = [row for row in queue.get("queue", []) if row.get("active_order") is not None]
+    by_id = {row.get("shard_id"): row for row in active_rows}
+    if len(active_rows) != 60 or len(by_id) != 60:
+        raise ResearchEvidenceError("principal queue has missing or duplicate active shards")
+
+    ordered = list(batch.get("ordered_shard_ids", []))
+    execution_ids = [item.get("shard_id") for item in batch.get("execution_order", [])]
+    if not ordered or ordered != execution_ids:
+        raise ResearchEvidenceError("batch has zero remaining shards or inconsistent execution order")
+    missing = [shard_id for shard_id in ordered if shard_id not in by_id]
+    if missing:
+        raise ResearchEvidenceError(f"batch references shards absent from active queue: {missing}")
+    settled = [
+        shard_id
+        for shard_id in ordered
+        if by_id[shard_id].get("status") in TERMINAL_QUEUE_STATUSES
+    ]
+    nonqueued = [
+        shard_id
+        for shard_id in ordered
+        if by_id[shard_id].get("status") != "QUEUED" and shard_id not in settled
+    ]
+    if settled:
+        raise ResearchEvidenceError(f"refusing to reschedule settled M4 shards: {settled}")
+    if nonqueued:
+        raise ResearchEvidenceError(f"batch contains non-queued M4 shards: {nonqueued}")
+
+    preserved_skips = list(batch.get("already_completed_skips", []))
+    review_exclusions = list(batch.get("review_required_exclusions", []))
+    if any(by_id.get(shard_id, {}).get("status") != "PRINCIPAL_SHARD_PRESERVED" for shard_id in preserved_skips):
+        raise ResearchEvidenceError("batch canonical-skip state differs from principal queue")
+    if any(by_id.get(shard_id, {}).get("status") not in {"FAILED_RESOURCE_GATE", "FAILED_OTHER_REVIEW_REQUIRED"} for shard_id in review_exclusions):
+        raise ResearchEvidenceError("batch review-required exclusion differs from principal queue")
+    return {
+        "status": "PASS_NO_SETTLED_SHARD_RESCHEDULED",
+        "queued_shard_ids": ordered,
+        "settled_exclusions": [*preserved_skips, *review_exclusions],
+    }
 
 
 def check_disk_capacity(
@@ -271,6 +324,10 @@ def verify_batch_source_freeze(
         "batch_plan_sha256": batch_plan_path,
         "protocol_amendment_sha256": amendment_path,
     }
+    if "principal_queue_sha256" in freeze:
+        paths["principal_queue_sha256"] = freeze.get(
+            "principal_queue_path", "research/M4_PRINCIPAL_EXECUTION_QUEUE.json"
+        )
     implementation_commit = str(freeze.get("implementation_source_commit", ""))
     notebook_commit = str(freeze.get("notebook_pin_commit", ""))
     is_git_worktree = _is_git_worktree(repository)
@@ -486,6 +543,15 @@ def stage_batch_download(
             != freeze["batch_notebook_source_digest"]
         ):
             raise ResearchEvidenceError("batch notebook source identity differs from freeze")
+        if "principal_queue_sha256" in freeze:
+            if source_identity.get("principal_queue_sha256") != freeze[
+                "principal_queue_sha256"
+            ]:
+                raise ResearchEvidenceError("principal queue identity differs from source freeze")
+            if source_identity.get("principal_queue_path") != freeze.get(
+                "principal_queue_path"
+            ):
+                raise ResearchEvidenceError("principal queue path differs from source freeze")
         plan_path = repository / expected_plan_path
         if sha256_file(plan_path) != freeze["batch_plan_sha256"]:
             raise ResearchEvidenceError("current batch plan differs from source freeze")
