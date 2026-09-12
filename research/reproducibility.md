@@ -40,6 +40,10 @@ shards from one explicitly recorded physical session. The subsequent
 `fill-r00-llama` continuation likewise preserves all three Llama r00 shards in
 session `m4-fill-r00-llama-20260912T044444Z-dd577e28`; its outer ZIP SHA256 is
 `9f27731cbaad5c43c52f56228534f8ef4f12d293681f10a8d2b67ee0ad7d4531`.
+The `fill-r00-ministral` continuation preserves all three Ministral r00 shards
+in session `m4-fill-r00-ministral-20260912T091607Z-54baa1e9`; its outer ZIP
+SHA256 is
+`5cc192952f00f11b37ff2b681e1c9eff24d7c285d85707dab989e3dd648798d2`.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

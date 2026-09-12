@@ -5,8 +5,9 @@ retaining all 60 logical shards and all 720 fresh-server serving cells. The
 single-shard notebook remains valid for standalone execution.
 
 The exact clean source commit and source hashes for the next notebook are
-recorded in `M4_BATCH_SOURCE_FREEZE_V3.json`. The V2 freeze remains the
-immutable authority for the completed Phi and Llama batches.
+recorded in `M4_BATCH_SOURCE_FREEZE_V4.json`. Earlier freezes remain immutable
+authorities for the batches executed from them; V3 governs the completed
+Ministral r00 batch.
 
 ## Historical M4-BATCH-1 attempt
 
@@ -50,16 +51,20 @@ observed blast radius, but no throughput result is used to reorder conditions.
 
 ## Next controlled execution
 
-Run `M4_BATCH_ID=fill-r00-ministral` in a fresh T4 x2 allocation. It contains
-`ministral3_3b_bf16-short-r00`, `ministral3_3b_bf16-balanced-r00`, and
-`ministral3_3b_bf16-prefill_heavy-r00`. Do not rerun the original `fill-r00`
-container or the completed `fill-r00-phi` and `fill-r00-llama` continuations.
+Run `M4_BATCH_ID=fill-r01-phi` in a fresh T4 x2 allocation. It contains
+`phi4_mini-balanced-r01`, `phi4_mini-prefill_heavy-r01`, and
+`phi4_mini-short-r01`. Do not rerun any completed r00 continuation or the
+original `fill-r00` container.
 
 The Llama continuation completed all three planned shards in session
 `m4-fill-r00-llama-20260912T044444Z-dd577e28`. Its independent review is
 `M4_FILL_R00_LLAMA_ATTEMPT_1_REVIEW.json`. The authoritative no-rerun ledger and
 full derived schedule are `M4_EXECUTION_RECONCILIATION.json` and
 `M4_REMAINING_EXECUTION_PLAN.json`.
+
+The Ministral continuation completed all three planned shards in session
+`m4-fill-r00-ministral-20260912T091607Z-54baa1e9`. Its independent review is
+`M4_FILL_R00_MINISTRAL_ATTEMPT_1_REVIEW.json`.
 
 The next allocation has three logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before

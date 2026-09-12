@@ -19,16 +19,16 @@ def test_reconciliation_is_exact_and_deterministic() -> None:
     assert first == second
     assert first_plan == second_plan
     assert first["counts"] == {
-        "CANONICAL_PRESERVED": 9,
+        "CANONICAL_PRESERVED": 12,
         "FAILED_RESOURCE_GATE": 1,
         "FAILED_OTHER_REVIEW_REQUIRED": 0,
         "VERIFIED_LOCAL_STAGING_PENDING_PROMOTION": 0,
-        "NOT_EXECUTED": 50,
+        "NOT_EXECUTED": 47,
     }
     assert first["counts_total"] == 60
     assert len(first["shards"]) == len({row["shard_id"] for row in first["shards"]}) == 60
-    assert first["remaining_batch_count"] == 17
-    assert first["next_batch_id"] == "fill-r00-ministral"
+    assert first["remaining_batch_count"] == 16
+    assert first["next_batch_id"] == "fill-r01-phi"
 
 
 def test_reconciliation_excludes_every_settled_shard_from_schedule() -> None:
@@ -41,6 +41,7 @@ def test_reconciliation_excludes_every_settled_shard_from_schedule() -> None:
         for shard_id in batch["ordered_shard_ids"]
     }
     assert scheduled.isdisjoint(reconciliation["no_rerun_shards"])
-    assert len(scheduled) == 50
+    assert len(scheduled) == 47
     assert "qwen25_3b-prefill_heavy-r00" not in scheduled
     assert "llama32_3b-short-r00" not in scheduled
+    assert "ministral3_3b_bf16-short-r00" not in scheduled
