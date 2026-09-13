@@ -40,6 +40,7 @@ Machine-readable control files:
 - `M4_BATCH_SOURCE_FREEZE_V4.json`: post-Ministral no-rerun source freeze.
 - `M4_EXECUTION_RECONCILIATION.json`: authoritative 60-shard terminal/pending ledger.
 - `M4_FILL_R00_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed Ministral r00 batch record.
+- `M4_FILL_R01_PHI_ATTEMPT_1_REVIEW.json`: reviewed Phi r01 batch record.
 - `M4_REMAINING_EXECUTION_PLAN.json`: deterministic schedule of only not-executed shards.
 - `HISTORICAL_QWEN_SHARDED_STATE.md`: scope of the external Qwen persistence evidence.
 - `M5_DECISION.md`: post-M4 GuideLLM gate and claim boundary.
@@ -59,8 +60,9 @@ compatibility population. Qwen, clean-rerun Phi, clean Llama 3.2, and text-only
 Ministral passed. The final hash-verified p13 Gemma ZIP and source-equivalent
 executed notebook establish the canonical, narrowly scoped
 `UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK`. Two standalone
-Qwen-short repetitions and one batch-orchestrated Qwen-balanced shard are
-preserved. The Qwen prefill-heavy r00 resource-gated attempt remains
+Qwen-short repetitions, one batch-orchestrated Qwen-balanced shard, and two
+repetitions of all three Phi workloads are preserved. The Qwen prefill-heavy
+r00 resource-gated attempt remains
 review-required, and the remaining principal matrix and M5 independent
 validation are not complete. The principal study population is
 the four compatibility-passing models; Gemma remains a negative compatibility

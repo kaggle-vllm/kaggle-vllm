@@ -1,6 +1,6 @@
 {
   "schema_version": "kaggle-vllm-m4-batch-execution-plan-v2",
-  "status": "FROZEN_AFTER_FILL_R00_ATTEMPT_1",
+  "status": "DERIVED_FROM_CURRENT_PRINCIPAL_QUEUE",
   "protocol_amendment": {
     "version": "M4-BATCH-2",
     "path": "research/M4_BATCH_PROTOCOL_AMENDMENT_V2.md",
@@ -100,17 +100,13 @@
     "review_required_shards_excluded_not_promoted": true,
     "new_physical_allocation_requires_new_session_id": true
   },
-  "preserved_logical_shards": 3,
-  "remaining_logical_shards": 57,
-  "continuation_executable_shards": 56,
+  "preserved_logical_shards": 15,
+  "remaining_logical_shards": 45,
+  "continuation_executable_shards": 44,
   "review_required_shard_ids": [
     "qwen25_3b-prefill_heavy-r00"
   ],
   "batch_ids": [
-    "fill-r00-phi",
-    "fill-r00-llama",
-    "fill-r00-ministral",
-    "fill-r01-phi",
     "fill-r01-llama",
     "fill-r01-ministral",
     "fill-r01-qwen",
@@ -128,230 +124,6 @@
     "r04-ministral"
   ],
   "batches": [
-    {
-      "batch_id": "fill-r00-phi",
-      "label": "CONTINUATION_FILL_R00_PHI",
-      "protocol_amendment_version": "M4-BATCH-2",
-      "parent_batch_id": "fill-r00",
-      "continuation_group": "phi",
-      "repetition": 0,
-      "model_order": [
-        "phi4_mini"
-      ],
-      "workload_order_within_model": [
-        "short",
-        "balanced",
-        "prefill_heavy"
-      ],
-      "all_logical_shard_ids": [
-        "phi4_mini-short-r00",
-        "phi4_mini-balanced-r00",
-        "phi4_mini-prefill_heavy-r00"
-      ],
-      "ordered_shard_ids": [
-        "phi4_mini-short-r00",
-        "phi4_mini-balanced-r00",
-        "phi4_mini-prefill_heavy-r00"
-      ],
-      "execution_order": [
-        {
-          "within_session_order": 1,
-          "shard_id": "phi4_mini-short-r00",
-          "model_key": "phi4_mini",
-          "workload": "short",
-          "repetition": 0,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 2,
-          "shard_id": "phi4_mini-balanced-r00",
-          "model_key": "phi4_mini",
-          "workload": "balanced",
-          "repetition": 0,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 3,
-          "shard_id": "phi4_mini-prefill_heavy-r00",
-          "model_key": "phi4_mini",
-          "workload": "prefill_heavy",
-          "repetition": 0,
-          "serving_cells": 12
-        }
-      ],
-      "already_completed_skips": [],
-      "review_required_exclusions": [],
-      "logical_shard_count": 3,
-      "serving_cell_count": 36
-    },
-    {
-      "batch_id": "fill-r00-llama",
-      "label": "CONTINUATION_FILL_R00_LLAMA",
-      "protocol_amendment_version": "M4-BATCH-2",
-      "parent_batch_id": "fill-r00",
-      "continuation_group": "llama",
-      "repetition": 0,
-      "model_order": [
-        "llama32_3b"
-      ],
-      "workload_order_within_model": [
-        "short",
-        "balanced",
-        "prefill_heavy"
-      ],
-      "all_logical_shard_ids": [
-        "llama32_3b-short-r00",
-        "llama32_3b-balanced-r00",
-        "llama32_3b-prefill_heavy-r00"
-      ],
-      "ordered_shard_ids": [
-        "llama32_3b-short-r00",
-        "llama32_3b-balanced-r00",
-        "llama32_3b-prefill_heavy-r00"
-      ],
-      "execution_order": [
-        {
-          "within_session_order": 1,
-          "shard_id": "llama32_3b-short-r00",
-          "model_key": "llama32_3b",
-          "workload": "short",
-          "repetition": 0,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 2,
-          "shard_id": "llama32_3b-balanced-r00",
-          "model_key": "llama32_3b",
-          "workload": "balanced",
-          "repetition": 0,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 3,
-          "shard_id": "llama32_3b-prefill_heavy-r00",
-          "model_key": "llama32_3b",
-          "workload": "prefill_heavy",
-          "repetition": 0,
-          "serving_cells": 12
-        }
-      ],
-      "already_completed_skips": [],
-      "review_required_exclusions": [],
-      "logical_shard_count": 3,
-      "serving_cell_count": 36
-    },
-    {
-      "batch_id": "fill-r00-ministral",
-      "label": "CONTINUATION_FILL_R00_MINISTRAL",
-      "protocol_amendment_version": "M4-BATCH-2",
-      "parent_batch_id": "fill-r00",
-      "continuation_group": "ministral",
-      "repetition": 0,
-      "model_order": [
-        "ministral3_3b_bf16"
-      ],
-      "workload_order_within_model": [
-        "short",
-        "balanced",
-        "prefill_heavy"
-      ],
-      "all_logical_shard_ids": [
-        "ministral3_3b_bf16-short-r00",
-        "ministral3_3b_bf16-balanced-r00",
-        "ministral3_3b_bf16-prefill_heavy-r00"
-      ],
-      "ordered_shard_ids": [
-        "ministral3_3b_bf16-short-r00",
-        "ministral3_3b_bf16-balanced-r00",
-        "ministral3_3b_bf16-prefill_heavy-r00"
-      ],
-      "execution_order": [
-        {
-          "within_session_order": 1,
-          "shard_id": "ministral3_3b_bf16-short-r00",
-          "model_key": "ministral3_3b_bf16",
-          "workload": "short",
-          "repetition": 0,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 2,
-          "shard_id": "ministral3_3b_bf16-balanced-r00",
-          "model_key": "ministral3_3b_bf16",
-          "workload": "balanced",
-          "repetition": 0,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 3,
-          "shard_id": "ministral3_3b_bf16-prefill_heavy-r00",
-          "model_key": "ministral3_3b_bf16",
-          "workload": "prefill_heavy",
-          "repetition": 0,
-          "serving_cells": 12
-        }
-      ],
-      "already_completed_skips": [],
-      "review_required_exclusions": [],
-      "logical_shard_count": 3,
-      "serving_cell_count": 36
-    },
-    {
-      "batch_id": "fill-r01-phi",
-      "label": "CONTINUATION_FILL_R01_PHI",
-      "protocol_amendment_version": "M4-BATCH-2",
-      "parent_batch_id": "fill-r01",
-      "continuation_group": "phi",
-      "repetition": 1,
-      "model_order": [
-        "phi4_mini"
-      ],
-      "workload_order_within_model": [
-        "balanced",
-        "prefill_heavy",
-        "short"
-      ],
-      "all_logical_shard_ids": [
-        "phi4_mini-balanced-r01",
-        "phi4_mini-prefill_heavy-r01",
-        "phi4_mini-short-r01"
-      ],
-      "ordered_shard_ids": [
-        "phi4_mini-balanced-r01",
-        "phi4_mini-prefill_heavy-r01",
-        "phi4_mini-short-r01"
-      ],
-      "execution_order": [
-        {
-          "within_session_order": 1,
-          "shard_id": "phi4_mini-balanced-r01",
-          "model_key": "phi4_mini",
-          "workload": "balanced",
-          "repetition": 1,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 2,
-          "shard_id": "phi4_mini-prefill_heavy-r01",
-          "model_key": "phi4_mini",
-          "workload": "prefill_heavy",
-          "repetition": 1,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 3,
-          "shard_id": "phi4_mini-short-r01",
-          "model_key": "phi4_mini",
-          "workload": "short",
-          "repetition": 1,
-          "serving_cells": 12
-        }
-      ],
-      "already_completed_skips": [],
-      "review_required_exclusions": [],
-      "logical_shard_count": 3,
-      "serving_cell_count": 36
-    },
     {
       "batch_id": "fill-r01-llama",
       "label": "CONTINUATION_FILL_R01_LLAMA",

@@ -7,10 +7,10 @@ For every active row, also download the executed copy of
 `/kaggle/working/kaggle-vllm-runtime/runtime.json`; both are mandatory
 inputs to the local provenance audit.
 
-Progress: 12 / 60 active shards preserved.
+Progress: 15 / 60 active shards preserved.
 Review required: 1 resource-gated shard.
 
-Next: `M4_SHARD_ID=phi4_mini-balanced-r01`
+Next: `M4_SHARD_ID=llama32_3b-balanced-r01`
 
 | Active | M4_SHARD_ID | Model | Workload | Rep | Status | Artifact |
 |---:|---|---|---|---:|---|---|
@@ -30,17 +30,17 @@ Next: `M4_SHARD_ID=phi4_mini-balanced-r01`
 | 14 | `qwen25_3b-prefill_heavy-r03` | `qwen25_3b` | prefill_heavy | 3 | QUEUED | `qwen25_3b-prefill_heavy-r03-principal.zip` |
 | 15 | `qwen25_3b-prefill_heavy-r04` | `qwen25_3b` | prefill_heavy | 4 | QUEUED | `qwen25_3b-prefill_heavy-r04-principal.zip` |
 | 16 | `phi4_mini-short-r00` | `phi4_mini` | short | 0 | PRINCIPAL_SHARD_PRESERVED | `phi4_mini-short-r00-principal.zip` |
-| 17 | `phi4_mini-short-r01` | `phi4_mini` | short | 1 | QUEUED | `phi4_mini-short-r01-principal.zip` |
+| 17 | `phi4_mini-short-r01` | `phi4_mini` | short | 1 | PRINCIPAL_SHARD_PRESERVED | `phi4_mini-short-r01-principal.zip` |
 | 18 | `phi4_mini-short-r02` | `phi4_mini` | short | 2 | QUEUED | `phi4_mini-short-r02-principal.zip` |
 | 19 | `phi4_mini-short-r03` | `phi4_mini` | short | 3 | QUEUED | `phi4_mini-short-r03-principal.zip` |
 | 20 | `phi4_mini-short-r04` | `phi4_mini` | short | 4 | QUEUED | `phi4_mini-short-r04-principal.zip` |
 | 21 | `phi4_mini-balanced-r00` | `phi4_mini` | balanced | 0 | PRINCIPAL_SHARD_PRESERVED | `phi4_mini-balanced-r00-principal.zip` |
-| 22 | `phi4_mini-balanced-r01` | `phi4_mini` | balanced | 1 | QUEUED | `phi4_mini-balanced-r01-principal.zip` |
+| 22 | `phi4_mini-balanced-r01` | `phi4_mini` | balanced | 1 | PRINCIPAL_SHARD_PRESERVED | `phi4_mini-balanced-r01-principal.zip` |
 | 23 | `phi4_mini-balanced-r02` | `phi4_mini` | balanced | 2 | QUEUED | `phi4_mini-balanced-r02-principal.zip` |
 | 24 | `phi4_mini-balanced-r03` | `phi4_mini` | balanced | 3 | QUEUED | `phi4_mini-balanced-r03-principal.zip` |
 | 25 | `phi4_mini-balanced-r04` | `phi4_mini` | balanced | 4 | QUEUED | `phi4_mini-balanced-r04-principal.zip` |
 | 26 | `phi4_mini-prefill_heavy-r00` | `phi4_mini` | prefill_heavy | 0 | PRINCIPAL_SHARD_PRESERVED | `phi4_mini-prefill_heavy-r00-principal.zip` |
-| 27 | `phi4_mini-prefill_heavy-r01` | `phi4_mini` | prefill_heavy | 1 | QUEUED | `phi4_mini-prefill_heavy-r01-principal.zip` |
+| 27 | `phi4_mini-prefill_heavy-r01` | `phi4_mini` | prefill_heavy | 1 | PRINCIPAL_SHARD_PRESERVED | `phi4_mini-prefill_heavy-r01-principal.zip` |
 | 28 | `phi4_mini-prefill_heavy-r02` | `phi4_mini` | prefill_heavy | 2 | QUEUED | `phi4_mini-prefill_heavy-r02-principal.zip` |
 | 29 | `phi4_mini-prefill_heavy-r03` | `phi4_mini` | prefill_heavy | 3 | QUEUED | `phi4_mini-prefill_heavy-r03-principal.zip` |
 | 30 | `phi4_mini-prefill_heavy-r04` | `phi4_mini` | prefill_heavy | 4 | QUEUED | `phi4_mini-prefill_heavy-r04-principal.zip` |

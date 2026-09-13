@@ -44,6 +44,15 @@ The `fill-r00-ministral` continuation preserves all three Ministral r00 shards
 in session `m4-fill-r00-ministral-20260912T091607Z-54baa1e9`; its outer ZIP
 SHA256 is
 `5cc192952f00f11b37ff2b681e1c9eff24d7c285d85707dab989e3dd648798d2`.
+The `fill-r01-phi` continuation preserves all three Phi r01 shards in session
+`m4-fill-r01-phi-20260912T163631Z-eb65994e`; its outer ZIP SHA256 is
+`5cf366ab2e284f0950e201578795ba9fba145b23343d77f9939711f52382e95f`.
+The source-clean pre-audit executed notebook SHA256 is
+`e65ca0bec247152d4fb64f9a41531e117d130800617cc296448469484dbbec36`.
+The later notebook copy appends a read-only post-run audit and preserves the
+same execution outputs, but is auxiliary because its saved benchmark-cell text
+also contains a post-execution insertion. The independent runtime SHA256 is
+`49a70b4ad76603eef7d86467f8f59aa3056824a4422139640b1a06bf90f48c7f`.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

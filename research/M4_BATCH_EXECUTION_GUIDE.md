@@ -51,10 +51,10 @@ observed blast radius, but no throughput result is used to reorder conditions.
 
 ## Next controlled execution
 
-Run `M4_BATCH_ID=fill-r01-phi` in a fresh T4 x2 allocation. It contains
-`phi4_mini-balanced-r01`, `phi4_mini-prefill_heavy-r01`, and
-`phi4_mini-short-r01`. Do not rerun any completed r00 continuation or the
-original `fill-r00` container.
+Run `M4_BATCH_ID=fill-r01-llama` in a fresh T4 x2 allocation. It contains
+`llama32_3b-balanced-r01`, `llama32_3b-prefill_heavy-r01`, and
+`llama32_3b-short-r01`. Do not rerun any completed continuation or the original
+`fill-r00` container.
 
 The Llama continuation completed all three planned shards in session
 `m4-fill-r00-llama-20260912T044444Z-dd577e28`. Its independent review is
@@ -65,6 +65,12 @@ full derived schedule are `M4_EXECUTION_RECONCILIATION.json` and
 The Ministral continuation completed all three planned shards in session
 `m4-fill-r00-ministral-20260912T091607Z-54baa1e9`. Its independent review is
 `M4_FILL_R00_MINISTRAL_ATTEMPT_1_REVIEW.json`.
+
+The Phi r01 continuation completed all three planned shards in session
+`m4-fill-r01-phi-20260912T163631Z-eb65994e`. Its independent review is
+`M4_FILL_R01_PHI_ATTEMPT_1_REVIEW.json`. The frozen disk guard passed, but the
+smallest pre-shard margin was only 122,446,168 bytes; future batches must retain
+the exact-cache cleanup and per-shard disk guard.
 
 The next allocation has three logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before
