@@ -38,6 +38,7 @@ Machine-readable control files:
 - `M4_BATCH_SOURCE_FREEZE_V2.json`: M4-BATCH-2 notebook/runner/plan freeze.
 - `M4_BATCH_SOURCE_FREEZE_V3.json`: reconciled M4-BATCH-2 no-rerun source freeze.
 - `M4_BATCH_SOURCE_FREEZE_V4.json`: post-Ministral no-rerun source freeze.
+- `M4_BATCH_SOURCE_FREEZE_V5.json`: post-Phi-r01 no-rerun source freeze.
 - `M4_EXECUTION_RECONCILIATION.json`: authoritative 60-shard terminal/pending ledger.
 - `M4_FILL_R00_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed Ministral r00 batch record.
 - `M4_FILL_R01_PHI_ATTEMPT_1_REVIEW.json`: reviewed Phi r01 batch record.

@@ -6,7 +6,10 @@ from kaggle_vllm.research.m4_batch import verify_batch_source_freeze
 from scripts.generate_m4_batch_plan import build_batch_plan
 from scripts.generate_m4_batch_source_freeze_v2 import build_freeze as build_freeze_v2
 from scripts.generate_m4_batch_source_freeze_v3 import build_freeze as build_freeze_v3
-from scripts.generate_m4_batch_source_freeze_v4 import build_freeze as build_freeze_v4
+from scripts.generate_m4_batch_source_freeze_v4 import (
+    build_freeze as build_freeze_v4,
+    build_freeze_v5,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -21,6 +24,7 @@ def _plan() -> dict:
     by_id["qwen25_3b-prefill_heavy-r00"]["status"] = "QUEUED"
     for workload in ("short", "balanced", "prefill_heavy"):
         by_id[f"phi4_mini-{workload}-r00"]["status"] = "QUEUED"
+        by_id[f"phi4_mini-{workload}-r01"]["status"] = "QUEUED"
         by_id[f"llama32_3b-{workload}-r00"]["status"] = "QUEUED"
         by_id[f"ministral3_3b_bf16-{workload}-r00"]["status"] = "QUEUED"
     historical.update(
@@ -127,4 +131,15 @@ def test_post_ministral_batch_source_freeze_generation_is_deterministic() -> Non
     assert build_freeze_v4(ROOT) == build_freeze_v4(ROOT)
     assert verify_batch_source_freeze(
         ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V4.json"
+    ) == expected
+
+
+def test_post_phi_batch_source_freeze_generation_is_deterministic() -> None:
+    expected = json.loads(
+        (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V5.json").read_text()
+    )
+    assert build_freeze_v5(ROOT) == expected
+    assert build_freeze_v5(ROOT) == build_freeze_v5(ROOT)
+    assert verify_batch_source_freeze(
+        ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V5.json"
     ) == expected

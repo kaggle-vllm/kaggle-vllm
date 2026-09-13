@@ -5,9 +5,9 @@ retaining all 60 logical shards and all 720 fresh-server serving cells. The
 single-shard notebook remains valid for standalone execution.
 
 The exact clean source commit and source hashes for the next notebook are
-recorded in `M4_BATCH_SOURCE_FREEZE_V4.json`. Earlier freezes remain immutable
-authorities for the batches executed from them; V3 governs the completed
-Ministral r00 batch.
+recorded in `M4_BATCH_SOURCE_FREEZE_V5.json`. Earlier freezes remain immutable
+authorities for the batches executed from them; V4 governs the completed Phi
+r01 batch.
 
 ## Historical M4-BATCH-1 attempt
 

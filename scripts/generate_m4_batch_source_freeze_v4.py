@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the post-Ministral M4-BATCH-2 no-rerun source freeze."""
+"""Generate retained V4 and current post-Phi M4-BATCH-2 source freezes."""
 
 from __future__ import annotations
 
@@ -120,15 +120,85 @@ def build_freeze(repository: Path = ROOT) -> dict:
     }
 
 
+def build_freeze_v5(repository: Path = ROOT) -> dict:
+    """Build the post-Phi freeze without duplicating the freeze generator."""
+
+    implementation_commit = "e50bb5b7d75856528528345d4755026fa548b194"
+    notebook_pin_commit = "845957d31e4475207e79b9b4f74dd5188ba71079"
+    notebook_relative = "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+    notebook_blob = _blob(repository, notebook_pin_commit, notebook_relative)
+    with tempfile.NamedTemporaryFile(suffix=".ipynb") as temporary:
+        temporary.write(notebook_blob)
+        temporary.flush()
+        source_digest = notebook_source_digest(Path(temporary.name))
+
+    freeze = build_freeze(repository)
+    freeze.update(
+        {
+            "schema_version": "kaggle-vllm-m4-batch-source-freeze-v5",
+            "status": "FROZEN_AFTER_PHI_R01_FOR_M4_BATCH_2_CONTINUATION",
+            "reconciliation_date_utc": "2026-09-13",
+            "implementation_source_commit": implementation_commit,
+            "notebook_pin_commit": notebook_pin_commit,
+            "historical_batch_2_freeze": {
+                "path": "research/M4_BATCH_SOURCE_FREEZE_V4.json",
+                "sha256": sha256_file(
+                    repository / "research/M4_BATCH_SOURCE_FREEZE_V4.json"
+                ),
+                "status": "RETAINED_UNCHANGED",
+            },
+            "batch_notebook_sha256": hashlib.sha256(notebook_blob).hexdigest(),
+            "batch_notebook_source_digest": source_digest,
+            "batch_runner_sha256": _blob_sha256(
+                repository, implementation_commit, "scripts/kaggle_m4_execute_batch.py"
+            ),
+            "base_shard_runner_sha256": _blob_sha256(
+                repository,
+                implementation_commit,
+                "scripts/kaggle_m4_multimodel_crossover.py",
+            ),
+            "m4_execution_plan_sha256": _blob_sha256(
+                repository, implementation_commit, "research/M4_EXECUTION_PLAN.json"
+            ),
+            "model_matrix_sha256": _blob_sha256(
+                repository, implementation_commit, "research/model_matrix.json"
+            ),
+            "protocol_sha256": _blob_sha256(
+                repository, implementation_commit, "research/m4_protocol.json"
+            ),
+            "batch_plan_sha256": _blob_sha256(
+                repository, implementation_commit, BATCH_PLAN
+            ),
+            "principal_queue_sha256": _blob_sha256(
+                repository, implementation_commit, PRINCIPAL_QUEUE
+            ),
+            "protocol_amendment_sha256": _blob_sha256(
+                repository, implementation_commit, AMENDMENT
+            ),
+            "evidence_boundary": (
+                "This freeze contains no new GPU measurements. It binds the reviewed "
+                "15-canonical/1-resource-gated/44-not-executed reconciliation and "
+                "duplicate-prevention guard for subsequent M4-BATCH-2 execution."
+            ),
+        }
+    )
+    freeze["execution_paths"]["batch_orchestrated"]["status"] = (
+        "M4_BATCH_2_POST_PHI_R01_CONTINUATION_READY"
+    )
+    return freeze
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "research/M4_BATCH_SOURCE_FREEZE_V4.json",
+        default=ROOT / "research/M4_BATCH_SOURCE_FREEZE_V5.json",
     )
     args = parser.parse_args()
-    args.output.write_text(json.dumps(build_freeze(), indent=2) + "\n", encoding="utf-8")
+    args.output.write_text(
+        json.dumps(build_freeze_v5(), indent=2) + "\n", encoding="utf-8"
+    )
     return 0
 
 
