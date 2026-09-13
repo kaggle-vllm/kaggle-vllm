@@ -9,6 +9,8 @@ from pathlib import Path
 
 from .comparison import build_model_vs_observed, load_payload_scenarios
 from .errors import ResearchEvidenceError
+from .m4_batch import stage_batch_download
+from .m4_ingest import stage_download
 from .measured_comm import (
     assert_equivalent_ledgers,
     fit_communication_model,
@@ -33,6 +35,16 @@ def build_parser() -> argparse.ArgumentParser:
     verify = subcommands.add_parser("verify-hashes")
     verify.add_argument("root", type=Path)
     verify.add_argument("manifest", type=Path, nargs="?")
+    ingest = subcommands.add_parser("ingest-m4")
+    ingest.add_argument("--notebook", type=Path, required=True)
+    ingest.add_argument("--evidence-zip", type=Path, required=True)
+    ingest.add_argument("--runtime", type=Path, required=True)
+    ingest.add_argument("--repository", type=Path, default=Path.cwd())
+    ingest_batch = subcommands.add_parser("ingest-m4-batch")
+    ingest_batch.add_argument("--notebook", type=Path, required=True)
+    ingest_batch.add_argument("--batch-zip", type=Path, required=True)
+    ingest_batch.add_argument("--runtime", type=Path, required=True)
+    ingest_batch.add_argument("--repository", type=Path, default=Path.cwd())
     return parser
 
 
@@ -45,6 +57,24 @@ def main(argv: Sequence[str] | None = None) -> int:
             verified = verify_sha256_manifest(args.root, manifest)
             print(json.dumps({"status": "verified", "files": verified}, indent=2))
             return 0
+        if args.command == "ingest-m4":
+            report = stage_download(
+                repository=args.repository.resolve(),
+                notebook=args.notebook.resolve(),
+                evidence_zip=args.evidence_zip.resolve(),
+                runtime_path=args.runtime.resolve(),
+            )
+            print(json.dumps(report, indent=2))
+            return 0
+        if args.command == "ingest-m4-batch":
+            report = stage_batch_download(
+                repository=args.repository.resolve(),
+                notebook=args.notebook.resolve(),
+                batch_zip=args.batch_zip.resolve(),
+                runtime_path=args.runtime.resolve(),
+            )
+            print(json.dumps(report, indent=2))
+            return 0 if report["status"] == "VERIFIED_BATCH_CANDIDATE" else 2
         csv_rows = load_allreduce_csv(args.raw_csv)
         json_rows = load_allreduce_json(args.raw_json)
         assert_equivalent_ledgers(csv_rows, json_rows)

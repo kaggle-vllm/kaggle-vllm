@@ -155,11 +155,22 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
             for rep in repetitions
         )
         metrics = (
+            "request_throughput_per_second",
+            "input_tokens_per_second",
             "output_tokens_per_second",
+            "total_tokens_per_second",
             "ttft_ms",
             "tpot_ms",
             "itl_ms",
             "e2e_latency_ms",
+            "request_failures",
+            "preemptions",
+            "kv_cache_occupancy_percent",
+            "gpu_utilization_percent",
+            "maximum_vram_mib",
+            "maximum_system_ram_bytes",
+            "mean_power_w",
+            "maximum_temperature_c",
         )
         tp_summaries = {}
         for tp in (1, 2):
@@ -167,7 +178,9 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
             for metric in metrics:
                 values = [by_tp[tp][rep][metric] for rep in sorted(repetitions)]
                 tp_summaries[f"tp{tp}"][metric] = (
-                    distribution(values) if all(value is not None for value in values) else None
+                    distribution(values)
+                    if all(value is not None for value in values)
+                    else None
                 )
         throughput_stats = None
         latency_stats = None
@@ -218,8 +231,47 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
                 "tp2_over_tp1_output_speedup": speedup_stats,
                 "tp1": tp_summaries["tp1"],
                 "tp2": tp_summaries["tp2"],
+                "tp1_oom_repetitions": sum(by_tp[1][rep]["oom"] for rep in repetitions),
+                "tp2_oom_repetitions": sum(by_tp[2][rep]["oom"] for rep in repetitions),
+                "tp1_failed_repetitions": sum(
+                    by_tp[1][rep]["oom"] or by_tp[1][rep]["request_failures"] > 0
+                    for rep in repetitions
+                ),
+                "tp2_failed_repetitions": sum(
+                    by_tp[2][rep]["oom"] or by_tp[2][rep]["request_failures"] > 0
+                    for rep in repetitions
+                ),
                 "classifications": classifications,
                 "evidence": "MEASURED_INPUT_DERIVED_COMPARISON",
+            }
+        )
+    by_series: dict[tuple[str, str, str], list[dict[str, Any]]] = defaultdict(list)
+    for cell in results:
+        by_series[(cell["model_id"], cell["model_revision"], cell["workload"])].append(cell)
+    crossover_summary = []
+    for key, series in sorted(by_series.items()):
+        ordered = sorted(series, key=lambda item: item["concurrency"])
+        observed = [item["concurrency"] for item in ordered]
+
+        def sustained(label: str, cells: list[dict[str, Any]] = ordered) -> int | None:
+            flags = [label in item["classifications"] for item in cells]
+            for index, enabled in enumerate(flags):
+                if enabled and all(flags[index:]):
+                    return cells[index]["concurrency"]
+            return None
+
+        complete = observed == list(PRINCIPAL_CONCURRENCY)
+        crossover_summary.append(
+            {
+                "model_id": key[0],
+                "model_revision": key[1],
+                "workload": key[2],
+                "observed_concurrency": observed,
+                "principal_grid_complete": complete,
+                "throughput_crossover_concurrency": sustained("THROUGHPUT_CROSSOVER") if complete else None,
+                "latency_crossover_concurrency": sustained("LATENCY_CROSSOVER") if complete else None,
+                "capacity_crossover_concurrency": sustained("CAPACITY_CROSSOVER") if complete else None,
+                "criterion": "first robust favorable point sustained through all higher frozen concurrency points",
             }
         )
     return {
@@ -227,4 +279,5 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
         "status": "ANALYZED",
         "crossover_criterion": "paired-repetition mean-delta 95% CI excludes zero in the favorable direction",
         "cells": results,
+        "crossover_summary": crossover_summary,
     }

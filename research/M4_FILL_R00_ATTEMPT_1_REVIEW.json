@@ -1,0 +1,129 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-attempt-review-v1",
+  "review_status": "COMPLETE",
+  "batch_id": "fill-r00",
+  "session_id": "m4-fill-r00-20260911T060043Z-35e8e95f",
+  "batch_protocol_version": "M4-BATCH-1",
+  "batch_status": "STOPPED_ON_FAILURE",
+  "batch_runner_returncode": 2,
+  "source_commit": "8cd6b224684f03810116c9a91370f25a7c2be297",
+  "downloads": {
+    "outer_zip": {
+      "filename": "m4-batch-fill-r00.zip",
+      "size_bytes": 1403734,
+      "sha256": "f840e769f48a16bd58208bdd8543058477ffcb149c4a61a9fd0cc488d8460d99"
+    },
+    "executed_notebook": {
+      "filename": "p1-kaggle-vllm-m4-execute-batch.ipynb",
+      "sha256": "3afe101a93610fe838d666d6ead4ecd2397ab0c8dd345aab28eab5a1b4a08c0a",
+      "source_equivalence": "FROZEN_SOURCES_PLUS_ONE_INERT_TRAILING_EMPTY_CODE_CELL"
+    },
+    "runtime": {
+      "filename": "runtime.json",
+      "sha256": "dae2ba0a00a4ecfd1eda203e766be142d35188ffcff3385ba2d08a03cd52c162",
+      "matches_bundled_runtime": true
+    }
+  },
+  "outer_verification": {
+    "zip_safety": "PASS",
+    "crc": "PASS",
+    "member_count": 7,
+    "uncompressed_bytes": 1480970,
+    "batch_sha256s": "PASS_ALL_6_PAYLOADS"
+  },
+  "execution": {
+    "planned_shard_count": 11,
+    "attempted_shard_count": 2,
+    "already_canonical_skips": [
+      "qwen25_3b-short-r00"
+    ],
+    "completed_shards": [
+      "qwen25_3b-balanced-r00"
+    ],
+    "failed_shard": "qwen25_3b-prefill_heavy-r00",
+    "not_executed_shards": [
+      "phi4_mini-short-r00",
+      "phi4_mini-balanced-r00",
+      "phi4_mini-prefill_heavy-r00",
+      "llama32_3b-short-r00",
+      "llama32_3b-balanced-r00",
+      "llama32_3b-prefill_heavy-r00",
+      "ministral3_3b_bf16-short-r00",
+      "ministral3_3b_bf16-balanced-r00",
+      "ministral3_3b_bf16-prefill_heavy-r00"
+    ]
+  },
+  "completed_shard": {
+    "shard_id": "qwen25_3b-balanced-r00",
+    "inner_zip_sha256": "71d948b4d541c0fbfe5fcf270762162749b0e42e52072c7b343a97ce698e0fe6",
+    "inner_hashes": "PASS_ALL_78_PAYLOADS",
+    "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+    "tp_concurrency_grid": "COMPLETE_12_OF_12",
+    "successful_requests": 800,
+    "failed_requests": 0,
+    "exact_input_tokens": 409600,
+    "exact_output_tokens": 204800,
+    "gpu0_peak_mib": 14831,
+    "gpu1_peak_mib": 14831,
+    "maximum_system_ram_bytes": 7604453376,
+    "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+  },
+  "failed_shard": {
+    "shard_id": "qwen25_3b-prefill_heavy-r00",
+    "inner_zip_sha256": "0679951fb7550896eb89acc2ba83cbe58ea15a33d155ed6a1c6c07da4ae1e857",
+    "evidence_completeness": "79_MEMBERS_ALL_78_PAYLOAD_HASHES_PASS",
+    "runner_returncode": 3,
+    "stage": "TP2_CONCURRENCY_64_RESOURCE_MONITOR",
+    "first_causal_failure": "PER_GPU_VRAM_CEILING_EXCEEDED",
+    "resource_guard_message": "GPU 1 memory 14879.0 MiB exceeded 14848.0 MiB",
+    "independently_recomputed_gpu0_peak_mib": 14895,
+    "independently_recomputed_gpu1_peak_mib": 14895,
+    "outer_runner_first_reported_excess": "GPU0 14895.0 MiB > 14848.0 MiB",
+    "successful_cells": 11,
+    "failed_cells": 1,
+    "measured_requests_issued": 800,
+    "successful_requests": 608,
+    "failed_requests": 192,
+    "failed_cell_throughput": null,
+    "oom_observed": false,
+    "classification": "VRAM_RESOURCE_GUARD",
+    "scientific_or_resource_failure": true,
+    "batch_orchestration_bug": false,
+    "promotion": "REVIEW_REQUIRED_NOT_CANONICAL"
+  },
+  "guards": {
+    "disk": {
+      "classification": "NOT_DISK_RELATED",
+      "last_pre_failure_total_bytes": 20957446144,
+      "last_pre_failure_used_bytes": 8613335040,
+      "last_pre_failure_free_bytes": 12327333888,
+      "required_free_bytes": 9171926992,
+      "safety_reserve_bytes": 2147483648,
+      "failure_time_sample_available": false
+    },
+    "wallclock": {
+      "classification": "NOT_WALLCLOCK_RELATED",
+      "failed_shard_start_elapsed_seconds": 2332.644555475,
+      "remaining_seconds_at_failed_shard_start": 35467.355444525,
+      "batch_wall_clock_seconds": 4956.75371233,
+      "maximum_seconds": 37800
+    },
+    "gpu_cleanup": {
+      "completed_shard": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "failed_shard": "NOT_CAPTURED_BY_M4_BATCH_1_AFTER_RESOURCE_EXCEPTION",
+      "post_session_observation": "IDLE_REPORTED_BY_KAGGLE_UI_NOT_MANIFEST_PROVENANCE"
+    },
+    "cache_cleanup": {
+      "status": "DELETED_EXACT_MODEL_REPO_CACHE_AFTER_EVIDENCE_ZIPS_VERIFIED",
+      "path": "/kaggle/working/hf-cache/hub/models--Qwen--Qwen2.5-3B-Instruct",
+      "broad_cleanup_observed": false
+    }
+  },
+  "methodology": {
+    "logical_design": "60_SHARDS_720_FRESH_SERVER_CELLS_UNCHANGED",
+    "per_gpu_ceiling_mib": 14848,
+    "post_hoc_benchmark_tuning": false,
+    "historical_qwen_sharded_state_used": false,
+    "gemma_status": "CLOSED_NO_FURTHER_EXECUTION"
+  }
+}

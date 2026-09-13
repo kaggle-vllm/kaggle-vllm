@@ -19,6 +19,32 @@ def load_object(path: Path) -> dict[str, Any]:
     return value
 
 
+def incomplete_m4_status(evidence_path: Path) -> str:
+    """Report preserved-shard progress without promoting partial M4 analysis."""
+
+    evidence = load_object(evidence_path)
+    preserved = [
+        shard_id
+        for shard_id, record in evidence.get("principal_shards", {}).items()
+        if record.get("status") == "PRINCIPAL_SHARD_PRESERVED"
+    ]
+    if not preserved:
+        return "INCOMPLETE_NO_M4_PRINCIPAL_EVIDENCE"
+    groups: dict[str, int] = {}
+    for shard_id in preserved:
+        group = shard_id.rsplit("-r", maxsplit=1)[0]
+        groups[group] = groups.get(group, 0) + 1
+    group_status = ",".join(
+        f"{group.upper()}={count}_OF_5_REPETITIONS"
+        for group, count in sorted(groups.items())
+    )
+    planned = evidence.get("principal_planned_shards", 60)
+    return (
+        f"INCOMPLETE_M4_PRINCIPAL_EVIDENCE_{len(preserved)}_OF_{planned}_SHARDS;"
+        f"{group_status}"
+    )
+
+
 def save_figure(figure: Any, destination: Path, stem: str) -> None:
     for suffix in ("svg", "png", "pdf"):
         path = destination / f"{stem}.{suffix}"
@@ -147,6 +173,192 @@ def evidence_linkage_rows(
     ]
 
 
+def hardware_runtime_rows(m3_root: Path) -> list[dict[str, Any]]:
+    """Flatten the canonical environment without transcribing runtime values."""
+
+    environment = load_object(m3_root / "M3_ENVIRONMENT.json")
+    topology = load_object(m3_root / "M3_PROVENANCE.json")["environment"]
+    rows = [
+        {"component": key, "observed_value": environment[key], "evidence": "M3_ENVIRONMENT.json"}
+        for key in (
+            "python",
+            "torch",
+            "torch_cuda",
+            "nccl",
+            "kaggle_vllm_version",
+            "vllm_distribution_version",
+            "vllm_source_commit",
+            "native_wheel_sha256",
+        )
+    ]
+    rows.extend(
+        {
+            "component": f"gpu_{gpu['index']}",
+            "observed_value": (
+                f"{gpu['name']}; SM{gpu['compute_capability'][0]}"
+                f"{gpu['compute_capability'][1]}; {gpu['total_memory_bytes']} bytes"
+            ),
+            "evidence": "M3_ENVIRONMENT.json",
+        }
+        for gpu in environment["gpus"]
+    )
+    rows.append(
+        {
+            "component": "platform",
+            "observed_value": topology["platform"],
+            "evidence": "M3_PROVENANCE.json",
+        }
+    )
+    return rows
+
+
+def model_table_rows(path: Path) -> list[dict[str, Any]]:
+    models = load_object(path)["models"]
+    return [
+        {
+            "model_key": key,
+            "hf_id": model["hf_id"],
+            "model_revision": model["revision"],
+            "tokenizer_revision": model.get("tokenizer_revision", model["revision"]),
+            "architecture": model["architecture"],
+            "parameters": model["parameters"],
+            "source_precision": model["source_precision"],
+            "selected_weight_bytes": model["selected_weight_bytes"],
+            "license": model["license"],
+            "gated": model["gated"],
+            "redistribution_status": model["redistribution_status"],
+            "vllm_0181_registry_support": model["vllm_0181_registry_support"],
+            "sm75_status": model["sm75_status"],
+        }
+        for key, model in models.items()
+    ]
+
+
+def principal_model_table_rows(
+    model_path: Path, evidence_path: Path
+) -> list[dict[str, Any]]:
+    """Select the predeclared principal population from the frozen model table."""
+
+    rows = {row["model_key"]: row for row in model_table_rows(model_path)}
+    principal = load_object(evidence_path)["principal_population"]
+    return [rows[key] for key in principal]
+
+
+def workload_table_rows(path: Path) -> list[dict[str, Any]]:
+    protocol = load_object(path)
+    return [
+        {
+            "workload": name,
+            "input_tokens": values["input_tokens"],
+            "output_tokens": values["output_tokens"],
+            "principal_concurrency": ";".join(map(str, protocol["principal_concurrency"])),
+            "principal_repetitions": protocol["principal_repetitions"],
+            "near_crossover_repetitions": protocol["near_crossover_repetitions"],
+            "prefix_caching": protocol["prompt_control"]["prefix_caching"],
+        }
+        for name, values in protocol["workloads"].items()
+    ]
+
+
+def compatibility_table_rows(model_path: Path, evidence_path: Path) -> list[dict[str, Any]]:
+    models = load_object(model_path)["models"]
+    outcomes = load_object(evidence_path)["compatibility"]
+    order = ["qwen25_3b", "phi4_mini", "ministral3_3b_bf16", "llama32_3b", "gemma3_4b"]
+    rows = []
+    for key in order:
+        outcome = outcomes[key]
+        passed = outcome["status"] == "COMPATIBILITY_PASS"
+        rows.append(
+            {
+                "model_key": key,
+                "model_id": models[key]["hf_id"],
+                "architecture": models[key]["architecture"],
+                "frozen_dtype": "float16",
+                "tp1": "PASS" if passed else "FAIL_BEFORE_READINESS",
+                "tp2": "PASS" if passed else "FAIL_BEFORE_READINESS",
+                "compatibility_status": outcome["status"],
+                "principal_eligible": passed,
+                "performance": "MEASURED_GATE_ONLY" if passed else "N/A_COMPATIBILITY_GATED",
+            }
+        )
+    return rows
+
+
+def claim_boundary_rows(path: Path) -> list[dict[str, str]]:
+    boundaries = load_object(path)
+    return [
+        {"status": "ALLOWED_WITH_EVIDENCE", "claim": claim}
+        for claim in boundaries["allowed_contributions"]
+    ] + [
+        {"status": "UNSUPPORTED_DO_NOT_CLAIM", "claim": claim}
+        for claim in boundaries["unsupported_claims"]
+    ]
+
+
+def m3_fit_rows(m3_root: Path) -> list[dict[str, Any]]:
+    fit = load_object(m3_root / "M3_FIT.json")
+    return [
+        {
+            "point_count": fit["point_count"],
+            "measured_allreduce_intercept_us": fit["measured_allreduce_intercept_us"],
+            "intercept_95_ci_low_us": fit["measured_allreduce_intercept_95_ci_us"][0],
+            "intercept_95_ci_high_us": fit["measured_allreduce_intercept_95_ci_us"][1],
+            "beta_effective_gb_s": fit["beta_effective_gb_s"],
+            "beta_95_ci_low_gb_s": fit["beta_effective_95_ci_gb_s"][0],
+            "beta_95_ci_high_gb_s": fit["beta_effective_95_ci_gb_s"][1],
+            "r_squared": fit["r_squared"],
+            "residual_sum_squares_us2": fit["residual_sum_squares_us2"],
+            "equation": fit["equation"],
+        }
+    ]
+
+
+def write_control_tables(args: argparse.Namespace) -> None:
+    write_csv(args.tables / "model_matrix.csv", model_table_rows(args.model_matrix))
+    write_csv(
+        args.tables / "m4_principal_model_metadata.csv",
+        principal_model_table_rows(args.model_matrix, args.m4_evidence_status),
+    )
+    write_csv(args.tables / "workload_matrix.csv", workload_table_rows(args.m4_protocol))
+    write_csv(
+        args.tables / "m4_compatibility_gate.csv",
+        compatibility_table_rows(args.model_matrix, args.m4_evidence_status),
+    )
+    write_csv(
+        args.tables / "claim_boundaries.csv",
+        claim_boundary_rows(args.claim_boundaries),
+    )
+    if args.m3 is not None:
+        write_csv(args.tables / "hardware_runtime.csv", hardware_runtime_rows(args.m3))
+        write_csv(args.tables / "m3_communication_fit.csv", m3_fit_rows(args.m3))
+
+
+def write_architecture_svg(path: Path) -> None:
+    """Write the data-independent system/runtime architecture panel."""
+
+    boxes = [
+        (40, 75, 180, 70, "Frozen notebook\nM4_SHARD_ID"),
+        (270, 75, 180, 70, "kaggle-vllm 0.2.0\nidentity + guards"),
+        (500, 30, 180, 70, "vLLM TP1\nTesla T4 GPU 0"),
+        (500, 120, 180, 70, "vLLM TP2\nT4 0 ↔ PHB ↔ T4 1"),
+        (730, 75, 180, 70, "Checksummed evidence\nlogs + metrics + telemetry"),
+    ]
+    parts = [
+        '<svg xmlns="http://www.w3.org/2000/svg" width="950" height="230" viewBox="0 0 950 230">',
+        '<rect width="100%" height="100%" fill="white"/>',
+        '<text x="475" y="22" text-anchor="middle" font-size="18">kaggle-vllm experimental and evidence architecture</text>',
+        '<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#444"/></marker></defs>',
+    ]
+    for x, y, width, height, label in boxes:
+        parts.append(f'<rect x="{x}" y="{y}" width="{width}" height="{height}" rx="8" fill="#eef4fb" stroke="#315a87"/>')
+        for index, line in enumerate(label.split("\n")):
+            parts.append(f'<text x="{x + width / 2}" y="{y + 30 + index * 20}" text-anchor="middle" font-size="14">{html.escape(line)}</text>')
+    for x1, y1, x2, y2 in ((220, 110, 270, 110), (450, 110, 500, 65), (450, 110, 500, 155), (680, 65, 730, 110), (680, 155, 730, 110)):
+        parts.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="#444" stroke-width="2" marker-end="url(#arrow)"/>')
+    parts.append("</svg>")
+    path.write_text("\n".join(parts) + "\n", encoding="utf-8")
+
+
 def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     if not rows:
         raise ValueError(f"refusing empty table: {path}")
@@ -220,6 +432,8 @@ def svg_plot(
 def generate_svg_fallback(args: argparse.Namespace) -> dict[str, str]:
     args.figures.mkdir(parents=True, exist_ok=True)
     args.tables.mkdir(parents=True, exist_ok=True)
+    write_control_tables(args)
+    write_architecture_svg(args.figures / "00_runtime_architecture.svg")
     first = m1_data(args.m1)
     second = m2_data(args.m2)
     write_csv(args.tables / "m1_tp1_tp2.csv", first)
@@ -310,8 +524,16 @@ def generate_svg_fallback(args: argparse.Namespace) -> dict[str, str]:
             if args.m3 is None
             else "GENERATED_SVG_FROM_MEASURED_EVIDENCE"
         ),
-        "m4": "UNSUPPORTED_NO_M4_EVIDENCE" if args.m4 is None else "MATPLOTLIB_REQUIRED_FOR_M4",
-        "m5": "UNSUPPORTED_NO_VALID_SIMULATOR_EVIDENCE" if args.m5 is None else "MATPLOTLIB_REQUIRED_FOR_M5",
+        "m4": (
+            incomplete_m4_status(args.m4_evidence_status)
+            if args.m4 is None
+            else "MATPLOTLIB_REQUIRED_FOR_M4"
+        ),
+        "m5": (
+            "INCOMPLETE_POST_M4_GUIDELLM_NOT_RUN"
+            if args.m5 is None
+            else "MATPLOTLIB_REQUIRED_FOR_M5"
+        ),
         "format_note": "Matplotlib unavailable; dependency-free SVG generated. Install research-only Matplotlib for PNG/PDF.",
     }
     (args.figures / "generation-status.json").write_text(json.dumps(status, indent=2) + "\n")
@@ -327,6 +549,8 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
 
     args.figures.mkdir(parents=True, exist_ok=True)
     args.tables.mkdir(parents=True, exist_ok=True)
+    write_control_tables(args)
+    write_architecture_svg(args.figures / "00_runtime_architecture.svg")
     status: dict[str, str] = {}
     first = m1_data(args.m1)
     write_csv(args.tables / "m1_tp1_tp2.csv", first)
@@ -414,12 +638,48 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
         status["m3"] = "GENERATED_FROM_MEASURED_EVIDENCE"
 
     if args.m4 is None:
-        status["m4"] = "UNSUPPORTED_NO_M4_EVIDENCE"
+        status["m4"] = incomplete_m4_status(args.m4_evidence_status)
     else:
         analysis = load_object(args.m4)
         cells = analysis.get("cells")
         if not isinstance(cells, list) or not cells:
             raise ValueError("M4 analysis has no cells")
+        evidence = load_object(args.m4_evidence_status)
+        models_by_key = load_object(args.model_matrix)["models"]
+        expected_models = {
+            (models_by_key[key]["hf_id"], models_by_key[key]["revision"])
+            for key in evidence["principal_population"]
+        }
+        protocol = load_object(args.m4_protocol)
+        expected_identities = {
+            (model_id, revision, workload, concurrency)
+            for model_id, revision in expected_models
+            for workload in protocol["workloads"]
+            for concurrency in protocol["principal_concurrency"]
+        }
+        actual_identities = {
+            (
+                cell.get("model_id"),
+                cell.get("model_revision"),
+                cell.get("workload"),
+                cell.get("concurrency"),
+            )
+            for cell in cells
+        }
+        if actual_identities != expected_identities or len(cells) != len(
+            expected_identities
+        ):
+            raise ValueError("M4 analysis does not contain the complete frozen principal grid")
+        minimum_required = protocol["principal_repetitions"]
+        if any(
+            cell.get("repetitions", 0) < minimum_required
+            or cell.get("tp1_failed_repetitions") != 0
+            or cell.get("tp2_failed_repetitions") != 0
+            for cell in cells
+        ):
+            raise ValueError(
+                "M4 analysis lacks five valid repetitions or contains unexpected failures"
+            )
         def mean_or_none(value: Any) -> Any:
             return value.get("mean") if isinstance(value, dict) else None
 
@@ -437,11 +697,63 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
                 "tp2_ttft_ms": mean_or_none(cell["tp2"]["ttft_ms"]),
                 "tp1_tpot_ms": mean_or_none(cell["tp1"]["tpot_ms"]),
                 "tp2_tpot_ms": mean_or_none(cell["tp2"]["tpot_ms"]),
+                "tp1_itl_ms": mean_or_none(cell["tp1"]["itl_ms"]),
+                "tp2_itl_ms": mean_or_none(cell["tp2"]["itl_ms"]),
+                "tp1_e2e_latency_ms": mean_or_none(cell["tp1"]["e2e_latency_ms"]),
+                "tp2_e2e_latency_ms": mean_or_none(cell["tp2"]["e2e_latency_ms"]),
+                "tp1_maximum_vram_mib": mean_or_none(cell["tp1"]["maximum_vram_mib"]),
+                "tp2_maximum_vram_mib": mean_or_none(cell["tp2"]["maximum_vram_mib"]),
+                "tp1_gpu_utilization_percent": mean_or_none(cell["tp1"]["gpu_utilization_percent"]),
+                "tp2_gpu_utilization_percent": mean_or_none(cell["tp2"]["gpu_utilization_percent"]),
+                "tp1_oom_repetitions": cell["tp1_oom_repetitions"],
+                "tp2_oom_repetitions": cell["tp2_oom_repetitions"],
+                "tp1_failed_repetitions": cell["tp1_failed_repetitions"],
+                "tp2_failed_repetitions": cell["tp2_failed_repetitions"],
                 "classifications": ";".join(cell["classifications"]),
             }
             for cell in cells
         ]
         write_csv(args.tables / "m4_crossover_cells.csv", flat_cells)
+        summaries = analysis.get("crossover_summary")
+        if not isinstance(summaries, list) or not summaries:
+            raise ValueError("M4 analysis has no predefined crossover summary")
+        if len(summaries) != len(expected_models) * len(protocol["workloads"]) or any(
+            summary.get("principal_grid_complete") is not True for summary in summaries
+        ):
+            raise ValueError("M4 crossover summary is incomplete")
+        write_csv(args.tables / "m4_crossover_summary.csv", summaries)
+        resource_rows = []
+        for cell in cells:
+            for tp in (1, 2):
+                summary = cell[f"tp{tp}"]
+                resource_rows.append(
+                    {
+                        "model_id": cell["model_id"],
+                        "model_revision": cell["model_revision"],
+                        "workload": cell["workload"],
+                        "concurrency": cell["concurrency"],
+                        "tp": tp,
+                        "repetitions": cell["repetitions"],
+                        "maximum_vram_mib_mean": mean_or_none(
+                            summary["maximum_vram_mib"]
+                        ),
+                        "maximum_system_ram_bytes_mean": mean_or_none(
+                            summary["maximum_system_ram_bytes"]
+                        ),
+                        "gpu_utilization_percent_mean": mean_or_none(
+                            summary["gpu_utilization_percent"]
+                        ),
+                        "mean_power_w": mean_or_none(summary["mean_power_w"]),
+                        "maximum_temperature_c_mean": mean_or_none(
+                            summary["maximum_temperature_c"]
+                        ),
+                        "request_failures_mean": mean_or_none(
+                            summary["request_failures"]
+                        ),
+                        "oom_repetitions": cell[f"tp{tp}_oom_repetitions"],
+                    }
+                )
+        write_csv(args.tables / "m4_resource_summary.csv", resource_rows)
         models = sorted({cell["model_id"] for cell in cells})
         workloads = sorted({cell["workload"] for cell in cells})
         minimum_repetitions = min(cell["repetitions"] for cell in cells)
@@ -449,6 +761,8 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
             ("06_m4_multimodel_crossover", "output_tokens_per_second", "Output tokens/s"),
             ("08_m4_ttft", "ttft_ms", "TTFT (ms)"),
             ("09_m4_tpot", "tpot_ms", "TPOT (ms/token)"),
+            ("10_m4_itl", "itl_ms", "ITL (ms/event)"),
+            ("11_m4_e2e_latency", "e2e_latency_ms", "E2E latency (ms)"),
         ):
             figure, axis = plt.subplots(figsize=(10, 6))
             for model in models:
@@ -507,7 +821,7 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
         save_figure(figure, args.figures, "07_m4_speedup_heatmap"); plt.close(figure)
         status["m4"] = "FIGURES_AND_TABLE_GENERATED_FROM_MEASURED_EVIDENCE"
     if args.m5 is None:
-        status["m5"] = "UNSUPPORTED_NO_VALID_SIMULATOR_EVIDENCE"
+        status["m5"] = "INCOMPLETE_POST_M4_GUIDELLM_NOT_RUN"
     else:
         simulation = load_object(args.m5)
         if simulation.get("schema_version") != "kaggle-vllm-m5-simulator-comparison-v1":
@@ -542,6 +856,22 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--m3", type=Path)
     parser.add_argument("--m4", type=Path)
     parser.add_argument("--m5", type=Path)
+    parser.add_argument(
+        "--model-matrix", type=Path, default=Path("research/model_matrix.json")
+    )
+    parser.add_argument(
+        "--m4-protocol", type=Path, default=Path("research/m4_protocol.json")
+    )
+    parser.add_argument(
+        "--m4-evidence-status",
+        type=Path,
+        default=Path("research/M4_EVIDENCE_STATUS.json"),
+    )
+    parser.add_argument(
+        "--claim-boundaries",
+        type=Path,
+        default=Path("research/claim_boundaries.json"),
+    )
     parser.add_argument("--figures", type=Path, default=Path("research/figures"))
     parser.add_argument("--tables", type=Path, default=Path("research/tables"))
     return parser.parse_args()

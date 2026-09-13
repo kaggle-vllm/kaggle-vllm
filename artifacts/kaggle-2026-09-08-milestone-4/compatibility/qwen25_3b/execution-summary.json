@@ -1,0 +1,10 @@
+{
+  "completed_at_utc": "2026-09-08T08:57:01.692289+00:00",
+  "completed_or_preserved_cells": 2,
+  "expected_cells": 2,
+  "failed_cells": 0,
+  "resource_guard_violation": null,
+  "schema_version": "kaggle-vllm-m4-shard-summary-v1",
+  "semantic_gate_failure": null,
+  "status": "executed"
+}

@@ -1,0 +1,177 @@
+{
+  "schema_version": "kaggle-vllm-m4-compatibility-review-v1",
+  "decision": "COMPATIBILITY_PASS",
+  "scope": "Qwen2.5-3B short-workload concurrency-1 TP1/TP2 compatibility gate on Kaggle T4 x2",
+  "candidate_identity": {
+    "evidence_zip_sha256": "cd3c45dddf19830649b03a931cee0247d6f8b4ebbc953c433e3ade563b271ecb",
+    "evidence_zip_size_bytes": 119276,
+    "executed_notebook_sha256": "d2106fcbd0df37cf34789499b90d71644c93b486d43265cc67c921b5ba91a94f",
+    "executed_notebook_size_bytes": 40354,
+    "source_notebook_sha256": "885c5b6278614c66ac72f1e9ed8d05dbad84a19c8b99be129ebeb25e48a91dd9",
+    "prompt_manifest_sha256": "4dceb1c15600fe097214205ff1adba344c7491c102979f365044131d4ef45586"
+  },
+  "zip_safety": {
+    "entry_count": 17,
+    "duplicate_entries": 0,
+    "absolute_paths": 0,
+    "path_traversal_entries": 0,
+    "symlinks": 0,
+    "crc_failures": 0,
+    "unexpected_files": 0
+  },
+  "hash_verification": {
+    "sha256sum_check": "PASS_16_OF_16",
+    "project_hash_verifier": "PASS_16_OF_16",
+    "zip_digest_matches_executed_notebook_output": true
+  },
+  "executed_notebook_audit": {
+    "cell_count": 4,
+    "code_execution_counts": [1, 2],
+    "cell_ids_types_order_match_frozen_source": true,
+    "cell_sources_match_frozen_source_exactly": true,
+    "code_asts_match_frozen_source": true,
+    "manual_patch_or_debug_cell": false,
+    "python_error_outputs": 0,
+    "tracebacks": 0,
+    "runner_returncode": 0,
+    "runner_stderr_empty": true,
+    "hash_verifier_stderr_empty": true,
+    "secret_exposure_detected": false
+  },
+  "provenance_gate": {
+    "source_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+    "source_dirty": false,
+    "dirty_paths": [],
+    "sdk_version": "0.2.0",
+    "model_key": "qwen25_3b",
+    "model_id": "Qwen/Qwen2.5-3B-Instruct",
+    "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "mode": "compatibility",
+    "workload": "short",
+    "repetition": 0,
+    "started_at_utc": "2026-09-08T08:50:24.156683+00:00",
+    "completed_at_utc": "2026-09-08T08:57:01.692289+00:00"
+  },
+  "runtime": {
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_toolkit": "12.8.93",
+    "nccl": "2.27.5",
+    "gpus": ["Tesla T4 SM75", "Tesla T4 SM75"],
+    "topology": "PHB",
+    "p2p_read_write": "NOT_SUPPORTED_REPORTED_BY_NVIDIA_SMI",
+    "native_wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c"
+  },
+  "prompt_gate": {
+    "prompt_count": 64,
+    "unique_utf8_hashes": 64,
+    "unique_token_id_hashes": 64,
+    "exact_input_tokens_per_prompt": 128,
+    "prefix_caching": false,
+    "result_references_match_manifest": true
+  },
+  "cells": {
+    "qwen25_3b-short-r00-tp1-c01": {
+      "status": "executed",
+      "tensor_parallel_size": 1,
+      "concurrency": 1,
+      "warmup_requests_excluded": 1,
+      "measured_requests": 20,
+      "successful_requests": 20,
+      "failed_requests": 0,
+      "input_tokens_per_request": 128,
+      "output_tokens_per_request": 64,
+      "output_throughput_tokens_per_second": 25.028259914211496,
+      "mean_ttft_ms": 84.0262554500157,
+      "mean_tpot_ms": 39.155895146825515,
+      "mean_itl_ms": 39.15378645158732,
+      "mean_e2e_latency_ms": 2550.8476497000233,
+      "oom": false,
+      "maximum_vram_mib_gpu0": 13645.0,
+      "maximum_vram_mib_gpu1": 3.0,
+      "maximum_system_ram_bytes": 6391181312,
+      "maximum_process_tree_rss_bytes": 9293017088,
+      "maximum_gpu0_utilization_percent": 100.0,
+      "maximum_gpu1_utilization_percent": 0.0,
+      "maximum_gpu0_power_w": 99.41,
+      "maximum_gpu0_temperature_c": 68.0
+    },
+    "qwen25_3b-short-r00-tp2-c01": {
+      "status": "executed",
+      "tensor_parallel_size": 2,
+      "concurrency": 1,
+      "warmup_requests_excluded": 1,
+      "measured_requests": 20,
+      "successful_requests": 20,
+      "failed_requests": 0,
+      "input_tokens_per_request": 128,
+      "output_tokens_per_request": 64,
+      "output_throughput_tokens_per_second": 14.215360456357658,
+      "mean_ttft_ms": 79.13032875001704,
+      "mean_tpot_ms": 70.09721886111092,
+      "mean_itl_ms": 70.09483411984132,
+      "mean_e2e_latency_ms": 4495.255117000004,
+      "oom": false,
+      "maximum_vram_mib_gpu0": 13753.0,
+      "maximum_vram_mib_gpu1": 13753.0,
+      "maximum_system_ram_bytes": 7657213952,
+      "maximum_process_tree_rss_bytes": 14023544832,
+      "maximum_gpu0_utilization_percent": 100.0,
+      "maximum_gpu1_utilization_percent": 100.0,
+      "maximum_gpu0_power_w": 67.45,
+      "maximum_gpu1_power_w": 65.27,
+      "maximum_gpu0_temperature_c": 71.0,
+      "maximum_gpu1_temperature_c": 62.0
+    }
+  },
+  "resource_gate": {
+    "maximum_allowed_vram_mib_per_gpu": 14848.0,
+    "maximum_allowed_system_ram_bytes": 30064771072,
+    "maximum_allowed_working_storage_bytes": 20000000000,
+    "projected_working_storage_bytes": 11527510081,
+    "resource_guard_violation": false
+  },
+  "server_log_findings": {
+    "blocking": [],
+    "non_blocking": [
+      "TP1 c10d hostname-resolution warning",
+      "TP1 destroy_process_group cleanup warning during completed shutdown",
+      "Model generation_config override warning; explicit request temperature remained zero in both cells"
+    ],
+    "expected": [
+      "BF16 weights cast to FP16 by the reviewed runtime configuration",
+      "FlashAttention-2 unavailable on SM75 followed by successful TRITON_ATTN fallback",
+      "Eager mode disables Inductor and CUDA graphs",
+      "TP2 SymmMem unavailable on SM75 followed by successful NCCL TP initialization",
+      "Prometheus +Inf histogram boundary labels with finite sample values",
+      "Orderly server shutdown and TP worker termination"
+    ],
+    "scientific_limitations": [
+      "One repetition, one short workload, and concurrency one do not establish a crossover",
+      "Sampled telemetry can miss instantaneous peaks",
+      "TP1 power telemetry contains readings above the nominal T4 power rating and is retained with caution",
+      "nvidia-smi reported P2P read/write NS in this session"
+    ]
+  },
+  "debug_comparison": {
+    "debug_classification": "DEBUG_COMPATIBILITY_PASS_NON_CANONICAL",
+    "debug_source_commit": "5176f1a133da0d8457937993be07f5a2a2b22a5f",
+    "prompt_manifest_byte_identical": true,
+    "request_and_token_counts_identical": true,
+    "vram_peaks_identical": true,
+    "tp1_output_throughput_relative_difference_percent": -9.631868,
+    "tp1_mean_e2e_latency_relative_difference_percent": 10.726084,
+    "tp2_output_throughput_relative_difference_percent": -4.951531,
+    "tp2_mean_e2e_latency_relative_difference_percent": 5.190375,
+    "canonical_p2p_vs_debug": "NS_VS_OK",
+    "assessment": "PLAUSIBLE_INDEPENDENT_RUN_VARIABILITY_NO_AVERAGING"
+  },
+  "claim_boundaries": {
+    "m4_complete": false,
+    "qwen_principal_matrix_complete": false,
+    "m4_crossover_established": false,
+    "all_models_compatible": false,
+    "paper_ready": false
+  }
+}

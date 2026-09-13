@@ -1,0 +1,2 @@
+# KAGGLE_VLLM_SNAPSHOT UNAVAILABLE
+# capture_status server_start_failure

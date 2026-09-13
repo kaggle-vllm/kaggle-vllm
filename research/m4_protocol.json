@@ -14,9 +14,13 @@
   },
   "prompt_control": {
     "method": "Generate and verify exact token lengths with the pinned model tokenizer",
+    "api": "OpenAI-compatible /v1/completions with server-reported usage verification",
     "shared_prefix": false,
     "prefix_caching": false,
-    "restart_between_independent_runs": true
+    "ignore_eos": true,
+    "require_exact_server_reported_input_and_output_tokens": true,
+    "restart_between_every_tp_concurrency_cell": true,
+    "independent_unit": "one fresh vLLM server process for one model/workload/TP/concurrency/repetition cell"
   },
   "required_metrics": [
     "request_throughput", "input_tokens_per_second", "output_tokens_per_second",
@@ -30,11 +34,11 @@
   ],
   "robustness_criterion": "A favorable paired-repetition mean delta must have a 95% confidence interval excluding zero; otherwise the cell is inconclusive/no robust crossover.",
   "standardized_crosscheck": {
-    "preferred": "vllm bench serve",
-    "alternate": "GuideLLM",
+    "preferred": "GuideLLM isolated client",
+    "alternate": "vllm bench serve only if separately justified",
     "guidellm_commit": "fc2dbe9edd4f7f1a4e9ccd752f6f43591adbcb73",
     "guidellm_describe": "v0.7.3-47-gfc2dbe9e",
-    "dependency_boundary": "research tooling only; never a lightweight SDK dependency",
+    "dependency_boundary": "separate virtual environment and process; never a lightweight SDK dependency or canonical-server runtime mutation",
     "metric_warning": "Do not equate TTFT/TPOT/ITL definitions across tools without explicit reconciliation."
   }
 }

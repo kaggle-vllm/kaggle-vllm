@@ -1,0 +1,6 @@
+model_key,model_id,architecture,frozen_dtype,tp1,tp2,compatibility_status,principal_eligible,performance
+qwen25_3b,Qwen/Qwen2.5-3B-Instruct,Qwen2ForCausalLM,float16,PASS,PASS,COMPATIBILITY_PASS,True,MEASURED_GATE_ONLY
+phi4_mini,microsoft/Phi-4-mini-instruct,Phi3ForCausalLM,float16,PASS,PASS,COMPATIBILITY_PASS,True,MEASURED_GATE_ONLY
+ministral3_3b_bf16,mistralai/Ministral-3-3B-Instruct-2512-BF16,Mistral3ForConditionalGeneration,float16,PASS,PASS,COMPATIBILITY_PASS,True,MEASURED_GATE_ONLY
+llama32_3b,meta-llama/Llama-3.2-3B-Instruct,LlamaForCausalLM,float16,PASS,PASS,COMPATIBILITY_PASS,True,MEASURED_GATE_ONLY
+gemma3_4b,google/gemma-3-4b-it,Gemma3ForConditionalGeneration,float16,FAIL_BEFORE_READINESS,FAIL_BEFORE_READINESS,UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK,False,N/A_COMPATIBILITY_GATED

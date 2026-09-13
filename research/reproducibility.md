@@ -17,7 +17,46 @@ Credentials and local usernames are excluded.
 Reproduce in the order specified by `KAGGLE_EXECUTION_CHECKLIST.md`. M3 is
 frozen under `artifacts/kaggle-2026-09-07-milestone-3-measured-comm/`; its
 external ZIP and executed-notebook hashes are recorded in the directory README
-and research manifest. M4 must branch from post-M3 `main`.
+and research manifest. M4 is based on post-M3 `main`. Its exact shard plan,
+model/tokenizer revisions, primary runner, local checksum-validating assembler,
+and isolated GuideLLM cross-check are frozen at source commit
+`42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`. The clean Qwen, clean-rerun Phi,
+clean Llama 3.2, and clean Ministral compatibility shards are accepted under
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b/` and
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini/`,
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/llama32_3b/`, and
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/`.
+The canonical Gemma negative is under
+`artifacts/kaggle-2026-09-08-milestone-4/compatibility/gemma3_4b/`;
+M4 remains in progress without an accepted principal matrix. The original
+one-shard/fresh-session path remains frozen. Dated amendment `M4-BATCH-1`
+separately freezes a repetition-batched orchestration path and records the
+shared Kaggle allocation as a blocking variable. Its first `fill-r00` attempt
+is retained as a one-completed, one-resource-gated, nine-not-executed partial
+batch. `M4-BATCH-2` keeps the scientific matrix fixed and narrows future
+continuations to one model and one repetition per new physical allocation. Its
+`fill-r00-phi` continuation preserves three independently canonical Phi r00
+shards from one explicitly recorded physical session. The subsequent
+`fill-r00-llama` continuation likewise preserves all three Llama r00 shards in
+session `m4-fill-r00-llama-20260912T044444Z-dd577e28`; its outer ZIP SHA256 is
+`9f27731cbaad5c43c52f56228534f8ef4f12d293681f10a8d2b67ee0ad7d4531`.
+The `fill-r00-ministral` continuation preserves all three Ministral r00 shards
+in session `m4-fill-r00-ministral-20260912T091607Z-54baa1e9`; its outer ZIP
+SHA256 is
+`5cc192952f00f11b37ff2b681e1c9eff24d7c285d85707dab989e3dd648798d2`.
+The `fill-r01-phi` continuation preserves all three Phi r01 shards in session
+`m4-fill-r01-phi-20260912T163631Z-eb65994e`; its outer ZIP SHA256 is
+`5cf366ab2e284f0950e201578795ba9fba145b23343d77f9939711f52382e95f`.
+The source-clean pre-audit executed notebook SHA256 is
+`e65ca0bec247152d4fb64f9a41531e117d130800617cc296448469484dbbec36`.
+The later notebook copy appends a read-only post-run audit and preserves the
+same execution outputs, but is auxiliary because its saved benchmark-cell text
+also contains a post-execution insertion. The independent runtime SHA256 is
+`49a70b4ad76603eef7d86467f8f59aa3056824a4422139640b1a06bf90f48c7f`.
+The tracked reconciliation ledger excludes every canonical and reviewed
+terminal shard from normal continuation. Batch ingestion permits
+the runtime-to-later-shard interval only within the hash-frozen batch
+wall-clock window; the standalone one-hour temporal rule remains unchanged.
 Generate the currently supported figures from the immutable evidence with:
 
 ```bash
@@ -32,3 +71,105 @@ Generate the currently supported figures from the immutable evidence with:
 Pass reviewed M4/M5 evidence with the corresponding optional flags only after
 it exists. Unavailable milestones are reported as unsupported rather than
 synthesized.
+
+For M4, retain the ZIP SHA, downloaded executed-notebook SHA, clean source
+commit, prompt-manifest SHA, per-file checksums, server commands/logs, raw
+requests, metrics, and resource samples for every shard. Assemble only shards
+whose checksum and semantic audits pass. `M4_EXECUTION_PLAN.json` fixes the
+principal order; refinements are selected only after recording the observed
+transition boundary. GuideLLM remains an independently versioned client at
+commit `fc2dbe9edd4f7f1a4e9ccd752f6f43591adbcb73`.
+
+Audit and stage each downloaded shard without editing the notebook:
+
+```bash
+PYTHONPATH=src /usr/local/bin/python3.11 -m kaggle_vllm.research ingest-m4 \
+  --notebook /absolute/path/to/executed.ipynb \
+  --evidence-zip /absolute/path/to/shard.zip \
+  --runtime /absolute/path/to/runtime.json
+```
+
+The command refuses notebook-source drift, unsafe ZIP members, checksum drift,
+source/runtime/model/token/grid mismatches, resource-limit violations, and
+duplicate content. It stages a content-addressed candidate under excluded
+`.local-evidence/`; canonical repository promotion remains a reviewed action.
+The exact repetitive procedure and evidence-size policy are in
+`M4_PRINCIPAL_EXECUTION_GUIDE.md`. Historical Qwen sharded-state capability
+evidence is separately scoped in `HISTORICAL_QWEN_SHARDED_STATE.md` and is not
+an M4 input.
+
+Batch downloads use the same inner-shard semantic validator:
+
+```bash
+PYTHONPATH=src /usr/local/bin/python3.11 -m kaggle_vllm.research \
+  ingest-m4-batch \
+  --notebook /absolute/path/to/executed-batch.ipynb \
+  --batch-zip /absolute/path/to/m4-batch-BATCH_ID.zip \
+  --runtime /absolute/path/to/runtime.json
+```
+
+The outer archive and source freeze are checked first. Accepted inner shards
+stage independently with execution mode, session ID, batch ID, repetition, and
+within-session order. A later invalid shard does not erase earlier valid local
+staging. Failed inner evidence remains review-only, not-executed rows remain
+distinct from failures, and any partial outer batch returns review-required
+status.
+
+The accepted Qwen compatibility ZIP SHA256 is
+`cd3c45dddf19830649b03a931cee0247d6f8b4ebbc953c433e3ade563b271ecb`;
+the executed notebook SHA256 is
+`d2106fcbd0df37cf34789499b90d71644c93b486d43265cc67c921b5ba91a94f`.
+The earlier manually modified Qwen run remains excluded
+`DEBUG_COMPATIBILITY_PASS` evidence and is never combined with canonical
+measurements.
+
+The accepted Phi compatibility ZIP SHA256 is
+`7a20d7058cdcf7362704acbc5513db65eb865b864fd47b555f72465a32a0ebfe`;
+the executed notebook SHA256 is
+`878c9b980787acec04ede93071771465f9897acd412006afc60277d92893e3b9`.
+The prior Phi candidate remains excluded `REJECTED_NOTEBOOK_DRIFT` evidence
+because its executed notebook used `M4_SHARD_ID_2`. It is not promoted,
+averaged, or copied into the canonical evidence directory.
+
+The accepted Ministral compatibility ZIP SHA256 is
+`516e37c160ca98a49795870aeeeeb8a381cd8780924f4d9d8836305ad68c77cc`;
+the executed notebook SHA256 is
+`5f988e506a35a21f59c1502ae77eb5c6df9118549d4cd95ce7f0ea8a397c3a1d`.
+The retained prompts are text-only. Although the multimodal-capable native
+implementation performs encoder warmup and Transformers warns about the
+legacy Mistral regex, an independent pinned-revision audit found identical
+token sequences and exact counts for all 64 prompts with the regex correction
+enabled.
+
+The accepted Llama 3.2 compatibility ZIP SHA256 is
+`37288c24065ddd2383c5e8dfebf08b61ca589bb2b8a37e9ae253ef9e6a1f9db4`;
+the executed notebook SHA256 is
+`cf12cd6c829896f50ceaa5dcd71ea8c0fb9465ceacaa701069df5167e4157de5`,
+and the separately downloaded runtime JSON SHA256 is
+`f6f15d4998e56c9acd7390ef222d8dc6bcd9bb8148149d1bf507f66c106a0577`.
+The source-identical executed notebook used the ordinary evidence root and
+clean implementation commit `42bf096c032e2c6be1e2fa3d573c7c86ac589ba2`.
+Earlier `ACCESS_PENDING_AT_EXECUTION` and `TOKEN_AUTHORIZATION_BLOCKED`
+attempts remain access records. The manually edited successful retry remains
+excluded `DEBUG_COMPATIBILITY_PASS` evidence and is not promoted or averaged.
+
+The Gemma diagnostic history and final closure are recorded in
+`M4_GEMMA3_DIAGNOSTIC_REVIEW.json`. Three earlier independently verified ZIPs have
+SHA256 values
+`f560479c6f5b119a17a7dbb5ce582e7fc72623bd586c2755f1e36e7e76f0bcdf`,
+`9c3e77dba701d4f051d1edcab59431759630bab9a3494cf68e69c2e9c725d67a`,
+and `0d975c5027df188bc3633cab50f98b3dfdcc43e923c97be0f97cb3a303b960f5`.
+Each preserves the same TP1 and TP2 FP16 model-config rejection with no issued
+requests. Available executed-notebook SHA256 values are
+`bea77a4c2e633be3d6ab6c65829dca7f94da3beec5dee9037580ce160a97fff8`
+and `54e53c09925ff45a2791edadef85d7e4ed6bda2509735f64d21b38fc06cfcac1`;
+both contain replacement diagnostic execution code, while the middle ZIP has
+no available notebook. These attempts remain diagnostic only. Final p13 used a
+source-equivalent frozen notebook; its ZIP SHA256 is
+`6404b8abe22fc06211409288e59ae1d844354c1b12282a8c9140161c30347c12`, executed
+notebook SHA256 is
+`f1800e9be84fa297880960159da906612e1ef79d46b2c34344d27f0bbe2feee8`, and runtime
+JSON SHA256 is
+`8e747082b76d39852fa5838a3ce17f0ca8e392e7bac6ae4e0718700470e90ff5`.
+Both TP modes reproduce the negative dtype boundary. No further Gemma run is
+requested.

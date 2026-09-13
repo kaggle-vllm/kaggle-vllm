@@ -1,0 +1,477 @@
+{
+  "benchmark_type": "online-serving-concurrency",
+  "concurrency": 1,
+  "engine": {
+    "api_mode": "completions",
+    "disable_custom_all_reduce": true,
+    "dtype": "float16",
+    "enable_prefix_caching": false,
+    "enforce_eager": true,
+    "gpu_memory_utilization": 0.9,
+    "max_model_len": 4096,
+    "max_num_batched_tokens": null,
+    "max_num_seqs": 64,
+    "model": "google/gemma-3-4b-it",
+    "model_representation": "transformers",
+    "model_revision": "093f9f388b31de276ce2de164bdc2081324b9767",
+    "model_source": "huggingface",
+    "served_model_name": "gemma3_4b",
+    "telemetry_interval_seconds": 0.25,
+    "tensor_parallel_size": 1
+  },
+  "failure_message": "server exited before readiness with return code 1",
+  "failure_observations": [
+    "server_start_failure"
+  ],
+  "gpu_telemetry": {
+    "maximum_aggregate_sampled_memory_used_mib": null,
+    "raw_samples_file": "gemma3_4b-short-r00-tp1-c01.telemetry.jsonl",
+    "raw_samples_retained": true,
+    "source": "nvidia-smi",
+    "status": "measurement_not_started",
+    "summaries": [],
+    "telemetry_sample_count": 0
+  },
+  "hardware": {
+    "cmake_library_path": null,
+    "cuda_available": true,
+    "cuda_driver": "/usr/local/nvidia/lib64/libcuda.so",
+    "cuda_home": "/usr/local/cuda",
+    "cuda_toolkit": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "driver_reported_cuda_max": "13.0",
+    "driver_version": "580.159.04",
+    "gpu_count": 2,
+    "gpus": [
+      {
+        "capability": [
+          7,
+          5
+        ],
+        "index": 0,
+        "name": "Tesla T4",
+        "total_memory": 15636037632
+      },
+      {
+        "capability": [
+          7,
+          5
+        ],
+        "index": 1,
+        "name": "Tesla T4",
+        "total_memory": 15636037632
+      }
+    ],
+    "is_kaggle": true,
+    "nccl": "2.27.5",
+    "nvcc": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "torch_path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "identity": {
+    "captured_at_utc": "2026-09-10T15:42:29.308291+00:00",
+    "glibc": "2.35",
+    "kaggle_vllm_version": "0.2.0",
+    "measurement_mode": "online_openai_chat_streaming",
+    "os": "Linux",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "source_git_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+    "vllm_distribution_version": "0.18.2.dev0+ga26e8dc7f.d20260822.cu128"
+  },
+  "limitations": [
+    "The measured request interval did not complete; unavailable metrics are null."
+  ],
+  "measurements": {
+    "failed_requests": 20,
+    "failure_counts": {
+      "server_start_failure": 20
+    },
+    "input_tokens": 0,
+    "latency_seconds": {
+      "count": 0,
+      "max": null,
+      "mean": null,
+      "median": null,
+      "min": null,
+      "p50": null,
+      "p95": null,
+      "p99": null,
+      "sample_standard_deviation": null
+    },
+    "measured_wall_seconds": null,
+    "output_throughput_tokens_per_second": null,
+    "output_tokens": 0,
+    "requests": {
+      "count": 0,
+      "file": "gemma3_4b-short-r00-tp1-c01-requests.jsonl",
+      "storage": "jsonl"
+    },
+    "success_rate": 0.0,
+    "successful_requests": 0,
+    "tpot_seconds": {
+      "count": 0,
+      "max": null,
+      "mean": null,
+      "median": null,
+      "min": null,
+      "p50": null,
+      "p95": null,
+      "p99": null,
+      "sample_standard_deviation": null
+    },
+    "ttft_seconds": {
+      "count": 0,
+      "max": null,
+      "mean": null,
+      "median": null,
+      "min": null,
+      "p50": null,
+      "p95": null,
+      "p99": null,
+      "sample_standard_deviation": null
+    }
+  },
+  "metrics": {
+    "raw_file": "gemma3_4b-short-r00-tp1-c01.metrics.txt",
+    "status": "measurement_not_started"
+  },
+  "oom_observed": false,
+  "schema_version": "kaggle-vllm-serving-benchmark-v1",
+  "server": {
+    "base_url": "http://127.0.0.1:8000",
+    "served_model_name": "gemma3_4b",
+    "server_log": "gemma3_4b-short-r00-tp1-c01.server.log",
+    "streaming": true
+  },
+  "status": "failed",
+  "topology": {
+    "interpretation": "observed nvidia-smi output only; no DMA or causal performance claim",
+    "matrix": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-m"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tPHB\t0-3\t0\t\tN/A\nGPU1\tPHB\t X \t0-3\t0\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks"
+    },
+    "parsed_matrix": {
+      "gpu_labels": [
+        "GPU0",
+        "GPU1"
+      ],
+      "links": [
+        {
+          "gpu_a": "GPU0",
+          "gpu_b": "GPU1",
+          "path": "PHB"
+        }
+      ],
+      "nvlink_observed": false
+    },
+    "peer_access_read": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "r"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    },
+    "peer_access_write": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "w"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    }
+  },
+  "workload": {
+    "concurrency": 1,
+    "dispatch_policy": "closed_loop_up_to_concurrency_in_flight",
+    "ignore_eos": true,
+    "max_output_tokens": 64,
+    "minimum_waves": 3,
+    "prompt_manifest_file": "prompt-manifest.json",
+    "prompt_manifest_sha256": "959066d6d2d9613230270fcf4dc3c5e842842865bbf3c8979681b8eebe855c39",
+    "prompt_profile": "M4 exact tokenizer-controlled completion prompts v1",
+    "prompts": [
+      {
+        "sha256": "3380724b25e454fd96b7eae8dbf3c42ccf29848855663013b322e66175c07ed3",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "ac23980f91f07f896099d22238bdd9b88dace5f2058bee353c81d27c17ea0cca",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "8de8e836153b0f486275f97fdbd49d2868a6df799756716c30aa0470256291c3",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "a44753485c766ef38f083ac0765ff8087a2c33105d842dce9422c0f5d384f47a",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "b55ef84012e43b55664cc2a0e2b4d295172f346449ce833823ad02ef2a310fcb",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "516f7541a351fb79cf522cb346ed6e73991e0f2a1b1b4a98c87dd7d0b9a61c23",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "46a22decb858d889bd7ba5116236317bbaa0e6b5f8c34911e806345a45734a4d",
+        "utf8_bytes": 590
+      },
+      {
+        "sha256": "8fa3db41f2111a1e5646f021ab030f1ece20a5eca5b7da772db94d236ccd6840",
+        "utf8_bytes": 590
+      },
+      {
+        "sha256": "7068b118058ebaa0d50cd256fcbb68f9f1a2124333dbcae2d1c583119f26078f",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "83464827e8e04e64a06f316f6f9b8c9d3d72971c6914106c61857f787842435b",
+        "utf8_bytes": 582
+      },
+      {
+        "sha256": "1e8bfff1a4fbc237174a7125d0d7e2d4a8333a601aa2bc7583986caf01224952",
+        "utf8_bytes": 557
+      },
+      {
+        "sha256": "bb63ff1688fee7c883c7a7b890370325bf04d4fc4f3e62fb8050f980dc36500d",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "766efd25db65c9836d38ad13a4202abe23aac1256d31a634da6786b2c179334e",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "c59de4495e87e67274e2d70dd0b8d3e027c51dfa1a2fb6d44715ac400a264a26",
+        "utf8_bytes": 582
+      },
+      {
+        "sha256": "13a440d27e1deaa7757c92070705a50e47fb99645d60f9f6d5a8d88d7ee37c69",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "70b7541012cb59cc22553b364d4678f17a72b1fac71baf6d9d12c2387f072f4b",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "3c6ebb62efddeac4e369a687e05c445190ff02b8bd7393bed9bde5a2166ba917",
+        "utf8_bytes": 590
+      },
+      {
+        "sha256": "b811b982111befd0fa331c3c8ac787f7eb595507a867e37e1acacab514f0efe8",
+        "utf8_bytes": 590
+      },
+      {
+        "sha256": "4c0cbf285e3054d51083eb2809953b8da22e4efb3339f0bca46d31a81788709e",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "ca33f189731349a35da97216f6f191e97b1ddb2360914cea39705bd6ca523f1d",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "2904e3097200b55824a030bbd059fc53115d9bde0daa88738aa7a298329f06c1",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "5900fe23964f2d0cde5554f5b21bc3716ab94bc8eff4315705e3a6b484817613",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "b0cf0651bd840478c68d05ff9eaad8a8f6d56e84ef9df87c7f9ca27f3e4a05aa",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "0157c789e41dc54599f00afb752c1a3b9aaade73448540df624968160fa5f0fc",
+        "utf8_bytes": 557
+      },
+      {
+        "sha256": "ed5b87dc2e165efad290462e8a155eac58caa356fdb1afaf27f16123474ff0e8",
+        "utf8_bytes": 590
+      },
+      {
+        "sha256": "e2e640d2a538423b1406cecbf5730456ba0a9412b02eca6909364e3d749739eb",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "3f694140a82928db89d39f86c4a995d2994dd759d7f0b50b4504cb95f3637e52",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "528ece7130548bc75486134724d48241e5ef06ff884bd99ba3956d66552c14ca",
+        "utf8_bytes": 523
+      },
+      {
+        "sha256": "8ec979df1de5bc0f8673796292e4b6bac974f494624e4200c58f79d5a24d242c",
+        "utf8_bytes": 557
+      },
+      {
+        "sha256": "52ef06bb8beffe44788ef01637e962161cb43d8582e581acef69242dd3977401",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "615a332322379209c87b09a60d0d967a40fbb6b9de421b5b3d8b631cca99bb27",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "a9dcdcd66ca54d5c88acdf5ae0a8f045df5e56f0a155d13388e2cd81b31f5ccf",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "1c36ded68b2d166e12a5a68474218ac6f67f0ab447a51eca77b9b675da4bff76",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "0e2358552d55632288fe2d836a213461b0c62dee5c7e39d7592404fd3abd059d",
+        "utf8_bytes": 595
+      },
+      {
+        "sha256": "db479ff1a4fe106b879c20da1b6436de046543691f9ddd80803d4e4a725f3913",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "7d0e8209549a1ea8d9ea3b96c593c5a86aea5205c0e30790f2244761d399f1bd",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "f4fafd8abe391678d383bec55019b634864ffcb10267393f1d51089b468edab4",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "18c7620a21faf432d82f5375c6f7073c0829f1174591591333bb43b9b6a0afa8",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "b51945b0b6d0c940f05abcd847084c8657e997da6aa23504e569b9a16516aeb8",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "d4a518087f4da70bde3e3a0beb6f0191562e6ff0038b42199d7a8e13ca206fe0",
+        "utf8_bytes": 557
+      },
+      {
+        "sha256": "116f0247b745cec416fa2b01aa20978c2a8a2ea9bce1515bbb33f4f330b12997",
+        "utf8_bytes": 557
+      },
+      {
+        "sha256": "976be70d3de854a82d23e225cbaccdfe7f650e81f537611d20598d5501ab6a29",
+        "utf8_bytes": 557
+      },
+      {
+        "sha256": "770a595a97c102320d18f86beb3ecfe69cce8e6e838f9aabbde6b86f9b96230b",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "f6df17914712433c8889080137adea9f1926068d0c4238199fc57f621267223f",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "b82595ad7f717c10c53e9b82c036ba8848b2b55133e985264f2c12e54c66cff3",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "13ac38e80f6b2ebdff0f6fcee0ab34d3e3726bbb79ffe5a7b09c11f65946d00d",
+        "utf8_bytes": 575
+      },
+      {
+        "sha256": "ba7f74222b13c8f85d2f8739d0387d9318a68c7264fbeeb6f81162b78ed3de6d",
+        "utf8_bytes": 557
+      },
+      {
+        "sha256": "fd852492042a741553d3fe5eb2a80d66cc09c6415a47cc69940b4b5a071e32fb",
+        "utf8_bytes": 582
+      },
+      {
+        "sha256": "269338bcbd65d9745658e2feab0dce80ef0758010bb1483eae5e99e32b81dbbc",
+        "utf8_bytes": 603
+      },
+      {
+        "sha256": "ed3e15f60d3dc8eb4d220f223528f08c2cec4340f2c9cf2f6946630e3a18d8d6",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "aabb77cbd1fe38dc7c4ccf5a3d0e2f19816aad403eda80efb4aad6b6fe4c55f9",
+        "utf8_bytes": 557
+      },
+      {
+        "sha256": "4dc5b44b21021e82cdc8a0c20e5c99a8df9f18c608f7f323dac35b578f1bbe04",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "efb32427be8b201392aa5f2616be737c2e86e0b348e17f80ae9cbfa3bd3b41f8",
+        "utf8_bytes": 523
+      },
+      {
+        "sha256": "5d1d001f32b6e383c1706b12572b96c485ae7cd6dd7b58f69ed4ee959a7e869b",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "a85cf22b75e2648afa39076c187caa32000fc497e89785b5e5b03a9a5355e171",
+        "utf8_bytes": 557
+      },
+      {
+        "sha256": "93f5a3aa21dc75f74fb12ab74b03cb229b7e927e03f55a4fff08d6f757719749",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "7cc5f2abaa03b30cb7fb34cc49dedb0754b7612f35b39b0611580df557cac498",
+        "utf8_bytes": 557
+      },
+      {
+        "sha256": "b71e8d7e2ec029b0a1ffdbea97f3e8928491203d1e186711c5afeb8c97e50ee4",
+        "utf8_bytes": 575
+      },
+      {
+        "sha256": "52b1bbe29ab4eef1d28c5569b6e211d9ea087226040b88faa441785a35482f10",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "324e78a52dc8fbc0f9fb69fe33636c71f7319b769dfb5412b992e862917040aa",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "8e036195358421e996702246bb28a576fd67cbaa0d06d3b107cb39e52305e6ad",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "c7833d5f0f70403ec2bcb27c305543c7971d51f1c97c65ce288b5207e8d3b078",
+        "utf8_bytes": 557
+      },
+      {
+        "sha256": "8e5bedc15c5b013c351aed54afc2a1ba1b74035227b81092befabcbe2b76622b",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "322c0deb30c2a5b7119f0cd4b18a448b63c30dcb6b40277854308a28bff04f45",
+        "utf8_bytes": 565
+      }
+    ],
+    "request_timeout_seconds": 1800.0,
+    "retain_prompt_text_in_result": false,
+    "seed": 0,
+    "temperature": 0.0,
+    "total_requests": 20,
+    "warmup_requests": 1
+  }
+}

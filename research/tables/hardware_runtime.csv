@@ -1,0 +1,12 @@
+component,observed_value,evidence
+python,3.12.13,M3_ENVIRONMENT.json
+torch,2.10.0+cu128,M3_ENVIRONMENT.json
+torch_cuda,12.8,M3_ENVIRONMENT.json
+nccl,2.27.5,M3_ENVIRONMENT.json
+kaggle_vllm_version,0.2.0,M3_ENVIRONMENT.json
+vllm_distribution_version,0.18.2.dev0+ga26e8dc7f.d20260822.cu128,M3_ENVIRONMENT.json
+vllm_source_commit,a26e8dc7ff2111a005144d775ecf9cebf56c45b2,M3_ENVIRONMENT.json
+native_wheel_sha256,5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c,M3_ENVIRONMENT.json
+gpu_0,Tesla T4; SM75; 15636037632 bytes,M3_ENVIRONMENT.json
+gpu_1,Tesla T4; SM75; 15636037632 bytes,M3_ENVIRONMENT.json
+platform,Linux-6.12.90+-x86_64-with-glibc2.35,M3_PROVENANCE.json

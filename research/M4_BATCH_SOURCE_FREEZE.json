@@ -1,0 +1,37 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-source-freeze-v1",
+  "status": "FROZEN_FOR_KAGGLE_NO_BATCH_GPU_RESULTS",
+  "protocol_amendment_version": "M4-BATCH-1",
+  "protocol_amendment_date_utc": "2026-09-11",
+  "package_version": "0.2.0",
+  "implementation_source_commit": "8cd6b224684f03810116c9a91370f25a7c2be297",
+  "notebook_pin_commit": "5e0415261418801b1c45735af3a8056dee330be3",
+  "execution_paths": {
+    "single_shard": {
+      "status": "UNCHANGED_AND_SUPPORTED",
+      "source_freeze": "research/M4_SOURCE_FREEZE.json",
+      "source_freeze_sha256": "36de26730a3f444f7ff352aa62af6383d99d3e4cbcae534c7eb2bd458928b1ce",
+      "notebook_sha256": "885c5b6278614c66ac72f1e9ed8d05dbad84a19c8b99be129ebeb25e48a91dd9"
+    },
+    "batch_orchestrated": {
+      "status": "FROZEN_BEFORE_BULK_PRINCIPAL_COLLECTION",
+      "notebook": "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb",
+      "runner": "scripts/kaggle_m4_execute_batch.py"
+    }
+  },
+  "batch_notebook_sha256": "5b452040a6537270a3598ef525e7ff68afa634047cf968b699fd5359eb62d82d",
+  "batch_notebook_source_digest": "98abd1182facf94ae6c62d7d92c097a73466d4f20d889ab72e9a421268f02726",
+  "batch_runner_sha256": "381d592c9bdcdbb72c3e754ece5979a771a2c3854350a570ed1b3b4727608aea",
+  "base_shard_runner_sha256": "70e8b21d70322fcfb409ccb951f0d540b185c793f03a56b2ba4f9095e3ed948f",
+  "m4_execution_plan_sha256": "d97c8ed1ec8eec7e61e61c617b50d5d48287a253aa28f1e7834b0694fa419d8b",
+  "model_matrix_sha256": "7e6eae2f674c394d5db262a02ddd601dfadb17807c4c62e6a252f3e9656664c4",
+  "protocol_sha256": "0bb8c6d15b8a6f3d7acc0d1716f99ab34bb4f97ed0e38dd1e26b8f1c92fe99e3",
+  "batch_plan_sha256": "b5eb902516e5662f0e8357c0f02723076df253de87992eba16a1a20a9da15142",
+  "protocol_amendment_sha256": "40f23b1f0450cc157c189c246576da11521cbdcc292d063b702e7bbd0feaa74c",
+  "model_source_policy": {
+    "source": "ordinary pinned Hugging Face checkpoints in research/model_matrix.json",
+    "historical_qwen_tp2_sharded_state_allowed": false,
+    "waqasm86_kaggle_vllm_models_allowed": false
+  },
+  "evidence_boundary": "This file freezes an unexecuted orchestration path. It contains no GPU measurements and does not promote any future shard without independent batch and inner-shard ingestion."
+}

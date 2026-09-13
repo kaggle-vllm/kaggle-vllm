@@ -1,0 +1,203 @@
+{
+  "schema_version": "kaggle-vllm-m4-compatibility-review-v1",
+  "decision": "COMPATIBILITY_PASS",
+  "scope": "Phi-4 Mini short-workload concurrency-1 TP1/TP2 compatibility gate on Kaggle T4 x2",
+  "candidate_identity": {
+    "evidence_zip_sha256": "7a20d7058cdcf7362704acbc5513db65eb865b864fd47b555f72465a32a0ebfe",
+    "evidence_zip_size_bytes": 122549,
+    "executed_notebook_sha256": "878c9b980787acec04ede93071771465f9897acd412006afc60277d92893e3b9",
+    "executed_notebook_size_bytes": 40248,
+    "source_notebook_sha256": "885c5b6278614c66ac72f1e9ed8d05dbad84a19c8b99be129ebeb25e48a91dd9",
+    "prompt_manifest_sha256": "2d5778c3b75998fcfc6c219de3aa8500db216b0872919eb988d917a2d042c4ac"
+  },
+  "zip_safety": {
+    "entry_count": 17,
+    "duplicate_entries": 0,
+    "absolute_paths": 0,
+    "path_traversal_entries": 0,
+    "symlinks": 0,
+    "crc_failures": 0,
+    "unexpected_files": 0
+  },
+  "hash_verification": {
+    "sha256sum_check": "PASS_16_OF_16",
+    "project_hash_verifier": "PASS_16_OF_16",
+    "zip_digest_matches_executed_notebook_output": true
+  },
+  "executed_notebook_audit": {
+    "cell_count": 4,
+    "code_execution_counts": [
+      1,
+      2
+    ],
+    "cell_ids_types_order_match_frozen_source": true,
+    "cell_sources_match_frozen_source_exactly": true,
+    "code_asts_match_frozen_source": true,
+    "uses_unnumbered_m4_shard_id_secret": true,
+    "numbered_m4_shard_id_variant_detected": false,
+    "manual_patch_or_debug_cell": false,
+    "python_error_outputs": 0,
+    "tracebacks": 0,
+    "runner_returncode": 0,
+    "runner_stderr_empty": true,
+    "hash_verifier_stderr_empty": true,
+    "secret_exposure_detected": false
+  },
+  "provenance_gate": {
+    "source_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+    "source_dirty": false,
+    "dirty_paths": [],
+    "sdk_version": "0.2.0",
+    "model_key": "phi4_mini",
+    "model_id": "microsoft/Phi-4-mini-instruct",
+    "model_revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+    "tokenizer_revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+    "architecture": "Phi3ForCausalLM",
+    "mode": "compatibility",
+    "workload": "short",
+    "repetition": 0,
+    "started_at_utc": "2026-09-08T16:45:15.037771+00:00",
+    "completed_at_utc": "2026-09-08T16:52:05.872019+00:00"
+  },
+  "runtime": {
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_toolkit": "12.8.93",
+    "nccl": "2.27.5",
+    "vllm_source_tag": "v0.18.1",
+    "vllm_distribution_version": "0.18.2.dev0+ga26e8dc7f.d20260822",
+    "gpus": [
+      "Tesla T4 SM75",
+      "Tesla T4 SM75"
+    ],
+    "topology": "PHB",
+    "p2p_read_write": "SUPPORTED_REPORTED_BY_NVIDIA_SMI",
+    "attention_backend": "TRITON_ATTN",
+    "native_wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c"
+  },
+  "prompt_gate": {
+    "prompt_count": 64,
+    "unique_utf8_hashes": 64,
+    "unique_token_id_hashes": 64,
+    "exact_input_tokens_per_prompt": 128,
+    "maximum_pairwise_textual_common_prefix_characters": 2,
+    "prefix_caching": false,
+    "result_references_match_manifest": true
+  },
+  "cells": {
+    "phi4_mini-short-r00-tp1-c01": {
+      "status": "executed",
+      "tensor_parallel_size": 1,
+      "concurrency": 1,
+      "warmup_requests_excluded": 1,
+      "measured_requests": 20,
+      "successful_requests": 20,
+      "failed_requests": 0,
+      "input_tokens_per_request": 128,
+      "output_tokens_per_request": 64,
+      "request_throughput_per_second": 0.3679576456494092,
+      "output_throughput_tokens_per_second": 23.54928932156219,
+      "mean_ttft_ms": 89.86404125001286,
+      "mean_tpot_ms": 41.56547286269828,
+      "mean_itl_ms": 41.563679876190555,
+      "mean_e2e_latency_ms": 2708.4888316000047,
+      "oom": false,
+      "maximum_vram_mib_gpu0": 13597.0,
+      "maximum_vram_mib_gpu1": 3.0,
+      "maximum_system_ram_bytes": 7185682432,
+      "maximum_process_tree_rss_bytes": 10546229248,
+      "maximum_gpu0_utilization_percent": 100.0,
+      "maximum_gpu1_utilization_percent": 0.0,
+      "maximum_gpu0_power_w": 80.46,
+      "maximum_gpu1_power_w": 14.19,
+      "maximum_gpu0_temperature_c": 77.0,
+      "maximum_gpu1_temperature_c": 43.0
+    },
+    "phi4_mini-short-r00-tp2-c01": {
+      "status": "executed",
+      "tensor_parallel_size": 2,
+      "concurrency": 1,
+      "warmup_requests_excluded": 1,
+      "measured_requests": 20,
+      "successful_requests": 20,
+      "failed_requests": 0,
+      "input_tokens_per_request": 128,
+      "output_tokens_per_request": 64,
+      "request_throughput_per_second": 0.20671575404835701,
+      "output_throughput_tokens_per_second": 13.229808259094849,
+      "mean_ttft_ms": 88.53464924999344,
+      "mean_tpot_ms": 75.29142289523804,
+      "mean_itl_ms": 75.2890521753968,
+      "mean_e2e_latency_ms": 4831.894291649991,
+      "oom": false,
+      "maximum_vram_mib_gpu0": 13739.0,
+      "maximum_vram_mib_gpu1": 13739.0,
+      "maximum_system_ram_bytes": 7821877248,
+      "maximum_process_tree_rss_bytes": 15051403264,
+      "maximum_gpu0_utilization_percent": 100.0,
+      "maximum_gpu1_utilization_percent": 100.0,
+      "maximum_gpu0_power_w": 73.83,
+      "maximum_gpu1_power_w": 70.27,
+      "maximum_gpu0_temperature_c": 82.0,
+      "maximum_gpu1_temperature_c": 66.0
+    }
+  },
+  "resource_gate": {
+    "maximum_allowed_vram_mib_per_gpu": 14848.0,
+    "maximum_allowed_system_ram_bytes": 30064771072,
+    "maximum_allowed_working_storage_bytes": 20000000000,
+    "working_storage_bytes_at_preflight": 2355583946,
+    "projected_working_storage_bytes": 13027650162,
+    "post_run_disk_high_water_not_sampled": true,
+    "resource_guard_violation": false
+  },
+  "server_log_findings": {
+    "blocking": [],
+    "non_blocking": [
+      "Legacy Phi rope type key was normalized deterministically before native architecture resolution",
+      "TP1 c10d hostname-resolution warning did not prevent initialization",
+      "TP1 destroy_process_group cleanup warning occurred during completed shutdown"
+    ],
+    "expected": [
+      "Phi3ForCausalLM resolved natively with trust_remote_code false",
+      "BF16 weights cast to FP16 by the reviewed runtime configuration",
+      "FlashAttention-2 unavailable on SM75 followed by successful TRITON_ATTN fallback",
+      "Eager mode disables Inductor and CUDA graphs",
+      "TP2 SymmMem unavailable on SM75 followed by symmetric NCCL 2.27.5 TP initialization",
+      "Orderly server shutdown and TP worker termination"
+    ],
+    "scientific_limitations": [
+      "One repetition, one short workload, and concurrency one do not establish a crossover",
+      "Sampled telemetry can miss instantaneous peaks",
+      "Performance characterizes the SM75 Triton eager path, not FlashAttention-2 or compiled CUDA-graph paths",
+      "The pinned dev-build distribution derives from upstream vLLM 0.18.1 and must retain its exact wheel identity"
+    ]
+  },
+  "rejected_candidate_comparison": {
+    "rejected_classification": "CANONICAL_CANDIDATE_REJECTED_NOTEBOOK_DRIFT",
+    "rejected_evidence_zip_sha256": "b319f1197546f9e147c2a39617b4e38d7408109726ac8c3c7093ca4dbb7af351",
+    "rejected_executed_notebook_sha256": "507de88132845c70209e2706fe70eb34116041b9180f8fb7057bc8ab3cad2f96",
+    "prompt_manifest_byte_identical": true,
+    "request_and_token_counts_identical": true,
+    "vram_peaks_identical": true,
+    "tp1_output_throughput_relative_difference_percent": 21.632824,
+    "tp1_mean_ttft_relative_difference_percent": -18.047704,
+    "tp1_mean_tpot_relative_difference_percent": -17.851122,
+    "tp1_mean_itl_relative_difference_percent": -17.851034,
+    "tp1_mean_e2e_latency_relative_difference_percent": -17.85766,
+    "tp2_output_throughput_relative_difference_percent": 20.188372,
+    "tp2_mean_ttft_relative_difference_percent": -15.737255,
+    "tp2_mean_tpot_relative_difference_percent": -16.790018,
+    "tp2_mean_itl_relative_difference_percent": -16.79012,
+    "tp2_mean_e2e_latency_relative_difference_percent": -16.770965,
+    "assessment": "PLAUSIBLE_INDEPENDENT_RUN_VARIABILITY_NO_AVERAGING"
+  },
+  "claim_boundaries": {
+    "m4_complete": false,
+    "phi_principal_matrix_complete": false,
+    "m4_crossover_established": false,
+    "all_models_compatible": false,
+    "paper_ready": false
+  }
+}
