@@ -6,10 +6,8 @@ from kaggle_vllm.research.m4_batch import verify_batch_source_freeze
 from scripts.generate_m4_batch_plan import build_batch_plan
 from scripts.generate_m4_batch_source_freeze_v2 import build_freeze as build_freeze_v2
 from scripts.generate_m4_batch_source_freeze_v3 import build_freeze as build_freeze_v3
-from scripts.generate_m4_batch_source_freeze_v4 import (
-    build_freeze as build_freeze_v4,
-    build_freeze_v5,
-)
+from scripts.generate_m4_batch_source_freeze_v4 import build_freeze as build_freeze_v4
+from scripts.generate_m4_batch_source_freeze_v4 import build_freeze_v5
 
 ROOT = Path(__file__).resolve().parents[1]
 
