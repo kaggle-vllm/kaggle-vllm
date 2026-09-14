@@ -16,11 +16,11 @@
     "serving_cells": 720
   },
   "counts": {
-    "CANONICAL_PRESERVED": 15,
+    "CANONICAL_PRESERVED": 18,
     "FAILED_RESOURCE_GATE": 1,
     "FAILED_OTHER_REVIEW_REQUIRED": 0,
     "VERIFIED_LOCAL_STAGING_PENDING_PROMOTION": 0,
-    "NOT_EXECUTED": 44
+    "NOT_EXECUTED": 41
   },
   "counts_total": 60,
   "shards_by_state": {
@@ -35,8 +35,11 @@
       "phi4_mini-prefill_heavy-r00",
       "phi4_mini-prefill_heavy-r01",
       "llama32_3b-short-r00",
+      "llama32_3b-short-r01",
       "llama32_3b-balanced-r00",
+      "llama32_3b-balanced-r01",
       "llama32_3b-prefill_heavy-r00",
+      "llama32_3b-prefill_heavy-r01",
       "ministral3_3b_bf16-short-r00",
       "ministral3_3b_bf16-balanced-r00",
       "ministral3_3b_bf16-prefill_heavy-r00"
@@ -67,15 +70,12 @@
       "phi4_mini-prefill_heavy-r02",
       "phi4_mini-prefill_heavy-r03",
       "phi4_mini-prefill_heavy-r04",
-      "llama32_3b-short-r01",
       "llama32_3b-short-r02",
       "llama32_3b-short-r03",
       "llama32_3b-short-r04",
-      "llama32_3b-balanced-r01",
       "llama32_3b-balanced-r02",
       "llama32_3b-balanced-r03",
       "llama32_3b-balanced-r04",
-      "llama32_3b-prefill_heavy-r01",
       "llama32_3b-prefill_heavy-r02",
       "llama32_3b-prefill_heavy-r03",
       "llama32_3b-prefill_heavy-r04",
@@ -504,11 +504,11 @@
       "workload": "short",
       "repetition": 1,
       "serving_cells": 12,
-      "state": "NOT_EXECUTED",
-      "terminal_for_normal_continuation": false,
-      "evidence_zip_sha256": null,
-      "batch_id": null,
-      "session_id": null
+      "state": "CANONICAL_PRESERVED",
+      "terminal_for_normal_continuation": true,
+      "evidence_zip_sha256": "677344b0d701517b01317eb46e9837455c85eeaa29c1b4f2660e2099740d40d9",
+      "batch_id": "fill-r01-llama",
+      "session_id": "m4-fill-r01-llama-20260913T141158Z-e929dba7"
     },
     {
       "active_order": 33,
@@ -569,11 +569,11 @@
       "workload": "balanced",
       "repetition": 1,
       "serving_cells": 12,
-      "state": "NOT_EXECUTED",
-      "terminal_for_normal_continuation": false,
-      "evidence_zip_sha256": null,
-      "batch_id": null,
-      "session_id": null
+      "state": "CANONICAL_PRESERVED",
+      "terminal_for_normal_continuation": true,
+      "evidence_zip_sha256": "ac2a58c58cb760834eb4ae9f56236abec9aa557c95e5210fc03e0fe2dcf37085",
+      "batch_id": "fill-r01-llama",
+      "session_id": "m4-fill-r01-llama-20260913T141158Z-e929dba7"
     },
     {
       "active_order": 38,
@@ -634,11 +634,11 @@
       "workload": "prefill_heavy",
       "repetition": 1,
       "serving_cells": 12,
-      "state": "NOT_EXECUTED",
-      "terminal_for_normal_continuation": false,
-      "evidence_zip_sha256": null,
-      "batch_id": null,
-      "session_id": null
+      "state": "CANONICAL_PRESERVED",
+      "terminal_for_normal_continuation": true,
+      "evidence_zip_sha256": "0cf822313b20942d5387f2d0a6d3d054bcc02f36cda5804ab15cb6c2ee123a1d",
+      "batch_id": "fill-r01-llama",
+      "session_id": "m4-fill-r01-llama-20260913T141158Z-e929dba7"
     },
     {
       "active_order": 43,
@@ -887,8 +887,11 @@
     "phi4_mini-prefill_heavy-r00",
     "phi4_mini-prefill_heavy-r01",
     "llama32_3b-short-r00",
+    "llama32_3b-short-r01",
     "llama32_3b-balanced-r00",
+    "llama32_3b-balanced-r01",
     "llama32_3b-prefill_heavy-r00",
+    "llama32_3b-prefill_heavy-r01",
     "ministral3_3b_bf16-short-r00",
     "ministral3_3b_bf16-balanced-r00",
     "ministral3_3b_bf16-prefill_heavy-r00"
@@ -896,21 +899,8 @@
   "verified_local_staging_pending_promotion": [],
   "duplicate_shard_ids": [],
   "conflicting_terminal_records": [],
-  "remaining_batch_count": 15,
+  "remaining_batch_count": 14,
   "remaining_batches": [
-    {
-      "batch_id": "fill-r01-llama",
-      "repetition": 1,
-      "model_key": "llama32_3b",
-      "ordered_shard_ids": [
-        "llama32_3b-balanced-r01",
-        "llama32_3b-prefill_heavy-r01",
-        "llama32_3b-short-r01"
-      ],
-      "logical_shard_count": 3,
-      "serving_cell_count": 36,
-      "already_settled_exclusions": []
-    },
     {
       "batch_id": "fill-r01-ministral",
       "repetition": 1,
@@ -1095,5 +1085,5 @@
       "already_settled_exclusions": []
     }
   ],
-  "next_batch_id": "fill-r01-llama"
+  "next_batch_id": "fill-r01-ministral"
 }

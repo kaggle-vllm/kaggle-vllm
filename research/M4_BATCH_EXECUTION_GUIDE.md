@@ -5,8 +5,8 @@ retaining all 60 logical shards and all 720 fresh-server serving cells. The
 single-shard notebook remains valid for standalone execution.
 
 The exact clean source commit and source hashes for the next notebook are
-recorded in `M4_BATCH_SOURCE_FREEZE_V5.json`. Earlier freezes remain immutable
-authorities for the batches executed from them; V4 governs the completed Phi
+repinned after every reviewed promotion. Earlier freezes remain immutable
+authorities for the batches executed from them; V5 governs the completed Llama
 r01 batch.
 
 ## Historical M4-BATCH-1 attempt
@@ -51,10 +51,11 @@ observed blast radius, but no throughput result is used to reorder conditions.
 
 ## Next controlled execution
 
-Run `M4_BATCH_ID=fill-r01-llama` in a fresh T4 x2 allocation. It contains
-`llama32_3b-balanced-r01`, `llama32_3b-prefill_heavy-r01`, and
-`llama32_3b-short-r01`. Do not rerun any completed continuation or the original
-`fill-r00` container.
+Run `M4_BATCH_ID=fill-r01-ministral` in a fresh T4 x2 allocation. It contains
+`ministral3_3b_bf16-balanced-r01`,
+`ministral3_3b_bf16-prefill_heavy-r01`, and
+`ministral3_3b_bf16-short-r01`. Do not rerun any completed continuation or the
+original `fill-r00` container.
 
 The Llama continuation completed all three planned shards in session
 `m4-fill-r00-llama-20260912T044444Z-dd577e28`. Its independent review is
@@ -71,6 +72,12 @@ The Phi r01 continuation completed all three planned shards in session
 `M4_FILL_R01_PHI_ATTEMPT_1_REVIEW.json`. The frozen disk guard passed, but the
 smallest pre-shard margin was only 122,446,168 bytes; future batches must retain
 the exact-cache cleanup and per-shard disk guard.
+
+The Llama r01 continuation completed all three planned shards in session
+`m4-fill-r01-llama-20260913T141158Z-e929dba7`. Its independent review is
+`M4_FILL_R01_LLAMA_ATTEMPT_1_REVIEW.json`. The minimum pre-shard disk margin
+was 2,631,673,640 bytes, every per-GPU VRAM guard passed, and cleanup removed
+only the exact Llama model cache after the final shard.
 
 The next allocation has three logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before

@@ -53,6 +53,13 @@ The later notebook copy appends a read-only post-run audit and preserves the
 same execution outputs, but is auxiliary because its saved benchmark-cell text
 also contains a post-execution insertion. The independent runtime SHA256 is
 `49a70b4ad76603eef7d86467f8f59aa3056824a4422139640b1a06bf90f48c7f`.
+The `fill-r01-llama` continuation preserves all three Llama r01 shards in
+session `m4-fill-r01-llama-20260913T141158Z-e929dba7`; its outer ZIP SHA256 is
+`ced12dc3d498ecde6a894eed91caaa21585e14e350d519bea19e72016ae45e9e`.
+Its executed notebook SHA256 is
+`c69a5faafebd621560fb2bb67bc5b9ce13ae2c0cc1043c4f42b93afdb4461002`,
+and the byte-identical separate/bundled runtime SHA256 is
+`3c17bfda70bf97ad6d47a588f89157569e159d8a1b87ccb09a829f95258936b7`.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
