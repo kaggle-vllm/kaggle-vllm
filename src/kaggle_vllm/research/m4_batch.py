@@ -37,6 +37,9 @@ ALLOWED_OUTCOMES = {
     "SKIPPED_ALREADY_CANONICAL",
 }
 SESSION_ID = re.compile(r"^m4-[a-z0-9-]+-[0-9]{8}T[0-9]{6}Z-[0-9a-f]{8}$")
+EMBEDDED_NOTEBOOK_SOURCE_DIGEST = re.compile(
+    r"(?m)^\s*BATCH_NOTEBOOK_SOURCE_DIGEST\s*=\s*['\"]([0-9a-f]{64})['\"]\s*$"
+)
 MAX_OUTER_MEMBERS = 128
 MAX_OUTER_MEMBER_BYTES = 1024**3
 MAX_OUTER_UNCOMPRESSED_BYTES = 4 * 1024**3
@@ -59,6 +62,31 @@ def notebook_source_digest(path: Path) -> str:
     ]
     payload = json.dumps(normalized, separators=(",", ":"), ensure_ascii=False).encode()
     return hashlib.sha256(payload).hexdigest()
+
+
+def _validate_notebook_source_identity(
+    source_identity: dict[str, Any], freeze: dict[str, Any], frozen_notebook: Path
+) -> str:
+    """Bind a stale embedded self-digest only through the exact frozen source."""
+
+    recorded = source_identity.get("batch_notebook_source_digest")
+    expected = freeze.get("batch_notebook_source_digest")
+    if recorded == expected:
+        return "MATCH"
+    matches = [
+        match
+        for _cell_type, _cell_id, source in notebook_sources(frozen_notebook)
+        for match in EMBEDDED_NOTEBOOK_SOURCE_DIGEST.findall(source)
+    ]
+    if (
+        len(matches) != 1
+        or recorded != matches[0]
+        or notebook_source_digest(frozen_notebook) != expected
+    ):
+        raise ResearchEvidenceError(
+            "batch notebook source identity differs from freeze"
+        )
+    return "STALE_EMBEDDED_DIGEST_BOUND_BY_EXACT_FROZEN_SOURCE"
 
 
 def load_object(path: Path) -> dict[str, Any]:
@@ -538,11 +566,9 @@ def stage_batch_download(
         )
         if recorded_plan_path != expected_plan_path:
             raise ResearchEvidenceError("batch plan path differs from source freeze")
-        if (
-            source_identity.get("batch_notebook_source_digest")
-            != freeze["batch_notebook_source_digest"]
-        ):
-            raise ResearchEvidenceError("batch notebook source identity differs from freeze")
+        notebook_source_identity_status = _validate_notebook_source_identity(
+            source_identity, freeze, frozen_notebook
+        )
         if "principal_queue_sha256" in freeze:
             if source_identity.get("principal_queue_sha256") != freeze[
                 "principal_queue_sha256"
@@ -675,6 +701,7 @@ def stage_batch_download(
             "session_id": manifest["session_id"],
             "batch_zip_sha256": sha256_file(batch_zip),
             "source_equivalent_notebook": True,
+            "notebook_source_identity_status": notebook_source_identity_status,
             "accepted_shards": accepted,
             "invalid_shards": invalid,
             "failed_shards": failed_shards,

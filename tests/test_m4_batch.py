@@ -281,6 +281,46 @@ def test_batch_notebook_allows_only_inert_trailing_empty_code_cells(
     ) != notebook_sources(frozen)
 
 
+def test_stale_embedded_notebook_digest_is_bound_to_exact_frozen_source(
+    tmp_path: Path,
+) -> None:
+    notebook = tmp_path / "frozen.ipynb"
+    embedded = "c" * 64
+    notebook.write_text(
+        json.dumps(
+            {
+                "nbformat": 4,
+                "nbformat_minor": 5,
+                "metadata": {},
+                "cells": [
+                    {
+                        "cell_type": "code",
+                        "id": "source",
+                        "metadata": {},
+                        "source": [
+                            f"BATCH_NOTEBOOK_SOURCE_DIGEST = '{embedded}'\n",
+                            "print('frozen')\n",
+                        ],
+                        "outputs": [],
+                        "execution_count": None,
+                    }
+                ],
+            }
+        )
+    )
+    freeze = {"batch_notebook_source_digest": m4_batch.notebook_source_digest(notebook)}
+    source_identity = {"batch_notebook_source_digest": embedded}
+    assert m4_batch._validate_notebook_source_identity(
+        source_identity, freeze, notebook
+    ) == "STALE_EMBEDDED_DIGEST_BOUND_BY_EXACT_FROZEN_SOURCE"
+
+    source_identity["batch_notebook_source_digest"] = "d" * 64
+    with pytest.raises(ResearchEvidenceError, match="source identity differs"):
+        m4_batch._validate_notebook_source_identity(
+            source_identity, freeze, notebook
+        )
+
+
 def test_partial_manifest_and_duplicate_shards() -> None:
     batch = _batch()
     manifest = _manifest(batch, completed=2)
