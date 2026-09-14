@@ -7,7 +7,11 @@ from scripts.generate_m4_batch_plan import build_batch_plan
 from scripts.generate_m4_batch_source_freeze_v2 import build_freeze as build_freeze_v2
 from scripts.generate_m4_batch_source_freeze_v3 import build_freeze as build_freeze_v3
 from scripts.generate_m4_batch_source_freeze_v4 import build_freeze as build_freeze_v4
-from scripts.generate_m4_batch_source_freeze_v4 import build_freeze_v5, build_freeze_v6
+from scripts.generate_m4_batch_source_freeze_v4 import (
+    build_freeze_v5,
+    build_freeze_v6,
+    build_freeze_v7,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -153,4 +157,15 @@ def test_post_llama_batch_source_freeze_generation_is_deterministic() -> None:
     assert build_freeze_v6(ROOT) == build_freeze_v6(ROOT)
     assert verify_batch_source_freeze(
         ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V6.json"
+    ) == expected
+
+
+def test_post_ministral_r01_batch_source_freeze_generation_is_deterministic() -> None:
+    expected = json.loads(
+        (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V7.json").read_text()
+    )
+    assert build_freeze_v7(ROOT) == expected
+    assert build_freeze_v7(ROOT) == build_freeze_v7(ROOT)
+    assert verify_batch_source_freeze(
+        ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V7.json"
     ) == expected
