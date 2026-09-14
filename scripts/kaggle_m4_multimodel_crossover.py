@@ -30,7 +30,11 @@ from kaggle_vllm.profiles import load_profile
 from kaggle_vllm.research.crossover import M4_RAW_SCHEMA, WORKLOAD_TOKENS
 from kaggle_vllm.research.errors import ResearchEvidenceError
 from kaggle_vllm.research.provenance import sha256_file
-from kaggle_vllm.research.resources import ResourceMonitor, require_disk_budget
+from kaggle_vllm.research.resources import (
+    GPU_MEMORY_LIMIT_MIB,
+    ResourceMonitor,
+    require_disk_budget,
+)
 from kaggle_vllm.serving_benchmark import (
     MILESTONE_CONCURRENCY,
     ServingBenchmarkSpec,
@@ -530,6 +534,7 @@ def main(argv: list[str] | None = None) -> int:
     cells: list[dict[str, Any]] = []
     rows: list[dict[str, Any]] = []
     guard_violation: str | None = None
+    terminal_resource_gate: dict[str, Any] | None = None
     semantic_gate_failure: str | None = None
 
     lifecycle_args = argparse.Namespace(
@@ -605,6 +610,46 @@ def main(argv: list[str] | None = None) -> int:
         require_disk_budget(args.output_root.parent, projected_additional_bytes=0)
         if monitor.violation is not None:
             guard_violation = monitor.violation
+            peaks = {
+                gpu: max(
+                    float(sample.memory_used_mib)
+                    for sample in monitor.samples
+                    if sample.gpu_index == gpu and sample.memory_used_mib is not None
+                )
+                for gpu in sorted(
+                    {
+                        int(sample.gpu_index)
+                        for sample in monitor.samples
+                        if sample.gpu_index is not None
+                        and sample.memory_used_mib is not None
+                    }
+                )
+            }
+            offending = [
+                {"index": gpu, "maximum_observed_mib": peak}
+                for gpu, peak in peaks.items()
+                if peak > GPU_MEMORY_LIMIT_MIB
+            ]
+            if offending:
+                terminal_resource_gate = {
+                    "schema_version": "kaggle-vllm-m4-terminal-resource-gate-v1",
+                    "classification": "FAILED_RESOURCE_GATE",
+                    "reason": "VRAM_RESOURCE_GUARD",
+                    "runner_returncode": 3,
+                    "shard_id": (
+                        f"{args.model_key}-{args.workload}-r{args.repetition:02d}"
+                    ),
+                    "failed_cell": name,
+                    "source_commit": identity["commit"],
+                    "per_gpu_limit_mib": GPU_MEMORY_LIMIT_MIB,
+                    "offending_physical_gpus": offending,
+                    "resource_guard_violation": guard_violation,
+                    "monitor_action": "TERMINATE_CELL_PROCESS_GROUP",
+                    "scientific_interpretation": (
+                        "Frozen per-GPU VRAM boundary; failed-cell throughput is "
+                        "missing, not zero."
+                    ),
+                }
             break
 
     status = (
@@ -648,6 +693,10 @@ def main(argv: list[str] | None = None) -> int:
             "completed_at_utc": _utc_now(),
         },
     )
+    if terminal_resource_gate is not None:
+        write_json_new(
+            output_dir / "terminal-resource-gate.json", terminal_resource_gate
+        )
     checksum_path = write_checksums(output_dir)
     print(f"M4 shard evidence: {output_dir}")
     print(f"checksums: {checksum_path}")

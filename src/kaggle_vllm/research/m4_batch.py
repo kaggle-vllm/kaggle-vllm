@@ -14,11 +14,14 @@ from collections.abc import Callable
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+from .crossover import WORKLOAD_TOKENS
 from .errors import ResearchEvidenceError
 from .m4_ingest import (
     MAX_RUNTIME_TO_EXECUTION_DELAY_SECONDS,
     _check_existing_shard,
+    _verify_runtime_binding,
     audit_download,
+    inspect_zip,
     notebook_sources,
     verify_runtime,
 )
@@ -33,8 +36,21 @@ ALLOWED_OUTCOMES = {
     "PLANNED",
     "COMPLETED",
     "FAILED",
+    "FAILED_RESOURCE_GATE",
     "NOT_EXECUTED",
     "SKIPPED_ALREADY_CANONICAL",
+}
+COMPLETED_WITH_TERMINAL_OUTCOMES = "COMPLETED_WITH_TERMINAL_OUTCOMES"
+TERMINAL_RESOURCE_GATE_SCHEMA = "kaggle-vllm-m4-terminal-resource-gate-v1"
+TERMINAL_RESOURCE_GATE_POLICY_VERSION = "M4-BATCH-3"
+APPROVED_TERMINAL_RESOURCE_REASONS = {"VRAM_RESOURCE_GUARD"}
+FROZEN_PRINCIPAL_CONCURRENCY = (1, 4, 8, 16, 32, 64)
+HISTORICAL_STALE_NOTEBOOK_IDENTITY = {
+    "schema_version": "kaggle-vllm-m4-batch-source-freeze-v7",
+    "implementation_source_commit": "c05ca0db682074f29db9459d0cd9d50e162b34e6",
+    "notebook_pin_commit": "b79961a7f4ff4e54ebf03ce917dafe12f8f191e5",
+    "batch_notebook_source_digest": "7a0580043e7048bb66078c7b9f94cdbe56fefd5a35ff99ec032501f27020a800",
+    "embedded_stale_digest": "03b4df794d7e61eb0842efac161db384ff679e67bb5bf93d9fe3156364178de6",
 }
 SESSION_ID = re.compile(r"^m4-[a-z0-9-]+-[0-9]{8}T[0-9]{6}Z-[0-9a-f]{8}$")
 EMBEDDED_NOTEBOOK_SOURCE_DIGEST = re.compile(
@@ -64,6 +80,22 @@ def notebook_source_digest(path: Path) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def validate_current_notebook_self_digest(path: Path) -> str:
+    """Reject a newly prepared notebook whose unique embedded digest is stale."""
+
+    matches = [
+        match
+        for _cell_type, _cell_id, source in notebook_sources(path)
+        for match in EMBEDDED_NOTEBOOK_SOURCE_DIGEST.findall(source)
+    ]
+    expected = notebook_source_digest(path)
+    if len(matches) != 1 or matches[0] != expected:
+        raise ResearchEvidenceError(
+            "current batch notebook must embed its recomputed source digest"
+        )
+    return expected
+
+
 def _validate_notebook_source_identity(
     source_identity: dict[str, Any], freeze: dict[str, Any], frozen_notebook: Path
 ) -> str:
@@ -82,6 +114,16 @@ def _validate_notebook_source_identity(
         len(matches) != 1
         or recorded != matches[0]
         or notebook_source_digest(frozen_notebook) != expected
+        or freeze.get("schema_version")
+        != HISTORICAL_STALE_NOTEBOOK_IDENTITY["schema_version"]
+        or freeze.get("implementation_source_commit")
+        != HISTORICAL_STALE_NOTEBOOK_IDENTITY["implementation_source_commit"]
+        or freeze.get("notebook_pin_commit")
+        != HISTORICAL_STALE_NOTEBOOK_IDENTITY["notebook_pin_commit"]
+        or expected
+        != HISTORICAL_STALE_NOTEBOOK_IDENTITY["batch_notebook_source_digest"]
+        or recorded
+        != HISTORICAL_STALE_NOTEBOOK_IDENTITY["embedded_stale_digest"]
     ):
         raise ResearchEvidenceError(
             "batch notebook source identity differs from freeze"
@@ -208,6 +250,25 @@ def check_wall_clock(
     return report
 
 
+def terminal_resource_continuation_enabled(
+    plan: dict[str, Any], batch: dict[str, Any]
+) -> bool:
+    """Require an explicit prospective protocol opt-in; V1/V2 remain fail-stop."""
+
+    policy = plan.get("terminal_resource_gate_policy")
+    return bool(
+        isinstance(policy, dict)
+        and policy.get("enabled") is True
+        and policy.get("protocol_amendment_version")
+        == TERMINAL_RESOURCE_GATE_POLICY_VERSION
+        and policy.get("contract_schema") == TERMINAL_RESOURCE_GATE_SCHEMA
+        and policy.get("approved_reasons")
+        == sorted(APPROVED_TERMINAL_RESOURCE_REASONS)
+        and batch.get("protocol_amendment_version")
+        == TERMINAL_RESOURCE_GATE_POLICY_VERSION
+    )
+
+
 def exact_hf_repo_cache_path(hf_home: Path, hf_id: str) -> Path:
     parts = hf_id.split("/")
     if len(parts) != 2 or any(not part or part in {".", ".."} for part in parts):
@@ -219,15 +280,20 @@ def exact_hf_repo_cache_path(hf_home: Path, hf_id: str) -> Path:
     return candidate
 
 
-def measure_shard_peaks(evidence: Path) -> dict[str, Any]:
+def _resource_ledger_audit(evidence: Path) -> dict[str, Any]:
     peaks = {0: 0.0, 1: 0.0}
     sample_counts = {0: 0, 1: 0}
+    cell_peaks: dict[str, dict[int, float]] = {}
     ledgers = sorted(evidence.glob("*.resources.jsonl")) + sorted(
         evidence.glob("*.telemetry.jsonl")
     )
     if not ledgers:
         raise ResearchEvidenceError("shard has no resource or telemetry ledgers")
     for ledger in ledgers:
+        cell = ledger.name.removesuffix(".resources.jsonl").removesuffix(
+            ".telemetry.jsonl"
+        )
+        cell_peaks.setdefault(cell, {0: 0.0, 1: 0.0})
         for line_number, line in enumerate(ledger.read_text(encoding="utf-8").splitlines(), 1):
             try:
                 row = json.loads(line)
@@ -240,19 +306,272 @@ def measure_shard_peaks(evidence: Path) -> dict[str, Any]:
             if gpu not in peaks or memory < 0:
                 raise ResearchEvidenceError(f"invalid physical GPU sample: {ledger}:{line_number}")
             peaks[gpu] = max(peaks[gpu], memory)
+            cell_peaks[cell][gpu] = max(cell_peaks[cell][gpu], memory)
             sample_counts[gpu] += 1
-            if memory > GPU_MEMORY_LIMIT_MIB:
-                raise ResearchEvidenceError(
-                    f"per-GPU VRAM limit exceeded: GPU{gpu} {memory} MiB > "
-                    f"{GPU_MEMORY_LIMIT_MIB} MiB"
-                )
     if any(count == 0 for count in sample_counts.values()):
         raise ResearchEvidenceError("resource evidence does not cover both physical GPUs")
     return {
         "gpu0_maximum_observed_mib": peaks[0],
         "gpu1_maximum_observed_mib": peaks[1],
         "per_gpu_limit_mib": GPU_MEMORY_LIMIT_MIB,
-        "status": "PASS",
+        "status": (
+            "VRAM_RESOURCE_GUARD"
+            if any(peak > GPU_MEMORY_LIMIT_MIB for peak in peaks.values())
+            else "PASS"
+        ),
+        "offending_physical_gpus": [
+            {"index": gpu, "maximum_observed_mib": peak}
+            for gpu, peak in sorted(peaks.items())
+            if peak > GPU_MEMORY_LIMIT_MIB
+        ],
+        "offending_cells": [
+            {
+                "cell": cell,
+                "physical_gpus": [
+                    {"index": gpu, "maximum_observed_mib": peak}
+                    for gpu, peak in sorted(gpu_peaks.items())
+                    if peak > GPU_MEMORY_LIMIT_MIB
+                ],
+            }
+            for cell, gpu_peaks in sorted(cell_peaks.items())
+            if any(peak > GPU_MEMORY_LIMIT_MIB for peak in gpu_peaks.values())
+        ],
+    }
+
+
+def measure_shard_peaks(evidence: Path) -> dict[str, Any]:
+    audit = _resource_ledger_audit(evidence)
+    if audit["status"] != "PASS":
+        first = audit["offending_physical_gpus"][0]
+        raise ResearchEvidenceError(
+            f"per-GPU VRAM limit exceeded: GPU{first['index']} "
+            f"{first['maximum_observed_mib']} MiB > {GPU_MEMORY_LIMIT_MIB} MiB"
+        )
+    return audit
+
+
+def verify_terminal_resource_gate(
+    evidence: Path,
+    *,
+    expected_shard: dict[str, Any],
+    expected_model: dict[str, Any],
+    expected_source_commit: str,
+    runtime: dict[str, Any],
+    maximum_runtime_delay_seconds: float,
+) -> dict[str, Any]:
+    """Verify the sole continuable scientific failure contract, fail closed."""
+
+    verify_sha256_manifest(evidence, evidence / "SHA256SUMS.txt")
+    runner_manifest = evidence / "RUNNER_SHA256SUMS.txt"
+    if runner_manifest.is_file():
+        verify_sha256_manifest(evidence, runner_manifest)
+    start = load_object(evidence / "execution-start.json")
+    summary = load_object(evidence / "execution-summary.json")
+    raw = load_object(evidence / "m4-raw.json")
+    gate = load_object(evidence / "terminal-resource-gate.json")
+    prompt = load_object(evidence / "prompt-manifest.json")
+    _verify_runtime_binding(
+        runtime,
+        start,
+        maximum_delay_seconds=maximum_runtime_delay_seconds,
+    )
+
+    expected_shard_id = expected_shard.get("shard_id")
+    source = start.get("source", {})
+    checks = {
+        "gate schema": gate.get("schema_version") == TERMINAL_RESOURCE_GATE_SCHEMA,
+        "classification": gate.get("classification") == "FAILED_RESOURCE_GATE",
+        "approved reason": gate.get("reason") in APPROVED_TERMINAL_RESOURCE_REASONS,
+        "runner return code": gate.get("runner_returncode") == 3,
+        "shard ID": gate.get("shard_id") == expected_shard_id,
+        "source commit": source.get("commit") == expected_source_commit
+        and source.get("dirty") is False
+        and raw.get("source") == source
+        and gate.get("source_commit") == expected_source_commit,
+        "principal mode": start.get("mode") == raw.get("mode") == "principal",
+        "model": start.get("model_key")
+        == raw.get("model_key")
+        == expected_shard.get("model_key"),
+        "workload": start.get("workload")
+        == raw.get("workload")
+        == expected_shard.get("workload"),
+        "repetition": start.get("repetition")
+        == raw.get("repetition")
+        == expected_shard.get("repetition"),
+        "fresh server": raw.get("server_lifecycle") == "fresh_server_per_cell",
+        "SDK version": start.get("sdk_version") == "0.2.0",
+        "model identity": start.get("model", {}).get("hf_id")
+        == raw.get("model_id")
+        == expected_model.get("hf_id")
+        and start.get("model", {}).get("revision")
+        == raw.get("model_revision")
+        == expected_model.get("revision"),
+        "hard threshold": start.get("resource_limits", {}).get(
+            "per_gpu_memory_mib"
+        )
+        == GPU_MEMORY_LIMIT_MIB
+        and gate.get("per_gpu_limit_mib") == GPU_MEMORY_LIMIT_MIB,
+        "resource status": summary.get("status")
+        == raw.get("status")
+        == "RESOURCE_GUARD_VIOLATION",
+        "resource message": isinstance(raw.get("resource_guard_violation"), str)
+        and raw.get("resource_guard_violation")
+        == summary.get("resource_guard_violation")
+        == gate.get("resource_guard_violation"),
+        "no semantic failure": summary.get("semantic_gate_failure") is None
+        and raw.get("semantic_gate_failure") is None,
+        "complete terminal grid": summary.get("expected_cells") == 12
+        and summary.get("completed_or_preserved_cells") == 12
+        and summary.get("failed_cells") == 1,
+    }
+    failed_checks = [name for name, passed in checks.items() if not passed]
+    if failed_checks:
+        raise ResearchEvidenceError(
+            f"terminal resource gate contract mismatch: {failed_checks}"
+        )
+
+    expected_tokens = WORKLOAD_TOKENS.get(str(expected_shard.get("workload")))
+    prompts = prompt.get("prompts")
+    prompt_sha256 = sha256_file(evidence / "prompt-manifest.json")
+    if (
+        expected_tokens is None
+        or prompt.get("model_id") != expected_model.get("hf_id")
+        or prompt.get("model_revision") != expected_model.get("revision")
+        or prompt.get("target_input_tokens") != expected_tokens[0]
+        or not isinstance(prompts, list)
+        or len(prompts) != 64
+        or any(item.get("token_count") != expected_tokens[0] for item in prompts)
+        or raw.get("prompt_manifest_sha256") != prompt_sha256
+    ):
+        raise ResearchEvidenceError(
+            "terminal resource gate prompt/model identity differs from the frozen workload"
+        )
+
+    rows = raw.get("rows")
+    if not isinstance(rows, list) or len(rows) != 12:
+        raise ResearchEvidenceError("terminal resource gate lacks the complete raw grid")
+    identities = {
+        (row.get("tensor_parallel_size"), row.get("concurrency"))
+        for row in rows
+        if isinstance(row, dict)
+    }
+    expected_identities = {
+        (tp, concurrency)
+        for concurrency in FROZEN_PRINCIPAL_CONCURRENCY
+        for tp in (1, 2)
+    }
+    if identities != expected_identities or any(row.get("oom") is not False for row in rows):
+        raise ResearchEvidenceError(
+            "terminal resource gate grid is incomplete or reports CUDA OOM"
+        )
+    if any(
+        row.get("model_id") != expected_model.get("hf_id")
+        or row.get("model_revision") != expected_model.get("revision")
+        or row.get("workload") != expected_shard.get("workload")
+        or row.get("repetition") != expected_shard.get("repetition")
+        or row.get("input_tokens") != expected_tokens[0]
+        or row.get("output_tokens_requested") != expected_tokens[1]
+        or row.get("prompt_manifest_sha256") != prompt_sha256
+        for row in rows
+    ):
+        raise ResearchEvidenceError(
+            "terminal resource gate row identity differs from the frozen workload"
+        )
+
+    ledger = _resource_ledger_audit(evidence)
+    if ledger["status"] != "VRAM_RESOURCE_GUARD" or len(ledger["offending_cells"]) != 1:
+        raise ResearchEvidenceError(
+            "terminal resource gate is not supported by one offending cell ledger"
+        )
+    offending = ledger["offending_cells"][0]
+    expected_cell = gate.get("failed_cell")
+    if offending["cell"] != expected_cell:
+        raise ResearchEvidenceError("terminal resource gate failed-cell identity mismatch")
+    if gate.get("offending_physical_gpus") != offending["physical_gpus"]:
+        raise ResearchEvidenceError("terminal resource gate physical-GPU evidence mismatch")
+
+    match = re.fullmatch(
+        rf"{re.escape(str(expected_shard_id))}-tp([12])-c(01|04|08|16|32|64)",
+        str(expected_cell),
+    )
+    if match is None:
+        raise ResearchEvidenceError("terminal resource gate has invalid failed-cell identity")
+    identity = (int(match.group(1)), int(match.group(2)))
+    failed_row = next(
+        row
+        for row in rows
+        if (row.get("tensor_parallel_size"), row.get("concurrency")) == identity
+    )
+    null_metrics = (
+        "request_throughput_per_second",
+        "input_tokens_per_second",
+        "output_tokens_per_second",
+        "total_tokens_per_second",
+        "ttft_ms",
+        "tpot_ms",
+        "itl_ms",
+        "e2e_latency_ms",
+    )
+    if (
+        failed_row.get("request_failures", 0) <= 0
+        or any(failed_row.get(metric) is not None for metric in null_metrics)
+        or failed_row.get("maximum_vram_mib", 0) <= GPU_MEMORY_LIMIT_MIB
+    ):
+        raise ResearchEvidenceError(
+            "terminal resource gate failed row has invalid missing-measurement semantics"
+        )
+
+    cell = load_object(evidence / f"{expected_cell}.json")
+    if (
+        cell.get("status") != "executed"
+        or cell.get("oom_observed") is not False
+        or cell.get("server", {}).get("unexpected_exit_returncode") is not None
+        or not cell.get("failure_observations")
+        or set(cell.get("failure_observations", [])) - {"connection_error"}
+        or cell.get("identity", {}).get("source_git_commit")
+        != expected_source_commit
+        or cell.get("engine", {}).get("model") != expected_model.get("hf_id")
+        or cell.get("engine", {}).get("model_revision")
+        != expected_model.get("revision")
+        or cell.get("engine", {}).get("dtype") != "float16"
+        or cell.get("engine", {}).get("tensor_parallel_size") != identity[0]
+        or cell.get("engine", {}).get("gpu_memory_utilization") != 0.9
+    ):
+        raise ResearchEvidenceError(
+            "terminal resource gate includes an unapproved operational cell failure"
+        )
+    log_path = evidence / str(cell.get("server", {}).get("server_log", ""))
+    log = log_path.read_text(encoding="utf-8", errors="replace").casefold()
+    disallowed = (
+        "cuda out of memory",
+        "outofmemoryerror",
+        "nccl error",
+        "ncclerror",
+        "failed to load model",
+        "error loading model",
+        "engine core initialization failed",
+    )
+    if any(marker in log for marker in disallowed):
+        raise ResearchEvidenceError(
+            "terminal resource gate includes CUDA OOM, NCCL, or model-load evidence"
+        )
+    if (evidence / "compatibility-gate.json").exists() or (
+        evidence / "semantic-gate-failure.json"
+    ).exists():
+        raise ResearchEvidenceError(
+            "terminal resource gate includes an operational or semantic gate failure"
+        )
+    return {
+        "status": "VERIFIED_TERMINAL_RESOURCE_GATE",
+        "classification": "FAILED_RESOURCE_GATE",
+        "reason": gate["reason"],
+        "failed_cell": expected_cell,
+        "per_gpu_limit_mib": GPU_MEMORY_LIMIT_MIB,
+        "offending_physical_gpus": offending["physical_gpus"],
+        "gpu0_maximum_observed_mib": ledger["gpu0_maximum_observed_mib"],
+        "gpu1_maximum_observed_mib": ledger["gpu1_maximum_observed_mib"],
+        "failed_cell_throughput": None,
+        "oom_observed": False,
     }
 
 
@@ -328,6 +647,34 @@ def _is_git_worktree(repository: Path) -> bool:
         text=True,
     )
     return completed.returncode == 0 and completed.stdout.strip() == "true"
+
+
+def _load_frozen_object(
+    repository: Path,
+    *,
+    commit: str,
+    relative: str,
+    expected_sha256: str,
+) -> dict[str, Any]:
+    blob = _git_blob(repository, commit, relative)
+    if blob is not None:
+        if hashlib.sha256(blob).hexdigest() != expected_sha256:
+            raise ResearchEvidenceError(f"frozen source hash mismatch: {relative}")
+        try:
+            value = json.loads(blob)
+        except json.JSONDecodeError as error:
+            raise ResearchEvidenceError(
+                f"frozen source is not valid JSON: {relative}"
+            ) from error
+        if not isinstance(value, dict):
+            raise ResearchEvidenceError(f"frozen source is not an object: {relative}")
+        return value
+    current = repository / relative
+    if not current.is_file() or sha256_file(current) != expected_sha256:
+        raise ResearchEvidenceError(
+            f"cannot resolve hash-matching frozen source: {relative}"
+        )
+    return load_object(current)
 
 
 def verify_batch_source_freeze(
@@ -425,7 +772,11 @@ def select_batch_source_freeze(repository: Path, source_commit: str) -> tuple[Pa
 
 
 def validate_batch_manifest(
-    manifest: dict[str, Any], batch: dict[str, Any], *, expected_source_commit: str
+    manifest: dict[str, Any],
+    batch: dict[str, Any],
+    *,
+    expected_source_commit: str,
+    allow_terminal_resource_continuation: bool = False,
 ) -> None:
     if manifest.get("schema_version") != BATCH_SCHEMA:
         raise ResearchEvidenceError("unsupported M4 batch manifest schema")
@@ -469,22 +820,139 @@ def validate_batch_manifest(
             raise ResearchEvidenceError(f"unknown batch shard outcome: {status_value}")
         if outcome.get("within_session_order") != order:
             raise ResearchEvidenceError("within-session execution order mismatch")
-        if status_value in {"COMPLETED", "FAILED"}:
+        if status_value in {"COMPLETED", "FAILED", "FAILED_RESOURCE_GATE"}:
             if terminal_seen:
                 raise ResearchEvidenceError("batch execution order is not a prefix")
             started.append(shard_id)
             if status_value == "FAILED":
                 terminal_seen = True
+            elif status_value == "FAILED_RESOURCE_GATE":
+                if not allow_terminal_resource_continuation:
+                    raise ResearchEvidenceError(
+                        "terminal resource continuation is not authorized by the frozen plan"
+                    )
+                terminal = outcome.get("terminal_resource_gate", {})
+                cleanup = outcome.get("post_shard_gpu_cleanup", {})
+                if (
+                    outcome.get("runner_returncode") != 3
+                    or outcome.get("classification") != "FAILED_RESOURCE_GATE"
+                    or outcome.get("reason") not in APPROVED_TERMINAL_RESOURCE_REASONS
+                    or terminal.get("status") != "VERIFIED_TERMINAL_RESOURCE_GATE"
+                    or terminal.get("classification") != "FAILED_RESOURCE_GATE"
+                    or terminal.get("reason") != outcome.get("reason")
+                    or cleanup.get("status") != "PASS"
+                ):
+                    raise ResearchEvidenceError(
+                        "batch manifest has an unverified terminal resource outcome"
+                    )
         elif status_value == "NOT_EXECUTED":
             terminal_seen = True
         else:
             raise ResearchEvidenceError("planned batch row lacks a terminal outcome")
-        if status_value == "COMPLETED" and (
+        if status_value in {"COMPLETED", "FAILED_RESOURCE_GATE"} and (
             not outcome.get("evidence_zip") or not outcome.get("evidence_zip_sha256")
         ):
-            raise ResearchEvidenceError("completed shard lacks ZIP identity")
+            raise ResearchEvidenceError("settled shard lacks ZIP identity")
     if manifest.get("actual_execution_order") != started:
         raise ResearchEvidenceError("actual execution order differs from shard outcomes")
+    if allow_terminal_resource_continuation:
+        planned = [outcome_by_id[shard_id] for shard_id in batch["ordered_shard_ids"]]
+        resource_count = sum(
+            item.get("status") == "FAILED_RESOURCE_GATE" for item in planned
+        )
+        failed_count = sum(item.get("status") == "FAILED" for item in planned)
+        not_executed_count = sum(
+            item.get("status") == "NOT_EXECUTED" for item in planned
+        )
+        if (
+            resource_count
+            and not failed_count
+            and not not_executed_count
+            and (
+                manifest.get("status") != COMPLETED_WITH_TERMINAL_OUTCOMES
+                or manifest.get("stop_reason") is not None
+            )
+        ):
+            raise ResearchEvidenceError(
+                "completed terminal-outcome batch status is inconsistent"
+            )
+
+
+def _validate_batch_shard_provenance(
+    provenance: dict[str, Any],
+    *,
+    shard_id: str,
+    outcome: dict[str, Any],
+    manifest: dict[str, Any],
+    expected_source_commit: str,
+) -> None:
+    checks = {
+        "schema": provenance.get("schema_version")
+        == "kaggle-vllm-m4-batch-shard-provenance-v1",
+        "mode": provenance.get("execution_mode") == "batch_orchestrated",
+        "shard": provenance.get("shard_id") == shard_id,
+        "batch": provenance.get("batch_id") == manifest["batch_id"],
+        "session": provenance.get("session_id") == manifest["session_id"],
+        "repetition": provenance.get("repetition") == manifest["repetition"],
+        "order": provenance.get("within_session_order")
+        == outcome["within_session_order"],
+        "source": provenance.get("source_commit") == expected_source_commit,
+        "return code": provenance.get("runner_returncode")
+        == outcome.get("runner_returncode"),
+    }
+    if failed := [name for name, passed in checks.items() if not passed]:
+        raise ResearchEvidenceError(
+            f"inner batch-shard provenance mismatch: {failed}"
+        )
+
+
+def _audit_terminal_resource_archive(
+    *,
+    evidence_zip: Path,
+    runtime: dict[str, Any],
+    expected_shard: dict[str, Any],
+    expected_model: dict[str, Any],
+    outcome: dict[str, Any],
+    manifest: dict[str, Any],
+    expected_source_commit: str,
+    maximum_runtime_delay_seconds: float,
+) -> dict[str, Any]:
+    members = inspect_zip(evidence_zip)
+    extracted = Path(tempfile.mkdtemp(prefix="kaggle-vllm-m4-resource-gate-"))
+    try:
+        with zipfile.ZipFile(evidence_zip) as archive:
+            archive.extractall(extracted)
+        verified = verify_sha256_manifest(
+            extracted, extracted / "SHA256SUMS.txt"
+        )
+        if set(verified) != set(members) - {"SHA256SUMS.txt"}:
+            raise ResearchEvidenceError(
+                "terminal resource SHA256SUMS.txt must cover every payload exactly"
+            )
+        terminal = verify_terminal_resource_gate(
+            extracted,
+            expected_shard=expected_shard,
+            expected_model=expected_model,
+            expected_source_commit=expected_source_commit,
+            runtime=runtime,
+            maximum_runtime_delay_seconds=maximum_runtime_delay_seconds,
+        )
+        provenance = load_object(extracted / "batch-shard-provenance.json")
+        _validate_batch_shard_provenance(
+            provenance,
+            shard_id=str(expected_shard["shard_id"]),
+            outcome=outcome,
+            manifest=manifest,
+            expected_source_commit=expected_source_commit,
+        )
+        return {
+            **terminal,
+            "shard_id": expected_shard["shard_id"],
+            "evidence_zip_sha256": sha256_file(evidence_zip),
+            "preservation_status": "PRESERVED_IN_ORIGINAL_OUTER_BATCH_FOR_REVIEW",
+        }
+    finally:
+        shutil.rmtree(extracted, ignore_errors=True)
 
 
 def _stage_inner(
@@ -578,10 +1046,12 @@ def stage_batch_download(
                 "principal_queue_path"
             ):
                 raise ResearchEvidenceError("principal queue path differs from source freeze")
-        plan_path = repository / expected_plan_path
-        if sha256_file(plan_path) != freeze["batch_plan_sha256"]:
-            raise ResearchEvidenceError("current batch plan differs from source freeze")
-        plan = load_object(plan_path)
+        plan = _load_frozen_object(
+            repository,
+            commit=freeze["implementation_source_commit"],
+            relative=expected_plan_path,
+            expected_sha256=freeze["batch_plan_sha256"],
+        )
         maximum_batch_seconds = plan.get("resource_policy", {}).get(
             "maximum_batch_wall_clock_seconds"
         )
@@ -592,16 +1062,60 @@ def stage_batch_download(
         ):
             raise ResearchEvidenceError("batch plan has invalid wall-clock limit")
         batch = select_batch(plan, str(manifest.get("batch_id")))
+        allow_terminal_resource_continuation = terminal_resource_continuation_enabled(
+            plan, batch
+        )
         validate_batch_manifest(
             manifest,
             batch,
             expected_source_commit=freeze["implementation_source_commit"],
+            allow_terminal_resource_continuation=allow_terminal_resource_continuation,
         )
         accepted = []
         invalid = []
+        terminal_resource_shards = []
         outcomes = {item["shard_id"]: item for item in manifest["shards"]}
+        planned = {
+            item["shard_id"]: item for item in batch.get("execution_order", [])
+        }
         for shard_id in manifest["actual_execution_order"]:
             outcome = outcomes[shard_id]
+            if outcome["status"] == "FAILED_RESOURCE_GATE":
+                model_matrix = _load_frozen_object(
+                    repository,
+                    commit=freeze["implementation_source_commit"],
+                    relative="research/model_matrix.json",
+                    expected_sha256=freeze["model_matrix_sha256"],
+                )["models"]
+                inner_zip = temporary / outcome["evidence_zip"]
+                if sha256_file(inner_zip) != outcome["evidence_zip_sha256"]:
+                    invalid.append(
+                        {"shard_id": shard_id, "error": "inner ZIP digest mismatch"}
+                    )
+                    continue
+                try:
+                    terminal_resource_shards.append(
+                        _audit_terminal_resource_archive(
+                            evidence_zip=inner_zip,
+                            runtime=runtime,
+                            expected_shard=planned[shard_id],
+                            expected_model=model_matrix[
+                                planned[shard_id]["model_key"]
+                            ],
+                            outcome=outcome,
+                            manifest=manifest,
+                            expected_source_commit=freeze[
+                                "implementation_source_commit"
+                            ],
+                            maximum_runtime_delay_seconds=(
+                                MAX_RUNTIME_TO_EXECUTION_DELAY_SECONDS
+                                + maximum_batch_seconds
+                            ),
+                        )
+                    )
+                except (ResearchEvidenceError, OSError, KeyError, ValueError) as error:
+                    invalid.append({"shard_id": shard_id, "error": str(error)})
+                continue
             if outcome["status"] != "COMPLETED":
                 continue
             inner_zip = temporary / outcome["evidence_zip"]
@@ -627,29 +1141,13 @@ def stage_batch_download(
                 shard_provenance = load_object(
                     extracted / "batch-shard-provenance.json"
                 )
-                provenance_checks = {
-                    "schema": shard_provenance.get("schema_version")
-                    == "kaggle-vllm-m4-batch-shard-provenance-v1",
-                    "mode": shard_provenance.get("execution_mode")
-                    == "batch_orchestrated",
-                    "shard": shard_provenance.get("shard_id") == shard_id,
-                    "batch": shard_provenance.get("batch_id")
-                    == manifest["batch_id"],
-                    "session": shard_provenance.get("session_id")
-                    == manifest["session_id"],
-                    "repetition": shard_provenance.get("repetition")
-                    == manifest["repetition"],
-                    "order": shard_provenance.get("within_session_order")
-                    == outcome["within_session_order"],
-                    "source": shard_provenance.get("source_commit")
-                    == freeze["implementation_source_commit"],
-                }
-                if failed := [
-                    name for name, passed in provenance_checks.items() if not passed
-                ]:
-                    raise ResearchEvidenceError(
-                        f"inner batch-shard provenance mismatch: {failed}"
-                    )
+                _validate_batch_shard_provenance(
+                    shard_provenance,
+                    shard_id=shard_id,
+                    outcome=outcome,
+                    manifest=manifest,
+                    expected_source_commit=freeze["implementation_source_commit"],
+                )
                 _stage_inner(
                     repository=repository,
                     extracted=extracted,
@@ -689,8 +1187,13 @@ def stage_batch_download(
             for item in manifest["shards"]
             if item["status"] == "NOT_EXECUTED"
         ]
-        review_required = bool(invalid or failed_shards or planned_not_executed)
-        return {
+        review_required = bool(
+            invalid
+            or failed_shards
+            or terminal_resource_shards
+            or planned_not_executed
+        )
+        report = {
             "schema_version": OUTER_AUDIT_SCHEMA,
             "status": (
                 "BATCH_REVIEW_REQUIRED"
@@ -710,5 +1213,8 @@ def stage_batch_download(
             "source_freeze": str(freeze_path.relative_to(repository)),
             "destination_status": "INDIVIDUAL_LOCAL_STAGING_ONLY_REQUIRES_REVIEWED_PROMOTION",
         }
+        if terminal_resource_shards:
+            report["terminal_resource_shards"] = terminal_resource_shards
+        return report
     finally:
         shutil.rmtree(temporary, ignore_errors=True)

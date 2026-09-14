@@ -19,13 +19,17 @@ from typing import Any
 from kaggle_vllm.research.errors import ResearchEvidenceError
 from kaggle_vllm.research.m4_batch import (
     BATCH_SCHEMA,
+    COMPLETED_WITH_TERMINAL_OUTCOMES,
+    MAX_RUNTIME_TO_EXECUTION_DELAY_SECONDS,
     check_disk_capacity,
     check_wall_clock,
     exact_hf_repo_cache_path,
     load_object,
     measure_shard_peaks,
     select_batch,
+    terminal_resource_continuation_enabled,
     validate_batch_against_queue,
+    verify_terminal_resource_gate,
 )
 from kaggle_vllm.research.provenance import sha256_file, verify_sha256_manifest
 
@@ -141,6 +145,10 @@ def _make_zip(directory: Path, archive: Path) -> str:
             if not path.is_file() or path.is_symlink():
                 raise ResearchEvidenceError(f"unexpected shard evidence entry: {path}")
             output.write(path, arcname=path.name)
+    with zipfile.ZipFile(archive) as preserved:
+        expected = {path.name for path in directory.iterdir() if path.is_file()}
+        if set(preserved.namelist()) != expected or preserved.testzip() is not None:
+            raise ResearchEvidenceError("preserved shard evidence ZIP failed verification")
     return sha256_file(archive)
 
 
@@ -170,7 +178,7 @@ def _cleanup_model_cache(
     bundle: Path,
 ) -> dict[str, Any]:
     for outcome in model_outcomes:
-        if outcome["status"] != "COMPLETED":
+        if outcome["status"] not in {"COMPLETED", "FAILED_RESOURCE_GATE"}:
             return {"status": "SKIPPED_INCOMPLETE_MODEL_GROUP"}
         archive = bundle / outcome["evidence_zip"]
         if sha256_file(archive) != outcome["evidence_zip_sha256"]:
@@ -345,6 +353,7 @@ def main(argv: list[str] | None = None) -> int:
     _append_log(batch_log, f"session={session_id} batch={args.batch_id} source={commit}")
     return_code = 0
     stop = False
+    resource_continuation = terminal_resource_continuation_enabled(plan, batch)
     current_model: str | None = None
     model_outcomes: list[dict[str, Any]] = []
 
@@ -478,24 +487,98 @@ def main(argv: list[str] | None = None) -> int:
                 timeout_seconds=args.gpu_cleanup_timeout_seconds,
             )
             outcome["post_shard_gpu_cleanup"] = cleanup
-            peaks = measure_shard_peaks(directory)
-            outcome.update(
-                {
-                    "resource_guard": peaks,
-                }
-            )
-            model_outcomes.append(outcome)
-            if completed.returncode != 0:
+            if completed.returncode == 0:
+                outcome["resource_guard"] = measure_shard_peaks(directory)
+                outcome["status"] = "COMPLETED"
+            elif completed.returncode == 3 and resource_continuation:
+                terminal = verify_terminal_resource_gate(
+                    directory,
+                    expected_shard=item,
+                    expected_model=model_matrix[model_key],
+                    expected_source_commit=commit,
+                    runtime=runtime,
+                    maximum_runtime_delay_seconds=(
+                        MAX_RUNTIME_TO_EXECUTION_DELAY_SECONDS + maximum_seconds
+                    ),
+                )
+                outcome.update(
+                    {
+                        "status": "FAILED_RESOURCE_GATE",
+                        "reason": terminal["reason"],
+                        "classification": terminal["classification"],
+                        "terminal_resource_gate": terminal,
+                    }
+                )
+            else:
+                outcome["resource_guard"] = measure_shard_peaks(directory)
                 outcome["status"] = "FAILED"
                 outcome["reason"] = "PRINCIPAL_RUNNER_NONZERO_RETURN_CODE"
+                manifest["stop_reason"] = outcome["reason"]
                 stop = True
                 return_code = 2
-            else:
-                outcome["status"] = "COMPLETED"
+            model_outcomes.append(outcome)
             if cleanup["status"] != "PASS":
                 stop = True
                 return_code = 2
                 manifest["stop_reason"] = "GPU_CLEANLINESS_GUARD"
+            elif outcome["status"] == "FAILED_RESOURCE_GATE" and index + 1 < len(
+                batch["execution_order"]
+            ):
+                next_item = batch["execution_order"][index + 1]
+                try:
+                    continuation_wall = check_wall_clock(
+                        time.monotonic() - started_monotonic,
+                        maximum_seconds=maximum_seconds,
+                        minimum_remaining_seconds=minimum_remaining,
+                    )
+                    next_model = model_matrix[next_item["model_key"]]
+                    next_cache = exact_hf_repo_cache_path(
+                        Path(os.environ["HF_HOME"]), next_model["hf_id"]
+                    )
+                    next_weight_bytes = int(next_model["selected_weight_bytes"])
+                    next_projected_model = 0 if next_cache.is_dir() else next_weight_bytes
+                    next_required_free = max(
+                        next_weight_bytes + BASE_RUNNER_PROJECTED_EVIDENCE_BYTES,
+                        next_projected_model
+                        + policies["projected_evidence_bytes_per_shard"]
+                        + reserve,
+                    )
+                    continuation_disk = check_disk_capacity(
+                        output_root.parent,
+                        projected_additional_bytes=next_required_free - reserve,
+                        reserve_bytes=reserve,
+                    )
+                    manifest["disk"]["samples"].append(
+                        {
+                            "after_terminal_resource_gate": item["shard_id"],
+                            "before_shard": next_item["shard_id"],
+                            "captured_at_utc": _utc_now(),
+                            "model_cache_present": next_cache.is_dir(),
+                            "selected_weight_bytes": next_weight_bytes,
+                            "base_runner_required_free_bytes": next_weight_bytes
+                            + BASE_RUNNER_PROJECTED_EVIDENCE_BYTES,
+                            **continuation_disk,
+                        }
+                    )
+                    manifest["disk"]["high_water_used_bytes"] = max(
+                        manifest["disk"]["high_water_used_bytes"],
+                        continuation_disk["used_bytes"],
+                    )
+                    outcome["continuation_guards"] = {
+                        "status": "PASS",
+                        "next_shard_id": next_item["shard_id"],
+                        "wall_clock": continuation_wall,
+                        "disk": continuation_disk,
+                    }
+                except (ResearchEvidenceError, OSError, KeyError, ValueError) as error:
+                    outcome["continuation_guards"] = {
+                        "status": "FAIL",
+                        "next_shard_id": next_item["shard_id"],
+                        "reason": str(error),
+                    }
+                    manifest["stop_reason"] = str(error)
+                    stop = True
+                    return_code = 2
             _append_log(batch_log, f"END {item['shard_id']} status={outcome['status']}")
         except (ResearchEvidenceError, OSError, KeyError, ValueError) as error:
             outcome.update({"status": "FAILED" if outcome["status"] == "RUNNING" else "NOT_EXECUTED", "end_utc": _utc_now(), "reason": str(error)})
@@ -533,17 +616,26 @@ def main(argv: list[str] | None = None) -> int:
     manifest["batch_wall_clock_seconds"] = time.monotonic() - started_monotonic
     completed_count = sum(item["status"] == "COMPLETED" for item in outcomes)
     failed_count = sum(item["status"] == "FAILED" for item in outcomes)
-    not_executed_count = sum(item["status"] == "NOT_EXECUTED" for item in outcomes)
-    manifest["status"] = (
-        "COMPLETED"
-        if not failed_count and not not_executed_count
-        else "PARTIAL_COMPLETION"
-        if not failed_count and completed_count
-        else "STOPPED_ON_FAILURE"
+    resource_gate_count = sum(
+        item["status"] == "FAILED_RESOURCE_GATE" for item in outcomes
     )
+    not_executed_count = sum(item["status"] == "NOT_EXECUTED" for item in outcomes)
+    if return_code != 0 and (
+        failed_count or resource_gate_count or not_executed_count == 0
+    ):
+        manifest["status"] = "STOPPED_ON_FAILURE"
+    elif resource_gate_count and not failed_count and not not_executed_count:
+        manifest["status"] = COMPLETED_WITH_TERMINAL_OUTCOMES
+    elif not resource_gate_count and not failed_count and not not_executed_count:
+        manifest["status"] = "COMPLETED"
+    elif not failed_count and completed_count and not resource_gate_count:
+        manifest["status"] = "PARTIAL_COMPLETION"
+    else:
+        manifest["status"] = "STOPPED_ON_FAILURE"
     manifest["counts"] = {
         "completed": completed_count,
         "failed": failed_count,
+        "failed_resource_gate": resource_gate_count,
         "not_executed": not_executed_count,
         "skipped_already_canonical": len(batch["already_completed_skips"]),
     }
