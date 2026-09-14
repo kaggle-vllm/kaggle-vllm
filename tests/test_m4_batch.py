@@ -100,12 +100,13 @@ def test_select_batch_rejects_mixed_repetition() -> None:
 def test_current_batch_passes_authoritative_no_rerun_queue() -> None:
     plan = json.loads((ROOT / "research/M4_REMAINING_EXECUTION_PLAN.json").read_text())
     queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
-    batch = select_batch(plan, "fill-r01-qwen")
+    batch = select_batch(plan, "r02-llama")
     result = validate_batch_against_queue(batch, queue)
     assert result["status"] == "PASS_NO_SETTLED_SHARD_RESCHEDULED"
     assert result["queued_shard_ids"] == [
-        "qwen25_3b-balanced-r01",
-        "qwen25_3b-prefill_heavy-r01",
+        "llama32_3b-prefill_heavy-r02",
+        "llama32_3b-short-r02",
+        "llama32_3b-balanced-r02",
     ]
 
 
@@ -115,17 +116,15 @@ def test_promoted_canonical_batch_cannot_be_rescheduled() -> None:
         (ROOT / "research/M4_REMAINING_EXECUTION_PLAN.json").read_text()
     )
     with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
-        select_batch(remaining, "fill-r01-ministral")
+        select_batch(remaining, "fill-r01-qwen")
     stale_batch = {
         "ordered_shard_ids": [
-            "ministral3_3b_bf16-balanced-r01",
-            "ministral3_3b_bf16-prefill_heavy-r01",
-            "ministral3_3b_bf16-short-r01",
+            "qwen25_3b-balanced-r01",
+            "qwen25_3b-prefill_heavy-r01",
         ],
         "execution_order": [
-            {"shard_id": "ministral3_3b_bf16-balanced-r01"},
-            {"shard_id": "ministral3_3b_bf16-prefill_heavy-r01"},
-            {"shard_id": "ministral3_3b_bf16-short-r01"},
+            {"shard_id": "qwen25_3b-balanced-r01"},
+            {"shard_id": "qwen25_3b-prefill_heavy-r01"},
         ],
         "already_completed_skips": [],
         "review_required_exclusions": [],

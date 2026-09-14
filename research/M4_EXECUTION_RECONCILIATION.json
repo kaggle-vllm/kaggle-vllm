@@ -16,11 +16,11 @@
     "serving_cells": 720
   },
   "counts": {
-    "CANONICAL_PRESERVED": 21,
-    "FAILED_RESOURCE_GATE": 1,
+    "CANONICAL_PRESERVED": 22,
+    "FAILED_RESOURCE_GATE": 2,
     "FAILED_OTHER_REVIEW_REQUIRED": 0,
     "VERIFIED_LOCAL_STAGING_PENDING_PROMOTION": 0,
-    "NOT_EXECUTED": 38
+    "NOT_EXECUTED": 36
   },
   "counts_total": 60,
   "shards_by_state": {
@@ -28,6 +28,7 @@
       "qwen25_3b-short-r00",
       "qwen25_3b-short-r01",
       "qwen25_3b-balanced-r00",
+      "qwen25_3b-balanced-r01",
       "phi4_mini-short-r00",
       "phi4_mini-short-r01",
       "phi4_mini-balanced-r00",
@@ -48,7 +49,8 @@
       "ministral3_3b_bf16-prefill_heavy-r01"
     ],
     "FAILED_RESOURCE_GATE": [
-      "qwen25_3b-prefill_heavy-r00"
+      "qwen25_3b-prefill_heavy-r00",
+      "qwen25_3b-prefill_heavy-r01"
     ],
     "FAILED_OTHER_REVIEW_REQUIRED": [],
     "VERIFIED_LOCAL_STAGING_PENDING_PROMOTION": [],
@@ -56,11 +58,9 @@
       "qwen25_3b-short-r02",
       "qwen25_3b-short-r03",
       "qwen25_3b-short-r04",
-      "qwen25_3b-balanced-r01",
       "qwen25_3b-balanced-r02",
       "qwen25_3b-balanced-r03",
       "qwen25_3b-balanced-r04",
-      "qwen25_3b-prefill_heavy-r01",
       "qwen25_3b-prefill_heavy-r02",
       "qwen25_3b-prefill_heavy-r03",
       "qwen25_3b-prefill_heavy-r04",
@@ -179,11 +179,11 @@
       "workload": "balanced",
       "repetition": 1,
       "serving_cells": 12,
-      "state": "NOT_EXECUTED",
-      "terminal_for_normal_continuation": false,
-      "evidence_zip_sha256": null,
-      "batch_id": null,
-      "session_id": null
+      "state": "CANONICAL_PRESERVED",
+      "terminal_for_normal_continuation": true,
+      "evidence_zip_sha256": "e3d56319cbbbf1805b5c00161bc41dff1193cab3d3ab81dfcad0553fc79c8d46",
+      "batch_id": "fill-r01-qwen",
+      "session_id": "m4-fill-r01-qwen-20260914T083223Z-580bbec6"
     },
     {
       "active_order": 8,
@@ -244,11 +244,11 @@
       "workload": "prefill_heavy",
       "repetition": 1,
       "serving_cells": 12,
-      "state": "NOT_EXECUTED",
-      "terminal_for_normal_continuation": false,
-      "evidence_zip_sha256": null,
-      "batch_id": null,
-      "session_id": null
+      "state": "FAILED_RESOURCE_GATE",
+      "terminal_for_normal_continuation": true,
+      "evidence_zip_sha256": "4d67265bc73d9c3b36a55d54aacf2edb4533b92a227f619a3c44c9f4e04a9885",
+      "batch_id": "fill-r01-qwen",
+      "session_id": "m4-fill-r01-qwen-20260914T083223Z-580bbec6"
     },
     {
       "active_order": 13,
@@ -879,7 +879,9 @@
     "qwen25_3b-short-r00",
     "qwen25_3b-short-r01",
     "qwen25_3b-balanced-r00",
+    "qwen25_3b-balanced-r01",
     "qwen25_3b-prefill_heavy-r00",
+    "qwen25_3b-prefill_heavy-r01",
     "phi4_mini-short-r00",
     "phi4_mini-short-r01",
     "phi4_mini-balanced-r00",
@@ -902,22 +904,8 @@
   "verified_local_staging_pending_promotion": [],
   "duplicate_shard_ids": [],
   "conflicting_terminal_records": [],
-  "remaining_batch_count": 13,
+  "remaining_batch_count": 12,
   "remaining_batches": [
-    {
-      "batch_id": "fill-r01-qwen",
-      "repetition": 1,
-      "model_key": "qwen25_3b",
-      "ordered_shard_ids": [
-        "qwen25_3b-balanced-r01",
-        "qwen25_3b-prefill_heavy-r01"
-      ],
-      "logical_shard_count": 2,
-      "serving_cell_count": 24,
-      "already_settled_exclusions": [
-        "qwen25_3b-short-r01"
-      ]
-    },
     {
       "batch_id": "r02-llama",
       "repetition": 2,
@@ -1075,5 +1063,5 @@
       "already_settled_exclusions": []
     }
   ],
-  "next_batch_id": "fill-r01-qwen"
+  "next_batch_id": "r02-llama"
 }

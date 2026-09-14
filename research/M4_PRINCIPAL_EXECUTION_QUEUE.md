@@ -7,10 +7,10 @@ For every active row, also download the executed copy of
 `/kaggle/working/kaggle-vllm-runtime/runtime.json`; both are mandatory
 inputs to the local provenance audit.
 
-Progress: 21 / 60 active shards preserved.
-Review required: 1 resource-gated shard.
+Progress: 22 / 60 active shards preserved.
+Review required: 2 resource-gated shard.
 
-Next: `M4_SHARD_ID=qwen25_3b-balanced-r01`
+Next: `M4_SHARD_ID=llama32_3b-short-r02`
 
 | Active | M4_SHARD_ID | Model | Workload | Rep | Status | Artifact |
 |---:|---|---|---|---:|---|---|
@@ -20,12 +20,12 @@ Next: `M4_SHARD_ID=qwen25_3b-balanced-r01`
 | 4 | `qwen25_3b-short-r03` | `qwen25_3b` | short | 3 | QUEUED | `qwen25_3b-short-r03-principal.zip` |
 | 5 | `qwen25_3b-short-r04` | `qwen25_3b` | short | 4 | QUEUED | `qwen25_3b-short-r04-principal.zip` |
 | 6 | `qwen25_3b-balanced-r00` | `qwen25_3b` | balanced | 0 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-balanced-r00-principal.zip` |
-| 7 | `qwen25_3b-balanced-r01` | `qwen25_3b` | balanced | 1 | QUEUED | `qwen25_3b-balanced-r01-principal.zip` |
+| 7 | `qwen25_3b-balanced-r01` | `qwen25_3b` | balanced | 1 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-balanced-r01-principal.zip` |
 | 8 | `qwen25_3b-balanced-r02` | `qwen25_3b` | balanced | 2 | QUEUED | `qwen25_3b-balanced-r02-principal.zip` |
 | 9 | `qwen25_3b-balanced-r03` | `qwen25_3b` | balanced | 3 | QUEUED | `qwen25_3b-balanced-r03-principal.zip` |
 | 10 | `qwen25_3b-balanced-r04` | `qwen25_3b` | balanced | 4 | QUEUED | `qwen25_3b-balanced-r04-principal.zip` |
 | 11 | `qwen25_3b-prefill_heavy-r00` | `qwen25_3b` | prefill_heavy | 0 | FAILED_RESOURCE_GATE | `qwen25_3b-prefill_heavy-r00-principal.zip` |
-| 12 | `qwen25_3b-prefill_heavy-r01` | `qwen25_3b` | prefill_heavy | 1 | QUEUED | `qwen25_3b-prefill_heavy-r01-principal.zip` |
+| 12 | `qwen25_3b-prefill_heavy-r01` | `qwen25_3b` | prefill_heavy | 1 | FAILED_RESOURCE_GATE | `qwen25_3b-prefill_heavy-r01-principal.zip` |
 | 13 | `qwen25_3b-prefill_heavy-r02` | `qwen25_3b` | prefill_heavy | 2 | QUEUED | `qwen25_3b-prefill_heavy-r02-principal.zip` |
 | 14 | `qwen25_3b-prefill_heavy-r03` | `qwen25_3b` | prefill_heavy | 3 | QUEUED | `qwen25_3b-prefill_heavy-r03-principal.zip` |
 | 15 | `qwen25_3b-prefill_heavy-r04` | `qwen25_3b` | prefill_heavy | 4 | QUEUED | `qwen25_3b-prefill_heavy-r04-principal.zip` |

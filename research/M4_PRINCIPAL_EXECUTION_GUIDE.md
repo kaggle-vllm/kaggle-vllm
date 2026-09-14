@@ -1,6 +1,6 @@
 # M4 principal execution guide
 
-Status: **IN_PROGRESS; 21 / 60 PRINCIPAL SHARDS PRESERVED**.
+Status: **IN_PROGRESS; 22 / 60 PRINCIPAL SHARDS PRESERVED**.
 
 The canonical order is generated in `M4_PRINCIPAL_EXECUTION_QUEUE.json`. It
 contains 60 active shard IDs and 15 non-executable Gemma historical rows. Use
@@ -74,19 +74,21 @@ devices against one ceiling.
 `ministral3_3b_bf16-balanced-r01`,
 `ministral3_3b_bf16-prefill_heavy-r01`, and
 `ministral3_3b_bf16-short-r01` also passed reviewed batch ingestion.
-`qwen25_3b-prefill_heavy-r00` remains failed/review-required after crossing the
-per-GPU resource guard. For a standalone continuation, the selected queue row
-is `M4_SHARD_ID=qwen25_3b-balanced-r01` and its expected evidence ZIP is
-`qwen25_3b-balanced-r01-principal.zip`. Download the executed
+`qwen25_3b-balanced-r01` is also canonical. Both
+`qwen25_3b-prefill_heavy-r00` and `qwen25_3b-prefill_heavy-r01` are reviewed
+terminal resource results after independently crossing the same frozen
+TP2/concurrency-64 per-GPU guard. For a standalone continuation, the selected
+queue row is `M4_SHARD_ID=llama32_3b-short-r02` and its expected evidence ZIP is
+`llama32_3b-short-r02-principal.zip`. Download the executed
 `kaggle_vllm_m4_execute_shard.ipynb` and `runtime.json` alongside it. Validate
 this shard end to end before advancing. The current preferred operation is the
-model-scoped `M4_BATCH_ID=fill-r01-qwen`; follow
+model-scoped `M4_BATCH_ID=r02-llama`; follow
 `M4_BATCH_EXECUTION_GUIDE.md` instead.
 
 ## Completion gate
 
-M4 is incomplete until all 60 active shards provide canonical, source-
-equivalent, runtime-valid evidence. Every model/workload/repetition/TP/
+M4 is incomplete until all 60 active shards provide canonical or reviewed
+terminal, source-equivalent, runtime-valid evidence. Every model/workload/repetition/TP/
 concurrency cell must have the pinned model revision and prompt identity, the
 expected request and token counts, zero unexpected request failure or OOM,
 recorded resource telemetry, and a complete metric payload. An intentional

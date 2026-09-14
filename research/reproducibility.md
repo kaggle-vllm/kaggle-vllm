@@ -68,6 +68,16 @@ Its executed notebook SHA256 is
 `2f5c5b6fe91d3e01b08db3228a3fbd3ccc5ebaea0d245d339040a99478008d7a`,
 and the byte-identical separate/bundled runtime SHA256 is
 `7cddcfc1084a2b8627c900fed3c684305735db0b35a2f5e825b4c2e554fcaf53`.
+The `fill-r01-qwen` continuation preserves balanced r01 and the terminal
+prefill-heavy r01 resource boundary in session
+`m4-fill-r01-qwen-20260914T083223Z-580bbec6`; its outer ZIP SHA256 is
+`48e06604ef74680a04ff0be5eace719ff4667f635358b1fd16167542a50bdb3d`.
+Its executed notebook SHA256 is
+`1380f29e39f00e26e964ef288f852eba94f46d81838bedd0920af568862e1dcb`,
+and the byte-identical separate/bundled runtime SHA256 is
+`f0277b595ce4da1aa65b1a0b3c0f4a2f58246314f08eb4d1d529133bc8b05042`.
+The notebook executable sources exactly match the V7 pin; the recorded stale
+embedded digest is accepted only through that exact-source binding.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
