@@ -61,6 +61,13 @@ is one model/workload/repetition and contains twelve serving cells, each with a
 fresh vLLM server. Historical amendment `M4-BATCH-1` allowed multiple logical
 shards from one repetition in one Kaggle allocation. After its first partial
 batch, `M4-BATCH-2` narrowed future allocations to one model and one repetition.
+After two independent Qwen prefill-heavy repetitions reached the same frozen
+VRAM boundary, prospective `M4-BATCH-3` (2026-09-14) improved evidence-
+collection reliability: a fully verified terminal resource-gated shard may be
+followed by later planned shards after strict cleanup and renewed guards.
+This is not a performance optimization and changes no workload, threshold,
+metric, repetition, or shard order. Historical r00/r01 outer stop statuses are
+reported as executed.
 The logical repetition, physical session, continuation batch, and within-session
 workload order are retained separately. Repetitions of the same model/workload
 are not intentionally placed in one allocation. Define

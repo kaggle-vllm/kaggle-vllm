@@ -3,6 +3,9 @@
 This guide applies amendment `M4-BATCH-2`. It reduces manual launches while
 retaining all 60 logical shards and all 720 fresh-server serving cells. The
 single-shard notebook remains valid for standalone execution.
+The prospective `M4-BATCH-3` terminal-resource continuation implementation is
+not active in this guide, notebook, plan, or V8 freeze. It may be frozen only
+after the live `r02-llama` downloads are reviewed and reconciled.
 
 The exact clean source commit and source hashes for the next notebook are
 recorded in `M4_BATCH_SOURCE_FREEZE_V8.json`. Earlier freezes remain immutable
@@ -92,6 +95,14 @@ the prefill-heavy shard is a reviewed terminal resource result, not a zero-
 throughput observation and not a rerun candidate. Its independent review is
 `M4_FILL_R01_QWEN_ATTEMPT_1_REVIEW.json`.
 
+This historical `STOPPED_ON_FAILURE` status is retained. It describes the V2
+outer orchestration response, not invalid science: both attempted shards have
+reviewed terminal outcomes. The prospective M4-BATCH-3 amendment permits a
+later planned shard to follow only a cryptographically and semantically
+verified `FAILED_RESOURCE_GATE` / `VRAM_RESOURCE_GUARD` after strict cleanup
+and renewed disk and wall-clock guards. Operational or integrity failures
+remain fail-stop, and no historical status is relabeled.
+
 The next allocation has three logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before
 every shard and the 2 GiB reserve is maintained.
@@ -143,5 +154,7 @@ preserved for terminal review. Any failed or invalid executed shard makes the
 overall result `BATCH_REVIEW_REQUIRED` without deleting valid earlier staging.
 The exact-source fallback for the Qwen r01 notebook accepts its stale embedded
 self-digest only because its executable sources are byte-for-byte identical to
-the V7-pinned notebook and the stale value is the single embedded literal. No
-ingestion command promotes a paper claim automatically.
+the V7-pinned notebook, the stale value is the single embedded literal, and the
+freeze/source/notebook identities match the sole historical V7 allowlist.
+Static validation rejects the same condition in the current or any future
+notebook. No ingestion command promotes a paper claim automatically.

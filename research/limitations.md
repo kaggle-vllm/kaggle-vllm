@@ -18,6 +18,10 @@
   the same model/workload are intentionally separated across allocations.
   The two Qwen prefill-heavy resource results do not establish that later
   repetitions must fail; r02-r04 remain in the unchanged frozen matrix.
+  Prospective M4-BATCH-3 continuation reduces abandonment of later same-session
+  shards only after a verified terminal resource gate. It does not make those
+  shards independent, remove the boundary, or predict later repetitions, and
+  it remains inactive for the live V8 `r02-llama` execution.
 - M1/M2 are observations from one Kaggle dual-T4 environment. They do not imply
   universal T4, PCIe, PHB or tensor-parallel scaling laws.
 - The M3 measured-all-reduce intercept is configuration-specific and combines

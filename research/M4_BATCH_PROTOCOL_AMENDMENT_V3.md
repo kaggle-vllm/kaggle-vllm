@@ -1,0 +1,81 @@
+# Prospective M4 terminal-resource continuation amendment M4-BATCH-3
+
+Date proposed: 2026-09-14 UTC
+
+Implementation commit: `264fbdbab1cb9e1930f454034154e74f1336904a`
+
+Status: implemented and CPU-validated prospectively, but not active for any
+Kaggle execution until a later source freeze is created after the live
+`r02-llama` V8 evidence is downloaded, reviewed, and reconciled.
+
+## Purpose and historical boundary
+
+The Qwen2.5-3B prefill-heavy repetitions r00 and r01 independently crossed the
+frozen 14,848 MiB per-GPU ceiling at TP2/concurrency 64. Those are measured
+terminal scientific resource outcomes, not CUDA OOMs and not software failures.
+Their historical `STOPPED_ON_FAILURE` outer manifests, inner evidence, source
+freezes, reviews, and ingestion behavior remain unchanged.
+
+M4-BATCH-2 requires the outer runner to stop after every nonzero shard return.
+M4-BATCH-3 narrowly changes that outer orchestration rule for future,
+not-yet-executed batches. It does not reinterpret any historical run.
+
+## Continuable terminal-resource contract
+
+Continuation is disabled unless the frozen plan explicitly selects
+`M4-BATCH-3`, the versioned terminal-resource contract, and the approved reason
+`VRAM_RESOURCE_GUARD`. Return code 3 alone is never sufficient.
+
+Before a later planned shard may start, all of the following must pass:
+
+- the shard, model, workload, repetition, source commit, runtime, and batch
+  provenance match the frozen plan and source authority;
+- the complete evidence directory and inner ZIP exist and their manifests and
+  hashes verify;
+- `terminal-resource-gate.json`, the raw result, execution summary, failed cell,
+  and resource ledgers agree on `FAILED_RESOURCE_GATE` /
+  `VRAM_RESOURCE_GUARD`;
+- the frozen 12-cell grid is preserved, exactly one cell is resource-gated, the
+  offending physical GPU indices and measured MiB are ledger-supported, and
+  the 14,848 MiB per-GPU threshold is unchanged;
+- the failed cell records missing throughput as null, not zero, and no row
+  reports CUDA OOM;
+- no semantic, compatibility, model-load, NCCL, unknown server-lifecycle, or
+  evidence-integrity failure is present;
+- post-shard cleanup reports no new compute PID and GPU memory at or below the
+  frozen idle baseline allowance;
+- the disk and wall-clock guards pass again for the exact next planned shard.
+
+If any condition is absent, ambiguous, or invalid, the batch fails closed. The
+resource-gated shard is never rerun inside the batch. A reviewed terminal shard
+also remains a no-rerun terminal queue outcome during later reconciliation.
+
+## Batch outcome semantics
+
+When every planned logical shard is executed and the only noncanonical outcomes
+are verified terminal resource gates, the outer manifest status is
+`COMPLETED_WITH_TERMINAL_OUTCOMES` and the runner returns zero. This means the
+orchestration completed without an operational or integrity failure; it does
+not promote the resource-gated shard to canonical success. Ingestion continues
+to require review and preserves the failed evidence without inventing
+throughput.
+
+Unknown failures, arbitrary nonzero exits, CUDA OOM, stale GPU processes,
+cleanup failure, archive/hash/provenance failure, source or runtime drift,
+disk exhaustion, wall-clock exhaustion, NCCL failure, model-load failure,
+server-lifecycle uncertainty, and unclassified exceptions remain fail-stop.
+
+## Unchanged scientific design
+
+The amendment changes evidence-collection reliability only. It does not change
+the scientific matrix, model or tokenizer revisions, five-model compatibility
+population, four-model principal scope, three workloads, five repetitions,
+60 logical shards, 720 fresh-server cells, deterministic shard order, TP size,
+six concurrency points, prompt or output lengths, dtype,
+`gpu_memory_utilization`, decoding, telemetry, request counts, metrics, or the
+14,848 MiB per-GPU ceiling. Qwen prefill-heavy r02, r03, and r04 remain required
+and TP2/concurrency 64 remains in every repetition.
+
+The current live `r02-llama` execution remains governed exclusively by
+`M4_BATCH_SOURCE_FREEZE_V8.json` and M4-BATCH-2. This amendment must not be used
+to restart, replace, stop, relabel, or ingest that live execution.

@@ -78,6 +78,15 @@ and the byte-identical separate/bundled runtime SHA256 is
 `f0277b595ce4da1aa65b1a0b3c0f4a2f58246314f08eb4d1d529133bc8b05042`.
 The notebook executable sources exactly match the V7 pin; the recorded stale
 embedded digest is accepted only through that exact-source binding.
+Prospective amendment `M4-BATCH-3` (2026-09-14) distinguishes a verified
+terminal scientific resource outcome from an outer operational failure. Its
+implementation can continue to the exact next planned shard only when the
+versioned gate record, source/runtime identity, inner hashes, failed-cell and
+physical-GPU ledgers, null throughput semantics, cleanup, disk, and wall-clock
+guards all pass. It does not change the matrix, workload, order, thresholds, or
+historical r00/r01 artifacts. It remains inactive until a post-`r02-llama`
+source freeze is created; V8 remains the sole authority for the current live
+execution.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
@@ -138,7 +147,11 @@ stage independently with execution mode, session ID, batch ID, repetition, and
 within-session order. A later invalid shard does not erase earlier valid local
 staging. Failed inner evidence remains review-only, not-executed rows remain
 distinct from failures, and any partial outer batch returns review-required
-status.
+status. A future M4-BATCH-3 outer bundle may report
+`COMPLETED_WITH_TERMINAL_OUTCOMES` when every planned shard was attempted and
+the only noncanonical outcomes are verified scientific resource gates. Such a
+bundle still returns review-required at ingestion and never promotes missing
+throughput to zero or a resource gate to canonical success.
 
 The accepted Qwen compatibility ZIP SHA256 is
 `cd3c45dddf19830649b03a931cee0247d6f8b4ebbc953c433e3ade563b271ecb`;

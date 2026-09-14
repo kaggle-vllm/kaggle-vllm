@@ -61,7 +61,14 @@ colocated. After the first partial `fill-r00` allocation, amendment
 `M4-BATCH-2` limits future continuation allocations to one model within one
 repetition. It preserves logical shard IDs and all cell semantics, skips only
 already canonical shards, and excludes review-required failed shards without
-promoting them. A crossover is robust
+promoting them. Prospective amendment `M4-BATCH-3`, dated 2026-09-14, changes
+only the outer evidence-collection state machine: after a structured,
+hash-verified `VRAM_RESOURCE_GUARD`, verified idle cleanup, and renewed disk and
+wall-clock guards, later shards may execute in their original order. Arbitrary
+nonzero exits and operational, provenance, integrity, model-load, NCCL, CUDA
+OOM, cleanup, disk, or wall-clock failures remain fail-stop. M4-BATCH-3 is not
+active for the live V8 `r02-llama` execution and cannot be activated without a
+later reviewed source freeze. A crossover is robust
 only when the paired-repetition mean-delta 95% confidence interval excludes zero
 in the favorable direction. Capacity, throughput and latency crossover labels
 remain distinct. Failed runs remain evidence unless a documented technical

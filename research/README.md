@@ -32,6 +32,7 @@ Machine-readable control files:
 - `M4_BATCH_EXECUTION_PLAN.json`: retained M4-BATCH-1 repetition batches.
 - `M4_FILL_R00_ATTEMPT_1_REVIEW.json`: first batch-attempt forensic record.
 - `M4_BATCH_PROTOCOL_AMENDMENT_V2.md`: M4-BATCH-2 continuation rules.
+- `M4_BATCH_PROTOCOL_AMENDMENT_V3.md`: prospective, not-yet-frozen continuation after strictly verified terminal resource gates.
 - `M4_BATCH_EXECUTION_PLAN_V2.json`: deterministic model-scoped continuations.
 - `M4_BATCH_EXECUTION_GUIDE.md`: batch notebook, evidence, and ingestion procedure.
 - `M4_BATCH_SOURCE_FREEZE.json`: retained M4-BATCH-1 source freeze.
