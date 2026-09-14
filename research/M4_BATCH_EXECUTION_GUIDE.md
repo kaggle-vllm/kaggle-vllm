@@ -5,7 +5,7 @@ retaining all 60 logical shards and all 720 fresh-server serving cells. The
 single-shard notebook remains valid for standalone execution.
 
 The exact clean source commit and source hashes for the next notebook are
-repinned after every reviewed outcome. Earlier freezes remain immutable
+recorded in `M4_BATCH_SOURCE_FREEZE_V8.json`. Earlier freezes remain immutable
 authorities for the batches executed from them; V7 governs the completed Qwen
 r01 batch.
 

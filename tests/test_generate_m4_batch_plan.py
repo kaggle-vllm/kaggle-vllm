@@ -11,6 +11,7 @@ from scripts.generate_m4_batch_source_freeze_v4 import (
     build_freeze_v5,
     build_freeze_v6,
     build_freeze_v7,
+    build_freeze_v8,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,6 +25,8 @@ def _plan() -> dict:
     by_id = {row["shard_id"]: row for row in historical["queue"]}
     by_id["qwen25_3b-balanced-r00"]["status"] = "QUEUED"
     by_id["qwen25_3b-prefill_heavy-r00"]["status"] = "QUEUED"
+    by_id["qwen25_3b-balanced-r01"]["status"] = "QUEUED"
+    by_id["qwen25_3b-prefill_heavy-r01"]["status"] = "QUEUED"
     for workload in ("short", "balanced", "prefill_heavy"):
         by_id[f"phi4_mini-{workload}-r00"]["status"] = "QUEUED"
         by_id[f"phi4_mini-{workload}-r01"]["status"] = "QUEUED"
@@ -168,4 +171,15 @@ def test_post_ministral_r01_batch_source_freeze_generation_is_deterministic() ->
     assert build_freeze_v7(ROOT) == build_freeze_v7(ROOT)
     assert verify_batch_source_freeze(
         ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V7.json"
+    ) == expected
+
+
+def test_post_qwen_r01_batch_source_freeze_generation_is_deterministic() -> None:
+    expected = json.loads(
+        (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V8.json").read_text()
+    )
+    assert build_freeze_v8(ROOT) == expected
+    assert build_freeze_v8(ROOT) == build_freeze_v8(ROOT)
+    assert verify_batch_source_freeze(
+        ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V8.json"
     ) == expected
