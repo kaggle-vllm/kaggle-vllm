@@ -60,6 +60,14 @@ Its executed notebook SHA256 is
 `c69a5faafebd621560fb2bb67bc5b9ce13ae2c0cc1043c4f42b93afdb4461002`,
 and the byte-identical separate/bundled runtime SHA256 is
 `3c17bfda70bf97ad6d47a588f89157569e159d8a1b87ccb09a829f95258936b7`.
+The `fill-r01-ministral` continuation preserves all three Ministral r01 shards
+in session `m4-fill-r01-ministral-20260914T052525Z-750b6500`; its outer ZIP
+SHA256 is
+`d5d5a16ab89afa035a6ccf7ff8db80eeac9de06871dcbdbdac8bd5c3bae56947`.
+Its executed notebook SHA256 is
+`2f5c5b6fe91d3e01b08db3228a3fbd3ccc5ebaea0d245d339040a99478008d7a`,
+and the byte-identical separate/bundled runtime SHA256 is
+`7cddcfc1084a2b8627c900fed3c684305735db0b35a2f5e825b4c2e554fcaf53`.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

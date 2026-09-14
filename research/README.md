@@ -44,6 +44,7 @@ Machine-readable control files:
 - `M4_FILL_R00_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed Ministral r00 batch record.
 - `M4_FILL_R01_PHI_ATTEMPT_1_REVIEW.json`: reviewed Phi r01 batch record.
 - `M4_FILL_R01_LLAMA_ATTEMPT_1_REVIEW.json`: reviewed Llama r01 batch record.
+- `M4_FILL_R01_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed Ministral r01 batch record.
 - `M4_REMAINING_EXECUTION_PLAN.json`: deterministic schedule of only not-executed shards.
 - `HISTORICAL_QWEN_SHARDED_STATE.md`: scope of the external Qwen persistence evidence.
 - `M5_DECISION.md`: post-M4 GuideLLM gate and claim boundary.
@@ -64,8 +65,8 @@ Ministral passed. The final hash-verified p13 Gemma ZIP and source-equivalent
 executed notebook establish the canonical, narrowly scoped
 `UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK`. Two standalone
 Qwen-short repetitions, one batch-orchestrated Qwen-balanced shard, and two
-repetitions of all three Phi and Llama workloads are preserved. The Qwen
-prefill-heavy r00 resource-gated attempt remains
+repetitions of all three Phi, Llama, and Ministral workloads are preserved. The
+Qwen prefill-heavy r00 resource-gated attempt remains
 review-required, and the remaining principal matrix and M5 independent
 validation are not complete. The principal study population is
 the four compatibility-passing models; Gemma remains a negative compatibility

@@ -26,6 +26,7 @@ def _plan() -> dict:
         by_id[f"llama32_3b-{workload}-r00"]["status"] = "QUEUED"
         by_id[f"llama32_3b-{workload}-r01"]["status"] = "QUEUED"
         by_id[f"ministral3_3b_bf16-{workload}-r00"]["status"] = "QUEUED"
+        by_id[f"ministral3_3b_bf16-{workload}-r01"]["status"] = "QUEUED"
     historical.update(
         {
             "preserved_shards": 2,

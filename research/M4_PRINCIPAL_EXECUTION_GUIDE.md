@@ -1,6 +1,6 @@
 # M4 principal execution guide
 
-Status: **IN_PROGRESS; 18 / 60 PRINCIPAL SHARDS PRESERVED**.
+Status: **IN_PROGRESS; 21 / 60 PRINCIPAL SHARDS PRESERVED**.
 
 The canonical order is generated in `M4_PRINCIPAL_EXECUTION_QUEUE.json`. It
 contains 60 active shard IDs and 15 non-executable Gemma historical rows. Use
@@ -71,13 +71,16 @@ devices against one ceiling.
 `phi4_mini-short-r01` passed reviewed batch ingestion as well.
 `llama32_3b-balanced-r01`, `llama32_3b-prefill_heavy-r01`, and
 `llama32_3b-short-r01` also passed reviewed batch ingestion.
+`ministral3_3b_bf16-balanced-r01`,
+`ministral3_3b_bf16-prefill_heavy-r01`, and
+`ministral3_3b_bf16-short-r01` also passed reviewed batch ingestion.
 `qwen25_3b-prefill_heavy-r00` remains failed/review-required after crossing the
 per-GPU resource guard. For a standalone continuation, the selected queue row
-is `M4_SHARD_ID=ministral3_3b_bf16-balanced-r01` and its expected evidence ZIP
-is `ministral3_3b_bf16-balanced-r01-principal.zip`. Download the executed
+is `M4_SHARD_ID=qwen25_3b-balanced-r01` and its expected evidence ZIP is
+`qwen25_3b-balanced-r01-principal.zip`. Download the executed
 `kaggle_vllm_m4_execute_shard.ipynb` and `runtime.json` alongside it. Validate
 this shard end to end before advancing. The current preferred operation is the
-model-scoped `M4_BATCH_ID=fill-r01-ministral`; follow
+model-scoped `M4_BATCH_ID=fill-r01-qwen`; follow
 `M4_BATCH_EXECUTION_GUIDE.md` instead.
 
 ## Completion gate
