@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate deterministic model-scoped M4 continuation batches."""
+"""Generate deterministic model-scoped M4-BATCH-3 continuation batches."""
 
 from __future__ import annotations
 
@@ -14,6 +14,9 @@ MODEL_BATCH_SUFFIX = {
     "llama32_3b": "llama",
     "ministral3_3b_bf16": "ministral",
 }
+PROTOCOL_VERSION = "M4-BATCH-3"
+PROTOCOL_AMENDMENT = "research/M4_BATCH_PROTOCOL_AMENDMENT_V3.md"
+TERMINAL_RESOURCE_GATE_SCHEMA = "kaggle-vllm-m4-terminal-resource-gate-v1"
 
 
 def load_object(path: Path) -> dict[str, Any]:
@@ -79,7 +82,7 @@ def build_continuation_plan(
             batch = {
                 "batch_id": batch_id,
                 "label": f"CONTINUATION_{batch_id.replace('-', '_').upper()}",
-                "protocol_amendment_version": "M4-BATCH-2",
+                "protocol_amendment_version": PROTOCOL_VERSION,
                 "parent_batch_id": historical_batch["batch_id"],
                 "continuation_group": MODEL_BATCH_SUFFIX[model_key],
                 "repetition": repetition,
@@ -111,11 +114,16 @@ def build_continuation_plan(
         "schema_version": "kaggle-vllm-m4-batch-execution-plan-v2",
         "status": "DERIVED_FROM_CURRENT_PRINCIPAL_QUEUE",
         "protocol_amendment": {
-            "version": "M4-BATCH-2",
-            "path": "research/M4_BATCH_PROTOCOL_AMENDMENT_V2.md",
-            "supersedes_for_future_execution": "M4-BATCH-1",
+            "version": PROTOCOL_VERSION,
+            "path": PROTOCOL_AMENDMENT,
+            "supersedes_for_future_execution": "M4-BATCH-2",
             "historical_plan_retained": "research/M4_BATCH_EXECUTION_PLAN.json",
-            "reason": "Model-scoped continuation isolates failures while preserving valid prior evidence.",
+            "historical_v8_plan_retained": "research/M4_BATCH_SOURCE_FREEZE_V8.json",
+            "reason": (
+                "Model-scoped continuation retains ordering and may continue only "
+                "after a cryptographically and semantically verified terminal "
+                "scientific resource gate plus strict cleanup and renewed guards."
+            ),
         },
         "source_queue": "research/M4_PRINCIPAL_EXECUTION_QUEUE.json",
         "scientific_matrix": historical_plan["scientific_matrix"],
@@ -124,8 +132,14 @@ def build_continuation_plan(
         "cache_policy": historical_plan["cache_policy"],
         "failure_policy": {
             **historical_plan["failure_policy"],
+            "unexpected_or_scientific_failure": (
+                "operational, integrity, and unclassified failures fail-stop; only an "
+                "approved verified terminal scientific resource gate may continue"
+            ),
             "blast_radius": "one model/repetition continuation group",
             "failed_review_required_shards_are_not_automatic_skips": True,
+            "operational_and_integrity_failures_fail_stop": True,
+            "bare_return_code_3_is_insufficient": True,
         },
         "continuation_policy": {
             "grouping": "one model within one repetition per physical Kaggle session",
@@ -135,6 +149,17 @@ def build_continuation_plan(
             "canonical_shards_skipped": True,
             "review_required_shards_excluded_not_promoted": True,
             "new_physical_allocation_requires_new_session_id": True,
+            "verified_terminal_resource_gate_may_continue_in_original_order": True,
+        },
+        "terminal_resource_gate_policy": {
+            "enabled": True,
+            "protocol_amendment_version": PROTOCOL_VERSION,
+            "contract_schema": TERMINAL_RESOURCE_GATE_SCHEMA,
+            "approved_reasons": ["VRAM_RESOURCE_GUARD"],
+            "cleanup_required": True,
+            "renew_disk_guard_before_next_shard": True,
+            "renew_wall_clock_guard_before_next_shard": True,
+            "never_rerun_terminal_shard_in_batch": True,
         },
         "preserved_logical_shards": queue["preserved_shards"],
         "remaining_logical_shards": queue["remaining_shards"],

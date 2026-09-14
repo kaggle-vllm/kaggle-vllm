@@ -4,9 +4,10 @@ Date proposed: 2026-09-14 UTC
 
 Implementation commit: `264fbdbab1cb9e1930f454034154e74f1336904a`
 
-Status: implemented and CPU-validated prospectively, but not active for any
-Kaggle execution until a later source freeze is created after the live
-`r02-llama` V8 evidence is downloaded, reviewed, and reconciled.
+Status: implemented and CPU-validated prospectively. The V8 `r02-llama`
+evidence has been downloaded, reviewed, promoted, and reconciled under
+M4-BATCH-2. This amendment is approved for future activation only through the
+next immutable source freeze.
 
 ## Purpose and historical boundary
 
@@ -76,6 +77,7 @@ six concurrency points, prompt or output lengths, dtype,
 14,848 MiB per-GPU ceiling. Qwen prefill-heavy r02, r03, and r04 remain required
 and TP2/concurrency 64 remains in every repetition.
 
-The current live `r02-llama` execution remains governed exclusively by
-`M4_BATCH_SOURCE_FREEZE_V8.json` and M4-BATCH-2. This amendment must not be used
-to restart, replace, stop, relabel, or ingest that live execution.
+The completed `r02-llama` execution remains governed exclusively by
+`M4_BATCH_SOURCE_FREEZE_V8.json` and M4-BATCH-2. This amendment was not used to
+restart, replace, relabel, or ingest that historical execution. It applies
+only to batches launched from the later M4-BATCH-3 source freeze.

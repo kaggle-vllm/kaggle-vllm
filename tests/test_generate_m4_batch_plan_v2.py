@@ -18,6 +18,20 @@ def test_continuations_are_model_scoped_repetition_blocked_and_complete() -> Non
     plan = build_continuation_plan(historical, queue)
     assert plan["scientific_matrix"]["logical_shards"] == 60
     assert plan["scientific_matrix"]["serving_cells"] == 720
+    assert plan["protocol_amendment"]["version"] == "M4-BATCH-3"
+    assert plan["protocol_amendment"]["path"] == (
+        "research/M4_BATCH_PROTOCOL_AMENDMENT_V3.md"
+    )
+    assert plan["terminal_resource_gate_policy"] == {
+        "enabled": True,
+        "protocol_amendment_version": "M4-BATCH-3",
+        "contract_schema": "kaggle-vllm-m4-terminal-resource-gate-v1",
+        "approved_reasons": ["VRAM_RESOURCE_GUARD"],
+        "cleanup_required": True,
+        "renew_disk_guard_before_next_shard": True,
+        "renew_wall_clock_guard_before_next_shard": True,
+        "never_rerun_terminal_shard_in_batch": True,
+    }
     assert plan["preserved_logical_shards"] == 25
     assert plan["remaining_logical_shards"] == 35
     assert plan["continuation_executable_shards"] == 33
@@ -30,6 +44,7 @@ def test_continuations_are_model_scoped_repetition_blocked_and_complete() -> Non
 
     shard_ids = []
     for batch in plan["batches"]:
+        assert batch["protocol_amendment_version"] == "M4-BATCH-3"
         assert len(batch["model_order"]) == 1
         assert {row["repetition"] for row in batch["execution_order"]} == {
             batch["repetition"]
