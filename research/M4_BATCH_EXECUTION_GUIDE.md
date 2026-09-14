@@ -4,13 +4,12 @@ This guide applies amendment `M4-BATCH-2`. It reduces manual launches while
 retaining all 60 logical shards and all 720 fresh-server serving cells. The
 single-shard notebook remains valid for standalone execution.
 The prospective `M4-BATCH-3` terminal-resource continuation implementation is
-not active in this guide, notebook, plan, or V8 freeze. It may be frozen only
-after the live `r02-llama` downloads are reviewed and reconciled.
+not part of V8. The V8 `r02-llama` downloads have now been reviewed and
+reconciled under their historical M4-BATCH-2 identity; activation requires a
+new clean notebook and immutable source freeze.
 
-The exact clean source commit and source hashes for the next notebook are
-recorded in `M4_BATCH_SOURCE_FREEZE_V8.json`. Earlier freezes remain immutable
-authorities for the batches executed from them; V7 governs the completed Qwen
-r01 batch.
+V8 remains the immutable authority for the completed `r02-llama` execution;
+V7 governs the completed Qwen r01 batch. Do not reuse V8 for a future run.
 
 ## Historical M4-BATCH-1 attempt
 
@@ -54,10 +53,12 @@ observed blast radius, but no throughput result is used to reorder conditions.
 
 ## Next controlled execution
 
-Run `M4_BATCH_ID=r02-llama` in a fresh T4 x2 allocation. In frozen order it
-contains `llama32_3b-prefill_heavy-r02`, `llama32_3b-short-r02`, and
-`llama32_3b-balanced-r02`. Do not rerun any completed continuation or reviewed
-terminal resource-gated shard.
+The next machine-selected batch is `M4_BATCH_ID=r02-ministral`, but it must not
+run until the post-r02 source freeze is committed. Its unchanged frozen order
+is `ministral3_3b_bf16-prefill_heavy-r02`,
+`ministral3_3b_bf16-short-r02`, and
+`ministral3_3b_bf16-balanced-r02`. Do not rerun any completed continuation or
+reviewed terminal resource-gated shard.
 
 The Llama continuation completed all three planned shards in session
 `m4-fill-r00-llama-20260912T044444Z-dd577e28`. Its independent review is
@@ -102,6 +103,14 @@ later planned shard to follow only a cryptographically and semantically
 verified `FAILED_RESOURCE_GATE` / `VRAM_RESOURCE_GUARD` after strict cleanup
 and renewed disk and wall-clock guards. Operational or integrity failures
 remain fail-stop, and no historical status is relabeled.
+
+The V8 `r02-llama` continuation completed all three planned shards in original
+order in session `m4-r02-llama-20260914T164332Z-3828ac3c`. Its independent
+review is `M4_R02_LLAMA_ATTEMPT_1_REVIEW.json`. All 36 serving cells passed;
+the outer ZIP SHA256 is
+`92e24500dc0d3b1003d485a1d64cf9431bb1e5e4727d35b62e7413a40e901a2b`.
+This execution remains M4-BATCH-2 evidence and is not reinterpreted under the
+prospective continuation amendment.
 
 The next allocation has three logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before

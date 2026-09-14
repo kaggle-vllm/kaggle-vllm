@@ -78,15 +78,22 @@ and the byte-identical separate/bundled runtime SHA256 is
 `f0277b595ce4da1aa65b1a0b3c0f4a2f58246314f08eb4d1d529133bc8b05042`.
 The notebook executable sources exactly match the V7 pin; the recorded stale
 embedded digest is accepted only through that exact-source binding.
+The V8 `r02-llama` continuation preserves all three Llama r02 shards in session
+`m4-r02-llama-20260914T164332Z-3828ac3c`; its outer ZIP SHA256 is
+`92e24500dc0d3b1003d485a1d64cf9431bb1e5e4727d35b62e7413a40e901a2b`.
+Its executed notebook SHA256 is
+`19fbc76ee01bcd301efb5f4a4a00cc422426b56e42491366820ea3f1f2dc9b2c`,
+and the separate and bundled runtime files are byte-identical with SHA256
+`b8fe083e9ae7536cf00214b225765482679f1efcd13765da57d326674f451f3b`.
+The run is retained exclusively as V8/M4-BATCH-2 evidence.
 Prospective amendment `M4-BATCH-3` (2026-09-14) distinguishes a verified
 terminal scientific resource outcome from an outer operational failure. Its
 implementation can continue to the exact next planned shard only when the
 versioned gate record, source/runtime identity, inner hashes, failed-cell and
 physical-GPU ledgers, null throughput semantics, cleanup, disk, and wall-clock
 guards all pass. It does not change the matrix, workload, order, thresholds, or
-historical r00/r01 artifacts. It remains inactive until a post-`r02-llama`
-source freeze is created; V8 remains the sole authority for the current live
-execution.
+historical r00/r01 artifacts. It was not retroactively applied to the V8
+`r02-llama` execution and requires a later source freeze for activation.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

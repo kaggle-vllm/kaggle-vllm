@@ -100,15 +100,14 @@
     "review_required_shards_excluded_not_promoted": true,
     "new_physical_allocation_requires_new_session_id": true
   },
-  "preserved_logical_shards": 22,
-  "remaining_logical_shards": 38,
-  "continuation_executable_shards": 36,
+  "preserved_logical_shards": 25,
+  "remaining_logical_shards": 35,
+  "continuation_executable_shards": 33,
   "review_required_shard_ids": [
     "qwen25_3b-prefill_heavy-r00",
     "qwen25_3b-prefill_heavy-r01"
   ],
   "batch_ids": [
-    "r02-llama",
     "r02-ministral",
     "r02-qwen",
     "r02-phi",
@@ -122,62 +121,6 @@
     "r04-ministral"
   ],
   "batches": [
-    {
-      "batch_id": "r02-llama",
-      "label": "CONTINUATION_R02_LLAMA",
-      "protocol_amendment_version": "M4-BATCH-2",
-      "parent_batch_id": "r02",
-      "continuation_group": "llama",
-      "repetition": 2,
-      "model_order": [
-        "llama32_3b"
-      ],
-      "workload_order_within_model": [
-        "prefill_heavy",
-        "short",
-        "balanced"
-      ],
-      "all_logical_shard_ids": [
-        "llama32_3b-prefill_heavy-r02",
-        "llama32_3b-short-r02",
-        "llama32_3b-balanced-r02"
-      ],
-      "ordered_shard_ids": [
-        "llama32_3b-prefill_heavy-r02",
-        "llama32_3b-short-r02",
-        "llama32_3b-balanced-r02"
-      ],
-      "execution_order": [
-        {
-          "within_session_order": 1,
-          "shard_id": "llama32_3b-prefill_heavy-r02",
-          "model_key": "llama32_3b",
-          "workload": "prefill_heavy",
-          "repetition": 2,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 2,
-          "shard_id": "llama32_3b-short-r02",
-          "model_key": "llama32_3b",
-          "workload": "short",
-          "repetition": 2,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 3,
-          "shard_id": "llama32_3b-balanced-r02",
-          "model_key": "llama32_3b",
-          "workload": "balanced",
-          "repetition": 2,
-          "serving_cells": 12
-        }
-      ],
-      "already_completed_skips": [],
-      "review_required_exclusions": [],
-      "logical_shard_count": 3,
-      "serving_cell_count": 36
-    },
     {
       "batch_id": "r02-ministral",
       "label": "CONTINUATION_R02_MINISTRAL",

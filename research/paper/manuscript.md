@@ -125,6 +125,11 @@ substituted.
 Insert per-model curves, speedup heatmap, latency tradeoff, crossover and
 resource tables only from `M4_ANALYSIS.json`.
 
+Current evidence bookkeeping preserves 25 of 60 principal shards: three
+complete Llama repetitions, two repetitions for the other measured conditions,
+and two Qwen prefill-heavy terminal VRAM-boundary outcomes. This progress count
+is not a final crossover estimate or confidence interval.
+
 ### 6.6 Mechanistic analysis
 
 [Relate M3 communication observations to M4 behavior as consistency evidence;
