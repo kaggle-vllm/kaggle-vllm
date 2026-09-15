@@ -1,15 +1,14 @@
 # M4 continuation-batch execution guide
 
-This guide applies amendment `M4-BATCH-2`. It reduces manual launches while
+This guide applies amendment `M4-BATCH-3` for future runs frozen by V9. It reduces manual launches while
 retaining all 60 logical shards and all 720 fresh-server serving cells. The
 single-shard notebook remains valid for standalone execution.
-The prospective `M4-BATCH-3` terminal-resource continuation implementation is
-not part of V8. The V8 `r02-llama` downloads have now been reviewed and
-reconciled under their historical M4-BATCH-2 identity; activation requires a
-new clean notebook and immutable source freeze.
+The terminal-resource continuation implementation is not part of V8. The V8
+`r02-llama` downloads were reviewed and reconciled under their historical
+M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V8 remains the immutable authority for the completed `r02-llama` execution;
-V7 governs the completed Qwen r01 batch. Do not reuse V8 for a future run.
+V9 is the current future-execution authority. V8 remains the immutable
+authority for completed `r02-llama`; V7 governs completed Qwen r01.
 
 ## Historical M4-BATCH-1 attempt
 
@@ -47,15 +46,14 @@ observed blast radius, but no throughput result is used to reorder conditions.
 2. Select two NVIDIA T4 GPUs, enable Internet, and use a new non-persistent
    allocation.
 3. Configure private secrets `HF_TOKEN` and `M4_BATCH_ID` only.
-4. Set `M4_BATCH_ID` to exactly one `M4-BATCH-2` ID and run all cells.
+4. Set `M4_BATCH_ID` to exactly one V9 `M4-BATCH-3` ID and run all cells.
 5. Do not edit the source cells, source commit, plan, order, revisions, runtime,
    memory threshold, or benchmark settings.
 
 ## Next controlled execution
 
-The next machine-selected batch is `M4_BATCH_ID=r02-ministral`, but it must not
-run until the post-r02 source freeze is committed. Its unchanged frozen order
-is `ministral3_3b_bf16-prefill_heavy-r02`,
+The V9 machine-selected batch is `M4_BATCH_ID=r02-ministral`. Its unchanged
+frozen order is `ministral3_3b_bf16-prefill_heavy-r02`,
 `ministral3_3b_bf16-short-r02`, and
 `ministral3_3b_bf16-balanced-r02`. Do not rerun any completed continuation or
 reviewed terminal resource-gated shard.

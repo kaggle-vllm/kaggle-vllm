@@ -348,10 +348,9 @@ def test_new_notebook_static_check_rejects_stale_self_digest(tmp_path: Path) -> 
     notebook = json.loads(current.read_text())
     bootstrap = next(cell for cell in notebook["cells"] if cell.get("id") == "bootstrap")
     bootstrap["source"] = [
-        line.replace(
-            "bcd8d03a7d9854ebb10c3858d512bbc8ba5850875afeacd152049135c7e93b6e",
-            "0" * 64,
-        )
+        "BATCH_NOTEBOOK_SOURCE_DIGEST = '" + "0" * 64 + "'\n"
+        if line.startswith("BATCH_NOTEBOOK_SOURCE_DIGEST = ")
+        else line
         for line in bootstrap["source"]
     ]
     stale = tmp_path / "stale.ipynb"

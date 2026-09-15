@@ -32,7 +32,7 @@ Machine-readable control files:
 - `M4_BATCH_EXECUTION_PLAN.json`: retained M4-BATCH-1 repetition batches.
 - `M4_FILL_R00_ATTEMPT_1_REVIEW.json`: first batch-attempt forensic record.
 - `M4_BATCH_PROTOCOL_AMENDMENT_V2.md`: M4-BATCH-2 continuation rules.
-- `M4_BATCH_PROTOCOL_AMENDMENT_V3.md`: prospective, not-yet-frozen continuation after strictly verified terminal resource gates.
+- `M4_BATCH_PROTOCOL_AMENDMENT_V3.md`: V9 future-only continuation after strictly verified terminal resource gates.
 - `M4_BATCH_EXECUTION_PLAN_V2.json`: deterministic model-scoped continuations.
 - `M4_BATCH_EXECUTION_GUIDE.md`: batch notebook, evidence, and ingestion procedure.
 - `M4_BATCH_SOURCE_FREEZE.json`: retained M4-BATCH-1 source freeze.
@@ -43,6 +43,7 @@ Machine-readable control files:
 - `M4_BATCH_SOURCE_FREEZE_V6.json`: post-Llama-r01 no-rerun source freeze.
 - `M4_BATCH_SOURCE_FREEZE_V7.json`: post-Ministral-r01 no-rerun source freeze.
 - `M4_BATCH_SOURCE_FREEZE_V8.json`: post-Qwen-r01 no-rerun source freeze.
+- `M4_BATCH_SOURCE_FREEZE_V9.json`: post-Llama-r02 M4-BATCH-3 source freeze for future runs.
 - `M4_EXECUTION_RECONCILIATION.json`: authoritative 60-shard terminal/pending ledger.
 - `M4_FILL_R00_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed Ministral r00 batch record.
 - `M4_FILL_R01_PHI_ATTEMPT_1_REVIEW.json`: reviewed Phi r01 batch record.

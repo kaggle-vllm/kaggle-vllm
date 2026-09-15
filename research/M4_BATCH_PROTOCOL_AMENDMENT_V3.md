@@ -4,10 +4,9 @@ Date proposed: 2026-09-14 UTC
 
 Implementation commit: `264fbdbab1cb9e1930f454034154e74f1336904a`
 
-Status: implemented and CPU-validated prospectively. The V8 `r02-llama`
-evidence has been downloaded, reviewed, promoted, and reconciled under
-M4-BATCH-2. This amendment is approved for future activation only through the
-next immutable source freeze.
+Status: activated for future post-V8 sessions by
+`M4_BATCH_SOURCE_FREEZE_V9.json`. The V8 `r02-llama` evidence was downloaded,
+reviewed, promoted, and reconciled under M4-BATCH-2 before activation.
 
 ## Purpose and historical boundary
 

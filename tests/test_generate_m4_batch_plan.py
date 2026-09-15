@@ -12,6 +12,7 @@ from scripts.generate_m4_batch_source_freeze_v4 import (
     build_freeze_v6,
     build_freeze_v7,
     build_freeze_v8,
+    build_freeze_v9,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,6 +33,7 @@ def _plan() -> dict:
         by_id[f"phi4_mini-{workload}-r01"]["status"] = "QUEUED"
         by_id[f"llama32_3b-{workload}-r00"]["status"] = "QUEUED"
         by_id[f"llama32_3b-{workload}-r01"]["status"] = "QUEUED"
+        by_id[f"llama32_3b-{workload}-r02"]["status"] = "QUEUED"
         by_id[f"ministral3_3b_bf16-{workload}-r00"]["status"] = "QUEUED"
         by_id[f"ministral3_3b_bf16-{workload}-r01"]["status"] = "QUEUED"
     historical.update(
@@ -182,4 +184,23 @@ def test_post_qwen_r01_batch_source_freeze_generation_is_deterministic() -> None
     assert build_freeze_v8(ROOT) == build_freeze_v8(ROOT)
     assert verify_batch_source_freeze(
         ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V8.json"
+    ) == expected
+
+
+def test_post_llama_r02_batch_source_freeze_generation_is_deterministic() -> None:
+    expected = json.loads(
+        (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V9.json").read_text()
+    )
+    assert build_freeze_v9(ROOT) == expected
+    assert build_freeze_v9(ROOT) == build_freeze_v9(ROOT)
+    assert expected["protocol_amendment_version"] == "M4-BATCH-3"
+    assert expected["terminal_resource_gate_policy"] == {
+        "contract_schema": "kaggle-vllm-m4-terminal-resource-gate-v1",
+        "approved_reasons": ["VRAM_RESOURCE_GUARD"],
+        "bare_return_code_3_is_sufficient": False,
+        "cleanup_and_continuation_guards_required": True,
+        "operational_and_integrity_failures_fail_stop": True,
+    }
+    assert verify_batch_source_freeze(
+        ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V9.json"
     ) == expected
