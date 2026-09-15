@@ -106,6 +106,9 @@ and the separate and bundled runtime files are byte-identical with SHA256
 `00eb16ef274e7ff57d8e466ed49792a686b441ccf732ac851445873ce364ea26`.
 No terminal resource gate occurred, so the strict continuation-after-gate path
 was not invoked; the outer order, cleanup, disk, and wall-clock guards passed.
+V10 then pins the post-reconciliation clean notebook and unchanged M4-BATCH-3
+contract for `r02-qwen`; V9 remains independently usable for the completed
+Ministral evidence.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

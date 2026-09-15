@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate retained V4-V8 and current M4-BATCH-3 source freezes."""
+"""Generate retained V4-V9 and current M4-BATCH-3 source freezes."""
 
 from __future__ import annotations
 
@@ -472,16 +472,89 @@ def build_freeze_v9(repository: Path = ROOT) -> dict:
     return freeze
 
 
+def build_freeze_v10(repository: Path = ROOT) -> dict:
+    """Build the post-Ministral-r02 M4-BATCH-3 freeze through the existing generator."""
+
+    implementation_commit = "6b84c0d9a82336d6dacde7f9e334ef1e9898e2c3"
+    notebook_pin_commit = "b6be3067ba454d5adc9e4906516618f38b04ef54"
+    amendment = "research/M4_BATCH_PROTOCOL_AMENDMENT_V3.md"
+    notebook_relative = "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+    notebook_blob = _blob(repository, notebook_pin_commit, notebook_relative)
+    with tempfile.NamedTemporaryFile(suffix=".ipynb") as temporary:
+        temporary.write(notebook_blob)
+        temporary.flush()
+        source_digest = notebook_source_digest(Path(temporary.name))
+
+    freeze = build_freeze_v9(repository)
+    freeze.update(
+        {
+            "schema_version": "kaggle-vllm-m4-batch-source-freeze-v10",
+            "status": "FROZEN_AFTER_MINISTRAL_R02_FOR_M4_BATCH_3_CONTINUATION",
+            "protocol_amendment_version": "M4-BATCH-3",
+            "protocol_amendment_date_utc": "2026-09-14",
+            "reconciliation_date_utc": "2026-09-15",
+            "protocol_amendment_path": amendment,
+            "implementation_source_commit": implementation_commit,
+            "notebook_pin_commit": notebook_pin_commit,
+            "historical_batch_2_freeze": {
+                "path": "research/M4_BATCH_SOURCE_FREEZE_V9.json",
+                "sha256": sha256_file(
+                    repository / "research/M4_BATCH_SOURCE_FREEZE_V9.json"
+                ),
+                "status": "RETAINED_UNCHANGED",
+            },
+            "batch_notebook_sha256": hashlib.sha256(notebook_blob).hexdigest(),
+            "batch_notebook_source_digest": source_digest,
+            "batch_runner_sha256": _blob_sha256(
+                repository, implementation_commit, "scripts/kaggle_m4_execute_batch.py"
+            ),
+            "base_shard_runner_sha256": _blob_sha256(
+                repository,
+                implementation_commit,
+                "scripts/kaggle_m4_multimodel_crossover.py",
+            ),
+            "m4_execution_plan_sha256": _blob_sha256(
+                repository, implementation_commit, "research/M4_EXECUTION_PLAN.json"
+            ),
+            "model_matrix_sha256": _blob_sha256(
+                repository, implementation_commit, "research/model_matrix.json"
+            ),
+            "protocol_sha256": _blob_sha256(
+                repository, implementation_commit, "research/m4_protocol.json"
+            ),
+            "batch_plan_sha256": _blob_sha256(
+                repository, implementation_commit, BATCH_PLAN
+            ),
+            "principal_queue_sha256": _blob_sha256(
+                repository, implementation_commit, PRINCIPAL_QUEUE
+            ),
+            "protocol_amendment_sha256": _blob_sha256(
+                repository, implementation_commit, amendment
+            ),
+            "evidence_boundary": (
+                "This freeze contains no new GPU measurements. It binds the reviewed "
+                "28-canonical/2-resource-gated/30-not-executed reconciliation for "
+                "strict M4-BATCH-3 continuation. The completed r02-ministral execution "
+                "remains immutable V9/M4-BATCH-3 evidence."
+            ),
+        }
+    )
+    freeze["execution_paths"]["batch_orchestrated"]["status"] = (
+        "M4_BATCH_3_POST_MINISTRAL_R02_CONTINUATION_READY"
+    )
+    return freeze
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "research/M4_BATCH_SOURCE_FREEZE_V9.json",
+        default=ROOT / "research/M4_BATCH_SOURCE_FREEZE_V10.json",
     )
     args = parser.parse_args()
     args.output.write_text(
-        json.dumps(build_freeze_v9(), indent=2) + "\n", encoding="utf-8"
+        json.dumps(build_freeze_v10(), indent=2) + "\n", encoding="utf-8"
     )
     return 0
 

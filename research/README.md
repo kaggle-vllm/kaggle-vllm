@@ -43,7 +43,8 @@ Machine-readable control files:
 - `M4_BATCH_SOURCE_FREEZE_V6.json`: post-Llama-r01 no-rerun source freeze.
 - `M4_BATCH_SOURCE_FREEZE_V7.json`: post-Ministral-r01 no-rerun source freeze.
 - `M4_BATCH_SOURCE_FREEZE_V8.json`: post-Qwen-r01 no-rerun source freeze.
-- `M4_BATCH_SOURCE_FREEZE_V9.json`: post-Llama-r02 M4-BATCH-3 source freeze for future runs.
+- `M4_BATCH_SOURCE_FREEZE_V9.json`: immutable post-Llama-r02 source used by the completed Ministral r02 run.
+- `M4_BATCH_SOURCE_FREEZE_V10.json`: post-Ministral-r02 M4-BATCH-3 source freeze for the next run.
 - `M4_EXECUTION_RECONCILIATION.json`: authoritative 60-shard terminal/pending ledger.
 - `M4_FILL_R00_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed Ministral r00 batch record.
 - `M4_FILL_R01_PHI_ATTEMPT_1_REVIEW.json`: reviewed Phi r01 batch record.

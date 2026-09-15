@@ -30,6 +30,7 @@ from kaggle_vllm.research.m4_batch import (
 from kaggle_vllm.research.m4_ingest import notebook_sources
 from kaggle_vllm.research.provenance import sha256_file, verify_sha256_manifest
 from scripts import kaggle_m4_execute_batch as batch_runner
+from scripts.generate_m4_batch_source_freeze_v4 import build_freeze_v10
 from scripts.kaggle_m4_execute_batch import (
     _add_batch_shard_provenance,
     _cleanup_model_cache,
@@ -359,6 +360,22 @@ def test_new_notebook_static_check_rejects_stale_self_digest(tmp_path: Path) -> 
     stale.write_text(json.dumps(notebook), encoding="utf-8")
     with pytest.raises(ResearchEvidenceError, match="embed its recomputed"):
         validate_current_notebook_self_digest(stale)
+
+
+def test_v10_freeze_matches_generator_and_clean_notebook() -> None:
+    tracked = json.loads(
+        (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V10.json").read_text()
+    )
+    assert build_freeze_v10(ROOT) == tracked
+    assert verify_batch_source_freeze(
+        ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V10.json"
+    ) == tracked
+    assert tracked["protocol_amendment_version"] == "M4-BATCH-3"
+    assert tracked["batch_notebook_source_digest"] == (
+        validate_current_notebook_self_digest(
+            ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+        )
+    )
 
 
 def test_partial_manifest_and_duplicate_shards() -> None:

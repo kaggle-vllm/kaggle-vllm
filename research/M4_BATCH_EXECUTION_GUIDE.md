@@ -7,7 +7,8 @@ The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V9 is the immutable authority for completed `r02-ministral`. V8 remains the
+V10 is the current future-execution authority. V9 is the immutable authority
+for completed `r02-ministral`. V8 remains the
 immutable authority for completed `r02-llama`; V7 governs completed Qwen r01.
 
 ## Historical M4-BATCH-1 attempt
@@ -52,7 +53,7 @@ observed blast radius, but no throughput result is used to reorder conditions.
 
 ## Next controlled execution
 
-After reconciling the V9 run, the machine-selected next batch is
+After reconciling the V9 run, V10 pins the machine-selected next batch as
 `M4_BATCH_ID=r02-qwen`. Its unchanged frozen order is
 `qwen25_3b-prefill_heavy-r02`, `qwen25_3b-short-r02`, and
 `qwen25_3b-balanced-r02`. The prefill-heavy r02 repetition is scientifically
