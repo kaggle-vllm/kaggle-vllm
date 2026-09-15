@@ -96,6 +96,16 @@ historical r00/r01 artifacts. It was not retroactively applied to the V8
 `r02-llama` execution. V9 activates it only for subsequent Kaggle sessions and
 pins implementation commit `fc8f08ea76438159a7d3753066dc8c53146e5501`,
 notebook pin `32e6a89d2f529d2087b82f05557fb371e1ce6d0e`, and the reconciled plan and queue.
+The first real V9/M4-BATCH-3 execution, `r02-ministral`, preserves all three
+Ministral r02 shards in session
+`m4-r02-ministral-20260915T121550Z-233b4189`. Its outer ZIP SHA256 is
+`f5ebd4db5d5ede4b30f04fd1ff07a99610d4c790f56ee0e2d38f5b5cb0af36d7`,
+its executed notebook SHA256 is
+`fd843f067a1fac2efb706253400ce7d7982f555ff0853e861c8ccfa753279230`,
+and the separate and bundled runtime files are byte-identical with SHA256
+`00eb16ef274e7ff57d8e466ed49792a686b441ccf732ac851445873ce364ea26`.
+No terminal resource gate occurred, so the strict continuation-after-gate path
+was not invoked; the outer order, cleanup, disk, and wall-clock guards passed.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

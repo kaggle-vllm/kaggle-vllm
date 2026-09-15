@@ -32,15 +32,15 @@ def test_continuations_are_model_scoped_repetition_blocked_and_complete() -> Non
         "renew_wall_clock_guard_before_next_shard": True,
         "never_rerun_terminal_shard_in_batch": True,
     }
-    assert plan["preserved_logical_shards"] == 25
-    assert plan["remaining_logical_shards"] == 35
-    assert plan["continuation_executable_shards"] == 33
+    assert plan["preserved_logical_shards"] == 28
+    assert plan["remaining_logical_shards"] == 32
+    assert plan["continuation_executable_shards"] == 30
     assert plan["review_required_shard_ids"] == [
         "qwen25_3b-prefill_heavy-r00",
         "qwen25_3b-prefill_heavy-r01",
     ]
-    assert len(plan["batches"]) == 11
-    assert plan["batch_ids"][0] == "r02-ministral"
+    assert len(plan["batches"]) == 10
+    assert plan["batch_ids"][0] == "r02-qwen"
 
     shard_ids = []
     for batch in plan["batches"]:
@@ -56,7 +56,7 @@ def test_continuations_are_model_scoped_repetition_blocked_and_complete() -> Non
             range(1, len(batch["execution_order"]) + 1)
         )
         shard_ids.extend(batch["ordered_shard_ids"])
-    assert len(shard_ids) == len(set(shard_ids)) == 33
+    assert len(shard_ids) == len(set(shard_ids)) == 30
     assert "qwen25_3b-balanced-r00" not in shard_ids
     assert "qwen25_3b-prefill_heavy-r00" not in shard_ids
     assert "phi4_mini-short-r00" not in shard_ids
@@ -82,21 +82,24 @@ def test_continuations_are_model_scoped_repetition_blocked_and_complete() -> Non
     assert "llama32_3b-prefill_heavy-r02" not in shard_ids
     assert "llama32_3b-short-r02" not in shard_ids
     assert "llama32_3b-balanced-r02" not in shard_ids
+    assert "ministral3_3b_bf16-prefill_heavy-r02" not in shard_ids
+    assert "ministral3_3b_bf16-short-r02" not in shard_ids
+    assert "ministral3_3b_bf16-balanced-r02" not in shard_ids
 
 
-def test_first_continuation_is_exact_ministral_r02_block() -> None:
+def test_first_continuation_is_exact_qwen_r02_block() -> None:
     plan = build_continuation_plan(
         json.loads((ROOT / "research/M4_BATCH_EXECUTION_PLAN.json").read_text()),
         json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text()),
     )
     first = plan["batches"][0]
-    assert first["batch_id"] == "r02-ministral"
+    assert first["batch_id"] == "r02-qwen"
     assert first["repetition"] == 2
     assert first["already_completed_skips"] == []
     assert first["review_required_exclusions"] == []
     assert first["ordered_shard_ids"] == [
-        "ministral3_3b_bf16-prefill_heavy-r02",
-        "ministral3_3b_bf16-short-r02",
-        "ministral3_3b_bf16-balanced-r02",
+        "qwen25_3b-prefill_heavy-r02",
+        "qwen25_3b-short-r02",
+        "qwen25_3b-balanced-r02",
     ]
     assert first["serving_cell_count"] == 36

@@ -51,6 +51,7 @@ Machine-readable control files:
 - `M4_FILL_R01_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed Ministral r01 batch record.
 - `M4_FILL_R01_QWEN_ATTEMPT_1_REVIEW.json`: reviewed partial Qwen r01 batch and resource-boundary record.
 - `M4_R02_LLAMA_ATTEMPT_1_REVIEW.json`: reviewed V8 Llama r02 batch and three canonical outcomes.
+- `M4_R02_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed V9/M4-BATCH-3 Ministral r02 batch and three canonical outcomes.
 - `M4_REMAINING_EXECUTION_PLAN.json`: deterministic schedule of only not-executed shards.
 - `HISTORICAL_QWEN_SHARDED_STATE.md`: scope of the external Qwen persistence evidence.
 - `M5_DECISION.md`: post-M4 GuideLLM gate and claim boundary.

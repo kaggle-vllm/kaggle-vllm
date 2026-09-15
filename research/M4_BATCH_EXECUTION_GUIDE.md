@@ -1,14 +1,14 @@
 # M4 continuation-batch execution guide
 
-This guide applies amendment `M4-BATCH-3` for future runs frozen by V9. It reduces manual launches while
+This guide applies amendment `M4-BATCH-3` for runs frozen by V9 and later. It reduces manual launches while
 retaining all 60 logical shards and all 720 fresh-server serving cells. The
 single-shard notebook remains valid for standalone execution.
 The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V9 is the current future-execution authority. V8 remains the immutable
-authority for completed `r02-llama`; V7 governs completed Qwen r01.
+V9 is the immutable authority for completed `r02-ministral`. V8 remains the
+immutable authority for completed `r02-llama`; V7 governs completed Qwen r01.
 
 ## Historical M4-BATCH-1 attempt
 
@@ -46,17 +46,18 @@ observed blast radius, but no throughput result is used to reorder conditions.
 2. Select two NVIDIA T4 GPUs, enable Internet, and use a new non-persistent
    allocation.
 3. Configure private secrets `HF_TOKEN` and `M4_BATCH_ID` only.
-4. Set `M4_BATCH_ID` to exactly one V9 `M4-BATCH-3` ID and run all cells.
+4. Set `M4_BATCH_ID` to exactly one current-freeze `M4-BATCH-3` ID and run all cells.
 5. Do not edit the source cells, source commit, plan, order, revisions, runtime,
    memory threshold, or benchmark settings.
 
 ## Next controlled execution
 
-The V9 machine-selected batch is `M4_BATCH_ID=r02-ministral`. Its unchanged
-frozen order is `ministral3_3b_bf16-prefill_heavy-r02`,
-`ministral3_3b_bf16-short-r02`, and
-`ministral3_3b_bf16-balanced-r02`. Do not rerun any completed continuation or
-reviewed terminal resource-gated shard.
+After reconciling the V9 run, the machine-selected next batch is
+`M4_BATCH_ID=r02-qwen`. Its unchanged frozen order is
+`qwen25_3b-prefill_heavy-r02`, `qwen25_3b-short-r02`, and
+`qwen25_3b-balanced-r02`. The prefill-heavy r02 repetition is scientifically
+required despite the separate r00/r01 terminal resource results. Do not rerun
+any completed continuation or reviewed terminal resource-gated shard.
 
 The Llama continuation completed all three planned shards in session
 `m4-fill-r00-llama-20260912T044444Z-dd577e28`. Its independent review is
@@ -109,6 +110,14 @@ the outer ZIP SHA256 is
 `92e24500dc0d3b1003d485a1d64cf9431bb1e5e4727d35b62e7413a40e901a2b`.
 This execution remains M4-BATCH-2 evidence and is not reinterpreted under the
 prospective continuation amendment.
+
+The V9 `r02-ministral` continuation completed all three planned shards in
+original order in session `m4-r02-ministral-20260915T121550Z-233b4189`. Its
+independent review is `M4_R02_MINISTRAL_ATTEMPT_1_REVIEW.json`; all 36 serving
+cells passed and the outer ZIP SHA256 is
+`f5ebd4db5d5ede4b30f04fd1ff07a99610d4c790f56ee0e2d38f5b5cb0af36d7`.
+M4-BATCH-3 was exercised without a terminal resource gate, so no
+continuation-after-gate decision occurred in this batch.
 
 The next allocation has three logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before

@@ -1,6 +1,6 @@
 # M4 principal execution guide
 
-Status: **IN_PROGRESS; 25 / 60 PRINCIPAL SHARDS PRESERVED**.
+Status: **IN_PROGRESS; 28 / 60 PRINCIPAL SHARDS PRESERVED**.
 
 The canonical order is generated in `M4_PRINCIPAL_EXECUTION_QUEUE.json`. It
 contains 60 active shard IDs and 15 non-executable Gemma historical rows. Use
@@ -77,13 +77,15 @@ devices against one ceiling.
 `qwen25_3b-balanced-r01` is also canonical. Both
 `qwen25_3b-prefill_heavy-r00` and `qwen25_3b-prefill_heavy-r01` are reviewed
 terminal resource results after independently crossing the same frozen
-TP2/concurrency-64 per-GPU guard. All three Llama r02 shards are also preserved
-from the reviewed V8 `r02-llama` batch. For a standalone continuation, the
-selected queue row is `M4_SHARD_ID=ministral3_3b_bf16-short-r02` and its
-expected evidence ZIP is `ministral3_3b_bf16-short-r02-principal.zip`. Download the executed
+TP2/concurrency-64 per-GPU guard. All three Llama r02 shards are preserved
+from the reviewed V8 `r02-llama` batch, and all three Ministral r02 shards are
+preserved from the reviewed V9 `r02-ministral` batch. For a standalone
+continuation, the selected queue row is
+`M4_SHARD_ID=qwen25_3b-prefill_heavy-r02` and its expected evidence ZIP is
+`qwen25_3b-prefill_heavy-r02-principal.zip`. Download the executed
 `kaggle_vllm_m4_execute_shard.ipynb` and `runtime.json` alongside it. Validate
 this shard end to end before advancing. The current preferred operation is the
-model-scoped `M4_BATCH_ID=r02-ministral` after its new source freeze; follow
+model-scoped `M4_BATCH_ID=r02-qwen` after its new source freeze; follow
 `M4_BATCH_EXECUTION_GUIDE.md` instead.
 
 ## Completion gate

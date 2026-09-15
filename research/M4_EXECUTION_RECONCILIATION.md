@@ -8,11 +8,11 @@ then filenames or UI screenshots.
 
 ## Exact 60-shard state
 
-- Canonical preserved: 25
+- Canonical preserved: 28
 - Failed resource gate: 2
 - Failed other/review-required: 0
 - Verified local staging pending promotion: 0
-- Not executed: 33
+- Not executed: 30
 - Total: 60 logical shards / 720 serving cells
 
 Every canonical or reviewed terminal shard is excluded from normal continuation.
@@ -43,28 +43,30 @@ A resource-gated shard is settled negative evidence, not a zero-throughput resul
 - `llama32_3b-prefill_heavy-r02`
 - `ministral3_3b_bf16-short-r00`
 - `ministral3_3b_bf16-short-r01`
+- `ministral3_3b_bf16-short-r02`
 - `ministral3_3b_bf16-balanced-r00`
 - `ministral3_3b_bf16-balanced-r01`
+- `ministral3_3b_bf16-balanced-r02`
 - `ministral3_3b_bf16-prefill_heavy-r00`
 - `ministral3_3b_bf16-prefill_heavy-r01`
+- `ministral3_3b_bf16-prefill_heavy-r02`
 
 ## Deterministic remaining batches
 
 | Order | Batch ID | Rep | Model | Shards | Cells | Settled exclusions |
 |---:|---|---:|---|---:|---:|---|
-| 1 | `r02-ministral` | 2 | `ministral3_3b_bf16` | 3 | 36 | — |
-| 2 | `r02-qwen` | 2 | `qwen25_3b` | 3 | 36 | — |
-| 3 | `r02-phi` | 2 | `phi4_mini` | 3 | 36 | — |
-| 4 | `r03-ministral` | 3 | `ministral3_3b_bf16` | 3 | 36 | — |
-| 5 | `r03-qwen` | 3 | `qwen25_3b` | 3 | 36 | — |
-| 6 | `r03-phi` | 3 | `phi4_mini` | 3 | 36 | — |
-| 7 | `r03-llama` | 3 | `llama32_3b` | 3 | 36 | — |
-| 8 | `r04-qwen` | 4 | `qwen25_3b` | 3 | 36 | — |
-| 9 | `r04-phi` | 4 | `phi4_mini` | 3 | 36 | — |
-| 10 | `r04-llama` | 4 | `llama32_3b` | 3 | 36 | — |
-| 11 | `r04-ministral` | 4 | `ministral3_3b_bf16` | 3 | 36 | — |
+| 1 | `r02-qwen` | 2 | `qwen25_3b` | 3 | 36 | — |
+| 2 | `r02-phi` | 2 | `phi4_mini` | 3 | 36 | — |
+| 3 | `r03-ministral` | 3 | `ministral3_3b_bf16` | 3 | 36 | — |
+| 4 | `r03-qwen` | 3 | `qwen25_3b` | 3 | 36 | — |
+| 5 | `r03-phi` | 3 | `phi4_mini` | 3 | 36 | — |
+| 6 | `r03-llama` | 3 | `llama32_3b` | 3 | 36 | — |
+| 7 | `r04-qwen` | 4 | `qwen25_3b` | 3 | 36 | — |
+| 8 | `r04-phi` | 4 | `phi4_mini` | 3 | 36 | — |
+| 9 | `r04-llama` | 4 | `llama32_3b` | 3 | 36 | — |
+| 10 | `r04-ministral` | 4 | `ministral3_3b_bf16` | 3 | 36 | — |
 
-Next: `M4_BATCH_ID=r02-ministral`.
+Next: `M4_BATCH_ID=r02-qwen`.
 
 The detailed shard IDs and order are machine-readable in
 `M4_REMAINING_EXECUTION_PLAN.json`.

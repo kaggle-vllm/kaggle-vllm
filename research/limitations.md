@@ -4,15 +4,17 @@
   repetitions. M4 is in progress: Qwen, Phi, Llama, and text-only Ministral
   short-workload concurrency-1 compatibility shards are accepted. Final p13
   canonically preserves Gemma's pre-readiness dtype boundary. The four-model
-  principal matrix is in progress, with 25 of 60 logical shards preserved.
+  principal matrix is in progress, with 28 of 60 logical shards preserved.
   The first `M4-BATCH-1` allocation stopped on the Qwen prefill-heavy r00
   per-GPU VRAM guard after one new canonical shard; that failed shard remains
   review-required. All nine rows untouched in that attempt were later
   preserved by the completed Phi, Llama, and Ministral continuations. The Qwen
   r01 continuation then preserved balanced r01 and independently reproduced
   the prefill-heavy TP2/concurrency-64 resource gate. The reviewed V8
-  `r02-llama` session then preserved all three Llama workloads; 33 matrix
-  shards are currently not executed. Under `M4-BATCH-2`, later shards may share one
+  `r02-llama` session then preserved all three Llama workloads. The V9
+  `r02-ministral` session exercised M4-BATCH-3 without a terminal resource gate
+  and preserved all three Ministral workloads; 30 matrix shards are currently
+  not executed. Under the batch protocols, later shards may share one
   model/repetition physical Kaggle allocation; such shards are not fully
   independent environment realizations.
   Session/block IDs and within-session order are retained, while repetitions of
@@ -23,7 +25,9 @@
   shards only after a verified terminal resource gate. It does not make those
   shards independent, remove the boundary, or predict later repetitions, and
   it applies only to post-V8 sessions and was not applied retroactively to the
-  completed V8 `r02-llama` execution.
+  completed V8 `r02-llama` execution. The first real V9 execution did not
+  observe the continuation-after-gate path, which remains pending real-world
+  exercise.
 - M1/M2 are observations from one Kaggle dual-T4 environment. They do not imply
   universal T4, PCIe, PHB or tensor-parallel scaling laws.
 - The M3 measured-all-reduce intercept is configuration-specific and combines

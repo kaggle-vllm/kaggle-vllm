@@ -30,14 +30,14 @@
   ],
   "active_shards": 60,
   "active_serving_cells": 720,
-  "preserved_shards": 25,
-  "preserved_serving_cells": 300,
-  "queued_shards": 33,
-  "queued_serving_cells": 396,
+  "preserved_shards": 28,
+  "preserved_serving_cells": 336,
+  "queued_shards": 30,
+  "queued_serving_cells": 360,
   "review_required_shards": 2,
-  "remaining_shards": 35,
+  "remaining_shards": 32,
   "skipped_gemma_shards": 15,
-  "next_shard_id": "ministral3_3b_bf16-short-r02",
+  "next_shard_id": "qwen25_3b-prefill_heavy-r02",
   "session_policy": "one shard in one fresh Kaggle T4 x2 session",
   "planning_estimate": {
     "wall_clock_hours_per_shard_range": [
@@ -1298,7 +1298,7 @@
       "expected_artifact": "ministral3_3b_bf16-short-r02-principal.zip",
       "executed_notebook_role": "downloaded executed copy of the frozen M4 notebook; required for source-equivalence audit",
       "runtime_json_role": "separately downloaded bootstrap runtime.json; required for runtime-identity audit",
-      "status": "QUEUED",
+      "status": "PRINCIPAL_SHARD_PRESERVED",
       "skip_reason": null
     },
     {
@@ -1428,7 +1428,7 @@
       "expected_artifact": "ministral3_3b_bf16-balanced-r02-principal.zip",
       "executed_notebook_role": "downloaded executed copy of the frozen M4 notebook; required for source-equivalence audit",
       "runtime_json_role": "separately downloaded bootstrap runtime.json; required for runtime-identity audit",
-      "status": "QUEUED",
+      "status": "PRINCIPAL_SHARD_PRESERVED",
       "skip_reason": null
     },
     {
@@ -1558,7 +1558,7 @@
       "expected_artifact": "ministral3_3b_bf16-prefill_heavy-r02-principal.zip",
       "executed_notebook_role": "downloaded executed copy of the frozen M4 notebook; required for source-equivalence audit",
       "runtime_json_role": "separately downloaded bootstrap runtime.json; required for runtime-identity audit",
-      "status": "QUEUED",
+      "status": "PRINCIPAL_SHARD_PRESERVED",
       "skip_reason": null
     },
     {
