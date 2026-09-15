@@ -118,6 +118,51 @@ def test_capacity_is_not_mislabeled_as_throughput(tmp_path: Path) -> None:
     assert cell["tp2_over_tp1_output_speedup"] is None
 
 
+def test_verified_resource_boundary_is_counted_without_zero_throughput(
+    tmp_path: Path,
+) -> None:
+    rows = []
+    for repetition in range(5):
+        rows.append(row(1, repetition, throughput=100, latency=100))
+        tp2 = row(2, repetition, throughput=120, latency=90)
+        if repetition < 2:
+            tp2["request_failures"] = tp2["measured_requests"]
+            tp2["maximum_vram_mib"] = 14_895.0
+            for metric in (
+                "request_throughput_per_second",
+                "input_tokens_per_second",
+                "output_tokens_per_second",
+                "total_tokens_per_second",
+                "ttft_ms",
+                "tpot_ms",
+                "itl_ms",
+                "e2e_latency_ms",
+            ):
+                tp2[metric] = None
+        rows.append(tp2)
+    result = analyze_m4(write(tmp_path, rows))
+    cell = result["cells"][0]
+    assert cell["classifications"] == ["RESOURCE_BOUNDARY_OBSERVED"]
+    assert cell["paired_performance_repetitions"] == 3
+    assert cell["tp2_resource_boundary_repetitions"] == 2
+    assert cell["tp2_over_tp1_output_speedup"] is None
+    assert result["crossover_summary"][0]["resource_boundary_concurrency"] == 16
+
+
+def test_over_limit_row_with_performance_value_is_not_a_resource_boundary(
+    tmp_path: Path,
+) -> None:
+    rows = [
+        row(tp, repetition, throughput=100, latency=100)
+        for tp in (1, 2)
+        for repetition in range(5)
+    ]
+    rows[0]["maximum_vram_mib"] = 14_895.0
+    rows[0]["request_failures"] = 1
+    with pytest.raises(ResearchEvidenceError, match="GPU memory cap"):
+        analyze_m4(write(tmp_path, rows))
+
+
 def test_crossover_summary_uses_first_sustained_robust_point(tmp_path: Path) -> None:
     rows = []
     for concurrency in (1, 4, 8, 16, 32, 64):

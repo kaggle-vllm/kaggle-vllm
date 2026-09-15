@@ -62,7 +62,7 @@ fresh vLLM server. Historical amendment `M4-BATCH-1` allowed multiple logical
 shards from one repetition in one Kaggle allocation. After its first partial
 batch, `M4-BATCH-2` narrowed future allocations to one model and one repetition.
 After two independent Qwen prefill-heavy repetitions reached the same frozen
-VRAM boundary, prospective `M4-BATCH-3` (2026-09-14) improved evidence-
+VRAM boundary, future-only `M4-BATCH-3` (2026-09-14; activated by V9) improved evidence-
 collection reliability: a fully verified terminal resource-gated shard may be
 followed by later planned shards after strict cleanup and renewed guards.
 This is not a performance optimization and changes no workload, threshold,
@@ -123,7 +123,9 @@ substituted.
 
 [Blocked until 60 principal shards and any justified refinements are accepted.]
 Insert per-model curves, speedup heatmap, latency tradeoff, crossover and
-resource tables only from `M4_ANALYSIS.json`.
+resource tables only from `M4_ANALYSIS.json`. Verified terminal resource rows
+contribute boundary counts and VRAM summaries, but not fabricated performance
+values or underpowered paired confidence intervals.
 
 Current evidence bookkeeping preserves 25 of 60 principal shards: three
 complete Llama repetitions, two repetitions for the other measured conditions,

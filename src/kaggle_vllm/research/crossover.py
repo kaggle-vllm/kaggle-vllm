@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from .errors import ResearchEvidenceError
+from .resources import GPU_MEMORY_LIMIT_MIB
 from .statistics import distribution, finite_number
 
 M4_RAW_SCHEMA = "kaggle-vllm-m4-serving-raw-v1"
@@ -51,6 +52,30 @@ REQUIRED_FIELDS = {
     "metric_definitions",
     "prompt_manifest_sha256",
 }
+PERFORMANCE_FIELDS = (
+    "request_throughput_per_second",
+    "input_tokens_per_second",
+    "output_tokens_per_second",
+    "total_tokens_per_second",
+    "ttft_ms",
+    "tpot_ms",
+    "itl_ms",
+    "e2e_latency_ms",
+)
+
+
+def _resource_boundary_row(row: dict[str, Any]) -> bool:
+    """Identify a terminal VRAM row without treating missing throughput as zero."""
+
+    maximum_vram = row.get("maximum_vram_mib")
+    return (
+        isinstance(maximum_vram, (int, float))
+        and not isinstance(maximum_vram, bool)
+        and maximum_vram > GPU_MEMORY_LIMIT_MIB
+        and row.get("request_failures", 0) > 0
+        and row.get("oom") is False
+        and all(row.get(field) is None for field in PERFORMANCE_FIELDS)
+    )
 
 
 def _load_rows(path: str | Path) -> list[dict[str, Any]]:
@@ -99,7 +124,12 @@ def _load_rows(path: str | Path) -> list[dict[str, Any]]:
         ):
             if raw[field] is not None and finite_number(raw[field], field=field) < 0:
                 raise ResearchEvidenceError(f"M4 row {index} {field} cannot be negative")
-        if raw["maximum_vram_mib"] is not None and raw["maximum_vram_mib"] > 14.5 * 1024:
+        resource_boundary = _resource_boundary_row(raw)
+        if (
+            raw["maximum_vram_mib"] is not None
+            and raw["maximum_vram_mib"] > GPU_MEMORY_LIMIT_MIB
+            and not resource_boundary
+        ):
             raise ResearchEvidenceError(f"M4 row {index} exceeded the GPU memory cap")
         if raw["maximum_system_ram_bytes"] is not None and raw["maximum_system_ram_bytes"] > 28 * 1024**3:
             raise ResearchEvidenceError(f"M4 row {index} exceeded the RAM cap")
@@ -110,11 +140,7 @@ def _load_rows(path: str | Path) -> list[dict[str, Any]]:
         if not re.fullmatch(r"[0-9a-f]{64}", str(raw["prompt_manifest_sha256"])):
             raise ResearchEvidenceError(f"M4 row {index} has invalid prompt manifest hash")
         failed = raw["oom"] or raw["request_failures"] > 0
-        for field in (
-            "request_throughput_per_second", "input_tokens_per_second",
-            "output_tokens_per_second", "total_tokens_per_second", "ttft_ms",
-            "tpot_ms", "itl_ms", "e2e_latency_ms",
-        ):
+        for field in PERFORMANCE_FIELDS:
             if raw[field] is None and failed:
                 continue
             value = finite_number(raw[field], field=field)
@@ -185,6 +211,16 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
         throughput_stats = None
         latency_stats = None
         speedup_stats = None
+        paired_performance_repetitions = sum(
+            all(
+                by_tp[tp][rep][metric] is not None
+                and not by_tp[tp][rep]["oom"]
+                and by_tp[tp][rep]["request_failures"] == 0
+                for tp in (1, 2)
+                for metric in ("output_tokens_per_second", "e2e_latency_ms")
+            )
+            for rep in repetitions
+        )
         comparison_metrics_available = all(
             by_tp[tp][rep][metric] is not None
             for tp in (1, 2)
@@ -214,6 +250,12 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
             latency_stats is not None and latency_stats["mean_95_ci"][1] < 0
         )
         classifications = []
+        resource_boundary_repetitions = {
+            tp: sum(_resource_boundary_row(by_tp[tp][rep]) for rep in repetitions)
+            for tp in (1, 2)
+        }
+        if any(resource_boundary_repetitions.values()):
+            classifications.append("RESOURCE_BOUNDARY_OBSERVED")
         if tp1_capacity_failure and tp2_capacity_pass:
             classifications.append("CAPACITY_CROSSOVER")
         if throughput_robust and not tp1_capacity_failure:
@@ -226,6 +268,7 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
             {
                 "model_id": key[0], "model_revision": key[1], "workload": key[2],
                 "concurrency": key[3], "repetitions": len(repetitions),
+                "paired_performance_repetitions": paired_performance_repetitions,
                 "tp2_minus_tp1_output_tokens_per_second": throughput_stats,
                 "tp2_minus_tp1_e2e_latency_ms": latency_stats,
                 "tp2_over_tp1_output_speedup": speedup_stats,
@@ -241,6 +284,8 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
                     by_tp[2][rep]["oom"] or by_tp[2][rep]["request_failures"] > 0
                     for rep in repetitions
                 ),
+                "tp1_resource_boundary_repetitions": resource_boundary_repetitions[1],
+                "tp2_resource_boundary_repetitions": resource_boundary_repetitions[2],
                 "classifications": classifications,
                 "evidence": "MEASURED_INPUT_DERIVED_COMPARISON",
             }
@@ -271,6 +316,15 @@ def analyze_m4(path: str | Path, *, minimum_repetitions: int = 5) -> dict[str, A
                 "throughput_crossover_concurrency": sustained("THROUGHPUT_CROSSOVER") if complete else None,
                 "latency_crossover_concurrency": sustained("LATENCY_CROSSOVER") if complete else None,
                 "capacity_crossover_concurrency": sustained("CAPACITY_CROSSOVER") if complete else None,
+                "resource_boundary_concurrency": next(
+                    (
+                        item["concurrency"]
+                        for item in ordered
+                        if item["tp1_resource_boundary_repetitions"]
+                        or item["tp2_resource_boundary_repetitions"]
+                    ),
+                    None,
+                ),
                 "criterion": "first robust favorable point sustained through all higher frozen concurrency points",
             }
         )

@@ -673,12 +673,15 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
         minimum_required = protocol["principal_repetitions"]
         if any(
             cell.get("repetitions", 0) < minimum_required
-            or cell.get("tp1_failed_repetitions") != 0
-            or cell.get("tp2_failed_repetitions") != 0
+            or cell.get("tp1_failed_repetitions")
+            != cell.get("tp1_resource_boundary_repetitions", 0)
+            or cell.get("tp2_failed_repetitions")
+            != cell.get("tp2_resource_boundary_repetitions", 0)
             for cell in cells
         ):
             raise ValueError(
-                "M4 analysis lacks five valid repetitions or contains unexpected failures"
+                "M4 analysis lacks five terminal repetitions or contains "
+                "a non-resource failure"
             )
         def mean_or_none(value: Any) -> Any:
             return value.get("mean") if isinstance(value, dict) else None
@@ -690,6 +693,9 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
                 "workload": cell["workload"],
                 "concurrency": cell["concurrency"],
                 "repetitions": cell["repetitions"],
+                "paired_performance_repetitions": cell[
+                    "paired_performance_repetitions"
+                ],
                 "tp1_output_tokens_per_second": mean_or_none(cell["tp1"]["output_tokens_per_second"]),
                 "tp2_output_tokens_per_second": mean_or_none(cell["tp2"]["output_tokens_per_second"]),
                 "tp2_over_tp1_speedup": mean_or_none(cell["tp2_over_tp1_output_speedup"]),
@@ -709,6 +715,12 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
                 "tp2_oom_repetitions": cell["tp2_oom_repetitions"],
                 "tp1_failed_repetitions": cell["tp1_failed_repetitions"],
                 "tp2_failed_repetitions": cell["tp2_failed_repetitions"],
+                "tp1_resource_boundary_repetitions": cell[
+                    "tp1_resource_boundary_repetitions"
+                ],
+                "tp2_resource_boundary_repetitions": cell[
+                    "tp2_resource_boundary_repetitions"
+                ],
                 "classifications": ";".join(cell["classifications"]),
             }
             for cell in cells
@@ -751,6 +763,9 @@ def generate(args: argparse.Namespace) -> dict[str, str]:
                             summary["request_failures"]
                         ),
                         "oom_repetitions": cell[f"tp{tp}_oom_repetitions"],
+                        "resource_boundary_repetitions": cell[
+                            f"tp{tp}_resource_boundary_repetitions"
+                        ],
                     }
                 )
         write_csv(args.tables / "m4_resource_summary.csv", resource_rows)

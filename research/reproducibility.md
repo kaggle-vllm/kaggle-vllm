@@ -93,7 +93,9 @@ versioned gate record, source/runtime identity, inner hashes, failed-cell and
 physical-GPU ledgers, null throughput semantics, cleanup, disk, and wall-clock
 guards all pass. It does not change the matrix, workload, order, thresholds, or
 historical r00/r01 artifacts. It was not retroactively applied to the V8
-`r02-llama` execution and requires a later source freeze for activation.
+`r02-llama` execution. V9 activates it only for subsequent Kaggle sessions and
+pins implementation commit `fc8f08ea76438159a7d3753066dc8c53146e5501`,
+notebook pin `32e6a89d2f529d2087b82f05557fb371e1ce6d0e`, and the reconciled plan and queue.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
@@ -116,9 +118,14 @@ synthesized.
 For M4, retain the ZIP SHA, downloaded executed-notebook SHA, clean source
 commit, prompt-manifest SHA, per-file checksums, server commands/logs, raw
 requests, metrics, and resource samples for every shard. Assemble only shards
-whose checksum and semantic audits pass. `M4_EXECUTION_PLAN.json` fixes the
-principal order; refinements are selected only after recording the observed
-transition boundary. GuideLLM remains an independently versioned client at
+whose checksum and semantic audits pass. The existing assembler accepts
+multiple immutable execution-source freezes only when their frozen execution
+plan, model matrix, and scientific protocol hashes agree. Verified terminal
+VRAM rows remain resource-boundary observations with missing performance, never
+zero throughput; the analyzer reports their repetition counts separately from
+paired performance repetitions. `M4_EXECUTION_PLAN.json` fixes the principal
+order; refinements are selected only after recording the observed transition
+boundary. GuideLLM remains an independently versioned client at
 commit `fc2dbe9edd4f7f1a4e9ccd752f6f43591adbcb73`.
 
 Audit and stage each downloaded shard without editing the notebook:

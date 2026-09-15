@@ -11,4 +11,6 @@ boundaries. M4 principal crossover and external
 validation tables are intentionally absent until accepted principal and
 independent-validation evidence exists. Once the complete principal matrix
 passes the mechanical gate, deterministic generation also emits M4
-crossover-cell, sustained-crossover, and resource/VRAM summary tables.
+crossover-cell, sustained-crossover, and resource/VRAM summary tables. The M4
+tables distinguish paired performance repetitions from verified terminal VRAM
+boundary repetitions; missing performance is never rendered as zero.
