@@ -73,6 +73,10 @@ outer-validator fixture mismatch: the real monitor-caused graceful server exit
 was rejected before later shards could start. Historical evidence remains
 unchanged; the correction affects prospective evidence collection only and
 does not alter the workload, threshold, or measured model performance.
+The V11 continuation used a second physical allocation and executed only Qwen
+short and balanced r02. Both are canonical; prefill-heavy was not rerun. The
+two session identities remain explicit because Kaggle allocation is a blocking
+variable, while reviewed reconciliation closes the single logical r02 block.
 The logical repetition, physical session, continuation batch, and within-session
 workload order are retained separately. Repetitions of the same model/workload
 are not intentionally placed in one allocation. Define
@@ -132,10 +136,10 @@ resource tables only from `M4_ANALYSIS.json`. Verified terminal resource rows
 contribute boundary counts and VRAM summaries, but not fabricated performance
 values or underpowered paired confidence intervals.
 
-Current evidence bookkeeping preserves 28 canonical outcomes of 60 principal shards: three
-complete Llama and Ministral repetitions, two repetitions for the other
-measured conditions, plus three Qwen prefill-heavy terminal VRAM-boundary
-outcomes. Twenty-nine shards remain unexecuted. This progress count is not a final crossover estimate or confidence
+Current evidence bookkeeping preserves 30 canonical outcomes of 60 principal shards: three
+complete Llama, Ministral, and Qwen short/balanced repetitions, two repetitions
+for Phi, plus three Qwen prefill-heavy terminal VRAM-boundary outcomes.
+Twenty-seven shards remain unexecuted. This progress count is not a final crossover estimate or confidence
 interval.
 
 ### 6.6 Mechanistic analysis

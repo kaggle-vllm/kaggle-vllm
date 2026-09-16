@@ -108,18 +108,17 @@ def test_select_batch_rejects_mixed_repetition() -> None:
 def test_current_batch_passes_authoritative_no_rerun_queue() -> None:
     plan = json.loads((ROOT / "research/M4_REMAINING_EXECUTION_PLAN.json").read_text())
     queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
-    batch = select_batch(plan, "r02-qwen")
+    batch = select_batch(plan, "r02-phi")
     result = validate_batch_against_queue(batch, queue)
     assert result["status"] == "PASS_NO_SETTLED_SHARD_RESCHEDULED"
     assert result["queued_shard_ids"] == [
-        "qwen25_3b-short-r02",
-        "qwen25_3b-balanced-r02",
+        "phi4_mini-prefill_heavy-r02",
+        "phi4_mini-short-r02",
+        "phi4_mini-balanced-r02",
     ]
-    assert batch["review_required_exclusions"] == [
-        "qwen25_3b-prefill_heavy-r02"
-    ]
-    assert batch["logical_shard_count"] == 2
-    assert batch["serving_cell_count"] == 24
+    assert batch["review_required_exclusions"] == []
+    assert batch["logical_shard_count"] == 3
+    assert batch["serving_cell_count"] == 36
 
 
 def test_promoted_canonical_batch_cannot_be_rescheduled() -> None:
@@ -133,6 +132,8 @@ def test_promoted_canonical_batch_cannot_be_rescheduled() -> None:
         select_batch(remaining, "r02-llama")
     with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
         select_batch(remaining, "r02-ministral")
+    with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
+        select_batch(remaining, "r02-qwen")
     stale_batch = {
         "ordered_shard_ids": [
             "qwen25_3b-balanced-r01",
@@ -163,6 +164,40 @@ def test_promoted_canonical_batch_cannot_be_rescheduled() -> None:
     }
     with pytest.raises(ResearchEvidenceError, match="refusing to reschedule settled"):
         validate_batch_against_queue(stale_llama, queue)
+    stale_qwen = {
+        "ordered_shard_ids": [
+            "qwen25_3b-prefill_heavy-r02",
+            "qwen25_3b-short-r02",
+            "qwen25_3b-balanced-r02",
+        ],
+        "execution_order": [
+            {"shard_id": "qwen25_3b-prefill_heavy-r02"},
+            {"shard_id": "qwen25_3b-short-r02"},
+            {"shard_id": "qwen25_3b-balanced-r02"},
+        ],
+        "already_completed_skips": [],
+        "review_required_exclusions": [],
+    }
+    with pytest.raises(ResearchEvidenceError, match="refusing to reschedule settled"):
+        validate_batch_against_queue(stale_qwen, queue)
+
+
+def test_qwen_r02_attempts_remain_distinct_physical_sessions() -> None:
+    evidence = json.loads((ROOT / "research/M4_EVIDENCE_STATUS.json").read_text())
+    attempts = evidence["principal_batch_attempts"]
+    first = attempts["r02-qwen-attempt-1"]
+    second = attempts["r02-qwen-attempt-2"]
+    assert first["session_id"] == "m4-r02-qwen-20260916T030342Z-ea0f6e11"
+    assert second["session_id"] == "m4-r02-qwen-20260916T054736Z-95506297"
+    assert first["session_id"] != second["session_id"]
+    assert first["failed_resource_gate_shards"] == [
+        "qwen25_3b-prefill_heavy-r02"
+    ]
+    assert second["completed_canonical_shards"] == [
+        "qwen25_3b-short-r02",
+        "qwen25_3b-balanced-r02",
+    ]
+    assert second["distinct_physical_session_from_attempt_1"] is True
 
 
 def test_resource_gated_shard_cannot_be_rescheduled() -> None:

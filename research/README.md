@@ -45,7 +45,7 @@ Machine-readable control files:
 - `M4_BATCH_SOURCE_FREEZE_V8.json`: post-Qwen-r01 no-rerun source freeze.
 - `M4_BATCH_SOURCE_FREEZE_V9.json`: immutable post-Llama-r02 source used by the completed Ministral r02 run.
 - `M4_BATCH_SOURCE_FREEZE_V10.json`: post-Ministral-r02 M4-BATCH-3 source freeze for the next run.
-- `M4_BATCH_SOURCE_FREEZE_V11.json`: prospective post-Qwen-r02 continuation source freeze.
+- `M4_BATCH_SOURCE_FREEZE_V11.json`: immutable source used by the successful Qwen r02 continuation.
 - `M4_EXECUTION_RECONCILIATION.json`: authoritative 60-shard terminal/pending ledger.
 - `M4_FILL_R00_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed Ministral r00 batch record.
 - `M4_FILL_R01_PHI_ATTEMPT_1_REVIEW.json`: reviewed Phi r01 batch record.
@@ -55,6 +55,7 @@ Machine-readable control files:
 - `M4_R02_LLAMA_ATTEMPT_1_REVIEW.json`: reviewed V8 Llama r02 batch and three canonical outcomes.
 - `M4_R02_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed V9/M4-BATCH-3 Ministral r02 batch and three canonical outcomes.
 - `M4_R02_QWEN_ATTEMPT_1_REVIEW.json`: reviewed V10 Qwen r02 terminal resource gate and orchestration defect.
+- `M4_R02_QWEN_ATTEMPT_2_REVIEW.json`: reviewed V11 Qwen r02 short/balanced continuation in a second physical session.
 - `M4_REMAINING_EXECUTION_PLAN.json`: deterministic schedule of only not-executed shards.
 - `HISTORICAL_QWEN_SHARDED_STATE.md`: scope of the external Qwen persistence evidence.
 - `M5_DECISION.md`: post-M4 GuideLLM gate and claim boundary.
@@ -77,7 +78,8 @@ executed notebook establish the canonical, narrowly scoped
 Qwen-short and Qwen-balanced repetitions, and two
 repetitions of all three Phi and Ministral workloads and three repetitions of
 all three Llama workloads are preserved. The
-Qwen prefill-heavy r00, r01, and r02 attempts are reviewed terminal resource results,
+Qwen prefill-heavy r00, r01, and r02 attempts are reviewed terminal resource results.
+Qwen short and balanced r02 are canonical from a separate V11 physical session,
 and the remaining principal matrix and M5 independent
 validation are not complete. The principal study population is
 the four compatibility-passing models; Gemma remains a negative compatibility

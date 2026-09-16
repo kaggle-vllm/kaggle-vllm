@@ -116,16 +116,15 @@
     "renew_wall_clock_guard_before_next_shard": true,
     "never_rerun_terminal_shard_in_batch": true
   },
-  "preserved_logical_shards": 28,
-  "remaining_logical_shards": 32,
-  "continuation_executable_shards": 29,
+  "preserved_logical_shards": 30,
+  "remaining_logical_shards": 30,
+  "continuation_executable_shards": 27,
   "review_required_shard_ids": [
     "qwen25_3b-prefill_heavy-r00",
     "qwen25_3b-prefill_heavy-r01",
     "qwen25_3b-prefill_heavy-r02"
   ],
   "batch_ids": [
-    "r02-qwen",
     "r02-phi",
     "r03-ministral",
     "r03-qwen",
@@ -137,55 +136,6 @@
     "r04-ministral"
   ],
   "batches": [
-    {
-      "batch_id": "r02-qwen",
-      "label": "CONTINUATION_R02_QWEN",
-      "protocol_amendment_version": "M4-BATCH-3",
-      "parent_batch_id": "r02",
-      "continuation_group": "qwen",
-      "repetition": 2,
-      "model_order": [
-        "qwen25_3b"
-      ],
-      "workload_order_within_model": [
-        "prefill_heavy",
-        "short",
-        "balanced"
-      ],
-      "all_logical_shard_ids": [
-        "qwen25_3b-prefill_heavy-r02",
-        "qwen25_3b-short-r02",
-        "qwen25_3b-balanced-r02"
-      ],
-      "ordered_shard_ids": [
-        "qwen25_3b-short-r02",
-        "qwen25_3b-balanced-r02"
-      ],
-      "execution_order": [
-        {
-          "within_session_order": 1,
-          "shard_id": "qwen25_3b-short-r02",
-          "model_key": "qwen25_3b",
-          "workload": "short",
-          "repetition": 2,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 2,
-          "shard_id": "qwen25_3b-balanced-r02",
-          "model_key": "qwen25_3b",
-          "workload": "balanced",
-          "repetition": 2,
-          "serving_cells": 12
-        }
-      ],
-      "already_completed_skips": [],
-      "review_required_exclusions": [
-        "qwen25_3b-prefill_heavy-r02"
-      ],
-      "logical_shard_count": 2,
-      "serving_cell_count": 24
-    },
     {
       "batch_id": "r02-phi",
       "label": "CONTINUATION_R02_PHI",

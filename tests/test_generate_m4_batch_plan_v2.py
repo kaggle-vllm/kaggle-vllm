@@ -32,16 +32,16 @@ def test_continuations_are_model_scoped_repetition_blocked_and_complete() -> Non
         "renew_wall_clock_guard_before_next_shard": True,
         "never_rerun_terminal_shard_in_batch": True,
     }
-    assert plan["preserved_logical_shards"] == 28
-    assert plan["remaining_logical_shards"] == 32
-    assert plan["continuation_executable_shards"] == 29
+    assert plan["preserved_logical_shards"] == 30
+    assert plan["remaining_logical_shards"] == 30
+    assert plan["continuation_executable_shards"] == 27
     assert plan["review_required_shard_ids"] == [
         "qwen25_3b-prefill_heavy-r00",
         "qwen25_3b-prefill_heavy-r01",
         "qwen25_3b-prefill_heavy-r02",
     ]
-    assert len(plan["batches"]) == 10
-    assert plan["batch_ids"][0] == "r02-qwen"
+    assert len(plan["batches"]) == 9
+    assert plan["batch_ids"][0] == "r02-phi"
 
     shard_ids = []
     for batch in plan["batches"]:
@@ -57,7 +57,7 @@ def test_continuations_are_model_scoped_repetition_blocked_and_complete() -> Non
             range(1, len(batch["execution_order"]) + 1)
         )
         shard_ids.extend(batch["ordered_shard_ids"])
-    assert len(shard_ids) == len(set(shard_ids)) == 29
+    assert len(shard_ids) == len(set(shard_ids)) == 27
     assert "qwen25_3b-balanced-r00" not in shard_ids
     assert "qwen25_3b-prefill_heavy-r00" not in shard_ids
     assert "phi4_mini-short-r00" not in shard_ids
@@ -81,6 +81,8 @@ def test_continuations_are_model_scoped_repetition_blocked_and_complete() -> Non
     assert "qwen25_3b-balanced-r01" not in shard_ids
     assert "qwen25_3b-prefill_heavy-r01" not in shard_ids
     assert "qwen25_3b-prefill_heavy-r02" not in shard_ids
+    assert "qwen25_3b-short-r02" not in shard_ids
+    assert "qwen25_3b-balanced-r02" not in shard_ids
     assert "llama32_3b-prefill_heavy-r02" not in shard_ids
     assert "llama32_3b-short-r02" not in shard_ids
     assert "llama32_3b-balanced-r02" not in shard_ids
@@ -89,21 +91,20 @@ def test_continuations_are_model_scoped_repetition_blocked_and_complete() -> Non
     assert "ministral3_3b_bf16-balanced-r02" not in shard_ids
 
 
-def test_first_continuation_is_exact_qwen_r02_block() -> None:
+def test_first_continuation_is_exact_phi_r02_block() -> None:
     plan = build_continuation_plan(
         json.loads((ROOT / "research/M4_BATCH_EXECUTION_PLAN.json").read_text()),
         json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text()),
     )
     first = plan["batches"][0]
-    assert first["batch_id"] == "r02-qwen"
+    assert first["batch_id"] == "r02-phi"
     assert first["repetition"] == 2
     assert first["already_completed_skips"] == []
-    assert first["review_required_exclusions"] == [
-        "qwen25_3b-prefill_heavy-r02"
-    ]
+    assert first["review_required_exclusions"] == []
     assert first["ordered_shard_ids"] == [
-        "qwen25_3b-short-r02",
-        "qwen25_3b-balanced-r02",
+        "phi4_mini-prefill_heavy-r02",
+        "phi4_mini-short-r02",
+        "phi4_mini-balanced-r02",
     ]
-    assert first["logical_shard_count"] == 2
-    assert first["serving_cell_count"] == 24
+    assert first["logical_shard_count"] == 3
+    assert first["serving_cell_count"] == 36

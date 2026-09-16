@@ -117,6 +117,10 @@ fixture did not model the monitor-caused graceful `server_exit` record. The
 fix applies only prospectively: V11 excludes the settled prefill-heavy shard
 and schedules only short then balanced under the unchanged workload and
 14,848 MiB per-GPU ceiling.
+The V11 continuation completed in a second physical session,
+`m4-r02-qwen-20260916T054736Z-95506297`, and executed only short then balanced.
+Both are canonical. V10 and V11 remain distinct allocation records and combine
+only through reviewed logical-shard reconciliation.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
@@ -191,6 +195,15 @@ Offline ingestion may independently verify a historical M4-BATCH-3 outer
 `FAILED` row with return code 3 as a terminal resource candidate, but only by
 passing the complete inner contract; it never rewrites the historical outer
 manifest or treats a bare return code as sufficient.
+
+The successful V11 outer ZIP SHA256 is
+`6881890bd24fc9659d4e574ed122b2d77a5e377a4a2aa7f938d248753b7b8c13`;
+the executed notebook SHA256 is
+`dbbcf4cdd16cd886e4c21325d4532c999e68b7964d9d9a054344b7ed5f8044fe`;
+the separate and bundled runtime are byte-identical with SHA256
+`b41737b63f275be0412b16072a045b219a6b756957840f35a7348643fe5d5617`.
+No Qwen r02 workload was duplicated and no new prefill-heavy measurement is in
+the V11 bundle.
 
 The accepted Qwen compatibility ZIP SHA256 is
 `cd3c45dddf19830649b03a931cee0247d6f8b4ebbc953c433e3ade563b271ecb`;

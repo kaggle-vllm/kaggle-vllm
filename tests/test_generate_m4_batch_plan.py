@@ -29,6 +29,8 @@ def _plan() -> dict:
     by_id["qwen25_3b-balanced-r01"]["status"] = "QUEUED"
     by_id["qwen25_3b-prefill_heavy-r01"]["status"] = "QUEUED"
     by_id["qwen25_3b-prefill_heavy-r02"]["status"] = "QUEUED"
+    by_id["qwen25_3b-short-r02"]["status"] = "QUEUED"
+    by_id["qwen25_3b-balanced-r02"]["status"] = "QUEUED"
     for workload in ("short", "balanced", "prefill_heavy"):
         by_id[f"phi4_mini-{workload}-r00"]["status"] = "QUEUED"
         by_id[f"phi4_mini-{workload}-r01"]["status"] = "QUEUED"

@@ -7,8 +7,9 @@ The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V11 is the current future-execution authority. V10 is the immutable authority
-for the historical `r02-qwen` attempt, and V9 is the immutable authority for
+V11 is the immutable authority for the successful second physical
+`r02-qwen` attempt. V10 is the immutable authority for the historical first
+`r02-qwen` attempt, and V9 is the immutable authority for
 completed `r02-ministral`. V8 remains the
 immutable authority for completed `r02-llama`; V7 governs completed Qwen r01.
 
@@ -54,11 +55,13 @@ observed blast radius, but no throughput result is used to reorder conditions.
 
 ## Next controlled execution
 
-After reconciling the V10 attempt, V11 pins the machine-selected continuation
-as `M4_BATCH_ID=r02-qwen`. It contains only `qwen25_3b-short-r02` followed by
-`qwen25_3b-balanced-r02` (24 serving cells). The reviewed terminal
-`qwen25_3b-prefill_heavy-r02` shard is an explicit settled exclusion and must
-not be rerun. Do not rerun any completed continuation or reviewed terminal
+The V11 `M4_BATCH_ID=r02-qwen` continuation completed
+`qwen25_3b-short-r02` followed by `qwen25_3b-balanced-r02` in session
+`m4-r02-qwen-20260916T054736Z-95506297`. Together with the distinct V10
+prefill-heavy terminal result, all three Qwen r02 logical shards are settled.
+The batch is permanently non-runnable. The next machine-derived batch is
+`M4_BATCH_ID=r02-phi`, containing prefill-heavy, short, then balanced (36
+serving cells). Do not rerun any completed continuation or reviewed terminal
 resource-gated shard.
 
 The Llama continuation completed all three planned shards in session
@@ -132,7 +135,15 @@ The review is `M4_R02_QWEN_ATTEMPT_1_REVIEW.json`. The correction is
 prospective and changes neither the historical evidence nor any benchmark
 parameter.
 
-The next allocation has two logical shards instead of the historical eleven.
+The V11 `r02-qwen` continuation is a second physical allocation, not a rerun of
+V10. Session `m4-r02-qwen-20260916T054736Z-95506297` executed only short then
+balanced; both passed all 12 cells, and the outer ZIP SHA256 is
+`6881890bd24fc9659d4e574ed122b2d77a5e377a4a2aa7f938d248753b7b8c13`.
+No prefill-heavy archive, log, request ledger, or new measurement exists in the
+V11 bundle. The two sessions combine only at reviewed logical-shard
+reconciliation; their allocation identity remains separate.
+
+The next allocation has three logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before
 every shard and the 2 GiB reserve is maintained.
 
