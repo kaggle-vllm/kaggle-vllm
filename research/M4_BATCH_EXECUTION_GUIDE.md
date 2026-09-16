@@ -7,7 +7,8 @@ The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V11 is the immutable authority for the successful second physical
+V12 is the current future-execution authority for `r02-phi`. V11 is the
+immutable authority for the successful second physical
 `r02-qwen` attempt. V10 is the immutable authority for the historical first
 `r02-qwen` attempt, and V9 is the immutable authority for
 completed `r02-ministral`. V8 remains the
