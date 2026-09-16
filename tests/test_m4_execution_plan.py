@@ -62,8 +62,9 @@ def test_gemma_canonical_negative_remains_auditable_and_blocks_principal():
     assert status["principal_matrix_status"] == "IN_PROGRESS"
     assert status["principal_preserved_shards"] == 28
     assert status["principal_remaining_shards"] == 32
-    assert status["principal_review_required_shards"] == 2
-    assert status["next_principal_shard"] == "qwen25_3b-prefill_heavy-r02"
+    assert status["principal_review_required_shards"] == 3
+    assert status["principal_queued_shards"] == 29
+    assert status["next_principal_shard"] == "qwen25_3b-short-r02"
     assert status["principal_shards"]["qwen25_3b-short-r00"]["canonical"] is True
     assert (
         status["principal_shards"]["qwen25_3b-short-r00"][

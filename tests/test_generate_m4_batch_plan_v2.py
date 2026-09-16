@@ -34,10 +34,11 @@ def test_continuations_are_model_scoped_repetition_blocked_and_complete() -> Non
     }
     assert plan["preserved_logical_shards"] == 28
     assert plan["remaining_logical_shards"] == 32
-    assert plan["continuation_executable_shards"] == 30
+    assert plan["continuation_executable_shards"] == 29
     assert plan["review_required_shard_ids"] == [
         "qwen25_3b-prefill_heavy-r00",
         "qwen25_3b-prefill_heavy-r01",
+        "qwen25_3b-prefill_heavy-r02",
     ]
     assert len(plan["batches"]) == 10
     assert plan["batch_ids"][0] == "r02-qwen"
@@ -56,7 +57,7 @@ def test_continuations_are_model_scoped_repetition_blocked_and_complete() -> Non
             range(1, len(batch["execution_order"]) + 1)
         )
         shard_ids.extend(batch["ordered_shard_ids"])
-    assert len(shard_ids) == len(set(shard_ids)) == 30
+    assert len(shard_ids) == len(set(shard_ids)) == 29
     assert "qwen25_3b-balanced-r00" not in shard_ids
     assert "qwen25_3b-prefill_heavy-r00" not in shard_ids
     assert "phi4_mini-short-r00" not in shard_ids
@@ -79,6 +80,7 @@ def test_continuations_are_model_scoped_repetition_blocked_and_complete() -> Non
     assert "ministral3_3b_bf16-short-r01" not in shard_ids
     assert "qwen25_3b-balanced-r01" not in shard_ids
     assert "qwen25_3b-prefill_heavy-r01" not in shard_ids
+    assert "qwen25_3b-prefill_heavy-r02" not in shard_ids
     assert "llama32_3b-prefill_heavy-r02" not in shard_ids
     assert "llama32_3b-short-r02" not in shard_ids
     assert "llama32_3b-balanced-r02" not in shard_ids
@@ -96,10 +98,12 @@ def test_first_continuation_is_exact_qwen_r02_block() -> None:
     assert first["batch_id"] == "r02-qwen"
     assert first["repetition"] == 2
     assert first["already_completed_skips"] == []
-    assert first["review_required_exclusions"] == []
+    assert first["review_required_exclusions"] == [
+        "qwen25_3b-prefill_heavy-r02"
+    ]
     assert first["ordered_shard_ids"] == [
-        "qwen25_3b-prefill_heavy-r02",
         "qwen25_3b-short-r02",
         "qwen25_3b-balanced-r02",
     ]
-    assert first["serving_cell_count"] == 36
+    assert first["logical_shard_count"] == 2
+    assert first["serving_cell_count"] == 24

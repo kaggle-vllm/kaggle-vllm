@@ -7,8 +7,9 @@ The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V10 is the current future-execution authority. V9 is the immutable authority
-for completed `r02-ministral`. V8 remains the
+V11 is the current future-execution authority. V10 is the immutable authority
+for the historical `r02-qwen` attempt, and V9 is the immutable authority for
+completed `r02-ministral`. V8 remains the
 immutable authority for completed `r02-llama`; V7 governs completed Qwen r01.
 
 ## Historical M4-BATCH-1 attempt
@@ -53,12 +54,12 @@ observed blast radius, but no throughput result is used to reorder conditions.
 
 ## Next controlled execution
 
-After reconciling the V9 run, V10 pins the machine-selected next batch as
-`M4_BATCH_ID=r02-qwen`. Its unchanged frozen order is
-`qwen25_3b-prefill_heavy-r02`, `qwen25_3b-short-r02`, and
-`qwen25_3b-balanced-r02`. The prefill-heavy r02 repetition is scientifically
-required despite the separate r00/r01 terminal resource results. Do not rerun
-any completed continuation or reviewed terminal resource-gated shard.
+After reconciling the V10 attempt, V11 pins the machine-selected continuation
+as `M4_BATCH_ID=r02-qwen`. It contains only `qwen25_3b-short-r02` followed by
+`qwen25_3b-balanced-r02` (24 serving cells). The reviewed terminal
+`qwen25_3b-prefill_heavy-r02` shard is an explicit settled exclusion and must
+not be rerun. Do not rerun any completed continuation or reviewed terminal
+resource-gated shard.
 
 The Llama continuation completed all three planned shards in session
 `m4-fill-r00-llama-20260912T044444Z-dd577e28`. Its independent review is
@@ -120,7 +121,18 @@ cells passed and the outer ZIP SHA256 is
 M4-BATCH-3 was exercised without a terminal resource gate, so no
 continuation-after-gate decision occurred in this batch.
 
-The next allocation has three logical shards instead of the historical eleven.
+The V10 `r02-qwen` attempt reached the frozen Qwen prefill-heavy
+TP2/concurrency-64 boundary in session
+`m4-r02-qwen-20260916T030342Z-ea0f6e11`. Both physical GPUs peaked at 14,895
+MiB, no CUDA OOM occurred, and cleanup returned both GPUs to 0 MiB with no new
+compute PID. The immutable outer status is `STOPPED_ON_FAILURE`: the original
+terminal validator's CPU fixture omitted the monitor-caused graceful server
+exit present in the real cell, so the runner stopped before short or balanced.
+The review is `M4_R02_QWEN_ATTEMPT_1_REVIEW.json`. The correction is
+prospective and changes neither the historical evidence nor any benchmark
+parameter.
+
+The next allocation has two logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before
 every shard and the 2 GiB reserve is maintained.
 

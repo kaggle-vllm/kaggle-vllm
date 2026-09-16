@@ -8,9 +8,9 @@ For every active row, also download the executed copy of
 inputs to the local provenance audit.
 
 Progress: 28 / 60 active shards preserved.
-Review required: 2 resource-gated shard.
+Review required: 3 resource-gated shards.
 
-Next: `M4_SHARD_ID=qwen25_3b-prefill_heavy-r02`
+Next: `M4_SHARD_ID=qwen25_3b-short-r02`
 
 | Active | M4_SHARD_ID | Model | Workload | Rep | Status | Artifact |
 |---:|---|---|---|---:|---|---|
@@ -26,7 +26,7 @@ Next: `M4_SHARD_ID=qwen25_3b-prefill_heavy-r02`
 | 10 | `qwen25_3b-balanced-r04` | `qwen25_3b` | balanced | 4 | QUEUED | `qwen25_3b-balanced-r04-principal.zip` |
 | 11 | `qwen25_3b-prefill_heavy-r00` | `qwen25_3b` | prefill_heavy | 0 | FAILED_RESOURCE_GATE | `qwen25_3b-prefill_heavy-r00-principal.zip` |
 | 12 | `qwen25_3b-prefill_heavy-r01` | `qwen25_3b` | prefill_heavy | 1 | FAILED_RESOURCE_GATE | `qwen25_3b-prefill_heavy-r01-principal.zip` |
-| 13 | `qwen25_3b-prefill_heavy-r02` | `qwen25_3b` | prefill_heavy | 2 | QUEUED | `qwen25_3b-prefill_heavy-r02-principal.zip` |
+| 13 | `qwen25_3b-prefill_heavy-r02` | `qwen25_3b` | prefill_heavy | 2 | FAILED_RESOURCE_GATE | `qwen25_3b-prefill_heavy-r02-principal.zip` |
 | 14 | `qwen25_3b-prefill_heavy-r03` | `qwen25_3b` | prefill_heavy | 3 | QUEUED | `qwen25_3b-prefill_heavy-r03-principal.zip` |
 | 15 | `qwen25_3b-prefill_heavy-r04` | `qwen25_3b` | prefill_heavy | 4 | QUEUED | `qwen25_3b-prefill_heavy-r04-principal.zip` |
 | 16 | `phi4_mini-short-r00` | `phi4_mini` | short | 0 | PRINCIPAL_SHARD_PRESERVED | `phi4_mini-short-r00-principal.zip` |

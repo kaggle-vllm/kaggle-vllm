@@ -109,10 +109,14 @@ def test_current_batch_passes_authoritative_no_rerun_queue() -> None:
     result = validate_batch_against_queue(batch, queue)
     assert result["status"] == "PASS_NO_SETTLED_SHARD_RESCHEDULED"
     assert result["queued_shard_ids"] == [
-        "qwen25_3b-prefill_heavy-r02",
         "qwen25_3b-short-r02",
         "qwen25_3b-balanced-r02",
     ]
+    assert batch["review_required_exclusions"] == [
+        "qwen25_3b-prefill_heavy-r02"
+    ]
+    assert batch["logical_shard_count"] == 2
+    assert batch["serving_cell_count"] == 24
 
 
 def test_promoted_canonical_batch_cannot_be_rescheduled() -> None:
@@ -166,6 +170,10 @@ def test_resource_gated_shard_cannot_be_rescheduled() -> None:
         "already_completed_skips": [],
         "review_required_exclusions": [],
     }
+    with pytest.raises(ResearchEvidenceError, match="refusing to reschedule settled"):
+        validate_batch_against_queue(batch, queue)
+    batch["ordered_shard_ids"] = ["qwen25_3b-prefill_heavy-r02"]
+    batch["execution_order"] = [{"shard_id": "qwen25_3b-prefill_heavy-r02"}]
     with pytest.raises(ResearchEvidenceError, match="refusing to reschedule settled"):
         validate_batch_against_queue(batch, queue)
 
@@ -948,11 +956,16 @@ def _terminal_resource_fixture(tmp_path: Path) -> tuple[Path, dict, dict]:
                 {"index": 1, "maximum_observed_mib": 14895.0},
             ],
             "resource_guard_violation": message,
+            "monitor_action": "TERMINATE_CELL_PROCESS_GROUP",
+            "scientific_interpretation": (
+                "Frozen per-GPU VRAM boundary; failed-cell throughput is "
+                "missing, not zero."
+            ),
         },
         f"{failed_cell}.json": {
             "status": "executed",
             "oom_observed": False,
-            "failure_observations": ["connection_error"],
+            "failure_observations": ["connection_error", "server_exit"],
             "identity": {"source_git_commit": source},
             "engine": {
                 "model": expected_model["hf_id"],
@@ -962,8 +975,19 @@ def _terminal_resource_fixture(tmp_path: Path) -> tuple[Path, dict, dict]:
                 "gpu_memory_utilization": 0.9,
             },
             "server": {
-                "unexpected_exit_returncode": None,
+                "unexpected_exit_returncode": 0,
                 "server_log": f"{failed_cell}.server.log",
+            },
+            "measurements": {
+                "requests": {"count": 192},
+                "successful_requests": 0,
+                "failed_requests": 192,
+                "failure_counts": {"connection_error": 192},
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "request_throughput_per_second": 0.0,
+                "input_throughput_tokens_per_second": 0.0,
+                "output_throughput_tokens_per_second": 0.0,
             },
         },
     }
@@ -984,7 +1008,7 @@ def _terminal_resource_fixture(tmp_path: Path) -> tuple[Path, dict, dict]:
     return evidence, {**shard, "expected_model": expected_model}, runtime
 
 
-def test_terminal_resource_contract_accepts_only_structured_vram_gate(
+def test_terminal_resource_contract_accepts_realistic_qwen_monitor_exit_shape(
     tmp_path: Path,
 ) -> None:
     evidence, shard, runtime = _terminal_resource_fixture(tmp_path)
@@ -1011,6 +1035,21 @@ def test_terminal_resource_contract_accepts_only_structured_vram_gate(
         "failed_cell_throughput": None,
         "oom_observed": False,
     }
+    raw = json.loads((evidence / "m4-raw.json").read_text())
+    failed_row = next(
+        row
+        for row in raw["rows"]
+        if row["tensor_parallel_size"] == 2 and row["concurrency"] == 64
+    )
+    assert failed_row["request_throughput_per_second"] is None
+    assert failed_row["input_tokens_per_second"] is None
+    assert failed_row["output_tokens_per_second"] is None
+    assert sum(row["request_failures"] == 0 for row in raw["rows"]) == 11
+    cell = json.loads(
+        (evidence / "qwen25_3b-prefill_heavy-r02-tp2-c64.json").read_text()
+    )
+    assert cell["failure_observations"] == ["connection_error", "server_exit"]
+    assert cell["server"]["unexpected_exit_returncode"] == 0
 
 
 @pytest.mark.parametrize(
@@ -1018,7 +1057,9 @@ def test_terminal_resource_contract_accepts_only_structured_vram_gate(
     [
         ("hash", "SHA256 mismatch"),
         ("classification", "contract mismatch"),
+        ("missing_monitor_action", "contract mismatch"),
         ("missing_contract", "cannot read JSON object"),
+        ("unexpected_server_exit", "unapproved operational cell failure"),
         ("oom", "reports CUDA OOM"),
         ("nccl", "CUDA OOM, NCCL, or model-load"),
         ("model_load", "CUDA OOM, NCCL, or model-load"),
@@ -1039,8 +1080,17 @@ def test_terminal_resource_contract_rejects_integrity_and_operational_failures(
         gate.pop("classification")
         gate_path.write_text(json.dumps(gate), encoding="utf-8")
         _rewrite_manifest(evidence)
+    elif mutation == "missing_monitor_action":
+        gate = json.loads(gate_path.read_text())
+        gate.pop("monitor_action")
+        gate_path.write_text(json.dumps(gate), encoding="utf-8")
+        _rewrite_manifest(evidence)
     elif mutation == "missing_contract":
         gate_path.unlink()
+        _rewrite_manifest(evidence)
+    elif mutation == "unexpected_server_exit":
+        cell["server"]["unexpected_exit_returncode"] = 1
+        cell_path.write_text(json.dumps(cell), encoding="utf-8")
         _rewrite_manifest(evidence)
     elif mutation == "oom":
         raw = json.loads(raw_path.read_text())
@@ -1329,8 +1379,11 @@ def test_terminal_outcome_outer_bundle_contains_both_evidence_classes(
     ]
 
 
-def test_batch_ingestion_understands_completed_with_terminal_outcome(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+@pytest.mark.parametrize("historical_outer_failure", [False, True])
+def test_batch_ingestion_understands_terminal_outcome_and_historical_outer_failure(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    historical_outer_failure: bool,
 ) -> None:
     repository = tmp_path / "repo"
     (repository / "research").mkdir(parents=True)
@@ -1354,38 +1407,55 @@ def test_batch_ingestion_understands_completed_with_terminal_outcome(
     notebook.write_text("{}")
     runtime = tmp_path / "runtime.json"
     runtime.write_text("{}")
-    manifest = _manifest(batch, completed=len(batch["ordered_shard_ids"]))
+    resource_index = 2
+    manifest = _manifest(
+        batch,
+        completed=(resource_index if historical_outer_failure else len(batch["ordered_shard_ids"])),
+    )
     manifest.update(
         {
             "protocol_amendment_version": "M4-BATCH-3",
-            "status": COMPLETED_WITH_TERMINAL_OUTCOMES,
-            "stop_reason": None,
+            "status": (
+                "STOPPED_ON_FAILURE"
+                if historical_outer_failure
+                else COMPLETED_WITH_TERMINAL_OUTCOMES
+            ),
+            "stop_reason": (
+                "terminal resource gate includes an unapproved operational cell failure"
+                if historical_outer_failure
+                else None
+            ),
         }
     )
-    resource_id = batch["ordered_shard_ids"][1]
+    resource_id = batch["ordered_shard_ids"][resource_index - 1]
     resource = next(
         item for item in manifest["shards"] if item["shard_id"] == resource_id
     )
     resource.update(
         {
-            "status": "FAILED_RESOURCE_GATE",
+            "status": "FAILED" if historical_outer_failure else "FAILED_RESOURCE_GATE",
             "runner_returncode": 3,
-            "classification": "FAILED_RESOURCE_GATE",
-            "reason": "VRAM_RESOURCE_GUARD",
+            "classification": None if historical_outer_failure else "FAILED_RESOURCE_GATE",
+            "reason": (
+                "terminal resource gate includes an unapproved operational cell failure"
+                if historical_outer_failure
+                else "VRAM_RESOURCE_GUARD"
+            ),
             "post_shard_gpu_cleanup": {"status": "PASS"},
-            "terminal_resource_gate": {
-                "status": "VERIFIED_TERMINAL_RESOURCE_GATE",
-                "classification": "FAILED_RESOURCE_GATE",
-                "reason": "VRAM_RESOURCE_GUARD",
-            },
         }
     )
+    if not historical_outer_failure:
+        resource["terminal_resource_gate"] = {
+            "status": "VERIFIED_TERMINAL_RESOURCE_GATE",
+            "classification": "FAILED_RESOURCE_GATE",
+            "reason": "VRAM_RESOURCE_GUARD",
+        }
     inner = {
         f"{shard_id}-principal.zip": shard_id.encode()
         for shard_id in batch["ordered_shard_ids"]
     }
     for item in manifest["shards"]:
-        if item["status"] == "SKIPPED_ALREADY_CANONICAL":
+        if item["status"] not in {"COMPLETED", "FAILED", "FAILED_RESOURCE_GATE"}:
             continue
         item["evidence_zip_sha256"] = hashlib.sha256(
             inner[item["evidence_zip"]]
@@ -1476,9 +1546,22 @@ def test_batch_ingestion_understands_completed_with_terminal_outcome(
         runtime_path=runtime,
     )
     assert report["status"] == "BATCH_REVIEW_REQUIRED"
-    assert report["batch_manifest_status"] == COMPLETED_WITH_TERMINAL_OUTCOMES
-    assert len(report["accepted_shards"]) == 10
+    assert report["batch_manifest_status"] == (
+        "STOPPED_ON_FAILURE"
+        if historical_outer_failure
+        else COMPLETED_WITH_TERMINAL_OUTCOMES
+    )
+    assert len(report["accepted_shards"]) == (
+        resource_index - 1 if historical_outer_failure else 10
+    )
     assert report["invalid_shards"] == []
+    assert report["failed_shards"] == []
     assert [item["shard_id"] for item in report["terminal_resource_shards"]] == [
         resource_id
     ]
+    if historical_outer_failure:
+        terminal = report["terminal_resource_shards"][0]
+        assert terminal["historical_outer_outcome_status"] == "FAILED"
+        assert terminal["historical_outer_reason"] == (
+            "terminal resource gate includes an unapproved operational cell failure"
+        )

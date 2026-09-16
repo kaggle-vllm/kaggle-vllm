@@ -120,7 +120,10 @@ def markdown(queue: dict[str, Any]) -> str:
         "inputs to the local provenance audit.",
         "",
         f"Progress: {queue['preserved_shards']} / {queue['active_shards']} active shards preserved.",
-        f"Review required: {queue['review_required_shards']} resource-gated shard.",
+        (
+            f"Review required: {queue['review_required_shards']} resource-gated "
+            f"shard{'s' if queue['review_required_shards'] != 1 else ''}."
+        ),
         "",
         f"Next: `M4_SHARD_ID={queue['next_shard_id']}`",
         "",

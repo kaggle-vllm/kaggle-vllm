@@ -13,21 +13,24 @@
   the prefill-heavy TP2/concurrency-64 resource gate. The reviewed V8
   `r02-llama` session then preserved all three Llama workloads. The V9
   `r02-ministral` session exercised M4-BATCH-3 without a terminal resource gate
-  and preserved all three Ministral workloads; 30 matrix shards are currently
-  not executed. Under the batch protocols, later shards may share one
+  and preserved all three Ministral workloads. The V10 `r02-qwen` attempt then
+  produced a third Qwen prefill-heavy TP2/concurrency-64 resource gate, but an
+  outer-validator fixture mismatch stopped collection before short or balanced;
+  29 matrix shards are currently not executed. Under the batch protocols, later shards may share one
   model/repetition physical Kaggle allocation; such shards are not fully
   independent environment realizations.
   Session/block IDs and within-session order are retained, while repetitions of
   the same model/workload are intentionally separated across allocations.
-  The two Qwen prefill-heavy resource results do not establish that later
-  repetitions must fail; r02-r04 remain in the unchanged frozen matrix.
+  The three Qwen prefill-heavy resource results do not establish that later
+  repetitions must fail; r03-r04 remain in the unchanged frozen matrix.
   V9 M4-BATCH-3 continuation reduces abandonment of later same-session
   shards only after a verified terminal resource gate. It does not make those
   shards independent, remove the boundary, or predict later repetitions, and
   it applies only to post-V8 sessions and was not applied retroactively to the
-  completed V8 `r02-llama` execution. The first real V9 execution did not
-  observe the continuation-after-gate path, which remains pending real-world
-  exercise.
+  completed V8 `r02-llama` execution. The first real resource-gate exercise
+  exposed the fixture mismatch before continuation guards ran. The correction
+  is prospective, preserves the failed attempt, and does not change measured
+  performance or benchmark parameters.
 - M1/M2 are observations from one Kaggle dual-T4 environment. They do not imply
   universal T4, PCIe, PHB or tensor-parallel scaling laws.
 - The M3 measured-all-reduce intercept is configuration-specific and combines

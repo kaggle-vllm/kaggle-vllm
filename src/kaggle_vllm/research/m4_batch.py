@@ -418,6 +418,8 @@ def verify_terminal_resource_gate(
         and raw.get("resource_guard_violation")
         == summary.get("resource_guard_violation")
         == gate.get("resource_guard_violation"),
+        "monitor action": gate.get("monitor_action")
+        == "TERMINATE_CELL_PROCESS_GROUP",
         "no semantic failure": summary.get("semantic_gate_failure") is None
         and raw.get("semantic_gate_failure") is None,
         "complete terminal grid": summary.get("expected_cells") == 12
@@ -522,12 +524,22 @@ def verify_terminal_resource_gate(
         )
 
     cell = load_object(evidence / f"{expected_cell}.json")
+    raw_observations = cell.get("failure_observations")
+    observations = set(raw_observations) if isinstance(raw_observations, list) else set()
+    measurements = cell.get("measurements", {})
+    failed_requests = measurements.get("failed_requests")
     if (
         cell.get("status") != "executed"
         or cell.get("oom_observed") is not False
-        or cell.get("server", {}).get("unexpected_exit_returncode") is not None
-        or not cell.get("failure_observations")
-        or set(cell.get("failure_observations", [])) - {"connection_error"}
+        or cell.get("server", {}).get("unexpected_exit_returncode") != 0
+        or not isinstance(raw_observations, list)
+        or observations != {"connection_error", "server_exit"}
+        or failed_requests != 192
+        or measurements.get("successful_requests") != 0
+        or measurements.get("failure_counts") != {"connection_error": failed_requests}
+        or measurements.get("requests", {}).get("count") != failed_requests
+        or measurements.get("input_tokens") != 0
+        or measurements.get("output_tokens") != 0
         or cell.get("identity", {}).get("source_git_commit")
         != expected_source_commit
         or cell.get("engine", {}).get("model") != expected_model.get("hf_id")
@@ -1080,7 +1092,16 @@ def stage_batch_download(
         }
         for shard_id in manifest["actual_execution_order"]:
             outcome = outcomes[shard_id]
-            if outcome["status"] == "FAILED_RESOURCE_GATE":
+            historical_terminal_candidate = bool(
+                allow_terminal_resource_continuation
+                and outcome["status"] == "FAILED"
+                and outcome.get("runner_returncode") == 3
+                and outcome.get("post_shard_gpu_cleanup", {}).get("status") == "PASS"
+            )
+            if (
+                outcome["status"] == "FAILED_RESOURCE_GATE"
+                or historical_terminal_candidate
+            ):
                 model_matrix = _load_frozen_object(
                     repository,
                     commit=freeze["implementation_source_commit"],
@@ -1094,25 +1115,29 @@ def stage_batch_download(
                     )
                     continue
                 try:
-                    terminal_resource_shards.append(
-                        _audit_terminal_resource_archive(
-                            evidence_zip=inner_zip,
-                            runtime=runtime,
-                            expected_shard=planned[shard_id],
-                            expected_model=model_matrix[
-                                planned[shard_id]["model_key"]
-                            ],
-                            outcome=outcome,
-                            manifest=manifest,
-                            expected_source_commit=freeze[
-                                "implementation_source_commit"
-                            ],
-                            maximum_runtime_delay_seconds=(
-                                MAX_RUNTIME_TO_EXECUTION_DELAY_SECONDS
-                                + maximum_batch_seconds
-                            ),
-                        )
+                    terminal = _audit_terminal_resource_archive(
+                        evidence_zip=inner_zip,
+                        runtime=runtime,
+                        expected_shard=planned[shard_id],
+                        expected_model=model_matrix[planned[shard_id]["model_key"]],
+                        outcome=outcome,
+                        manifest=manifest,
+                        expected_source_commit=freeze[
+                            "implementation_source_commit"
+                        ],
+                        maximum_runtime_delay_seconds=(
+                            MAX_RUNTIME_TO_EXECUTION_DELAY_SECONDS
+                            + maximum_batch_seconds
+                        ),
                     )
+                    if historical_terminal_candidate:
+                        terminal.update(
+                            {
+                                "historical_outer_outcome_status": "FAILED",
+                                "historical_outer_reason": outcome.get("reason"),
+                            }
+                        )
+                    terminal_resource_shards.append(terminal)
                 except (ResearchEvidenceError, OSError, KeyError, ValueError) as error:
                     invalid.append({"shard_id": shard_id, "error": str(error)})
                 continue
@@ -1169,6 +1194,9 @@ def stage_batch_download(
                 if extracted is not None:
                     shutil.rmtree(extracted, ignore_errors=True)
                 invalid.append({"shard_id": shard_id, "error": str(error)})
+        verified_terminal_ids = {
+            item["shard_id"] for item in terminal_resource_shards
+        }
         failed_shards = [
             {
                 "shard_id": item["shard_id"],
@@ -1181,6 +1209,7 @@ def stage_batch_download(
             }
             for item in manifest["shards"]
             if item["status"] == "FAILED"
+            and item["shard_id"] not in verified_terminal_ids
         ]
         planned_not_executed = [
             item["shard_id"]

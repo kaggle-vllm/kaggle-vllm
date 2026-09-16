@@ -40,6 +40,12 @@ Before a later planned shard may start, all of the following must pass:
   the 14,848 MiB per-GPU threshold is unchanged;
 - the failed cell records missing throughput as null, not zero, and no row
   reports CUDA OOM;
+- when the resource monitor terminates the cell process group, the failed cell
+  may record the consequent `connection_error` plus `server_exit` observations
+  and a graceful server return code of zero only when
+  `monitor_action=TERMINATE_CELL_PROCESS_GROUP`, the request ledger contains
+  the expected 192 failed requests, and every other terminal-resource check
+  passes;
 - no semantic, compatibility, model-load, NCCL, unknown server-lifecycle, or
   evidence-integrity failure is present;
 - post-shard cleanup reports no new compute PID and GPU memory at or below the
@@ -64,6 +70,24 @@ Unknown failures, arbitrary nonzero exits, CUDA OOM, stale GPU processes,
 cleanup failure, archive/hash/provenance failure, source or runtime drift,
 disk exhaustion, wall-clock exhaustion, NCCL failure, model-load failure,
 server-lifecycle uncertainty, and unclassified exceptions remain fail-stop.
+
+## Real r02-Qwen observation and prospective correction
+
+The V10 `r02-qwen` attempt produced a third independent Qwen prefill-heavy
+TP2/concurrency-64 resource boundary. The immutable outer attempt retained
+`STOPPED_ON_FAILURE` because the original CPU fixture modeled only
+`connection_error` with no server-exit return code. The real monitor-terminated
+cell correctly contained `connection_error` plus `server_exit` and a graceful
+return code of zero. The validator rejected that real shape before renewed
+continuation guards could run, so short and balanced were not executed.
+
+The historical V10 bundle, status, hashes, and measurements remain unchanged.
+The correction accepts only the fully cross-checked monitor-caused exit shape
+described above; arbitrary server exits, bare return code 3, CUDA OOM, NCCL,
+model-load, cleanup, disk, wall-clock, source, runtime, and integrity failures
+remain fail-stop. This defect affected evidence-collection continuation, not
+the scientific workload or measured model performance. The 14,848 MiB per-GPU
+ceiling and all benchmark parameters remain unchanged.
 
 ## Unchanged scientific design
 

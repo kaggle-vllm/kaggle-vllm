@@ -9,10 +9,10 @@ then filenames or UI screenshots.
 ## Exact 60-shard state
 
 - Canonical preserved: 28
-- Failed resource gate: 2
+- Failed resource gate: 3
 - Failed other/review-required: 0
 - Verified local staging pending promotion: 0
-- Not executed: 30
+- Not executed: 29
 - Total: 60 logical shards / 720 serving cells
 
 Every canonical or reviewed terminal shard is excluded from normal continuation.
@@ -26,6 +26,7 @@ A resource-gated shard is settled negative evidence, not a zero-throughput resul
 - `qwen25_3b-balanced-r01`
 - `qwen25_3b-prefill_heavy-r00`
 - `qwen25_3b-prefill_heavy-r01`
+- `qwen25_3b-prefill_heavy-r02`
 - `phi4_mini-short-r00`
 - `phi4_mini-short-r01`
 - `phi4_mini-balanced-r00`
@@ -55,7 +56,7 @@ A resource-gated shard is settled negative evidence, not a zero-throughput resul
 
 | Order | Batch ID | Rep | Model | Shards | Cells | Settled exclusions |
 |---:|---|---:|---|---:|---:|---|
-| 1 | `r02-qwen` | 2 | `qwen25_3b` | 3 | 36 | — |
+| 1 | `r02-qwen` | 2 | `qwen25_3b` | 2 | 24 | `qwen25_3b-prefill_heavy-r02` |
 | 2 | `r02-phi` | 2 | `phi4_mini` | 3 | 36 | — |
 | 3 | `r03-ministral` | 3 | `ministral3_3b_bf16` | 3 | 36 | — |
 | 4 | `r03-qwen` | 3 | `qwen25_3b` | 3 | 36 | — |

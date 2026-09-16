@@ -109,6 +109,14 @@ was not invoked; the outer order, cleanup, disk, and wall-clock guards passed.
 V10 then pins the post-reconciliation clean notebook and unchanged M4-BATCH-3
 contract for `r02-qwen`; V9 remains independently usable for the completed
 Ministral evidence.
+The V10 `r02-qwen` attempt preserved a third independent
+`FAILED_RESOURCE_GATE / VRAM_RESOURCE_GUARD` result for prefill-heavy r02, with
+11 valid cells and one TP2/concurrency-64 terminal row whose performance is
+null, not zero. The immutable outer orchestration stopped because its CPU
+fixture did not model the monitor-caused graceful `server_exit` record. The
+fix applies only prospectively: V11 excludes the settled prefill-heavy shard
+and schedules only short then balanced under the unchanged workload and
+14,848 MiB per-GPU ceiling.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
@@ -179,6 +187,10 @@ status. A future M4-BATCH-3 outer bundle may report
 the only noncanonical outcomes are verified scientific resource gates. Such a
 bundle still returns review-required at ingestion and never promotes missing
 throughput to zero or a resource gate to canonical success.
+Offline ingestion may independently verify a historical M4-BATCH-3 outer
+`FAILED` row with return code 3 as a terminal resource candidate, but only by
+passing the complete inner contract; it never rewrites the historical outer
+manifest or treats a bare return code as sufficient.
 
 The accepted Qwen compatibility ZIP SHA256 is
 `cd3c45dddf19830649b03a931cee0247d6f8b4ebbc953c433e3ade563b271ecb`;
