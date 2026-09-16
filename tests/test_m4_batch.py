@@ -30,7 +30,10 @@ from kaggle_vllm.research.m4_batch import (
 from kaggle_vllm.research.m4_ingest import notebook_sources
 from kaggle_vllm.research.provenance import sha256_file, verify_sha256_manifest
 from scripts import kaggle_m4_execute_batch as batch_runner
-from scripts.generate_m4_batch_source_freeze_v4 import build_freeze_v10
+from scripts.generate_m4_batch_source_freeze_v4 import (
+    build_freeze_v10,
+    build_freeze_v11,
+)
 from scripts.kaggle_m4_execute_batch import (
     _add_batch_shard_provenance,
     _cleanup_model_cache,
@@ -377,6 +380,21 @@ def test_v10_freeze_matches_generator_and_clean_notebook() -> None:
     assert build_freeze_v10(ROOT) == tracked
     assert verify_batch_source_freeze(
         ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V10.json"
+    ) == tracked
+    assert tracked["protocol_amendment_version"] == "M4-BATCH-3"
+    assert tracked["batch_notebook_source_digest"] == (
+        "3987fe33f0b809c3f1da42846cdfd3140c0b4529f1bec8fb936febb84f5565c3"
+    )
+
+
+def test_v11_freeze_matches_generator_and_clean_notebook() -> None:
+    tracked = json.loads(
+        (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V11.json").read_text()
+    )
+    assert build_freeze_v11(ROOT) == tracked
+    assert build_freeze_v11(ROOT) == tracked
+    assert verify_batch_source_freeze(
+        ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V11.json"
     ) == tracked
     assert tracked["protocol_amendment_version"] == "M4-BATCH-3"
     assert tracked["batch_notebook_source_digest"] == (
