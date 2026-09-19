@@ -132,6 +132,9 @@ and the separate and bundled runtime files are byte-identical with SHA256
 The notebook executable sources exactly match V12; cleanup returned both GPUs
 to 0 MiB with no new compute PIDs and deleted only the exact Phi model cache.
 All three Phi r02 shards are now in the reviewed no-rerun set.
+V13 pins implementation commit `571bd07f478f820813ff6c9b19faf3470b138fb5`,
+notebook pin `40c7c9da88bce712e3a87bcf9b5af52793cf6aa8`, and the post-Phi
+queue/plan for `r03-ministral`; it contains no new GPU measurements.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
