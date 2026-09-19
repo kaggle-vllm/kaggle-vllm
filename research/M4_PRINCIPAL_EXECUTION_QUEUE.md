@@ -7,27 +7,27 @@ For every active row, also download the executed copy of
 `/kaggle/working/kaggle-vllm-runtime/runtime.json`; both are mandatory
 inputs to the local provenance audit.
 
-Progress: 36 / 60 active shards preserved.
-Review required: 3 resource-gated shards.
+Progress: 38 / 60 active shards preserved.
+Review required: 4 resource-gated shards.
 
-Next: `M4_SHARD_ID=qwen25_3b-prefill_heavy-r03`
+Next: `M4_SHARD_ID=phi4_mini-short-r03`
 
 | Active | M4_SHARD_ID | Model | Workload | Rep | Status | Artifact |
 |---:|---|---|---|---:|---|---|
 | 1 | `qwen25_3b-short-r00` | `qwen25_3b` | short | 0 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-short-r00-principal.zip` |
 | 2 | `qwen25_3b-short-r01` | `qwen25_3b` | short | 1 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-short-r01-principal.zip` |
 | 3 | `qwen25_3b-short-r02` | `qwen25_3b` | short | 2 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-short-r02-principal.zip` |
-| 4 | `qwen25_3b-short-r03` | `qwen25_3b` | short | 3 | QUEUED | `qwen25_3b-short-r03-principal.zip` |
+| 4 | `qwen25_3b-short-r03` | `qwen25_3b` | short | 3 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-short-r03-principal.zip` |
 | 5 | `qwen25_3b-short-r04` | `qwen25_3b` | short | 4 | QUEUED | `qwen25_3b-short-r04-principal.zip` |
 | 6 | `qwen25_3b-balanced-r00` | `qwen25_3b` | balanced | 0 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-balanced-r00-principal.zip` |
 | 7 | `qwen25_3b-balanced-r01` | `qwen25_3b` | balanced | 1 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-balanced-r01-principal.zip` |
 | 8 | `qwen25_3b-balanced-r02` | `qwen25_3b` | balanced | 2 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-balanced-r02-principal.zip` |
-| 9 | `qwen25_3b-balanced-r03` | `qwen25_3b` | balanced | 3 | QUEUED | `qwen25_3b-balanced-r03-principal.zip` |
+| 9 | `qwen25_3b-balanced-r03` | `qwen25_3b` | balanced | 3 | PRINCIPAL_SHARD_PRESERVED | `qwen25_3b-balanced-r03-principal.zip` |
 | 10 | `qwen25_3b-balanced-r04` | `qwen25_3b` | balanced | 4 | QUEUED | `qwen25_3b-balanced-r04-principal.zip` |
 | 11 | `qwen25_3b-prefill_heavy-r00` | `qwen25_3b` | prefill_heavy | 0 | FAILED_RESOURCE_GATE | `qwen25_3b-prefill_heavy-r00-principal.zip` |
 | 12 | `qwen25_3b-prefill_heavy-r01` | `qwen25_3b` | prefill_heavy | 1 | FAILED_RESOURCE_GATE | `qwen25_3b-prefill_heavy-r01-principal.zip` |
 | 13 | `qwen25_3b-prefill_heavy-r02` | `qwen25_3b` | prefill_heavy | 2 | FAILED_RESOURCE_GATE | `qwen25_3b-prefill_heavy-r02-principal.zip` |
-| 14 | `qwen25_3b-prefill_heavy-r03` | `qwen25_3b` | prefill_heavy | 3 | QUEUED | `qwen25_3b-prefill_heavy-r03-principal.zip` |
+| 14 | `qwen25_3b-prefill_heavy-r03` | `qwen25_3b` | prefill_heavy | 3 | FAILED_RESOURCE_GATE | `qwen25_3b-prefill_heavy-r03-principal.zip` |
 | 15 | `qwen25_3b-prefill_heavy-r04` | `qwen25_3b` | prefill_heavy | 4 | QUEUED | `qwen25_3b-prefill_heavy-r04-principal.zip` |
 | 16 | `phi4_mini-short-r00` | `phi4_mini` | short | 0 | PRINCIPAL_SHARD_PRESERVED | `phi4_mini-short-r00-principal.zip` |
 | 17 | `phi4_mini-short-r01` | `phi4_mini` | short | 1 | PRINCIPAL_SHARD_PRESERVED | `phi4_mini-short-r01-principal.zip` |

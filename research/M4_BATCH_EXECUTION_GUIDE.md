@@ -7,7 +7,7 @@ The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V14 is the current future-execution authority for `r03-qwen`. V13 is the
+V14 is the immutable authority for the reviewed `r03-qwen` attempt. V13 is the
 immutable authority for the completed `r03-ministral` batch. V12 is the immutable authority for the
 completed `r02-phi` batch. V11 is the
 immutable authority for the successful second physical
@@ -64,15 +64,19 @@ All three shards passed their complete 12-cell matrices and are permanently
 non-runnable. The saved executed notebook contains one transparently recorded
 post-execution runner-path edit; the immutable V13 source, retained original
 outputs and execution timestamps, final archive, runtime, and inner evidence
-are bound by `M4_R03_MINISTRAL_NOTEBOOK_PROVENANCE_RECOVERY.json`. The next
-machine-derived batch is `M4_BATCH_ID=r03-qwen`, containing short, balanced,
-then prefill-heavy (36 serving cells). Qwen prefill-heavy r03 remains an
-independent required repetition and must not be pre-skipped. The V11
+are bound by `M4_R03_MINISTRAL_NOTEBOOK_PROVENANCE_RECOVERY.json`. The reviewed
+V14 `M4_BATCH_ID=r03-qwen` attempt then executed short, balanced, and
+prefill-heavy in that order. Short and balanced passed all 12 cells;
+prefill-heavy crossed the frozen 14,848 MiB/GPU ceiling at TP2/concurrency 64,
+with both GPUs peaking at 14,895 MiB and no CUDA OOM. All three logical
+outcomes are terminal, and `r03-qwen` is permanently non-runnable. The next
+machine-derived batch is `M4_BATCH_ID=r03-phi`, containing short, balanced,
+then prefill-heavy (36 serving cells). The V11
 `M4_BATCH_ID=r02-qwen` continuation completed
 `qwen25_3b-short-r02` followed by `qwen25_3b-balanced-r02` in session
 `m4-r02-qwen-20260916T054736Z-95506297`. Together with the distinct V10
 prefill-heavy terminal result, all three Qwen r02 logical shards are settled.
-The Qwen batch is permanently non-runnable. Do not rerun any completed
+The r02 Qwen batch is permanently non-runnable. Do not rerun any completed
 continuation or reviewed terminal resource-gated shard.
 
 The Llama continuation completed all three planned shards in session
@@ -168,6 +172,15 @@ and the separate runtime is byte-identical to the bundled runtime. The saved
 executed notebook's one post-execution path edit is disclosed rather than
 normalized away; strict ordinary source-equivalence remains fail-closed. Its
 review is `M4_R03_MINISTRAL_ATTEMPT_1_REVIEW.json`.
+
+The V14 `r03-qwen` allocation preserved canonical short and balanced results
+and a fourth independent prefill-heavy terminal resource result. The immutable
+outer status is `STOPPED_ON_FAILURE`: a monitor-exit polling race recorded only
+`connection_error` with no server return code, although the remaining exact
+terminal contract, archive, source, runtime, request, resource, and cleanup
+checks passed. The narrow reviewed verifier correction accepts only the two
+known monitor-terminated shapes; it does not relax arbitrary failures. The
+review is `M4_R03_QWEN_ATTEMPT_1_REVIEW.json`.
 
 The next allocation has three logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before

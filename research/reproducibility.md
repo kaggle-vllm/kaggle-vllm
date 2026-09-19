@@ -149,6 +149,18 @@ to immutable V13 and the final archive; ordinary source drift remains rejected.
 V14 pins implementation commit `e290855de8aed29570cdd7952f9c2b37a2a19443`,
 notebook pin `bd114f171f4ae9623b6e9538ed1789af90dce693`, and the
 post-Ministral queue/plan for `r03-qwen`; it contains no new GPU measurements.
+The resulting V14 session `m4-r03-qwen-20260919T152036Z-cd7c20ee`
+preserved canonical short and balanced shards and a fourth independent
+prefill-heavy terminal resource result. The outer ZIP SHA256 is
+`27965628a214abad8d73b36f6cba2966a6cc41d97f020002e1be6e4591db8f60`,
+the executed notebook SHA256 is
+`8de8e45ad9bddbb770c824b0ab7dacfdba23b462d20c3790d7764da76156e1ef`,
+and the byte-identical runtime SHA256 is
+`935fba52f63fd653de8163ab777e5e9d68ab584841e5b8c32681439e96c03763`.
+The prefill-heavy TP2/concurrency-64 cell reached 14,895 MiB independently on
+both GPUs, did not report CUDA OOM, and retains null performance. A narrow
+monitor-exit polling-race correction accepts its exact recorded exit shape
+without weakening source, runtime, archive, or arbitrary-failure checks.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

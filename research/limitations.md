@@ -4,7 +4,7 @@
   repetitions. M4 is in progress: Qwen, Phi, Llama, and text-only Ministral
   short-workload concurrency-1 compatibility shards are accepted. Final p13
   canonically preserves Gemma's pre-readiness dtype boundary. The four-model
-  principal matrix is in progress, with 36 of 60 logical shards preserved.
+  principal matrix is in progress, with 38 of 60 logical shards preserved.
   The first `M4-BATCH-1` allocation stopped on the Qwen prefill-heavy r00
   per-GPU VRAM guard after one new canonical shard; that failed shard remains
   review-required. All nine rows untouched in that attempt were later
@@ -23,14 +23,17 @@
   but its saved executed notebook has one disclosed post-execution runner-path
   edit. Recovery is exact-hash-bound to immutable V13, the retained execution
   outputs and timestamps, and the final archive; no clean pre-edit executed
-  notebook survives. Twenty-one matrix shards are currently not executed. The two Qwen
+  notebook survives. The V14 `r03-qwen` allocation preserved short and
+  balanced and produced a fourth prefill-heavy TP2/concurrency-64 resource
+  boundary at 14,895 MiB/GPU without CUDA OOM. Eighteen matrix shards are
+  currently not executed. The two Qwen
   sessions combine only through reviewed logical-shard reconciliation. Under the batch protocols, later shards may share one
   model/repetition physical Kaggle allocation; such shards are not fully
   independent environment realizations.
   Session/block IDs and within-session order are retained, while repetitions of
   the same model/workload are intentionally separated across allocations.
-  The three Qwen prefill-heavy resource results do not establish that later
-  repetitions must fail; r03-r04 remain in the unchanged frozen matrix.
+  The four Qwen prefill-heavy resource results do not establish that the last
+  repetition must fail; r04 remains in the unchanged frozen matrix.
   V9 M4-BATCH-3 continuation reduces abandonment of later same-session
   shards only after a verified terminal resource gate. It does not make those
   shards independent, remove the boundary, or predict later repetitions, and
