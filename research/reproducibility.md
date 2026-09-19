@@ -161,6 +161,9 @@ The prefill-heavy TP2/concurrency-64 cell reached 14,895 MiB independently on
 both GPUs, did not report CUDA OOM, and retains null performance. A narrow
 monitor-exit polling-race correction accepts its exact recorded exit shape
 without weakening source, runtime, archive, or arbitrary-failure checks.
+V15 pins implementation commit `2ea82d306177aaca70066542c4bd6195e205d67e`,
+notebook pin `12e748a2c58db731b03dc28ba7477396cfe04f0f`, and the
+post-Qwen queue/plan for `r03-phi`; it contains no new GPU measurements.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

@@ -37,6 +37,7 @@ from scripts.generate_m4_batch_source_freeze_v4 import (
     build_freeze_v12,
     build_freeze_v13,
     build_freeze_v14,
+    build_freeze_v15,
 )
 from scripts.kaggle_m4_execute_batch import (
     _add_batch_shard_provenance,
@@ -803,15 +804,36 @@ def test_v14_freeze_matches_generator_and_clean_notebook() -> None:
     ) == tracked
     assert tracked["protocol_amendment_version"] == "M4-BATCH-3"
     assert tracked["batch_notebook_source_digest"] == (
-        validate_current_notebook_self_digest(
-            ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
-        )
+        "1ca358c798af3775dfa526d0090640cb78d479dbe18006ec4d13993f5c25200b"
     )
     assert tracked["implementation_source_commit"] == (
         "e290855de8aed29570cdd7952f9c2b37a2a19443"
     )
     assert tracked["notebook_pin_commit"] == (
         "bd114f171f4ae9623b6e9538ed1789af90dce693"
+    )
+
+
+def test_v15_freeze_matches_generator_and_clean_notebook() -> None:
+    tracked = json.loads(
+        (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V15.json").read_text()
+    )
+    assert build_freeze_v15(ROOT) == tracked
+    assert build_freeze_v15(ROOT) == tracked
+    assert verify_batch_source_freeze(
+        ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V15.json"
+    ) == tracked
+    assert tracked["protocol_amendment_version"] == "M4-BATCH-3"
+    assert tracked["batch_notebook_source_digest"] == (
+        validate_current_notebook_self_digest(
+            ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+        )
+    )
+    assert tracked["implementation_source_commit"] == (
+        "2ea82d306177aaca70066542c4bd6195e205d67e"
+    )
+    assert tracked["notebook_pin_commit"] == (
+        "12e748a2c58db731b03dc28ba7477396cfe04f0f"
     )
 
 

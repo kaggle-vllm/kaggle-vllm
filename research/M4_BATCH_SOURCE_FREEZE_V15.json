@@ -1,0 +1,63 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-source-freeze-v15",
+  "status": "FROZEN_AFTER_QWEN_R03_SETTLEMENT_FOR_M4_BATCH_3_CONTINUATION",
+  "protocol_amendment_version": "M4-BATCH-3",
+  "protocol_amendment_date_utc": "2026-09-14",
+  "reconciliation_date_utc": "2026-09-19",
+  "protocol_amendment_path": "research/M4_BATCH_PROTOCOL_AMENDMENT_V3.md",
+  "batch_plan_path": "research/M4_BATCH_EXECUTION_PLAN_V2.json",
+  "principal_queue_path": "research/M4_PRINCIPAL_EXECUTION_QUEUE.json",
+  "package_version": "0.2.0",
+  "implementation_source_commit": "2ea82d306177aaca70066542c4bd6195e205d67e",
+  "notebook_pin_commit": "12e748a2c58db731b03dc28ba7477396cfe04f0f",
+  "historical_batch_2_freeze": {
+    "path": "research/M4_BATCH_SOURCE_FREEZE_V14.json",
+    "sha256": "ad4fe39015077cdb0435781fca2d7695e34f41af901dadc0ec846d7293b6afc3",
+    "status": "RETAINED_UNCHANGED"
+  },
+  "execution_paths": {
+    "single_shard": {
+      "status": "UNCHANGED_AND_SUPPORTED",
+      "source_freeze": "research/M4_SOURCE_FREEZE.json",
+      "source_freeze_sha256": "36de26730a3f444f7ff352aa62af6383d99d3e4cbcae534c7eb2bd458928b1ce"
+    },
+    "batch_orchestrated": {
+      "status": "M4_BATCH_3_R03_QWEN_CLOSED_R03_PHI_READY",
+      "notebook": "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb",
+      "runner": "scripts/kaggle_m4_execute_batch.py",
+      "duplicate_prevention": "FAIL_CLOSED_AGAINST_FROZEN_PRINCIPAL_QUEUE"
+    }
+  },
+  "batch_notebook_sha256": "dde261ec961803174c8a38680b2e99855b45bd2d03a84e84d41bd0a6b2a6d39f",
+  "batch_notebook_source_digest": "a20604a8bc8a88e64b38bf39e239c0e1aeb11e5514a684b0e290ca6382bdd483",
+  "batch_runner_sha256": "99f0d2bf002905093ac842e819bbd069623970c5917d13d8ff328bf6510806e6",
+  "base_shard_runner_sha256": "9c764abde679f10d0db802feafd4d2909fbefa584004a8464460610e69d3af87",
+  "m4_execution_plan_sha256": "d97c8ed1ec8eec7e61e61c617b50d5d48287a253aa28f1e7834b0694fa419d8b",
+  "model_matrix_sha256": "7e6eae2f674c394d5db262a02ddd601dfadb17807c4c62e6a252f3e9656664c4",
+  "protocol_sha256": "0bb8c6d15b8a6f3d7acc0d1716f99ab34bb4f97ed0e38dd1e26b8f1c92fe99e3",
+  "batch_plan_sha256": "d3826c7453e93a0be14041ba9aaeb5e4fa73fd6e23d5b8bcdd840a46efcd8813",
+  "principal_queue_sha256": "3bbe9773d11e9daba0fa15c1289771e23ac94add31552a50497bb1ecf5aaea59",
+  "protocol_amendment_sha256": "2ee9005be4d506d3943d91c8a3a61f95288ff3bf0badced6087de3bf10e8a29c",
+  "settled_shard_policy": {
+    "canonical_preserved": "REFUSE_EXECUTION",
+    "failed_resource_gate": "REFUSE_EXECUTION",
+    "failed_other_review_required": "REFUSE_EXECUTION",
+    "zero_remaining_shards": "REFUSE_EXECUTION",
+    "pr_prose_authoritative": false
+  },
+  "model_source_policy": {
+    "source": "ordinary pinned Hugging Face checkpoints in research/model_matrix.json",
+    "historical_qwen_tp2_sharded_state_allowed": false,
+    "waqasm86_kaggle_vllm_models_allowed": false
+  },
+  "evidence_boundary": "This freeze contains no new GPU measurements. It binds the reviewed 38-canonical/4-resource-gated/18-not-executed reconciliation and permanently closes r03-qwen against normal continuation. The V14 Qwen short/balanced results and fourth independent prefill-heavy terminal resource result remain immutable physical-session evidence.",
+  "terminal_resource_gate_policy": {
+    "contract_schema": "kaggle-vllm-m4-terminal-resource-gate-v1",
+    "approved_reasons": [
+      "VRAM_RESOURCE_GUARD"
+    ],
+    "bare_return_code_3_is_sufficient": false,
+    "cleanup_and_continuation_guards_required": true,
+    "operational_and_integrity_failures_fail_stop": true
+  }
+}
