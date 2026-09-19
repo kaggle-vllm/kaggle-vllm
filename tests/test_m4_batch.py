@@ -109,13 +109,13 @@ def test_select_batch_rejects_mixed_repetition() -> None:
 def test_current_batch_passes_authoritative_no_rerun_queue() -> None:
     plan = json.loads((ROOT / "research/M4_REMAINING_EXECUTION_PLAN.json").read_text())
     queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
-    batch = select_batch(plan, "r02-phi")
+    batch = select_batch(plan, "r03-ministral")
     result = validate_batch_against_queue(batch, queue)
     assert result["status"] == "PASS_NO_SETTLED_SHARD_RESCHEDULED"
     assert result["queued_shard_ids"] == [
-        "phi4_mini-prefill_heavy-r02",
-        "phi4_mini-short-r02",
-        "phi4_mini-balanced-r02",
+        "ministral3_3b_bf16-short-r03",
+        "ministral3_3b_bf16-balanced-r03",
+        "ministral3_3b_bf16-prefill_heavy-r03",
     ]
     assert batch["review_required_exclusions"] == []
     assert batch["logical_shard_count"] == 3
@@ -135,6 +135,8 @@ def test_promoted_canonical_batch_cannot_be_rescheduled() -> None:
         select_batch(remaining, "r02-ministral")
     with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
         select_batch(remaining, "r02-qwen")
+    with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
+        select_batch(remaining, "r02-phi")
     stale_batch = {
         "ordered_shard_ids": [
             "qwen25_3b-balanced-r01",
@@ -181,6 +183,22 @@ def test_promoted_canonical_batch_cannot_be_rescheduled() -> None:
     }
     with pytest.raises(ResearchEvidenceError, match="refusing to reschedule settled"):
         validate_batch_against_queue(stale_qwen, queue)
+    stale_phi = {
+        "ordered_shard_ids": [
+            "phi4_mini-prefill_heavy-r02",
+            "phi4_mini-short-r02",
+            "phi4_mini-balanced-r02",
+        ],
+        "execution_order": [
+            {"shard_id": "phi4_mini-prefill_heavy-r02"},
+            {"shard_id": "phi4_mini-short-r02"},
+            {"shard_id": "phi4_mini-balanced-r02"},
+        ],
+        "already_completed_skips": [],
+        "review_required_exclusions": [],
+    }
+    with pytest.raises(ResearchEvidenceError, match="refusing to reschedule settled"):
+        validate_batch_against_queue(stale_phi, queue)
 
 
 def test_qwen_r02_attempts_remain_distinct_physical_sessions() -> None:
@@ -199,6 +217,26 @@ def test_qwen_r02_attempts_remain_distinct_physical_sessions() -> None:
         "qwen25_3b-balanced-r02",
     ]
     assert second["distinct_physical_session_from_attempt_1"] is True
+
+
+def test_phi_r02_batch_is_settled_and_non_runnable() -> None:
+    evidence = json.loads((ROOT / "research/M4_EVIDENCE_STATUS.json").read_text())
+    attempt = evidence["principal_batch_attempts"]["r02-phi-attempt-1"]
+    assert attempt["session_id"] == "m4-r02-phi-20260916T141636Z-6f8069da"
+    assert attempt["completed_canonical_shards"] == [
+        "phi4_mini-prefill_heavy-r02",
+        "phi4_mini-short-r02",
+        "phi4_mini-balanced-r02",
+    ]
+    reconciliation = json.loads(
+        (ROOT / "research/M4_EXECUTION_RECONCILIATION.json").read_text()
+    )
+    assert "r02-phi" not in {
+        batch["batch_id"] for batch in reconciliation["remaining_batches"]
+    }
+    assert set(attempt["completed_canonical_shards"]).issubset(
+        reconciliation["no_rerun_shards"]
+    )
 
 
 def test_resource_gated_shard_cannot_be_rescheduled() -> None:

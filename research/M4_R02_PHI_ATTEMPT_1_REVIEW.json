@@ -1,0 +1,255 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-attempt-review-v1",
+  "review_status": "COMPLETE",
+  "batch_id": "r02-phi",
+  "attempt": 1,
+  "session_id": "m4-r02-phi-20260916T141636Z-6f8069da",
+  "batch_protocol_version": "M4-BATCH-3",
+  "batch_status": "COMPLETED",
+  "batch_runner_returncode": 0,
+  "source_commit": "27fc9f3000246205e4a83fabc6244c7f4c5d98ff",
+  "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V12.json",
+  "source_freeze_notebook_pin_commit": "55d4bf61924729a297dbec787287a17d6d1b37d6",
+  "downloads": {
+    "outer_zip": {
+      "filename": "m4-batch-r02-phi.zip",
+      "size_bytes": 2302633,
+      "sha256": "3305ab862c47100e318d6b07b0245be2185a9a3def3d869f2ccf02e3c3fa3b2c"
+    },
+    "executed_notebook": {
+      "filename": "p25-kaggle-vllm-m4-execute-batch.ipynb",
+      "size_bytes": 37810,
+      "sha256": "91f1626df2faa9122640373706927087115cc789c8ddc29495771a5185cff9bf",
+      "frozen_notebook_sha256": "84fc4163713c44fa875c3172a8d872b2bce7824247951bc1fcfb168f0d71a549",
+      "source_digest": "4518f4fcecc8e94f1593a0abe3b570d88cbdc05ebd144ac0b38bef6bcce20805",
+      "cell_count": 4,
+      "extra_postrun_audit_cell": false,
+      "source_equivalence": "PASS_EXECUTABLE_SOURCES_IDENTICAL"
+    },
+    "runtime": {
+      "filename": "runtime.json",
+      "size_bytes": 3645,
+      "sha256": "badc544d5d074f7f4e626d62c446b4b2bb298855e01e6c53e666c248879c75e8",
+      "matches_bundled_runtime": true,
+      "profile": "kaggle-t4x2-cu128",
+      "strict": true
+    }
+  },
+  "outer_verification": {
+    "zip_safety": "PASS",
+    "crc": "PASS",
+    "member_count": 8,
+    "compressed_bytes": 2301611,
+    "uncompressed_bytes": 2433522,
+    "batch_sha256s": "PASS_ALL_7_PAYLOADS",
+    "absolute_paths": 0,
+    "traversal_paths": 0,
+    "duplicate_members": 0,
+    "symlinks": 0,
+    "encrypted_members": 0,
+    "oversized_members": 0,
+    "expected_inner_archives": 3,
+    "unexpected_recursive_archives": 0
+  },
+  "source_identity": {
+    "implementation_commit": "27fc9f3000246205e4a83fabc6244c7f4c5d98ff",
+    "notebook_pin_commit": "55d4bf61924729a297dbec787287a17d6d1b37d6",
+    "clean_notebook_sha256": "84fc4163713c44fa875c3172a8d872b2bce7824247951bc1fcfb168f0d71a549",
+    "source_digest": "4518f4fcecc8e94f1593a0abe3b570d88cbdc05ebd144ac0b38bef6bcce20805",
+    "principal_queue_sha256": "3dc40fae5299042b132910ba6df6a4fdc36af337fd80f7dbdbf261cf08fabc14",
+    "batch_plan_sha256": "5f3a7bc7c8e1ddca41399ac0e1ef656bb33f0c4c8a6f0216f372e2eddf94a920",
+    "batch_runner_sha256": "99f0d2bf002905093ac842e819bbd069623970c5917d13d8ff328bf6510806e6",
+    "base_shard_runner_sha256": "9c764abde679f10d0db802feafd4d2909fbefa584004a8464460610e69d3af87",
+    "protocol_sha256": "0bb8c6d15b8a6f3d7acc0d1716f99ab34bb4f97ed0e38dd1e26b8f1c92fe99e3",
+    "status": "PASS_V12_IMMUTABLE_SOURCE_EQUIVALENCE"
+  },
+  "runtime_validation": {
+    "status": "PASS",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_toolkit": "12.8.93",
+    "cuda_usable": true,
+    "gpu_names": ["Tesla T4", "Tesla T4"],
+    "gpu_compute_capabilities": ["SM75", "SM75"],
+    "nccl": "2.27.5",
+    "driver": "580.159.04",
+    "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "wheel_repository": "waqasm86/kaggle-vllm-binaries",
+    "wheel_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6"
+  },
+  "execution": {
+    "planned_shard_count": 3,
+    "attempted_shard_count": 3,
+    "planned_shards": [
+      "phi4_mini-prefill_heavy-r02",
+      "phi4_mini-short-r02",
+      "phi4_mini-balanced-r02"
+    ],
+    "actual_attempt_order": [
+      "phi4_mini-prefill_heavy-r02",
+      "phi4_mini-short-r02",
+      "phi4_mini-balanced-r02"
+    ],
+    "completed_canonical_shards": [
+      "phi4_mini-prefill_heavy-r02",
+      "phi4_mini-short-r02",
+      "phi4_mini-balanced-r02"
+    ],
+    "failed_resource_gate_shards": [],
+    "failed_review_required_shards": [],
+    "operationally_failed_shards": [],
+    "not_executed_shards": [],
+    "skipped_shards": [],
+    "already_completed_skips": [],
+    "start_utc": "2026-09-16T14:16:36.414884+00:00",
+    "end_utc": "2026-09-16T16:41:11.050375+00:00",
+    "batch_wall_clock_seconds": 8674.635502232999,
+    "stop_reason": null
+  },
+  "model_identity": {
+    "model_key": "phi4_mini",
+    "model_id": "microsoft/Phi-4-mini-instruct",
+    "model_revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+    "tokenizer_revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+    "source_checkpoint_dtype": "BF16",
+    "frozen_server_dtype": "float16",
+    "sdk_version": "0.2.0"
+  },
+  "completed_shards": [
+    {
+      "shard_id": "phi4_mini-prefill_heavy-r02",
+      "workload": "prefill_heavy",
+      "runner_returncode": 0,
+      "inner_zip": "phi4_mini-prefill_heavy-r02-principal.zip",
+      "inner_zip_sha256": "9a678f827d61d6fb1291be2cfed844f2635e7e8b86bc156758fd0f96919afec2",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "promotion": "PRINCIPAL_SHARD_PRESERVED",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 1638400,
+      "exact_output_tokens": 102400,
+      "prompt_manifest_sha256": "3264ab7358243b28eceac7878c8bb6fd35e0e5fc362fcc0fbfeb990172558cc6",
+      "gpu0_peak_mib": 13739,
+      "gpu1_peak_mib": 13739,
+      "peak_cells": ["tp2-c16", "tp2-c64"],
+      "maximum_system_ram_bytes": 7875551232,
+      "oom_observed": false,
+      "resource_guard": "PASS",
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "phi4_mini-short-r02",
+      "workload": "short",
+      "runner_returncode": 0,
+      "inner_zip": "phi4_mini-short-r02-principal.zip",
+      "inner_zip_sha256": "54e883ff087d2c639ea8a22c3c9ed9a9b57012950fabd6a6f0928749fff606c3",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "promotion": "PRINCIPAL_SHARD_PRESERVED",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 102400,
+      "exact_output_tokens": 51200,
+      "prompt_manifest_sha256": "c60f32ab959e3bb5d3f83261a37170fea0781ff38846c4e150ef6f71114cd443",
+      "gpu0_peak_mib": 13739,
+      "gpu1_peak_mib": 13739,
+      "peak_cells": ["tp2-c01", "tp2-c04", "tp2-c08", "tp2-c16", "tp2-c32", "tp2-c64"],
+      "maximum_system_ram_bytes": 7803342848,
+      "oom_observed": false,
+      "resource_guard": "PASS",
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "phi4_mini-balanced-r02",
+      "workload": "balanced",
+      "runner_returncode": 0,
+      "inner_zip": "phi4_mini-balanced-r02-principal.zip",
+      "inner_zip_sha256": "865c05132c14ecd1731ce2b264f33948d73297ba32718bce30899d572118a921",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "promotion": "PRINCIPAL_SHARD_PRESERVED",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 409600,
+      "exact_output_tokens": 204800,
+      "prompt_manifest_sha256": "0afdf34495e3c75d9a9f8b3a5f8b46a654782edb629cab2411d08d4a3f8afacb",
+      "gpu0_peak_mib": 13739,
+      "gpu1_peak_mib": 13739,
+      "peak_cells": ["tp2-c32"],
+      "maximum_system_ram_bytes": 7796527104,
+      "oom_observed": false,
+      "resource_guard": "PASS",
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    }
+  ],
+  "guards": {
+    "disk": {
+      "classification": "PASS_POSITIVE_MARGIN",
+      "batch_start_free_bytes": 18522996736,
+      "minimum_free_bytes": 10799980544,
+      "minimum_required_free_bytes": 10672066216,
+      "minimum_margin_bytes": 127914328,
+      "safety_reserve_bytes": 2147483648,
+      "reserve_status": "PASS"
+    },
+    "wallclock": {
+      "classification": "PASS_NOT_WALLCLOCK_RELATED",
+      "batch_wall_clock_seconds": 8674.635502232999,
+      "maximum_seconds": 37800,
+      "remaining_seconds_at_batch_end": 29125.364497767
+    },
+    "gpu_cleanup": {
+      "phi4_mini-prefill_heavy-r02": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "phi4_mini-short-r02": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "phi4_mini-balanced-r02": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "unexpected_child_processes": false
+    },
+    "cache_cleanup": {
+      "status": "DELETED_EXACT_MODEL_REPO_CACHE",
+      "path": "/kaggle/working/hf-cache/hub/models--microsoft--Phi-4-mini-instruct",
+      "broad_cleanup_observed": false
+    }
+  },
+  "ingestion": {
+    "initial_content_addressed_staging": {
+      "status": "VERIFIED_BATCH_CANDIDATE",
+      "returncode": 0,
+      "accepted_shards": 3,
+      "invalid_shards": 0,
+      "failed_shards": 0,
+      "planned_not_executed": 0,
+      "evidence": "THREE_INDIVIDUAL_VERIFIED_CANONICAL_CANDIDATE_INGEST_AUDITS"
+    },
+    "repeat_command_fail_closed": {
+      "status": "BATCH_REVIEW_REQUIRED",
+      "returncode": 2,
+      "reason": "ALL_THREE_CONTENT_ADDRESSED_DESTINATIONS_ALREADY_EXIST",
+      "staging_modified": false,
+      "stderr": "EMPTY"
+    }
+  },
+  "no_rerun_audit": {
+    "all_phi_r02_workloads_settled": true,
+    "batch_permanently_non_runnable": true,
+    "all_three_shards_enter_no_rerun_set": true,
+    "future_execution_must_use_new_batch_id": true
+  },
+  "methodology": {
+    "result_label": "PRELIMINARY_THREE_OF_FIVE_PHI_REPETITIONS",
+    "logical_design": "60_SHARDS_720_FRESH_SERVER_CELLS_UNCHANGED",
+    "per_gpu_ceiling_mib": 14848,
+    "post_hoc_benchmark_tuning": false,
+    "historical_qwen_resource_results_changed": false,
+    "new_multigigabyte_checkpoint_created": false,
+    "gemma_status": "CLOSED_NO_FURTHER_EXECUTION"
+  }
+}

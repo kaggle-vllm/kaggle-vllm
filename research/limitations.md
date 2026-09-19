@@ -4,7 +4,7 @@
   repetitions. M4 is in progress: Qwen, Phi, Llama, and text-only Ministral
   short-workload concurrency-1 compatibility shards are accepted. Final p13
   canonically preserves Gemma's pre-readiness dtype boundary. The four-model
-  principal matrix is in progress, with 30 of 60 logical shards preserved.
+  principal matrix is in progress, with 33 of 60 logical shards preserved.
   The first `M4-BATCH-1` allocation stopped on the Qwen prefill-heavy r00
   per-GPU VRAM guard after one new canonical shard; that failed shard remains
   review-required. All nine rows untouched in that attempt were later
@@ -17,7 +17,9 @@
   produced a third Qwen prefill-heavy TP2/concurrency-64 resource gate, but an
   outer-validator fixture mismatch stopped collection before short or balanced.
   A second physical V11 session then preserved short and balanced without
-  rerunning prefill-heavy; 27 matrix shards are currently not executed. The two
+  rerunning prefill-heavy. The V12 `r02-phi` session preserved all three Phi
+  workloads without a resource gate; 24 matrix shards are currently not
+  executed. The two Qwen
   sessions combine only through reviewed logical-shard reconciliation. Under the batch protocols, later shards may share one
   model/repetition physical Kaggle allocation; such shards are not fully
   independent environment realizations.

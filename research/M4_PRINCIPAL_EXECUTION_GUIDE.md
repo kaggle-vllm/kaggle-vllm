@@ -1,6 +1,6 @@
 # M4 principal execution guide
 
-Status: **IN_PROGRESS; 30 / 60 PRINCIPAL SHARDS PRESERVED**.
+Status: **IN_PROGRESS; 33 / 60 PRINCIPAL SHARDS PRESERVED**.
 
 The canonical order is generated in `M4_PRINCIPAL_EXECUTION_QUEUE.json`. It
 contains 60 active shard IDs and 15 non-executable Gemma historical rows. Use
@@ -82,12 +82,13 @@ from the reviewed V8 `r02-llama` batch, and all three Ministral r02 shards are
 preserved from the reviewed V9 `r02-ministral` batch. Qwen short and balanced
 r02 are preserved from the second physical `r02-qwen` session, while Qwen
 prefill-heavy r02 remains the terminal resource result from the first physical
-session. For a standalone continuation, the selected queue row is
-`M4_SHARD_ID=phi4_mini-prefill_heavy-r02` and its expected evidence ZIP is
-`phi4_mini-prefill_heavy-r02-principal.zip`. Download the executed
+session. All three Phi r02 shards are preserved from the reviewed V12
+`r02-phi` batch. For a standalone continuation, the selected queue row is
+`M4_SHARD_ID=ministral3_3b_bf16-short-r03` and its expected evidence ZIP is
+`ministral3_3b_bf16-short-r03-principal.zip`. Download the executed
 `kaggle_vllm_m4_execute_shard.ipynb` and `runtime.json` alongside it. Validate
 this shard end to end before advancing. The current preferred operation is the
-model-scoped `M4_BATCH_ID=r02-phi` after its new source freeze; follow
+model-scoped `M4_BATCH_ID=r03-ministral` after its new source freeze; follow
 `M4_BATCH_EXECUTION_GUIDE.md` instead.
 
 ## Completion gate

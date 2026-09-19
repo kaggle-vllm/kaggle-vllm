@@ -8,8 +8,8 @@ Overall status: **NOT_PAPER_READY — M4 principal evidence remains**
 | M2 evidence | PASS | Reviewed 2026-09-02 Qwen crossover evidence |
 | M3 canonical evidence | PASS | Clean-source 2026-09-07 run; canonical review and hashes pass |
 | M4 compatibility breadth | PASS | Frozen five-model gate closed: four passes and one canonical, narrowly scoped Gemma negative |
-| M4 principal breadth | FAIL | 30/60 four-model principal shards are canonical; three reviewed resource boundaries are settled and 27 shards remain not executed |
-| M4 logical repetitions | FAIL | Llama, Ministral, and Qwen short/balanced have 3/5 canonical repetitions; all Phi workloads have 2/5; Qwen prefill-heavy has 3/5 terminal resource results; no condition has five terminal repetitions |
+| M4 principal breadth | FAIL | 33/60 four-model principal shards are canonical; three reviewed resource boundaries are settled and 24 shards remain not executed |
+| M4 logical repetitions | FAIL | Llama, Ministral, Phi, and Qwen short/balanced have 3/5 canonical repetitions; Qwen prefill-heavy has 3/5 terminal resource results; no condition has five terminal repetitions |
 | M4 uncertainty | FAIL | Final paired-repetition intervals remain blocked until all five terminal outcomes per condition are reviewed; terminal VRAM rows have missing, never zero, performance |
 | External benchmark/simulator | OPTIONAL POST-M4 | M5 is optional under the roadmap; omit client-independent claims unless GuideLLM is actually executed |
 | Reproducibility | PASS | M1–M3 commands, provenance, runtime identities, and evidence retained |

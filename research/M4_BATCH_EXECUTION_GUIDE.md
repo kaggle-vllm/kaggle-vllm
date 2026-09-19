@@ -7,7 +7,7 @@ The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V12 is the current future-execution authority for `r02-phi`. V11 is the
+V12 is the immutable authority for the completed `r02-phi` batch. V11 is the
 immutable authority for the successful second physical
 `r02-qwen` attempt. V10 is the immutable authority for the historical first
 `r02-qwen` attempt, and V9 is the immutable authority for
@@ -56,14 +56,17 @@ observed blast radius, but no throughput result is used to reorder conditions.
 
 ## Next controlled execution
 
-The V11 `M4_BATCH_ID=r02-qwen` continuation completed
+The V12 `M4_BATCH_ID=r02-phi` continuation completed prefill-heavy, short, and
+balanced in session `m4-r02-phi-20260916T141636Z-6f8069da`. All three shards
+passed their complete 12-cell matrices and are permanently non-runnable. The
+next machine-derived batch is `M4_BATCH_ID=r03-ministral`, containing short,
+balanced, then prefill-heavy (36 serving cells). The V11
+`M4_BATCH_ID=r02-qwen` continuation completed
 `qwen25_3b-short-r02` followed by `qwen25_3b-balanced-r02` in session
 `m4-r02-qwen-20260916T054736Z-95506297`. Together with the distinct V10
 prefill-heavy terminal result, all three Qwen r02 logical shards are settled.
-The batch is permanently non-runnable. The next machine-derived batch is
-`M4_BATCH_ID=r02-phi`, containing prefill-heavy, short, then balanced (36
-serving cells). Do not rerun any completed continuation or reviewed terminal
-resource-gated shard.
+The Qwen batch is permanently non-runnable. Do not rerun any completed
+continuation or reviewed terminal resource-gated shard.
 
 The Llama continuation completed all three planned shards in session
 `m4-fill-r00-llama-20260912T044444Z-dd577e28`. Its independent review is
@@ -143,6 +146,13 @@ balanced; both passed all 12 cells, and the outer ZIP SHA256 is
 No prefill-heavy archive, log, request ledger, or new measurement exists in the
 V11 bundle. The two sessions combine only at reviewed logical-shard
 reconciliation; their allocation identity remains separate.
+
+The V12 `r02-phi` allocation executed exactly prefill-heavy, short, then
+balanced. All 36 serving cells passed, the outer ZIP SHA256 is
+`3305ab862c47100e318d6b07b0245be2185a9a3def3d869f2ccf02e3c3fa3b2c`,
+and the separate runtime is byte-identical to the bundled runtime. Its review
+is `M4_R02_PHI_ATTEMPT_1_REVIEW.json`. Reconciliation places all three logical
+shards in the no-rerun set and removes `r02-phi` from the remaining plan.
 
 The next allocation has three logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before

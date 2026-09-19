@@ -34,6 +34,7 @@ def _plan() -> dict:
     for workload in ("short", "balanced", "prefill_heavy"):
         by_id[f"phi4_mini-{workload}-r00"]["status"] = "QUEUED"
         by_id[f"phi4_mini-{workload}-r01"]["status"] = "QUEUED"
+        by_id[f"phi4_mini-{workload}-r02"]["status"] = "QUEUED"
         by_id[f"llama32_3b-{workload}-r00"]["status"] = "QUEUED"
         by_id[f"llama32_3b-{workload}-r01"]["status"] = "QUEUED"
         by_id[f"llama32_3b-{workload}-r02"]["status"] = "QUEUED"

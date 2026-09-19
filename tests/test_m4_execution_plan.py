@@ -60,11 +60,11 @@ def test_gemma_canonical_negative_remains_auditable_and_blocks_principal():
     assert gemma["principal_shard_status"] == "SKIPPED_BY_COMPATIBILITY_GATE"
     assert status["milestone_status"] == "IN_PROGRESS"
     assert status["principal_matrix_status"] == "IN_PROGRESS"
-    assert status["principal_preserved_shards"] == 30
-    assert status["principal_remaining_shards"] == 30
+    assert status["principal_preserved_shards"] == 33
+    assert status["principal_remaining_shards"] == 27
     assert status["principal_review_required_shards"] == 3
-    assert status["principal_queued_shards"] == 27
-    assert status["next_principal_shard"] == "phi4_mini-prefill_heavy-r02"
+    assert status["principal_queued_shards"] == 24
+    assert status["next_principal_shard"] == "ministral3_3b_bf16-short-r03"
     assert status["principal_shards"]["qwen25_3b-short-r00"]["canonical"] is True
     assert (
         status["principal_shards"]["qwen25_3b-short-r00"][

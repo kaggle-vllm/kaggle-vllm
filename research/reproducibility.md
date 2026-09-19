@@ -121,6 +121,17 @@ The V11 continuation completed in a second physical session,
 `m4-r02-qwen-20260916T054736Z-95506297`, and executed only short then balanced.
 Both are canonical. V10 and V11 remain distinct allocation records and combine
 only through reviewed logical-shard reconciliation.
+The V12 `r02-phi` continuation completed prefill-heavy, short, and balanced in
+session `m4-r02-phi-20260916T141636Z-6f8069da`. All three 12-cell matrices are
+canonical. Its outer ZIP SHA256 is
+`3305ab862c47100e318d6b07b0245be2185a9a3def3d869f2ccf02e3c3fa3b2c`,
+the executed notebook SHA256 is
+`91f1626df2faa9122640373706927087115cc789c8ddc29495771a5185cff9bf`,
+and the separate and bundled runtime files are byte-identical with SHA256
+`badc544d5d074f7f4e626d62c446b4b2bb298855e01e6c53e666c248879c75e8`.
+The notebook executable sources exactly match V12; cleanup returned both GPUs
+to 0 MiB with no new compute PIDs and deleted only the exact Phi model cache.
+All three Phi r02 shards are now in the reviewed no-rerun set.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
