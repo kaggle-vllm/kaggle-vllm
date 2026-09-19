@@ -1,0 +1,231 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-attempt-review-v1",
+  "review_status": "COMPLETE",
+  "batch_id": "fill-r00-ministral",
+  "session_id": "m4-fill-r00-ministral-20260912T091607Z-54baa1e9",
+  "batch_protocol_version": "M4-BATCH-2",
+  "batch_status": "COMPLETED",
+  "batch_runner_returncode": 0,
+  "source_commit": "1189cd0ed71e3f12de9a80a0a03278af0888a130",
+  "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V3.json",
+  "source_freeze_notebook_pin_commit": "0f35e5388cd537ffa1fdaabeee20e260acac9e0b",
+  "downloads": {
+    "outer_zip": {
+      "filename": "m4-batch-fill-r00-ministral.zip",
+      "size_bytes": 2110179,
+      "sha256": "5cc192952f00f11b37ff2b681e1c9eff24d7c285d85707dab989e3dd648798d2"
+    },
+    "executed_notebook": {
+      "filename": "p18-kaggle-vllm-m4-execute-batch.ipynb",
+      "size_bytes": 37789,
+      "sha256": "02fe0098fd977ab903d99336d38dff4f1e16b789786d519b3ed930f04c76cff3",
+      "frozen_notebook_sha256": "63f2badb46fcdad16382e005636f6efe66dacc6e641ee9f14f46c95cd5afc5c7",
+      "source_digest": "35c5e6bad9f1a8f9e96b21a6e85bfda249fb82f59ee7d2579293ed0e03554092",
+      "source_equivalence": "PASS_EXECUTABLE_SOURCES_IDENTICAL"
+    },
+    "runtime": {
+      "filename": "runtime (1).json",
+      "size_bytes": 3645,
+      "sha256": "7cb8514a0f78dfb7e603ceaa7444fbb0653e27b75132f8c047029d8d57243d96",
+      "matches_bundled_runtime": true,
+      "profile": "kaggle-t4x2-cu128",
+      "strict": true
+    }
+  },
+  "outer_verification": {
+    "zip_safety": "PASS",
+    "crc": "PASS",
+    "member_count": 8,
+    "compressed_bytes": 2109103,
+    "uncompressed_bytes": 2243897,
+    "batch_sha256s": "PASS_ALL_7_PAYLOADS",
+    "absolute_paths": 0,
+    "traversal_paths": 0,
+    "duplicate_members": 0,
+    "symlinks": 0,
+    "encrypted_members": 0,
+    "oversized_members": 0,
+    "unexpected_recursive_archives": 0
+  },
+  "runtime_validation": {
+    "status": "PASS",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_toolkit": "12.8.93",
+    "cuda_usable": true,
+    "gpu_names": ["Tesla T4", "Tesla T4"],
+    "gpu_compute_capabilities": ["SM75", "SM75"],
+    "nccl": "2.27.5",
+    "driver": "580.159.04",
+    "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "wheel_repository": "waqasm86/kaggle-vllm-binaries",
+    "wheel_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6"
+  },
+  "execution": {
+    "planned_shard_count": 3,
+    "attempted_shard_count": 3,
+    "planned_shards": [
+      "ministral3_3b_bf16-short-r00",
+      "ministral3_3b_bf16-balanced-r00",
+      "ministral3_3b_bf16-prefill_heavy-r00"
+    ],
+    "actual_attempt_order": [
+      "ministral3_3b_bf16-short-r00",
+      "ministral3_3b_bf16-balanced-r00",
+      "ministral3_3b_bf16-prefill_heavy-r00"
+    ],
+    "completed_canonical_shards": [
+      "ministral3_3b_bf16-short-r00",
+      "ministral3_3b_bf16-balanced-r00",
+      "ministral3_3b_bf16-prefill_heavy-r00"
+    ],
+    "failed_review_required_shards": [],
+    "not_executed_shards": []
+  },
+  "model_identity": {
+    "model_key": "ministral3_3b_bf16",
+    "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+    "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+    "tokenizer_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+    "source_checkpoint_dtype": "BF16",
+    "frozen_server_dtype": "float16",
+    "sdk_version": "0.2.0"
+  },
+  "completed_shards": [
+    {
+      "shard_id": "ministral3_3b_bf16-short-r00",
+      "workload": "short",
+      "runner_returncode": 0,
+      "start_utc": "2026-09-12T09:16:07.288241Z",
+      "end_utc": "2026-09-12T09:37:52.898546Z",
+      "inner_zip": "ministral3_3b_bf16-short-r00-principal.zip",
+      "inner_zip_sha256": "64d0e7bc877a32bdff1bace6ec65629ce6d346d4cf0319e0badd7eee8b2c1170",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 102400,
+      "exact_output_tokens": 51200,
+      "gpu0_peak_mib": 13109,
+      "gpu1_peak_mib": 13109,
+      "peak_cells": ["tp2-c32", "tp2-c64"],
+      "maximum_system_ram_bytes": 8352288768,
+      "oom_observed": false,
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "ministral3_3b_bf16-balanced-r00",
+      "workload": "balanced",
+      "runner_returncode": 0,
+      "start_utc": "2026-09-12T09:37:53.178345Z",
+      "end_utc": "2026-09-12T10:20:26.543817Z",
+      "inner_zip": "ministral3_3b_bf16-balanced-r00-principal.zip",
+      "inner_zip_sha256": "fd26a95697d6bbea21de64de44645ec85a9430e288b4d44cc633b2a3bc1729d9",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 409600,
+      "exact_output_tokens": 204800,
+      "gpu0_peak_mib": 13111,
+      "gpu1_peak_mib": 13111,
+      "peak_cells": ["tp2-c32"],
+      "maximum_system_ram_bytes": 8429281280,
+      "oom_observed": false,
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "ministral3_3b_bf16-prefill_heavy-r00",
+      "workload": "prefill_heavy",
+      "runner_returncode": 0,
+      "start_utc": "2026-09-12T10:20:27.067434Z",
+      "end_utc": "2026-09-12T11:20:34.156083Z",
+      "inner_zip": "ministral3_3b_bf16-prefill_heavy-r00-principal.zip",
+      "inner_zip_sha256": "505be91d99e1eabc0cb127c5d9f2152eb01ac584ae1b8e54c803ea48ed424679",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 1638400,
+      "exact_output_tokens": 102400,
+      "gpu0_peak_mib": 13109,
+      "gpu1_peak_mib": 13109,
+      "peak_cells": ["tp2-c16", "tp2-c64"],
+      "maximum_system_ram_bytes": 8364040192,
+      "oom_observed": false,
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    }
+  ],
+  "guards": {
+    "disk": {
+      "classification": "PASS_NOT_DISK_RELATED",
+      "notebook_preflight_total_bytes": 20957446144,
+      "notebook_preflight_free_bytes": 20910833664,
+      "batch_start_total_bytes": 20957446144,
+      "batch_start_free_bytes": 18523443200,
+      "minimum_free_bytes": 10768531456,
+      "minimum_required_free_bytes": 10698241056,
+      "minimum_margin_bytes": 70290400,
+      "safety_reserve_bytes": 2147483648,
+      "reserve_status": "PASS"
+    },
+    "wallclock": {
+      "classification": "PASS_NOT_WALLCLOCK_RELATED",
+      "batch_wall_clock_seconds": 7468.686819096,
+      "maximum_seconds": 37800,
+      "remaining_seconds_at_batch_end": 30331.313180904,
+      "pre_shard_remaining_seconds": {
+        "ministral3_3b_bf16-short-r00": 37799.927854954,
+        "ministral3_3b_bf16-balanced-r00": 36494.037741861,
+        "ministral3_3b_bf16-prefill_heavy-r00": 33940.148670732
+      }
+    },
+    "gpu_cleanup": {
+      "ministral3_3b_bf16-short-r00": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "ministral3_3b_bf16-balanced-r00": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "ministral3_3b_bf16-prefill_heavy-r00": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "unexpected_child_processes": false
+    },
+    "cache_cleanup": {
+      "status": "DELETED_EXACT_MODEL_REPO_CACHE",
+      "path": "/kaggle/working/hf-cache/hub/models--mistralai--Ministral-3-3B-Instruct-2512-BF16",
+      "broad_cleanup_observed": false
+    }
+  },
+  "ingestion": {
+    "status": "VERIFIED_BATCH_CANDIDATE",
+    "returncode": 0,
+    "accepted_shards": 3,
+    "invalid_shards": 0,
+    "failed_shards": 0,
+    "planned_not_executed": 0,
+    "stderr": "EMPTY"
+  },
+  "next_continuation": {
+    "batch_id": "fill-r01-phi",
+    "ordered_shard_ids": [
+      "phi4_mini-balanced-r01",
+      "phi4_mini-prefill_heavy-r01",
+      "phi4_mini-short-r01"
+    ],
+    "logical_shard_count": 3,
+    "serving_cell_count": 36
+  },
+  "methodology": {
+    "result_label": "PRELIMINARY_SINGLE_REPETITION",
+    "logical_design": "60_SHARDS_720_FRESH_SERVER_CELLS_UNCHANGED",
+    "per_gpu_ceiling_mib": 14848,
+    "post_hoc_benchmark_tuning": false,
+    "historical_qwen_sharded_state_used": false,
+    "new_multigigabyte_checkpoint_created": false,
+    "gemma_status": "CLOSED_NO_FURTHER_EXECUTION"
+  }
+}

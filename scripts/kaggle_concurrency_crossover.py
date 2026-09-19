@@ -339,6 +339,8 @@ def _run_cell(
     spec: ServingBenchmarkSpec,
     args: argparse.Namespace,
     output_dir: Path,
+    *,
+    process_observer: Callable[[subprocess.Popen[Any]], None] | None = None,
 ) -> dict[str, Any]:
     evidence = output_dir / f"{name}.json"
     log_path = output_dir / f"{name}.server.log"
@@ -361,6 +363,8 @@ def _run_cell(
                 env=environment,
                 start_new_session=True,
             )
+            if process_observer is not None:
+                process_observer(process)
             readiness = wait_for_server(
                 process, spec.base_url, args.server_startup_timeout
             )

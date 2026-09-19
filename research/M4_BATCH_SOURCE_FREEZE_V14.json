@@ -1,0 +1,63 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-source-freeze-v14",
+  "status": "FROZEN_AFTER_MINISTRAL_R03_COMPLETION_FOR_M4_BATCH_3_CONTINUATION",
+  "protocol_amendment_version": "M4-BATCH-3",
+  "protocol_amendment_date_utc": "2026-09-14",
+  "reconciliation_date_utc": "2026-09-19",
+  "protocol_amendment_path": "research/M4_BATCH_PROTOCOL_AMENDMENT_V3.md",
+  "batch_plan_path": "research/M4_BATCH_EXECUTION_PLAN_V2.json",
+  "principal_queue_path": "research/M4_PRINCIPAL_EXECUTION_QUEUE.json",
+  "package_version": "0.2.0",
+  "implementation_source_commit": "e290855de8aed29570cdd7952f9c2b37a2a19443",
+  "notebook_pin_commit": "bd114f171f4ae9623b6e9538ed1789af90dce693",
+  "historical_batch_2_freeze": {
+    "path": "research/M4_BATCH_SOURCE_FREEZE_V13.json",
+    "sha256": "d56d18767602b233dae3d4dce4253a711db0438f20aabe02ebdee85ccfc00a2b",
+    "status": "RETAINED_UNCHANGED"
+  },
+  "execution_paths": {
+    "single_shard": {
+      "status": "UNCHANGED_AND_SUPPORTED",
+      "source_freeze": "research/M4_SOURCE_FREEZE.json",
+      "source_freeze_sha256": "36de26730a3f444f7ff352aa62af6383d99d3e4cbcae534c7eb2bd458928b1ce"
+    },
+    "batch_orchestrated": {
+      "status": "M4_BATCH_3_R03_MINISTRAL_CLOSED_R03_QWEN_READY",
+      "notebook": "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb",
+      "runner": "scripts/kaggle_m4_execute_batch.py",
+      "duplicate_prevention": "FAIL_CLOSED_AGAINST_FROZEN_PRINCIPAL_QUEUE"
+    }
+  },
+  "batch_notebook_sha256": "528fd89ae38bb5227b6c932cd7bc29c6967ee16d011101b335c0a576261b0df3",
+  "batch_notebook_source_digest": "1ca358c798af3775dfa526d0090640cb78d479dbe18006ec4d13993f5c25200b",
+  "batch_runner_sha256": "99f0d2bf002905093ac842e819bbd069623970c5917d13d8ff328bf6510806e6",
+  "base_shard_runner_sha256": "9c764abde679f10d0db802feafd4d2909fbefa584004a8464460610e69d3af87",
+  "m4_execution_plan_sha256": "d97c8ed1ec8eec7e61e61c617b50d5d48287a253aa28f1e7834b0694fa419d8b",
+  "model_matrix_sha256": "7e6eae2f674c394d5db262a02ddd601dfadb17807c4c62e6a252f3e9656664c4",
+  "protocol_sha256": "0bb8c6d15b8a6f3d7acc0d1716f99ab34bb4f97ed0e38dd1e26b8f1c92fe99e3",
+  "batch_plan_sha256": "7442f6696d617d11e5001f30859e0412ee0d4741324aaae1dcb29d114aeeb3af",
+  "principal_queue_sha256": "5a23db951a1450f6891ce9837b7802ce3f5352dff3d4ecffd5653d2dfe355c3c",
+  "protocol_amendment_sha256": "2ee9005be4d506d3943d91c8a3a61f95288ff3bf0badced6087de3bf10e8a29c",
+  "settled_shard_policy": {
+    "canonical_preserved": "REFUSE_EXECUTION",
+    "failed_resource_gate": "REFUSE_EXECUTION",
+    "failed_other_review_required": "REFUSE_EXECUTION",
+    "zero_remaining_shards": "REFUSE_EXECUTION",
+    "pr_prose_authoritative": false
+  },
+  "model_source_policy": {
+    "source": "ordinary pinned Hugging Face checkpoints in research/model_matrix.json",
+    "historical_qwen_tp2_sharded_state_allowed": false,
+    "waqasm86_kaggle_vllm_models_allowed": false
+  },
+  "evidence_boundary": "This freeze contains no new GPU measurements. It binds the reviewed 36-canonical/3-resource-gated/21-not-executed reconciliation and permanently closes r03-ministral against normal continuation. The V13 Ministral batch and its exact reviewed post-execution notebook source-edit recovery remain immutable physical-session evidence.",
+  "terminal_resource_gate_policy": {
+    "contract_schema": "kaggle-vllm-m4-terminal-resource-gate-v1",
+    "approved_reasons": [
+      "VRAM_RESOURCE_GUARD"
+    ],
+    "bare_return_code_3_is_sufficient": false,
+    "cleanup_and_continuation_guards_required": true,
+    "operational_and_integrity_failures_fail_stop": true
+  }
+}

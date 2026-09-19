@@ -1,0 +1,251 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-attempt-review-v1",
+  "review_status": "COMPLETE",
+  "batch_id": "fill-r00-llama",
+  "session_id": "m4-fill-r00-llama-20260912T044444Z-dd577e28",
+  "batch_protocol_version": "M4-BATCH-2",
+  "batch_status": "COMPLETED",
+  "batch_runner_returncode": 0,
+  "source_commit": "cf0ce4f85a0753380468c48856ddb2579d31cf19",
+  "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V2.json",
+  "source_freeze_notebook_pin_commit": "35049f69e9b7bbc465870d92e97a7bd7064ee779",
+  "downloads": {
+    "outer_zip": {
+      "filename": "m4-batch-fill-r00-llama.zip",
+      "size_bytes": 2014366,
+      "sha256": "9f27731cbaad5c43c52f56228534f8ef4f12d293681f10a8d2b67ee0ad7d4531"
+    },
+    "executed_notebook": {
+      "filename": "p17-kaggle-vllm-m4-execute-batch.ipynb",
+      "size_bytes": 37231,
+      "sha256": "56589846fb9d76148501227bd4f965136c834e88bf0ccad99b23a8bd1879f928",
+      "frozen_notebook_sha256": "ebf6826f8fd0df7f16e1596d33a1f32f24e96bb6102eb2e52a1fd84ebc49e500",
+      "source_digest": "25d857d7df5a0ab4bb54735d852f293865f5bf3d0419d7fb612204775599a297",
+      "source_equivalence": "PASS_EXECUTABLE_SOURCES_IDENTICAL"
+    },
+    "runtime": {
+      "filename": "runtime.json",
+      "size_bytes": 3645,
+      "sha256": "34a8d56244f1205c7e3ca7d1f55f0c22152f373c83413ebd00bfd072d3463a09",
+      "matches_bundled_runtime": true,
+      "profile": "kaggle-t4x2-cu128",
+      "strict": true
+    }
+  },
+  "outer_verification": {
+    "zip_safety": "PASS",
+    "crc": "PASS",
+    "member_count": 8,
+    "uncompressed_bytes": 2130491,
+    "batch_sha256s": "PASS_ALL_7_PAYLOADS",
+    "absolute_paths": 0,
+    "traversal_paths": 0,
+    "duplicate_members": 0,
+    "symlinks": 0,
+    "encrypted_members": 0,
+    "oversized_members": 0,
+    "unexpected_recursive_archives": 0
+  },
+  "runtime_validation": {
+    "status": "PASS",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_toolkit": "12.8.93",
+    "cuda_usable": true,
+    "gpu_names": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "gpu_compute_capabilities": [
+      "SM75",
+      "SM75"
+    ],
+    "nccl": "2.27.5",
+    "driver": "580.159.04",
+    "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "wheel_repository": "waqasm86/kaggle-vllm-binaries",
+    "wheel_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6"
+  },
+  "execution": {
+    "planned_shard_count": 3,
+    "attempted_shard_count": 3,
+    "planned_shards": [
+      "llama32_3b-short-r00",
+      "llama32_3b-balanced-r00",
+      "llama32_3b-prefill_heavy-r00"
+    ],
+    "actual_attempt_order": [
+      "llama32_3b-short-r00",
+      "llama32_3b-balanced-r00",
+      "llama32_3b-prefill_heavy-r00"
+    ],
+    "completed_canonical_shards": [
+      "llama32_3b-short-r00",
+      "llama32_3b-balanced-r00",
+      "llama32_3b-prefill_heavy-r00"
+    ],
+    "failed_review_required_shards": [],
+    "not_executed_shards": []
+  },
+  "model_identity": {
+    "model_key": "llama32_3b",
+    "model_id": "meta-llama/Llama-3.2-3B-Instruct",
+    "model_revision": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+    "tokenizer_revision": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+    "sdk_version": "0.2.0"
+  },
+  "completed_shards": [
+    {
+      "shard_id": "llama32_3b-short-r00",
+      "workload": "short",
+      "runner_returncode": 0,
+      "start_utc": "2026-09-12T04:44:44.874762+00:00",
+      "end_utc": "2026-09-12T05:04:56.539076+00:00",
+      "inner_zip": "llama32_3b-short-r00-principal.zip",
+      "inner_zip_sha256": "2354831d685f4c2621bbc31b228e6c24457afd431deb5e99082be2a4892dbc87",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 102400,
+      "exact_output_tokens": 51200,
+      "gpu0_peak_mib": 13725,
+      "gpu1_peak_mib": 13725,
+      "peak_cells": [
+        "tp2-c01",
+        "tp2-c04",
+        "tp2-c08",
+        "tp2-c16",
+        "tp2-c32",
+        "tp2-c64"
+      ],
+      "maximum_system_ram_bytes": 7676420096,
+      "oom_observed": false,
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "llama32_3b-balanced-r00",
+      "workload": "balanced",
+      "runner_returncode": 0,
+      "start_utc": "2026-09-12T05:04:56.804920+00:00",
+      "end_utc": "2026-09-12T05:43:17.089115+00:00",
+      "inner_zip": "llama32_3b-balanced-r00-principal.zip",
+      "inner_zip_sha256": "0e47b6b5cafb5740e83ab7692b28c7372ac23ce6c72f1f3ade99dc69768b7dad",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 409600,
+      "exact_output_tokens": 204800,
+      "gpu0_peak_mib": 13723,
+      "gpu1_peak_mib": 13723,
+      "peak_cells": [
+        "tp2-c01",
+        "tp2-c04",
+        "tp2-c08",
+        "tp2-c16",
+        "tp2-c32",
+        "tp2-c64"
+      ],
+      "maximum_system_ram_bytes": 7480999936,
+      "oom_observed": false,
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "llama32_3b-prefill_heavy-r00",
+      "workload": "prefill_heavy",
+      "runner_returncode": 0,
+      "start_utc": "2026-09-12T05:43:17.515779+00:00",
+      "end_utc": "2026-09-12T06:38:48.373509+00:00",
+      "inner_zip": "llama32_3b-prefill_heavy-r00-principal.zip",
+      "inner_zip_sha256": "6217a0e66f9417232ea2001f4059ea7559719742216b5fc17f549de6317a0cf7",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 1638400,
+      "exact_output_tokens": 102400,
+      "gpu0_peak_mib": 13725,
+      "gpu1_peak_mib": 13725,
+      "peak_cells": [
+        "tp2-c16",
+        "tp2-c64"
+      ],
+      "maximum_system_ram_bytes": 7455846400,
+      "oom_observed": false,
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    }
+  ],
+  "guards": {
+    "disk": {
+      "classification": "PASS_NOT_DISK_RELATED",
+      "notebook_preflight_total_bytes": 20957446144,
+      "notebook_preflight_free_bytes": 20911005696,
+      "batch_start_total_bytes": 20957446144,
+      "batch_start_free_bytes": 18523623424,
+      "minimum_free_bytes": 12069232640,
+      "minimum_required_free_bytes": 9425529048,
+      "minimum_margin_bytes": 2643703592,
+      "safety_reserve_bytes": 2147483648,
+      "reserve_status": "PASS"
+    },
+    "wallclock": {
+      "classification": "PASS_NOT_WALLCLOCK_RELATED",
+      "batch_wall_clock_seconds": 6845.093635756,
+      "maximum_seconds": 37800,
+      "remaining_seconds_at_batch_end": 30954.906364244,
+      "pre_shard_remaining_seconds": {
+        "llama32_3b-short-r00": 37799.930126518,
+        "llama32_3b-balanced-r00": 36588.000015875,
+        "llama32_3b-prefill_heavy-r00": 34287.289128627
+      }
+    },
+    "gpu_cleanup": {
+      "llama32_3b-short-r00": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "llama32_3b-balanced-r00": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "llama32_3b-prefill_heavy-r00": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "unexpected_child_processes": false
+    },
+    "cache_cleanup": {
+      "status": "DELETED_EXACT_MODEL_REPO_CACHE",
+      "path": "/kaggle/working/hf-cache/hub/models--meta-llama--Llama-3.2-3B-Instruct",
+      "broad_cleanup_observed": false
+    }
+  },
+  "ingestion": {
+    "status": "VERIFIED_BATCH_CANDIDATE",
+    "returncode": 0,
+    "accepted_shards": 3,
+    "invalid_shards": 0,
+    "failed_shards": 0,
+    "planned_not_executed": 0,
+    "stderr": "EMPTY"
+  },
+  "next_continuation": {
+    "batch_id": "fill-r00-ministral",
+    "ordered_shard_ids": [
+      "ministral3_3b_bf16-short-r00",
+      "ministral3_3b_bf16-balanced-r00",
+      "ministral3_3b_bf16-prefill_heavy-r00"
+    ],
+    "logical_shard_count": 3,
+    "serving_cell_count": 36
+  },
+  "methodology": {
+    "result_label": "PRELIMINARY_SINGLE_REPETITION",
+    "logical_design": "60_SHARDS_720_FRESH_SERVER_CELLS_UNCHANGED",
+    "per_gpu_ceiling_mib": 14848,
+    "post_hoc_benchmark_tuning": false,
+    "historical_qwen_sharded_state_used": false,
+    "new_multigigabyte_checkpoint_created": false,
+    "gemma_status": "CLOSED_NO_FURTHER_EXECUTION"
+  }
+}

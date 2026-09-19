@@ -1,0 +1,222 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-attempt-review-v1",
+  "review_status": "COMPLETE",
+  "batch_id": "fill-r01-llama",
+  "session_id": "m4-fill-r01-llama-20260913T141158Z-e929dba7",
+  "batch_protocol_version": "M4-BATCH-2",
+  "batch_status": "COMPLETED",
+  "batch_runner_returncode": 0,
+  "source_commit": "e50bb5b7d75856528528345d4755026fa548b194",
+  "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V5.json",
+  "source_freeze_notebook_pin_commit": "845957d31e4475207e79b9b4f74dd5188ba71079",
+  "downloads": {
+    "outer_zip": {
+      "filename": "m4-batch-fill-r01-llama.zip",
+      "size_bytes": 2059771,
+      "sha256": "ced12dc3d498ecde6a894eed91caaa21585e14e350d519bea19e72016ae45e9e"
+    },
+    "executed_notebook": {
+      "filename": "19-kaggle-vllm-m4-execute-batch.ipynb",
+      "size_bytes": 37745,
+      "sha256": "c69a5faafebd621560fb2bb67bc5b9ce13ae2c0cc1043c4f42b93afdb4461002",
+      "frozen_notebook_sha256": "31aefb5c44fa72cf4d53d77be9575b7d10e676b95625b6149790b88a8d4e388b",
+      "source_digest": "5a10643f2c861298398d9c54f7471f3f1785bf2463aabbcf66334485cec1ce61",
+      "cell_count": 4,
+      "extra_postrun_audit_cell": false,
+      "source_equivalence": "PASS_EXECUTABLE_SOURCES_IDENTICAL"
+    },
+    "runtime": {
+      "filename": "runtime.json",
+      "size_bytes": 3645,
+      "sha256": "3c17bfda70bf97ad6d47a588f89157569e159d8a1b87ccb09a829f95258936b7",
+      "matches_bundled_runtime": true,
+      "profile": "kaggle-t4x2-cu128",
+      "strict": true
+    }
+  },
+  "outer_verification": {
+    "zip_safety": "PASS",
+    "crc": "PASS",
+    "member_count": 8,
+    "compressed_bytes": 2058743,
+    "uncompressed_bytes": 2192562,
+    "batch_sha256s": "PASS_ALL_7_PAYLOADS",
+    "absolute_paths": 0,
+    "traversal_paths": 0,
+    "duplicate_members": 0,
+    "symlinks": 0,
+    "encrypted_members": 0,
+    "oversized_members": 0,
+    "unexpected_recursive_archives": 0
+  },
+  "runtime_validation": {
+    "status": "PASS",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_toolkit": "12.8.93",
+    "cuda_usable": true,
+    "gpu_names": ["Tesla T4", "Tesla T4"],
+    "gpu_compute_capabilities": ["SM75", "SM75"],
+    "nccl": "2.27.5",
+    "driver": "580.159.04",
+    "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "wheel_repository": "waqasm86/kaggle-vllm-binaries",
+    "wheel_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6"
+  },
+  "execution": {
+    "planned_shard_count": 3,
+    "attempted_shard_count": 3,
+    "planned_shards": [
+      "llama32_3b-balanced-r01",
+      "llama32_3b-prefill_heavy-r01",
+      "llama32_3b-short-r01"
+    ],
+    "actual_attempt_order": [
+      "llama32_3b-balanced-r01",
+      "llama32_3b-prefill_heavy-r01",
+      "llama32_3b-short-r01"
+    ],
+    "completed_canonical_shards": [
+      "llama32_3b-balanced-r01",
+      "llama32_3b-prefill_heavy-r01",
+      "llama32_3b-short-r01"
+    ],
+    "failed_review_required_shards": [],
+    "not_executed_shards": []
+  },
+  "model_identity": {
+    "model_key": "llama32_3b",
+    "model_id": "meta-llama/Llama-3.2-3B-Instruct",
+    "model_revision": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+    "tokenizer_revision": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+    "source_checkpoint_dtype": "BF16",
+    "frozen_server_dtype": "float16",
+    "sdk_version": "0.2.0"
+  },
+  "completed_shards": [
+    {
+      "shard_id": "llama32_3b-balanced-r01",
+      "workload": "balanced",
+      "runner_returncode": 0,
+      "inner_zip": "llama32_3b-balanced-r01-principal.zip",
+      "inner_zip_sha256": "ac2a58c58cb760834eb4ae9f56236abec9aa557c95e5210fc03e0fe2dcf37085",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 409600,
+      "exact_output_tokens": 204800,
+      "prompt_manifest_sha256": "df0d893a31e3914f8122114c371275ce60268f90990d12cd28e9cc831924d5ec",
+      "gpu0_peak_mib": 13723,
+      "gpu1_peak_mib": 13723,
+      "peak_cells": ["tp2-c01", "tp2-c04", "tp2-c08", "tp2-c16", "tp2-c32", "tp2-c64"],
+      "maximum_system_ram_bytes": 7675539456,
+      "oom_observed": false,
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "llama32_3b-prefill_heavy-r01",
+      "workload": "prefill_heavy",
+      "runner_returncode": 0,
+      "inner_zip": "llama32_3b-prefill_heavy-r01-principal.zip",
+      "inner_zip_sha256": "0cf822313b20942d5387f2d0a6d3d054bcc02f36cda5804ab15cb6c2ee123a1d",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 1638400,
+      "exact_output_tokens": 102400,
+      "prompt_manifest_sha256": "df9d12c02fb83f334833d7fc6ab6f72fae0995b6f11ed8ac250571cc22d94933",
+      "gpu0_peak_mib": 13725,
+      "gpu1_peak_mib": 13725,
+      "peak_cells": ["tp2-c16", "tp2-c64"],
+      "maximum_system_ram_bytes": 7505604608,
+      "oom_observed": false,
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "llama32_3b-short-r01",
+      "workload": "short",
+      "runner_returncode": 0,
+      "inner_zip": "llama32_3b-short-r01-principal.zip",
+      "inner_zip_sha256": "677344b0d701517b01317eb46e9837455c85eeaa29c1b4f2660e2099740d40d9",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 102400,
+      "exact_output_tokens": 51200,
+      "prompt_manifest_sha256": "936871fa1e36c1c0fefbb0002f8a3ab824e18f777472c44edb9069f0bee62864",
+      "gpu0_peak_mib": 13725,
+      "gpu1_peak_mib": 13725,
+      "peak_cells": ["tp2-c01", "tp2-c04", "tp2-c08", "tp2-c16", "tp2-c32", "tp2-c64"],
+      "maximum_system_ram_bytes": 7463432192,
+      "oom_observed": false,
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    }
+  ],
+  "guards": {
+    "disk": {
+      "classification": "PASS_LARGE_MARGIN",
+      "batch_start_free_bytes": 18523373568,
+      "minimum_free_bytes": 12057202688,
+      "minimum_required_free_bytes": 9425529048,
+      "minimum_margin_bytes": 2631673640,
+      "safety_reserve_bytes": 2147483648,
+      "reserve_status": "PASS"
+    },
+    "wallclock": {
+      "classification": "PASS_NOT_WALLCLOCK_RELATED",
+      "batch_wall_clock_seconds": 7272.359962031,
+      "maximum_seconds": 37800,
+      "remaining_seconds_at_batch_end": 30527.640037969
+    },
+    "gpu_cleanup": {
+      "llama32_3b-balanced-r01": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "llama32_3b-prefill_heavy-r01": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "llama32_3b-short-r01": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "unexpected_child_processes": false
+    },
+    "cache_cleanup": {
+      "status": "DELETED_EXACT_MODEL_REPO_CACHE",
+      "path": "/kaggle/working/hf-cache/hub/models--meta-llama--Llama-3.2-3B-Instruct",
+      "broad_cleanup_observed": false
+    }
+  },
+  "ingestion": {
+    "status": "VERIFIED_BATCH_CANDIDATE",
+    "returncode": 0,
+    "accepted_shards": 3,
+    "invalid_shards": 0,
+    "failed_shards": 0,
+    "planned_not_executed": 0,
+    "stderr": "EMPTY"
+  },
+  "next_continuation": {
+    "batch_id": "fill-r01-ministral",
+    "ordered_shard_ids": [
+      "ministral3_3b_bf16-balanced-r01",
+      "ministral3_3b_bf16-prefill_heavy-r01",
+      "ministral3_3b_bf16-short-r01"
+    ],
+    "logical_shard_count": 3,
+    "serving_cell_count": 36
+  },
+  "methodology": {
+    "result_label": "PRELIMINARY_TWO_OF_FIVE_LLAMA_REPETITIONS",
+    "logical_design": "60_SHARDS_720_FRESH_SERVER_CELLS_UNCHANGED",
+    "per_gpu_ceiling_mib": 14848,
+    "post_hoc_benchmark_tuning": false,
+    "historical_qwen_sharded_state_used": false,
+    "new_multigigabyte_checkpoint_created": false,
+    "gemma_status": "CLOSED_NO_FURTHER_EXECUTION"
+  }
+}

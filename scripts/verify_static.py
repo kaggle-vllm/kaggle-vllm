@@ -11,11 +11,18 @@ import tomllib
 from packaging.requirements import Requirement
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from kaggle_vllm.research.m4_batch import (
+    validate_current_notebook_self_digest,
+)
+
 PROFILE = ROOT / "src/kaggle_vllm/profiles/kaggle-t4x2-cu128/profile.json"
 COMPAT = ROOT / "compat/kaggle-t4x2-cu128.json"
 PROVENANCE = ROOT / "artifacts/BUILD-PROVENANCE.json"
 CHECKSUMS = ROOT / "artifacts/SHA256SUMS.txt"
 INIT = ROOT / "src/kaggle_vllm/__init__.py"
+BATCH_NOTEBOOK = ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
 
 
 def main() -> int:
@@ -47,6 +54,7 @@ def main() -> int:
     )
     assert version_match is not None
     assert version_match.group(1) == project["version"]
+    validate_current_notebook_self_digest(BATCH_NOTEBOOK)
     print("static profile/provenance/package checks: PASS")
     return 0
 

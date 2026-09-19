@@ -1,0 +1,68 @@
+{
+  "schema_version": "kaggle-vllm-m4-notebook-provenance-recovery-v1",
+  "classification": "POST_EXECUTION_NOTEBOOK_SOURCE_EDIT",
+  "review_status": "REVIEWED_APPROVED_FOR_EXACT_INGESTION",
+  "batch_id": "r03-ministral",
+  "session_id": "m4-r03-ministral-20260919T094937Z-fee4d921",
+  "source_identity": {
+    "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V13.json",
+    "implementation_commit": "571bd07f478f820813ff6c9b19faf3470b138fb5",
+    "notebook_pin_commit": "40c7c9da88bce712e3a87bcf9b5af52793cf6aa8",
+    "clean_notebook_source_digest": "da7f5454982cc3ff4e556291d13366bf544241a62196b991dee751b85299a891"
+  },
+  "artifacts": {
+    "clean_v13_notebook": {
+      "path": "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb",
+      "size_bytes": 7212,
+      "sha256": "c6828984ec78c7e0fa5988e37341607f43d083f04869a6ade5508d595e1548a9",
+      "role": "IMMUTABLE_CLEAN_SOURCE_WITHOUT_OUTPUTS"
+    },
+    "saved_executed_notebook": {
+      "filename": "p26-kaggle-vllm-m4-execute-batch.ipynb",
+      "size_bytes": 37881,
+      "sha256": "064fc6977153956faba597274001f7027cc02f72677017eddc0819f4d32aeab3",
+      "role": "ORIGINAL_KAGGLE_OUTPUTS_WITH_POST_EXECUTION_SAVED_SOURCE_EDIT"
+    },
+    "outer_batch_zip": {
+      "filename": "m4-batch-r03-ministral.zip",
+      "size_bytes": 2086980,
+      "sha256": "723cf39bf30add663fb2492d6b2cdabb6beb103a95ae73f14322114055bedbc4"
+    },
+    "runtime": {
+      "filename": "runtime.json",
+      "size_bytes": 3645,
+      "sha256": "117d1e58004975c2ff4972f0c7744f9afe081b9f12bc8589b1fa1a66ff2f15fc"
+    },
+    "inner_zip_sha256": {
+      "ministral3_3b_bf16-short-r03": "31466b64f49305c006dcb84c652b520c2653e67ee17686bcdd9bffe197ea8568",
+      "ministral3_3b_bf16-balanced-r03": "f0caee8cd9b49c8596ce3d7507e207f8381c6bef75977285a5785a49a8623a26",
+      "ministral3_3b_bf16-prefill_heavy-r03": "1b8fc5acb95f41562e1909c90baa376fc12a8ec200134c96e76526ce0891d6c6"
+    }
+  },
+  "changed_cell": {
+    "index": 2,
+    "id": "execute",
+    "expected_source_sha256": "544df96529bbb8682b8a3b3d9cd8102e4b4d120b8e7833c206bebd5a717dbf59",
+    "altered_source_sha256": "34a3add2632bbcd03475bd49b1684fc542fbe4bba61d2d1898751c821959d084",
+    "expected_source": "command = [sys.executable, str(SOURCE/'scripts/kaggle_m4_execute_batch.py'), '--repository', str(SOURCE), '--output-root', str(OUTPUT_ROOT), '--runtime', str(manifest), '--batch-id', batch_id, '--batch-plan', 'research/M4_BATCH_EXECUTION_PLAN_V2.json', '--source-identity', EXPECTED_SOURCE_COMMIT, '--batch-notebook-source-digest', BATCH_NOTEBOOK_SOURCE_DIGEST]\ncompleted = subprocess.run(command, cwd=SOURCE, env=RUN_ENV, check=False)\nouter = WORK/f'm4-batch-{batch_id}.zip'; print(json.dumps({'batch_runner_returncode': completed.returncode, 'outer_zip': str(outer)}, indent=2))\nif not outer.is_file(): raise RuntimeError('batch runner did not preserve an outer archive')\nouter_sha256 = hashlib.sha256(outer.read_bytes()).hexdigest(); print(json.dumps({'outer_zip': str(outer), 'outer_zip_sha256': outer_sha256, 'runtime_json': str(manifest)}, indent=2))\nif completed.returncode not in {0, 2}: raise RuntimeError(f'unexpected batch runner return code {completed.returncode}; preserve all outputs for review')",
+    "altered_source": "command = [sys.executable, str(SOURCE/'scripts/kaggle_m4_execinlen96@gmail.comcute_batch.py'), '--repository', str(SOURCE), '--output-root', str(OUTPUT_ROOT), '--runtime', str(manifest), '--batch-id', batch_id, '--batch-plan', 'research/M4_BATCH_EXECUTION_PLAN_V2.json', '--source-identity', EXPECTED_SOURCE_COMMIT, '--batch-notebook-source-digest', BATCH_NOTEBOOK_SOURCE_DIGEST]\ncompleted = subprocess.run(command, cwd=SOURCE, env=RUN_ENV, check=False)\nouter = WORK/f'm4-batch-{batch_id}.zip'; print(json.dumps({'batch_runner_returncode': completed.returncode, 'outer_zip': str(outer)}, indent=2))\nif not outer.is_file(): raise RuntimeError('batch runner did not preserve an outer archive')\nouter_sha256 = hashlib.sha256(outer.read_bytes()).hexdigest(); print(json.dumps({'outer_zip': str(outer), 'outer_zip_sha256': outer_sha256, 'runtime_json': str(manifest)}, indent=2))\nif completed.returncode not in {0, 2}: raise RuntimeError(f'unexpected batch runner return code {completed.returncode}; preserve all outputs for review')"
+  },
+  "execution_proof": {
+    "execution_count": 2,
+    "cell_started_utc": "2026-09-19T09:49:37.438800Z",
+    "cell_ended_utc": "2026-09-19T11:54:11.131549Z",
+    "outputs_sha256": "f4da7bdc6646721b5df735c0f89ca69b33d19f9ad98d0589babb472afc084b53",
+    "expected_runner_path": "scripts/kaggle_m4_execute_batch.py",
+    "altered_runner_path": "scripts/kaggle_m4_execinlen96@gmail.comcute_batch.py",
+    "altered_runner_present_at_implementation_commit": false,
+    "reasoning": "The retained output records COMPLETED, runner rc 0, the exact batch/session, and the exact final outer ZIP hash. The execution interval encloses the manifest interval. The altered runner path does not exist at the frozen implementation commit and therefore cannot have produced that output."
+  },
+  "recovery_boundary": {
+    "pre_edit_executed_notebook_available": false,
+    "reconstructed_notebook_created": false,
+    "saved_executed_notebook_preserved_unchanged": true,
+    "global_source_equivalence_bypass": false,
+    "approval_scope": "ONLY_THE_EXACT_HASHED_R03_MINISTRAL_BATCH_SESSION_AND_SINGLE_CELL_EDIT",
+    "limitation": "No genuine pre-edit executed notebook survives. Recovery binds the original saved outputs to immutable V13 and the final content-addressed batch evidence; it does not relabel the edited notebook as source-equivalent."
+  }
+}

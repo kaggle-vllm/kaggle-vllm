@@ -1,0 +1,669 @@
+{
+  "benchmark_type": "online-serving-concurrency",
+  "concurrency": 1,
+  "engine": {
+    "api_mode": "completions",
+    "disable_custom_all_reduce": true,
+    "dtype": "float16",
+    "enable_prefix_caching": false,
+    "enforce_eager": true,
+    "gpu_memory_utilization": 0.9,
+    "max_model_len": 4096,
+    "max_num_batched_tokens": null,
+    "max_num_seqs": 64,
+    "model": "Qwen/Qwen2.5-3B-Instruct",
+    "model_representation": "transformers",
+    "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "model_source": "huggingface",
+    "served_model_name": "qwen25_3b",
+    "telemetry_interval_seconds": 0.25,
+    "tensor_parallel_size": 2
+  },
+  "failure_observations": [],
+  "gpu_telemetry": {
+    "capture_failures": [],
+    "maximum_aggregate_sampled_memory_used_mib": 27506.0,
+    "monitoring_ended_at": "2026-09-08T08:56:56.359561+00:00",
+    "monitoring_started_at": "2026-09-08T08:55:26.316210+00:00",
+    "raw_samples_file": "qwen25_3b-short-r00-tp2-c01.telemetry.jsonl",
+    "raw_samples_retained": true,
+    "sampling_interval_seconds": 0.25,
+    "source": "nvidia-smi",
+    "summaries": [
+      {
+        "first_memory_used_mib": 13753.0,
+        "first_sample_at": "2026-09-08T08:55:26.316231+00:00",
+        "index": 0,
+        "last_memory_used_mib": 13753.0,
+        "last_sample_at": "2026-09-08T08:56:56.286820+00:00",
+        "mean_utilization_percent": 48.79347826086956,
+        "memory_total_mib": 15360.0,
+        "peak_memory_clock_mhz": 5000.0,
+        "peak_memory_used_mib": 13753.0,
+        "peak_memory_utilization_percent": 28.0,
+        "peak_power_draw_w": 67.45,
+        "peak_sm_clock_mhz": 1590.0,
+        "peak_temperature_c": 71.0,
+        "peak_utilization_percent": 100.0,
+        "sample_count": 276
+      },
+      {
+        "first_memory_used_mib": 13753.0,
+        "first_sample_at": "2026-09-08T08:55:26.316231+00:00",
+        "index": 1,
+        "last_memory_used_mib": 13753.0,
+        "last_sample_at": "2026-09-08T08:56:56.286820+00:00",
+        "mean_utilization_percent": 70.80434782608695,
+        "memory_total_mib": 15360.0,
+        "peak_memory_clock_mhz": 5000.0,
+        "peak_memory_used_mib": 13753.0,
+        "peak_memory_utilization_percent": 30.0,
+        "peak_power_draw_w": 58.8,
+        "peak_sm_clock_mhz": 1590.0,
+        "peak_temperature_c": 62.0,
+        "peak_utilization_percent": 100.0,
+        "sample_count": 276
+      }
+    ],
+    "telemetry_capture_count": 276,
+    "telemetry_sample_count": 552
+  },
+  "hardware": {
+    "cmake_library_path": null,
+    "cuda_available": true,
+    "cuda_driver": "/usr/local/nvidia/lib64/libcuda.so",
+    "cuda_home": "/usr/local/cuda",
+    "cuda_toolkit": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "driver_reported_cuda_max": "13.0",
+    "driver_version": "580.159.04",
+    "gpu_count": 2,
+    "gpus": [
+      {
+        "capability": [
+          7,
+          5
+        ],
+        "index": 0,
+        "name": "Tesla T4",
+        "total_memory": 15636037632
+      },
+      {
+        "capability": [
+          7,
+          5
+        ],
+        "index": 1,
+        "name": "Tesla T4",
+        "total_memory": 15636037632
+      }
+    ],
+    "is_kaggle": true,
+    "nccl": "2.27.5",
+    "nvcc": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "torch_path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "identity": {
+    "captured_at_utc": "2026-09-08T08:56:56.453558+00:00",
+    "glibc": "2.35",
+    "kaggle_vllm_version": "0.2.0",
+    "measurement_mode": "online_openai_completions_streaming",
+    "native_runtime": {
+      "hf_repository": "waqasm86/kaggle-vllm-binaries",
+      "hf_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+      "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+      "source_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2",
+      "source_tag": "v0.18.1",
+      "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl"
+    },
+    "os": "Linux",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "source_git_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+    "vllm_distribution_version": "0.18.2.dev0+ga26e8dc7f.d20260822.cu128"
+  },
+  "limitations": [
+    "Sampled nvidia-smi telemetry can miss instantaneous memory peaks.",
+    "Two T4 devices are separate GPUs, not one fungible 30 GB device.",
+    "Client timestamps include loopback HTTP and scheduling effects.",
+    "A throughput change alone is not evidence of CUDA OOM or KV-cache swapping.",
+    "Results apply only to the recorded model, workload, engine, and runtime."
+  ],
+  "measurements": {
+    "failed_requests": 0,
+    "failure_counts": {},
+    "input_throughput_tokens_per_second": 28.430720912715316,
+    "input_tokens": 2560,
+    "input_tokens_per_request": {
+      "count": 20,
+      "max": 128.0,
+      "mean": 128.0,
+      "median": 128.0,
+      "min": 128.0,
+      "p50": 128.0,
+      "p95": 128.0,
+      "p99": 128.0,
+      "sample_standard_deviation": 0.0
+    },
+    "itl_seconds": {
+      "count": 20,
+      "max": 0.0772372656507929,
+      "mean": 0.07009483411984133,
+      "median": 0.06852043438095193,
+      "min": 0.0647204460158733,
+      "p50": 0.06806583098412715,
+      "p95": 0.0754441301428577,
+      "p99": 0.0772372656507929,
+      "sample_standard_deviation": 0.0038686887807115795
+    },
+    "latency_seconds": {
+      "count": 20,
+      "max": 4.951158589999977,
+      "mean": 4.495255117000005,
+      "median": 4.388938536000012,
+      "min": 4.150007757000026,
+      "p50": 4.357310708,
+      "p95": 4.8439347220000855,
+      "p99": 4.951158589999977,
+      "sample_standard_deviation": 0.24982088886527468
+    },
+    "measured_ended_at_utc": "2026-09-08T08:56:56.359603+00:00",
+    "measured_started_at_utc": "2026-09-08T08:55:26.316152+00:00",
+    "measured_wall_seconds": 90.04344307199995,
+    "output_throughput_tokens_per_second": 14.215360456357658,
+    "output_tokens": 1280,
+    "output_tokens_per_request": {
+      "count": 20,
+      "max": 64.0,
+      "mean": 64.0,
+      "median": 64.0,
+      "min": 64.0,
+      "p50": 64.0,
+      "p95": 64.0,
+      "p99": 64.0,
+      "sample_standard_deviation": 0.0
+    },
+    "request_throughput_per_second": 0.2221150071305884,
+    "requests": {
+      "count": 20,
+      "file": "qwen25_3b-short-r00-tp2-c01-requests.jsonl",
+      "storage": "jsonl"
+    },
+    "success_rate": 1.0,
+    "successful_requests": 20,
+    "tpot_seconds": {
+      "count": 20,
+      "max": 0.07723939930158646,
+      "mean": 0.07009721886111092,
+      "median": 0.0685225866825395,
+      "min": 0.06472265173015836,
+      "p50": 0.06806779863492039,
+      "p95": 0.07544648492063559,
+      "p99": 0.07723939930158646,
+      "sample_standard_deviation": 0.0038687121047491714
+    },
+    "ttft_seconds": {
+      "count": 20,
+      "max": 0.11387289499998587,
+      "mean": 0.07913032875001705,
+      "median": 0.0748430849999977,
+      "min": 0.06903939400001491,
+      "p50": 0.07469441399996413,
+      "p95": 0.09674321599993618,
+      "p99": 0.11387289499998587,
+      "sample_standard_deviation": 0.01083079089555425
+    },
+    "warmup_requests_excluded": 1,
+    "warmup_successful_requests": 1
+  },
+  "metric_definitions": {
+    "itl_seconds": "mean interval between successive content-bearing SSE events; this is a client-observed stream-event measure and may differ from engine token ITL",
+    "output_throughput_tokens_per_second": "successful actual output tokens / measured wall-clock interval",
+    "percentile_method": "nearest-rank: sorted[ceil(p/100*n)-1]",
+    "tpot_seconds": "(completion timestamp - first-token timestamp) / (actual output tokens - 1); null for <=1 token",
+    "ttft_seconds": "first content-bearing SSE event timestamp - request start"
+  },
+  "metrics": {
+    "after": {
+      "http_status": 200,
+      "parsed": {
+        "vllm:generation_tokens": [],
+        "vllm:kv_cache_usage_perc": [
+          {
+            "labels": "{engine=\"0\",model_name=\"qwen25_3b\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:num_preemptions": [],
+        "vllm:num_requests_running": [
+          {
+            "labels": "{engine=\"0\",model_name=\"qwen25_3b\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:num_requests_waiting": [
+          {
+            "labels": "{engine=\"0\",model_name=\"qwen25_3b\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:prompt_tokens": [],
+        "vllm:request_success": []
+      },
+      "status": "captured"
+    },
+    "before": {
+      "http_status": 200,
+      "parsed": {
+        "vllm:generation_tokens": [],
+        "vllm:kv_cache_usage_perc": [
+          {
+            "labels": "{engine=\"0\",model_name=\"qwen25_3b\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:num_preemptions": [],
+        "vllm:num_requests_running": [
+          {
+            "labels": "{engine=\"0\",model_name=\"qwen25_3b\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:num_requests_waiting": [
+          {
+            "labels": "{engine=\"0\",model_name=\"qwen25_3b\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:prompt_tokens": [],
+        "vllm:request_success": []
+      },
+      "status": "captured"
+    },
+    "endpoint": "http://127.0.0.1:8000/metrics",
+    "raw_file": "qwen25_3b-short-r00-tp2-c01.metrics.txt",
+    "verified_against_vllm_source_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2",
+    "verified_metric_names": [
+      "vllm:num_requests_running",
+      "vllm:num_requests_waiting",
+      "vllm:kv_cache_usage_perc",
+      "vllm:num_preemptions",
+      "vllm:prompt_tokens",
+      "vllm:generation_tokens",
+      "vllm:request_success"
+    ]
+  },
+  "oom_observed": false,
+  "schema_version": "kaggle-vllm-serving-benchmark-v1",
+  "server": {
+    "api": "OpenAI-compatible completions",
+    "base_url": "http://127.0.0.1:8000",
+    "served_model_name": "qwen25_3b",
+    "server_command": [
+      "vllm",
+      "serve",
+      "Qwen/Qwen2.5-3B-Instruct",
+      "--served-model-name",
+      "qwen25_3b",
+      "--revision",
+      "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8000",
+      "--tensor-parallel-size",
+      "2",
+      "--dtype",
+      "float16",
+      "--max-model-len",
+      "4096",
+      "--gpu-memory-utilization",
+      "0.9",
+      "--max-num-seqs",
+      "64",
+      "--seed",
+      "0",
+      "--no-enable-prefix-caching",
+      "--enforce-eager",
+      "--disable-custom-all-reduce"
+    ],
+    "server_log": "qwen25_3b-short-r00-tp2-c01.server.log",
+    "streaming": true,
+    "unexpected_exit_returncode": null,
+    "visible_physical_gpu_indices": [
+      0,
+      1
+    ]
+  },
+  "status": "executed",
+  "topology": {
+    "interpretation": "observed nvidia-smi output only; no DMA or causal performance claim",
+    "matrix": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-m"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tPHB\t0-3\t0\t\tN/A\nGPU1\tPHB\t X \t0-3\t0\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks"
+    },
+    "parsed_matrix": {
+      "gpu_labels": [
+        "GPU0",
+        "GPU1"
+      ],
+      "links": [
+        {
+          "gpu_a": "GPU0",
+          "gpu_b": "GPU1",
+          "path": "PHB"
+        }
+      ],
+      "nvlink_observed": false
+    },
+    "peer_access_read": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "r"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tNS\t\n GPU1\tNS\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    },
+    "peer_access_write": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "w"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tNS\t\n GPU1\tNS\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    }
+  },
+  "workload": {
+    "concurrency": 1,
+    "dispatch_policy": "closed_loop_up_to_concurrency_in_flight",
+    "ignore_eos": true,
+    "max_output_tokens": 64,
+    "minimum_waves": 3,
+    "prompt_manifest_file": "prompt-manifest.json",
+    "prompt_manifest_sha256": "4dceb1c15600fe097214205ff1adba344c7491c102979f365044131d4ef45586",
+    "prompt_profile": "M4 exact tokenizer-controlled completion prompts v1",
+    "prompts": [
+      {
+        "sha256": "c70897a82b5e75d35fdd8a3fc00ac2c982049eb204355a00f3bace2bd1db372a",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "e379f49a2dbe6195f9210759e649e54d4e5c849dc8261530442a2d01c0b90299",
+        "utf8_bytes": 578
+      },
+      {
+        "sha256": "9e0439f2c9f6d6ec5201894fd4c42ff7ca9448f3ba81612381b66698c776547d",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "04f0819606790088d5e325cc449e6a7d8f84e802eccca893d8c7090fbcbcf3a3",
+        "utf8_bytes": 562
+      },
+      {
+        "sha256": "58239cee264a28ed89234fe3cc2e40b4909c3fbfa3ca7582cc585274df5681fe",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "e28a4436e3677bf2404dfc7b725e50cffa9be574c3ae776eb37a7b5b84e6a811",
+        "utf8_bytes": 521
+      },
+      {
+        "sha256": "e877a35066c5b59cdee0f58472780b63f93ca806dacb702c3c1435ca09ecfb35",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "76fdf86275ad8ac6453fe6512bf94a2975703235d540d79943f5b6d492791f87",
+        "utf8_bytes": 573
+      },
+      {
+        "sha256": "77d1ca967344548435307d96255fcf86d0eaeebd88f54b3d2a891dee3bbc6c95",
+        "utf8_bytes": 573
+      },
+      {
+        "sha256": "2d0e8140e867fc0cefcaa1346d4633cf72755301e108cda05f7d61222e2e5de2",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "d50f147bd718cf6921515266d9da74ce0473ae269e761c0ea19eac0b367cd8ff",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "f13595523ce6235d770e15b63b43d7ac26a30bf6309def8fbb0f069d6e851ff8",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "82d6c7ff0bdbf81c1113dde303ebdd1c1fb3fdd9374432c5a04061ae68425223",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "84c4f92c724de6d5ef63f76b42d07aceafd873866a33ee3667e259ca80243984",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "3aa5cc20c8969b3b0fb6abfbfb2549b3df7222cb986e1a29818d212a1c3f0542",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "5e11f25646eb7e291bf4f53aa20332eae0039f4b6d459c8f2aec8927ca38a84b",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "7b5dc6724e460e34c3e93cde36bdf54a01f3edd76bf9b6d2340aedcf20546c23",
+        "utf8_bytes": 573
+      },
+      {
+        "sha256": "e7ed472f1dc56216324a524fb97ebc0ac845186e86b18e4d7195ff9b65ad4113",
+        "utf8_bytes": 562
+      },
+      {
+        "sha256": "d2128ab90c21c583590649c0b09504849b521e5beaf235de784fa14f24e1a963",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "b5389a9e58d5b5c7b5572cfcc64791c324f57bdbc8a7d9952f47cac86f69de55",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "056130d520fbf97de880635765ebe8e9e0ef7ffb241ede83f587be061de40918",
+        "utf8_bytes": 504
+      },
+      {
+        "sha256": "23a1f7671763ea047c95f2c9b19ec8b9a056c1220c87c6cdb0719b2901da2b23",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "abddeeb827d717125ec81687281a44809dbbd32d1c379dc412388dd35bed50a0",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "88581b5efad3be9f17e452fb8ec7e4c69b544e9f8414f1b9e99339377393b4b3",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "01ebbf4a4ffab7f83d952a1d5fc2f1d217fa9b724856454faa69833e1df98d7c",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "f887d6fedac3c72656c6e03aba630322dcab3b6e6b7e0b3a6e6f0fddd63f4006",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "af126c619af2d5303c29a8b8675790f350f6cd433d2c1c3050f0f8ca0dad9812",
+        "utf8_bytes": 573
+      },
+      {
+        "sha256": "82c49717a08a945ef3344f7003ed33c7ff247bd3c898c64df138904578fe9318",
+        "utf8_bytes": 573
+      },
+      {
+        "sha256": "1d6d8e09f0b931100dc5de8431c07dd7cacf9fb82c40cd357690c27c8241abaa",
+        "utf8_bytes": 585
+      },
+      {
+        "sha256": "aabeac1632d69da2245e3ef712ec9c7b9906d3fae319ff2f50ea53939ac220e5",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "267102a6c2b4fa0e19c0f0cb3e2c97c0f70f8777d2f1a4e098ef8407390a2906",
+        "utf8_bytes": 562
+      },
+      {
+        "sha256": "d78b6335b8f0d08b426001ef99976cdb989e4b0836756689cb62d7e61bb5d8eb",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "ae5614196d802dc3ebf46c83c1f5c540250855c322873b3491ce1b8e7135222e",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "b8f05efe23a56b4460c2f75b995a24643b25538ea1a187017f06fe9497aa1020",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "3903b1c2f11021c418d10febfe0f4264d196042e9a1903567953ab4889b599ce",
+        "utf8_bytes": 578
+      },
+      {
+        "sha256": "8fa0d3847855c63fe3ddee80f1132fc3ef31ef8a92db63b40eb2d2f4464c1213",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "fb9a7616f7c7125ca65acec9158791048952c6674d65d55de3eae10edc5dbc86",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "44c465b83c491deca5b4b9abd2ca29f39449aa53e58c7ba1b36b725d6ddedc14",
+        "utf8_bytes": 585
+      },
+      {
+        "sha256": "64ab8ab02ba816d0477b03d4b002e11e4aebbd542b34599c3ca12c7774b54664",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "7e4d23dd9a3e9f8c07f4f2e2dc8b37488ccef4bbb14771041aa4bef2ec4c0c12",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "31af16eef5d176c2c8a51952b708ba4edb669ef802cb9a962b9c3f81041027f6",
+        "utf8_bytes": 562
+      },
+      {
+        "sha256": "6087a2c4932557e76768e78cd714523560ff8a5dd0c47bc2380f5b57d3209e09",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "b9a6f8d27d5c83abdeb640b96cb6d77ecfe591dd32bbcb1f1459b49ec90d7b61",
+        "utf8_bytes": 573
+      },
+      {
+        "sha256": "8bdfb66fcb8675daff6a44e239ae697a3366b36674bdc8da5c22e7ad215410f0",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "fc627482ff6a3dbefde8f57d3ab4a0e98c9dc7a6f1771ca28a9c8a7632ad9110",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "7d716d84c2524db1a177d5c9d00f40d859890388ff20c2f6fe61041aa909505d",
+        "utf8_bytes": 590
+      },
+      {
+        "sha256": "51bffd5e2df4fab4f1b5ac48f7aa012f674e6b877b0156584e9db388cdbd9062",
+        "utf8_bytes": 573
+      },
+      {
+        "sha256": "651bd302e04665103c2ed03b0c3718073f49ad4f7100d6e12182794ef707c464",
+        "utf8_bytes": 569
+      },
+      {
+        "sha256": "7151c1da0f246855e7c8f3ef81449cf3afdf815ca651b13420748415bd728075",
+        "utf8_bytes": 521
+      },
+      {
+        "sha256": "5b5c1957f46da5669b2298f206b0cf789290c51fab1fa3f211390802a516562f",
+        "utf8_bytes": 595
+      },
+      {
+        "sha256": "54cde71f85d376f71c430e24fd9377db3c90640d6a1d0dc41b5dd635dece1819",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "79ca28445774747cef1919708c1b3b0b88adcfc1923c5032c6df49ecdfa3c283",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "282b83f53d7648afecba1a7af535bcdfd1e3a6432afed668d7945269fe0a42f2",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "7c1d50ee3d6d5439579183f2c5c60dd580218c4fe291c5e001cd2778a0d222d1",
+        "utf8_bytes": 573
+      },
+      {
+        "sha256": "7aeea2c23fe47dadb25ce4ea5f7d83a16fa4b35bedbd6a1af8801635213aebcb",
+        "utf8_bytes": 573
+      },
+      {
+        "sha256": "f8e28468bdab6133ec8f67b68ee3e092f25e287fda40c14aaa2fd8e9940a63c8",
+        "utf8_bytes": 585
+      },
+      {
+        "sha256": "1c19ca1bf5ccb36b699b5df33de9a83ba793ec1c87ad6e3f5c9b2dab4905c17c",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "06ef348b6c51b290f8b9feeca0582fc23fd3fd3e93f0f5dea1b5d2d0020ce233",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "9f79dd19d137db85514abd22ee0aad7d31d0f2f730eeea9f6d21df011695e7fe",
+        "utf8_bytes": 573
+      },
+      {
+        "sha256": "29191173c1797d687b739e6a7e7de2f5d5e034ffb367ba27132f14a0fef14fe9",
+        "utf8_bytes": 578
+      },
+      {
+        "sha256": "8403118adbe7f78205271adf74c423463a101016a0a46dd093b63aed94dac8f3",
+        "utf8_bytes": 573
+      },
+      {
+        "sha256": "c210014859f0da3a1e2661f7d6be530f691515888f485de411549efde878ac41",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "28c2116d8c3c2ebb2257131ee200721c95c2f389e7ab58036b5da9df6d3a108b",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "12f8829d9397e928223e015a3317e9ab55d89665ccaa11b49d23d49c1fa19dd4",
+        "utf8_bytes": 562
+      }
+    ],
+    "request_timeout_seconds": 1800.0,
+    "retain_prompt_text_in_result": false,
+    "seed": 0,
+    "temperature": 0.0,
+    "total_requests": 20,
+    "warmup_requests": 1
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "schema_version": "kaggle-vllm-m4-gemma3-diagnostic-review-v1",
+  "review_status": "SUPERSEDED_BY_CANONICAL_P13_CLOSURE",
+  "decision": "UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK",
+  "canonical": true,
+  "canonicality_reason": "The final p13 executed notebook has the same cell IDs, types, order, and sources as the frozen notebook; its ZIP and all 16 payload hashes verify, and both TP cells independently reproduce the frozen dtype guard.",
+  "frozen_identity": {
+    "implementation_source_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+    "source_notebook": "kaggle-notebooks/kaggle_vllm_m4_execute_shard.ipynb",
+    "source_notebook_sha256": "885c5b6278614c66ac72f1e9ed8d05dbad84a19c8b99be129ebeb25e48a91dd9",
+    "package_version": "0.2.0"
+  },
+  "scope": {
+    "model_key": "gemma3_4b",
+    "model": "google/gemma-3-4b-it",
+    "model_revision": "093f9f388b31de276ce2de164bdc2081324b9767",
+    "architecture": "Gemma3ForConditionalGeneration",
+    "frozen_dtype": "float16",
+    "hardware": "Kaggle dual NVIDIA Tesla T4, SM75",
+    "total_memory_bytes_per_gpu": 15636037632,
+    "hard_memory_budget_bytes_per_gpu": 15569256448,
+    "native_wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "native_wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "native_binary_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+    "upstream_vllm_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2"
+  },
+  "attempts": [
+    {
+      "attempt_id": "p10-2026-09-09-diagnostic",
+      "executed_notebook_sha256": "547e109db6ae2478e2a88600f47aa0450230f89f906814785f03c373fe6e9aa3",
+      "evidence_zip_sha256_reported_by_notebook": "4a6c9c776a9c1337e7f8abbbac3355316a2e940f2a721029fb45fcdf7865bfab",
+      "evidence_zip_available": false,
+      "frozen_notebook_source_equivalent": false,
+      "classification": "DIAGNOSTIC_NEGATIVE_CONFIRMATION"
+    },
+    {
+      "attempt_id": "2026-09-10T13:58:52Z",
+      "executed_notebook_sha256": "bea77a4c2e633be3d6ab6c65829dca7f94da3beec5dee9037580ce160a97fff8",
+      "evidence_zip_sha256": "f560479c6f5b119a17a7dbb5ce582e7fc72623bd586c2755f1e36e7e76f0bcdf",
+      "runtime_json_sha256": "861cafa272391d0cc5b714336c1922b3c5bf9430a2a8437faf011f99828141a1",
+      "archive_crc": "PASS",
+      "archive_safety": "PASS",
+      "evidence_hashes": "PASS",
+      "frozen_notebook_source_equivalent": false,
+      "classification": "DIAGNOSTIC_NEGATIVE_CONFIRMATION"
+    },
+    {
+      "attempt_id": "2026-09-10T14:18:37Z",
+      "executed_notebook_sha256": null,
+      "evidence_zip_sha256": "9c3e77dba701d4f051d1edcab59431759630bab9a3494cf68e69c2e9c725d67a",
+      "runtime_json_sha256": null,
+      "archive_crc": "PASS",
+      "archive_safety": "PASS",
+      "evidence_hashes": "PASS",
+      "frozen_notebook_source_equivalent": "UNDETERMINED_NOTEBOOK_UNAVAILABLE",
+      "classification": "REPRODUCED_NEGATIVE_DIAGNOSTIC_EVIDENCE_NOTEBOOK_UNAVAILABLE"
+    },
+    {
+      "attempt_id": "2026-09-10T14:29:56Z",
+      "executed_notebook_sha256": "54e53c09925ff45a2791edadef85d7e4ed6bda2509735f64d21b38fc06cfcac1",
+      "evidence_zip_sha256": "0d975c5027df188bc3633cab50f98b3dfdcc43e923c97be0f97cb3a303b960f5",
+      "runtime_json_sha256": "9002bdebcf0ac1ae744da5cbd5436263c53d8821dc68ec4bc94d6ac7a0ffa643",
+      "archive_crc": "PASS",
+      "archive_safety": "PASS",
+      "evidence_hashes": "PASS",
+      "frozen_notebook_source_equivalent": false,
+      "classification": "DIAGNOSTIC_NEGATIVE_CONFIRMATION"
+    },
+    {
+      "attempt_id": "p13-2026-09-10T15:41:13Z",
+      "executed_notebook_sha256": "f1800e9be84fa297880960159da906612e1ef79d46b2c34344d27f0bbe2feee8",
+      "evidence_zip_sha256": "6404b8abe22fc06211409288e59ae1d844354c1b12282a8c9140161c30347c12",
+      "runtime_json_sha256": "8e747082b76d39852fa5838a3ce17f0ca8e392e7bac6ae4e0718700470e90ff5",
+      "archive_crc": "PASS",
+      "archive_safety": "PASS",
+      "evidence_hashes": "PASS_16_OF_16",
+      "frozen_notebook_source_equivalent": true,
+      "classification": "CANONICAL_NEGATIVE_COMPATIBILITY_RESULT"
+    }
+  ],
+  "reproduced_observations": {
+    "verified_zip_count": 4,
+    "tp1": "FAILED_BEFORE_SERVER_READINESS",
+    "tp2": "FAILED_BEFORE_SERVER_READINESS",
+    "resolved_architecture": "Gemma3ForConditionalGeneration",
+    "model_config_error": "The model type 'gemma3' does not support float16. Reason: Numerical instability. Please use bfloat16 or float32 instead.",
+    "oom_observed": false,
+    "measured_requests_issued": 0,
+    "throughput": null,
+    "nccl_failure_observed": false,
+    "authentication_failure_observed": false,
+    "native_wheel_mismatch_observed": false,
+    "source_dirty_state_observed": false,
+    "root_cause_deterministic_across_verified_zips": true
+  },
+  "precision_intersection": {
+    "gemma3_supported_dtypes_under_frozen_vllm": ["bfloat16", "float32"],
+    "sm75_supported_dtypes_under_frozen_vllm_policy": ["float16", "float32"],
+    "intersection": ["float32"],
+    "frozen_vllm_sources": [
+      "a26e8dc7ff2111a005144d775ecf9cebf56c45b2:vllm/config/model.py",
+      "a26e8dc7ff2111a005144d775ecf9cebf56c45b2:vllm/platforms/cuda.py"
+    ]
+  },
+  "fp32_assessment": {
+    "parameters": 4300079472,
+    "fp32_parameter_floor_bytes": 17200317888,
+    "estimated_fp32_selected_weight_bytes": 17200555760,
+    "bytes_above_physical_t4_memory_before_overhead": 1564518128,
+    "bytes_above_m4_hard_budget_before_overhead": 1631299312,
+    "additional_unquantified_consumers": [
+      "runtime and CUDA context",
+      "KV cache",
+      "multimodal components and processor state",
+      "activations and temporary workspaces",
+      "allocator fragmentation and overhead"
+    ],
+    "decision": "FP32 would be a materially different experiment and is not an admissible silent repair to the frozen M4 compatibility gate.",
+    "execution_performed": false,
+    "oom_claimed": false
+  },
+  "principal_policy": {
+    "current_eligibility": false,
+    "current_reason": "FAILED_FROZEN_COMPATIBILITY_GATE",
+    "principal_shards_deleted": false,
+    "principal_shards_current_state": "SKIPPED_BY_COMPATIBILITY_GATE",
+    "throughput_interpretation": "N/A_NOT_MEASURED"
+  },
+  "gemma4": {
+    "m4_status": "OUT_OF_SCOPE_FOLLOWUP",
+    "substituted_for_gemma3": false,
+    "comparable_e4b_bf16_guidance_gb": 17.9,
+    "guidance_reference": "https://ai.google.dev/gemma/docs/core",
+    "reason": "A post-result model substitution would change the frozen population and introduce post-hoc selection. Google's current Gemma 4 overview estimates 17.9 GB for E4B BF16 inference including its stated loading overhead, above one 15.636 GB T4. Gemma 4 requires its own support, revision, license, memory, runtime, source-freeze, and protocol audit."
+  },
+  "next_action": {
+    "decision": "NO_MORE_GEMMA_EXECUTION",
+    "compatibility_closed": true,
+    "principal_eligible": false,
+    "instructions": "Retain Gemma in the five-model compatibility population and omit it from the four-model principal performance population. Do not substitute another model."
+  }
+}

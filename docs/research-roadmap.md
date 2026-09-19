@@ -9,8 +9,9 @@ native runtime.
 - M3 is COMPLETE with canonical evidence from clean commit `4df0dd1`. Its
   notebook directly measured two-rank NCCL all-reduce rather than deriving
   communication coefficients from serving deltas.
-- M4 is PREPARED_FOR_KAGGLE and remains gated on successful per-model
-  compatibility runs. GitHub PR #24 is governance-only and is not research M4.
+- M4 compatibility is closed; the four-model principal matrix is in progress
+  under the tracked no-rerun reconciliation ledger. GitHub PR #24 is
+  governance-only and is not research M4.
 - M5 is optional; the supplied workspace currently lacks the Vidur source needed
   for a defensible integration.
 

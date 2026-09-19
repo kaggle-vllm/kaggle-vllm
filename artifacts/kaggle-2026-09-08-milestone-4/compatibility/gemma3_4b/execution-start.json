@@ -1,0 +1,227 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/kaggle/working/kaggle-vllm-source/scripts/kaggle_m4_multimodel_crossover.py",
+    "--repository",
+    "/kaggle/working/kaggle-vllm-source",
+    "--output-root",
+    "/kaggle/working/m4-evidence",
+    "--model-key",
+    "gemma3_4b",
+    "--workload",
+    "short",
+    "--repetition",
+    "0",
+    "--mode",
+    "compatibility",
+    "--source-identity",
+    "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2"
+  ],
+  "mode": "compatibility",
+  "model": {
+    "allow_patterns": [
+      "*.json",
+      "*.safetensors",
+      "*.txt",
+      "*.model",
+      "*.jinja",
+      "README.md",
+      "LICENSE*",
+      "NOTICE*"
+    ],
+    "architecture": "Gemma3ForConditionalGeneration",
+    "artifact_notebook": "kaggle_vllm_research_gemma3_4b_t4x2_sharded.ipynb",
+    "expected_sharded_bytes": 8600277880,
+    "expected_source_size": "8600277880 selected weight bytes plus processor/tokenizer/config/license metadata; exact total unmeasured",
+    "gated": "manual",
+    "hf_id": "google/gemma-3-4b-it",
+    "hf_license_id": "gemma",
+    "license": "Gemma Terms of Use",
+    "license_url": "https://ai.google.dev/gemma/terms",
+    "parameters": 4300079472,
+    "redistribution_status": "UPLOAD_BLOCKED_LICENSE_REVIEW",
+    "resource_plan": {
+      "engine_gpu_memory_utilization": 0.9,
+      "hard_vram_limit_mib_per_gpu": 14848,
+      "projected_working_bytes_including_3gb_evidence_allowance": 11600277880,
+      "status": "PLANNING_VALUES_NOT_MEASURED_M4_USAGE",
+      "tp1_weight_floor_bytes": 8600277880,
+      "tp2_weight_floor_bytes_per_rank": 4300138940
+    },
+    "revision": "093f9f388b31de276ce2de164bdc2081324b9767",
+    "selected_weight_bytes": 8600277880,
+    "sharded_size_status": "PREDICTED_APPROXIMATE",
+    "sm75_status": "UNMEASURED; MULTIMODAL AND MEMORY-RISK GATE",
+    "source_precision": "BF16; runtime will request FP16",
+    "tokenizer_revision": "093f9f388b31de276ce2de164bdc2081324b9767",
+    "vllm_0181_registry_support": "SOURCE_INSPECTED"
+  },
+  "model_key": "gemma3_4b",
+  "native_runtime": {
+    "attention_backend": "TRITON_ATTN",
+    "compute_capability": [
+      7,
+      5
+    ],
+    "cuda_toolkit": "12.8.93",
+    "gpu_count": 2,
+    "gpu_name": "NVIDIA Tesla T4",
+    "hf_repo_id": "waqasm86/kaggle-vllm-binaries",
+    "hf_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+    "machine": "x86_64",
+    "name": "kaggle-t4x2-cu128",
+    "nccl": "2.27.5",
+    "overlay_lock": "overlay-lock.txt",
+    "overlay_requirements": "overlay-requirements.txt",
+    "python_abi": "cp312",
+    "python_implementation": "CPython",
+    "python_major": 3,
+    "python_minor": 12,
+    "python_version": "3.12.13",
+    "status": "functionally_validated",
+    "system": "Linux",
+    "torch_cuda": "12.8",
+    "torch_version": "2.10.0+cu128",
+    "vllm_source_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2",
+    "vllm_source_tag": "v0.18.1",
+    "wheel_filename": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c"
+  },
+  "nvidia_smi": {
+    "command": [
+      "nvidia-smi"
+    ],
+    "returncode": 0,
+    "status": "ok",
+    "stderr": "",
+    "stdout": "Thu Sep 10 15:41:13 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.159.04             Driver Version: 580.159.04     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  Tesla T4                       Off |   00000000:00:04.0 Off |                    0 |\n| N/A   50C    P8             11W /   70W |       3MiB /  15360MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n|   1  Tesla T4                       Off |   00000000:00:05.0 Off |                    0 |\n| N/A   52C    P0             28W /   70W |       3MiB /  15360MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+"
+  },
+  "repetition": 0,
+  "resource_limits": {
+    "disk_guard": {
+      "free_bytes": 18531684352,
+      "limit_bytes": 20000000000,
+      "projected_additional_bytes": 11600277880,
+      "projected_working_bytes": 13955861826,
+      "working_bytes": 2355583946
+    },
+    "per_gpu_memory_mib": 14848.0,
+    "system_ram_bytes": 30064771072,
+    "working_storage_bytes": 20000000000
+  },
+  "runtime": [
+    {
+      "captured_at_utc": "2026-09-10T15:41:13.759909+00:00",
+      "glibc": "2.35",
+      "kaggle_vllm_version": "0.2.0",
+      "measurement_mode": "offline_llm_generate",
+      "os": "Linux",
+      "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+      "python": "3.12.13",
+      "source_git_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+      "vllm_distribution_version": "0.18.2.dev0+ga26e8dc7f.d20260822.cu128"
+    },
+    {
+      "cmake_library_path": null,
+      "cuda_available": true,
+      "cuda_driver": "/usr/local/nvidia/lib64/libcuda.so",
+      "cuda_home": "/usr/local/cuda",
+      "cuda_toolkit": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+      "driver_reported_cuda_max": "13.0",
+      "driver_version": "580.159.04",
+      "gpu_count": 2,
+      "gpus": [
+        {
+          "capability": [
+            7,
+            5
+          ],
+          "index": 0,
+          "name": "Tesla T4",
+          "total_memory": 15636037632
+        },
+        {
+          "capability": [
+            7,
+            5
+          ],
+          "index": 1,
+          "name": "Tesla T4",
+          "total_memory": 15636037632
+        }
+      ],
+      "is_kaggle": true,
+      "nccl": "2.27.5",
+      "nvcc": "/usr/local/cuda/bin/nvcc",
+      "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+      "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+      "python": "3.12.13",
+      "torch": "2.10.0+cu128",
+      "torch_cuda": "12.8",
+      "torch_path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+    }
+  ],
+  "schema_version": "kaggle-vllm-m4-execution-start-v1",
+  "sdk_version": "0.2.0",
+  "source": {
+    "branch": "",
+    "commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+    "dirty": false,
+    "dirty_paths": []
+  },
+  "started_at_utc": "2026-09-10T15:41:13.416964+00:00",
+  "status": "execution_started",
+  "topology": {
+    "interpretation": "observed nvidia-smi output only; no DMA or causal performance claim",
+    "matrix": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-m"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tPHB\t0-3\t0\t\tN/A\nGPU1\tPHB\t X \t0-3\t0\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks"
+    },
+    "parsed_matrix": {
+      "gpu_labels": [
+        "GPU0",
+        "GPU1"
+      ],
+      "links": [
+        {
+          "gpu_a": "GPU0",
+          "gpu_b": "GPU1",
+          "path": "PHB"
+        }
+      ],
+      "nvlink_observed": false
+    },
+    "peer_access_read": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "r"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    },
+    "peer_access_write": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "w"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    }
+  },
+  "workload": "short"
+}

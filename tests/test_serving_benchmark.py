@@ -133,6 +133,40 @@ def test_streaming_request_measures_first_content_event_and_server_usage():
     assert result.tpot_seconds == pytest.approx(0.35)
 
 
+def test_streaming_text_completion_uses_exact_endpoint_and_records_event_itl():
+    lines = [
+        b'data: {"choices":[{"text":"A"}]}\n',
+        b'data: {"choices":[{"text":"B"}]}\n',
+        b'data: {"choices":[],"usage":{"prompt_tokens":128,"completion_tokens":2}}\n',
+        b"data: [DONE]\n",
+    ]
+    captured = {}
+
+    def opener(request, **_kwargs):
+        captured["url"] = request.full_url
+        captured["payload"] = json.loads(request.data)
+        return FakeResponse(lines)
+
+    result = perform_streaming_request(
+        spec(
+            api_mode="completions",
+            workload_options={"max_output_tokens": 2, "warmup_requests": 0},
+        ),
+        "request-0000",
+        "prompt",
+        opener=opener,
+        clock=StepClock((0.0, 0.1, 0.3, 0.6, 0.8, 1.0, 1.2, 1.4)),
+        utc_now=WallClock(),
+    )
+    assert captured["url"].endswith("/v1/completions")
+    assert captured["payload"]["prompt"] == "prompt"
+    assert captured["payload"]["max_tokens"] == 2
+    assert "messages" not in captured["payload"]
+    assert result.input_tokens == 128
+    assert result.output_tokens == 2
+    assert result.inter_token_latency_seconds == pytest.approx(0.5)
+
+
 def request_result(*, status="completed", output_tokens=4):
     return RequestResult(
         request_id="r",

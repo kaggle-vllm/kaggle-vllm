@@ -1,0 +1,461 @@
+{
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+  "prefix_caching": false,
+  "prompts": [
+    {
+      "index": 0,
+      "text": "c19d5241dd8c1285fabc0979188061253af780a9fa218f20a98bc8a58a535d55 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and unce",
+      "token_count": 128,
+      "token_ids_sha256": "629d4241e00f0a01a26fdc45286dd31e8b5e5f24ccc67f4a6bd3e1d19fd1d59f",
+      "utf8_sha256": "c70897a82b5e75d35fdd8a3fc00ac2c982049eb204355a00f3bace2bd1db372a"
+    },
+    {
+      "index": 1,
+      "text": "20bedd43c18506687fc8ab2281ff6ffb35509bf99502a830ef4a3429ea76be84 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer cau",
+      "token_count": 128,
+      "token_ids_sha256": "1646e803e0684831f60475ac2b4c37345335f57f8bfbdbd9f9ba8b2ae160709f",
+      "utf8_sha256": "e379f49a2dbe6195f9210759e649e54d4e5c849dc8261530442a2d01c0b90299"
+    },
+    {
+      "index": 2,
+      "text": "157d4d14e80583018c1a0a781b1aac238c8af1f0c14ca9c19ae4c159b7989e6f ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and ",
+      "token_count": 128,
+      "token_ids_sha256": "723e9204b6607d2719ad4180ae65671d4e603428914175c7be5117b7d2ad0c08",
+      "utf8_sha256": "9e0439f2c9f6d6ec5201894fd4c42ff7ca9448f3ba81612381b66698c776547d"
+    },
+    {
+      "index": 3,
+      "text": "020a085f2c45a75ccd0b5bf0ae95e9b5b63896e5c979915037c99dbfb0f5dbd1 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. ",
+      "token_count": 128,
+      "token_ids_sha256": "c170eae7d8e0c3c3545ffb99c89dc235c36a791e598deabf7d01a3a7788310af",
+      "utf8_sha256": "04f0819606790088d5e325cc449e6a7d8f84e802eccca893d8c7090fbcbcf3a3"
+    },
+    {
+      "index": 4,
+      "text": "8d31872529af0195345bc3b723a01df77cfdc63e32289b31c1af4e00f6844c29 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and unce",
+      "token_count": 128,
+      "token_ids_sha256": "4d1aa2d9153da33a68b09140440bc3efe3c430f1a8665ea8b90ad5a1ea0a89a3",
+      "utf8_sha256": "58239cee264a28ed89234fe3cc2e40b4909c3fbfa3ca7582cc585274df5681fe"
+    },
+    {
+      "index": 5,
+      "text": "f76745f8d8d8c64c863329e44f04f43bb218d40a94e0a5c533382d81b4c86fa6 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capa",
+      "token_count": 128,
+      "token_ids_sha256": "15792133b42df225db4c0aea110c3ce7c5fd329d080c08d2698f274cccd45351",
+      "utf8_sha256": "e28a4436e3677bf2404dfc7b725e50cffa9be574c3ae776eb37a7b5b84e6a811"
+    },
+    {
+      "index": 6,
+      "text": "a7e5c7a3b30353558e04b086a406bf4957f3d6130ceee587d856b4f578e133b8 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory ",
+      "token_count": 128,
+      "token_ids_sha256": "d2cd3a4a4c7eca40d782bba57a3045aa04995428b0d8fa27a15e7964ef5291be",
+      "utf8_sha256": "e877a35066c5b59cdee0f58472780b63f93ca806dacb702c3c1435ca09ecfb35"
+    },
+    {
+      "index": 7,
+      "text": "107772cd28efeb05373f29ad439cf2d24c6aef399ac7e2df788fb85e903fbc89 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infe",
+      "token_count": 128,
+      "token_ids_sha256": "902b7c5c1460f87e9d3cf25c627e38298a04693b0d764972f88c0a3cb4f71719",
+      "utf8_sha256": "76fdf86275ad8ac6453fe6512bf94a2975703235d540d79943f5b6d492791f87"
+    },
+    {
+      "index": 8,
+      "text": "64acc0343ca215ca2157b7cc60d62643d7753ed589b9bffcf857e7931c3012cf ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infe",
+      "token_count": 128,
+      "token_ids_sha256": "992d37ab8b3dfc8dfc9a597b01da867874450c13fa47dcf5853d64ba767b05e0",
+      "utf8_sha256": "77d1ca967344548435307d96255fcf86d0eaeebd88f54b3d2a891dee3bbc6c95"
+    },
+    {
+      "index": 9,
+      "text": "fff93b160bef63421758b477c8b5168f2577d0cf61cef2f5704436c5aa76b298 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do ",
+      "token_count": 128,
+      "token_ids_sha256": "6b2200526830fc5608cbaba728492bb5afdae8122e56d20c7eadad1b527dc5de",
+      "utf8_sha256": "2d0e8140e867fc0cefcaa1346d4633cf72755301e108cda05f7d61222e2e5de2"
+    },
+    {
+      "index": 10,
+      "text": "d256574020b21c6c07c2b9851379b3c73e2239d1fbe0eedbbc218ca5f0bae2e9 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do ",
+      "token_count": 128,
+      "token_ids_sha256": "5a93b7003924af6a4cb4c3a8a94aa6708c9a79f5ddf364f2d94c75607d287d7a",
+      "utf8_sha256": "d50f147bd718cf6921515266d9da74ce0473ae269e761c0ea19eac0b367cd8ff"
+    },
+    {
+      "index": 11,
+      "text": "a854905a9f61d8a3aa0dc580fea800964b885637b313737857738e30f3154b55 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory uti",
+      "token_count": 128,
+      "token_ids_sha256": "da080db1eb9ac55d8ae1abc6addbe268f8808445e6eefda9def055ec69fff04e",
+      "utf8_sha256": "f13595523ce6235d770e15b63b43d7ac26a30bf6309def8fbb0f069d6e851ff8"
+    },
+    {
+      "index": 12,
+      "text": "8617130cec25c56356c4625fb7ffacab2817045f840d910a24c0d42f8f15e65e ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and unce",
+      "token_count": 128,
+      "token_ids_sha256": "d6c00678b9fe05ccdede941098c2279d54e497ec0f8b2e5393b6284ffd7650aa",
+      "utf8_sha256": "82d6c7ff0bdbf81c1113dde303ebdd1c1fb3fdd9374432c5a04061ae68425223"
+    },
+    {
+      "index": 13,
+      "text": "4845ca896bc1bda2bae35812f7be30c020b9d883f5f2c18fea0e1ff8cf88583f ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not ",
+      "token_count": 128,
+      "token_ids_sha256": "2f96f2c64d4d2511e1653d2d569764460aa0e4307a7b76717038e77bb03e2ae1",
+      "utf8_sha256": "84c4f92c724de6d5ef63f76b42d07aceafd873866a33ee3667e259ca80243984"
+    },
+    {
+      "index": 14,
+      "text": "4b656d30a8114bd2c7b2f5d98b4bf845bf19735f6987f0f76c3c97d068e7ee14 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory uti",
+      "token_count": 128,
+      "token_ids_sha256": "f92a1746668a831bf06fee7f24b2dc9ca0ea2e0a5d285bae6d3913d3e4533aad",
+      "utf8_sha256": "3aa5cc20c8969b3b0fb6abfbfb2549b3df7222cb986e1a29818d212a1c3f0542"
+    },
+    {
+      "index": 15,
+      "text": "170c6f8c1258588b954059bd2a8e64f8353a24f11af846de121c9146b60e0562 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory ",
+      "token_count": 128,
+      "token_ids_sha256": "e75080751d482b4211ef1534d422492dd0b6170dacbb728367c50b0b7e6039b3",
+      "utf8_sha256": "5e11f25646eb7e291bf4f53aa20332eae0039f4b6d459c8f2aec8927ca38a84b"
+    },
+    {
+      "index": 16,
+      "text": "6d8d54896ba99b6c7f22ef2addd38cbe16552c67d06733204abcd1d62fdfd30f ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infe",
+      "token_count": 128,
+      "token_ids_sha256": "d470d9eaae57a25f4b3c51ca3e7f16dacb99ec436dad808a7d39744e1c13241b",
+      "utf8_sha256": "7b5dc6724e460e34c3e93cde36bdf54a01f3edd76bf9b6d2340aedcf20546c23"
+    },
+    {
+      "index": 17,
+      "text": "d8553010e9af258aaad9b585ed8b11dd8676c8f06b40826a988cd94532ed38b2 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. ",
+      "token_count": 128,
+      "token_ids_sha256": "e5214ab63a184d7b085fadd5c1f4ee8add1269e0e59d59c4548e6c24705f55cf",
+      "utf8_sha256": "e7ed472f1dc56216324a524fb97ebc0ac845186e86b18e4d7195ff9b65ad4113"
+    },
+    {
+      "index": 18,
+      "text": "1b16c96d106bd547516b2ee55e5616b09694906bc9179895887d12d15d1d95c0 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory ",
+      "token_count": 128,
+      "token_ids_sha256": "77b5bc69540ef2e5a931ec32e8997e847074e2968f0147c1b7188a5ba70b18db",
+      "utf8_sha256": "d2128ab90c21c583590649c0b09504849b521e5beaf235de784fa14f24e1a963"
+    },
+    {
+      "index": 19,
+      "text": "ac48637a10035c7752cb166655242794e173c2f8167092ffa8c93256f9ce1c63 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and ",
+      "token_count": 128,
+      "token_ids_sha256": "a564ab8caf7c066fa3d77a4096c47bf75a6d7ca36d9326c25007b882b169b3a2",
+      "utf8_sha256": "b5389a9e58d5b5c7b5572cfcc64791c324f57bdbc8a7d9952f47cac86f69de55"
+    },
+    {
+      "index": 20,
+      "text": "b0c088192358b347019409eb3385a4a2a5a5e5193782188e71e20a1d82659a25 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throug",
+      "token_count": 128,
+      "token_ids_sha256": "2b7499141da93f003bc430cb7873fae56906ecab80a73e909af81c56acda198c",
+      "utf8_sha256": "056130d520fbf97de880635765ebe8e9e0ef7ffb241ede83f587be061de40918"
+    },
+    {
+      "index": 21,
+      "text": "b493c7ad02fdd38c722d201e76b50b37d2f67b9ca73c66ba82d4b2ad884a0c8f ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and ",
+      "token_count": 128,
+      "token_ids_sha256": "5d3c2ab562db4744bfa4bf65c7c7b81f8bfd2d7f8e84743a8f490543bf385edb",
+      "utf8_sha256": "23a1f7671763ea047c95f2c9b19ec8b9a056c1220c87c6cdb0719b2901da2b23"
+    },
+    {
+      "index": 22,
+      "text": "56d29cc25d8b9640329fe5c1f27c2fde092bd7708575afb5238775559c1c6a1c ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and unce",
+      "token_count": 128,
+      "token_ids_sha256": "4b03b60d0a0f82269ed58b9a91646221050d21a710de86ac41f4502f440ce5fb",
+      "utf8_sha256": "abddeeb827d717125ec81687281a44809dbbd32d1c379dc412388dd35bed50a0"
+    },
+    {
+      "index": 23,
+      "text": "32e6dfe43b1b260f404d15e4ed8d72e2efce957da607b39235bd828d96d5024b ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and unce",
+      "token_count": 128,
+      "token_ids_sha256": "3c54667f8709337237a447fec301f29e76b5029ae5257de9ef7df9973b6b323e",
+      "utf8_sha256": "88581b5efad3be9f17e452fb8ec7e4c69b544e9f8414f1b9e99339377393b4b3"
+    },
+    {
+      "index": 24,
+      "text": "6c0e47562f0732ff6098c2c0b2e03deb0b1ca1cb78451969606f65369ee08148 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and unce",
+      "token_count": 128,
+      "token_ids_sha256": "2a845585e9531ce278ac505bc4e7dfb8c3191fd2bfe2ea1c6e77a4ff9435c32b",
+      "utf8_sha256": "01ebbf4a4ffab7f83d952a1d5fc2f1d217fa9b724856454faa69833e1df98d7c"
+    },
+    {
+      "index": 25,
+      "text": "56d0fea126880679d431a038b8f11cfbfaad51b231b0cfa7b4b46ea33a7b58ed ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do ",
+      "token_count": 128,
+      "token_ids_sha256": "8a4ae38217398880258310f8babccf25281db5e540fd616c55b1ac0dd7f0773b",
+      "utf8_sha256": "f887d6fedac3c72656c6e03aba630322dcab3b6e6b7e0b3a6e6f0fddd63f4006"
+    },
+    {
+      "index": 26,
+      "text": "b7efc07a0c0b46f28c4cc2cf3adc9fa93cd89bebd78a5a728a53942bea84b1f3 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infe",
+      "token_count": 128,
+      "token_ids_sha256": "26b96800e735a4842c7c87e1c7d0f7d1aa6eac5906129fd53be9b60b67642375",
+      "utf8_sha256": "af126c619af2d5303c29a8b8675790f350f6cd433d2c1c3050f0f8ca0dad9812"
+    },
+    {
+      "index": 27,
+      "text": "4d692cf41d7f6aa63d0d9da0b76982a9372eeff42c1c7deb66c983c69ffaab1f ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infe",
+      "token_count": 128,
+      "token_ids_sha256": "bf18198bf8cf4f92ceb4aceaf79724ef1bad3a01969fb42bb84a46e178049ddb",
+      "utf8_sha256": "82c49717a08a945ef3344f7003ed33c7ff247bd3c898c64df138904578fe9318"
+    },
+    {
+      "index": 28,
+      "text": "b228089aac8cca2cb6f87c44abecca034a2ba16edac064b96e3f1635b40a7f8e ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality ",
+      "token_count": 128,
+      "token_ids_sha256": "5f9dee4337e81619d4e9da1ea524b4c56f3bdeafef5943a0fa615d2a3de8a6f0",
+      "utf8_sha256": "1d6d8e09f0b931100dc5de8431c07dd7cacf9fb82c40cd357690c27c8241abaa"
+    },
+    {
+      "index": 29,
+      "text": "086d178350d0863fdb9d431d9e1152ca3512c43e9a2d99399349c3f073417dc9 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory uti",
+      "token_count": 128,
+      "token_ids_sha256": "16ce56f1e0ddad1a03d502967948844ac6237ad714931887991e310fb6d48a90",
+      "utf8_sha256": "aabeac1632d69da2245e3ef712ec9c7b9906d3fae319ff2f50ea53939ac220e5"
+    },
+    {
+      "index": 30,
+      "text": "1c0eddf4234b094a7fd9cd5ed40076e985e27ecf465122e7b6d5f99be132115e ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. ",
+      "token_count": 128,
+      "token_ids_sha256": "8f45f399e514e5c78a48ccdb3e8d945f487369f723b57355734aa5b373144b13",
+      "utf8_sha256": "267102a6c2b4fa0e19c0f0cb3e2c97c0f70f8777d2f1a4e098ef8407390a2906"
+    },
+    {
+      "index": 31,
+      "text": "1e1d991542d69c5b8ff05128ff6c9d86ccac860bb3896efd1ba59b276d9fa175 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not ",
+      "token_count": 128,
+      "token_ids_sha256": "d781670362d4da6930761e0d1032b794622e6987d48e84e44fbe98109e09a649",
+      "utf8_sha256": "d78b6335b8f0d08b426001ef99976cdb989e4b0836756689cb62d7e61bb5d8eb"
+    },
+    {
+      "index": 32,
+      "text": "70d889de7145d8b2b2c44a64c22d344235a5da4666fea47d596cb86d02274f36 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and ",
+      "token_count": 128,
+      "token_ids_sha256": "a7c5fd1816460a56e4b418970a895fe4d2e0a23509d595a48ca89178448feb38",
+      "utf8_sha256": "ae5614196d802dc3ebf46c83c1f5c540250855c322873b3491ce1b8e7135222e"
+    },
+    {
+      "index": 33,
+      "text": "e0d47b53f5663279e50e7f8f0e624ac1ad612f73a90d2ff987edfd018ae09464 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and unce",
+      "token_count": 128,
+      "token_ids_sha256": "86f959f03a73fc9167a2fa7c4e98f3d34d878c0a5f228932aabb002d62250321",
+      "utf8_sha256": "b8f05efe23a56b4460c2f75b995a24643b25538ea1a187017f06fe9497aa1020"
+    },
+    {
+      "index": 34,
+      "text": "51435f7a0f9487aed2cbf8393fd948dcfb11ff1ccd4d48ca8d3780e0f5e0cd37 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer cau",
+      "token_count": 128,
+      "token_ids_sha256": "851d520328af2c950b8172c37eb88ba40b1b9d7725102857d991ebabda1baf37",
+      "utf8_sha256": "3903b1c2f11021c418d10febfe0f4264d196042e9a1903567953ab4889b599ce"
+    },
+    {
+      "index": 35,
+      "text": "3160ad1b0a57a25aab67f6071467d391e98c8ea77c35ad263e0c04a009218607 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and ",
+      "token_count": 128,
+      "token_ids_sha256": "04d78b6982eec1c2275b16f2fd8f84cc13880df26b2d4d0b3b99d37fcbb2d0d9",
+      "utf8_sha256": "8fa0d3847855c63fe3ddee80f1132fc3ef31ef8a92db63b40eb2d2f4464c1213"
+    },
+    {
+      "index": 36,
+      "text": "d322e7d610bc3d2cc9f94648aee0f637d955199828fd9e693d38efc632e3d892 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and ",
+      "token_count": 128,
+      "token_ids_sha256": "375961d5098a73b3aa6917f1dddcd6ad82233c451225ae8ead6d3d3fddf3ef7a",
+      "utf8_sha256": "fb9a7616f7c7125ca65acec9158791048952c6674d65d55de3eae10edc5dbc86"
+    },
+    {
+      "index": 37,
+      "text": "acb6a8ef0c38d2aa4eefb78c067491ae6d6f158f0dbafdd5c3d8dfd94e63f2ad ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality ",
+      "token_count": 128,
+      "token_ids_sha256": "e300de7e4c1f2fac5d21e8e706b84ab6834a0bd10c55116d9876c8f0effa0ac1",
+      "utf8_sha256": "44c465b83c491deca5b4b9abd2ca29f39449aa53e58c7ba1b36b725d6ddedc14"
+    },
+    {
+      "index": 38,
+      "text": "a2ac94287b263a18db5784174ead218f1914b009be596e592a913d35460e3ed1 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and unce",
+      "token_count": 128,
+      "token_ids_sha256": "0e1385549285a8a4f2a9f92284cd766342f586db0195bcf2b87e07214517fc91",
+      "utf8_sha256": "64ab8ab02ba816d0477b03d4b002e11e4aebbd542b34599c3ca12c7774b54664"
+    },
+    {
+      "index": 39,
+      "text": "4666d6a41436390db9ed5dec6329ad067104f62878741e5e9971857b668996f4 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and ",
+      "token_count": 128,
+      "token_ids_sha256": "d2cfc6ff4e851ea8834fafac2a32fb00c07ea7cab0aa9dc66fae6ad8ad7a262d",
+      "utf8_sha256": "7e4d23dd9a3e9f8c07f4f2e2dc8b37488ccef4bbb14771041aa4bef2ec4c0c12"
+    },
+    {
+      "index": 40,
+      "text": "61a61f1543f8ae3b418930dfebe586d9acfe902cb79050d4b3089642d799d0cb ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. ",
+      "token_count": 128,
+      "token_ids_sha256": "d92061b82482c263afa47540a7a59e1d75374afd08025edc388f4f537c0a2188",
+      "utf8_sha256": "31af16eef5d176c2c8a51952b708ba4edb669ef802cb9a962b9c3f81041027f6"
+    },
+    {
+      "index": 41,
+      "text": "67ab1f339d67d92c971d892af5388fba0fa50b70ffc0a6f87fa655e250ea04e3 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do ",
+      "token_count": 128,
+      "token_ids_sha256": "f471331ee8b63ce71f8055c8443ae9dca0e2cc09eef99035763d33b9ea0c4c78",
+      "utf8_sha256": "6087a2c4932557e76768e78cd714523560ff8a5dd0c47bc2380f5b57d3209e09"
+    },
+    {
+      "index": 42,
+      "text": "955c66b76d9a29b2eded91bc00fd9e31ce96af8fbd51645702b09f35cea2a40c ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infe",
+      "token_count": 128,
+      "token_ids_sha256": "0d2051bd0161bd2effc17adebe4c4385f390134dbebca7debf8e21ea6b912c23",
+      "utf8_sha256": "b9a6f8d27d5c83abdeb640b96cb6d77ecfe591dd32bbcb1f1459b49ec90d7b61"
+    },
+    {
+      "index": 43,
+      "text": "d4706df8eedd43d6e03c049d07f29df7027a109e4b3ffad92f478dca005de04d ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do ",
+      "token_count": 128,
+      "token_ids_sha256": "043de683cc754222417f0040605b14dfe27ca70ccbec18ebdb8a55cce841f058",
+      "utf8_sha256": "8bdfb66fcb8675daff6a44e239ae697a3366b36674bdc8da5c22e7ad215410f0"
+    },
+    {
+      "index": 44,
+      "text": "f7c6ca8206e32e4a594f7b2df65079ec98ab52e35aa96e459f9c4521305dc438 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and unce",
+      "token_count": 128,
+      "token_ids_sha256": "5372f589c481833ed70b690f2c342f4b8a743ebfeb1f785a6021af152c157fbf",
+      "utf8_sha256": "fc627482ff6a3dbefde8f57d3ab4a0e98c9dc7a6f1771ca28a9c8a7632ad9110"
+    },
+    {
+      "index": 45,
+      "text": "e0b06135ec3d9eae2ff3be2eca6a1d1dea3f1ab0434cff2a6d8bf60ba8015270 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from ",
+      "token_count": 128,
+      "token_ids_sha256": "a3a531fae8083f7264f4b74a3e3c02c024b4167cf33303852dffb4afd504433a",
+      "utf8_sha256": "7d716d84c2524db1a177d5c9d00f40d859890388ff20c2f6fe61041aa909505d"
+    },
+    {
+      "index": 46,
+      "text": "9a54e731b22c2bdae1823288d9b0decba42ec0775673b7b93371bdccac030ee3 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infe",
+      "token_count": 128,
+      "token_ids_sha256": "370605147cfb33f151856bc7a733e7571257ee0a20ad8d21121fb61227cb4a6d",
+      "utf8_sha256": "51bffd5e2df4fab4f1b5ac48f7aa012f674e6b877b0156584e9db388cdbd9062"
+    },
+    {
+      "index": 47,
+      "text": "2142d0090429bae0aea8bf38cde4116405ae2ea42fa365c618ff938384b86a71 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not ",
+      "token_count": 128,
+      "token_ids_sha256": "b7c4b66351374cf6719b3fc858328a0569f8805a4619a21b7b4809b8528c4592",
+      "utf8_sha256": "651bd302e04665103c2ed03b0c3718073f49ad4f7100d6e12182794ef707c464"
+    },
+    {
+      "index": 48,
+      "text": "9601a1676590d64a7e2ae28468c6f32f60a8c79a9255785d66bfb0298e8449d7 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capa",
+      "token_count": 128,
+      "token_ids_sha256": "a55b0a37b5d3bb784e1f9bb3b00002206b3fa105ebb46e12993e3561f7eb813a",
+      "utf8_sha256": "7151c1da0f246855e7c8f3ef81449cf3afdf815ca651b13420748415bd728075"
+    },
+    {
+      "index": 49,
+      "text": "30db21decd4534d35791ddf844ee9c0caef9bba6e1a97c7fecef24e891770aed ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topol",
+      "token_count": 128,
+      "token_ids_sha256": "8e03c28363afbaee61c763511f293b7ad4a8b2ba7745005d7043d467b3686963",
+      "utf8_sha256": "5b5c1957f46da5669b2298f206b0cf789290c51fab1fa3f211390802a516562f"
+    },
+    {
+      "index": 50,
+      "text": "dae5c8ee766ed5dfa342090f4723ce0a3c7b3c4166050134a941559ac3f2c6d2 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do ",
+      "token_count": 128,
+      "token_ids_sha256": "7343a8bf4c6578b18b0444efcc0f4cec1dddb0cb218e02e4c6770da3bd5fdab0",
+      "utf8_sha256": "54cde71f85d376f71c430e24fd9377db3c90640d6a1d0dc41b5dd635dece1819"
+    },
+    {
+      "index": 51,
+      "text": "2dcf661e29210c85f76946d522749ed8e65e2ad7d8ee8074fd9877068e2ac76f ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and unce",
+      "token_count": 128,
+      "token_ids_sha256": "be62af979b5db8c39efb2b7da76f8232719d4ebde3f9df180a53efc6e81b9cc0",
+      "utf8_sha256": "79ca28445774747cef1919708c1b3b0b88adcfc1923c5032c6df49ecdfa3c283"
+    },
+    {
+      "index": 52,
+      "text": "b0138e91c62b7b47d710c03736a7aa8ec565d5c82ba37f96133fbab48e60489a ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and ",
+      "token_count": 128,
+      "token_ids_sha256": "337bd3b8d0fadc321e9a33a2feea22f498ca3e0b51235ff95c08edd0deea0b44",
+      "utf8_sha256": "282b83f53d7648afecba1a7af535bcdfd1e3a6432afed668d7945269fe0a42f2"
+    },
+    {
+      "index": 53,
+      "text": "69f862dfa656645fd8e4cb7a863bf015d24bb72cdcf7bbfb0d2e3337524f7027 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infe",
+      "token_count": 128,
+      "token_ids_sha256": "62c25e234397944b0da5bc821f7646d8e91bb74eee6a4e4fe87859ea0daf4d00",
+      "utf8_sha256": "7c1d50ee3d6d5439579183f2c5c60dd580218c4fe291c5e001cd2778a0d222d1"
+    },
+    {
+      "index": 54,
+      "text": "b0db3cc5b849a339cc5f2f8aed40735ab8f2c55eeb2dd4f7a61361f20ae793ce ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infe",
+      "token_count": 128,
+      "token_ids_sha256": "fce917764111a72f9865c9a2dfd00374cbc5ca686a2bfe6ea37423cd3f1940a2",
+      "utf8_sha256": "7aeea2c23fe47dadb25ce4ea5f7d83a16fa4b35bedbd6a1af8801635213aebcb"
+    },
+    {
+      "index": 55,
+      "text": "be4efb4a4fbcfa46c957d9b8e3af66ccc05444612c08f6f5ecbfd80abd53a242 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality ",
+      "token_count": 128,
+      "token_ids_sha256": "118263afc7fbda957b9c4b853ab99b39f03b65edeea3b8aa0f2024f46a111f5f",
+      "utf8_sha256": "f8e28468bdab6133ec8f67b68ee3e092f25e287fda40c14aaa2fd8e9940a63c8"
+    },
+    {
+      "index": 56,
+      "text": "d784f816d64154569aee209a11d48ad50ee7dc32232f9bc6f7e996adc2b9ec28 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do ",
+      "token_count": 128,
+      "token_ids_sha256": "c311f568a68580b8b6ca8caf6dd0483774a728ea203be4240a6f4fc943e54399",
+      "utf8_sha256": "1c19ca1bf5ccb36b699b5df33de9a83ba793ec1c87ad6e3f5c9b2dab4905c17c"
+    },
+    {
+      "index": 57,
+      "text": "e30b7d92fb7a7747b017d3ec77b25931f0c16f352748ce0fa8134c8f1cef6033 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and unce",
+      "token_count": 128,
+      "token_ids_sha256": "793763e568aa726d6c5a237c54ed40f3de90070ef24f7ad38b1374fe31f48b1a",
+      "utf8_sha256": "06ef348b6c51b290f8b9feeca0582fc23fd3fd3e93f0f5dea1b5d2d0020ce233"
+    },
+    {
+      "index": 58,
+      "text": "eb7140be8ef4d7b311dd9005cee53a2455372aadd6b0cd03235587027eaa8377 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infe",
+      "token_count": 128,
+      "token_ids_sha256": "10e46a2a51c394833274d47327c35a16d383cf98ec765afd3b6db5d090fc234c",
+      "utf8_sha256": "9f79dd19d137db85514abd22ee0aad7d31d0f2f730eeea9f6d21df011695e7fe"
+    },
+    {
+      "index": 59,
+      "text": "dafc397fd0def2b5f7cf584b54cb865e403584302dba5daea40038c7823a56b3 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer cau",
+      "token_count": 128,
+      "token_ids_sha256": "c2f0c05c85524f3fc31d84e4ff1adbec35f247ddd758a640acf9965ba7cfc651",
+      "utf8_sha256": "29191173c1797d687b739e6a7e7de2f5d5e034ffb367ba27132f14a0fef14fe9"
+    },
+    {
+      "index": 60,
+      "text": "5110ffe6e25efbf9d8c837a7142db87ca4196473771afe63f3cc7e4a09dd2952 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infe",
+      "token_count": 128,
+      "token_ids_sha256": "dee2620d34bd33c4bc8d593a1cfc3a60583dceb67a7bec1d7941a73122832710",
+      "utf8_sha256": "8403118adbe7f78205271adf74c423463a101016a0a46dd093b63aed94dac8f3"
+    },
+    {
+      "index": 61,
+      "text": "840e09166a735a16629f2f5616ede390c5c78ba5c985a6a04dc8e9f492021e86 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory uti",
+      "token_count": 128,
+      "token_ids_sha256": "19070dfd9fa4174c5db3ce8dd4fddd37a8f2dc387a6d972b481172ac2ea3a164",
+      "utf8_sha256": "c210014859f0da3a1e2661f7d6be530f691515888f485de411549efde878ac41"
+    },
+    {
+      "index": 62,
+      "text": "bf0e7c378986f434441b8c173b6148f2ee64c200b45ff6d956e7a0f5f5d5bedf ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and ",
+      "token_count": 128,
+      "token_ids_sha256": "7cd968e86f1ecd0737a4c7a7ee9903d90cafc45cfb93e0b32184cfd862cbce9b",
+      "utf8_sha256": "28c2116d8c3c2ebb2257131ee200721c95c2f389e7ab58036b5da9df6d3a108b"
+    },
+    {
+      "index": 63,
+      "text": "22202efc90c721b926676a845f9cd99864d54d3d66503ea55cdd9e07eaaaee42 ion. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. Do not infer causality from topology alone or hide unsupported outcomes. Measure serving behavior under controlled tensor parallel executMeasure serving behavior under controlled tensor parallel execution. Preserve model revision workload token counts failures and timestamps. Compare throughput latency capacity memory utilization and uncertainty. ",
+      "token_count": 128,
+      "token_ids_sha256": "a2b04f18fefbb922357bfb5ee96d07681ed143f64be2863da92eb328c08177d6",
+      "utf8_sha256": "12f8829d9397e928223e015a3317e9ab55d89665ccaa11b49d23d49c1fa19dd4"
+    }
+  ],
+  "repetition": 0,
+  "schema_version": "kaggle-vllm-m4-prompt-manifest-v1",
+  "target_input_tokens": 128,
+  "token_count_method": "tokenizer.encode(add_special_tokens=True)",
+  "tokenizer_class": "Qwen2TokenizerFast",
+  "workload": "short"
+}
