@@ -255,7 +255,8 @@
     "reviewed_status": "BATCH_REVIEW_REQUIRED_DUPLICATE_SAFE_STAGING",
     "reviewed_returncode": 2,
     "reviewed_terminal_resource_shards": 1,
-    "reviewed_invalid_shards": 0,
+    "reviewed_invalid_shards": 2,
+    "reviewed_resource_invalid_shards": 0,
     "duplicate_canonical_staging_entries": 2,
     "stderr": "EMPTY"
   },
