@@ -7,10 +7,10 @@ For every active row, also download the executed copy of
 `/kaggle/working/kaggle-vllm-runtime/runtime.json`; both are mandatory
 inputs to the local provenance audit.
 
-Progress: 33 / 60 active shards preserved.
+Progress: 36 / 60 active shards preserved.
 Review required: 3 resource-gated shards.
 
-Next: `M4_SHARD_ID=ministral3_3b_bf16-short-r03`
+Next: `M4_SHARD_ID=qwen25_3b-prefill_heavy-r03`
 
 | Active | M4_SHARD_ID | Model | Workload | Rep | Status | Artifact |
 |---:|---|---|---|---:|---|---|
@@ -62,17 +62,17 @@ Next: `M4_SHARD_ID=ministral3_3b_bf16-short-r03`
 | 46 | `ministral3_3b_bf16-short-r00` | `ministral3_3b_bf16` | short | 0 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-short-r00-principal.zip` |
 | 47 | `ministral3_3b_bf16-short-r01` | `ministral3_3b_bf16` | short | 1 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-short-r01-principal.zip` |
 | 48 | `ministral3_3b_bf16-short-r02` | `ministral3_3b_bf16` | short | 2 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-short-r02-principal.zip` |
-| 49 | `ministral3_3b_bf16-short-r03` | `ministral3_3b_bf16` | short | 3 | QUEUED | `ministral3_3b_bf16-short-r03-principal.zip` |
+| 49 | `ministral3_3b_bf16-short-r03` | `ministral3_3b_bf16` | short | 3 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-short-r03-principal.zip` |
 | 50 | `ministral3_3b_bf16-short-r04` | `ministral3_3b_bf16` | short | 4 | QUEUED | `ministral3_3b_bf16-short-r04-principal.zip` |
 | 51 | `ministral3_3b_bf16-balanced-r00` | `ministral3_3b_bf16` | balanced | 0 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-balanced-r00-principal.zip` |
 | 52 | `ministral3_3b_bf16-balanced-r01` | `ministral3_3b_bf16` | balanced | 1 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-balanced-r01-principal.zip` |
 | 53 | `ministral3_3b_bf16-balanced-r02` | `ministral3_3b_bf16` | balanced | 2 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-balanced-r02-principal.zip` |
-| 54 | `ministral3_3b_bf16-balanced-r03` | `ministral3_3b_bf16` | balanced | 3 | QUEUED | `ministral3_3b_bf16-balanced-r03-principal.zip` |
+| 54 | `ministral3_3b_bf16-balanced-r03` | `ministral3_3b_bf16` | balanced | 3 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-balanced-r03-principal.zip` |
 | 55 | `ministral3_3b_bf16-balanced-r04` | `ministral3_3b_bf16` | balanced | 4 | QUEUED | `ministral3_3b_bf16-balanced-r04-principal.zip` |
 | 56 | `ministral3_3b_bf16-prefill_heavy-r00` | `ministral3_3b_bf16` | prefill_heavy | 0 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-prefill_heavy-r00-principal.zip` |
 | 57 | `ministral3_3b_bf16-prefill_heavy-r01` | `ministral3_3b_bf16` | prefill_heavy | 1 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-prefill_heavy-r01-principal.zip` |
 | 58 | `ministral3_3b_bf16-prefill_heavy-r02` | `ministral3_3b_bf16` | prefill_heavy | 2 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-prefill_heavy-r02-principal.zip` |
-| 59 | `ministral3_3b_bf16-prefill_heavy-r03` | `ministral3_3b_bf16` | prefill_heavy | 3 | QUEUED | `ministral3_3b_bf16-prefill_heavy-r03-principal.zip` |
+| 59 | `ministral3_3b_bf16-prefill_heavy-r03` | `ministral3_3b_bf16` | prefill_heavy | 3 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-prefill_heavy-r03-principal.zip` |
 | 60 | `ministral3_3b_bf16-prefill_heavy-r04` | `ministral3_3b_bf16` | prefill_heavy | 4 | QUEUED | `ministral3_3b_bf16-prefill_heavy-r04-principal.zip` |
 | — | `gemma3_4b-short-r00` | `gemma3_4b` | short | 0 | SKIPPED_BY_COMPATIBILITY_GATE | `gemma3_4b-short-r00-principal.zip` |
 | — | `gemma3_4b-short-r01` | `gemma3_4b` | short | 1 | SKIPPED_BY_COMPATIBILITY_GATE | `gemma3_4b-short-r01-principal.zip` |

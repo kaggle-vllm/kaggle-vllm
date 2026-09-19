@@ -7,8 +7,9 @@ The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V13 is the current future-execution authority for `r03-ministral`. V12 is the
-immutable authority for the completed `r02-phi` batch. V11 is the
+V13 is the immutable authority for the completed `r03-ministral` batch. A new
+freeze is required before `r03-qwen`. V12 is the immutable authority for the
+completed `r02-phi` batch. V11 is the
 immutable authority for the successful second physical
 `r02-qwen` attempt. V10 is the immutable authority for the historical first
 `r02-qwen` attempt, and V9 is the immutable authority for
@@ -57,11 +58,16 @@ observed blast radius, but no throughput result is used to reorder conditions.
 
 ## Next controlled execution
 
-The V12 `M4_BATCH_ID=r02-phi` continuation completed prefill-heavy, short, and
-balanced in session `m4-r02-phi-20260916T141636Z-6f8069da`. All three shards
-passed their complete 12-cell matrices and are permanently non-runnable. The
-next machine-derived batch is `M4_BATCH_ID=r03-ministral`, containing short,
-balanced, then prefill-heavy (36 serving cells). The V11
+The V13 `M4_BATCH_ID=r03-ministral` continuation completed short, balanced,
+then prefill-heavy in session `m4-r03-ministral-20260919T094937Z-fee4d921`.
+All three shards passed their complete 12-cell matrices and are permanently
+non-runnable. The saved executed notebook contains one transparently recorded
+post-execution runner-path edit; the immutable V13 source, retained original
+outputs and execution timestamps, final archive, runtime, and inner evidence
+are bound by `M4_R03_MINISTRAL_NOTEBOOK_PROVENANCE_RECOVERY.json`. The next
+machine-derived batch is `M4_BATCH_ID=r03-qwen`, containing short, balanced,
+then prefill-heavy (36 serving cells). Qwen prefill-heavy r03 remains an
+independent required repetition and must not be pre-skipped. The V11
 `M4_BATCH_ID=r02-qwen` continuation completed
 `qwen25_3b-short-r02` followed by `qwen25_3b-balanced-r02` in session
 `m4-r02-qwen-20260916T054736Z-95506297`. Together with the distinct V10
@@ -154,6 +160,14 @@ balanced. All 36 serving cells passed, the outer ZIP SHA256 is
 and the separate runtime is byte-identical to the bundled runtime. Its review
 is `M4_R02_PHI_ATTEMPT_1_REVIEW.json`. Reconciliation places all three logical
 shards in the no-rerun set and removes `r02-phi` from the remaining plan.
+
+The V13 `r03-ministral` allocation executed exactly short, balanced, then
+prefill-heavy. All 36 serving cells passed, the outer ZIP SHA256 is
+`723cf39bf30add663fb2492d6b2cdabb6beb103a95ae73f14322114055bedbc4`,
+and the separate runtime is byte-identical to the bundled runtime. The saved
+executed notebook's one post-execution path edit is disclosed rather than
+normalized away; strict ordinary source-equivalence remains fail-closed. Its
+review is `M4_R03_MINISTRAL_ATTEMPT_1_REVIEW.json`.
 
 The next allocation has three logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before

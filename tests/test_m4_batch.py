@@ -24,6 +24,7 @@ from kaggle_vllm.research.m4_batch import (
     validate_batch_against_queue,
     validate_batch_manifest,
     validate_current_notebook_self_digest,
+    validate_reviewed_notebook_recovery,
     verify_batch_source_freeze,
     verify_terminal_resource_gate,
 )
@@ -42,6 +43,278 @@ from scripts.kaggle_m4_execute_batch import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def _notebook_recovery_fixture(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> SimpleNamespace:
+    repository = tmp_path / "repo"
+    research = repository / "research"
+    research.mkdir(parents=True)
+    freeze_path = research / "M4_BATCH_SOURCE_FREEZE_V13.json"
+    freeze_path.write_text("{}")
+    frozen_notebook = tmp_path / "frozen.ipynb"
+    executed_notebook = tmp_path / "executed.ipynb"
+    batch_zip = tmp_path / "batch.zip"
+    runtime = tmp_path / "runtime.json"
+    runner = b"reviewed runner"
+    batch_zip.write_bytes(b"final outer batch")
+    runtime.write_text("{}")
+    expected_runner = "scripts/kaggle_m4_execute_batch.py"
+    altered_runner = "scripts/kaggle_m4_execidental_edit.py"
+    expected_source = f"command = '{expected_runner}'\n"
+    altered_source = f"command = '{altered_runner}'\n"
+    output_text = json.dumps(
+        {
+            "status": "COMPLETED",
+            "batch_id": "r03-ministral",
+            "session_id": "m4-r03-ministral-20260919T094937Z-fee4d921",
+            "batch_runner_returncode": 0,
+            "outer_zip_sha256": sha256_file(batch_zip),
+        },
+        indent=2,
+    )
+    clean = {
+        "cells": [
+            {
+                "cell_type": "code",
+                "id": "execute",
+                "source": [expected_source],
+                "execution_count": None,
+                "outputs": [],
+                "metadata": {},
+            },
+            {
+                "cell_type": "code",
+                "id": "benchmark",
+                "source": ["tp = [1, 2]; concurrency = [1, 4, 8, 16, 32, 64]\n"],
+                "execution_count": None,
+                "outputs": [],
+                "metadata": {},
+            },
+        ]
+    }
+    outputs = [{"output_type": "stream", "name": "stdout", "text": output_text}]
+    executed = json.loads(json.dumps(clean))
+    executed["cells"][0].update(
+        {
+            "source": [altered_source],
+            "execution_count": 2,
+            "outputs": outputs,
+            "metadata": {
+                "execution": {
+                    "iopub.execute_input": "2026-09-19T09:49:37Z",
+                    "iopub.status.idle": "2026-09-19T11:54:11Z",
+                }
+            },
+        }
+    )
+    frozen_notebook.write_text(json.dumps(clean))
+    executed_notebook.write_text(json.dumps(executed))
+    manifest = {
+        "batch_id": "r03-ministral",
+        "session_id": "m4-r03-ministral-20260919T094937Z-fee4d921",
+        "source_commit": "a" * 40,
+        "start_utc": "2026-09-19T09:49:37.5+00:00",
+        "end_utc": "2026-09-19T11:54:10+00:00",
+        "shards": [
+            {"shard_id": "ministral-short-r03", "evidence_zip_sha256": "1" * 64}
+        ],
+    }
+    freeze = {
+        "implementation_source_commit": "a" * 40,
+        "notebook_pin_commit": "b" * 40,
+        "batch_notebook_sha256": sha256_file(frozen_notebook),
+        "batch_notebook_source_digest": m4_batch.notebook_source_digest(
+            frozen_notebook
+        ),
+        "batch_runner_sha256": hashlib.sha256(runner).hexdigest(),
+    }
+    record = {
+        "schema_version": "kaggle-vllm-m4-notebook-provenance-recovery-v1",
+        "classification": "POST_EXECUTION_NOTEBOOK_SOURCE_EDIT",
+        "review_status": "REVIEWED_APPROVED_FOR_EXACT_INGESTION",
+        "batch_id": manifest["batch_id"],
+        "session_id": manifest["session_id"],
+        "source_identity": {
+            "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V13.json",
+            "implementation_commit": freeze["implementation_source_commit"],
+            "notebook_pin_commit": freeze["notebook_pin_commit"],
+            "clean_notebook_source_digest": freeze["batch_notebook_source_digest"],
+        },
+        "artifacts": {
+            "clean_v13_notebook": {"sha256": sha256_file(frozen_notebook)},
+            "saved_executed_notebook": {"sha256": sha256_file(executed_notebook)},
+            "outer_batch_zip": {"sha256": sha256_file(batch_zip)},
+            "runtime": {"sha256": sha256_file(runtime)},
+            "inner_zip_sha256": {"ministral-short-r03": "1" * 64},
+        },
+        "changed_cell": {
+            "index": 0,
+            "id": "execute",
+            "expected_source": expected_source,
+            "altered_source": altered_source,
+            "expected_source_sha256": hashlib.sha256(
+                expected_source.encode()
+            ).hexdigest(),
+            "altered_source_sha256": hashlib.sha256(
+                altered_source.encode()
+            ).hexdigest(),
+        },
+        "execution_proof": {
+            "execution_count": 2,
+            "cell_started_utc": "2026-09-19T09:49:37Z",
+            "cell_ended_utc": "2026-09-19T11:54:11Z",
+            "outputs_sha256": hashlib.sha256(
+                json.dumps(
+                    outputs,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                    ensure_ascii=False,
+                ).encode()
+            ).hexdigest(),
+            "expected_runner_path": expected_runner,
+            "altered_runner_path": altered_runner,
+        },
+    }
+    recovery_path = research / "RECOVERY.json"
+    recovery_path.write_text(json.dumps(record))
+
+    monkeypatch.setattr(
+        m4_batch,
+        "_git_blob",
+        lambda _repo, _commit, path: runner if path == expected_runner else None,
+    )
+    kwargs = {
+        "repository": repository,
+        "recovery_path": recovery_path,
+        "executed_notebook": executed_notebook,
+        "frozen_notebook": frozen_notebook,
+        "batch_zip": batch_zip,
+        "runtime_path": runtime,
+        "manifest": manifest,
+        "freeze_path": freeze_path,
+        "freeze": freeze,
+    }
+    return SimpleNamespace(
+        kwargs=kwargs,
+        record=record,
+        recovery_path=recovery_path,
+        executed=executed,
+        executed_notebook=executed_notebook,
+        frozen=clean,
+        frozen_notebook=frozen_notebook,
+        batch_zip=batch_zip,
+    )
+
+
+def _write_recovery_fixture(fixture: SimpleNamespace) -> None:
+    fixture.executed_notebook.write_text(json.dumps(fixture.executed))
+    fixture.record["artifacts"]["saved_executed_notebook"]["sha256"] = sha256_file(
+        fixture.executed_notebook
+    )
+    fixture.recovery_path.write_text(json.dumps(fixture.record))
+
+
+def test_reviewed_notebook_recovery_accepts_only_exact_bound_incident(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    fixture = _notebook_recovery_fixture(tmp_path, monkeypatch)
+    result = validate_reviewed_notebook_recovery(**fixture.kwargs)
+    assert result["classification"] == "POST_EXECUTION_NOTEBOOK_SOURCE_EDIT"
+    assert result["changed_cell_id"] == "execute"
+
+
+def test_notebook_recovery_rejects_arbitrary_or_multiple_source_drift(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    fixture = _notebook_recovery_fixture(tmp_path, monkeypatch)
+    fixture.executed["cells"][1]["source"] = ["dtype = 'float32'\n"]
+    _write_recovery_fixture(fixture)
+    with pytest.raises(ResearchEvidenceError, match="exactly one declared"):
+        validate_reviewed_notebook_recovery(**fixture.kwargs)
+
+
+@pytest.mark.parametrize(
+    "extra",
+    [
+        "batch = 'r03-qwen'",
+        "workload = 'balanced'",
+        "concurrency = [1, 2]",
+        "tp = [1]",
+        "dtype = 'float32'",
+    ],
+)
+def test_notebook_recovery_rejects_benchmark_parameter_edits(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, extra: str
+) -> None:
+    fixture = _notebook_recovery_fixture(tmp_path, monkeypatch)
+    altered = fixture.record["changed_cell"]["altered_source"] + extra + "\n"
+    fixture.executed["cells"][0]["source"] = [altered]
+    fixture.record["changed_cell"]["altered_source"] = altered
+    fixture.record["changed_cell"]["altered_source_sha256"] = hashlib.sha256(
+        altered.encode()
+    ).hexdigest()
+    _write_recovery_fixture(fixture)
+    with pytest.raises(ResearchEvidenceError, match="post-execution"):
+        validate_reviewed_notebook_recovery(**fixture.kwargs)
+
+
+@pytest.mark.parametrize("field", ["batch_id", "session_id"])
+def test_notebook_recovery_rejects_batch_or_session_mismatch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, field: str
+) -> None:
+    fixture = _notebook_recovery_fixture(tmp_path, monkeypatch)
+    fixture.record[field] = "mismatch"
+    fixture.recovery_path.write_text(json.dumps(fixture.record))
+    with pytest.raises(ResearchEvidenceError, match="identity mismatch"):
+        validate_reviewed_notebook_recovery(**fixture.kwargs)
+
+
+def test_notebook_recovery_rejects_clean_digest_or_archive_mismatch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    fixture = _notebook_recovery_fixture(tmp_path, monkeypatch)
+    fixture.record["source_identity"]["clean_notebook_source_digest"] = "0" * 64
+    fixture.recovery_path.write_text(json.dumps(fixture.record))
+    with pytest.raises(ResearchEvidenceError, match="clean source digest"):
+        validate_reviewed_notebook_recovery(**fixture.kwargs)
+
+    fixture = _notebook_recovery_fixture(tmp_path / "second", monkeypatch)
+    fixture.batch_zip.write_bytes(b"different outer batch")
+    with pytest.raises(ResearchEvidenceError, match="outer ZIP hash"):
+        validate_reviewed_notebook_recovery(**fixture.kwargs)
+
+
+def test_notebook_recovery_rejects_missing_outputs_and_source_equivalent_artifact(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    fixture = _notebook_recovery_fixture(tmp_path, monkeypatch)
+    fixture.executed["cells"][0]["outputs"] = []
+    _write_recovery_fixture(fixture)
+    with pytest.raises(ResearchEvidenceError, match="retained output"):
+        validate_reviewed_notebook_recovery(**fixture.kwargs)
+
+    fixture = _notebook_recovery_fixture(tmp_path / "second", monkeypatch)
+    fixture.executed["cells"][0]["source"] = fixture.frozen["cells"][0]["source"]
+    _write_recovery_fixture(fixture)
+    with pytest.raises(ResearchEvidenceError, match="exactly one declared"):
+        validate_reviewed_notebook_recovery(**fixture.kwargs)
+
+
+def test_r03_recovery_record_discloses_exact_non_equivalent_artifacts() -> None:
+    record = json.loads(
+        (ROOT / "research/M4_R03_MINISTRAL_NOTEBOOK_PROVENANCE_RECOVERY.json").read_text()
+    )
+    assert record["classification"] == "POST_EXECUTION_NOTEBOOK_SOURCE_EDIT"
+    assert record["artifacts"]["saved_executed_notebook"]["sha256"] == (
+        "064fc6977153956faba597274001f7027cc02f72677017eddc0819f4d32aeab3"
+    )
+    assert record["artifacts"]["clean_v13_notebook"]["sha256"] == (
+        "c6828984ec78c7e0fa5988e37341607f43d083f04869a6ade5508d595e1548a9"
+    )
+    assert record["recovery_boundary"]["reconstructed_notebook_created"] is False
+    assert record["recovery_boundary"]["global_source_equivalence_bypass"] is False
 
 
 def _batch() -> dict:
@@ -110,13 +383,13 @@ def test_select_batch_rejects_mixed_repetition() -> None:
 def test_current_batch_passes_authoritative_no_rerun_queue() -> None:
     plan = json.loads((ROOT / "research/M4_REMAINING_EXECUTION_PLAN.json").read_text())
     queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
-    batch = select_batch(plan, "r03-ministral")
+    batch = select_batch(plan, "r03-qwen")
     result = validate_batch_against_queue(batch, queue)
     assert result["status"] == "PASS_NO_SETTLED_SHARD_RESCHEDULED"
     assert result["queued_shard_ids"] == [
-        "ministral3_3b_bf16-short-r03",
-        "ministral3_3b_bf16-balanced-r03",
-        "ministral3_3b_bf16-prefill_heavy-r03",
+        "qwen25_3b-short-r03",
+        "qwen25_3b-balanced-r03",
+        "qwen25_3b-prefill_heavy-r03",
     ]
     assert batch["review_required_exclusions"] == []
     assert batch["logical_shard_count"] == 3
@@ -138,6 +411,8 @@ def test_promoted_canonical_batch_cannot_be_rescheduled() -> None:
         select_batch(remaining, "r02-qwen")
     with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
         select_batch(remaining, "r02-phi")
+    with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
+        select_batch(remaining, "r03-ministral")
     stale_batch = {
         "ordered_shard_ids": [
             "qwen25_3b-balanced-r01",

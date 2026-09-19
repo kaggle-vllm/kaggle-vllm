@@ -116,16 +116,15 @@
     "renew_wall_clock_guard_before_next_shard": true,
     "never_rerun_terminal_shard_in_batch": true
   },
-  "preserved_logical_shards": 33,
-  "remaining_logical_shards": 27,
-  "continuation_executable_shards": 24,
+  "preserved_logical_shards": 36,
+  "remaining_logical_shards": 24,
+  "continuation_executable_shards": 21,
   "review_required_shard_ids": [
     "qwen25_3b-prefill_heavy-r00",
     "qwen25_3b-prefill_heavy-r01",
     "qwen25_3b-prefill_heavy-r02"
   ],
   "batch_ids": [
-    "r03-ministral",
     "r03-qwen",
     "r03-phi",
     "r03-llama",
@@ -135,62 +134,6 @@
     "r04-ministral"
   ],
   "batches": [
-    {
-      "batch_id": "r03-ministral",
-      "label": "CONTINUATION_R03_MINISTRAL",
-      "protocol_amendment_version": "M4-BATCH-3",
-      "parent_batch_id": "r03",
-      "continuation_group": "ministral",
-      "repetition": 3,
-      "model_order": [
-        "ministral3_3b_bf16"
-      ],
-      "workload_order_within_model": [
-        "short",
-        "balanced",
-        "prefill_heavy"
-      ],
-      "all_logical_shard_ids": [
-        "ministral3_3b_bf16-short-r03",
-        "ministral3_3b_bf16-balanced-r03",
-        "ministral3_3b_bf16-prefill_heavy-r03"
-      ],
-      "ordered_shard_ids": [
-        "ministral3_3b_bf16-short-r03",
-        "ministral3_3b_bf16-balanced-r03",
-        "ministral3_3b_bf16-prefill_heavy-r03"
-      ],
-      "execution_order": [
-        {
-          "within_session_order": 1,
-          "shard_id": "ministral3_3b_bf16-short-r03",
-          "model_key": "ministral3_3b_bf16",
-          "workload": "short",
-          "repetition": 3,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 2,
-          "shard_id": "ministral3_3b_bf16-balanced-r03",
-          "model_key": "ministral3_3b_bf16",
-          "workload": "balanced",
-          "repetition": 3,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 3,
-          "shard_id": "ministral3_3b_bf16-prefill_heavy-r03",
-          "model_key": "ministral3_3b_bf16",
-          "workload": "prefill_heavy",
-          "repetition": 3,
-          "serving_cells": 12
-        }
-      ],
-      "already_completed_skips": [],
-      "review_required_exclusions": [],
-      "logical_shard_count": 3,
-      "serving_cell_count": 36
-    },
     {
       "batch_id": "r03-qwen",
       "label": "CONTINUATION_R03_QWEN",

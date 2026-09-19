@@ -45,6 +45,7 @@ def build_parser() -> argparse.ArgumentParser:
     ingest_batch.add_argument("--batch-zip", type=Path, required=True)
     ingest_batch.add_argument("--runtime", type=Path, required=True)
     ingest_batch.add_argument("--repository", type=Path, default=Path.cwd())
+    ingest_batch.add_argument("--notebook-recovery-record", type=Path)
     return parser
 
 
@@ -72,6 +73,11 @@ def main(argv: Sequence[str] | None = None) -> int:
                 notebook=args.notebook.resolve(),
                 batch_zip=args.batch_zip.resolve(),
                 runtime_path=args.runtime.resolve(),
+                notebook_recovery_record=(
+                    args.notebook_recovery_record.resolve()
+                    if args.notebook_recovery_record is not None
+                    else None
+                ),
             )
             print(json.dumps(report, indent=2))
             return 0 if report["status"] == "VERIFIED_BATCH_CANDIDATE" else 2

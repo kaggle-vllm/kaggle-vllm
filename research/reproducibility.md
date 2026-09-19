@@ -134,7 +134,18 @@ to 0 MiB with no new compute PIDs and deleted only the exact Phi model cache.
 All three Phi r02 shards are now in the reviewed no-rerun set.
 V13 pins implementation commit `571bd07f478f820813ff6c9b19faf3470b138fb5`,
 notebook pin `40c7c9da88bce712e3a87bcf9b5af52793cf6aa8`, and the post-Phi
-queue/plan for `r03-ministral`; it contains no new GPU measurements.
+queue/plan for `r03-ministral`; the freeze itself contains no GPU measurements.
+The resulting session `m4-r03-ministral-20260919T094937Z-fee4d921` completed
+all three 12-cell shards. Its outer ZIP SHA256 is
+`723cf39bf30add663fb2492d6b2cdabb6beb103a95ae73f14322114055bedbc4`
+and runtime SHA256 is
+`117d1e58004975c2ff4972f0c7744f9afe081b9f12bc8589b1fa1a66ff2f15fc`.
+The saved executed notebook SHA256
+`064fc6977153956faba597274001f7027cc02f72677017eddc0819f4d32aeab3`
+retains the original outputs and execution timestamps but has one runner-path
+source edit made after execution. No clean pre-edit executed copy survives.
+`M4_R03_MINISTRAL_NOTEBOOK_PROVENANCE_RECOVERY.json` binds that exact artifact
+to immutable V13 and the final archive; ordinary source drift remains rejected.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

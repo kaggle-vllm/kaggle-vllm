@@ -11,6 +11,7 @@ import subprocess
 import tempfile
 import zipfile
 from collections.abc import Callable
+from datetime import datetime
 from pathlib import Path, PurePosixPath
 from typing import Any
 
@@ -43,6 +44,8 @@ ALLOWED_OUTCOMES = {
 COMPLETED_WITH_TERMINAL_OUTCOMES = "COMPLETED_WITH_TERMINAL_OUTCOMES"
 TERMINAL_RESOURCE_GATE_SCHEMA = "kaggle-vllm-m4-terminal-resource-gate-v1"
 TERMINAL_RESOURCE_GATE_POLICY_VERSION = "M4-BATCH-3"
+NOTEBOOK_RECOVERY_SCHEMA = "kaggle-vllm-m4-notebook-provenance-recovery-v1"
+POST_EXECUTION_NOTEBOOK_SOURCE_EDIT = "POST_EXECUTION_NOTEBOOK_SOURCE_EDIT"
 APPROVED_TERMINAL_RESOURCE_REASONS = {"VRAM_RESOURCE_GUARD"}
 FROZEN_PRINCIPAL_CONCURRENCY = (1, 4, 8, 16, 32, 64)
 HISTORICAL_STALE_NOTEBOOK_IDENTITY = {
@@ -139,6 +142,218 @@ def load_object(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ResearchEvidenceError(f"expected JSON object: {path}")
     return value
+
+
+def _json_sha256(value: Any) -> str:
+    payload = json.dumps(
+        value, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+    ).encode()
+    return hashlib.sha256(payload).hexdigest()
+
+
+def validate_reviewed_notebook_recovery(
+    *,
+    repository: Path,
+    recovery_path: Path,
+    executed_notebook: Path,
+    frozen_notebook: Path,
+    batch_zip: Path,
+    runtime_path: Path,
+    manifest: dict[str, Any],
+    freeze_path: Path,
+    freeze: dict[str, Any],
+) -> dict[str, Any]:
+    """Validate one explicit, reviewed post-execution notebook-source incident."""
+
+    try:
+        relative_recovery = recovery_path.resolve().relative_to(repository.resolve())
+        relative_freeze = freeze_path.resolve().relative_to(repository.resolve())
+    except ValueError as error:
+        raise ResearchEvidenceError(
+            "notebook recovery record must be repository-local"
+        ) from error
+    if relative_recovery.parts[:1] != ("research",):
+        raise ResearchEvidenceError("notebook recovery record must be under research/")
+
+    recovery = load_object(recovery_path)
+    artifacts = recovery.get("artifacts", {})
+    source = recovery.get("source_identity", {})
+    changed = recovery.get("changed_cell", {})
+    execution = recovery.get("execution_proof", {})
+    if any(
+        not isinstance(section, dict)
+        for section in (artifacts, source, changed, execution)
+    ):
+        raise ResearchEvidenceError("notebook recovery record sections must be objects")
+
+    checks = {
+        "schema": recovery.get("schema_version") == NOTEBOOK_RECOVERY_SCHEMA,
+        "classification": recovery.get("classification")
+        == POST_EXECUTION_NOTEBOOK_SOURCE_EDIT,
+        "approval": recovery.get("review_status")
+        == "REVIEWED_APPROVED_FOR_EXACT_INGESTION",
+        "batch": recovery.get("batch_id") == manifest.get("batch_id"),
+        "session": recovery.get("session_id") == manifest.get("session_id"),
+        "source commit": source.get("implementation_commit")
+        == freeze.get("implementation_source_commit")
+        == manifest.get("source_commit"),
+        "notebook pin": source.get("notebook_pin_commit")
+        == freeze.get("notebook_pin_commit"),
+        "source freeze": source.get("source_freeze")
+        == relative_freeze.as_posix(),
+        "clean notebook hash": artifacts.get("clean_v13_notebook", {}).get(
+            "sha256"
+        )
+        == sha256_file(frozen_notebook)
+        == freeze.get("batch_notebook_sha256"),
+        "clean source digest": source.get("clean_notebook_source_digest")
+        == notebook_source_digest(frozen_notebook)
+        == freeze.get("batch_notebook_source_digest"),
+        "executed notebook hash": artifacts.get("saved_executed_notebook", {}).get(
+            "sha256"
+        )
+        == sha256_file(executed_notebook),
+        "outer ZIP hash": artifacts.get("outer_batch_zip", {}).get("sha256")
+        == sha256_file(batch_zip),
+        "runtime hash": artifacts.get("runtime", {}).get("sha256")
+        == sha256_file(runtime_path),
+    }
+    if failed := [name for name, passed in checks.items() if not passed]:
+        raise ResearchEvidenceError(
+            f"notebook recovery identity mismatch: {failed}"
+        )
+
+    clean_sources = notebook_sources(frozen_notebook)
+    executed_sources = notebook_sources(
+        executed_notebook, allow_trailing_empty_code_cells=True
+    )
+    if len(clean_sources) != len(executed_sources):
+        raise ResearchEvidenceError("notebook recovery cell count differs from freeze")
+    differences = [
+        index
+        for index, (expected, observed) in enumerate(
+            zip(clean_sources, executed_sources, strict=True)
+        )
+        if expected != observed
+    ]
+    if differences != [changed.get("index")]:
+        raise ResearchEvidenceError(
+            "notebook recovery must bind exactly one declared changed cell"
+        )
+    index = differences[0]
+    expected_type, expected_id, expected_source = clean_sources[index]
+    observed_type, observed_id, observed_source = executed_sources[index]
+    cell_checks = {
+        "code cell": expected_type == observed_type == "code",
+        "cell id": expected_id == observed_id == changed.get("id"),
+        "expected source": changed.get("expected_source") == expected_source,
+        "altered source": changed.get("altered_source") == observed_source,
+        "expected source hash": changed.get("expected_source_sha256")
+        == hashlib.sha256(expected_source.encode()).hexdigest(),
+        "altered source hash": changed.get("altered_source_sha256")
+        == hashlib.sha256(observed_source.encode()).hexdigest(),
+    }
+    if failed := [name for name, passed in cell_checks.items() if not passed]:
+        raise ResearchEvidenceError(
+            f"notebook recovery changed-cell mismatch: {failed}"
+        )
+
+    notebook = load_object(executed_notebook)
+    cells = notebook.get("cells", [])
+    if not isinstance(cells, list) or index >= len(cells):
+        raise ResearchEvidenceError("notebook recovery changed cell is absent")
+    cell = cells[index]
+    outputs = cell.get("outputs", []) if isinstance(cell, dict) else []
+    metadata = cell.get("metadata", {}) if isinstance(cell, dict) else {}
+    timing = metadata.get("execution", {}) if isinstance(metadata, dict) else {}
+    if not isinstance(outputs, list) or not outputs or not isinstance(timing, dict):
+        raise ResearchEvidenceError(
+            "notebook recovery requires retained output and execution timing"
+        )
+    output_text = "".join(
+        "".join(item.get("text", []))
+        if isinstance(item.get("text"), list)
+        else str(item.get("text", ""))
+        for item in outputs
+        if isinstance(item, dict)
+    )
+    output_checks = {
+        "execution count": cell.get("execution_count")
+        == execution.get("execution_count"),
+        "output hash": execution.get("outputs_sha256") == _json_sha256(outputs),
+        "batch output": f'"batch_id": "{manifest["batch_id"]}"' in output_text,
+        "session output": f'"session_id": "{manifest["session_id"]}"'
+        in output_text,
+        "status output": '"status": "COMPLETED"' in output_text,
+        "return code output": '"batch_runner_returncode": 0' in output_text,
+        "outer hash output": artifacts["outer_batch_zip"]["sha256"] in output_text,
+    }
+    if failed := [name for name, passed in output_checks.items() if not passed]:
+        raise ResearchEvidenceError(
+            f"notebook recovery execution-output mismatch: {failed}"
+        )
+
+    started = str(timing.get("iopub.execute_input", ""))
+    ended = str(timing.get("iopub.status.idle", ""))
+    if (
+        execution.get("cell_started_utc") != started
+        or execution.get("cell_ended_utc") != ended
+    ):
+        raise ResearchEvidenceError("notebook recovery execution timing mismatch")
+    try:
+        cell_started = datetime.fromisoformat(started.replace("Z", "+00:00"))
+        cell_ended = datetime.fromisoformat(ended.replace("Z", "+00:00"))
+        batch_started = datetime.fromisoformat(str(manifest["start_utc"]))
+        batch_ended = datetime.fromisoformat(str(manifest["end_utc"]))
+    except (KeyError, TypeError, ValueError) as error:
+        raise ResearchEvidenceError(
+            "notebook recovery execution timestamps are invalid"
+        ) from error
+    if not cell_started <= batch_started <= batch_ended <= cell_ended:
+        raise ResearchEvidenceError(
+            "notebook recovery timing does not enclose the batch execution"
+        )
+
+    inner_hashes = {
+        row["shard_id"]: row.get("evidence_zip_sha256")
+        for row in manifest.get("shards", [])
+        if row.get("evidence_zip_sha256")
+    }
+    if artifacts.get("inner_zip_sha256") != inner_hashes:
+        raise ResearchEvidenceError("notebook recovery inner ZIP hashes mismatch")
+
+    expected_runner = str(execution.get("expected_runner_path", ""))
+    altered_runner = str(execution.get("altered_runner_path", ""))
+    expected_blob = _git_blob(
+        repository, str(freeze["implementation_source_commit"]), expected_runner
+    )
+    altered_blob = _git_blob(
+        repository, str(freeze["implementation_source_commit"]), altered_runner
+    )
+    if (
+        expected_runner != "scripts/kaggle_m4_execute_batch.py"
+        or hashlib.sha256(expected_blob or b"").hexdigest()
+        != freeze.get("batch_runner_sha256")
+        or not altered_runner
+        or altered_blob is not None
+        or altered_runner not in observed_source
+        or expected_runner not in expected_source
+        or expected_source.count(expected_runner) != 1
+        or observed_source != expected_source.replace(expected_runner, altered_runner)
+    ):
+        raise ResearchEvidenceError(
+            "notebook recovery cannot prove the altered runner path was post-execution"
+        )
+
+    return {
+        "classification": POST_EXECUTION_NOTEBOOK_SOURCE_EDIT,
+        "record": relative_recovery.as_posix(),
+        "record_sha256": sha256_file(recovery_path),
+        "executed_notebook_sha256": sha256_file(executed_notebook),
+        "frozen_notebook_sha256": sha256_file(frozen_notebook),
+        "changed_cell_index": index,
+        "changed_cell_id": expected_id,
+    }
 
 
 def select_batch(plan: dict[str, Any], batch_id: str) -> dict[str, Any]:
@@ -976,6 +1191,7 @@ def _stage_inner(
     inner_zip: Path,
     runtime_path: Path,
     provenance: dict[str, Any],
+    recovery_record_path: Path | None = None,
 ) -> None:
     destination = repository / ".local-evidence/m4-ingest" / audit["evidence_zip_sha256"]
     _check_existing_shard(repository, audit["shard_id"], destination)
@@ -984,6 +1200,8 @@ def _stage_inner(
     originals.mkdir()
     for source in (notebook, inner_zip, runtime_path):
         shutil.copy2(source, originals / source.name)
+    if recovery_record_path is not None:
+        shutil.copy2(recovery_record_path, originals / recovery_record_path.name)
     audit.update(provenance)
     audit["staged_at"] = str(destination)
     (extracted / "INGEST_AUDIT.json").write_text(
@@ -993,7 +1211,12 @@ def _stage_inner(
 
 
 def stage_batch_download(
-    *, repository: Path, notebook: Path, batch_zip: Path, runtime_path: Path
+    *,
+    repository: Path,
+    notebook: Path,
+    batch_zip: Path,
+    runtime_path: Path,
+    notebook_recovery_record: Path | None = None,
 ) -> dict[str, Any]:
     members = inspect_batch_zip(batch_zip)
     runtime = load_object(runtime_path)
@@ -1027,10 +1250,30 @@ def stage_batch_download(
             raise ResearchEvidenceError("cannot load frozen batch notebook from Git history")
         frozen_notebook = temporary / "FROZEN_BATCH_NOTEBOOK.ipynb"
         frozen_notebook.write_bytes(notebook_blob)
-        if notebook_sources(
+        source_equivalent = notebook_sources(
             notebook, allow_trailing_empty_code_cells=True
-        ) != notebook_sources(frozen_notebook):
-            raise ResearchEvidenceError("executed batch notebook source differs from frozen source")
+        ) == notebook_sources(frozen_notebook)
+        if not source_equivalent and notebook_recovery_record is None:
+            raise ResearchEvidenceError(
+                "executed batch notebook source differs from frozen source"
+            )
+        if source_equivalent and notebook_recovery_record is not None:
+            raise ResearchEvidenceError(
+                "notebook recovery record is invalid for source-equivalent evidence"
+            )
+        recovery = None
+        if notebook_recovery_record is not None:
+            recovery = validate_reviewed_notebook_recovery(
+                repository=repository,
+                recovery_path=notebook_recovery_record,
+                executed_notebook=notebook,
+                frozen_notebook=frozen_notebook,
+                batch_zip=batch_zip,
+                runtime_path=runtime_path,
+                manifest=manifest,
+                freeze_path=freeze_path,
+                freeze=freeze,
+            )
         source_identity = load_object(temporary / "BATCH_SOURCE_IDENTITY.json")
         if source_identity.get("source_commit") != freeze["implementation_source_commit"]:
             raise ResearchEvidenceError("batch source identity differs from source freeze")
@@ -1151,7 +1394,7 @@ def stage_batch_download(
             try:
                 audit, extracted = audit_download(
                     repository=repository,
-                    notebook=notebook,
+                    notebook=frozen_notebook if recovery is not None else notebook,
                     evidence_zip=inner_zip,
                     runtime_path=runtime_path,
                     expected_source_commit=freeze["implementation_source_commit"],
@@ -1186,7 +1429,13 @@ def stage_batch_download(
                         "batch_id": manifest["batch_id"],
                         "within_session_order": outcome["within_session_order"],
                         "repetition": manifest["repetition"],
+                        **(
+                            {"notebook_provenance_recovery": recovery}
+                            if recovery is not None
+                            else {}
+                        ),
                     },
+                    recovery_record_path=notebook_recovery_record,
                 )
                 extracted = None
                 accepted.append(audit)
@@ -1232,7 +1481,7 @@ def stage_batch_download(
             "batch_id": manifest["batch_id"],
             "session_id": manifest["session_id"],
             "batch_zip_sha256": sha256_file(batch_zip),
-            "source_equivalent_notebook": True,
+            "source_equivalent_notebook": source_equivalent,
             "notebook_source_identity_status": notebook_source_identity_status,
             "accepted_shards": accepted,
             "invalid_shards": invalid,
@@ -1242,6 +1491,8 @@ def stage_batch_download(
             "source_freeze": str(freeze_path.relative_to(repository)),
             "destination_status": "INDIVIDUAL_LOCAL_STAGING_ONLY_REQUIRES_REVIEWED_PROMOTION",
         }
+        if recovery is not None:
+            report["notebook_provenance_recovery"] = recovery
         if terminal_resource_shards:
             report["terminal_resource_shards"] = terminal_resource_shards
         return report
