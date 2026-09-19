@@ -146,6 +146,9 @@ retains the original outputs and execution timestamps but has one runner-path
 source edit made after execution. No clean pre-edit executed copy survives.
 `M4_R03_MINISTRAL_NOTEBOOK_PROVENANCE_RECOVERY.json` binds that exact artifact
 to immutable V13 and the final archive; ordinary source drift remains rejected.
+V14 pins implementation commit `e290855de8aed29570cdd7952f9c2b37a2a19443`,
+notebook pin `bd114f171f4ae9623b6e9538ed1789af90dce693`, and the
+post-Ministral queue/plan for `r03-qwen`; it contains no new GPU measurements.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

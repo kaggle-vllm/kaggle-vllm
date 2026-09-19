@@ -24,23 +24,11 @@ def _plan() -> dict:
     )
     historical = deepcopy(queue)
     by_id = {row["shard_id"]: row for row in historical["queue"]}
-    by_id["qwen25_3b-balanced-r00"]["status"] = "QUEUED"
-    by_id["qwen25_3b-prefill_heavy-r00"]["status"] = "QUEUED"
-    by_id["qwen25_3b-balanced-r01"]["status"] = "QUEUED"
-    by_id["qwen25_3b-prefill_heavy-r01"]["status"] = "QUEUED"
-    by_id["qwen25_3b-prefill_heavy-r02"]["status"] = "QUEUED"
-    by_id["qwen25_3b-short-r02"]["status"] = "QUEUED"
-    by_id["qwen25_3b-balanced-r02"]["status"] = "QUEUED"
-    for workload in ("short", "balanced", "prefill_heavy"):
-        by_id[f"phi4_mini-{workload}-r00"]["status"] = "QUEUED"
-        by_id[f"phi4_mini-{workload}-r01"]["status"] = "QUEUED"
-        by_id[f"phi4_mini-{workload}-r02"]["status"] = "QUEUED"
-        by_id[f"llama32_3b-{workload}-r00"]["status"] = "QUEUED"
-        by_id[f"llama32_3b-{workload}-r01"]["status"] = "QUEUED"
-        by_id[f"llama32_3b-{workload}-r02"]["status"] = "QUEUED"
-        by_id[f"ministral3_3b_bf16-{workload}-r00"]["status"] = "QUEUED"
-        by_id[f"ministral3_3b_bf16-{workload}-r01"]["status"] = "QUEUED"
-        by_id[f"ministral3_3b_bf16-{workload}-r02"]["status"] = "QUEUED"
+    for row in historical["queue"]:
+        if row["active_order"] is not None:
+            row["status"] = "QUEUED"
+    by_id["qwen25_3b-short-r00"]["status"] = "PRINCIPAL_SHARD_PRESERVED"
+    by_id["qwen25_3b-short-r01"]["status"] = "PRINCIPAL_SHARD_PRESERVED"
     historical.update(
         {
             "preserved_shards": 2,
