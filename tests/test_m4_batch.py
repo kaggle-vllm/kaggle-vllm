@@ -385,13 +385,13 @@ def test_select_batch_rejects_mixed_repetition() -> None:
 def test_current_batch_passes_authoritative_no_rerun_queue() -> None:
     plan = json.loads((ROOT / "research/M4_REMAINING_EXECUTION_PLAN.json").read_text())
     queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
-    batch = select_batch(plan, "r03-qwen")
+    batch = select_batch(plan, "r03-phi")
     result = validate_batch_against_queue(batch, queue)
     assert result["status"] == "PASS_NO_SETTLED_SHARD_RESCHEDULED"
     assert result["queued_shard_ids"] == [
-        "qwen25_3b-short-r03",
-        "qwen25_3b-balanced-r03",
-        "qwen25_3b-prefill_heavy-r03",
+        "phi4_mini-short-r03",
+        "phi4_mini-balanced-r03",
+        "phi4_mini-prefill_heavy-r03",
     ]
     assert batch["review_required_exclusions"] == []
     assert batch["logical_shard_count"] == 3
