@@ -1481,6 +1481,31 @@ def test_terminal_resource_contract_accepts_realistic_qwen_monitor_exit_shape(
     assert cell["server"]["unexpected_exit_returncode"] == 0
 
 
+def test_terminal_resource_contract_accepts_monitor_exit_before_poll_shape(
+    tmp_path: Path,
+) -> None:
+    evidence, shard, runtime = _terminal_resource_fixture(tmp_path)
+    failed_cell = evidence / f"{shard['shard_id']}-tp2-c64.json"
+    cell = json.loads(failed_cell.read_text())
+    cell["failure_observations"] = ["connection_error"]
+    cell["server"]["unexpected_exit_returncode"] = None
+    failed_cell.write_text(json.dumps(cell), encoding="utf-8")
+    _rewrite_manifest(evidence)
+
+    audit = verify_terminal_resource_gate(
+        evidence,
+        expected_shard=shard,
+        expected_model=shard["expected_model"],
+        expected_source_commit="a" * 40,
+        runtime=runtime,
+        maximum_runtime_delay_seconds=3600,
+    )
+
+    assert audit["classification"] == "FAILED_RESOURCE_GATE"
+    assert audit["failed_cell_throughput"] is None
+    assert audit["oom_observed"] is False
+
+
 @pytest.mark.parametrize(
     ("mutation", "error"),
     [

@@ -743,12 +743,16 @@ def verify_terminal_resource_gate(
     observations = set(raw_observations) if isinstance(raw_observations, list) else set()
     measurements = cell.get("measurements", {})
     failed_requests = measurements.get("failed_requests")
+    unexpected_exit = cell.get("server", {}).get("unexpected_exit_returncode")
+    monitor_exit_shape = (
+        observations == {"connection_error", "server_exit"}
+        and unexpected_exit == 0
+    ) or (observations == {"connection_error"} and unexpected_exit is None)
     if (
         cell.get("status") != "executed"
         or cell.get("oom_observed") is not False
-        or cell.get("server", {}).get("unexpected_exit_returncode") != 0
         or not isinstance(raw_observations, list)
-        or observations != {"connection_error", "server_exit"}
+        or not monitor_exit_shape
         or failed_requests != 192
         or measurements.get("successful_requests") != 0
         or measurements.get("failure_counts") != {"connection_error": failed_requests}
