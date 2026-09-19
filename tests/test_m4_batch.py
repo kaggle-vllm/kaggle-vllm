@@ -116,7 +116,7 @@ def _notebook_recovery_fixture(
         "batch_id": "r03-ministral",
         "session_id": "m4-r03-ministral-20260919T094937Z-fee4d921",
         "source_commit": "a" * 40,
-        "start_utc": "2026-09-19T09:49:37.5+00:00",
+        "start_utc": "2026-09-19T09:49:37.500000+00:00",
         "end_utc": "2026-09-19T11:54:10+00:00",
         "shards": [
             {"shard_id": "ministral-short-r03", "evidence_zip_sha256": "1" * 64}
