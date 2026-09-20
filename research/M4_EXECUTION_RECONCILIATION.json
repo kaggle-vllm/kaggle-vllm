@@ -16,11 +16,11 @@
     "serving_cells": 720
   },
   "counts": {
-    "CANONICAL_PRESERVED": 44,
-    "FAILED_RESOURCE_GATE": 4,
+    "CANONICAL_PRESERVED": 46,
+    "FAILED_RESOURCE_GATE": 5,
     "FAILED_OTHER_REVIEW_REQUIRED": 0,
     "VERIFIED_LOCAL_STAGING_PENDING_PROMOTION": 0,
-    "NOT_EXECUTED": 12
+    "NOT_EXECUTED": 9
   },
   "counts_total": 60,
   "shards_by_state": {
@@ -29,10 +29,12 @@
       "qwen25_3b-short-r01",
       "qwen25_3b-short-r02",
       "qwen25_3b-short-r03",
+      "qwen25_3b-short-r04",
       "qwen25_3b-balanced-r00",
       "qwen25_3b-balanced-r01",
       "qwen25_3b-balanced-r02",
       "qwen25_3b-balanced-r03",
+      "qwen25_3b-balanced-r04",
       "phi4_mini-short-r00",
       "phi4_mini-short-r01",
       "phi4_mini-short-r02",
@@ -74,14 +76,12 @@
       "qwen25_3b-prefill_heavy-r00",
       "qwen25_3b-prefill_heavy-r01",
       "qwen25_3b-prefill_heavy-r02",
-      "qwen25_3b-prefill_heavy-r03"
+      "qwen25_3b-prefill_heavy-r03",
+      "qwen25_3b-prefill_heavy-r04"
     ],
     "FAILED_OTHER_REVIEW_REQUIRED": [],
     "VERIFIED_LOCAL_STAGING_PENDING_PROMOTION": [],
     "NOT_EXECUTED": [
-      "qwen25_3b-short-r04",
-      "qwen25_3b-balanced-r04",
-      "qwen25_3b-prefill_heavy-r04",
       "phi4_mini-short-r04",
       "phi4_mini-balanced-r04",
       "phi4_mini-prefill_heavy-r04",
@@ -153,11 +153,11 @@
       "workload": "short",
       "repetition": 4,
       "serving_cells": 12,
-      "state": "NOT_EXECUTED",
-      "terminal_for_normal_continuation": false,
-      "evidence_zip_sha256": null,
-      "batch_id": null,
-      "session_id": null
+      "state": "CANONICAL_PRESERVED",
+      "terminal_for_normal_continuation": true,
+      "evidence_zip_sha256": "2d011d1467a24de04d38ecd5ed1c565b58568d2fbb64661f7c99fc9d82a20f7b",
+      "batch_id": "r04-qwen",
+      "session_id": "m4-r04-qwen-20260920T170853Z-0434d282"
     },
     {
       "active_order": 6,
@@ -218,11 +218,11 @@
       "workload": "balanced",
       "repetition": 4,
       "serving_cells": 12,
-      "state": "NOT_EXECUTED",
-      "terminal_for_normal_continuation": false,
-      "evidence_zip_sha256": null,
-      "batch_id": null,
-      "session_id": null
+      "state": "CANONICAL_PRESERVED",
+      "terminal_for_normal_continuation": true,
+      "evidence_zip_sha256": "9afb00c5ec55718171573ccf178c2e171044be29de9513d01802bd12d5fdb513",
+      "batch_id": "r04-qwen",
+      "session_id": "m4-r04-qwen-20260920T170853Z-0434d282"
     },
     {
       "active_order": 11,
@@ -283,11 +283,11 @@
       "workload": "prefill_heavy",
       "repetition": 4,
       "serving_cells": 12,
-      "state": "NOT_EXECUTED",
-      "terminal_for_normal_continuation": false,
-      "evidence_zip_sha256": null,
-      "batch_id": null,
-      "session_id": null
+      "state": "FAILED_RESOURCE_GATE",
+      "terminal_for_normal_continuation": true,
+      "evidence_zip_sha256": "0bed11b8ae925a2082b9b25c52f4408b993c42008c0e0199966267bb72f041b7",
+      "batch_id": "r04-qwen",
+      "session_id": "m4-r04-qwen-20260920T170853Z-0434d282"
     },
     {
       "active_order": 16,
@@ -880,14 +880,17 @@
     "qwen25_3b-short-r01",
     "qwen25_3b-short-r02",
     "qwen25_3b-short-r03",
+    "qwen25_3b-short-r04",
     "qwen25_3b-balanced-r00",
     "qwen25_3b-balanced-r01",
     "qwen25_3b-balanced-r02",
     "qwen25_3b-balanced-r03",
+    "qwen25_3b-balanced-r04",
     "qwen25_3b-prefill_heavy-r00",
     "qwen25_3b-prefill_heavy-r01",
     "qwen25_3b-prefill_heavy-r02",
     "qwen25_3b-prefill_heavy-r03",
+    "qwen25_3b-prefill_heavy-r04",
     "phi4_mini-short-r00",
     "phi4_mini-short-r01",
     "phi4_mini-short-r02",
@@ -928,21 +931,8 @@
   "verified_local_staging_pending_promotion": [],
   "duplicate_shard_ids": [],
   "conflicting_terminal_records": [],
-  "remaining_batch_count": 4,
+  "remaining_batch_count": 3,
   "remaining_batches": [
-    {
-      "batch_id": "r04-qwen",
-      "repetition": 4,
-      "model_key": "qwen25_3b",
-      "ordered_shard_ids": [
-        "qwen25_3b-balanced-r04",
-        "qwen25_3b-prefill_heavy-r04",
-        "qwen25_3b-short-r04"
-      ],
-      "logical_shard_count": 3,
-      "serving_cell_count": 36,
-      "already_settled_exclusions": []
-    },
     {
       "batch_id": "r04-phi",
       "repetition": 4,
@@ -983,5 +973,5 @@
       "already_settled_exclusions": []
     }
   ],
-  "next_batch_id": "r04-qwen"
+  "next_batch_id": "r04-phi"
 }

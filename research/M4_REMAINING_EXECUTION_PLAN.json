@@ -116,78 +116,22 @@
     "renew_wall_clock_guard_before_next_shard": true,
     "never_rerun_terminal_shard_in_batch": true
   },
-  "preserved_logical_shards": 44,
-  "remaining_logical_shards": 16,
-  "continuation_executable_shards": 12,
+  "preserved_logical_shards": 46,
+  "remaining_logical_shards": 14,
+  "continuation_executable_shards": 9,
   "review_required_shard_ids": [
     "qwen25_3b-prefill_heavy-r00",
     "qwen25_3b-prefill_heavy-r01",
     "qwen25_3b-prefill_heavy-r02",
-    "qwen25_3b-prefill_heavy-r03"
+    "qwen25_3b-prefill_heavy-r03",
+    "qwen25_3b-prefill_heavy-r04"
   ],
   "batch_ids": [
-    "r04-qwen",
     "r04-phi",
     "r04-llama",
     "r04-ministral"
   ],
   "batches": [
-    {
-      "batch_id": "r04-qwen",
-      "label": "CONTINUATION_R04_QWEN",
-      "protocol_amendment_version": "M4-BATCH-3",
-      "parent_batch_id": "r04",
-      "continuation_group": "qwen",
-      "repetition": 4,
-      "model_order": [
-        "qwen25_3b"
-      ],
-      "workload_order_within_model": [
-        "balanced",
-        "prefill_heavy",
-        "short"
-      ],
-      "all_logical_shard_ids": [
-        "qwen25_3b-balanced-r04",
-        "qwen25_3b-prefill_heavy-r04",
-        "qwen25_3b-short-r04"
-      ],
-      "ordered_shard_ids": [
-        "qwen25_3b-balanced-r04",
-        "qwen25_3b-prefill_heavy-r04",
-        "qwen25_3b-short-r04"
-      ],
-      "execution_order": [
-        {
-          "within_session_order": 1,
-          "shard_id": "qwen25_3b-balanced-r04",
-          "model_key": "qwen25_3b",
-          "workload": "balanced",
-          "repetition": 4,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 2,
-          "shard_id": "qwen25_3b-prefill_heavy-r04",
-          "model_key": "qwen25_3b",
-          "workload": "prefill_heavy",
-          "repetition": 4,
-          "serving_cells": 12
-        },
-        {
-          "within_session_order": 3,
-          "shard_id": "qwen25_3b-short-r04",
-          "model_key": "qwen25_3b",
-          "workload": "short",
-          "repetition": 4,
-          "serving_cells": 12
-        }
-      ],
-      "already_completed_skips": [],
-      "review_required_exclusions": [],
-      "logical_shard_count": 3,
-      "serving_cell_count": 36
-    },
     {
       "batch_id": "r04-phi",
       "label": "CONTINUATION_R04_PHI",

@@ -4,7 +4,7 @@
   repetitions. M4 is in progress: Qwen, Phi, Llama, and text-only Ministral
   short-workload concurrency-1 compatibility shards are accepted. Final p13
   canonically preserves Gemma's pre-readiness dtype boundary. The four-model
-  principal matrix is in progress, with 44 of 60 logical shards preserved.
+  principal matrix is in progress, with 46 of 60 logical shards preserved.
   The first `M4-BATCH-1` allocation stopped on the Qwen prefill-heavy r00
   per-GPU VRAM guard after one new canonical shard; that failed shard remains
   review-required. All nine rows untouched in that attempt were later
@@ -28,14 +28,18 @@
   boundary at 14,895 MiB/GPU without CUDA OOM. The V15 `r03-phi` allocation
   then preserved all three Phi workloads with no resource gate. The V16
   `r03-llama` allocation preserved all three Llama workloads with no resource
-  gate. Twelve matrix shards are currently not executed. The two Qwen
+  gate. The V17 `r04-qwen` allocation then preserved balanced and short and
+  produced the fifth prefill-heavy TP2/concurrency-64 resource boundary at
+  14,895 MiB/GPU without CUDA OOM. Nine matrix shards are currently not
+  executed. The Qwen
   sessions combine only through reviewed logical-shard reconciliation. Under the batch protocols, later shards may share one
   model/repetition physical Kaggle allocation; such shards are not fully
   independent environment realizations.
   Session/block IDs and within-session order are retained, while repetitions of
   the same model/workload are intentionally separated across allocations.
-  The four Qwen prefill-heavy resource results do not establish that the last
-  repetition must fail; r04 remains in the unchanged frozen matrix.
+  All five planned Qwen prefill-heavy repetitions reached the same frozen
+  boundary. This repetition-series completion is not a throughput value or a
+  license to infer unmeasured performance, and no sixth repetition is planned.
   V9 M4-BATCH-3 continuation reduces abandonment of later same-session
   shards only after a verified terminal resource gate. It does not make those
   shards independent, remove the boundary, or predict later repetitions, and

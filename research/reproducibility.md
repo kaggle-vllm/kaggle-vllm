@@ -190,6 +190,18 @@ shards are now in the reviewed no-rerun set.
 V17 pins implementation commit `2f12aeb4a1753edfbae427af9d147f07b58a2189`,
 notebook pin `6a0637bc1dc3660ea9a3cb9918f951f5a444581f`, and the
 post-Llama queue/plan for `r04-qwen`; it contains no new GPU measurements.
+The resulting session `m4-r04-qwen-20260920T170853Z-0434d282` preserved
+canonical balanced and short shards plus a fifth independent prefill-heavy
+terminal resource result. Its outer ZIP SHA256 is
+`7f690e99173420cc182573723a6c57daa62297c093b2b4c79f7b0f858d96cd4e`,
+executed-notebook SHA256 is
+`b5af736cba1fa6c812e0fbd319daad99e231472427ae9c5d360be4b691ad8793`,
+and the separate and bundled runtime files are byte-identical with SHA256
+`6d2b2cf63042391b112ecace5a1e9b83bad5441ed2094f71919eab0e9ec2fb17`.
+The prefill-heavy TP2/concurrency-64 cell peaked at 14,895 MiB on each GPU,
+crossed the frozen 14,848 MiB/GPU guard without CUDA OOM, and retains null
+performance. Cleanup and renewed disk/wall-clock guards passed before short
+completed, so all three r04 Qwen outcomes are in the no-rerun set.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
