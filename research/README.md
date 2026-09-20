@@ -50,6 +50,7 @@ Machine-readable control files:
 - `M4_BATCH_SOURCE_FREEZE_V13.json`: immutable source used by the completed Ministral r03 batch.
 - `M4_BATCH_SOURCE_FREEZE_V14.json`: post-Ministral-r03 no-rerun freeze for the next Qwen r03 batch.
 - `M4_BATCH_SOURCE_FREEZE_V15.json`: post-Qwen-r03 no-rerun freeze for the next Phi r03 batch.
+- `M4_BATCH_SOURCE_FREEZE_V16.json`: post-Phi-r03 no-rerun freeze for the next Llama r03 batch.
 - `M4_R03_QWEN_ATTEMPT_1_REVIEW.json`: reviewed V14 Qwen r03 partial-canonical plus terminal-resource outcomes.
 - `M4_R03_PHI_ATTEMPT_1_REVIEW.json`: reviewed V15 Phi r03 batch and three canonical outcomes.
 - `M4_EXECUTION_RECONCILIATION.json`: authoritative 60-shard terminal/pending ledger.

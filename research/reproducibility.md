@@ -174,6 +174,9 @@ and the separate and bundled runtime files are byte-identical with SHA256
 All three inner payload manifests, source/runtime/session bindings, request
 ledgers, per-GPU resource guards, and cleanup checks pass. All three Phi r03
 shards are now in the reviewed no-rerun set.
+V16 pins implementation commit `45e1da603e4f27dca67168a9d4058c50a6c60556`,
+notebook pin `da1395dd1c9e98968e3a29766069203be82aa4b6`, and the
+post-Phi queue/plan for `r03-llama`; it contains no new GPU measurements.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

@@ -93,7 +93,7 @@ TP2/concurrency 64. All three Phi r03 shards are preserved from the reviewed
 V15 batch. Download the executed
 `kaggle_vllm_m4_execute_shard.ipynb` and `runtime.json` alongside it. Validate
 this shard end to end before advancing. The current preferred operation is the
-model-scoped `M4_BATCH_ID=r03-llama` after its new source freeze; follow
+model-scoped `M4_BATCH_ID=r03-llama` under V16; follow
 `M4_BATCH_EXECUTION_GUIDE.md` instead.
 
 ## Completion gate
