@@ -177,6 +177,16 @@ shards are now in the reviewed no-rerun set.
 V16 pins implementation commit `45e1da603e4f27dca67168a9d4058c50a6c60556`,
 notebook pin `da1395dd1c9e98968e3a29766069203be82aa4b6`, and the
 post-Phi queue/plan for `r03-llama`; it contains no new GPU measurements.
+The resulting session `m4-r03-llama-20260920T095447Z-7d3fc1d4` completed all
+three 12-cell matrices. Its outer ZIP SHA256 is
+`6707f48ca15e07430b022f49ba3531074e8031a9a89adbf68ae4eddb05721a54`,
+executed-notebook SHA256 is
+`ad852a7bf569f737f4a7d0f47a2e137cab410edc8fd3b3c5c0e0c6bd90c1b2a4`,
+and the separate and bundled runtime files are byte-identical with SHA256
+`945f095d723b4a602446f61a0604f8fae1ccd46715a017f4770dea0708446e6b`.
+All three inner payload manifests, source/runtime/session bindings, request
+ledgers, per-GPU resource guards, and cleanup checks pass. All three Llama r03
+shards are now in the reviewed no-rerun set.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

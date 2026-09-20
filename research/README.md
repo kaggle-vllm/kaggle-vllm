@@ -53,6 +53,7 @@ Machine-readable control files:
 - `M4_BATCH_SOURCE_FREEZE_V16.json`: post-Phi-r03 no-rerun freeze for the next Llama r03 batch.
 - `M4_R03_QWEN_ATTEMPT_1_REVIEW.json`: reviewed V14 Qwen r03 partial-canonical plus terminal-resource outcomes.
 - `M4_R03_PHI_ATTEMPT_1_REVIEW.json`: reviewed V15 Phi r03 batch and three canonical outcomes.
+- `M4_R03_LLAMA_ATTEMPT_1_REVIEW.json`: reviewed V16 Llama r03 batch and three canonical outcomes.
 - `M4_EXECUTION_RECONCILIATION.json`: authoritative 60-shard terminal/pending ledger.
 - `M4_FILL_R00_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed Ministral r00 batch record.
 - `M4_FILL_R01_PHI_ATTEMPT_1_REVIEW.json`: reviewed Phi r01 batch record.
@@ -93,7 +94,8 @@ all Phi r02 workloads are canonical from V12, and all Ministral r03 workloads
 are canonical from V13 through the disclosed exact notebook-provenance
 recovery. Qwen short and balanced r03 are canonical from V14, while Qwen
 prefill-heavy r03 is the fourth independent terminal resource result. The
-three Phi r03 workloads are canonical from V15. The
+three Phi r03 workloads are canonical from V15, and the three Llama r03
+workloads are canonical from V16. The
 remaining principal matrix and M5 independent
 validation are not complete. The principal study population is
 the four compatibility-passing models; Gemma remains a negative compatibility

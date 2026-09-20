@@ -7,10 +7,10 @@ For every active row, also download the executed copy of
 `/kaggle/working/kaggle-vllm-runtime/runtime.json`; both are mandatory
 inputs to the local provenance audit.
 
-Progress: 41 / 60 active shards preserved.
+Progress: 44 / 60 active shards preserved.
 Review required: 4 resource-gated shards.
 
-Next: `M4_SHARD_ID=llama32_3b-short-r03`
+Next: `M4_SHARD_ID=qwen25_3b-short-r04`
 
 | Active | M4_SHARD_ID | Model | Workload | Rep | Status | Artifact |
 |---:|---|---|---|---:|---|---|
@@ -47,17 +47,17 @@ Next: `M4_SHARD_ID=llama32_3b-short-r03`
 | 31 | `llama32_3b-short-r00` | `llama32_3b` | short | 0 | PRINCIPAL_SHARD_PRESERVED | `llama32_3b-short-r00-principal.zip` |
 | 32 | `llama32_3b-short-r01` | `llama32_3b` | short | 1 | PRINCIPAL_SHARD_PRESERVED | `llama32_3b-short-r01-principal.zip` |
 | 33 | `llama32_3b-short-r02` | `llama32_3b` | short | 2 | PRINCIPAL_SHARD_PRESERVED | `llama32_3b-short-r02-principal.zip` |
-| 34 | `llama32_3b-short-r03` | `llama32_3b` | short | 3 | QUEUED | `llama32_3b-short-r03-principal.zip` |
+| 34 | `llama32_3b-short-r03` | `llama32_3b` | short | 3 | PRINCIPAL_SHARD_PRESERVED | `llama32_3b-short-r03-principal.zip` |
 | 35 | `llama32_3b-short-r04` | `llama32_3b` | short | 4 | QUEUED | `llama32_3b-short-r04-principal.zip` |
 | 36 | `llama32_3b-balanced-r00` | `llama32_3b` | balanced | 0 | PRINCIPAL_SHARD_PRESERVED | `llama32_3b-balanced-r00-principal.zip` |
 | 37 | `llama32_3b-balanced-r01` | `llama32_3b` | balanced | 1 | PRINCIPAL_SHARD_PRESERVED | `llama32_3b-balanced-r01-principal.zip` |
 | 38 | `llama32_3b-balanced-r02` | `llama32_3b` | balanced | 2 | PRINCIPAL_SHARD_PRESERVED | `llama32_3b-balanced-r02-principal.zip` |
-| 39 | `llama32_3b-balanced-r03` | `llama32_3b` | balanced | 3 | QUEUED | `llama32_3b-balanced-r03-principal.zip` |
+| 39 | `llama32_3b-balanced-r03` | `llama32_3b` | balanced | 3 | PRINCIPAL_SHARD_PRESERVED | `llama32_3b-balanced-r03-principal.zip` |
 | 40 | `llama32_3b-balanced-r04` | `llama32_3b` | balanced | 4 | QUEUED | `llama32_3b-balanced-r04-principal.zip` |
 | 41 | `llama32_3b-prefill_heavy-r00` | `llama32_3b` | prefill_heavy | 0 | PRINCIPAL_SHARD_PRESERVED | `llama32_3b-prefill_heavy-r00-principal.zip` |
 | 42 | `llama32_3b-prefill_heavy-r01` | `llama32_3b` | prefill_heavy | 1 | PRINCIPAL_SHARD_PRESERVED | `llama32_3b-prefill_heavy-r01-principal.zip` |
 | 43 | `llama32_3b-prefill_heavy-r02` | `llama32_3b` | prefill_heavy | 2 | PRINCIPAL_SHARD_PRESERVED | `llama32_3b-prefill_heavy-r02-principal.zip` |
-| 44 | `llama32_3b-prefill_heavy-r03` | `llama32_3b` | prefill_heavy | 3 | QUEUED | `llama32_3b-prefill_heavy-r03-principal.zip` |
+| 44 | `llama32_3b-prefill_heavy-r03` | `llama32_3b` | prefill_heavy | 3 | PRINCIPAL_SHARD_PRESERVED | `llama32_3b-prefill_heavy-r03-principal.zip` |
 | 45 | `llama32_3b-prefill_heavy-r04` | `llama32_3b` | prefill_heavy | 4 | QUEUED | `llama32_3b-prefill_heavy-r04-principal.zip` |
 | 46 | `ministral3_3b_bf16-short-r00` | `ministral3_3b_bf16` | short | 0 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-short-r00-principal.zip` |
 | 47 | `ministral3_3b_bf16-short-r01` | `ministral3_3b_bf16` | short | 1 | PRINCIPAL_SHARD_PRESERVED | `ministral3_3b_bf16-short-r01-principal.zip` |

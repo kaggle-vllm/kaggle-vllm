@@ -8,11 +8,11 @@ then filenames or UI screenshots.
 
 ## Exact 60-shard state
 
-- Canonical preserved: 41
+- Canonical preserved: 44
 - Failed resource gate: 4
 - Failed other/review-required: 0
 - Verified local staging pending promotion: 0
-- Not executed: 15
+- Not executed: 12
 - Total: 60 logical shards / 720 serving cells
 
 Every canonical or reviewed terminal shard is excluded from normal continuation.
@@ -47,12 +47,15 @@ A resource-gated shard is settled negative evidence, not a zero-throughput resul
 - `llama32_3b-short-r00`
 - `llama32_3b-short-r01`
 - `llama32_3b-short-r02`
+- `llama32_3b-short-r03`
 - `llama32_3b-balanced-r00`
 - `llama32_3b-balanced-r01`
 - `llama32_3b-balanced-r02`
+- `llama32_3b-balanced-r03`
 - `llama32_3b-prefill_heavy-r00`
 - `llama32_3b-prefill_heavy-r01`
 - `llama32_3b-prefill_heavy-r02`
+- `llama32_3b-prefill_heavy-r03`
 - `ministral3_3b_bf16-short-r00`
 - `ministral3_3b_bf16-short-r01`
 - `ministral3_3b_bf16-short-r02`
@@ -70,13 +73,12 @@ A resource-gated shard is settled negative evidence, not a zero-throughput resul
 
 | Order | Batch ID | Rep | Model | Shards | Cells | Settled exclusions |
 |---:|---|---:|---|---:|---:|---|
-| 1 | `r03-llama` | 3 | `llama32_3b` | 3 | 36 | — |
-| 2 | `r04-qwen` | 4 | `qwen25_3b` | 3 | 36 | — |
-| 3 | `r04-phi` | 4 | `phi4_mini` | 3 | 36 | — |
-| 4 | `r04-llama` | 4 | `llama32_3b` | 3 | 36 | — |
-| 5 | `r04-ministral` | 4 | `ministral3_3b_bf16` | 3 | 36 | — |
+| 1 | `r04-qwen` | 4 | `qwen25_3b` | 3 | 36 | — |
+| 2 | `r04-phi` | 4 | `phi4_mini` | 3 | 36 | — |
+| 3 | `r04-llama` | 4 | `llama32_3b` | 3 | 36 | — |
+| 4 | `r04-ministral` | 4 | `ministral3_3b_bf16` | 3 | 36 | — |
 
-Next: `M4_BATCH_ID=r03-llama`.
+Next: `M4_BATCH_ID=r04-qwen`.
 
 The detailed shard IDs and order are machine-readable in
 `M4_REMAINING_EXECUTION_PLAN.json`.

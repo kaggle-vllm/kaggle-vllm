@@ -7,8 +7,8 @@ The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V16 is the current execution authority for the queued `r03-llama` batch. V15
-is the immutable execution authority for the completed `r03-phi` batch. V14 is the
+V16 is the immutable execution authority for the completed `r03-llama` batch.
+V15 is the immutable execution authority for the completed `r03-phi` batch. V14 is the
 immutable authority for the reviewed `r03-qwen` attempt. V13 is the
 immutable authority for the completed `r03-ministral` batch. V12 is the immutable authority for the
 completed `r02-phi` batch. V11 is the
@@ -75,8 +75,13 @@ outcomes are terminal, and `r03-qwen` is permanently non-runnable. The V15
 `M4_BATCH_ID=r03-phi` batch then completed short, balanced, and prefill-heavy
 in frozen order in session `m4-r03-phi-20260920T045342Z-28f400e7`. All 36
 serving cells are canonical, and `r03-phi` is permanently non-runnable. The
-next machine-derived batch is `M4_BATCH_ID=r03-llama`, containing short,
-balanced, then prefill-heavy (36 serving cells), under V16. The V11
+V16 `M4_BATCH_ID=r03-llama` then completed short, balanced, and prefill-heavy
+in frozen order in session `m4-r03-llama-20260920T095447Z-7d3fc1d4`. All 36
+serving cells are canonical, and `r03-llama` is permanently non-runnable. The
+next machine-derived batch is `M4_BATCH_ID=r04-qwen`, containing balanced,
+prefill-heavy, then short (36 serving cells). The fifth independent Qwen
+prefill-heavy repetition remains mandatory despite the four earlier resource
+boundaries. The V11
 `M4_BATCH_ID=r02-qwen` continuation completed
 `qwen25_3b-short-r02` followed by `qwen25_3b-balanced-r02` in session
 `m4-r02-qwen-20260916T054736Z-95506297`. Together with the distinct V10
@@ -194,6 +199,14 @@ the executed notebook is exactly source-equivalent to V15, and the separate
 runtime is byte-identical to the bundled runtime. Cleanup returned both GPUs
 to 0 MiB with no new compute PIDs. The review is
 `M4_R03_PHI_ATTEMPT_1_REVIEW.json`.
+
+The V16 `r03-llama` allocation completed all three 12-cell matrices with no
+request failures, OOM, or resource-gate event. The outer ZIP SHA256 is
+`6707f48ca15e07430b022f49ba3531074e8031a9a89adbf68ae4eddb05721a54`,
+the executed notebook is exactly source-equivalent to V16, and the separate
+runtime is byte-identical to the bundled runtime. Cleanup returned both GPUs
+to 0 MiB with no new compute PIDs. The review is
+`M4_R03_LLAMA_ATTEMPT_1_REVIEW.json`.
 
 The next allocation has three logical shards instead of the historical eleven.
 Only one model cache is retained. Actual capacity/free bytes are measured before

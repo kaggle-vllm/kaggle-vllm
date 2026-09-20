@@ -136,10 +136,10 @@ resource tables only from `M4_ANALYSIS.json`. Verified terminal resource rows
 contribute boundary counts and VRAM summaries, but not fabricated performance
 values or underpowered paired confidence intervals.
 
-Current evidence bookkeeping preserves 41 canonical outcomes of 60 principal
-shards: three complete Llama repetitions, four complete Phi and Ministral
+Current evidence bookkeeping preserves 44 canonical outcomes of 60 principal
+shards: four complete Llama, Phi, and Ministral
 repetitions, and four Qwen short/balanced repetitions, plus four Qwen
-prefill-heavy terminal VRAM-boundary outcomes. Fifteen shards remain
+prefill-heavy terminal VRAM-boundary outcomes. Twelve shards remain
 unexecuted. The fourth Ministral repetition is bound
 through an explicit post-execution saved-notebook source-edit recovery; no
 pre-edit executed notebook survives, and the incident remains a disclosed
