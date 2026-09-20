@@ -385,13 +385,13 @@ def test_select_batch_rejects_mixed_repetition() -> None:
 def test_current_batch_passes_authoritative_no_rerun_queue() -> None:
     plan = json.loads((ROOT / "research/M4_REMAINING_EXECUTION_PLAN.json").read_text())
     queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
-    batch = select_batch(plan, "r03-phi")
+    batch = select_batch(plan, "r03-llama")
     result = validate_batch_against_queue(batch, queue)
     assert result["status"] == "PASS_NO_SETTLED_SHARD_RESCHEDULED"
     assert result["queued_shard_ids"] == [
-        "phi4_mini-short-r03",
-        "phi4_mini-balanced-r03",
-        "phi4_mini-prefill_heavy-r03",
+        "llama32_3b-short-r03",
+        "llama32_3b-balanced-r03",
+        "llama32_3b-prefill_heavy-r03",
     ]
     assert batch["review_required_exclusions"] == []
     assert batch["logical_shard_count"] == 3
@@ -415,6 +415,8 @@ def test_promoted_canonical_batch_cannot_be_rescheduled() -> None:
         select_batch(remaining, "r02-phi")
     with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
         select_batch(remaining, "r03-ministral")
+    with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
+        select_batch(remaining, "r03-phi")
     stale_batch = {
         "ordered_shard_ids": [
             "qwen25_3b-balanced-r01",
@@ -510,6 +512,26 @@ def test_phi_r02_batch_is_settled_and_non_runnable() -> None:
         (ROOT / "research/M4_EXECUTION_RECONCILIATION.json").read_text()
     )
     assert "r02-phi" not in {
+        batch["batch_id"] for batch in reconciliation["remaining_batches"]
+    }
+    assert set(attempt["completed_canonical_shards"]).issubset(
+        reconciliation["no_rerun_shards"]
+    )
+
+
+def test_phi_r03_batch_is_settled_and_non_runnable() -> None:
+    evidence = json.loads((ROOT / "research/M4_EVIDENCE_STATUS.json").read_text())
+    attempt = evidence["principal_batch_attempts"]["r03-phi-attempt-1"]
+    assert attempt["session_id"] == "m4-r03-phi-20260920T045342Z-28f400e7"
+    assert attempt["completed_canonical_shards"] == [
+        "phi4_mini-short-r03",
+        "phi4_mini-balanced-r03",
+        "phi4_mini-prefill_heavy-r03",
+    ]
+    reconciliation = json.loads(
+        (ROOT / "research/M4_EXECUTION_RECONCILIATION.json").read_text()
+    )
+    assert "r03-phi" not in {
         batch["batch_id"] for batch in reconciliation["remaining_batches"]
     }
     assert set(attempt["completed_canonical_shards"]).issubset(

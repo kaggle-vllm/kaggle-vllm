@@ -164,6 +164,16 @@ without weakening source, runtime, archive, or arbitrary-failure checks.
 V15 pins implementation commit `2ea82d306177aaca70066542c4bd6195e205d67e`,
 notebook pin `12e748a2c58db731b03dc28ba7477396cfe04f0f`, and the
 post-Qwen queue/plan for `r03-phi`; it contains no new GPU measurements.
+The resulting session `m4-r03-phi-20260920T045342Z-28f400e7` completed all
+three 12-cell matrices. Its outer ZIP SHA256 is
+`946aa7017302a9fe8893a5efc0a60e53ca452e6485ff2a9e254be416b5272d6e`,
+executed-notebook SHA256 is
+`8931ec2946ffdcb4cb1312cf0cadabe2bc9da9e274b3fbce633d7da85b234e58`,
+and the separate and bundled runtime files are byte-identical with SHA256
+`0971a403bb99d6750a5409a30059a51c5dca2672f051b1bb814a6c03bd1beadb`.
+All three inner payload manifests, source/runtime/session bindings, request
+ledgers, per-GPU resource guards, and cleanup checks pass. All three Phi r03
+shards are now in the reviewed no-rerun set.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
