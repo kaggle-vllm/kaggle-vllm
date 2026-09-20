@@ -202,6 +202,9 @@ The prefill-heavy TP2/concurrency-64 cell peaked at 14,895 MiB on each GPU,
 crossed the frozen 14,848 MiB/GPU guard without CUDA OOM, and retains null
 performance. Cleanup and renewed disk/wall-clock guards passed before short
 completed, so all three r04 Qwen outcomes are in the no-rerun set.
+V18 pins implementation commit `0ea6fed84f8679ee449f39312fc8f61dde75762e`,
+notebook pin `9855590e758a7b70c9e4488f86af67b6fa3942eb`, and the
+post-Qwen queue/plan for `r04-phi`; it contains no new GPU measurements.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

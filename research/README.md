@@ -52,6 +52,7 @@ Machine-readable control files:
 - `M4_BATCH_SOURCE_FREEZE_V15.json`: post-Qwen-r03 no-rerun freeze for the next Phi r03 batch.
 - `M4_BATCH_SOURCE_FREEZE_V16.json`: post-Phi-r03 no-rerun freeze for the next Llama r03 batch.
 - `M4_BATCH_SOURCE_FREEZE_V17.json`: post-Llama-r03 no-rerun freeze for the next Qwen r04 batch.
+- `M4_BATCH_SOURCE_FREEZE_V18.json`: post-Qwen-r04 no-rerun freeze for the next Phi r04 batch.
 - `M4_R04_QWEN_ATTEMPT_1_REVIEW.json`: reviewed V17 Qwen r04 partial-canonical plus fifth terminal-resource outcome.
 - `M4_R03_QWEN_ATTEMPT_1_REVIEW.json`: reviewed V14 Qwen r03 partial-canonical plus terminal-resource outcomes.
 - `M4_R03_PHI_ATTEMPT_1_REVIEW.json`: reviewed V15 Phi r03 batch and three canonical outcomes.

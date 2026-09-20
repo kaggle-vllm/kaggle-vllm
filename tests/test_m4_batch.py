@@ -40,6 +40,7 @@ from scripts.generate_m4_batch_source_freeze_v4 import (
     build_freeze_v15,
     build_freeze_v16,
     build_freeze_v17,
+    build_freeze_v18,
 )
 from scripts.kaggle_m4_execute_batch import (
     _add_batch_shard_provenance,
@@ -387,13 +388,13 @@ def test_select_batch_rejects_mixed_repetition() -> None:
 def test_current_batch_passes_authoritative_no_rerun_queue() -> None:
     plan = json.loads((ROOT / "research/M4_REMAINING_EXECUTION_PLAN.json").read_text())
     queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
-    batch = select_batch(plan, "r04-qwen")
+    batch = select_batch(plan, "r04-phi")
     result = validate_batch_against_queue(batch, queue)
     assert result["status"] == "PASS_NO_SETTLED_SHARD_RESCHEDULED"
     assert result["queued_shard_ids"] == [
-        "qwen25_3b-balanced-r04",
-        "qwen25_3b-prefill_heavy-r04",
-        "qwen25_3b-short-r04",
+        "phi4_mini-balanced-r04",
+        "phi4_mini-prefill_heavy-r04",
+        "phi4_mini-short-r04",
     ]
     assert batch["review_required_exclusions"] == []
     assert batch["logical_shard_count"] == 3
@@ -411,6 +412,8 @@ def test_promoted_canonical_batch_cannot_be_rescheduled() -> None:
         select_batch(remaining, "r02-llama")
     with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
         select_batch(remaining, "r02-ministral")
+    with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
+        select_batch(remaining, "r04-qwen")
     with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
         select_batch(remaining, "r02-qwen")
     with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
@@ -913,15 +916,36 @@ def test_v17_freeze_matches_generator_and_clean_notebook() -> None:
     ) == tracked
     assert tracked["protocol_amendment_version"] == "M4-BATCH-3"
     assert tracked["batch_notebook_source_digest"] == (
-        validate_current_notebook_self_digest(
-            ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
-        )
+        "e8c98223700e6f4ee500657cdb1fb764e36409eef4fc35184fec207cf688c2da"
     )
     assert tracked["implementation_source_commit"] == (
         "2f12aeb4a1753edfbae427af9d147f07b58a2189"
     )
     assert tracked["notebook_pin_commit"] == (
         "6a0637bc1dc3660ea9a3cb9918f951f5a444581f"
+    )
+
+
+def test_v18_freeze_matches_generator_and_clean_notebook() -> None:
+    tracked = json.loads(
+        (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V18.json").read_text()
+    )
+    assert build_freeze_v18(ROOT) == tracked
+    assert build_freeze_v18(ROOT) == tracked
+    assert verify_batch_source_freeze(
+        ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V18.json"
+    ) == tracked
+    assert tracked["protocol_amendment_version"] == "M4-BATCH-3"
+    assert tracked["batch_notebook_source_digest"] == (
+        validate_current_notebook_self_digest(
+            ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+        )
+    )
+    assert tracked["implementation_source_commit"] == (
+        "0ea6fed84f8679ee449f39312fc8f61dde75762e"
+    )
+    assert tracked["notebook_pin_commit"] == (
+        "9855590e758a7b70c9e4488f86af67b6fa3942eb"
     )
 
 
