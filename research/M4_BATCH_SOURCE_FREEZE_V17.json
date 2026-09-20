@@ -1,0 +1,63 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-source-freeze-v17",
+  "status": "FROZEN_AFTER_LLAMA_R03_COMPLETION_FOR_M4_BATCH_3_CONTINUATION",
+  "protocol_amendment_version": "M4-BATCH-3",
+  "protocol_amendment_date_utc": "2026-09-14",
+  "reconciliation_date_utc": "2026-09-20",
+  "protocol_amendment_path": "research/M4_BATCH_PROTOCOL_AMENDMENT_V3.md",
+  "batch_plan_path": "research/M4_BATCH_EXECUTION_PLAN_V2.json",
+  "principal_queue_path": "research/M4_PRINCIPAL_EXECUTION_QUEUE.json",
+  "package_version": "0.2.0",
+  "implementation_source_commit": "2f12aeb4a1753edfbae427af9d147f07b58a2189",
+  "notebook_pin_commit": "6a0637bc1dc3660ea9a3cb9918f951f5a444581f",
+  "historical_batch_2_freeze": {
+    "path": "research/M4_BATCH_SOURCE_FREEZE_V16.json",
+    "sha256": "62cfa9f069e1225811847e0c3ed065604e2ca3745705943d01a953fe0ec79657",
+    "status": "RETAINED_UNCHANGED"
+  },
+  "execution_paths": {
+    "single_shard": {
+      "status": "UNCHANGED_AND_SUPPORTED",
+      "source_freeze": "research/M4_SOURCE_FREEZE.json",
+      "source_freeze_sha256": "36de26730a3f444f7ff352aa62af6383d99d3e4cbcae534c7eb2bd458928b1ce"
+    },
+    "batch_orchestrated": {
+      "status": "M4_BATCH_3_R03_LLAMA_CLOSED_R04_QWEN_READY",
+      "notebook": "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb",
+      "runner": "scripts/kaggle_m4_execute_batch.py",
+      "duplicate_prevention": "FAIL_CLOSED_AGAINST_FROZEN_PRINCIPAL_QUEUE"
+    }
+  },
+  "batch_notebook_sha256": "56c933af508d6b9145cc11d41c2778d84cf8c2696d5389de78c0235cca4dbb27",
+  "batch_notebook_source_digest": "e8c98223700e6f4ee500657cdb1fb764e36409eef4fc35184fec207cf688c2da",
+  "batch_runner_sha256": "99f0d2bf002905093ac842e819bbd069623970c5917d13d8ff328bf6510806e6",
+  "base_shard_runner_sha256": "9c764abde679f10d0db802feafd4d2909fbefa584004a8464460610e69d3af87",
+  "m4_execution_plan_sha256": "d97c8ed1ec8eec7e61e61c617b50d5d48287a253aa28f1e7834b0694fa419d8b",
+  "model_matrix_sha256": "7e6eae2f674c394d5db262a02ddd601dfadb17807c4c62e6a252f3e9656664c4",
+  "protocol_sha256": "0bb8c6d15b8a6f3d7acc0d1716f99ab34bb4f97ed0e38dd1e26b8f1c92fe99e3",
+  "batch_plan_sha256": "22a6ecb4abec27c0bdff769a8fb938fedf3b9cf9cacc6a6fef3f686690c62a11",
+  "principal_queue_sha256": "7bcb07a681d4421217de00aecf2430df8b48f4e7625ccca64c3054743be3486c",
+  "protocol_amendment_sha256": "2ee9005be4d506d3943d91c8a3a61f95288ff3bf0badced6087de3bf10e8a29c",
+  "settled_shard_policy": {
+    "canonical_preserved": "REFUSE_EXECUTION",
+    "failed_resource_gate": "REFUSE_EXECUTION",
+    "failed_other_review_required": "REFUSE_EXECUTION",
+    "zero_remaining_shards": "REFUSE_EXECUTION",
+    "pr_prose_authoritative": false
+  },
+  "model_source_policy": {
+    "source": "ordinary pinned Hugging Face checkpoints in research/model_matrix.json",
+    "historical_qwen_tp2_sharded_state_allowed": false,
+    "waqasm86_kaggle_vllm_models_allowed": false
+  },
+  "evidence_boundary": "This freeze contains no new GPU measurements. It binds the reviewed 44-canonical/4-resource-gated/12-not-executed reconciliation and permanently closes r03-llama against normal continuation. The V16 Llama short, balanced, and prefill-heavy results remain immutable physical-session evidence. The required fifth Qwen prefill-heavy repetition remains queued without parameter or resource-limit change.",
+  "terminal_resource_gate_policy": {
+    "contract_schema": "kaggle-vllm-m4-terminal-resource-gate-v1",
+    "approved_reasons": [
+      "VRAM_RESOURCE_GUARD"
+    ],
+    "bare_return_code_3_is_sufficient": false,
+    "cleanup_and_continuation_guards_required": true,
+    "operational_and_integrity_failures_fail_stop": true
+  }
+}

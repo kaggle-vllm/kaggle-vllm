@@ -94,7 +94,7 @@ V15 batch. All three Llama r03 shards are preserved from the reviewed V16
 batch. Download the executed
 `kaggle_vllm_m4_execute_shard.ipynb` and `runtime.json` alongside it. Validate
 this shard end to end before advancing. The current preferred operation is the
-model-scoped `M4_BATCH_ID=r04-qwen` after its post-Llama source freeze; follow
+model-scoped `M4_BATCH_ID=r04-qwen` under V17; follow
 `M4_BATCH_EXECUTION_GUIDE.md` instead.
 
 ## Completion gate

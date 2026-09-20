@@ -7,7 +7,8 @@ The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V16 is the immutable execution authority for the completed `r03-llama` batch.
+V17 is the current execution authority for the queued `r04-qwen` batch. V16
+is the immutable execution authority for the completed `r03-llama` batch.
 V15 is the immutable execution authority for the completed `r03-phi` batch. V14 is the
 immutable authority for the reviewed `r03-qwen` attempt. V13 is the
 immutable authority for the completed `r03-ministral` batch. V12 is the immutable authority for the

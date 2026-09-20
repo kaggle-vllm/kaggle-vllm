@@ -187,6 +187,9 @@ and the separate and bundled runtime files are byte-identical with SHA256
 All three inner payload manifests, source/runtime/session bindings, request
 ledgers, per-GPU resource guards, and cleanup checks pass. All three Llama r03
 shards are now in the reviewed no-rerun set.
+V17 pins implementation commit `2f12aeb4a1753edfbae427af9d147f07b58a2189`,
+notebook pin `6a0637bc1dc3660ea9a3cb9918f951f5a444581f`, and the
+post-Llama queue/plan for `r04-qwen`; it contains no new GPU measurements.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
