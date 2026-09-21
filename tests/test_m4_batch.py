@@ -15,6 +15,7 @@ from kaggle_vllm.research import m4_batch
 from kaggle_vllm.research.errors import ResearchEvidenceError
 from kaggle_vllm.research.m4_batch import (
     COMPLETED_WITH_TERMINAL_OUTCOMES,
+    batch_notebook_source_manifest,
     check_disk_capacity,
     check_wall_clock,
     inspect_batch_zip,
@@ -23,6 +24,8 @@ from kaggle_vllm.research.m4_batch import (
     stage_batch_download,
     validate_batch_against_queue,
     validate_batch_manifest,
+    validate_batch_notebook_commit_consistency,
+    validate_batch_notebook_preflight,
     validate_current_notebook_self_digest,
     validate_reviewed_notebook_recovery,
     verify_batch_source_freeze,
@@ -42,6 +45,7 @@ from scripts.generate_m4_batch_source_freeze_v4 import (
     build_freeze_v17,
     build_freeze_v18,
     build_freeze_v19,
+    render_batch_notebook,
 )
 from scripts.kaggle_m4_execute_batch import (
     _add_batch_shard_provenance,
@@ -797,6 +801,98 @@ def test_new_notebook_static_check_rejects_stale_self_digest(tmp_path: Path) -> 
         validate_current_notebook_self_digest(stale)
 
 
+def _historical_v19_notebook(tmp_path: Path) -> Path:
+    notebook = tmp_path / "v19.ipynb"
+    notebook.write_bytes(
+        subprocess.check_output(
+            [
+                "git",
+                "show",
+                (
+                    "6663f9e615d61a1218c72afd9060760c25e7ef07:"
+                    "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+                ),
+            ],
+            cwd=ROOT,
+        )
+    )
+    return notebook
+
+
+def _replace_notebook_source_value(notebook: Path, old: str, new: str) -> None:
+    payload = json.loads(notebook.read_text())
+    bootstrap = next(cell for cell in payload["cells"] if cell.get("id") == "bootstrap")
+    bootstrap["source"] = [line.replace(old, new) for line in bootstrap["source"]]
+    notebook.write_text(json.dumps(payload), encoding="utf-8")
+
+
+def test_v19_notebook_is_rejected_as_commit_inconsistent(tmp_path: Path) -> None:
+    notebook = _historical_v19_notebook(tmp_path)
+    with pytest.raises(
+        ResearchEvidenceError,
+        match="research/M4_BATCH_EXECUTION_PLAN_V2.json",
+    ):
+        validate_batch_notebook_commit_consistency(ROOT, notebook)
+
+
+def test_changed_batch_plan_without_notebook_regeneration_is_rejected(
+    tmp_path: Path,
+) -> None:
+    notebook = _historical_v19_notebook(tmp_path)
+    _replace_notebook_source_value(
+        notebook,
+        "6288651f982f5804fbc6db9fc016ff9160f72f74243116887aa981826b96b52b",
+        "d74d8724ca4488ec3d5e21bd27da85826e37b4138ac2d354c061a7d30ee44a12",
+    )
+    with pytest.raises(
+        ResearchEvidenceError,
+        match="research/M4_BATCH_EXECUTION_PLAN_V2.json",
+    ):
+        validate_batch_notebook_commit_consistency(ROOT, notebook)
+
+
+def test_changed_principal_queue_without_notebook_regeneration_is_rejected(
+    tmp_path: Path,
+) -> None:
+    notebook = _historical_v19_notebook(tmp_path)
+    _replace_notebook_source_value(
+        notebook,
+        "6a3ec4ecdb04def186c2dfb4361caa470bc8914e39f0a6404799ebd75a70fba5",
+        "04e65da8e70f4160ec78e0c450ce53699fa89c81eb514b9fc88da76312c46ee7",
+    )
+    with pytest.raises(
+        ResearchEvidenceError,
+        match="research/M4_PRINCIPAL_EXECUTION_QUEUE.json",
+    ):
+        validate_batch_notebook_commit_consistency(ROOT, notebook)
+
+
+def test_notebook_renderer_uses_one_exact_commit_snapshot(tmp_path: Path) -> None:
+    notebook = tmp_path / "rendered.ipynb"
+    shutil.copy2(
+        ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb", notebook
+    )
+    commit = "4217f8c892c84e2f508d99cc11f1668e6bb5dd05"
+    rendered = render_batch_notebook(ROOT, commit, notebook)
+    assert rendered["status"] == "COMMIT_CONSISTENT"
+    assert validate_current_notebook_self_digest(notebook) == rendered[
+        "batch_notebook_source_digest"
+    ]
+    embedded_commit, embedded_files = batch_notebook_source_manifest(notebook)
+    assert embedded_commit == commit
+    assert embedded_files == rendered["expected_files"]
+    payload = json.loads(notebook.read_text())
+    assert all(
+        cell.get("execution_count") is None and cell.get("outputs") == []
+        for cell in payload["cells"]
+        if cell.get("cell_type") == "code"
+    )
+    preflight = validate_batch_notebook_preflight(ROOT, notebook, "r04-llama")
+    assert preflight["status"] == "PRE_KAGGLE_INTEGRITY_PASS"
+    assert set(preflight["queue_statuses"].values()) == {"QUEUED"}
+    assert preflight["no_rerun_intersection"] == []
+
+
 def test_v10_freeze_matches_generator_and_clean_notebook() -> None:
     tracked = json.loads(
         (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V10.json").read_text()
@@ -981,9 +1077,10 @@ def test_v19_freeze_matches_generator_and_clean_notebook() -> None:
     ) == tracked
     assert tracked["protocol_amendment_version"] == "M4-BATCH-3"
     assert tracked["batch_notebook_source_digest"] == (
-        validate_current_notebook_self_digest(
-            ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
-        )
+        "cf953f577bf34da30e9759caa40e05482ba0f36830a57797525130f459655f94"
+    )
+    assert sha256_file(ROOT / "research/M4_BATCH_SOURCE_FREEZE_V19.json") == (
+        "55482f65c9af8b404329a04bbbc9aa703059abe0075560dc16ae20429fd8a04f"
     )
     assert tracked["implementation_source_commit"] == (
         "4217f8c892c84e2f508d99cc11f1668e6bb5dd05"

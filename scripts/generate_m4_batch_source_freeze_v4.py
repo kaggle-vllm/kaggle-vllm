@@ -10,7 +10,11 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-from kaggle_vllm.research.m4_batch import notebook_source_digest
+from kaggle_vllm.research.m4_batch import (
+    BATCH_NOTEBOOK_SOURCE_FILES,
+    notebook_source_digest,
+    validate_batch_notebook_commit_consistency,
+)
 from kaggle_vllm.research.provenance import sha256_file
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +23,7 @@ NOTEBOOK_PIN_COMMIT = "f6b547bc182c5febc2bcfe9600e3c09098ab0b94"
 BATCH_PLAN = "research/M4_BATCH_EXECUTION_PLAN_V2.json"
 PRINCIPAL_QUEUE = "research/M4_PRINCIPAL_EXECUTION_QUEUE.json"
 AMENDMENT = "research/M4_BATCH_PROTOCOL_AMENDMENT_V2.md"
+NOTEBOOK = "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
 
 
 def _blob(repository: Path, commit: str, relative: str) -> bytes:
@@ -29,6 +34,80 @@ def _blob(repository: Path, commit: str, relative: str) -> bytes:
 
 def _blob_sha256(repository: Path, commit: str, relative: str) -> str:
     return hashlib.sha256(_blob(repository, commit, relative)).hexdigest()
+
+
+def render_batch_notebook(
+    repository: Path, implementation_commit: str, notebook_path: Path | None = None
+) -> dict:
+    """Render one clean notebook from the exact implementation commit snapshot."""
+
+    notebook_path = notebook_path or repository / NOTEBOOK
+    notebook = json.loads(notebook_path.read_text(encoding="utf-8"))
+    bootstrap = [cell for cell in notebook["cells"] if cell.get("id") == "bootstrap"]
+    if len(bootstrap) != 1:
+        raise ValueError("batch notebook must have one bootstrap cell")
+    source = bootstrap[0]["source"]
+    commit_lines = [
+        index
+        for index, line in enumerate(source)
+        if line.startswith("EXPECTED_SOURCE_COMMIT = ")
+    ]
+    digest_lines = [
+        index
+        for index, line in enumerate(source)
+        if line.startswith("BATCH_NOTEBOOK_SOURCE_DIGEST = ")
+    ]
+    manifest_starts = [
+        index for index, line in enumerate(source) if line == "EXPECTED_FILES = {\n"
+    ]
+    if len(commit_lines) != 1 or len(digest_lines) != 1 or len(manifest_starts) != 1:
+        raise ValueError("batch notebook source identity assignments are not unique")
+    manifest_start = manifest_starts[0]
+    try:
+        manifest_end = source.index("}\n", manifest_start + 1)
+    except ValueError as exc:
+        raise ValueError("batch notebook EXPECTED_FILES mapping is not closed") from exc
+
+    expected_files = {
+        relative: _blob_sha256(repository, implementation_commit, relative)
+        for relative in BATCH_NOTEBOOK_SOURCE_FILES
+    }
+    source[commit_lines[0]] = (
+        f"EXPECTED_SOURCE_COMMIT = '{implementation_commit}'\n"
+    )
+    source[digest_lines[0]] = "BATCH_NOTEBOOK_SOURCE_DIGEST = '" + "0" * 64 + "'\n"
+    source[manifest_start : manifest_end + 1] = [
+        "EXPECTED_FILES = {\n",
+        *[
+            f"    {relative!r}: {expected_files[relative]!r},\n"
+            for relative in BATCH_NOTEBOOK_SOURCE_FILES
+        ],
+        "}\n",
+    ]
+    for cell in notebook["cells"]:
+        if cell.get("cell_type") == "code":
+            cell["execution_count"] = None
+            cell["outputs"] = []
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".ipynb") as temporary:
+        temporary.write(json.dumps(notebook, indent=1) + "\n")
+        temporary.flush()
+        source_digest = notebook_source_digest(Path(temporary.name))
+    digest_lines = [
+        index
+        for index, line in enumerate(source)
+        if line.startswith("BATCH_NOTEBOOK_SOURCE_DIGEST = ")
+    ]
+    source[digest_lines[0]] = f"BATCH_NOTEBOOK_SOURCE_DIGEST = '{source_digest}'\n"
+    notebook_path.write_text(
+        json.dumps(notebook, indent=1) + "\n", encoding="utf-8"
+    )
+    identity = validate_batch_notebook_commit_consistency(repository, notebook_path)
+    return {
+        **identity,
+        "batch_notebook_sha256": sha256_file(notebook_path),
+        "batch_notebook_source_digest": source_digest,
+    }
 
 
 def build_freeze(repository: Path = ROOT) -> dict:
@@ -1217,7 +1296,19 @@ def main() -> int:
         type=Path,
         default=ROOT / "research/M4_BATCH_SOURCE_FREEZE_V19.json",
     )
+    parser.add_argument(
+        "--render-notebook",
+        action="store_true",
+        help="render the canonical clean notebook from --implementation-commit",
+    )
+    parser.add_argument("--implementation-commit")
     args = parser.parse_args()
+    if args.render_notebook:
+        if not args.implementation_commit:
+            parser.error("--render-notebook requires --implementation-commit")
+        rendered = render_batch_notebook(ROOT, args.implementation_commit)
+        print(json.dumps(rendered, indent=2))
+        return 0
     args.output.write_text(
         json.dumps(build_freeze_v19(), indent=2) + "\n", encoding="utf-8"
     )

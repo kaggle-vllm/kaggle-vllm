@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ast
 import hashlib
 import json
 import re
@@ -67,6 +68,16 @@ TERMINAL_QUEUE_STATUSES = {
     "FAILED_RESOURCE_GATE",
     "FAILED_OTHER_REVIEW_REQUIRED",
 }
+BATCH_NOTEBOOK_SOURCE_FILES = (
+    "scripts/kaggle_m4_execute_batch.py",
+    "scripts/kaggle_m4_multimodel_crossover.py",
+    "research/M4_EXECUTION_PLAN.json",
+    "research/model_matrix.json",
+    "research/m4_protocol.json",
+    "research/M4_BATCH_EXECUTION_PLAN_V2.json",
+    "research/M4_BATCH_PROTOCOL_AMENDMENT_V3.md",
+    "research/M4_PRINCIPAL_EXECUTION_QUEUE.json",
+)
 
 
 def notebook_source_digest(path: Path) -> str:
@@ -97,6 +108,166 @@ def validate_current_notebook_self_digest(path: Path) -> str:
             "current batch notebook must embed its recomputed source digest"
         )
     return expected
+
+
+def batch_notebook_source_manifest(path: Path) -> tuple[str, dict[str, str]]:
+    """Extract the commit and file manifest embedded in a batch notebook."""
+
+    assignments: dict[str, list[Any]] = {
+        "EXPECTED_SOURCE_COMMIT": [],
+        "EXPECTED_FILES": [],
+    }
+    for cell_type, _cell_id, source in notebook_sources(path):
+        if cell_type != "code":
+            continue
+        try:
+            tree = ast.parse(source)
+        except SyntaxError as exc:
+            raise ResearchEvidenceError(
+                f"batch notebook contains invalid Python source: {exc}"
+            ) from exc
+        for node in tree.body:
+            if not isinstance(node, ast.Assign) or len(node.targets) != 1:
+                continue
+            target = node.targets[0]
+            if not isinstance(target, ast.Name) or target.id not in assignments:
+                continue
+            try:
+                assignments[target.id].append(ast.literal_eval(node.value))
+            except (ValueError, TypeError) as exc:
+                raise ResearchEvidenceError(
+                    f"batch notebook {target.id} must be a literal"
+                ) from exc
+
+    commits = assignments["EXPECTED_SOURCE_COMMIT"]
+    manifests = assignments["EXPECTED_FILES"]
+    if len(commits) != 1 or not isinstance(commits[0], str):
+        raise ResearchEvidenceError(
+            "batch notebook must define one literal EXPECTED_SOURCE_COMMIT"
+        )
+    if not re.fullmatch(r"[0-9a-f]{40}", commits[0]):
+        raise ResearchEvidenceError("batch notebook source commit is not a full SHA")
+    if len(manifests) != 1 or not isinstance(manifests[0], dict):
+        raise ResearchEvidenceError(
+            "batch notebook must define one literal EXPECTED_FILES mapping"
+        )
+    manifest = manifests[0]
+    if tuple(manifest) != BATCH_NOTEBOOK_SOURCE_FILES:
+        raise ResearchEvidenceError(
+            "batch notebook EXPECTED_FILES paths differ from the canonical manifest"
+        )
+    if any(
+        not isinstance(value, str)
+        or re.fullmatch(r"[0-9a-f]{64}", value) is None
+        for value in manifest.values()
+    ):
+        raise ResearchEvidenceError(
+            "batch notebook EXPECTED_FILES must contain SHA256 values"
+        )
+    return commits[0], manifest
+
+
+def git_blob_sha256(repository: Path, commit: str, relative: str) -> str:
+    """Hash one repository file exactly as stored at a commit."""
+
+    try:
+        blob = subprocess.check_output(
+            ["git", "show", f"{commit}:{relative}"],
+            cwd=repository,
+            stderr=subprocess.PIPE,
+        )
+    except subprocess.CalledProcessError as exc:
+        detail = exc.stderr.decode(errors="replace").strip()
+        raise ResearchEvidenceError(
+            f"cannot read {relative} at source commit {commit}: {detail}"
+        ) from exc
+    return hashlib.sha256(blob).hexdigest()
+
+
+def validate_batch_notebook_commit_consistency(
+    repository: Path, notebook: Path
+) -> dict[str, Any]:
+    """Require every embedded file hash to match the exact fetched commit."""
+
+    commit, expected_files = batch_notebook_source_manifest(notebook)
+    actual_files = {
+        relative: git_blob_sha256(repository, commit, relative)
+        for relative in BATCH_NOTEBOOK_SOURCE_FILES
+    }
+    mismatches = {
+        relative: {
+            "embedded_sha256": expected_files[relative],
+            "commit_sha256": actual_files[relative],
+        }
+        for relative in BATCH_NOTEBOOK_SOURCE_FILES
+        if expected_files[relative] != actual_files[relative]
+    }
+    if mismatches:
+        relative = next(iter(mismatches))
+        raise ResearchEvidenceError(
+            "batch notebook EXPECTED_FILES differs from "
+            f"EXPECTED_SOURCE_COMMIT for {relative}"
+        )
+    return {
+        "expected_source_commit": commit,
+        "expected_files": actual_files,
+        "status": "COMMIT_CONSISTENT",
+    }
+
+
+def validate_batch_notebook_preflight(
+    repository: Path, notebook: Path, batch_id: str
+) -> dict[str, Any]:
+    """Emulate the notebook's source and no-rerun checks without Kaggle/GPU."""
+
+    identity = validate_batch_notebook_commit_consistency(repository, notebook)
+    commit = identity["expected_source_commit"]
+
+    def load_json(relative: str) -> dict[str, Any]:
+        try:
+            payload = subprocess.check_output(
+                ["git", "show", f"{commit}:{relative}"],
+                cwd=repository,
+                stderr=subprocess.PIPE,
+            )
+        except subprocess.CalledProcessError as exc:
+            detail = exc.stderr.decode(errors="replace").strip()
+            raise ResearchEvidenceError(
+                f"cannot read {relative} at source commit {commit}: {detail}"
+            ) from exc
+        return json.loads(payload)
+
+    plan = load_json("research/M4_BATCH_EXECUTION_PLAN_V2.json")
+    queue = load_json("research/M4_PRINCIPAL_EXECUTION_QUEUE.json")
+    reconciliation = load_json("research/M4_EXECUTION_RECONCILIATION.json")
+    matches = [item for item in plan["batches"] if item["batch_id"] == batch_id]
+    if len(matches) != 1:
+        raise ResearchEvidenceError(f"batch {batch_id} is not uniquely frozen")
+    batch = matches[0]
+    queue_by_id = {item["shard_id"]: item for item in queue["queue"]}
+    ordered = batch["ordered_shard_ids"]
+    if not ordered or any(
+        queue_by_id.get(shard_id, {}).get("status") != "QUEUED"
+        for shard_id in ordered
+    ):
+        raise ResearchEvidenceError(
+            f"batch {batch_id} contains a missing, settled, or non-queued shard"
+        )
+    no_rerun = set(reconciliation["no_rerun_shards"])
+    if no_rerun.intersection(ordered):
+        raise ResearchEvidenceError(f"batch {batch_id} contains a no-rerun shard")
+    return {
+        **identity,
+        "batch_id": batch_id,
+        "ordered_shard_ids": ordered,
+        "logical_shard_count": batch["logical_shard_count"],
+        "serving_cell_count": batch["serving_cell_count"],
+        "queue_statuses": {
+            shard_id: queue_by_id[shard_id]["status"] for shard_id in ordered
+        },
+        "no_rerun_intersection": [],
+        "status": "PRE_KAGGLE_INTEGRITY_PASS",
+    }
 
 
 def _validate_notebook_source_identity(
