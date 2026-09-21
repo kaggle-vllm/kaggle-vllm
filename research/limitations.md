@@ -86,8 +86,15 @@
   cache, multimodal, activation, and allocator overhead, and it would define a
   materially different protocol. Gemma 4 was not substituted and remains
   out-of-scope future work requiring a new freeze and compatibility study.
-- Llama and Gemma derived-artifact uploads are blocked pending redistribution
-  review even when token access permits downloads.
+- PR #26's tracked repository content contains no Llama/Gemma weights,
+  tokenizer assets, gated upstream source, checkpoint archive, or derived
+  model-state archive. Its Llama/Gemma material is limited to synthetic
+  prompts, token/timing ledgers without generated response bodies, telemetry,
+  logs, hashes, reviews, and derived research outputs. This technical content
+  audit closes the PR merge gate but is not legal advice. Any future
+  Llama/Gemma weight or model-state upload remains blocked pending a separate
+  review of the exact artifact and then-current terms, notice, access, and
+  attribution obligations.
 - No Microsoft Vidur source tree/archive was found in the supplied working
   directory. M5 is therefore marked `SIMULATOR_COMPATIBILITY_LIMITATION`; no
   simulator profile or comparison was fabricated.

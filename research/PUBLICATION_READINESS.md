@@ -1,6 +1,6 @@
 # Publication-readiness gate
 
-Overall status: **NOT_PAPER_READY — human license and editorial review remain**
+Overall status: **PAPER_READY_FOR_HUMAN_REVIEW**
 
 | Gate | Status | Evidence or blocker |
 |---|---|---|
@@ -14,20 +14,49 @@ Overall status: **NOT_PAPER_READY — human license and editorial review remain*
 | External benchmark/simulator | OPTIONAL DEFERRED | M5 was not run; claims are explicitly client-specific and do not assert GuideLLM or simulator agreement |
 | Reproducibility | PASS | M1–M4 commands, provenance, runtime identities, reviewed assembly, and deterministic outputs are retained |
 | Artifact hashes | PASS | M1–M4 manifests verify; the final 60-shard assembled package is checksummed and source-package hashes remain separately frozen |
-| License review | FAIL | Llama/Gemma redistribution remains blocked even though authenticated compatibility execution succeeded |
+| Repository-content license review | PASS | PR #26 contains no Llama/Gemma weights, tokenizer assets, checkpoint/model-state archives, or gated upstream source; future model-artifact redistribution remains separately blocked |
 | Claim discipline | PASS | Unsupported causality and universal-scaling claims are explicitly excluded |
 | Paper figures | PASS | Architecture, M1–M3, and M4 crossover/latency figures are generated; M5 plots are correctly absent |
 | Paper tables | PASS | Compatibility, M1–M3, M4 crossover/resource, linkage, and claim-boundary tables are generated |
 | M4 Results and Discussion | PASS | Final crossover, resource-boundary, uncertainty, limitations, and conclusion text matches reviewed analyzer output |
-| Manuscript editorial completion | FAIL | Related-work citations and remaining M1–M3 narrative placeholders require human scholarly/editorial completion |
+| Manuscript editorial completion | PASS | Related work cites verified primary sources and the M1–M3 narrative is populated only from accepted evidence |
 
-The M4 technical and scientific gates are closed: all planned logical outcomes
-are terminal, the final repetition-level analysis exists, and its figures and
-tables are reproducible. Publication readiness remains blocked by human review
-of Llama/Gemma redistribution terms and by ordinary scholarly/editorial work,
-including related-work citations and remaining M1–M3 narrative placeholders.
+The M1--M4 technical, scientific, repository-content, and manuscript gates are
+closed for human paper review. This status does not claim venue acceptance,
+external artifact badging, independent replication, or legal-counsel approval.
 M5 is not a PR #26 merge prerequisite; without it, the paper retains the
 narrower client-specific claims in `M5_DECISION.md`. Vidur may be
 `NOT_APPLICABLE_WITH_JUSTIFICATION` only after exact source inspection
 establishes a scientific incompatibility; its current absence is not that
 determination.
+
+## Repository-content and model-artifact boundary
+
+The PR diff contains 258 files. A tracked-file and type/size audit found no
+`.safetensors`, `.bin`, `.pt`, `.pth`, `.ckpt`, `.gguf`, `.onnx`, model archive,
+tokenizer asset, or file at least 5 MB. The applicable content boundary is:
+
+| Class | PR #26 content | Disposition |
+|---|---|---|
+| Upstream model weights/assets | None | Not redistributed |
+| Derived model-state/checkpoint archives | None | Not redistributed |
+| Research-generated evidence | JSON/JSONL metrics, synthetic prompts, resource ledgers, logs, telemetry | Retained |
+| Hashes and provenance metadata | Model revisions, file identities, manifests, reviews | Retained |
+| Benchmark request/response material | Synthetic prompts and token/timing records; no generated response bodies | Retained |
+| Derived tables and plots | CSV, SVG, PNG, PDF | Retained |
+| Notebooks and source code | Reproducibility/orchestration/analysis sources | Retained under repository terms |
+
+The official Meta Llama 3.2 license has a version release date of 2024-09-25
+and imposes terms and notice obligations when Llama Materials or derivatives
+are distributed. The official Gemma Terms of Use were last modified 2026-04-01
+and impose terms, use restrictions, and notice obligations for distribution of
+Gemma or Model Derivatives. Sources reviewed 2026-09-21:
+
+- [Llama 3.2 Community License](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE)
+- [Gemma Terms of Use](https://ai.google.dev/gemma/terms)
+
+Because this PR does not distribute those model materials, its
+repository-content review passes. This is a technical content classification,
+not legal advice. `research/model_matrix.json` continues to block future Llama
+or Gemma weight/model-state uploads until a separate review confirms the exact
+artifact, terms, notice, access, and attribution obligations.

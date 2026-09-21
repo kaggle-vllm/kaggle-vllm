@@ -14,6 +14,16 @@ Torch, CUDA toolkit, driver, NCCL, GPU names/UUIDs, topology, model and tokenize
 revisions, exact command/config/seed/timestamps, notebook SHA, and output hashes.
 Credentials and local usernames are excluded.
 
+The public repository artifact boundary was audited separately from upstream
+model-artifact redistribution. PR #26 contains research-generated JSON/JSONL
+measurements, synthetic prompt manifests, token/timing request ledgers without
+generated response bodies, resource telemetry, server logs, hashes, reviews,
+tables, plots, notebooks, and source code. It contains no Llama/Gemma weight,
+tokenizer asset, gated upstream source, checkpoint archive, or derived
+model-state archive. Future Llama/Gemma model-artifact publication remains
+blocked by `model_matrix.json` pending an artifact-specific terms and notice
+review; this repository-content classification is not legal advice.
+
 Reproduce in the order specified by `KAGGLE_EXECUTION_CHECKLIST.md`. M3 is
 frozen under `artifacts/kaggle-2026-09-07-milestone-3-measured-comm/`; its
 external ZIP and executed-notebook hashes are recorded in the directory README

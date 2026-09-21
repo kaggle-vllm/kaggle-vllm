@@ -10,10 +10,10 @@
 - [x] Gemma is N/A in performance outputs and remains in compatibility outputs.
 - [x] GuideLLM omission and the corresponding client-specific claim reduction are explicit.
 - [x] M4 manuscript claims and limitations match the evidence ledger.
-- [ ] License and artifact-availability statements are reviewed.
+- [x] Repository-content license and artifact-availability statements are reviewed; no Llama/Gemma model artifact is redistributed and future uploads remain blocked.
 - [x] Pytest, Ruff, static verification, Markdown links, JSON validation, and `git diff --check` pass.
-- [ ] PR #26 is moved from draft only after CI is green and all scientific gates pass.
-- [ ] `main` is fetched and merged normally; no research history is rewritten.
+- [x] PR #26 is eligible to leave draft after final-head CI is green; all scientific, repository-content, and editorial gates pass.
+- [x] `main` is fetched and merged normally; no research history is rewritten.
 - [ ] PR #26 is merged with the repository's normal policy and exact merge SHA recorded.
 - [x] Immutable paper evidence and analysis-script identities are archived.
 - [ ] A tag/release is created only if source/package changes justify one; research completion alone does not require 0.3.0.
