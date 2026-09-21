@@ -39,6 +39,11 @@ predeclared repetitions near an observed sign change.
 
 ## Completion and analysis
 
+The principal campaign is complete. The reviewed ledger contains 55 canonical
+shards and five terminal Qwen prefill-heavy resource-boundary shards, for all
+60 logical outcomes and 720 planned fresh-server cells. No shard remains queued
+and no further M4 GPU batch is authorized.
+
 After every download, run `python -m kaggle_vllm.research ingest-m4` with the
 executed notebook, ZIP, and runtime JSON. The command fails closed on notebook,
 archive, payload-hash, source, runtime, model, token, and cell-grid drift and
@@ -46,10 +51,12 @@ stages a uniquely addressed local candidate. Reviewed promotion into canonical
 artifacts remains deliberate; the command does not silently edit the scientific
 ledger.
 
-Once all required principal shards are reviewed, use
-`scripts/assemble_m4_evidence.py`. The analyzer treats the fresh server/session
-repetition—not individual requests—as the inferential unit, preserves raw
-samples, and applies the frozen paired-mean 95% confidence-interval rule.
+The completed evidence was assembled with `scripts/assemble_m4_evidence.py`
+under `artifacts/kaggle-2026-09-08-milestone-4/principal/`. The analyzer treats
+the fresh server/session repetition—not individual requests—as the inferential
+unit, preserves raw samples, and applies the frozen paired-mean 95%
+confidence-interval rule. The five Qwen TP2/concurrency-64 resource rows retain
+missing performance and are analyzed only as a replicated resource boundary.
 
 ## M5 boundary
 

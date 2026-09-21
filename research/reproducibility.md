@@ -28,7 +28,8 @@ clean Llama 3.2, and clean Ministral compatibility shards are accepted under
 `artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/`.
 The canonical Gemma negative is under
 `artifacts/kaggle-2026-09-08-milestone-4/compatibility/gemma3_4b/`;
-M4 remains in progress without an accepted principal matrix. The original
+the accepted principal matrix and analysis are under
+`artifacts/kaggle-2026-09-08-milestone-4/principal/`. The original
 one-shard/fresh-session path remains frozen. Dated amendment `M4-BATCH-1`
 separately freezes a repetition-batched orchestration path and records the
 shared Kaggle allocation as a blocking variable. Its first `fill-r00` attempt
@@ -251,6 +252,22 @@ notebook embeds the eight exact Git-blob hashes from that implementation
 commit; local non-GPU preflight confirms all three ordered Ministral shards are
 queued, absent from the no-rerun set, and total 36 fresh-server cells. V21
 contains no new GPU measurement.
+The resulting V21 session
+`m4-r04-ministral-20260921T075626Z-efa07d9f` completed all three final
+12-cell matrices. Its outer ZIP SHA256 is
+`a5decd20f3690d30734be6c62f660cacc8e0b91a1edcf6183808b016f8ef58f9`,
+executed-notebook SHA256 is
+`816b78f8d802685ebc92692185194c3184c15be91bf261a8f5e4433ab0b4c3ed`,
+and the byte-identical separate/bundled runtime SHA256 is
+`3c049ed8e21ba5020edea7e6515af6b43b7741952e0a4ba26a632cabc458d932`.
+The balanced, prefill-heavy, and short inner ZIP hashes are respectively
+`44b2c1973e237041c87331281670e4a2df7690384ade6880a2091c95f51e389c`,
+`47c5c052819aa5694e0a9eb1eab953e5ea6a919e21525af98317c8bb0dc002a6`,
+and `02625aed80796eb5c6a632ed070fb9207053d703fcb53c4d6d0b7f46f5773f15`.
+All source, runtime, archive, ledger, resource, and cleanup checks pass. The
+final reconciliation contains 55 canonical and five resource-gated outcomes,
+zero not-executed shards, and no remaining batch. V21 remains the final
+execution freeze; no V22 execution authorization exists.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
@@ -262,6 +279,7 @@ Generate the currently supported figures from the immutable evidence with:
   --m1 artifacts/kaggle-2026-09-01-milestone-1 \
   --m2 artifacts/kaggle-2026-09-02-milestone-2 \
   --m3 artifacts/kaggle-2026-09-07-milestone-3-measured-comm \
+  --m4 artifacts/kaggle-2026-09-08-milestone-4/principal/M4_ANALYSIS.json \
   --figures research/figures \
   --tables research/tables
 ```

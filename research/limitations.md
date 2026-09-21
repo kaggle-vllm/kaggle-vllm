@@ -1,10 +1,11 @@
 # Limitations and unsupported claims
 
 - M3 is a single fresh Kaggle dual-T4 session with five fresh-process
-  repetitions. M4 is in progress: Qwen, Phi, Llama, and text-only Ministral
-  short-workload concurrency-1 compatibility shards are accepted. Final p13
+  repetitions. M4 is complete: Qwen, Phi, Llama, and text-only Ministral
+  compatibility shards are accepted. Final p13
   canonically preserves Gemma's pre-readiness dtype boundary. The four-model
-  principal matrix is in progress, with 52 of 60 logical shards preserved.
+  principal matrix contains 55 canonical and five terminal resource-gated
+  logical outcomes; all 60 outcomes and 720 planned serving cells are settled.
   The first `M4-BATCH-1` allocation stopped on the Qwen prefill-heavy r00
   per-GPU VRAM guard after one new canonical shard; that failed shard remains
   review-required. All nine rows untouched in that attempt were later
@@ -33,8 +34,9 @@
   14,895 MiB/GPU without CUDA OOM. The V18 `r04-phi` allocation then preserved
   all three Phi workloads with no resource gate. The corrected V20
   `r04-llama` allocation then preserved all three Llama workloads after its
-  commit-consistency preflight passed. Three matrix shards are currently not
-  executed. The Qwen
+  commit-consistency preflight passed. The V21 `r04-ministral` allocation
+  preserved all three final workloads after the same commit-consistency check;
+  no matrix shard remains unexecuted. The Qwen
   sessions combine only through reviewed logical-shard reconciliation. Under the batch protocols, later shards may share one
   model/repetition physical Kaggle allocation; such shards are not fully
   independent environment realizations.
@@ -51,6 +53,11 @@
   exposed the fixture mismatch before continuation guards ran. The correction
   is prospective, preserves the failed attempt, and does not change measured
   performance or benchmark parameters.
+  Final uncertainty uses five matched repetition/session-block means per cell;
+  requests within a cell are not independent repetitions. Because multiple
+  workloads can share one physical model/repetition allocation, residual
+  within-session correlation remains a limitation even though each
+  model/workload repetition is separated from its other repetitions.
 - M1/M2 are observations from one Kaggle dual-T4 environment. They do not imply
   universal T4, PCIe, PHB or tensor-parallel scaling laws.
 - The M3 measured-all-reduce intercept is configuration-specific and combines
@@ -91,7 +98,9 @@
 - GuideLLM is prepared as isolated research tooling but remains GPU-unexecuted,
   dependency-heavy, outside the lightweight SDK, and not assumed
   metric-equivalent to the primary client. The two clients' TPOT and ITL
-  definitions differ explicitly.
+  definitions differ explicitly. The final claims are therefore specific to
+  the frozen kaggle-vllm client and do not establish client-independent metric
+  portability or GuideLLM agreement.
 - Multi-model TP-aware sharded-state creation is
   `OUT_OF_SCOPE_FOR_PRIMARY_M4`. M4 uses pinned Hugging Face checkpoints, so
   new Phi, Ministral, or Llama persistence archives would add GPU/storage,

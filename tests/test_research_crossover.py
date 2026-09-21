@@ -183,3 +183,37 @@ def test_crossover_summary_uses_first_sustained_robust_point(tmp_path: Path) -> 
     assert summary["principal_grid_complete"] is True
     assert summary["throughput_crossover_concurrency"] == 16
     assert summary["latency_crossover_concurrency"] == 16
+
+
+def test_final_reviewed_analysis_closes_matrix_without_pseudoreplication() -> None:
+    root = Path(__file__).resolve().parents[1]
+    analysis = json.loads(
+        (
+            root
+            / "artifacts/kaggle-2026-09-08-milestone-4/principal/M4_ANALYSIS.json"
+        ).read_text()
+    )
+    assert analysis["status"] == "ANALYZED"
+    assert len(analysis["cells"]) == 4 * 3 * 6
+    assert len(analysis["crossover_summary"]) == 4 * 3
+    assert {cell["repetitions"] for cell in analysis["cells"]} == {5}
+    assert {
+        cell["tp1"]["output_tokens_per_second"]["ci_unit"]
+        for cell in analysis["cells"]
+        if cell["tp1"]["output_tokens_per_second"] is not None
+    } == {"independent_repetition_means"}
+
+    boundaries = [
+        cell
+        for cell in analysis["cells"]
+        if "RESOURCE_BOUNDARY_OBSERVED" in cell["classifications"]
+    ]
+    assert len(boundaries) == 1
+    boundary = boundaries[0]
+    assert boundary["model_id"] == "Qwen/Qwen2.5-3B-Instruct"
+    assert boundary["workload"] == "prefill_heavy"
+    assert boundary["concurrency"] == 64
+    assert boundary["tp2_resource_boundary_repetitions"] == 5
+    assert boundary["paired_performance_repetitions"] == 0
+    assert boundary["tp2"]["output_tokens_per_second"] is None
+    assert boundary["tp2_over_tp1_output_speedup"] is None

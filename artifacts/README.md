@@ -43,12 +43,12 @@ metadata, licensing, and upstream attribution.
   topology, telemetry, fit/residual outputs, provenance, and the independent
   canonical-review record.
 
-- `kaggle-2026-09-08-milestone-4/` — M4 work in progress. Its accepted shards
-  are the clean-source Qwen2.5-3B, Phi-4 Mini, Llama 3.2 3B, and Ministral 3 3B
-  BF16 short-workload TP1/TP2 compatibility gates. Final p13 provides
-  source-equivalent, hash-verified canonical Gemma negative compatibility
-  evidence; three earlier attempts remain diagnostic history. The four-model
-  principal matrix remains. The earlier Llama
+- `kaggle-2026-09-08-milestone-4/` — completed M4 evidence. Its compatibility
+  directory contains the clean-source Qwen2.5-3B, Phi-4 Mini, Llama 3.2 3B,
+  and Ministral 3 3B BF16 TP1/TP2 gates. Final p13 provides source-equivalent,
+  hash-verified canonical Gemma negative compatibility evidence; three earlier
+  attempts remain diagnostic history. Its principal directory contains the
+  checksummed 60-outcome/720-row assembly and repetition-level analysis. The earlier Llama
   access failures and manual debug retry remain noncanonical history, and the
   earlier notebook-drifted Phi candidate remains rejected and excluded.
 
@@ -56,6 +56,6 @@ Files under `artifacts/` are retained as immutable execution evidence. They are
 excluded from source-formatting and linting tools so that post-capture tooling
 does not modify their bytes or invalidate recorded checksums.
 
-Future M4 shards and M5 directories must not be added until their Kaggle runs
-occur and their provenance/checksums pass review. Prepared notebook source is
-not evidence.
+No additional M4 shard or execution batch is authorized. Future M5 directories
+must not be added unless an optional Kaggle run occurs and its provenance and
+checksums pass review. Prepared notebook source is not evidence.

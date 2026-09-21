@@ -1,15 +1,21 @@
 # Working manuscript: tensor-parallel crossover on dual Tesla T4
 
-Status: **results incomplete**. Bracketed text is a data-bound placeholder, not
-an empirical claim.
+Status: **M4 results complete; publication preparation incomplete**. Remaining
+bracketed text is a data-bound or editorial placeholder, not an empirical claim.
 
 ## Abstract
 
 We present kaggle-vllm as a reproducibility and evidence-provenance layer for a
-pinned upstream vLLM runtime on Kaggle dual-T4 systems. [Insert only reviewed M4
-crossover findings and uncertainty.] Five models entered compatibility gating;
-four reached serving readiness and one encountered a narrowly scoped
-precision/hardware boundary. [Insert conclusions only after principal analysis.]
+pinned upstream vLLM runtime on Kaggle dual-T4 systems. Five models entered
+compatibility gating; four reached serving readiness and Gemma 3 4B encountered
+a narrowly scoped FP16/SM75 boundary. Across 60 terminal logical outcomes and
+720 planned fresh-server cells, TP2 crossover depended on model, workload, and
+concurrency. The three non-Qwen models crossed earliest for prefill-heavy work
+at concurrency 4, later for balanced work at 16 or 32, and latest for short
+work at 32 or 64. Qwen crossed only for balanced work at concurrency 64; its
+prefill-heavy TP2/concurrency-64 condition reproducibly exceeded the frozen
+per-GPU resource ceiling. These results characterize this pinned dual-T4 stack,
+not a universal tensor-parallel scaling law.
 
 ## 1. Introduction
 
@@ -22,7 +28,8 @@ distributed-runtime overhead on a PCIe/PHB T4 pair.
 - Reproducible delivery and immutable identity for a pinned upstream vLLM wheel.
 - Controlled TP1/TP2 serving experiments with exact-token workloads.
 - Measurement and provenance infrastructure for runtime, requests, and resources.
-- Empirical crossover characterization [pending M4].
+- Repetition-level empirical crossover characterization across four models,
+  three workloads, and six concurrency points, with explicit resource outcomes.
 
 kaggle-vllm is not a new inference engine and does not claim ownership of
 PagedAttention, vLLM scheduling, tensor-parallel algorithms, or CUDA kernels.
@@ -130,39 +137,58 @@ substituted.
 
 ### 6.5 Four-model principal crossover
 
-[Blocked until 60 principal shards and any justified refinements are accepted.]
-Insert per-model curves, speedup heatmap, latency tradeoff, crossover and
-resource tables only from `M4_ANALYSIS.json`. Verified terminal resource rows
-contribute boundary counts and VRAM summaries, but not fabricated performance
-values or underpowered paired confidence intervals.
+The final ledger contains 55 canonical and five resource-gated outcomes: all
+60 planned logical shards are terminal, covering 720 planned fresh-server
+cells. Figures 6–11 and the generated M4 tables derive from the reviewed
+`M4_ANALYSIS.json`. Every performance comparison uses five matched logical
+repetitions; individual requests are observations within a cell, not
+independent experimental replicates.
 
-Current evidence bookkeeping preserves 52 canonical outcomes of 60 principal
-shards: five complete Phi and Llama repetitions, four complete Ministral
-repetitions, five Qwen short/balanced repetitions, plus five Qwen prefill-heavy
-terminal VRAM-boundary outcomes. Three shards remain unexecuted. The fourth Ministral repetition is bound
-through an explicit post-execution saved-notebook source-edit recovery; no
-pre-edit executed notebook survives, and the incident remains a disclosed
-provenance limitation. The fifth Qwen boundary was again TP2/concurrency 64 at
-14,895 MiB on each GPU, without CUDA OOM; its performance is missing, never
-zero. The first r04-Llama allocation aborted before bootstrap on stale notebook
-source-manifest metadata; the corrected V20 allocation passed the permanent
-commit-consistency invariant and produced the three reviewed outcomes counted
-here. This progress count is not a final crossover estimate or confidence
-interval.
+The predeclared sustained favorable 95% CI rule found matched throughput and
+E2E-latency crossover points for Llama at concurrency 16 (balanced), 4
+(prefill-heavy), and 32 (short); Phi at 32, 4, and 64; and Ministral at 16, 4,
+and 32. Qwen crossed for balanced work only at concurrency 64. At those first
+sustained throughput points, mean TP2/TP1 output-token speedups ranged from
+1.095 (95% CI 1.009–1.180) for Ministral short to 1.466 (1.362–1.569) for Phi
+balanced. Qwen short had no sustained crossover in the tested range.
+
+All five Qwen prefill-heavy repetitions reached a TP2/concurrency-64 terminal
+resource boundary at 14,895 MiB per physical GPU, above the frozen 14,848 MiB
+ceiling, without a CUDA OOM. That cell has five resource-boundary repetitions
+and zero paired performance repetitions; throughput and latency remain N/A,
+never zero. No sixth repetition or post-hoc parameter adjustment was made.
+
+The r03 Ministral post-execution notebook recovery and the V19 pre-bootstrap
+Llama integrity abort remain disclosed provenance limitations. V21's final
+Ministral execution passed exact source equivalence and commit consistency and
+closed the matrix without changing the scientific design.
 
 ### 6.6 Mechanistic analysis
 
-[Relate M3 communication observations to M4 behavior as consistency evidence;
-do not infer sole causality.]
+The low-concurrency TP2 penalties and later workload-specific crossovers are
+consistent with fixed collective, synchronization, and distributed-runtime
+costs being amortized as useful parallel work rises. Prefill-heavy work crossed
+at concurrency 4 for all three fully measurable non-Qwen models, while short
+work required 32 or 64. This association is consistent with, but not proved
+solely by, the independently measured two-rank M3 communication regime.
 
 ### 6.7 Independent validation
 
-[Blocked on reviewed GuideLLM evidence, or explicitly scope this to future work.]
+The optional GuideLLM cross-check was not executed. Claims therefore remain
+specific to the frozen kaggle-vllm client and its documented metric semantics;
+no client-independent agreement or simulator validation is claimed.
 
 ## 7. Discussion
 
-[Interpret workload/model differences only after M4. Distinguish throughput,
-latency and capacity crossovers and practical deployment implications.]
+TP2 was not universally faster. For this stack it became favorable sooner when
+the workload exposed more prefill computation, whereas short decode-heavy work
+needed substantially more concurrency and Qwen never crossed within the tested
+short range. Balanced crossover also varied materially by model. The repeated
+Qwen prefill-heavy boundary is a capacity/resource result rather than a
+performance loss: the guarded TP2 cell cannot support a valid measured
+comparison under the frozen budget. Deployment decisions should therefore use
+model- and workload-specific concurrency evidence and treat throughput,
+latency, and resource capacity as distinct outcomes.
 
 ## 8. Threats to validity and limitations
 
@@ -182,7 +208,14 @@ credentials.
 
 ## 10. Conclusion
 
-[Blocked until M4 Results and Discussion pass the publication-readiness gate.]
+On the tested dual Tesla T4 platform, TP2 overcame its overhead only after a
+model- and workload-dependent concurrency threshold. Prefill-heavy workloads
+crossed earliest for the three fully measurable non-Qwen models; short
+workloads crossed later or not at all; and Qwen prefill-heavy exposed a stable
+per-GPU resource boundary instead of a valid high-concurrency performance
+point. The complete evidence supports a conditional deployment rule, not a
+universal preference for TP2. Publication remains subject to editorial and
+license/redistribution review.
 
 ## Artifact availability
 
