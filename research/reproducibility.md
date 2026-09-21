@@ -217,7 +217,19 @@ ledgers, per-GPU resource guards, and cleanup checks pass. All three Phi r04
 shards are now in the reviewed no-rerun set.
 V19 pins implementation commit `4217f8c892c84e2f508d99cc11f1668e6bb5dd05`,
 notebook pin `6663f9e615d61a1218c72afd9060760c25e7ef07`, and the
-post-Phi queue/plan for `r04-llama`; it contains no new GPU measurements.
+post-Phi queue/plan for `r04-llama`. A fresh allocation checked out that commit
+successfully, then the notebook's fail-closed source-integrity check detected
+that its embedded plan and queue hashes were stale V18 values. The allocation
+aborted before runtime bootstrap, server startup, or any serving cell; V19
+contains no GPU measurement and advances no scientific state. The exact
+non-scientific incident is recorded in
+`M4_R04_LLAMA_V19_PRE_BOOTSTRAP_ABORT.json`.
+V20 pins implementation commit `b096b5311f0dd98f43734e6a94aa34ac36ae2f3b`,
+notebook pin `7d1927f5af9e1f889d232c339a8a69714168088e`, and a clean
+notebook whose complete embedded source manifest is recomputed from that exact
+implementation commit. Local preflight replays every Git-blob hash and checks
+that all three r04-Llama shards remain queued and absent from the no-rerun set.
+V20 supersedes V19 for future execution only.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

@@ -104,3 +104,10 @@
 - The fully enumerated plan contains candidates, not promised successes. Gated
   access failures, SM75 incompatibility, OOM, or resource-guard termination must
   remain visible and may reduce the final multi-model breadth.
+- The V19 r04-Llama allocation produced no benchmark observation: a stale
+  notebook-embedded plan digest triggered the fail-closed source-integrity
+  assertion after source checkout but before bootstrap. The queue also carried
+  a stale embedded digest. Both generated files were correct at the fetched
+  commit; only notebook metadata was stale. V20 repairs the generator and adds
+  commit-snapshot regression checks, while the scientific state remains 49
+  canonical, 5 resource-gated, and 6 not executed.

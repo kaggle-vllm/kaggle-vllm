@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate retained V4-V18 and current M4-BATCH-3 source freezes."""
+"""Generate retained V4-V19 and current M4-BATCH-3 source freezes."""
 
 from __future__ import annotations
 
@@ -1289,12 +1289,118 @@ def build_freeze_v19(repository: Path = ROOT) -> dict:
     return freeze
 
 
+def build_freeze_v20(repository: Path = ROOT) -> dict:
+    """Build the commit-consistent replacement for the V19 continuation."""
+
+    implementation_commit = "b096b5311f0dd98f43734e6a94aa34ac36ae2f3b"
+    notebook_pin_commit = "7d1927f5af9e1f889d232c339a8a69714168088e"
+    amendment = "research/M4_BATCH_PROTOCOL_AMENDMENT_V3.md"
+    notebook_blob = _blob(repository, notebook_pin_commit, NOTEBOOK)
+    with tempfile.NamedTemporaryFile(suffix=".ipynb") as temporary:
+        temporary.write(notebook_blob)
+        temporary.flush()
+        notebook_path = Path(temporary.name)
+        source_digest = notebook_source_digest(notebook_path)
+        notebook_identity = validate_batch_notebook_commit_consistency(
+            repository, notebook_path
+        )
+    if notebook_identity["expected_source_commit"] != implementation_commit:
+        raise ValueError("V20 notebook and implementation commits differ")
+
+    freeze = build_freeze_v19(repository)
+    freeze.update(
+        {
+            "schema_version": "kaggle-vllm-m4-batch-source-freeze-v20",
+            "status": "FROZEN_AFTER_V19_PRE_BOOTSTRAP_INTEGRITY_ABORT_FOR_M4_BATCH_3_CONTINUATION",
+            "protocol_amendment_version": "M4-BATCH-3",
+            "protocol_amendment_date_utc": "2026-09-14",
+            "reconciliation_date_utc": "2026-09-21",
+            "protocol_amendment_path": amendment,
+            "implementation_source_commit": implementation_commit,
+            "notebook_pin_commit": notebook_pin_commit,
+            "historical_batch_2_freeze": {
+                "path": "research/M4_BATCH_SOURCE_FREEZE_V19.json",
+                "sha256": sha256_file(
+                    repository / "research/M4_BATCH_SOURCE_FREEZE_V19.json"
+                ),
+                "status": "RETAINED_IMMUTABLE_PRE_BOOTSTRAP_ABORT_PROVENANCE",
+            },
+            "supersedes_for_future_execution": {
+                "path": "research/M4_BATCH_SOURCE_FREEZE_V19.json",
+                "scope": "FUTURE_EXECUTION_ONLY",
+                "reason": "STALE_NOTEBOOK_EXPECTED_FILE_DIGEST",
+                "incident_record": "research/M4_R04_LLAMA_V19_PRE_BOOTSTRAP_ABORT.json",
+                "scientific_execution_started": False,
+                "serving_cells_executed": 0,
+                "logical_shards_settled": 0,
+            },
+            "batch_notebook_sha256": hashlib.sha256(notebook_blob).hexdigest(),
+            "batch_notebook_source_digest": source_digest,
+            "batch_runner_sha256": _blob_sha256(
+                repository, implementation_commit, "scripts/kaggle_m4_execute_batch.py"
+            ),
+            "base_shard_runner_sha256": _blob_sha256(
+                repository,
+                implementation_commit,
+                "scripts/kaggle_m4_multimodel_crossover.py",
+            ),
+            "m4_execution_plan_sha256": _blob_sha256(
+                repository, implementation_commit, "research/M4_EXECUTION_PLAN.json"
+            ),
+            "model_matrix_sha256": _blob_sha256(
+                repository, implementation_commit, "research/model_matrix.json"
+            ),
+            "protocol_sha256": _blob_sha256(
+                repository, implementation_commit, "research/m4_protocol.json"
+            ),
+            "batch_plan_sha256": _blob_sha256(
+                repository, implementation_commit, BATCH_PLAN
+            ),
+            "principal_queue_sha256": _blob_sha256(
+                repository, implementation_commit, PRINCIPAL_QUEUE
+            ),
+            "protocol_amendment_sha256": _blob_sha256(
+                repository, implementation_commit, amendment
+            ),
+            "evidence_boundary": (
+                "This freeze contains no new GPU measurements and does not advance "
+                "the scientific matrix. V19 reached the correct source commit but "
+                "aborted before bootstrap because its notebook retained stale plan "
+                "and queue hashes. V20 preserves the reviewed "
+                "49-canonical/5-resource-gated/6-not-executed reconciliation and "
+                "authorizes the same unresolved r04-llama batch only after local "
+                "commit-consistency validation."
+            ),
+        }
+    )
+    freeze["execution_paths"]["batch_orchestrated"]["status"] = (
+        "M4_BATCH_3_V19_INTEGRITY_ABORT_R04_LLAMA_READY"
+    )
+    embedded = notebook_identity["expected_files"]
+    freeze_to_embedded = {
+        "batch_runner_sha256": "scripts/kaggle_m4_execute_batch.py",
+        "base_shard_runner_sha256": "scripts/kaggle_m4_multimodel_crossover.py",
+        "m4_execution_plan_sha256": "research/M4_EXECUTION_PLAN.json",
+        "model_matrix_sha256": "research/model_matrix.json",
+        "protocol_sha256": "research/m4_protocol.json",
+        "batch_plan_sha256": BATCH_PLAN,
+        "protocol_amendment_sha256": amendment,
+        "principal_queue_sha256": PRINCIPAL_QUEUE,
+    }
+    if any(
+        freeze[field] != embedded[relative]
+        for field, relative in freeze_to_embedded.items()
+    ):
+        raise ValueError("V20 freeze hashes differ from the notebook manifest")
+    return freeze
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "research/M4_BATCH_SOURCE_FREEZE_V19.json",
+        default=ROOT / "research/M4_BATCH_SOURCE_FREEZE_V20.json",
     )
     parser.add_argument(
         "--render-notebook",
@@ -1310,7 +1416,7 @@ def main() -> int:
         print(json.dumps(rendered, indent=2))
         return 0
     args.output.write_text(
-        json.dumps(build_freeze_v19(), indent=2) + "\n", encoding="utf-8"
+        json.dumps(build_freeze_v20(), indent=2) + "\n", encoding="utf-8"
     )
     return 0
 

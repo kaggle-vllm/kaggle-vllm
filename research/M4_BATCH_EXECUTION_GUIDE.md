@@ -7,8 +7,11 @@ The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V19 is the current execution authority for the queued `r04-llama` batch. V18
-is the immutable execution authority for the completed `r04-phi` batch. V17 is
+V20 is the current execution authority for the queued `r04-llama` batch. V19
+is immutable provenance of a real allocation that aborted at source-integrity
+validation before bootstrap or scientific execution; it is superseded for
+future execution only. V18 is the immutable execution authority for the
+completed `r04-phi` batch. V17 is
 the immutable execution authority for the completed `r04-qwen` batch.
 V16 is the immutable execution authority for the completed `r03-llama` batch.
 V15 is the immutable execution authority for the completed `r03-phi` batch. V14 is the
@@ -91,8 +94,12 @@ performance remains N/A, never zero. The V18 `M4_BATCH_ID=r04-phi` batch then
 completed balanced, prefill-heavy, and short in that frozen order in session
 `m4-r04-phi-20260920T193618Z-c949f541`. All 36 serving cells are canonical,
 all per-GPU resource guards passed, and all three shards are permanently
-non-runnable. The next machine-derived batch is `M4_BATCH_ID=r04-llama`,
-containing balanced, prefill-heavy, then short (36 serving cells). The V11
+non-runnable. A V19 allocation for the next machine-derived
+`M4_BATCH_ID=r04-llama` batch checked out the correct source commit but aborted
+before bootstrap because the notebook retained stale V18 plan and queue
+digests. No server, shard, serving cell, or GPU measurement resulted. V20 fixes
+the generation invariant and reauthorizes the unchanged batch, containing
+balanced, prefill-heavy, then short (36 serving cells). The V11
 `M4_BATCH_ID=r02-qwen` continuation completed
 `qwen25_3b-short-r02` followed by `qwen25_3b-balanced-r02` in session
 `m4-r02-qwen-20260916T054736Z-95506297`. Together with the distinct V10

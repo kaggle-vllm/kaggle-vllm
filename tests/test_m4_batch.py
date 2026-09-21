@@ -45,6 +45,7 @@ from scripts.generate_m4_batch_source_freeze_v4 import (
     build_freeze_v17,
     build_freeze_v18,
     build_freeze_v19,
+    build_freeze_v20,
     render_batch_notebook,
 )
 from scripts.kaggle_m4_execute_batch import (
@@ -1120,6 +1121,35 @@ def test_v19_freeze_matches_generator_and_clean_notebook() -> None:
     )
     assert tracked["notebook_pin_commit"] == (
         "6663f9e615d61a1218c72afd9060760c25e7ef07"
+    )
+
+
+def test_v20_freeze_matches_commit_consistent_clean_notebook() -> None:
+    tracked = json.loads(
+        (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V20.json").read_text()
+    )
+    assert build_freeze_v20(ROOT) == tracked
+    assert build_freeze_v20(ROOT) == tracked
+    assert verify_batch_source_freeze(
+        ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V20.json"
+    ) == tracked
+    notebook = ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+    identity = validate_batch_notebook_commit_consistency(ROOT, notebook)
+    assert tracked["implementation_source_commit"] == identity[
+        "expected_source_commit"
+    ]
+    assert tracked["batch_notebook_sha256"] == sha256_file(notebook)
+    assert tracked["batch_notebook_source_digest"] == (
+        validate_current_notebook_self_digest(notebook)
+    )
+    assert tracked["batch_plan_sha256"] == identity["expected_files"][
+        "research/M4_BATCH_EXECUTION_PLAN_V2.json"
+    ]
+    assert tracked["principal_queue_sha256"] == identity["expected_files"][
+        "research/M4_PRINCIPAL_EXECUTION_QUEUE.json"
+    ]
+    assert tracked["notebook_pin_commit"] == (
+        "7d1927f5af9e1f889d232c339a8a69714168088e"
     )
 
 

@@ -53,7 +53,9 @@ Machine-readable control files:
 - `M4_BATCH_SOURCE_FREEZE_V16.json`: post-Phi-r03 no-rerun freeze for the next Llama r03 batch.
 - `M4_BATCH_SOURCE_FREEZE_V17.json`: post-Llama-r03 no-rerun freeze for the next Qwen r04 batch.
 - `M4_BATCH_SOURCE_FREEZE_V18.json`: immutable source used by the completed Phi r04 batch.
-- `M4_BATCH_SOURCE_FREEZE_V19.json`: post-Phi-r04 no-rerun freeze for the next Llama r04 batch.
+- `M4_BATCH_SOURCE_FREEZE_V19.json`: immutable source identity of the Llama r04 allocation that aborted at pre-bootstrap source-integrity validation.
+- `M4_BATCH_SOURCE_FREEZE_V20.json`: corrected commit-consistent continuation freeze for the still-queued Llama r04 batch.
+- `M4_R04_LLAMA_V19_PRE_BOOTSTRAP_ABORT.json`: reviewed non-scientific V19 integrity-abort provenance.
 - `M4_R04_QWEN_ATTEMPT_1_REVIEW.json`: reviewed V17 Qwen r04 partial-canonical plus fifth terminal-resource outcome.
 - `M4_R04_PHI_ATTEMPT_1_REVIEW.json`: reviewed V18 Phi r04 batch and three canonical outcomes.
 - `M4_R03_QWEN_ATTEMPT_1_REVIEW.json`: reviewed V14 Qwen r03 partial-canonical plus terminal-resource outcomes.
