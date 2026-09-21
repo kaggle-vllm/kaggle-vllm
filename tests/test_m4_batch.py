@@ -893,6 +893,39 @@ def test_notebook_renderer_uses_one_exact_commit_snapshot(tmp_path: Path) -> Non
     assert preflight["no_rerun_intersection"] == []
 
 
+def test_current_notebook_passes_commit_consistency_and_preflight() -> None:
+    notebook = ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+    identity = validate_batch_notebook_commit_consistency(ROOT, notebook)
+    assert identity["expected_source_commit"] == (
+        "b096b5311f0dd98f43734e6a94aa34ac36ae2f3b"
+    )
+    preflight = validate_batch_notebook_preflight(ROOT, notebook, "r04-llama")
+    assert preflight["ordered_shard_ids"] == [
+        "llama32_3b-balanced-r04",
+        "llama32_3b-prefill_heavy-r04",
+        "llama32_3b-short-r04",
+    ]
+    assert preflight["logical_shard_count"] == 3
+    assert preflight["serving_cell_count"] == 36
+    assert preflight["queue_statuses"] == {
+        "llama32_3b-balanced-r04": "QUEUED",
+        "llama32_3b-prefill_heavy-r04": "QUEUED",
+        "llama32_3b-short-r04": "QUEUED",
+    }
+    assert preflight["no_rerun_intersection"] == []
+
+
+def test_current_batch_notebook_is_clean() -> None:
+    notebook = json.loads(
+        (ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb").read_text()
+    )
+    assert all(
+        cell.get("execution_count") is None and cell.get("outputs") == []
+        for cell in notebook["cells"]
+        if cell.get("cell_type") == "code"
+    )
+
+
 def test_v10_freeze_matches_generator_and_clean_notebook() -> None:
     tracked = json.loads(
         (ROOT / "research/M4_BATCH_SOURCE_FREEZE_V10.json").read_text()
