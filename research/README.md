@@ -55,6 +55,7 @@ Machine-readable control files:
 - `M4_BATCH_SOURCE_FREEZE_V18.json`: immutable source used by the completed Phi r04 batch.
 - `M4_BATCH_SOURCE_FREEZE_V19.json`: immutable source identity of the Llama r04 allocation that aborted at pre-bootstrap source-integrity validation.
 - `M4_BATCH_SOURCE_FREEZE_V20.json`: immutable corrected source used by the completed Llama r04 batch.
+- `M4_BATCH_SOURCE_FREEZE_V21.json`: post-Llama commit-consistent freeze authorizing only the final Ministral r04 batch.
 - `M4_R04_LLAMA_V19_PRE_BOOTSTRAP_ABORT.json`: reviewed non-scientific V19 integrity-abort provenance.
 - `M4_R04_QWEN_ATTEMPT_1_REVIEW.json`: reviewed V17 Qwen r04 partial-canonical plus fifth terminal-resource outcome.
 - `M4_R04_PHI_ATTEMPT_1_REVIEW.json`: reviewed V18 Phi r04 batch and three canonical outcomes.

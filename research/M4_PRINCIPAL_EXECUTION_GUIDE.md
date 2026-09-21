@@ -98,7 +98,7 @@ and all three Llama r04 shards are preserved from the corrected V20 execution.
 Download the executed
 `kaggle_vllm_m4_execute_shard.ipynb` and `runtime.json` alongside it. Validate
 this shard end to end before advancing. The current preferred operation is the
-model-scoped `M4_BATCH_ID=r04-ministral` under the next immutable freeze; follow
+model-scoped `M4_BATCH_ID=r04-ministral` under V21; follow
 `M4_BATCH_EXECUTION_GUIDE.md` instead.
 
 ## Completion gate

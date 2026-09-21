@@ -244,6 +244,13 @@ and `f4e24d1e708e93d6417d408856137e76c7292aafeb0b999f321075a1fe3d2b6b`.
 All internal hashes, request/resource ledgers, per-GPU guards, cleanup, and
 session/source/runtime bindings pass. V19 remains a zero-measurement incident;
 only this V20 session advances Llama r04 scientific state.
+V21 pins implementation commit `80547d4761e65fdd56ba8537b7a0854cb3d7642b`,
+notebook pin `989093672b94d3e6fc040fdcf6a2800b1d7c4fe2`, and the
+post-Llama queue/plan for the sole remaining `r04-ministral` batch. Its clean
+notebook embeds the eight exact Git-blob hashes from that implementation
+commit; local non-GPU preflight confirms all three ordered Ministral shards are
+queued, absent from the no-rerun set, and total 36 fresh-server cells. V21
+contains no new GPU measurement.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

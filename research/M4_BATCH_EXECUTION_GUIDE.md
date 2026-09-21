@@ -7,7 +7,8 @@ The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V20 is the immutable execution authority for the completed `r04-llama` batch.
+V21 is the current execution authority for the final queued `r04-ministral`
+batch. V20 is the immutable execution authority for the completed `r04-llama` batch.
 V19 is immutable provenance of a distinct real allocation that aborted at
 source-integrity validation before bootstrap or scientific execution; it was
 superseded for future execution only. V18 is the immutable execution authority for the

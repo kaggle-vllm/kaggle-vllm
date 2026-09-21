@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate retained V4-V19 and current M4-BATCH-3 source freezes."""
+"""Generate retained V4-V20 and current M4-BATCH-3 source freezes."""
 
 from __future__ import annotations
 
@@ -1395,12 +1395,110 @@ def build_freeze_v20(repository: Path = ROOT) -> dict:
     return freeze
 
 
+def build_freeze_v21(repository: Path = ROOT) -> dict:
+    """Build the post-Llama-r04 freeze for the final Ministral continuation."""
+
+    implementation_commit = "80547d4761e65fdd56ba8537b7a0854cb3d7642b"
+    notebook_pin_commit = "989093672b94d3e6fc040fdcf6a2800b1d7c4fe2"
+    amendment = "research/M4_BATCH_PROTOCOL_AMENDMENT_V3.md"
+    notebook_blob = _blob(repository, notebook_pin_commit, NOTEBOOK)
+    with tempfile.NamedTemporaryFile(suffix=".ipynb") as temporary:
+        temporary.write(notebook_blob)
+        temporary.flush()
+        notebook_path = Path(temporary.name)
+        source_digest = notebook_source_digest(notebook_path)
+        notebook_identity = validate_batch_notebook_commit_consistency(
+            repository, notebook_path
+        )
+    if notebook_identity["expected_source_commit"] != implementation_commit:
+        raise ValueError("V21 notebook and implementation commits differ")
+
+    freeze = build_freeze_v20(repository)
+    freeze.pop("supersedes_for_future_execution", None)
+    freeze.update(
+        {
+            "schema_version": "kaggle-vllm-m4-batch-source-freeze-v21",
+            "status": "FROZEN_AFTER_LLAMA_R04_COMPLETION_FOR_FINAL_M4_BATCH_3_CONTINUATION",
+            "protocol_amendment_version": "M4-BATCH-3",
+            "protocol_amendment_date_utc": "2026-09-14",
+            "reconciliation_date_utc": "2026-09-21",
+            "protocol_amendment_path": amendment,
+            "implementation_source_commit": implementation_commit,
+            "notebook_pin_commit": notebook_pin_commit,
+            "historical_batch_2_freeze": {
+                "path": "research/M4_BATCH_SOURCE_FREEZE_V20.json",
+                "sha256": sha256_file(
+                    repository / "research/M4_BATCH_SOURCE_FREEZE_V20.json"
+                ),
+                "status": "RETAINED_IMMUTABLE_LLAMA_R04_EXECUTION_PROVENANCE",
+            },
+            "batch_notebook_sha256": hashlib.sha256(notebook_blob).hexdigest(),
+            "batch_notebook_source_digest": source_digest,
+            "batch_runner_sha256": _blob_sha256(
+                repository, implementation_commit, "scripts/kaggle_m4_execute_batch.py"
+            ),
+            "base_shard_runner_sha256": _blob_sha256(
+                repository,
+                implementation_commit,
+                "scripts/kaggle_m4_multimodel_crossover.py",
+            ),
+            "m4_execution_plan_sha256": _blob_sha256(
+                repository, implementation_commit, "research/M4_EXECUTION_PLAN.json"
+            ),
+            "model_matrix_sha256": _blob_sha256(
+                repository, implementation_commit, "research/model_matrix.json"
+            ),
+            "protocol_sha256": _blob_sha256(
+                repository, implementation_commit, "research/m4_protocol.json"
+            ),
+            "batch_plan_sha256": _blob_sha256(
+                repository, implementation_commit, BATCH_PLAN
+            ),
+            "principal_queue_sha256": _blob_sha256(
+                repository, implementation_commit, PRINCIPAL_QUEUE
+            ),
+            "protocol_amendment_sha256": _blob_sha256(
+                repository, implementation_commit, amendment
+            ),
+            "evidence_boundary": (
+                "This freeze contains no new GPU measurements. It binds the reviewed "
+                "52-canonical/5-resource-gated/3-not-executed reconciliation, "
+                "permanently closes r04-llama against normal continuation, and "
+                "authorizes only the final unresolved r04-ministral batch. V19 "
+                "remains immutable pre-bootstrap-abort provenance and V20 remains "
+                "immutable physical-session provenance for the completed Llama "
+                "balanced, prefill-heavy, and short outcomes."
+            ),
+        }
+    )
+    freeze["execution_paths"]["batch_orchestrated"]["status"] = (
+        "M4_BATCH_3_R04_LLAMA_CLOSED_FINAL_R04_MINISTRAL_READY"
+    )
+    embedded = notebook_identity["expected_files"]
+    freeze_to_embedded = {
+        "batch_runner_sha256": "scripts/kaggle_m4_execute_batch.py",
+        "base_shard_runner_sha256": "scripts/kaggle_m4_multimodel_crossover.py",
+        "m4_execution_plan_sha256": "research/M4_EXECUTION_PLAN.json",
+        "model_matrix_sha256": "research/model_matrix.json",
+        "protocol_sha256": "research/m4_protocol.json",
+        "batch_plan_sha256": BATCH_PLAN,
+        "protocol_amendment_sha256": amendment,
+        "principal_queue_sha256": PRINCIPAL_QUEUE,
+    }
+    if any(
+        freeze[field] != embedded[relative]
+        for field, relative in freeze_to_embedded.items()
+    ):
+        raise ValueError("V21 freeze hashes differ from the notebook manifest")
+    return freeze
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "research/M4_BATCH_SOURCE_FREEZE_V20.json",
+        default=ROOT / "research/M4_BATCH_SOURCE_FREEZE_V21.json",
     )
     parser.add_argument(
         "--render-notebook",
@@ -1416,7 +1514,7 @@ def main() -> int:
         print(json.dumps(rendered, indent=2))
         return 0
     args.output.write_text(
-        json.dumps(build_freeze_v20(), indent=2) + "\n", encoding="utf-8"
+        json.dumps(build_freeze_v21(), indent=2) + "\n", encoding="utf-8"
     )
     return 0
 
