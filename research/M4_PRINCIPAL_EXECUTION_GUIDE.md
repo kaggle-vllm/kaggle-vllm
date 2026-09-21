@@ -97,7 +97,7 @@ TP2/concurrency-64 boundary. All three Phi r04 shards are preserved from V18.
 Download the executed
 `kaggle_vllm_m4_execute_shard.ipynb` and `runtime.json` alongside it. Validate
 this shard end to end before advancing. The current preferred operation is the
-model-scoped `M4_BATCH_ID=r04-llama`; follow
+model-scoped `M4_BATCH_ID=r04-llama` under V19; follow
 `M4_BATCH_EXECUTION_GUIDE.md` instead.
 
 ## Completion gate
