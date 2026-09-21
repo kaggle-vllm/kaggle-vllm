@@ -7,10 +7,10 @@ The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V20 is the current execution authority for the queued `r04-llama` batch. V19
-is immutable provenance of a real allocation that aborted at source-integrity
-validation before bootstrap or scientific execution; it is superseded for
-future execution only. V18 is the immutable execution authority for the
+V20 is the immutable execution authority for the completed `r04-llama` batch.
+V19 is immutable provenance of a distinct real allocation that aborted at
+source-integrity validation before bootstrap or scientific execution; it was
+superseded for future execution only. V18 is the immutable execution authority for the
 completed `r04-phi` batch. V17 is
 the immutable execution authority for the completed `r04-qwen` batch.
 V16 is the immutable execution authority for the completed `r03-llama` batch.
@@ -97,9 +97,13 @@ all per-GPU resource guards passed, and all three shards are permanently
 non-runnable. A V19 allocation for the next machine-derived
 `M4_BATCH_ID=r04-llama` batch checked out the correct source commit but aborted
 before bootstrap because the notebook retained stale V18 plan and queue
-digests. No server, shard, serving cell, or GPU measurement resulted. V20 fixes
-the generation invariant and reauthorizes the unchanged batch, containing
-balanced, prefill-heavy, then short (36 serving cells). The V11
+digests. No server, shard, serving cell, or GPU measurement resulted. V20 fixed
+the generation invariant and reauthorized the unchanged batch. That distinct
+execution passed the commit-consistency check and completed balanced,
+prefill-heavy, then short in session
+`m4-r04-llama-20260921T045421Z-9ec53cd0`. All 36 cells are canonical, all
+three outcomes are permanently non-runnable, and the only remaining physical
+batch is the machine-derived `r04-ministral` continuation. The V11
 `M4_BATCH_ID=r02-qwen` continuation completed
 `qwen25_3b-short-r02` followed by `qwen25_3b-balanced-r02` in session
 `m4-r02-qwen-20260916T054736Z-95506297`. Together with the distinct V10

@@ -4,7 +4,7 @@
   repetitions. M4 is in progress: Qwen, Phi, Llama, and text-only Ministral
   short-workload concurrency-1 compatibility shards are accepted. Final p13
   canonically preserves Gemma's pre-readiness dtype boundary. The four-model
-  principal matrix is in progress, with 49 of 60 logical shards preserved.
+  principal matrix is in progress, with 52 of 60 logical shards preserved.
   The first `M4-BATCH-1` allocation stopped on the Qwen prefill-heavy r00
   per-GPU VRAM guard after one new canonical shard; that failed shard remains
   review-required. All nine rows untouched in that attempt were later
@@ -31,8 +31,10 @@
   gate. The V17 `r04-qwen` allocation then preserved balanced and short and
   produced the fifth prefill-heavy TP2/concurrency-64 resource boundary at
   14,895 MiB/GPU without CUDA OOM. The V18 `r04-phi` allocation then preserved
-  all three Phi workloads with no resource gate. Six matrix shards are
-  currently not executed. The Qwen
+  all three Phi workloads with no resource gate. The corrected V20
+  `r04-llama` allocation then preserved all three Llama workloads after its
+  commit-consistency preflight passed. Three matrix shards are currently not
+  executed. The Qwen
   sessions combine only through reviewed logical-shard reconciliation. Under the batch protocols, later shards may share one
   model/repetition physical Kaggle allocation; such shards are not fully
   independent environment realizations.
@@ -109,5 +111,8 @@
   assertion after source checkout but before bootstrap. The queue also carried
   a stale embedded digest. Both generated files were correct at the fetched
   commit; only notebook metadata was stale. V20 repairs the generator and adds
-  commit-snapshot regression checks, while the scientific state remains 49
-  canonical, 5 resource-gated, and 6 not executed.
+  commit-snapshot regression checks. At that incident boundary the scientific
+  state remained 49 canonical, 5 resource-gated, and 6 not executed. The
+  later V20 execution is distinct: it passed the repaired invariant and
+  advanced reviewed state to 52 canonical, 5 resource-gated, and 3 not
+  executed.

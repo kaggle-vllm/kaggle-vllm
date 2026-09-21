@@ -136,15 +136,18 @@ resource tables only from `M4_ANALYSIS.json`. Verified terminal resource rows
 contribute boundary counts and VRAM summaries, but not fabricated performance
 values or underpowered paired confidence intervals.
 
-Current evidence bookkeeping preserves 49 canonical outcomes of 60 principal
-shards: five complete Phi repetitions, four complete Llama and Ministral
+Current evidence bookkeeping preserves 52 canonical outcomes of 60 principal
+shards: five complete Phi and Llama repetitions, four complete Ministral
 repetitions, five Qwen short/balanced repetitions, plus five Qwen prefill-heavy
-terminal VRAM-boundary outcomes. Six shards remain unexecuted. The fourth Ministral repetition is bound
+terminal VRAM-boundary outcomes. Three shards remain unexecuted. The fourth Ministral repetition is bound
 through an explicit post-execution saved-notebook source-edit recovery; no
 pre-edit executed notebook survives, and the incident remains a disclosed
 provenance limitation. The fifth Qwen boundary was again TP2/concurrency 64 at
 14,895 MiB on each GPU, without CUDA OOM; its performance is missing, never
-zero. This progress count is not a final crossover estimate or confidence
+zero. The first r04-Llama allocation aborted before bootstrap on stale notebook
+source-manifest metadata; the corrected V20 allocation passed the permanent
+commit-consistency invariant and produced the three reviewed outcomes counted
+here. This progress count is not a final crossover estimate or confidence
 interval.
 
 ### 6.6 Mechanistic analysis

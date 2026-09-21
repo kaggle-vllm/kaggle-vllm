@@ -229,7 +229,21 @@ notebook pin `7d1927f5af9e1f889d232c339a8a69714168088e`, and a clean
 notebook whose complete embedded source manifest is recomputed from that exact
 implementation commit. Local preflight replays every Git-blob hash and checks
 that all three r04-Llama shards remain queued and absent from the no-rerun set.
-V20 supersedes V19 for future execution only.
+V20 superseded V19 for future execution only. The distinct corrected session
+`m4-r04-llama-20260921T045421Z-9ec53cd0` then passed that invariant and
+completed all three 12-cell matrices. Its outer ZIP SHA256 is
+`a5872f71060fffce2aa80fac49a868da78c19918a4077d2edf729b1e55e03cdd`,
+its executed-notebook SHA256 is
+`f709c9af5568663b94bb2fc09032b940ed8e33ee136369a9ad082e930953ad7c`,
+and its separate and bundled runtime files are byte-identical with SHA256
+`e4dc761c09145a51202965aef12f0ea1ced1c2c8b7df6d31ae47882fca60c5ef`.
+The balanced, prefill-heavy, and short inner ZIP hashes are respectively
+`07f82e454e5ea53183ffca0ffb80b48739b6714e14fa32e66328e1741046c041`,
+`2e2520c0b79d39f244f1253434a3dc442f07a5198314a00050836e3eb478f9a6`,
+and `f4e24d1e708e93d6417d408856137e76c7292aafeb0b999f321075a1fe3d2b6b`.
+All internal hashes, request/resource ledgers, per-GPU guards, cleanup, and
+session/source/runtime bindings pass. V19 remains a zero-measurement incident;
+only this V20 session advances Llama r04 scientific state.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch
