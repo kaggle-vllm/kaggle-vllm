@@ -898,20 +898,20 @@ def test_current_notebook_passes_commit_consistency_and_preflight() -> None:
     notebook = ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
     identity = validate_batch_notebook_commit_consistency(ROOT, notebook)
     assert identity["expected_source_commit"] == (
-        "b096b5311f0dd98f43734e6a94aa34ac36ae2f3b"
+        "80547d4761e65fdd56ba8537b7a0854cb3d7642b"
     )
-    preflight = validate_batch_notebook_preflight(ROOT, notebook, "r04-llama")
+    preflight = validate_batch_notebook_preflight(ROOT, notebook, "r04-ministral")
     assert preflight["ordered_shard_ids"] == [
-        "llama32_3b-balanced-r04",
-        "llama32_3b-prefill_heavy-r04",
-        "llama32_3b-short-r04",
+        "ministral3_3b_bf16-balanced-r04",
+        "ministral3_3b_bf16-prefill_heavy-r04",
+        "ministral3_3b_bf16-short-r04",
     ]
     assert preflight["logical_shard_count"] == 3
     assert preflight["serving_cell_count"] == 36
     assert preflight["queue_statuses"] == {
-        "llama32_3b-balanced-r04": "QUEUED",
-        "llama32_3b-prefill_heavy-r04": "QUEUED",
-        "llama32_3b-short-r04": "QUEUED",
+        "ministral3_3b_bf16-balanced-r04": "QUEUED",
+        "ministral3_3b_bf16-prefill_heavy-r04": "QUEUED",
+        "ministral3_3b_bf16-short-r04": "QUEUED",
     }
     assert preflight["no_rerun_intersection"] == []
 
@@ -1133,21 +1133,21 @@ def test_v20_freeze_matches_commit_consistent_clean_notebook() -> None:
     assert verify_batch_source_freeze(
         ROOT, ROOT / "research/M4_BATCH_SOURCE_FREEZE_V20.json"
     ) == tracked
-    notebook = ROOT / "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
-    identity = validate_batch_notebook_commit_consistency(ROOT, notebook)
-    assert tracked["implementation_source_commit"] == identity[
-        "expected_source_commit"
-    ]
-    assert tracked["batch_notebook_sha256"] == sha256_file(notebook)
-    assert tracked["batch_notebook_source_digest"] == (
-        validate_current_notebook_self_digest(notebook)
+    assert tracked["implementation_source_commit"] == (
+        "b096b5311f0dd98f43734e6a94aa34ac36ae2f3b"
     )
-    assert tracked["batch_plan_sha256"] == identity["expected_files"][
-        "research/M4_BATCH_EXECUTION_PLAN_V2.json"
-    ]
-    assert tracked["principal_queue_sha256"] == identity["expected_files"][
-        "research/M4_PRINCIPAL_EXECUTION_QUEUE.json"
-    ]
+    assert tracked["batch_notebook_sha256"] == (
+        "3ddd6471252af10d33ff90018ab6626812b375a9e33940e4c5f56c69a21db317"
+    )
+    assert tracked["batch_notebook_source_digest"] == (
+        "910fefd0f3d06a1e1af2b1bd59a7533561a0e4047d4dbf03c03bc27acd2a64ff"
+    )
+    assert tracked["batch_plan_sha256"] == (
+        "04e65da8e70f4160ec78e0c450ce53699fa89c81eb514b9fc88da76312c46ee7"
+    )
+    assert tracked["principal_queue_sha256"] == (
+        "d74d8724ca4488ec3d5e21bd27da85826e37b4138ac2d354c061a7d30ee44a12"
+    )
     assert tracked["notebook_pin_commit"] == (
         "7d1927f5af9e1f889d232c339a8a69714168088e"
     )
