@@ -55,17 +55,18 @@ inference engine or scaling law.
 
 ### 5.1 M1 low-load behavior
 
-Insert generated Figure 1 and M1 table. Restrict interpretation to the observed
-models, modes, environment, and five trials per cell.
+Report the generated Figure 1 and M1 five-trial table, restricted to the
+observed models, modes, and environment.
 
 ### 5.2 M2 Qwen concurrency crossover
 
-Insert generated Figure 2 and M2 table. Label the concurrency-16 throughput
-crossover as an observed single-run matrix result, not a universal threshold.
+Report the generated Figure 2 and M2 table. Label the concurrency-16
+throughput crossover as an observed single-run matrix result, not a universal
+threshold.
 
 ### 5.3 M3 collective characterization
 
-Insert generated Figures 3–5 and the M3 statistical table. Report the
+Report generated Figures 3–5 and the M3 statistical table. Retain the
 configuration-specific measured-all-reduce intercept and effective beta with
 confidence intervals, residuals, R², and RMSE. Do not rename the intercept to
 classical alpha or universal PCIe/PHB latency.
@@ -93,9 +94,9 @@ throughput, latency, and capacity crossovers distinct.
 
 ### 5.7 Independent validation
 
-Placeholder blocked on a real GuideLLM cross-check or defensible simulator
-comparison. Report metric-definition differences and prediction/measurement
-errors rather than treating tools as equivalent.
+Optional deferred work, not a PR #26 or paper-readiness prerequisite. Until a
+real GuideLLM cross-check or defensible simulator comparison exists, retain the
+client-specific claim boundary and do not treat tools as metric-equivalent.
 
 ## 6. Discussion
 

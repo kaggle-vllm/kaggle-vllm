@@ -1,7 +1,9 @@
 # Working manuscript: tensor-parallel crossover on dual Tesla T4
 
-Status: **M4 results complete; publication preparation incomplete**. Remaining
-bracketed text is a data-bound or editorial placeholder, not an empirical claim.
+Status: **M1--M4 evidence and manuscript narrative complete; ready for human
+paper review**. This status is not venue acceptance or legal advice. The
+optional M5 cross-check remains deferred, so all claims retain the documented
+client-specific boundary.
 
 ## Abstract
 
@@ -19,9 +21,12 @@ not a universal tensor-parallel scaling law.
 
 ## 1. Introduction
 
-Motivate low-cost dual-GPU inference and the unresolved question of when TP2's
-memory/compute benefits overcome collective, synchronization, scheduler, and
-distributed-runtime overhead on a PCIe/PHB T4 pair.
+Commodity dual-GPU environments make larger-model inference accessible, but a
+second GPU is not a free throughput multiplier. Tensor parallelism divides
+model work and memory while adding collectives, synchronization, scheduling,
+and distributed-runtime costs. This study asks when useful parallel work
+amortizes those costs on one pinned PCIe/PHB-connected Tesla T4 pair, and how
+that point changes with model, token shape, and request concurrency.
 
 ### Contributions
 
@@ -36,14 +41,40 @@ PagedAttention, vLLM scheduling, tensor-parallel algorithms, or CUDA kernels.
 
 ## 2. Background
 
-Describe vLLM serving, tensor parallelism, T4/SM75 constraints, PCIe/PHB
-communication, and the distinction among throughput, latency, and capacity
-crossovers.
+vLLM combines a request scheduler with block-managed KV-cache storage and GPU
+execution. Tensor parallelism partitions selected model tensors across ranks;
+the ranks must exchange intermediate results through collective operations.
+The two tested Tesla T4 devices are SM75 GPUs connected through a PHB path,
+without an observed NVLink topology token. A throughput crossover is the point
+where TP2 completes output tokens faster than TP1; a latency crossover is the
+corresponding favorable point for a latency metric; and a capacity or resource
+boundary records whether a frozen configuration can execute within its physical
+limits. These outcomes are related but are not interchangeable.
 
 ## 3. Related work
 
-[Add cited work on LLM serving, tensor parallelism, collective communication,
-benchmark methodology, and reproducible systems research.]
+[Orca](https://www.usenix.org/conference/osdi22/presentation/yu) introduced
+iteration-level scheduling and selective batching for generative Transformer
+serving. [Kwon et al.](https://doi.org/10.1145/3600006.3613165) introduced
+PagedAttention and the vLLM serving system, including block-based KV-cache
+management and distributed workers. This repository wraps a pinned upstream
+vLLM distribution; it does not reimplement or claim either contribution.
+
+[Megatron-LM](https://arxiv.org/abs/1909.08053) established practical
+intra-layer model-parallel partitioning for Transformers. NVIDIA's
+[NCCL collective documentation](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/usage/collectives.html)
+defines the multi-rank all-reduce semantics used by the independent M3
+communication measurement. Neither source predicts the crossover of this
+particular serving stack, so the present work measures rather than assumes it.
+
+The [MLPerf Inference methodology](https://arxiv.org/abs/1911.02549) motivates
+explicit scenarios, metrics, and reproducible system configurations. The
+[ACM artifact-review policy](https://www.acm.org/publications/policies/artifact-review-and-badging-current)
+likewise distinguishes artifact availability, functional evaluation, and
+independent result validation. Consistent with those principles, this study
+retains exact source/runtime/model identities, raw ledgers, failure outcomes,
+and deterministic analysis, while making no claim that this repository has
+received an external artifact badge or independent replication.
 
 ## 4. Research questions
 
@@ -57,8 +88,11 @@ benchmark methodology, and reproducible systems research.]
 
 ### 5.1 Hardware and software
 
-Populate Table 1 from `hardware_runtime.csv`: dual Tesla T4 SM75, PHB topology,
-and exact Python, Torch, CUDA, NCCL, wheel, and source identities.
+Table 1 (`hardware_runtime.csv`) records two Tesla T4 SM75 GPUs on a PHB path,
+CPython 3.12.13, PyTorch 2.10.0+cu128, CUDA 12.8, NCCL 2.27.5, kaggle-vllm
+0.2.0, and upstream vLLM source commit
+`a26e8dc7ff2111a005144d775ecf9cebf56c45b2`. The native wheel is identified by
+SHA256 `5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c`.
 
 ### 5.2 Workloads and metrics
 
@@ -101,9 +135,13 @@ confidence intervals. Apply the predeclared favorable paired-mean CI rule.
 
 ### 5.4 Reproducibility and artifact handling
 
-Describe source/model revisions, prompt and notebook hashes, runtime manifests,
-server logs, resource guards, evidence manifests, ingestion, assembly, and
-deterministic figure/table generation.
+Every accepted result binds the source and model/tokenizer revisions, prompts,
+notebook, runtime, server logs, request/resource ledgers, and archive payloads
+by manifest and SHA256. Ingestion fails closed on identity, grid, semantic, or
+resource inconsistencies. Reviewed shards are assembled by content address;
+figures and tables are regenerated deterministically from the accepted machine
+ledgers. Credentials, local caches, native wheels, and model weights are not
+stored in Git.
 
 Earlier kaggle-vllm acceptance evidence also demonstrated persistence and
 reload of a TP=2 Qwen2.5-3B vLLM sharded state on the same dual-T4 runtime. The
@@ -118,22 +156,49 @@ checkpoint format.
 
 ### 6.1 Reproducible T4 platform
 
-[Summarize only accepted M1/runtime evidence.]
+M1 validated the pinned runtime on two Tesla T4 SM75 GPUs with PHB topology,
+no observed NVLink token, and successful bidirectional NVIDIA P2P read/write
+queries. The environment used Python 3.12.13, PyTorch 2.10.0+cu128, CUDA
+toolkit 12.8.93, NCCL 2.27.5, and driver 580.159.04. All six planned M1
+configurations completed. These observations establish the tested platform;
+they do not establish that PHB or NCCL alone caused any serving delta.
 
 ### 6.2 Low-load and Qwen crossover observations
 
-[Insert Figures 2–3 and accepted M1/M2 results.]
+In M1's five-trial OPT-125M controls, mean output throughput was 1921.42 versus
+1408.55 tokens/s for graph-mode TP1 versus TP2, and 312.19 versus 172.33
+tokens/s for eager TP1 versus TP2. TP2 was therefore operational but slower at
+low load in both execution modes. The separate Qwen TP2 batching comparison
+did not establish a robust improvement.
+
+M2 then tested one Qwen2.5-3B serving matrix at concurrency
+1/4/8/16/32/64 with a fresh server per cell. TP2 output throughput was below
+TP1 at concurrency 1, 4, and 8, then first exceeded it at concurrency 16:
+174.27 versus 138.75 tokens/s. At concurrency 32 and 64 the corresponding
+values were 267.79 versus 158.65 and 311.94 versus 177.82 tokens/s. All
+measured requests succeeded and no CUDA OOM occurred. This single-run M2
+threshold motivated the repeated multi-model M4 design; it is not treated as a
+universal concurrency rule or as repetition-level uncertainty evidence.
 
 ### 6.3 Measured NCCL/PHB communication
 
-[Insert M3 latency/bandwidth evidence, fit diagnostics, and bounded language.]
+M3 measured two-rank NCCL all-reduce across ten payload sizes, five fresh
+process repetitions, and 100 timed collectives per payload/repetition. The
+5,000 critical-path observations fit the payload-mean relation
+`T_us(S) = 112.135079 us + S / 4.063916 GB/s`. The fitted intercept 95% CI was
+93.111210--131.158948 us and the effective-beta 95% CI was
+4.051054--4.076860 GB/s; R-squared was 0.999984836 and RMSE was 20.136460 us.
+The 64 MiB effective payload bandwidth was 4.030741 GB/s. The intercept is a
+configuration-specific all-reduce fit parameter—not classical transport alpha
+or universal PCIe/PHB latency—and the microbenchmark does not isolate the
+causal contribution of communication inside vLLM serving.
 
 ### 6.4 Five-model compatibility gate
 
-Insert `m4_compatibility_gate.csv`. Four models pass. Gemma 3 4B is a canonical
-negative for the exact pinned revision, frozen FP16 protocol and vLLM wheel on
-SM75. No requests were issued; throughput is N/A, not zero. Gemma 4 was not
-substituted.
+The generated `m4_compatibility_gate.csv` records four passes. Gemma 3 4B is a
+canonical negative for the exact pinned revision, frozen FP16 protocol, vLLM
+wheel, and SM75 device. No requests were issued; throughput is N/A, not zero.
+Gemma 4 was not substituted.
 
 ### 6.5 Four-model principal crossover
 
@@ -192,19 +257,34 @@ latency, and resource capacity as distinct outcomes.
 
 ## 8. Threats to validity and limitations
 
-Address a single hosted hardware topology, exact runtime/version specificity,
-synthetic tokenizer-controlled workloads, session variability, telemetry
-sampling, client metric definitions, gated licenses, multimodal components,
-and absence of Vidur validation. State that shards within a batch share a
-physical allocation and may be correlated; retain session as a blocking factor
-for limitations and justified sensitivity analysis. Do not universalize the
-Gemma boundary.
+The study observes one hosted dual-T4 topology and one exact software stack;
+it does not establish behavior for other T4 hosts, interconnects, drivers,
+vLLM versions, accelerators, or multi-node deployments. Tokenizer-controlled
+synthetic prompts improve comparability but are not a production traffic
+distribution. Shards within one batch share a physical allocation and may be
+correlated; session identity and within-session order are therefore retained,
+and inference uses matched repetition/session-block means rather than treating
+requests as independent replicates. Sampled telemetry can miss brief peaks,
+and loopback client timing includes scheduling and HTTP effects. The optional
+GuideLLM/Vidur validation was not performed, so metric portability and
+simulator agreement are not claimed. Ministral evidence is text-only, and the
+Gemma result is restricted to the pinned revision, FP16 protocol, vLLM build,
+and SM75 boundary.
 
 ## 9. Ethics and licensing
 
-Report model licenses and gated access. Do not redistribute blocked model
-weights. The benchmark uses synthetic prompts and records no user content or
-credentials.
+The repository code is Apache-2.0, while each upstream model retains its own
+terms. A tracked-content audit found no Llama or Gemma weights, tokenizer
+assets, checkpoint archive, derived model-state archive, or gated upstream
+source. The retained material is research-generated evidence: synthetic
+prompts, token/timing ledgers without generated response bodies, telemetry,
+logs, hashes, reviews, tables, plots, notebooks, and source code. This closes
+the repository-content gate for this PR; it is not legal advice or approval to
+redistribute model artifacts. Any future Llama/Gemma weight or model-state
+publication remains blocked pending a separate terms-and-notice review under
+the [Llama 3.2 Community License](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE)
+and [Gemma Terms of Use](https://ai.google.dev/gemma/terms). The benchmark uses
+synthetic prompts and records no user content or credentials.
 
 ## 10. Conclusion
 
@@ -214,13 +294,16 @@ crossed earliest for the three fully measurable non-Qwen models; short
 workloads crossed later or not at all; and Qwen prefill-heavy exposed a stable
 per-GPU resource boundary instead of a valid high-concurrency performance
 point. The complete evidence supports a conditional deployment rule, not a
-universal preference for TP2. Publication remains subject to editorial and
-license/redistribution review.
+universal preference for TP2. The evidence package and manuscript are ready
+for human paper review; this does not constitute publication acceptance,
+external artifact evaluation, or legal approval.
 
 ## Artifact availability
 
-The repository retains source notebooks, protocol files, small evidence,
-checksums, analysis code, and generated outputs. Large native/model artifacts
-remain in documented external stores subject to identity and license controls.
-The historical Qwen archive is identified by checksum but is not stored in the
-repository and is not required to reproduce M4.
+The repository retains source notebooks, protocol files, research-generated
+requests and measurements, logs, telemetry, checksums, analysis code, and
+generated tables/figures. It contains no Llama/Gemma weights, tokenizer assets,
+checkpoint archives, or derived model-state archives. Large native/model
+artifacts remain in documented external stores subject to identity, access,
+and license controls. The historical Qwen archive is identified by checksum
+but is not stored in the repository and is not required to reproduce M4.
