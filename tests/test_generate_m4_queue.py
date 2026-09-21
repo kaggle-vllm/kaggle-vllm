@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from scripts.generate_m4_queue import build_queue
+from scripts.generate_m4_queue import build_queue, markdown
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -15,14 +15,14 @@ def test_queue_preserves_negative_compatibility_and_historical_shards() -> None:
     assert queue["principal_model_count"] == 4
     assert queue["active_shards"] == 60
     assert queue["active_serving_cells"] == 720
-    assert queue["preserved_shards"] == 52
-    assert queue["preserved_serving_cells"] == 624
-    assert queue["queued_shards"] == 3
-    assert queue["queued_serving_cells"] == 36
+    assert queue["preserved_shards"] == 55
+    assert queue["preserved_serving_cells"] == 660
+    assert queue["queued_shards"] == 0
+    assert queue["queued_serving_cells"] == 0
     assert queue["review_required_shards"] == 5
-    assert queue["remaining_shards"] == 8
+    assert queue["remaining_shards"] == 5
     assert queue["skipped_gemma_shards"] == 15
-    assert queue["next_shard_id"] == "ministral3_3b_bf16-balanced-r04"
+    assert queue["next_shard_id"] is None
     assert queue["queue"][0]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert queue["queue"][1]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     by_id = {row["shard_id"]: row for row in queue["queue"]}
@@ -90,6 +90,9 @@ def test_queue_preserves_negative_compatibility_and_historical_shards() -> None:
     assert by_id["ministral3_3b_bf16-short-r03"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert by_id["ministral3_3b_bf16-balanced-r03"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert by_id["ministral3_3b_bf16-prefill_heavy-r03"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
+    assert by_id["ministral3_3b_bf16-balanced-r04"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
+    assert by_id["ministral3_3b_bf16-prefill_heavy-r04"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
+    assert by_id["ministral3_3b_bf16-short-r04"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert queue["queue"][0]["expected_artifact"] == (
         "qwen25_3b-short-r00-principal.zip"
     )
@@ -99,6 +102,9 @@ def test_queue_preserves_negative_compatibility_and_historical_shards() -> None:
     assert len(gemma) == 15
     assert {row["status"] for row in gemma} == {"SKIPPED_BY_COMPATIBILITY_GATE"}
     assert all(row["active_order"] is None for row in gemma)
+    rendered = markdown(queue)
+    assert "historical no-rerun ledger" in rendered
+    assert "authorizes no further Kaggle execution" in rendered
 
 
 def test_negative_compatibility_is_not_a_zero_throughput_result() -> None:
@@ -107,4 +113,4 @@ def test_negative_compatibility_is_not_a_zero_throughput_result() -> None:
     assert gemma["status"] == "UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK"
     assert gemma["throughput"] is None
     assert gemma["principal_eligible"] is False
-    assert evidence["milestone_status"] == "IN_PROGRESS"
+    assert evidence["milestone_status"] == "COMPLETE"

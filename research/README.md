@@ -11,7 +11,7 @@ new package release.
 | M1 — runtime/TP characterization | COMPLETE | Preserved Kaggle evidence, 2026-09-01 |
 | M2 — Qwen serving crossover | COMPLETE | Preserved Kaggle evidence, 2026-09-02 |
 | M3 — measured NCCL/PHB communication | COMPLETE | Canonical clean-source Kaggle evidence, 2026-09-07 |
-| M4 — multi-model crossover | IN_PROGRESS | Five-model gate closed: four passes and one canonical Gemma negative; four-model principal matrix ready for Kaggle |
+| M4 — multi-model crossover | COMPLETE | Five-model gate closed; 55 canonical plus five resource-gated outcomes settle the four-model 60-shard matrix |
 | M5 — GuideLLM external validation | INCOMPLETE / POST-M4 | Prepared 30-shard Qwen balanced cross-check; Vidur source absent and no simulation fabricated |
 
 The research questions and evidence vocabulary are defined in

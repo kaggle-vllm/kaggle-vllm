@@ -1,14 +1,18 @@
 # M4 continuation-batch execution guide
 
+Status: **CLOSED — NO FURTHER M4 GPU EXECUTION AUTHORIZED**. This guide is
+retained for historical reproducibility only.
+
 This guide applies amendment `M4-BATCH-3` for runs frozen by V9 and later. It reduces manual launches while
 retaining all 60 logical shards and all 720 fresh-server serving cells. The
-single-shard notebook remains valid for standalone execution.
+single-shard notebook is retained as historical source but is not authorized
+for another M4 execution after matrix closure.
 The terminal-resource continuation implementation is not part of V8. The V8
 `r02-llama` downloads were reviewed and reconciled under their historical
 M4-BATCH-2 identity before V9 activated M4-BATCH-3 for later sessions.
 
-V21 is the current execution authority for the final queued `r04-ministral`
-batch. V20 is the immutable execution authority for the completed `r04-llama` batch.
+V21 is the immutable execution authority for the completed final
+`r04-ministral` batch. V20 is the immutable execution authority for the completed `r04-llama` batch.
 V19 is immutable provenance of a distinct real allocation that aborted at
 source-integrity validation before bootstrap or scientific execution; it was
 superseded for future execution only. V18 is the immutable execution authority for the
@@ -55,7 +59,7 @@ Continuation composition is frozen in
 order within each model/repetition block. The operational split responds to the
 observed blast radius, but no throughput result is used to reorder conditions.
 
-## Kaggle setup
+## Historical Kaggle setup (closed)
 
 1. Upload `kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb`.
 2. Select two NVIDIA T4 GPUs, enable Internet, and use a new non-persistent
@@ -65,7 +69,7 @@ observed blast radius, but no throughput result is used to reorder conditions.
 5. Do not edit the source cells, source commit, plan, order, revisions, runtime,
    memory threshold, or benchmark settings.
 
-## Next controlled execution
+## Final controlled execution record
 
 The V13 `M4_BATCH_ID=r03-ministral` continuation completed short, balanced,
 then prefill-heavy in session `m4-r03-ministral-20260919T094937Z-fee4d921`.
@@ -103,8 +107,11 @@ the generation invariant and reauthorized the unchanged batch. That distinct
 execution passed the commit-consistency check and completed balanced,
 prefill-heavy, then short in session
 `m4-r04-llama-20260921T045421Z-9ec53cd0`. All 36 cells are canonical, all
-three outcomes are permanently non-runnable, and the only remaining physical
-batch is the machine-derived `r04-ministral` continuation. The V11
+three outcomes are permanently non-runnable. The V21 `M4_BATCH_ID=r04-ministral`
+batch then completed balanced, prefill-heavy, and short in session
+`m4-r04-ministral-20260921T075626Z-efa07d9f`; all 36 cells are canonical and
+all three outcomes are permanently non-runnable. No physical batch remains.
+The V11
 `M4_BATCH_ID=r02-qwen` continuation completed
 `qwen25_3b-short-r02` followed by `qwen25_3b-balanced-r02` in session
 `m4-r02-qwen-20260916T054736Z-95506297`. Together with the distinct V10
@@ -240,9 +247,9 @@ runtime is byte-identical to the bundled runtime. The per-GPU peaks were
 returned both GPUs to 0 MiB with no new compute PIDs and deleted only the exact
 Phi model cache. The review is `M4_R04_PHI_ATTEMPT_1_REVIEW.json`.
 
-The next allocation has three logical shards instead of the historical eleven.
-Only one model cache is retained. Actual capacity/free bytes are measured before
-every shard and the 2 GiB reserve is maintained.
+No next allocation exists. The completed V21 allocation used three logical
+shards and one model cache; actual capacity/free bytes were measured before
+every shard and the 2 GiB reserve was maintained.
 
 The notebook measures `/kaggle/working` with `shutil.disk_usage`, retains a
 2 GiB safety reserve, and uses a 10.5-hour start cutoff with a 1.5-hour
@@ -273,7 +280,7 @@ Download only:
 Do not download model weights, Hugging Face caches, the native wheel, or the
 historical Qwen TP=2 sharded-state archive.
 
-## Local ingestion
+## Historical local ingestion procedure
 
 First preserve and hash the three browser downloads. Then run:
 

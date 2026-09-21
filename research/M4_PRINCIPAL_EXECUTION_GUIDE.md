@@ -1,13 +1,17 @@
 # M4 principal execution guide
 
-Status: **IN_PROGRESS; 52 / 60 PRINCIPAL SHARDS PRESERVED**.
+Status: **CLOSED; 55 CANONICAL + 5 RESOURCE-GATED / 60 TERMINAL OUTCOMES**.
+
+No principal shard or batch remains queued. The procedure below is retained as
+historical reproducibility documentation only; it does not authorize another
+Kaggle session or a sixth repetition.
 
 The canonical order is generated in `M4_PRINCIPAL_EXECUTION_QUEUE.json`. It
 contains 60 active shard IDs and 15 non-executable Gemma historical rows. Use
 one fresh Kaggle session per active row and change only the `M4_SHARD_ID`
 secret. Never edit the notebook source.
 
-## Repeat this procedure for one shard
+## Historical single-shard procedure (closed)
 
 1. Start a fresh Kaggle notebook session with **GPU T4 x2** and **Internet ON**.
 2. Import the untouched `kaggle_vllm_m4_execute_shard.ipynb` from this
@@ -57,7 +61,7 @@ The frozen hard VRAM ceiling is exactly **14.5 GiB = 14,848 MiB =
 GPU0 and GPU1 independently; they neither use decimal 14.5 GB nor sum the two
 devices against one ceiling.
 
-## Current controlled shard
+## Final controlled state
 
 `qwen25_3b-short-r00`, `qwen25_3b-short-r01`, and
 `qwen25_3b-balanced-r00` passed reviewed local preservation and ingestion.
@@ -84,26 +88,20 @@ r02 are preserved from the second physical `r02-qwen` session, while Qwen
 prefill-heavy r02 remains the terminal resource result from the first physical
 session. All three Phi r02 shards are preserved from the reviewed V12
 `r02-phi` batch. All three Ministral r03 shards are preserved from the reviewed
-V13 batch through the exact post-execution-notebook recovery record. For a
-standalone continuation, the selected queue row is
-`M4_SHARD_ID=ministral3_3b_bf16-balanced-r04` and its expected evidence ZIP is
-`ministral3_3b_bf16-balanced-r04-principal.zip`. Qwen short and balanced r03 are preserved,
+V13 batch through the exact post-execution-notebook recovery record. Qwen short and balanced r03 are preserved,
 while Qwen prefill-heavy r03 is a fourth reviewed terminal resource result at
 TP2/concurrency 64. All three Phi r03 shards are preserved from the reviewed
 V15 batch. All three Llama r03 shards are preserved from the reviewed V16
 batch. Qwen balanced and short r04 are preserved from V17, while Qwen
 prefill-heavy r04 is the fifth reviewed terminal resource result at the same
 TP2/concurrency-64 boundary. All three Phi r04 shards are preserved from V18,
-and all three Llama r04 shards are preserved from the corrected V20 execution.
-Download the executed
-`kaggle_vllm_m4_execute_shard.ipynb` and `runtime.json` alongside it. Validate
-this shard end to end before advancing. The current preferred operation is the
-model-scoped `M4_BATCH_ID=r04-ministral` under V21; follow
-`M4_BATCH_EXECUTION_GUIDE.md` instead.
+all three Llama r04 shards are preserved from the corrected V20 execution, and
+all three final Ministral r04 shards are preserved from V21. The authoritative
+queue has zero queued shards and the remaining plan has zero batches.
 
 ## Completion gate
 
-M4 is incomplete until all 60 active shards provide canonical or reviewed
+M4 is complete because all 60 active shards provide canonical or reviewed
 terminal, source-equivalent, runtime-valid evidence. Every model/workload/repetition/TP/
 concurrency cell must have the pinned model revision and prompt identity, the
 expected request and token counts, zero unexpected request failure or OOM,

@@ -1,5 +1,9 @@
 # Exact Kaggle execution checklist
 
+M4 status: **COMPLETE**. Its execution instructions are retained only to
+reproduce the historical protocol; the authoritative remaining plan contains
+zero batches and authorizes no new Kaggle session or sixth repetition.
+
 Use a new T4 x2 session for every numbered notebook. Internet must be enabled.
 Never run model notebooks back-to-back in one session.
 

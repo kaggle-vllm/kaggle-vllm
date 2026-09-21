@@ -392,20 +392,16 @@ def test_select_batch_rejects_mixed_repetition() -> None:
         select_batch(plan, "bad")
 
 
-def test_current_batch_passes_authoritative_no_rerun_queue() -> None:
+def test_completed_final_batch_is_absent_from_authoritative_queue() -> None:
     plan = json.loads((ROOT / "research/M4_REMAINING_EXECUTION_PLAN.json").read_text())
     queue = json.loads((ROOT / "research/M4_PRINCIPAL_EXECUTION_QUEUE.json").read_text())
-    batch = select_batch(plan, "r04-ministral")
-    result = validate_batch_against_queue(batch, queue)
-    assert result["status"] == "PASS_NO_SETTLED_SHARD_RESCHEDULED"
-    assert result["queued_shard_ids"] == [
-        "ministral3_3b_bf16-balanced-r04",
-        "ministral3_3b_bf16-prefill_heavy-r04",
-        "ministral3_3b_bf16-short-r04",
-    ]
-    assert batch["review_required_exclusions"] == []
-    assert batch["logical_shard_count"] == 3
-    assert batch["serving_cell_count"] == 36
+    assert plan["batches"] == []
+    with pytest.raises(ResearchEvidenceError, match="unknown or duplicate"):
+        select_batch(plan, "r04-ministral")
+    by_id = {row["shard_id"]: row for row in queue["queue"]}
+    for workload in ("balanced", "prefill_heavy", "short"):
+        shard_id = f"ministral3_3b_bf16-{workload}-r04"
+        assert by_id[shard_id]["status"] == "PRINCIPAL_SHARD_PRESERVED"
 
 
 def test_promoted_canonical_batch_cannot_be_rescheduled() -> None:

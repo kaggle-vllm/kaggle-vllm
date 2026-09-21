@@ -109,15 +109,24 @@ def build_queue(plan: dict[str, Any], evidence: dict[str, Any]) -> dict[str, Any
 
 
 def markdown(queue: dict[str, Any]) -> str:
+    if queue["next_shard_id"] is None:
+        execution_guidance = [
+            "Compatibility and the principal matrix are closed. This queue is a",
+            "historical no-rerun ledger; it authorizes no further Kaggle execution.",
+        ]
+    else:
+        execution_guidance = [
+            "Compatibility is closed. Use the unchanged frozen notebook in one fresh",
+            "Kaggle T4 x2 session per row and change only the `M4_SHARD_ID` secret value.",
+            "For every active row, also download the executed copy of",
+            "`kaggle_vllm_m4_execute_shard.ipynb` and the separately generated",
+            "`/kaggle/working/kaggle-vllm-runtime/runtime.json`; both are mandatory",
+            "inputs to the local provenance audit.",
+        ]
     lines = [
         "# M4 principal execution queue",
         "",
-        "Compatibility is closed. Use the unchanged frozen notebook in one fresh",
-        "Kaggle T4 x2 session per row and change only the `M4_SHARD_ID` secret value.",
-        "For every active row, also download the executed copy of",
-        "`kaggle_vllm_m4_execute_shard.ipynb` and the separately generated",
-        "`/kaggle/working/kaggle-vllm-runtime/runtime.json`; both are mandatory",
-        "inputs to the local provenance audit.",
+        *execution_guidance,
         "",
         f"Progress: {queue['preserved_shards']} / {queue['active_shards']} active shards preserved.",
         (
@@ -125,7 +134,11 @@ def markdown(queue: dict[str, Any]) -> str:
             f"shard{'s' if queue['review_required_shards'] != 1 else ''}."
         ),
         "",
-        f"Next: `M4_SHARD_ID={queue['next_shard_id']}`",
+        (
+            f"Next: `M4_SHARD_ID={queue['next_shard_id']}`"
+            if queue["next_shard_id"] is not None
+            else "Next: no principal shard remains; no further GPU execution is authorized."
+        ),
         "",
         "| Active | M4_SHARD_ID | Model | Workload | Rep | Status | Artifact |",
         "|---:|---|---|---|---:|---|---|",

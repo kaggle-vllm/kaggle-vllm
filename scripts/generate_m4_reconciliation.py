@@ -197,7 +197,11 @@ def markdown(reconciliation: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            f"Next: `M4_BATCH_ID={reconciliation['next_batch_id']}`.",
+            (
+                f"Next: `M4_BATCH_ID={reconciliation['next_batch_id']}`."
+                if reconciliation["next_batch_id"] is not None
+                else "Next: no batch remains; no further GPU execution is authorized."
+            ),
             "",
             "The detailed shard IDs and order are machine-readable in",
             "`M4_REMAINING_EXECUTION_PLAN.json`.",
