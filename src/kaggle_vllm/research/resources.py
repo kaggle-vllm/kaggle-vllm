@@ -200,6 +200,7 @@ class ResourceMonitor:
         interval_seconds: float = 0.25,
         gpu_limit_mib: float = GPU_MEMORY_LIMIT_MIB,
         ram_limit_bytes: int = SYSTEM_RAM_LIMIT_BYTES,
+        violation_callback: Callable[[str], None] | None = None,
     ) -> None:
         if interval_seconds <= 0:
             raise ValueError("interval_seconds must be positive")
@@ -207,10 +208,12 @@ class ResourceMonitor:
         self.interval_seconds = interval_seconds
         self.gpu_limit_mib = gpu_limit_mib
         self.ram_limit_bytes = ram_limit_bytes
+        self.violation_callback = violation_callback
         self.samples: list[ResourceSample] = []
         self.violation: str | None = None
         self._stop = threading.Event()
         self._thread: threading.Thread | None = None
+        self._violation_reported = False
 
     def _sample_once(self) -> None:
         phase, active = self.phase_provider()
@@ -230,6 +233,13 @@ class ResourceMonitor:
                     f"GPU {sample.gpu_index} memory {sample.memory_used_mib} MiB "
                     f"exceeded {self.gpu_limit_mib} MiB"
                 )
+        if (
+            self.violation is not None
+            and not self._violation_reported
+            and self.violation_callback is not None
+        ):
+            self._violation_reported = True
+            self.violation_callback(self.violation)
 
     def _run(self) -> None:
         while not self._stop.is_set():

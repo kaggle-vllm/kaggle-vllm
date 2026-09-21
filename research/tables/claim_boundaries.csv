@@ -1,0 +1,15 @@
+status,claim
+ALLOWED_WITH_EVIDENCE,reproducible vLLM 0.18.1 dual-T4 execution and measurement environment
+ALLOWED_WITH_EVIDENCE,empirical TP1 versus TP2 characterization within recorded configurations
+ALLOWED_WITH_EVIDENCE,directly measured two-rank collective-communication regime
+ALLOWED_WITH_EVIDENCE,workload-dependent TP crossover where supported by repeated evidence
+ALLOWED_WITH_EVIDENCE,cross-model generalization where supported by accepted M4 evidence
+ALLOWED_WITH_EVIDENCE,"open notebooks, evidence, hashes, and provenance"
+UNSUPPORTED_DO_NOT_CLAIM,new inference engine
+UNSUPPORTED_DO_NOT_CLAIM,new scheduler
+UNSUPPORTED_DO_NOT_CLAIM,new CUDA kernels
+UNSUPPORTED_DO_NOT_CLAIM,new PagedAttention implementation
+UNSUPPORTED_DO_NOT_CLAIM,universal Tesla T4 behavior
+UNSUPPORTED_DO_NOT_CLAIM,universal PCIe behavior
+UNSUPPORTED_DO_NOT_CLAIM,universal PHB behavior
+UNSUPPORTED_DO_NOT_CLAIM,universal tensor-parallel scaling law

@@ -1,0 +1,63 @@
+{
+  "schema_version": "kaggle-vllm-m4-pre-bootstrap-integrity-abort-v1",
+  "classification": "PRE_BOOTSTRAP_SOURCE_INTEGRITY_ABORT",
+  "review_status": "VERIFIED_NON_SCIENTIFIC_ATTEMPT",
+  "review_date_utc": "2026-09-21",
+  "batch_id": "r04-llama",
+  "protocol": "M4-BATCH-3",
+  "source_freeze": {
+    "path": "research/M4_BATCH_SOURCE_FREEZE_V19.json",
+    "sha256": "55482f65c9af8b404329a04bbbc9aa703059abe0075560dc16ae20429fd8a04f",
+    "implementation_source_commit": "4217f8c892c84e2f508d99cc11f1668e6bb5dd05",
+    "notebook_pin_commit": "6663f9e615d61a1218c72afd9060760c25e7ef07",
+    "batch_notebook_sha256": "cb19eb297ef8af4d78b630d4ae5ea5fbe50292eeb86237bdcff35a97cfda8af5",
+    "batch_notebook_source_digest": "cf953f577bf34da30e9759caa40e05482ba0f36830a57797525130f459655f94"
+  },
+  "execution_boundary": {
+    "fresh_kaggle_allocation_started": true,
+    "source_checkout_completed": true,
+    "runtime_bootstrap_started": false,
+    "runtime_bootstrap_completed": false,
+    "vllm_server_started": false,
+    "scientific_execution_started": false,
+    "serving_cells_executed": 0,
+    "logical_shards_executed": 0,
+    "logical_shards_settled": 0,
+    "gpu_measurements": null,
+    "scientific_result": null
+  },
+  "failure": {
+    "cause": "STALE_NOTEBOOK_EXPECTED_FILE_DIGEST",
+    "assertion": "source digest mismatch: research/M4_BATCH_EXECUTION_PLAN_V2.json",
+    "failing_file": "research/M4_BATCH_EXECUTION_PLAN_V2.json",
+    "failing_embedded_sha256": "6a3ec4ecdb04def186c2dfb4361caa470bc8914e39f0a6404799ebd75a70fba5",
+    "actual_sha256_at_implementation_source_commit": "04e65da8e70f4160ec78e0c450ce53699fa89c81eb514b9fc88da76312c46ee7",
+    "additional_stale_expected_files_found_by_full_local_audit": [
+      {
+        "path": "research/M4_PRINCIPAL_EXECUTION_QUEUE.json",
+        "embedded_sha256": "6288651f982f5804fbc6db9fc016ff9160f72f74243116887aa981826b96b52b",
+        "actual_sha256_at_implementation_source_commit": "d74d8724ca4488ec3d5e21bd27da85826e37b4138ac2d354c061a7d30ee44a12"
+      }
+    ],
+    "all_other_embedded_source_hashes_match_implementation_source_commit": true,
+    "benchmark_failure": false,
+    "resource_gate": false
+  },
+  "integrity_effect": "The fail-closed source-integrity assertion prevented bootstrap and any invalid scientific execution.",
+  "scientific_state": {
+    "canonical_preserved": 49,
+    "failed_resource_gate": 5,
+    "not_executed": 6,
+    "settled_outcomes": 54,
+    "unresolved_serving_cells": 72,
+    "remaining_physical_batches": 2,
+    "advanced_by_this_attempt": false
+  },
+  "continuation": {
+    "r04_llama_remains_queued": true,
+    "added_to_no_rerun_shards": false,
+    "future_execution_freeze": "research/M4_BATCH_SOURCE_FREEZE_V20.json",
+    "scope": "V20 supersedes V19 for future execution only; V19 remains immutable historical provenance."
+  },
+  "evidence_note": "The execution-boundary facts and traceback are recorded from the operator report; repository identities and every embedded source digest were independently recomputed locally. No unavailable session identifier, runtime measurement, or GPU metric was inferred."
+}

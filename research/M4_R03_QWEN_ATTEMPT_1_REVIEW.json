@@ -1,0 +1,280 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-attempt-review-v1",
+  "review_status": "COMPLETE_WITH_NARROW_TERMINAL_GATE_VERIFIER_CORRECTION",
+  "batch_id": "r03-qwen",
+  "attempt": 1,
+  "session_id": "m4-r03-qwen-20260919T152036Z-cd7c20ee",
+  "batch_protocol_version": "M4-BATCH-3",
+  "historical_batch_status": "STOPPED_ON_FAILURE",
+  "historical_batch_runner_returncode": 2,
+  "historical_stop_reason": "terminal resource gate includes an unapproved operational cell failure",
+  "reviewed_scientific_disposition": "ALL_PLANNED_LOGICAL_OUTCOMES_TERMINALLY_SETTLED",
+  "source_commit": "e290855de8aed29570cdd7952f9c2b37a2a19443",
+  "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V14.json",
+  "source_freeze_notebook_pin_commit": "bd114f171f4ae9623b6e9538ed1789af90dce693",
+  "downloads": {
+    "outer_zip": {
+      "filename": "m4-batch-r03-qwen.zip",
+      "size_bytes": 1917638,
+      "sha256": "27965628a214abad8d73b36f6cba2966a6cc41d97f020002e1be6e4591db8f60"
+    },
+    "executed_notebook": {
+      "filename": "p27-kaggle-vllm-m4-execute-batch.ipynb",
+      "size_bytes": 37721,
+      "sha256": "8de8e45ad9bddbb770c824b0ab7dacfdba23b462d20c3790d7764da76156e1ef",
+      "frozen_notebook_sha256": "528fd89ae38bb5227b6c932cd7bc29c6967ee16d011101b335c0a576261b0df3",
+      "source_digest": "1ca358c798af3775dfa526d0090640cb78d479dbe18006ec4d13993f5c25200b",
+      "cell_count": 4,
+      "execution_counts": [1, 2],
+      "output_count": 4,
+      "source_equivalence": "PASS_EXECUTABLE_SOURCES_IDENTICAL"
+    },
+    "runtime": {
+      "filename": "runtime.json",
+      "size_bytes": 3645,
+      "sha256": "935fba52f63fd653de8163ab777e5e9d68ab584841e5b8c32681439e96c03763",
+      "matches_bundled_runtime": true,
+      "profile": "kaggle-t4x2-cu128",
+      "strict": true
+    }
+  },
+  "outer_verification": {
+    "zip_safety": "PASS",
+    "crc": "PASS",
+    "member_count": 8,
+    "batch_sha256s": "PASS_ALL_7_PAYLOADS",
+    "absolute_paths": 0,
+    "traversal_paths": 0,
+    "duplicate_members": 0,
+    "symlinks": 0,
+    "encrypted_members": 0,
+    "oversized_members": 0,
+    "expected_inner_archives": 3,
+    "unexpected_recursive_archives": 0
+  },
+  "source_identity": {
+    "implementation_commit": "e290855de8aed29570cdd7952f9c2b37a2a19443",
+    "notebook_pin_commit": "bd114f171f4ae9623b6e9538ed1789af90dce693",
+    "clean_notebook_sha256": "528fd89ae38bb5227b6c932cd7bc29c6967ee16d011101b335c0a576261b0df3",
+    "source_digest": "1ca358c798af3775dfa526d0090640cb78d479dbe18006ec4d13993f5c25200b",
+    "principal_queue_sha256": "5a23db951a1450f6891ce9837b7802ce3f5352dff3d4ecffd5653d2dfe355c3c",
+    "batch_plan_sha256": "7442f6696d617d11e5001f30859e0412ee0d4741324aaae1dcb29d114aeeb3af",
+    "batch_runner_sha256": "99f0d2bf002905093ac842e819bbd069623970c5917d13d8ff328bf6510806e6",
+    "base_shard_runner_sha256": "9c764abde679f10d0db802feafd4d2909fbefa584004a8464460610e69d3af87",
+    "protocol_sha256": "0bb8c6d15b8a6f3d7acc0d1716f99ab34bb4f97ed0e38dd1e26b8f1c92fe99e3",
+    "status": "PASS_V14_IMMUTABLE_SOURCE_EQUIVALENCE"
+  },
+  "runtime_validation": {
+    "status": "PASS",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_toolkit": "12.8.93",
+    "cuda_usable": true,
+    "gpu_names": ["Tesla T4", "Tesla T4"],
+    "gpu_compute_capabilities": ["SM75", "SM75"],
+    "nccl": "2.27.5",
+    "driver": "580.159.04",
+    "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "wheel_repository": "waqasm86/kaggle-vllm-binaries",
+    "wheel_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6"
+  },
+  "execution": {
+    "planned_shard_count": 3,
+    "attempted_shard_count": 3,
+    "planned_shards": [
+      "qwen25_3b-short-r03",
+      "qwen25_3b-balanced-r03",
+      "qwen25_3b-prefill_heavy-r03"
+    ],
+    "actual_attempt_order": [
+      "qwen25_3b-short-r03",
+      "qwen25_3b-balanced-r03",
+      "qwen25_3b-prefill_heavy-r03"
+    ],
+    "completed_canonical_shards": [
+      "qwen25_3b-short-r03",
+      "qwen25_3b-balanced-r03"
+    ],
+    "failed_resource_gate_shards": ["qwen25_3b-prefill_heavy-r03"],
+    "operationally_failed_shards": [],
+    "not_executed_shards": [],
+    "skipped_shards": [],
+    "start_utc": "2026-09-19T15:20:36.239252+00:00",
+    "end_utc": "2026-09-19T17:08:07.929818+00:00",
+    "batch_wall_clock_seconds": 6451.690578003,
+    "per_shard_returncodes": {
+      "qwen25_3b-short-r03": 0,
+      "qwen25_3b-balanced-r03": 0,
+      "qwen25_3b-prefill_heavy-r03": 3
+    }
+  },
+  "model_identity": {
+    "model_key": "qwen25_3b",
+    "model_id": "Qwen/Qwen2.5-3B-Instruct",
+    "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "tokenizer_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "frozen_server_dtype": "float16",
+    "sdk_version": "0.2.0"
+  },
+  "completed_shards": [
+    {
+      "shard_id": "qwen25_3b-short-r03",
+      "workload": "short",
+      "runner_returncode": 0,
+      "inner_zip": "qwen25_3b-short-r03-principal.zip",
+      "inner_zip_sha256": "7b9b64497636171b68182a90c59a92b9097965fbc14becabc22787f5529e280e",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "promotion": "PRINCIPAL_SHARD_PRESERVED",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 102400,
+      "exact_output_tokens": 51200,
+      "prompt_manifest_sha256": "fd66728ed292cc9e937d4ab90f1de0e35d9cdf73216f75c9a4762fba4dc02c39",
+      "gpu0_peak_mib": 14107,
+      "gpu1_peak_mib": 14107,
+      "peak_cells": ["tp2-c64"],
+      "maximum_system_ram_bytes": 7468085248,
+      "oom_observed": false,
+      "resource_guard": "PASS",
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "qwen25_3b-balanced-r03",
+      "workload": "balanced",
+      "runner_returncode": 0,
+      "inner_zip": "qwen25_3b-balanced-r03-principal.zip",
+      "inner_zip_sha256": "407284193ae638f3d0c6d0d3d038d808f06a1e118dbfb71187cb70c45619ac5e",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "promotion": "PRINCIPAL_SHARD_PRESERVED",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 409600,
+      "exact_output_tokens": 204800,
+      "prompt_manifest_sha256": "ea84faa2a33acb70c5149bdb483949fe16eaf4b570242c1e7ae5c9d7fe9f6633",
+      "gpu0_peak_mib": 14757,
+      "gpu1_peak_mib": 14757,
+      "peak_cells": ["tp2-c64"],
+      "maximum_system_ram_bytes": 7330279424,
+      "oom_observed": false,
+      "resource_guard": "PASS",
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    }
+  ],
+  "terminal_resource_shard": {
+    "shard_id": "qwen25_3b-prefill_heavy-r03",
+    "workload": "prefill_heavy",
+    "runner_returncode": 3,
+    "inner_zip": "qwen25_3b-prefill_heavy-r03-principal.zip",
+    "inner_zip_sha256": "28d62de78e3a9a87673ebce1bfdf977b4e626c20650d86be089b29855bc3422f",
+    "inner_hashes": "PASS_ALL_79_PAYLOADS",
+    "semantic_validation": "VERIFIED_TERMINAL_RESOURCE_GATE",
+    "classification": "FAILED_RESOURCE_GATE",
+    "reason": "VRAM_RESOURCE_GUARD",
+    "promotion": "FAILED_RESOURCE_GATE_NOT_CANONICAL",
+    "completed_or_preserved_cells": 12,
+    "valid_serving_cells": 11,
+    "measured_requests_issued": 800,
+    "successful_requests": 608,
+    "failed_requests": 192,
+    "exact_successful_input_tokens": 1245184,
+    "exact_successful_output_tokens": 77824,
+    "failed_cell": "tp2-c64",
+    "failed_cell_requests": 192,
+    "failed_cell_throughput": null,
+    "failed_cell_observations": ["connection_error"],
+    "failed_cell_server_returncode": null,
+    "monitor_action": "TERMINATE_CELL_PROCESS_GROUP",
+    "resource_guard_message": "GPU 1 memory 14879.0 MiB exceeded 14848.0 MiB",
+    "gpu0_peak_mib": 14895,
+    "gpu1_peak_mib": 14895,
+    "peak_cells": ["tp2-c64"],
+    "maximum_system_ram_bytes": 7341670400,
+    "oom_observed": false,
+    "prompt_manifest_sha256": "256070c78f30741b0922ecceb7adb85cd789db088469e19d60161b4f5ae5f717",
+    "interpretation": "FOURTH_INDEPENDENT_REPETITION_LEVEL_QWEN_RESOURCE_BOUNDARY"
+  },
+  "guards": {
+    "disk": {
+      "classification": "PASS_POSITIVE_MARGIN",
+      "minimum_free_bytes": 12318691328,
+      "minimum_required_free_bytes": 9171926992,
+      "minimum_margin_bytes": 3146764336,
+      "safety_reserve_bytes": 2147483648,
+      "reserve_status": "PASS"
+    },
+    "wallclock": {
+      "classification": "PASS_NOT_WALLCLOCK_RELATED",
+      "batch_wall_clock_seconds": 6451.690578003,
+      "maximum_seconds": 37800,
+      "remaining_seconds_at_batch_end": 31348.309421997
+    },
+    "gpu_cleanup": {
+      "qwen25_3b-short-r03": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "qwen25_3b-balanced-r03": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "qwen25_3b-prefill_heavy-r03": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "unexpected_child_processes": false
+    },
+    "cache_cleanup": {
+      "status": "DELETED_EXACT_MODEL_REPO_CACHE",
+      "path": "/kaggle/working/hf-cache/hub/models--Qwen--Qwen2.5-3B-Instruct",
+      "broad_cleanup_observed": false
+    }
+  },
+  "m4_batch_3_verifier_defect": {
+    "status": "CONFIRMED_NARROW_MONITOR_EXIT_POLL_RACE",
+    "historical_evidence_rewritten": false,
+    "scientific_workload_affected": false,
+    "measured_performance_affected": false,
+    "source_or_runtime_integrity_affected": false,
+    "recorded_shape": {
+      "failure_observations": ["connection_error"],
+      "unexpected_exit_returncode": null,
+      "monitor_action": "TERMINATE_CELL_PROCESS_GROUP"
+    },
+    "previously_accepted_shape": {
+      "failure_observations": ["connection_error", "server_exit"],
+      "unexpected_exit_returncode": 0,
+      "monitor_action": "TERMINATE_CELL_PROCESS_GROUP"
+    },
+    "correction": "Accept only these two exact monitor-terminated Qwen shapes while retaining all resource, request, missing-metric, source, runtime, archive, and cleanup requirements."
+  },
+  "ingestion": {
+    "initial_status": "BATCH_REVIEW_REQUIRED",
+    "initial_returncode": 2,
+    "initial_accepted_shards": 2,
+    "initial_terminal_resource_shards": 0,
+    "initial_invalid_shards": 1,
+    "reviewed_status": "BATCH_REVIEW_REQUIRED_DUPLICATE_SAFE_STAGING",
+    "reviewed_returncode": 2,
+    "reviewed_terminal_resource_shards": 1,
+    "reviewed_invalid_shards": 2,
+    "reviewed_resource_invalid_shards": 0,
+    "duplicate_canonical_staging_entries": 2,
+    "stderr": "EMPTY"
+  },
+  "no_rerun_audit": {
+    "all_qwen_r03_workloads_settled": true,
+    "batch_permanently_non_runnable": true,
+    "all_three_shards_enter_no_rerun_set": true,
+    "future_execution_must_use_new_batch_id": true,
+    "qwen25_3b_prefill_heavy_r04_remains_required": true
+  },
+  "methodology": {
+    "result_label": "FOURTH_INDEPENDENT_REPETITION_LEVEL_QWEN_RESOURCE_BOUNDARY",
+    "logical_design": "60_SHARDS_720_FRESH_SERVER_CELLS_UNCHANGED",
+    "per_gpu_ceiling_mib": 14848,
+    "post_hoc_benchmark_tuning": false,
+    "failed_cell_throughput_semantics": "NOT_MEASURED_NULL_NOT_ZERO",
+    "historical_outer_attempt_status_retained": true,
+    "historical_qwen_r00_r01_r02_results_changed": false,
+    "gemma_status": "CLOSED_NO_FURTHER_EXECUTION"
+  }
+}

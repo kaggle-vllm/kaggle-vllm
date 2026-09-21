@@ -1,0 +1,124 @@
+{
+  "schema_version": "kaggle-vllm-m4-compatibility-review-v1",
+  "decision": "UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK",
+  "provenance": "CANONICAL_NEGATIVE_COMPATIBILITY_RESULT",
+  "scope": "google/gemma-3-4b-it revision 093f9f388b31de276ce2de164bdc2081324b9767, frozen float16 M4 protocol, frozen native vLLM wheel, Kaggle Tesla T4 SM75",
+  "candidate_identity": {
+    "evidence_zip_sha256": "6404b8abe22fc06211409288e59ae1d844354c1b12282a8c9140161c30347c12",
+    "evidence_zip_size_bytes": 38324,
+    "executed_notebook_sha256": "f1800e9be84fa297880960159da906612e1ef79d46b2c34344d27f0bbe2feee8",
+    "executed_notebook_size_bytes": 40392,
+    "runtime_json_sha256": "8e747082b76d39852fa5838a3ce17f0ca8e392e7bac6ae4e0718700470e90ff5",
+    "runtime_json_size_bytes": 3645,
+    "source_notebook_sha256": "885c5b6278614c66ac72f1e9ed8d05dbad84a19c8b99be129ebeb25e48a91dd9",
+    "executable_code_sha256": "6d6a53e48414ce06e7b8ac1180fa0094e8dd83e93ce88df8d833ee49b6ce2a6e",
+    "prompt_manifest_sha256": "959066d6d2d9613230270fcf4dc3c5e842842865bbf3c8979681b8eebe855c39"
+  },
+  "zip_safety": {
+    "entry_count": 17,
+    "duplicate_entries": 0,
+    "absolute_paths": 0,
+    "path_traversal_entries": 0,
+    "symlinks": 0,
+    "encrypted_entries": 0,
+    "crc_failures": 0,
+    "unexpected_files": 0
+  },
+  "hash_verification": {
+    "sha256sum_check": "PASS_16_OF_16",
+    "project_hash_verifier": "PASS_16_OF_16",
+    "zip_digest_matches_executed_notebook_output": true
+  },
+  "executed_notebook_audit": {
+    "cell_count": 4,
+    "code_cell_count": 2,
+    "cell_ids_types_order_match_frozen_source": true,
+    "cell_sources_match_frozen_source_exactly": true,
+    "executable_source_equivalent": true,
+    "uses_unnumbered_m4_shard_id_secret": true,
+    "manual_diagnostic_or_retry_code": false,
+    "runner_returncode": 0,
+    "classification": "SOURCE_EQUIVALENT_FROZEN_NOTEBOOK"
+  },
+  "provenance_gate": {
+    "source_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+    "source_dirty": false,
+    "dirty_paths": [],
+    "sdk_version": "0.2.0",
+    "model_key": "gemma3_4b",
+    "model_id": "google/gemma-3-4b-it",
+    "model_revision": "093f9f388b31de276ce2de164bdc2081324b9767",
+    "tokenizer_revision": "093f9f388b31de276ce2de164bdc2081324b9767",
+    "architecture": "Gemma3ForConditionalGeneration",
+    "dtype": "float16",
+    "mode": "compatibility",
+    "workload": "short",
+    "repetition": 0,
+    "started_at_utc": "2026-09-10T15:41:13.416964+00:00",
+    "completed_at_utc": "2026-09-10T15:42:54.420180+00:00"
+  },
+  "runtime": {
+    "profile": "kaggle-t4x2-cu128",
+    "strict": true,
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_available": true,
+    "cuda_toolkit": "12.8.93",
+    "driver": "580.159.04",
+    "nccl": "2.27.5",
+    "gpus": [
+      {"name": "Tesla T4", "compute_capability": "7.5", "total_memory_bytes": 15636037632},
+      {"name": "Tesla T4", "compute_capability": "7.5", "total_memory_bytes": 15636037632}
+    ],
+    "native_wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "native_wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "binary_repository": "waqasm86/kaggle-vllm-binaries",
+    "binary_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6"
+  },
+  "cells": {
+    "gemma3_4b-short-r00-tp1-c01": {
+      "status": "FAILED_BEFORE_SERVER_READINESS",
+      "tensor_parallel_size": 1,
+      "resolved_architecture": "Gemma3ForConditionalGeneration",
+      "root_cause": "GEMMA3_FLOAT16_REJECTED_NUMERICAL_STABILITY",
+      "oom": false,
+      "measured_requests_issued": 0,
+      "throughput": null,
+      "nccl_failure": false,
+      "authentication_failure": false
+    },
+    "gemma3_4b-short-r00-tp2-c01": {
+      "status": "FAILED_BEFORE_SERVER_READINESS",
+      "tensor_parallel_size": 2,
+      "resolved_architecture": "Gemma3ForConditionalGeneration",
+      "root_cause": "GEMMA3_FLOAT16_REJECTED_NUMERICAL_STABILITY",
+      "oom": false,
+      "measured_requests_issued": 0,
+      "throughput": null,
+      "nccl_failure": false,
+      "authentication_failure": false
+    }
+  },
+  "precision_intersection": {
+    "gemma3_supported_dtypes_under_frozen_vllm": ["bfloat16", "float32"],
+    "sm75_supported_dtypes_under_frozen_vllm_policy": ["float16", "float32"],
+    "intersection": ["float32"],
+    "fp32_executed": false,
+    "bf16_executed": false,
+    "assessment": "FP32 is a materially different experiment and is not an admissible silent repair to the frozen M4 compatibility gate."
+  },
+  "principal_policy": {
+    "eligible": false,
+    "shard_status": "SKIPPED_BY_COMPATIBILITY_GATE",
+    "throughput_interpretation": "N/A_NOT_MEASURED",
+    "gemma_retries_closed": true
+  },
+  "claim_boundaries": {
+    "general_gemma3_unsupported": false,
+    "gemma4_substituted": false,
+    "m4_complete": false,
+    "principal_matrix_complete": false,
+    "paper_ready": false
+  }
+}

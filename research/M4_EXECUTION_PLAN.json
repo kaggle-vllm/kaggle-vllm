@@ -1,0 +1,1050 @@
+{
+  "schema_version": "kaggle-vllm-m4-execution-plan-v1",
+  "status": "PREPARED_FOR_KAGGLE",
+  "session_policy": "one shard in one fresh T4 x2 Kaggle session",
+  "compatibility_order": [
+    {
+      "order": 1,
+      "shard_id": "compat-qwen25_3b",
+      "model_key": "qwen25_3b",
+      "mode": "compatibility",
+      "workload": "short",
+      "repetition": 0,
+      "prerequisite": "MODEL_ACCESS_AND_LICENSE_ACCEPTANCE_IF_GATED"
+    },
+    {
+      "order": 2,
+      "shard_id": "compat-phi4_mini",
+      "model_key": "phi4_mini",
+      "mode": "compatibility",
+      "workload": "short",
+      "repetition": 0,
+      "prerequisite": "MODEL_ACCESS_AND_LICENSE_ACCEPTANCE_IF_GATED"
+    },
+    {
+      "order": 3,
+      "shard_id": "compat-llama32_3b",
+      "model_key": "llama32_3b",
+      "mode": "compatibility",
+      "workload": "short",
+      "repetition": 0,
+      "prerequisite": "MODEL_ACCESS_AND_LICENSE_ACCEPTANCE_IF_GATED"
+    },
+    {
+      "order": 4,
+      "shard_id": "compat-ministral3_3b_bf16",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "compatibility",
+      "workload": "short",
+      "repetition": 0,
+      "prerequisite": "MODEL_ACCESS_AND_LICENSE_ACCEPTANCE_IF_GATED"
+    },
+    {
+      "order": 5,
+      "shard_id": "compat-gemma3_4b",
+      "model_key": "gemma3_4b",
+      "mode": "compatibility",
+      "workload": "short",
+      "repetition": 0,
+      "prerequisite": "MODEL_ACCESS_AND_LICENSE_ACCEPTANCE_IF_GATED"
+    }
+  ],
+  "principal_order": [
+    {
+      "order": 1,
+      "shard_id": "qwen25_3b-short-r00",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 0,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 2,
+      "shard_id": "qwen25_3b-short-r01",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 1,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 3,
+      "shard_id": "qwen25_3b-short-r02",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 2,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 4,
+      "shard_id": "qwen25_3b-short-r03",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 3,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 5,
+      "shard_id": "qwen25_3b-short-r04",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 4,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 6,
+      "shard_id": "qwen25_3b-balanced-r00",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 0,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 7,
+      "shard_id": "qwen25_3b-balanced-r01",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 1,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 8,
+      "shard_id": "qwen25_3b-balanced-r02",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 2,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 9,
+      "shard_id": "qwen25_3b-balanced-r03",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 3,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 10,
+      "shard_id": "qwen25_3b-balanced-r04",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 4,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 11,
+      "shard_id": "qwen25_3b-prefill_heavy-r00",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 0,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 12,
+      "shard_id": "qwen25_3b-prefill_heavy-r01",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 1,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 13,
+      "shard_id": "qwen25_3b-prefill_heavy-r02",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 2,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 14,
+      "shard_id": "qwen25_3b-prefill_heavy-r03",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 3,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 15,
+      "shard_id": "qwen25_3b-prefill_heavy-r04",
+      "model_key": "qwen25_3b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 4,
+      "prerequisite": "compat-qwen25_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 16,
+      "shard_id": "phi4_mini-short-r00",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 0,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 17,
+      "shard_id": "phi4_mini-short-r01",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 1,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 18,
+      "shard_id": "phi4_mini-short-r02",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 2,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 19,
+      "shard_id": "phi4_mini-short-r03",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 3,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 20,
+      "shard_id": "phi4_mini-short-r04",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 4,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 21,
+      "shard_id": "phi4_mini-balanced-r00",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 0,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 22,
+      "shard_id": "phi4_mini-balanced-r01",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 1,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 23,
+      "shard_id": "phi4_mini-balanced-r02",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 2,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 24,
+      "shard_id": "phi4_mini-balanced-r03",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 3,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 25,
+      "shard_id": "phi4_mini-balanced-r04",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 4,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 26,
+      "shard_id": "phi4_mini-prefill_heavy-r00",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 0,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 27,
+      "shard_id": "phi4_mini-prefill_heavy-r01",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 1,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 28,
+      "shard_id": "phi4_mini-prefill_heavy-r02",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 2,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 29,
+      "shard_id": "phi4_mini-prefill_heavy-r03",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 3,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 30,
+      "shard_id": "phi4_mini-prefill_heavy-r04",
+      "model_key": "phi4_mini",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 4,
+      "prerequisite": "compat-phi4_mini:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 31,
+      "shard_id": "llama32_3b-short-r00",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 0,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 32,
+      "shard_id": "llama32_3b-short-r01",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 1,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 33,
+      "shard_id": "llama32_3b-short-r02",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 2,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 34,
+      "shard_id": "llama32_3b-short-r03",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 3,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 35,
+      "shard_id": "llama32_3b-short-r04",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 4,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 36,
+      "shard_id": "llama32_3b-balanced-r00",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 0,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 37,
+      "shard_id": "llama32_3b-balanced-r01",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 1,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 38,
+      "shard_id": "llama32_3b-balanced-r02",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 2,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 39,
+      "shard_id": "llama32_3b-balanced-r03",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 3,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 40,
+      "shard_id": "llama32_3b-balanced-r04",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 4,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 41,
+      "shard_id": "llama32_3b-prefill_heavy-r00",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 0,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 42,
+      "shard_id": "llama32_3b-prefill_heavy-r01",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 1,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 43,
+      "shard_id": "llama32_3b-prefill_heavy-r02",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 2,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 44,
+      "shard_id": "llama32_3b-prefill_heavy-r03",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 3,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 45,
+      "shard_id": "llama32_3b-prefill_heavy-r04",
+      "model_key": "llama32_3b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 4,
+      "prerequisite": "compat-llama32_3b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 46,
+      "shard_id": "ministral3_3b_bf16-short-r00",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 0,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 47,
+      "shard_id": "ministral3_3b_bf16-short-r01",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 1,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 48,
+      "shard_id": "ministral3_3b_bf16-short-r02",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 2,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 49,
+      "shard_id": "ministral3_3b_bf16-short-r03",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 3,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 50,
+      "shard_id": "ministral3_3b_bf16-short-r04",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 4,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 51,
+      "shard_id": "ministral3_3b_bf16-balanced-r00",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 0,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 52,
+      "shard_id": "ministral3_3b_bf16-balanced-r01",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 1,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 53,
+      "shard_id": "ministral3_3b_bf16-balanced-r02",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 2,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 54,
+      "shard_id": "ministral3_3b_bf16-balanced-r03",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 3,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 55,
+      "shard_id": "ministral3_3b_bf16-balanced-r04",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 4,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 56,
+      "shard_id": "ministral3_3b_bf16-prefill_heavy-r00",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 0,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 57,
+      "shard_id": "ministral3_3b_bf16-prefill_heavy-r01",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 1,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 58,
+      "shard_id": "ministral3_3b_bf16-prefill_heavy-r02",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 2,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 59,
+      "shard_id": "ministral3_3b_bf16-prefill_heavy-r03",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 3,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 60,
+      "shard_id": "ministral3_3b_bf16-prefill_heavy-r04",
+      "model_key": "ministral3_3b_bf16",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 4,
+      "prerequisite": "compat-ministral3_3b_bf16:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 61,
+      "shard_id": "gemma3_4b-short-r00",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 0,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 62,
+      "shard_id": "gemma3_4b-short-r01",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 1,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 63,
+      "shard_id": "gemma3_4b-short-r02",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 2,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 64,
+      "shard_id": "gemma3_4b-short-r03",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 3,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 65,
+      "shard_id": "gemma3_4b-short-r04",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "short",
+      "repetition": 4,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 66,
+      "shard_id": "gemma3_4b-balanced-r00",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 0,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 67,
+      "shard_id": "gemma3_4b-balanced-r01",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 1,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 68,
+      "shard_id": "gemma3_4b-balanced-r02",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 2,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 69,
+      "shard_id": "gemma3_4b-balanced-r03",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 3,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 70,
+      "shard_id": "gemma3_4b-balanced-r04",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "balanced",
+      "repetition": 4,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 71,
+      "shard_id": "gemma3_4b-prefill_heavy-r00",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 0,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 72,
+      "shard_id": "gemma3_4b-prefill_heavy-r01",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 1,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 73,
+      "shard_id": "gemma3_4b-prefill_heavy-r02",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 2,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 74,
+      "shard_id": "gemma3_4b-prefill_heavy-r03",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 3,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    },
+    {
+      "order": 75,
+      "shard_id": "gemma3_4b-prefill_heavy-r04",
+      "model_key": "gemma3_4b",
+      "mode": "principal",
+      "workload": "prefill_heavy",
+      "repetition": 4,
+      "prerequisite": "compat-gemma3_4b:COMPATIBILITY_PASS"
+    }
+  ],
+  "guidellm_crosscheck_order": [
+    {
+      "order": 1,
+      "shard_id": "qwen25_3b-balanced-c01-r00-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 1,
+      "repetition": 0,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 2,
+      "shard_id": "qwen25_3b-balanced-c01-r00-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 1,
+      "repetition": 0,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 3,
+      "shard_id": "qwen25_3b-balanced-c01-r01-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 1,
+      "repetition": 1,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 4,
+      "shard_id": "qwen25_3b-balanced-c01-r01-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 1,
+      "repetition": 1,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 5,
+      "shard_id": "qwen25_3b-balanced-c01-r02-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 1,
+      "repetition": 2,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 6,
+      "shard_id": "qwen25_3b-balanced-c01-r02-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 1,
+      "repetition": 2,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 7,
+      "shard_id": "qwen25_3b-balanced-c01-r03-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 1,
+      "repetition": 3,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 8,
+      "shard_id": "qwen25_3b-balanced-c01-r03-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 1,
+      "repetition": 3,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 9,
+      "shard_id": "qwen25_3b-balanced-c01-r04-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 1,
+      "repetition": 4,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 10,
+      "shard_id": "qwen25_3b-balanced-c01-r04-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 1,
+      "repetition": 4,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 11,
+      "shard_id": "qwen25_3b-balanced-c16-r00-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 16,
+      "repetition": 0,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 12,
+      "shard_id": "qwen25_3b-balanced-c16-r00-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 16,
+      "repetition": 0,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 13,
+      "shard_id": "qwen25_3b-balanced-c16-r01-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 16,
+      "repetition": 1,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 14,
+      "shard_id": "qwen25_3b-balanced-c16-r01-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 16,
+      "repetition": 1,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 15,
+      "shard_id": "qwen25_3b-balanced-c16-r02-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 16,
+      "repetition": 2,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 16,
+      "shard_id": "qwen25_3b-balanced-c16-r02-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 16,
+      "repetition": 2,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 17,
+      "shard_id": "qwen25_3b-balanced-c16-r03-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 16,
+      "repetition": 3,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 18,
+      "shard_id": "qwen25_3b-balanced-c16-r03-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 16,
+      "repetition": 3,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 19,
+      "shard_id": "qwen25_3b-balanced-c16-r04-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 16,
+      "repetition": 4,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 20,
+      "shard_id": "qwen25_3b-balanced-c16-r04-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 16,
+      "repetition": 4,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 21,
+      "shard_id": "qwen25_3b-balanced-c64-r00-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 64,
+      "repetition": 0,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 22,
+      "shard_id": "qwen25_3b-balanced-c64-r00-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 64,
+      "repetition": 0,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 23,
+      "shard_id": "qwen25_3b-balanced-c64-r01-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 64,
+      "repetition": 1,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 24,
+      "shard_id": "qwen25_3b-balanced-c64-r01-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 64,
+      "repetition": 1,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 25,
+      "shard_id": "qwen25_3b-balanced-c64-r02-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 64,
+      "repetition": 2,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 26,
+      "shard_id": "qwen25_3b-balanced-c64-r02-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 64,
+      "repetition": 2,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 27,
+      "shard_id": "qwen25_3b-balanced-c64-r03-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 64,
+      "repetition": 3,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 28,
+      "shard_id": "qwen25_3b-balanced-c64-r03-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 64,
+      "repetition": 3,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 29,
+      "shard_id": "qwen25_3b-balanced-c64-r04-tp1",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 64,
+      "repetition": 4,
+      "tensor_parallel_size": 1,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    },
+    {
+      "order": 30,
+      "shard_id": "qwen25_3b-balanced-c64-r04-tp2",
+      "model_key": "qwen25_3b",
+      "workload": "balanced",
+      "concurrency": 64,
+      "repetition": 4,
+      "tensor_parallel_size": 2,
+      "prerequisite": "accepted Qwen M4 principal cells at this configuration"
+    }
+  ],
+  "refinement_rule": {
+    "status": "DATA_DEPENDENT_NOT_YET_SCHEDULED",
+    "candidate_points": [
+      12,
+      20,
+      24,
+      48
+    ],
+    "selection": "Only points bracketing an observed sign change or capacity boundary",
+    "repetitions": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "resulting_total_repetitions": 10
+  },
+  "exclusion_rule": "Do not run principal shards for a model whose compatibility gate failed; preserve that negative evidence."
+}

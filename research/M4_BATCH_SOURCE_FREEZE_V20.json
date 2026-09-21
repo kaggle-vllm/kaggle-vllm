@@ -1,0 +1,72 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-source-freeze-v20",
+  "status": "FROZEN_AFTER_V19_PRE_BOOTSTRAP_INTEGRITY_ABORT_FOR_M4_BATCH_3_CONTINUATION",
+  "protocol_amendment_version": "M4-BATCH-3",
+  "protocol_amendment_date_utc": "2026-09-14",
+  "reconciliation_date_utc": "2026-09-21",
+  "protocol_amendment_path": "research/M4_BATCH_PROTOCOL_AMENDMENT_V3.md",
+  "batch_plan_path": "research/M4_BATCH_EXECUTION_PLAN_V2.json",
+  "principal_queue_path": "research/M4_PRINCIPAL_EXECUTION_QUEUE.json",
+  "package_version": "0.2.0",
+  "implementation_source_commit": "b096b5311f0dd98f43734e6a94aa34ac36ae2f3b",
+  "notebook_pin_commit": "7d1927f5af9e1f889d232c339a8a69714168088e",
+  "historical_batch_2_freeze": {
+    "path": "research/M4_BATCH_SOURCE_FREEZE_V19.json",
+    "sha256": "55482f65c9af8b404329a04bbbc9aa703059abe0075560dc16ae20429fd8a04f",
+    "status": "RETAINED_IMMUTABLE_PRE_BOOTSTRAP_ABORT_PROVENANCE"
+  },
+  "execution_paths": {
+    "single_shard": {
+      "status": "UNCHANGED_AND_SUPPORTED",
+      "source_freeze": "research/M4_SOURCE_FREEZE.json",
+      "source_freeze_sha256": "36de26730a3f444f7ff352aa62af6383d99d3e4cbcae534c7eb2bd458928b1ce"
+    },
+    "batch_orchestrated": {
+      "status": "M4_BATCH_3_V19_INTEGRITY_ABORT_R04_LLAMA_READY",
+      "notebook": "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb",
+      "runner": "scripts/kaggle_m4_execute_batch.py",
+      "duplicate_prevention": "FAIL_CLOSED_AGAINST_FROZEN_PRINCIPAL_QUEUE"
+    }
+  },
+  "batch_notebook_sha256": "3ddd6471252af10d33ff90018ab6626812b375a9e33940e4c5f56c69a21db317",
+  "batch_notebook_source_digest": "910fefd0f3d06a1e1af2b1bd59a7533561a0e4047d4dbf03c03bc27acd2a64ff",
+  "batch_runner_sha256": "99f0d2bf002905093ac842e819bbd069623970c5917d13d8ff328bf6510806e6",
+  "base_shard_runner_sha256": "9c764abde679f10d0db802feafd4d2909fbefa584004a8464460610e69d3af87",
+  "m4_execution_plan_sha256": "d97c8ed1ec8eec7e61e61c617b50d5d48287a253aa28f1e7834b0694fa419d8b",
+  "model_matrix_sha256": "7e6eae2f674c394d5db262a02ddd601dfadb17807c4c62e6a252f3e9656664c4",
+  "protocol_sha256": "0bb8c6d15b8a6f3d7acc0d1716f99ab34bb4f97ed0e38dd1e26b8f1c92fe99e3",
+  "batch_plan_sha256": "04e65da8e70f4160ec78e0c450ce53699fa89c81eb514b9fc88da76312c46ee7",
+  "principal_queue_sha256": "d74d8724ca4488ec3d5e21bd27da85826e37b4138ac2d354c061a7d30ee44a12",
+  "protocol_amendment_sha256": "2ee9005be4d506d3943d91c8a3a61f95288ff3bf0badced6087de3bf10e8a29c",
+  "settled_shard_policy": {
+    "canonical_preserved": "REFUSE_EXECUTION",
+    "failed_resource_gate": "REFUSE_EXECUTION",
+    "failed_other_review_required": "REFUSE_EXECUTION",
+    "zero_remaining_shards": "REFUSE_EXECUTION",
+    "pr_prose_authoritative": false
+  },
+  "model_source_policy": {
+    "source": "ordinary pinned Hugging Face checkpoints in research/model_matrix.json",
+    "historical_qwen_tp2_sharded_state_allowed": false,
+    "waqasm86_kaggle_vllm_models_allowed": false
+  },
+  "evidence_boundary": "This freeze contains no new GPU measurements and does not advance the scientific matrix. V19 reached the correct source commit but aborted before bootstrap because its notebook retained stale plan and queue hashes. V20 preserves the reviewed 49-canonical/5-resource-gated/6-not-executed reconciliation and authorizes the same unresolved r04-llama batch only after local commit-consistency validation.",
+  "terminal_resource_gate_policy": {
+    "contract_schema": "kaggle-vllm-m4-terminal-resource-gate-v1",
+    "approved_reasons": [
+      "VRAM_RESOURCE_GUARD"
+    ],
+    "bare_return_code_3_is_sufficient": false,
+    "cleanup_and_continuation_guards_required": true,
+    "operational_and_integrity_failures_fail_stop": true
+  },
+  "supersedes_for_future_execution": {
+    "path": "research/M4_BATCH_SOURCE_FREEZE_V19.json",
+    "scope": "FUTURE_EXECUTION_ONLY",
+    "reason": "STALE_NOTEBOOK_EXPECTED_FILE_DIGEST",
+    "incident_record": "research/M4_R04_LLAMA_V19_PRE_BOOTSTRAP_ABORT.json",
+    "scientific_execution_started": false,
+    "serving_cells_executed": 0,
+    "logical_shards_settled": 0
+  }
+}

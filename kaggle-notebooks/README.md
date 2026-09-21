@@ -5,11 +5,21 @@ This directory contains Kaggle-specific validation material for
 under [`examples/`](../examples/) are starting points and do not claim a
 successful run until their outputs have been captured and reviewed.
 
-## Post-0.2.0 research notebooks (not yet executed)
+## Post-0.2.0 research notebooks
 
 [`kaggle_vllm_milestone_3_measured_nccl_phb.ipynb`](kaggle_vllm_milestone_3_measured_nccl_phb.ipynb)
 is the output-free M3 source. It launches five fresh two-rank NCCL processes and
-measures all-reduce directly; its status is **PREPARED_FOR_KAGGLE**, not complete.
+measures all-reduce directly. Its clean-source execution has been accepted and
+the canonical evidence is committed under
+[`artifacts/kaggle-2026-09-07-milestone-3-measured-comm/`](../artifacts/kaggle-2026-09-07-milestone-3-measured-comm/).
+The repository source remains output-free and was not replaced by the downloaded
+executed notebook.
+
+[`kaggle_vllm_m4_execute_shard.ipynb`](kaggle_vllm_m4_execute_shard.ipynb)
+runs one exact-token M4 compatibility or principal shard selected from the
+machine-readable execution plan. [`kaggle_vllm_m5_guidellm_crosscheck.ipynb`](kaggle_vllm_m5_guidellm_crosscheck.ipynb)
+runs one independent GuideLLM shard from an isolated client environment. Both
+are **PREPARED_FOR_KAGGLE** and contain no GPU result outputs.
 
 The Llama 3.2 3B, Gemma 3 4B, Phi-4 Mini and Ministral 3 3B BF16 notebooks are
 one-model-per-session sharded-state workflows. They are also unexecuted. Llama

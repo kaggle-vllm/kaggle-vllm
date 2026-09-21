@@ -1,0 +1,668 @@
+{
+  "benchmark_type": "online-serving-concurrency",
+  "concurrency": 1,
+  "engine": {
+    "api_mode": "completions",
+    "disable_custom_all_reduce": true,
+    "dtype": "float16",
+    "enable_prefix_caching": false,
+    "enforce_eager": true,
+    "gpu_memory_utilization": 0.9,
+    "max_model_len": 4096,
+    "max_num_batched_tokens": null,
+    "max_num_seqs": 64,
+    "model": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+    "model_representation": "transformers",
+    "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+    "model_source": "huggingface",
+    "served_model_name": "ministral3_3b_bf16",
+    "telemetry_interval_seconds": 0.25,
+    "tensor_parallel_size": 1
+  },
+  "failure_observations": [],
+  "gpu_telemetry": {
+    "capture_failures": [],
+    "maximum_aggregate_sampled_memory_used_mib": 12948.0,
+    "monitoring_ended_at": "2026-09-08T18:17:08.369001+00:00",
+    "monitoring_started_at": "2026-09-08T18:16:29.755652+00:00",
+    "raw_samples_file": "ministral3_3b_bf16-short-r00-tp1-c01.telemetry.jsonl",
+    "raw_samples_retained": true,
+    "sampling_interval_seconds": 0.25,
+    "source": "nvidia-smi",
+    "summaries": [
+      {
+        "first_memory_used_mib": 12945.0,
+        "first_sample_at": "2026-09-08T18:16:29.755672+00:00",
+        "index": 0,
+        "last_memory_used_mib": 12945.0,
+        "last_sample_at": "2026-09-08T18:17:08.289616+00:00",
+        "mean_utilization_percent": 98.2542372881356,
+        "memory_total_mib": 15360.0,
+        "peak_memory_clock_mhz": 5000.0,
+        "peak_memory_used_mib": 12945.0,
+        "peak_memory_utilization_percent": 100.0,
+        "peak_power_draw_w": 72.79,
+        "peak_sm_clock_mhz": 1500.0,
+        "peak_temperature_c": 67.0,
+        "peak_utilization_percent": 100.0,
+        "sample_count": 118
+      },
+      {
+        "first_memory_used_mib": 3.0,
+        "first_sample_at": "2026-09-08T18:16:29.755672+00:00",
+        "index": 1,
+        "last_memory_used_mib": 3.0,
+        "last_sample_at": "2026-09-08T18:17:08.289616+00:00",
+        "mean_utilization_percent": 0.0,
+        "memory_total_mib": 15360.0,
+        "peak_memory_clock_mhz": 405.0,
+        "peak_memory_used_mib": 3.0,
+        "peak_memory_utilization_percent": 0.0,
+        "peak_power_draw_w": 13.92,
+        "peak_sm_clock_mhz": 300.0,
+        "peak_temperature_c": 43.0,
+        "peak_utilization_percent": 0.0,
+        "sample_count": 118
+      }
+    ],
+    "telemetry_capture_count": 118,
+    "telemetry_sample_count": 236
+  },
+  "hardware": {
+    "cmake_library_path": null,
+    "cuda_available": true,
+    "cuda_driver": "/usr/local/nvidia/lib64/libcuda.so",
+    "cuda_home": "/usr/local/cuda",
+    "cuda_toolkit": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "driver_reported_cuda_max": "13.0",
+    "driver_version": "580.159.04",
+    "gpu_count": 2,
+    "gpus": [
+      {
+        "capability": [
+          7,
+          5
+        ],
+        "index": 0,
+        "name": "Tesla T4",
+        "total_memory": 15636037632
+      },
+      {
+        "capability": [
+          7,
+          5
+        ],
+        "index": 1,
+        "name": "Tesla T4",
+        "total_memory": 15636037632
+      }
+    ],
+    "is_kaggle": true,
+    "nccl": "2.27.5",
+    "nvcc": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "torch_path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+  },
+  "identity": {
+    "captured_at_utc": "2026-09-08T18:17:08.593450+00:00",
+    "glibc": "2.35",
+    "kaggle_vllm_version": "0.2.0",
+    "measurement_mode": "online_openai_completions_streaming",
+    "native_runtime": {
+      "hf_repository": "waqasm86/kaggle-vllm-binaries",
+      "hf_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+      "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+      "source_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2",
+      "source_tag": "v0.18.1",
+      "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl"
+    },
+    "os": "Linux",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "source_git_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2",
+    "vllm_distribution_version": "0.18.2.dev0+ga26e8dc7f.d20260822.cu128"
+  },
+  "limitations": [
+    "Sampled nvidia-smi telemetry can miss instantaneous memory peaks.",
+    "Two T4 devices are separate GPUs, not one fungible 30 GB device.",
+    "Client timestamps include loopback HTTP and scheduling effects.",
+    "A throughput change alone is not evidence of CUDA OOM or KV-cache swapping.",
+    "Results apply only to the recorded model, workload, engine, and runtime."
+  ],
+  "measurements": {
+    "failed_requests": 0,
+    "failure_counts": {},
+    "input_throughput_tokens_per_second": 66.2981938226376,
+    "input_tokens": 2560,
+    "input_tokens_per_request": {
+      "count": 20,
+      "max": 128.0,
+      "mean": 128.0,
+      "median": 128.0,
+      "min": 128.0,
+      "p50": 128.0,
+      "p95": 128.0,
+      "p99": 128.0,
+      "sample_standard_deviation": 0.0
+    },
+    "itl_seconds": {
+      "count": 20,
+      "max": 0.03018802565079279,
+      "mean": 0.029498668803174744,
+      "median": 0.02939437069841233,
+      "min": 0.028997047206348363,
+      "p50": 0.029384970317460825,
+      "p95": 0.030065849650794816,
+      "p99": 0.03018802565079279,
+      "sample_standard_deviation": 0.0003379190201432839
+    },
+    "latency_seconds": {
+      "count": 20,
+      "max": 1.9628848930000231,
+      "mean": 1.9229258820500035,
+      "median": 1.9200586944999714,
+      "min": 1.892316113999982,
+      "p50": 1.9168349249999892,
+      "p95": 1.9528156070000477,
+      "p99": 1.9628848930000231,
+      "sample_standard_deviation": 0.01993308072738844
+    },
+    "measured_ended_at_utc": "2026-09-08T18:17:08.369022+00:00",
+    "measured_started_at_utc": "2026-09-08T18:16:29.755596+00:00",
+    "measured_wall_seconds": 38.61341994999998,
+    "output_throughput_tokens_per_second": 33.1490969113188,
+    "output_tokens": 1280,
+    "output_tokens_per_request": {
+      "count": 20,
+      "max": 64.0,
+      "mean": 64.0,
+      "median": 64.0,
+      "min": 64.0,
+      "p50": 64.0,
+      "p95": 64.0,
+      "p99": 64.0,
+      "sample_standard_deviation": 0.0
+    },
+    "request_throughput_per_second": 0.5179546392393563,
+    "requests": {
+      "count": 20,
+      "file": "ministral3_3b_bf16-short-r00-tp1-c01-requests.jsonl",
+      "storage": "jsonl"
+    },
+    "success_rate": 1.0,
+    "successful_requests": 20,
+    "tpot_seconds": {
+      "count": 20,
+      "max": 0.030190011793650676,
+      "mean": 0.02950041313809529,
+      "median": 0.02939662503968156,
+      "min": 0.028998581365078914,
+      "p50": 0.029387058507935878,
+      "p95": 0.03006734909523864,
+      "p99": 0.030190011793650676,
+      "sample_standard_deviation": 0.00033801130339627174
+    },
+    "ttft_seconds": {
+      "count": 20,
+      "max": 0.08209180199992261,
+      "mean": 0.0643998543500004,
+      "median": 0.06156257600002846,
+      "min": 0.058568914999909794,
+      "p50": 0.06109385700005987,
+      "p95": 0.07958738399997856,
+      "p99": 0.08209180199992261,
+      "sample_standard_deviation": 0.006867821783711825
+    },
+    "warmup_requests_excluded": 1,
+    "warmup_successful_requests": 1
+  },
+  "metric_definitions": {
+    "itl_seconds": "mean interval between successive content-bearing SSE events; this is a client-observed stream-event measure and may differ from engine token ITL",
+    "output_throughput_tokens_per_second": "successful actual output tokens / measured wall-clock interval",
+    "percentile_method": "nearest-rank: sorted[ceil(p/100*n)-1]",
+    "tpot_seconds": "(completion timestamp - first-token timestamp) / (actual output tokens - 1); null for <=1 token",
+    "ttft_seconds": "first content-bearing SSE event timestamp - request start"
+  },
+  "metrics": {
+    "after": {
+      "http_status": 200,
+      "parsed": {
+        "vllm:generation_tokens": [],
+        "vllm:kv_cache_usage_perc": [
+          {
+            "labels": "{engine=\"0\",model_name=\"ministral3_3b_bf16\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:num_preemptions": [],
+        "vllm:num_requests_running": [
+          {
+            "labels": "{engine=\"0\",model_name=\"ministral3_3b_bf16\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:num_requests_waiting": [
+          {
+            "labels": "{engine=\"0\",model_name=\"ministral3_3b_bf16\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:prompt_tokens": [],
+        "vllm:request_success": []
+      },
+      "status": "captured"
+    },
+    "before": {
+      "http_status": 200,
+      "parsed": {
+        "vllm:generation_tokens": [],
+        "vllm:kv_cache_usage_perc": [
+          {
+            "labels": "{engine=\"0\",model_name=\"ministral3_3b_bf16\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:num_preemptions": [],
+        "vllm:num_requests_running": [
+          {
+            "labels": "{engine=\"0\",model_name=\"ministral3_3b_bf16\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:num_requests_waiting": [
+          {
+            "labels": "{engine=\"0\",model_name=\"ministral3_3b_bf16\"}",
+            "value": 0.0
+          }
+        ],
+        "vllm:prompt_tokens": [],
+        "vllm:request_success": []
+      },
+      "status": "captured"
+    },
+    "endpoint": "http://127.0.0.1:8000/metrics",
+    "raw_file": "ministral3_3b_bf16-short-r00-tp1-c01.metrics.txt",
+    "verified_against_vllm_source_commit": "a26e8dc7ff2111a005144d775ecf9cebf56c45b2",
+    "verified_metric_names": [
+      "vllm:num_requests_running",
+      "vllm:num_requests_waiting",
+      "vllm:kv_cache_usage_perc",
+      "vllm:num_preemptions",
+      "vllm:prompt_tokens",
+      "vllm:generation_tokens",
+      "vllm:request_success"
+    ]
+  },
+  "oom_observed": false,
+  "schema_version": "kaggle-vllm-serving-benchmark-v1",
+  "server": {
+    "api": "OpenAI-compatible completions",
+    "base_url": "http://127.0.0.1:8000",
+    "served_model_name": "ministral3_3b_bf16",
+    "server_command": [
+      "vllm",
+      "serve",
+      "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+      "--served-model-name",
+      "ministral3_3b_bf16",
+      "--revision",
+      "b6d637bef2393152b3da2b2fde72eecdee30557e",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8000",
+      "--tensor-parallel-size",
+      "1",
+      "--dtype",
+      "float16",
+      "--max-model-len",
+      "4096",
+      "--gpu-memory-utilization",
+      "0.9",
+      "--max-num-seqs",
+      "64",
+      "--seed",
+      "0",
+      "--no-enable-prefix-caching",
+      "--enforce-eager",
+      "--disable-custom-all-reduce"
+    ],
+    "server_log": "ministral3_3b_bf16-short-r00-tp1-c01.server.log",
+    "streaming": true,
+    "unexpected_exit_returncode": null,
+    "visible_physical_gpu_indices": [
+      0
+    ]
+  },
+  "status": "executed",
+  "topology": {
+    "interpretation": "observed nvidia-smi output only; no DMA or causal performance claim",
+    "matrix": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-m"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tPHB\t0-3\t0\t\tN/A\nGPU1\tPHB\t X \t0-3\t0\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks"
+    },
+    "parsed_matrix": {
+      "gpu_labels": [
+        "GPU0",
+        "GPU1"
+      ],
+      "links": [
+        {
+          "gpu_a": "GPU0",
+          "gpu_b": "GPU1",
+          "path": "PHB"
+        }
+      ],
+      "nvlink_observed": false
+    },
+    "peer_access_read": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "r"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    },
+    "peer_access_write": {
+      "command": [
+        "nvidia-smi",
+        "topo",
+        "-p2p",
+        "w"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "\u001b[4mGPU0\tGPU1\t\u001b[0m\n GPU0\tX\tOK\t\n GPU1\tOK\tX\t\n\nLegend:\n\n  X    = Self\n  OK   = Status Ok\n  CNS  = Chipset not supported\n  GNS  = GPU not supported\n  TNS  = Topology not supported\n  NS   = Not supported\n  U    = Unknown"
+    }
+  },
+  "workload": {
+    "concurrency": 1,
+    "dispatch_policy": "closed_loop_up_to_concurrency_in_flight",
+    "ignore_eos": true,
+    "max_output_tokens": 64,
+    "minimum_waves": 3,
+    "prompt_manifest_file": "prompt-manifest.json",
+    "prompt_manifest_sha256": "18115fb6c768865cee71254f49fa6ac372d8f31bab59b3068a5aae918d06bc92",
+    "prompt_profile": "M4 exact tokenizer-controlled completion prompts v1",
+    "prompts": [
+      {
+        "sha256": "a2c7b77f4728d453b17170b5b2751288563638e673a76249d2953349b8d92ae5",
+        "utf8_bytes": 503
+      },
+      {
+        "sha256": "6843e67b79f878ed3db29b9a8fd70143ddebb345bddad84a5a762a83191bb3d8",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "0c88ecd56a4a315157433de4699e48fac8d0a6d7da257fc254bdbdddb0006bfc",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "e5e52bffa2761f08156121056bd6da649ca3807add0af0d23967502d6d1227ac",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "d99777af3bb52607d43d95021358bfd18844703cb26e88d838bbd03ff0e1bfea",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "d1affe2d627a5c6536470ae69b879111d7f484276ffd8c86922c98d8d78e4ad4",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "7be28a758a67ab4fa16f27c28859a5b4e09cb35346cac77ec5332823a050a1f7",
+        "utf8_bytes": 556
+      },
+      {
+        "sha256": "0c01cc6e4fb890de1a29fce659edb8afba3635169954d694dcdeda5f3fb815a9",
+        "utf8_bytes": 582
+      },
+      {
+        "sha256": "d2bcaf2609c2ebc9ae328ac2761a3ac25bedbe3ad141dc575e081fc28bfdc895",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "c8fc6c7f0935b22cf5663f1fb7fad2eb0d0096003409095151e4901ecf7c4184",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "d4fcb53162f6e4447b0b31673d488b65e77b1dcb4145ec3f809129d12962b5ec",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "eb2e35bb397a0e1a53dffb564adcc40379870d6e5ef84c02d08b1b2011de388f",
+        "utf8_bytes": 523
+      },
+      {
+        "sha256": "7e5f56e00e083b3df79c45bb79aa86486e7508e1b9eebb70bea46c8e8758d60b",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "3c1a856150bb244d8b4fdce42acd5480d0d4688678f08b052384155d73518602",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "3159d5617b70e3a48c89e6f275c8b9b4611477eaf2cae3cd01cce25eff533b34",
+        "utf8_bytes": 503
+      },
+      {
+        "sha256": "37f4fb8c37eb8282d999e12d9aecb19e592f7bb819e6f226c410dc4755f47487",
+        "utf8_bytes": 556
+      },
+      {
+        "sha256": "364075a828b3f1bc6e5d8e593da0bab4c9e7a7d5bbad1eaf44a5ea154c86a918",
+        "utf8_bytes": 523
+      },
+      {
+        "sha256": "018710219b1dee0a15ef525776ad04989f693d6d8d88bc34ed8bd59512750309",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "aed6c711fcd0561e976afab40ca51043f1657555e3cd4c6348a110c370b81695",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "029ad3a4e23690d1f702d5f79732378559c26cbc64f1c3209e47dba49eebe2b3",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "cb361c1b3f0d1b80e3e611e9da749010b50ca5d5c9a109458a312d0cc25b7c99",
+        "utf8_bytes": 556
+      },
+      {
+        "sha256": "e94a06d6cbf121d7abc6517fbc83716a0d7eca678f2fa6319f08ef735035ae9f",
+        "utf8_bytes": 556
+      },
+      {
+        "sha256": "e4cf033c02c96ddc06918c19ae67ed5b0dc627649c0c81c741f3f4f638f4c06f",
+        "utf8_bytes": 495
+      },
+      {
+        "sha256": "a412342409ad585072932b6a08ccb4d02fc4c6888d5d5679ce75663d67c7ed06",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "2e39f44f59833b23ddc82f5c56991f733b367bc7b777bc90980ea3aadb9cd0c6",
+        "utf8_bytes": 504
+      },
+      {
+        "sha256": "17d93f91a68b6fe772bfc148fe240d108bf79d409a8cce2309fbc06861c554b7",
+        "utf8_bytes": 523
+      },
+      {
+        "sha256": "92093c3a470912829bcd7e13a28f01031bc07cd1fc07a3c1d53893602a553f77",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "abcbf525abc4bbac55e3dbe3208bd2cb92528220b536023178cf514da821bc88",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "28e71ef207de0c25a3edc4e1e0dc02ce4a6d875ec92d16bb6ee62d4138453e92",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "460d38f6149aaa99dd0386cdc6a246d032587f1b4d7fd66229df2f10ddce2119",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "a19253c8ffcff952e115a91173ff18acfa844b7eda2b4d9d53c25115c60582af",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "997d740786666b8706c2f47157a9fb74b75420f6cca5964d0deb91f0127ca2a6",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "fe2f18c7a562e75bfcfb2fa24bdfb88b333bfd396ce096d45e6b5052c65e20d0",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "22eafb6ecf8f9f558ae798e4da00791f22c77089dfa24cfd011da97676124539",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "d0e7091a35bd3cc2612f6b4ac848497ba9eecaa2465e322549a3fd0fa34bc500",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "c8cd3e4009b756c52c87fdca77c3a867eee8f915ee129d89797b503f8feec934",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "a6216bb2afb817efe07bdca3cf94adc1dc037a672e78714b542285cbb1f5659b",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "b93b5884158f1f998ef0362fec4754e5c9bb2915b614bb83f83d795c4226c016",
+        "utf8_bytes": 504
+      },
+      {
+        "sha256": "d26bab7f13c2156ffd07a4e42c694191c9cea17cea3c385bc68635ce3f09e093",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "a9523accd7704e5d59d0e609914c36bb0c4577f405ad0c1ebadac3ffaf8da8a1",
+        "utf8_bytes": 556
+      },
+      {
+        "sha256": "19a72ead1d14c833a5903a4a0115d8e54bcb3f3fc19618a133a9dbf698947b83",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "39ca0f469b39bb3a0444fa1c3cac2d1a1eda91d196216ae7e3f16d7c25c4eb1e",
+        "utf8_bytes": 556
+      },
+      {
+        "sha256": "e4a4204127506ce3974464536b0fe573954f169d36106ff7d520243a1a693226",
+        "utf8_bytes": 533
+      },
+      {
+        "sha256": "7b9a4ad671424e7583c6ee71adb5eec19ad33f75d14b8860e9a88ea3925be2d0",
+        "utf8_bytes": 504
+      },
+      {
+        "sha256": "7d416452abcdb9477b89b83c8769f6af85e05871d6151cfff1e3c1f9d6258e11",
+        "utf8_bytes": 565
+      },
+      {
+        "sha256": "e8a8963da9cb75646d701c5186cad2e16aaad7aecf358a33f80b9ce4d6145da5",
+        "utf8_bytes": 503
+      },
+      {
+        "sha256": "d1d8f412b7e80a1dbbb51d4d939119723951cb4d9af0444f0380f3885891cc62",
+        "utf8_bytes": 523
+      },
+      {
+        "sha256": "4f8cd9e7227ffa193dce06501a20c057d205ef54aa189f8850d9d607240ff6af",
+        "utf8_bytes": 523
+      },
+      {
+        "sha256": "1f7e427c53c568f21c790c842271e811ee2ddf9fddd0977563c331ec55f5519b",
+        "utf8_bytes": 503
+      },
+      {
+        "sha256": "e94ec503e6dee758315c88fa9aef4ac39118ac17deca09cef35f35391e7ad81c",
+        "utf8_bytes": 523
+      },
+      {
+        "sha256": "4aa64aa540ce5950e0b02a9db53619f1364d81a0014fbcdc55ce9e0706dc3254",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "4c4d6a63b73490d1f3c27a398cc711739f16494da0b8b21104fdde784a822051",
+        "utf8_bytes": 553
+      },
+      {
+        "sha256": "e8e013968efeb60d4cb6371dd145d0ed46a1e7174b54f598645948a9eaef5396",
+        "utf8_bytes": 523
+      },
+      {
+        "sha256": "48f35efa6fa49ee376472e8a3561639dfcabc4d6dbf690c2d3a4298d8024aea0",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "9eb790fb7f56d92933f330468b04b8fa0cc4404961fcedc4dd1d471eb9b83ee7",
+        "utf8_bytes": 523
+      },
+      {
+        "sha256": "5dffe2b854ad2d34f63ff14af1268882a8c84d39f068971d6442b496b793ab00",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "ca89be0bccf19c51065e5da8ab4ef5a16f7c75e5d1b72ceb43297969e2a87a44",
+        "utf8_bytes": 556
+      },
+      {
+        "sha256": "53680e15bc2845c40f6a58be45878a24e3378aafe54cb685c81aabe23f732c8c",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "3ac42884c084db077b280a368304cd87bf33fb96eb87ad3cb3343e5cf387d0e5",
+        "utf8_bytes": 536
+      },
+      {
+        "sha256": "320c75d8227646afeae5603e2473b99b19ae75e7911efcb023f8048173a7b025",
+        "utf8_bytes": 549
+      },
+      {
+        "sha256": "fbbc5dd50daf64b45e52f8efd9e928141869f566b58680c0babcd4ef6dc9e8f5",
+        "utf8_bytes": 556
+      },
+      {
+        "sha256": "b0222a04aa2becda878522aafcae2f15bb287c8c975a14ddc01d0401743aba9c",
+        "utf8_bytes": 523
+      },
+      {
+        "sha256": "a22edd08e79784ff45af2cd92bec141180b832160d67154db40fdbe1de905af8",
+        "utf8_bytes": 504
+      },
+      {
+        "sha256": "699669df3098c535369b779668c2a30cd82edd4dfd56f5b99791e1c5905eba98",
+        "utf8_bytes": 549
+      }
+    ],
+    "request_timeout_seconds": 1800.0,
+    "retain_prompt_text_in_result": false,
+    "seed": 0,
+    "temperature": 0.0,
+    "total_requests": 20,
+    "warmup_requests": 1
+  }
+}

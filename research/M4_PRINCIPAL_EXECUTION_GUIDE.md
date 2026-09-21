@@ -1,0 +1,128 @@
+# M4 principal execution guide
+
+Status: **CLOSED; 55 CANONICAL + 5 RESOURCE-GATED / 60 TERMINAL OUTCOMES**.
+
+No principal shard or batch remains queued. The procedure below is retained as
+historical reproducibility documentation only; it does not authorize another
+Kaggle session or a sixth repetition.
+
+The canonical order is generated in `M4_PRINCIPAL_EXECUTION_QUEUE.json`. It
+contains 60 active shard IDs and 15 non-executable Gemma historical rows. Use
+one fresh Kaggle session per active row and change only the `M4_SHARD_ID`
+secret. Never edit the notebook source.
+
+## Historical single-shard procedure (closed)
+
+1. Start a fresh Kaggle notebook session with **GPU T4 x2** and **Internet ON**.
+2. Import the untouched `kaggle_vllm_m4_execute_shard.ipynb` from this
+   repository. Its expected whole-file SHA256 is
+   `885c5b6278614c66ac72f1e9ed8d05dbad84a19c8b99be129ebeb25e48a91dd9`.
+3. Configure private Kaggle secrets `HF_TOKEN` and `M4_SHARD_ID`. The token is
+   required by the frozen bootstrap even for an ungated model; never print it.
+   Accept any gated model terms before its shard is scheduled.
+4. Set `M4_SHARD_ID` to exactly one active queue value. Do not edit a cell to
+   set the value.
+5. Select **Run All**. Confirm the notebook prints source commit
+   `42bf096c032e2c6be1e2fa3d573c7c86ac589ba2` and the intended shard.
+6. Download the printed evidence ZIP. Its exact expected name is recorded as
+   `expected_artifact` in the queue.
+7. Download the executed notebook. This is the source-equivalence record, not
+   a replacement for the frozen output-free notebook.
+8. Separately download
+   `/kaggle/working/kaggle-vllm-runtime/runtime.json`. This is the runtime-
+   identity record. It is not inside the evidence ZIP.
+9. Keep the original downloads in place. Compute local hashes, substituting
+   browser-added filename suffixes when present:
+
+   ```bash
+   sha256sum <evidence-zip> <executed-notebook> <runtime-json>
+   ```
+
+10. From the repository root, audit and stage the three downloads without a
+    network or GPU dependency:
+
+    ```bash
+    PYTHONPATH=src /usr/local/bin/python3.11 -m kaggle_vllm.research ingest-m4 \
+      --notebook <executed-notebook> \
+      --evidence-zip <evidence-zip> \
+      --runtime <runtime-json>
+    ```
+
+11. Require `VERIFIED_CANONICAL_CANDIDATE` and, for an active shard,
+    `PRINCIPAL_SHARD_PRESERVED`. The command stages a content-addressed local
+    candidate under ignored `.local-evidence/m4-ingest/`; it does not promote
+    a paper claim or modify canonical evidence.
+12. Do not delete the Kaggle session until the local audit passes and the three
+    original downloads are retained. Stop the session, then advance to the
+    next active queue row.
+
+The frozen hard VRAM ceiling is exactly **14.5 GiB = 14,848 MiB =
+15,569,256,448 bytes per physical GPU**. The runner and local ingestion check
+GPU0 and GPU1 independently; they neither use decimal 14.5 GB nor sum the two
+devices against one ceiling.
+
+## Final controlled state
+
+`qwen25_3b-short-r00`, `qwen25_3b-short-r01`, and
+`qwen25_3b-balanced-r00` passed reviewed local preservation and ingestion.
+`phi4_mini-short-r00`, `phi4_mini-balanced-r00`, and
+`phi4_mini-prefill_heavy-r00` also passed reviewed batch ingestion.
+`llama32_3b-short-r00`, `llama32_3b-balanced-r00`, and
+`llama32_3b-prefill_heavy-r00` passed the same reviewed batch-ingestion gate.
+`ministral3_3b_bf16-short-r00`, `ministral3_3b_bf16-balanced-r00`, and
+`ministral3_3b_bf16-prefill_heavy-r00` also passed that gate.
+`phi4_mini-balanced-r01`, `phi4_mini-prefill_heavy-r01`, and
+`phi4_mini-short-r01` passed reviewed batch ingestion as well.
+`llama32_3b-balanced-r01`, `llama32_3b-prefill_heavy-r01`, and
+`llama32_3b-short-r01` also passed reviewed batch ingestion.
+`ministral3_3b_bf16-balanced-r01`,
+`ministral3_3b_bf16-prefill_heavy-r01`, and
+`ministral3_3b_bf16-short-r01` also passed reviewed batch ingestion.
+`qwen25_3b-balanced-r01` is also canonical. Both
+`qwen25_3b-prefill_heavy-r00` and `qwen25_3b-prefill_heavy-r01` are reviewed
+terminal resource results after independently crossing the same frozen
+TP2/concurrency-64 per-GPU guard. All three Llama r02 shards are preserved
+from the reviewed V8 `r02-llama` batch, and all three Ministral r02 shards are
+preserved from the reviewed V9 `r02-ministral` batch. Qwen short and balanced
+r02 are preserved from the second physical `r02-qwen` session, while Qwen
+prefill-heavy r02 remains the terminal resource result from the first physical
+session. All three Phi r02 shards are preserved from the reviewed V12
+`r02-phi` batch. All three Ministral r03 shards are preserved from the reviewed
+V13 batch through the exact post-execution-notebook recovery record. Qwen short and balanced r03 are preserved,
+while Qwen prefill-heavy r03 is a fourth reviewed terminal resource result at
+TP2/concurrency 64. All three Phi r03 shards are preserved from the reviewed
+V15 batch. All three Llama r03 shards are preserved from the reviewed V16
+batch. Qwen balanced and short r04 are preserved from V17, while Qwen
+prefill-heavy r04 is the fifth reviewed terminal resource result at the same
+TP2/concurrency-64 boundary. All three Phi r04 shards are preserved from V18,
+all three Llama r04 shards are preserved from the corrected V20 execution, and
+all three final Ministral r04 shards are preserved from V21. The authoritative
+queue has zero queued shards and the remaining plan has zero batches.
+
+## Completion gate
+
+M4 is complete because all 60 active shards provide canonical or reviewed
+terminal, source-equivalent, runtime-valid evidence. Every model/workload/repetition/TP/
+concurrency cell must have the pinned model revision and prompt identity, the
+expected request and token counts, zero unexpected request failure or OOM,
+recorded resource telemetry, and a complete metric payload. An intentional
+failure or skip must have an explicit machine-readable reason. Gemma's 15
+historical principal rows remain `SKIPPED_BY_COMPATIBILITY_GATE` with
+performance N/A.
+
+## Evidence size and storage policy
+
+The first principal ZIP measured 499,116 bytes and its 77 extracted members
+measured 6,097,928 bytes. A simple 60-shard scale is about 30 MB compressed or
+366 MB extracted before notebooks, runtime files, and audit records. Allow
+**0.3--1.2 GiB** locally for model/workload variation and those additional
+records, and continue replacing the planning range with observed totals.
+
+This evidence is JSON, JSONL, logs, telemetry, manifests, checksums, and later
+figures/tables. It is not a model checkpoint. Keep compact reviewed summaries
+and justified evidence in Git only while repository size remains reviewable.
+If the full canonical evidence would cause repository bloat, track immutable
+SHA256-indexed summaries and retain the original evidence bundle in an
+authorized external archive. No external upload is authorized by this guide,
+and model weights, caches, wheels, and multi-GB checkpoint archives must not be
+committed.

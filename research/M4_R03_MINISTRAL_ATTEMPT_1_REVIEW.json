@@ -1,0 +1,260 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-attempt-review-v1",
+  "review_status": "COMPLETE_WITH_REVIEWED_NOTEBOOK_PROVENANCE_RECOVERY",
+  "batch_id": "r03-ministral",
+  "attempt": 1,
+  "session_id": "m4-r03-ministral-20260919T094937Z-fee4d921",
+  "batch_protocol_version": "M4-BATCH-3",
+  "batch_status": "COMPLETED",
+  "batch_runner_returncode": 0,
+  "source_commit": "571bd07f478f820813ff6c9b19faf3470b138fb5",
+  "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V13.json",
+  "source_freeze_notebook_pin_commit": "40c7c9da88bce712e3a87bcf9b5af52793cf6aa8",
+  "notebook_provenance": {
+    "classification": "POST_EXECUTION_NOTEBOOK_SOURCE_EDIT",
+    "recovery_record": "research/M4_R03_MINISTRAL_NOTEBOOK_PROVENANCE_RECOVERY.json",
+    "normal_source_equivalence": false,
+    "clean_v13_notebook_sha256": "c6828984ec78c7e0fa5988e37341607f43d083f04869a6ade5508d595e1548a9",
+    "clean_v13_source_digest": "da7f5454982cc3ff4e556291d13366bf544241a62196b991dee751b85299a891",
+    "saved_executed_notebook_sha256": "064fc6977153956faba597274001f7027cc02f72677017eddc0819f4d32aeab3",
+    "saved_executed_notebook_source_digest": "d840dfc04056a5c6ff8ba505a4b8b226c9f5f160e878e6acf12a520cda854380",
+    "pre_edit_executed_notebook_available": false,
+    "changed_cell_index": 2,
+    "changed_cell_id": "execute",
+    "changed_cell_count": 1,
+    "scientific_outputs_changed": false,
+    "saved_executed_notebook_preserved_unchanged": true,
+    "reconstructed_notebook_created": false,
+    "global_source_equivalence_weakened": false,
+    "limitation": "No genuine pre-edit executed notebook survives. Promotion relies on the exact reviewed recovery record plus immutable V13, final outer and inner hashes, strict runtime identity, original retained outputs, and execution timing."
+  },
+  "downloads": {
+    "outer_zip": {
+      "filename": "m4-batch-r03-ministral.zip",
+      "size_bytes": 2086980,
+      "sha256": "723cf39bf30add663fb2492d6b2cdabb6beb103a95ae73f14322114055bedbc4"
+    },
+    "executed_notebook": {
+      "filename": "p26-kaggle-vllm-m4-execute-batch.ipynb",
+      "size_bytes": 37881,
+      "sha256": "064fc6977153956faba597274001f7027cc02f72677017eddc0819f4d32aeab3",
+      "cell_count": 4,
+      "execution_counts": [1, 2],
+      "output_count": 6,
+      "source_equivalence": "RECOVERED_POST_EXECUTION_NOTEBOOK_SOURCE_EDIT"
+    },
+    "runtime": {
+      "filename": "runtime.json",
+      "size_bytes": 3645,
+      "sha256": "117d1e58004975c2ff4972f0c7744f9afe081b9f12bc8589b1fa1a66ff2f15fc",
+      "matches_bundled_runtime": true,
+      "profile": "kaggle-t4x2-cu128",
+      "strict": true
+    }
+  },
+  "outer_verification": {
+    "zip_safety": "PASS",
+    "crc": "PASS",
+    "member_count": 8,
+    "batch_sha256s": "PASS_ALL_7_PAYLOADS",
+    "absolute_paths": 0,
+    "traversal_paths": 0,
+    "duplicate_members": 0,
+    "symlinks": 0,
+    "encrypted_members": 0,
+    "oversized_members": 0,
+    "expected_inner_archives": 3,
+    "unexpected_recursive_archives": 0
+  },
+  "source_identity": {
+    "implementation_commit": "571bd07f478f820813ff6c9b19faf3470b138fb5",
+    "notebook_pin_commit": "40c7c9da88bce712e3a87bcf9b5af52793cf6aa8",
+    "clean_notebook_sha256": "c6828984ec78c7e0fa5988e37341607f43d083f04869a6ade5508d595e1548a9",
+    "source_digest": "da7f5454982cc3ff4e556291d13366bf544241a62196b991dee751b85299a891",
+    "principal_queue_sha256": "fa6f7c92f1b1c01474983acde1e8723daf75a7b9d6b46c99f0c99256cf30b982",
+    "batch_plan_sha256": "052d40835d7382c099b77f7359c4a3c3eb8cea7c974e617e6f2121072850aec4",
+    "batch_runner_sha256": "99f0d2bf002905093ac842e819bbd069623970c5917d13d8ff328bf6510806e6",
+    "base_shard_runner_sha256": "9c764abde679f10d0db802feafd4d2909fbefa584004a8464460610e69d3af87",
+    "protocol_sha256": "0bb8c6d15b8a6f3d7acc0d1716f99ab34bb4f97ed0e38dd1e26b8f1c92fe99e3",
+    "status": "PASS_V13_IMMUTABLE_ARCHIVE_IDENTITY_WITH_REVIEWED_NOTEBOOK_RECOVERY"
+  },
+  "runtime_validation": {
+    "status": "PASS",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_toolkit": "12.8.93",
+    "cuda_usable": true,
+    "gpu_names": ["Tesla T4", "Tesla T4"],
+    "gpu_compute_capabilities": ["SM75", "SM75"],
+    "nccl": "2.27.5",
+    "driver": "580.159.04",
+    "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "wheel_repository": "waqasm86/kaggle-vllm-binaries",
+    "wheel_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6"
+  },
+  "execution": {
+    "planned_shard_count": 3,
+    "attempted_shard_count": 3,
+    "planned_shards": [
+      "ministral3_3b_bf16-short-r03",
+      "ministral3_3b_bf16-balanced-r03",
+      "ministral3_3b_bf16-prefill_heavy-r03"
+    ],
+    "actual_attempt_order": [
+      "ministral3_3b_bf16-short-r03",
+      "ministral3_3b_bf16-balanced-r03",
+      "ministral3_3b_bf16-prefill_heavy-r03"
+    ],
+    "completed_canonical_shards": [
+      "ministral3_3b_bf16-short-r03",
+      "ministral3_3b_bf16-balanced-r03",
+      "ministral3_3b_bf16-prefill_heavy-r03"
+    ],
+    "failed_resource_gate_shards": [],
+    "failed_review_required_shards": [],
+    "operationally_failed_shards": [],
+    "not_executed_shards": [],
+    "skipped_shards": [],
+    "start_utc": "2026-09-19T09:49:37.732452+00:00",
+    "end_utc": "2026-09-19T11:54:10.990552+00:00",
+    "batch_wall_clock_seconds": 7473.258108094,
+    "stop_reason": null
+  },
+  "model_identity": {
+    "model_key": "ministral3_3b_bf16",
+    "model_id": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+    "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+    "tokenizer_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+    "source_checkpoint_dtype": "BF16",
+    "frozen_server_dtype": "float16",
+    "sdk_version": "0.2.0"
+  },
+  "completed_shards": [
+    {
+      "shard_id": "ministral3_3b_bf16-short-r03",
+      "workload": "short",
+      "runner_returncode": 0,
+      "inner_zip": "ministral3_3b_bf16-short-r03-principal.zip",
+      "inner_zip_sha256": "31466b64f49305c006dcb84c652b520c2653e67ee17686bcdd9bffe197ea8568",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "promotion": "PRINCIPAL_SHARD_PRESERVED",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 102400,
+      "exact_output_tokens": 51200,
+      "prompt_manifest_sha256": "9a5434678d640ea73e6fc3be2b191b2dedd3044a913734c453ebaa8f44ba6a46",
+      "gpu0_peak_mib": 13111,
+      "gpu1_peak_mib": 13111,
+      "peak_cells": ["tp2-c32", "tp2-c64"],
+      "maximum_system_ram_bytes": 8356745216,
+      "oom_observed": false,
+      "resource_guard": "PASS",
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "ministral3_3b_bf16-balanced-r03",
+      "workload": "balanced",
+      "runner_returncode": 0,
+      "inner_zip": "ministral3_3b_bf16-balanced-r03-principal.zip",
+      "inner_zip_sha256": "f0caee8cd9b49c8596ce3d7507e207f8381c6bef75977285a5785a49a8623a26",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "promotion": "PRINCIPAL_SHARD_PRESERVED",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 409600,
+      "exact_output_tokens": 204800,
+      "prompt_manifest_sha256": "d0c76f679b7815bb9b119ee255907d5a8dc4c2e1528b2a0f820c7c4db74fae25",
+      "gpu0_peak_mib": 13107,
+      "gpu1_peak_mib": 13107,
+      "peak_cells": ["tp2-c08", "tp2-c16", "tp2-c32", "tp2-c64"],
+      "maximum_system_ram_bytes": 8345243648,
+      "oom_observed": false,
+      "resource_guard": "PASS",
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "ministral3_3b_bf16-prefill_heavy-r03",
+      "workload": "prefill_heavy",
+      "runner_returncode": 0,
+      "inner_zip": "ministral3_3b_bf16-prefill_heavy-r03-principal.zip",
+      "inner_zip_sha256": "1b8fc5acb95f41562e1909c90baa376fc12a8ec200134c96e76526ce0891d6c6",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "promotion": "PRINCIPAL_SHARD_PRESERVED",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 1638400,
+      "exact_output_tokens": 102400,
+      "prompt_manifest_sha256": "0383ee150a28ca1901b32cd9c2b6172416ef3e76e30bb367bdbd1da5fe2c9fbf",
+      "gpu0_peak_mib": 13109,
+      "gpu1_peak_mib": 13109,
+      "peak_cells": ["tp2-c16", "tp2-c64"],
+      "maximum_system_ram_bytes": 8313610240,
+      "oom_observed": false,
+      "resource_guard": "PASS",
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    }
+  ],
+  "guards": {
+    "disk": {
+      "classification": "PASS_POSITIVE_MARGIN",
+      "minimum_free_bytes": 10767437824,
+      "minimum_required_free_bytes": 10698241056,
+      "minimum_margin_bytes": 69196768,
+      "safety_reserve_bytes": 2147483648,
+      "reserve_status": "PASS"
+    },
+    "wallclock": {
+      "classification": "PASS_NOT_WALLCLOCK_RELATED",
+      "batch_wall_clock_seconds": 7473.258108094,
+      "maximum_seconds": 37800,
+      "remaining_seconds_at_batch_end": 30326.741891906
+    },
+    "gpu_cleanup": {
+      "ministral3_3b_bf16-short-r03": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "ministral3_3b_bf16-balanced-r03": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "ministral3_3b_bf16-prefill_heavy-r03": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "unexpected_child_processes": false
+    },
+    "cache_cleanup": {
+      "status": "DELETED_EXACT_MODEL_REPO_CACHE",
+      "path": "/kaggle/working/hf-cache/hub/models--mistralai--Ministral-3-3B-Instruct-2512-BF16",
+      "broad_cleanup_observed": false
+    }
+  },
+  "ingestion": {
+    "status": "VERIFIED_BATCH_CANDIDATE",
+    "returncode": 0,
+    "accepted_shards": 3,
+    "invalid_shards": 0,
+    "failed_shards": 0,
+    "planned_not_executed": 0,
+    "source_equivalent_notebook": false,
+    "notebook_recovery_classification": "POST_EXECUTION_NOTEBOOK_SOURCE_EDIT",
+    "stderr": "EMPTY"
+  },
+  "no_rerun_audit": {
+    "all_ministral_r03_workloads_settled": true,
+    "batch_permanently_non_runnable": true,
+    "all_three_shards_enter_no_rerun_set": true,
+    "future_execution_must_use_new_batch_id": true
+  },
+  "methodology": {
+    "result_label": "PRELIMINARY_FOUR_OF_FIVE_MINISTRAL_REPETITIONS",
+    "logical_design": "60_SHARDS_720_FRESH_SERVER_CELLS_UNCHANGED",
+    "per_gpu_ceiling_mib": 14848,
+    "post_hoc_benchmark_tuning": false,
+    "historical_qwen_resource_results_changed": false,
+    "gemma_status": "CLOSED_NO_FURTHER_EXECUTION"
+  }
+}

@@ -16,12 +16,115 @@
       "evidence_zip_sha256": "b5aedfdda06522d483042e55a4f9637dd582e72242936ee130cddeeae0ae5769",
       "executed_notebook_sha256": "a2bf24a37a63d12318c5188829310f95d8f3106733be5d301b5570bd63e18383"
     },
-    "M4": {"status": "PREPARED_FOR_KAGGLE", "protocol": "research/m4_protocol.json"},
-    "M5": {"status": "OPTIONAL_SIMULATOR_COMPATIBILITY_LIMITATION", "reason": "No supplied Vidur source found"}
+    "M4": {"status": "COMPLETE", "compatibility_phase": "CLOSED", "principal_matrix": "COMPLETE", "principal_preserved_shards": 55, "principal_resource_gated_shards": 5, "principal_terminal_shards": 60, "principal_not_executed_shards": 0, "principal_queued_shards": 0, "principal_planned_shards": 60, "principal_planned_serving_cells": 720, "remaining_execution_batches": 0, "next_principal_shard": null, "next_operational_batch": null, "source_commit": "42bf096c032e2c6be1e2fa3d573c7c86ac589ba2", "source_freeze": "research/M4_SOURCE_FREEZE.json", "historical_batch_source_freeze": "research/M4_BATCH_SOURCE_FREEZE.json", "prior_batch_source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V20.json", "batch_source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V21.json", "pre_bootstrap_integrity_abort": "research/M4_R04_LLAMA_V19_PRE_BOOTSTRAP_ABORT.json", "historical_batch_protocol_amendment": "research/M4_BATCH_PROTOCOL_AMENDMENT.md", "batch_protocol_amendment": "research/M4_BATCH_PROTOCOL_AMENDMENT_V3.md", "historical_batch_execution_plan": "research/M4_BATCH_EXECUTION_PLAN.json", "batch_execution_plan": "research/M4_BATCH_EXECUTION_PLAN_V2.json", "remaining_execution_plan": "research/M4_REMAINING_EXECUTION_PLAN.json", "execution_reconciliation": "research/M4_EXECUTION_RECONCILIATION.json", "historical_batch_attempt_review": "research/M4_FILL_R00_ATTEMPT_1_REVIEW.json", "prior_batch_attempt_review": "research/M4_R04_LLAMA_ATTEMPT_1_REVIEW.json", "batch_attempt_review": "research/M4_R04_MINISTRAL_ATTEMPT_1_REVIEW.json", "notebook_provenance_recovery": "research/M4_R03_MINISTRAL_NOTEBOOK_PROVENANCE_RECOVERY.json", "evidence_status": "research/M4_EVIDENCE_STATUS.json", "gemma_diagnostic_review": "research/M4_GEMMA3_DIAGNOSTIC_REVIEW.json", "principal_evidence": "artifacts/kaggle-2026-09-08-milestone-4/principal/M4_RAW_COMBINED.json", "principal_analysis": "artifacts/kaggle-2026-09-08-milestone-4/principal/M4_ANALYSIS.json", "compatibility_population": 5, "canonical_compatibility_pass_count": 4, "canonical_negative_compatibility_count": 1, "gemma_status": "UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK", "accepted_compatibility_evidence": ["artifacts/kaggle-2026-09-08-milestone-4/compatibility/qwen25_3b", "artifacts/kaggle-2026-09-08-milestone-4/compatibility/phi4_mini", "artifacts/kaggle-2026-09-08-milestone-4/compatibility/llama32_3b", "artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16", "artifacts/kaggle-2026-09-08-milestone-4/compatibility/gemma3_4b"], "protocol": "research/m4_protocol.json", "execution_plan": "research/M4_EXECUTION_PLAN.json", "principal_queue": "research/M4_PRINCIPAL_EXECUTION_QUEUE.json", "notebook": "kaggle-notebooks/kaggle_vllm_m4_execute_shard.ipynb", "batch_notebook": "kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"},
+    "M5": {"status": "OPTIONAL_POST_M4_GUIDELLM_VALIDATION", "required_for_pr_26_merge": false, "guidellm_notebook": "kaggle-notebooks/kaggle_vllm_m5_guidellm_crosscheck.ipynb", "shards": 30, "decision": "research/M5_DECISION.md", "reason": "Run GuideLLM only after M4 principal completion if resources permit; otherwise retain narrower client-specific claims"}
   },
   "historical_boundaries": {
     "github_pr_23": "CLOSED_UNMERGED_SUPERSEDED_REMOTE_BRANCH_DELETED_NOT_REUSED",
-    "github_pr_24": "OPEN_GOVERNANCE_ONLY_NOT_RESEARCH_M4"
+    "github_pr_24": "MERGED_GOVERNANCE_ONLY_NOT_RESEARCH_M4",
+    "github_pr_25": "MERGED_CURRENT_AUTHORITATIVE_M3_EVIDENCE",
+    "github_pr_26": "CURRENT_AUTHORITATIVE_M4_EVIDENCE_CHAIN"
+  },
+  "m4_r02_qwen_physical_attempts": {
+    "attempt_1": {
+      "status": "HISTORICAL_IMMUTABLE_EVIDENCE",
+      "session_id": "m4-r02-qwen-20260916T030342Z-ea0f6e11",
+      "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V10.json",
+      "review_record": "research/M4_R02_QWEN_ATTEMPT_1_REVIEW.json",
+      "local_evidence": ".local-evidence/m4-batches/r02-qwen-attempt-1",
+      "outcome": "PREFILL_HEAVY_FAILED_RESOURCE_GATE"
+    },
+    "attempt_2": {
+      "status": "CURRENT_AUTHORITATIVE_REVIEWED_EVIDENCE",
+      "session_id": "m4-r02-qwen-20260916T054736Z-95506297",
+      "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V11.json",
+      "review_record": "research/M4_R02_QWEN_ATTEMPT_2_REVIEW.json",
+      "local_evidence": ".local-evidence/m4-batches/r02-qwen-attempt-2",
+      "outcome": "SHORT_AND_BALANCED_CANONICAL"
+    },
+    "reconciliation": "LOGICAL_SHARDS_ONLY_PHYSICAL_SESSIONS_REMAIN_DISTINCT"
+  },
+  "m4_r02_phi_physical_attempt": {
+    "status": "CURRENT_AUTHORITATIVE_REVIEWED_EVIDENCE",
+    "batch_id": "r02-phi",
+    "session_id": "m4-r02-phi-20260916T141636Z-6f8069da",
+    "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V12.json",
+    "review_record": "research/M4_R02_PHI_ATTEMPT_1_REVIEW.json",
+    "local_evidence": ".local-evidence/m4-batches/r02-phi-attempt-1",
+    "outcome": "ALL_THREE_SHARDS_CANONICAL_BATCH_CLOSED_NO_RERUN"
+  },
+  "m4_r03_ministral_physical_attempt": {
+    "status": "CURRENT_AUTHORITATIVE_REVIEWED_EVIDENCE_WITH_NOTEBOOK_PROVENANCE_RECOVERY",
+    "batch_id": "r03-ministral",
+    "session_id": "m4-r03-ministral-20260919T094937Z-fee4d921",
+    "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V13.json",
+    "review_record": "research/M4_R03_MINISTRAL_ATTEMPT_1_REVIEW.json",
+    "notebook_provenance_recovery": "research/M4_R03_MINISTRAL_NOTEBOOK_PROVENANCE_RECOVERY.json",
+    "local_evidence": ".local-evidence/m4-batches/r03-ministral-attempt-1",
+    "outcome": "ALL_THREE_SHARDS_CANONICAL_BATCH_CLOSED_NO_RERUN"
+  },
+  "m4_r03_qwen_physical_attempt": {
+    "status": "CURRENT_AUTHORITATIVE_REVIEWED_PARTIAL_CANONICAL_AND_TERMINAL_RESOURCE_EVIDENCE",
+    "batch_id": "r03-qwen",
+    "session_id": "m4-r03-qwen-20260919T152036Z-cd7c20ee",
+    "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V14.json",
+    "review_record": "research/M4_R03_QWEN_ATTEMPT_1_REVIEW.json",
+    "local_evidence": ".local-evidence/m4-batches/r03-qwen-attempt-1",
+    "outcome": "SHORT_BALANCED_CANONICAL_PREFILL_HEAVY_FAILED_RESOURCE_GATE_BATCH_CLOSED_NO_RERUN"
+  },
+  "m4_r03_phi_physical_attempt": {
+    "status": "CURRENT_AUTHORITATIVE_REVIEWED_EVIDENCE",
+    "batch_id": "r03-phi",
+    "session_id": "m4-r03-phi-20260920T045342Z-28f400e7",
+    "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V15.json",
+    "review_record": "research/M4_R03_PHI_ATTEMPT_1_REVIEW.json",
+    "local_evidence": ".local-evidence/m4-batches/r03-phi-attempt-1",
+    "outcome": "ALL_THREE_SHARDS_CANONICAL_BATCH_CLOSED_NO_RERUN"
+  },
+  "m4_r03_llama_physical_attempt": {
+    "status": "CURRENT_AUTHORITATIVE_REVIEWED_EVIDENCE",
+    "batch_id": "r03-llama",
+    "session_id": "m4-r03-llama-20260920T095447Z-7d3fc1d4",
+    "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V16.json",
+    "review_record": "research/M4_R03_LLAMA_ATTEMPT_1_REVIEW.json",
+    "local_evidence": ".local-evidence/m4-batches/r03-llama-attempt-1",
+    "outcome": "ALL_THREE_SHARDS_CANONICAL_BATCH_CLOSED_NO_RERUN"
+  },
+  "m4_r04_qwen_physical_attempt": {
+    "status": "CURRENT_AUTHORITATIVE_REVIEWED_PARTIAL_CANONICAL_AND_TERMINAL_RESOURCE_EVIDENCE",
+    "batch_id": "r04-qwen",
+    "session_id": "m4-r04-qwen-20260920T170853Z-0434d282",
+    "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V17.json",
+    "review_record": "research/M4_R04_QWEN_ATTEMPT_1_REVIEW.json",
+    "local_evidence": ".local-evidence/m4-batches/r04-qwen-attempt-1",
+    "outcome": "BALANCED_SHORT_CANONICAL_PREFILL_HEAVY_FIFTH_FAILED_RESOURCE_GATE_BATCH_CLOSED_NO_RERUN"
+  },
+  "m4_r04_phi_physical_attempt": {
+    "status": "CURRENT_AUTHORITATIVE_REVIEWED_EVIDENCE",
+    "batch_id": "r04-phi",
+    "session_id": "m4-r04-phi-20260920T193618Z-c949f541",
+    "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V18.json",
+    "review_record": "research/M4_R04_PHI_ATTEMPT_1_REVIEW.json",
+    "local_evidence": ".local-evidence/m4-batches/r04-phi-attempt-1",
+    "outcome": "ALL_THREE_SHARDS_CANONICAL_BATCH_CLOSED_NO_RERUN"
+  },
+  "m4_r04_llama_physical_attempt": {
+    "status": "CURRENT_AUTHORITATIVE_REVIEWED_EVIDENCE",
+    "batch_id": "r04-llama",
+    "session_id": "m4-r04-llama-20260921T045421Z-9ec53cd0",
+    "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V20.json",
+    "review_record": "research/M4_R04_LLAMA_ATTEMPT_1_REVIEW.json",
+    "local_evidence": ".local-evidence/m4-batches/r04-llama-attempt-1",
+    "outcome": "ALL_THREE_SHARDS_CANONICAL_BATCH_CLOSED_NO_RERUN"
+  },
+  "m4_r04_ministral_physical_attempt": {
+    "status": "CURRENT_AUTHORITATIVE_REVIEWED_EVIDENCE",
+    "batch_id": "r04-ministral",
+    "session_id": "m4-r04-ministral-20260921T075626Z-efa07d9f",
+    "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V21.json",
+    "review_record": "research/M4_R04_MINISTRAL_ATTEMPT_1_REVIEW.json",
+    "local_evidence": ".local-evidence/m4-batches/r04-ministral-attempt-1",
+    "outcome": "ALL_THREE_SHARDS_CANONICAL_FINAL_BATCH_CLOSED_NO_RERUN_MATRIX_COMPLETE"
   },
   "analysis_entrypoint": "research/analysis/generate_figures.py",
   "execution_checklist": "research/KAGGLE_EXECUTION_CHECKLIST.md",

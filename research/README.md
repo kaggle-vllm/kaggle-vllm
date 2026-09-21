@@ -11,8 +11,8 @@ new package release.
 | M1 — runtime/TP characterization | COMPLETE | Preserved Kaggle evidence, 2026-09-01 |
 | M2 — Qwen serving crossover | COMPLETE | Preserved Kaggle evidence, 2026-09-02 |
 | M3 — measured NCCL/PHB communication | COMPLETE | Canonical clean-source Kaggle evidence, 2026-09-07 |
-| M4 — multi-model crossover | PREPARED_FOR_KAGGLE | Protocol, compatibility gates, and CPU analyzer; no M4 GPU results |
-| M5 — simulator validation | OPTIONAL / SIMULATOR_COMPATIBILITY_LIMITATION | Required local Vidur source was not present |
+| M4 — multi-model crossover | COMPLETE | Five-model gate closed; 55 canonical plus five resource-gated outcomes settle the four-model 60-shard matrix |
+| M5 — GuideLLM external validation | INCOMPLETE / POST-M4 | Prepared 30-shard Qwen balanced cross-check; Vidur source absent and no simulation fabricated |
 
 The research questions and evidence vocabulary are defined in
 [experiment_protocol.md](experiment_protocol.md). Run notebooks only in the
@@ -22,10 +22,100 @@ Machine-readable control files:
 
 - `model_matrix.json`: pinned model/access/license/compatibility decisions.
 - `m4_protocol.json`: M4 token workloads, matrix, repetitions and crossover rule.
+- `M4_EXECUTION_PLAN.json`: exact compatibility, principal and GuideLLM shard order.
+- `M4_SOURCE_FREEZE.json`: reviewed source/notebook/tool hashes; not GPU evidence.
+- `M4_EVIDENCE_STATUS.json`: accepted compatibility ledger and next principal shard.
+- `M4_GEMMA3_DIAGNOSTIC_REVIEW.json`: diagnostic history and final p13 canonical closure.
+- `M4_PRINCIPAL_EXECUTION_QUEUE.json`: active principal queue plus auditable Gemma skips.
+- `M4_PRINCIPAL_EXECUTION_GUIDE.md`: one-shard download and ingestion procedure.
+- `M4_BATCH_PROTOCOL_AMENDMENT.md`: retained M4-BATCH-1 amendment.
+- `M4_BATCH_EXECUTION_PLAN.json`: retained M4-BATCH-1 repetition batches.
+- `M4_FILL_R00_ATTEMPT_1_REVIEW.json`: first batch-attempt forensic record.
+- `M4_BATCH_PROTOCOL_AMENDMENT_V2.md`: M4-BATCH-2 continuation rules.
+- `M4_BATCH_PROTOCOL_AMENDMENT_V3.md`: V9 future-only continuation after strictly verified terminal resource gates.
+- `M4_BATCH_EXECUTION_PLAN_V2.json`: deterministic model-scoped continuations.
+- `M4_BATCH_EXECUTION_GUIDE.md`: batch notebook, evidence, and ingestion procedure.
+- `M4_BATCH_SOURCE_FREEZE.json`: retained M4-BATCH-1 source freeze.
+- `M4_BATCH_SOURCE_FREEZE_V2.json`: M4-BATCH-2 notebook/runner/plan freeze.
+- `M4_BATCH_SOURCE_FREEZE_V3.json`: reconciled M4-BATCH-2 no-rerun source freeze.
+- `M4_BATCH_SOURCE_FREEZE_V4.json`: post-Ministral no-rerun source freeze.
+- `M4_BATCH_SOURCE_FREEZE_V5.json`: post-Phi-r01 no-rerun source freeze.
+- `M4_BATCH_SOURCE_FREEZE_V6.json`: post-Llama-r01 no-rerun source freeze.
+- `M4_BATCH_SOURCE_FREEZE_V7.json`: post-Ministral-r01 no-rerun source freeze.
+- `M4_BATCH_SOURCE_FREEZE_V8.json`: post-Qwen-r01 no-rerun source freeze.
+- `M4_BATCH_SOURCE_FREEZE_V9.json`: immutable post-Llama-r02 source used by the completed Ministral r02 run.
+- `M4_BATCH_SOURCE_FREEZE_V10.json`: post-Ministral-r02 M4-BATCH-3 source freeze for the next run.
+- `M4_BATCH_SOURCE_FREEZE_V11.json`: immutable source used by the successful Qwen r02 continuation.
+- `M4_BATCH_SOURCE_FREEZE_V12.json`: immutable source used by the completed Phi r02 batch.
+- `M4_BATCH_SOURCE_FREEZE_V13.json`: immutable source used by the completed Ministral r03 batch.
+- `M4_BATCH_SOURCE_FREEZE_V14.json`: post-Ministral-r03 no-rerun freeze for the next Qwen r03 batch.
+- `M4_BATCH_SOURCE_FREEZE_V15.json`: post-Qwen-r03 no-rerun freeze for the next Phi r03 batch.
+- `M4_BATCH_SOURCE_FREEZE_V16.json`: post-Phi-r03 no-rerun freeze for the next Llama r03 batch.
+- `M4_BATCH_SOURCE_FREEZE_V17.json`: post-Llama-r03 no-rerun freeze for the next Qwen r04 batch.
+- `M4_BATCH_SOURCE_FREEZE_V18.json`: immutable source used by the completed Phi r04 batch.
+- `M4_BATCH_SOURCE_FREEZE_V19.json`: immutable source identity of the Llama r04 allocation that aborted at pre-bootstrap source-integrity validation.
+- `M4_BATCH_SOURCE_FREEZE_V20.json`: immutable corrected source used by the completed Llama r04 batch.
+- `M4_BATCH_SOURCE_FREEZE_V21.json`: post-Llama commit-consistent freeze authorizing only the final Ministral r04 batch.
+- `M4_R04_LLAMA_V19_PRE_BOOTSTRAP_ABORT.json`: reviewed non-scientific V19 integrity-abort provenance.
+- `M4_R04_QWEN_ATTEMPT_1_REVIEW.json`: reviewed V17 Qwen r04 partial-canonical plus fifth terminal-resource outcome.
+- `M4_R04_PHI_ATTEMPT_1_REVIEW.json`: reviewed V18 Phi r04 batch and three canonical outcomes.
+- `M4_R04_LLAMA_ATTEMPT_1_REVIEW.json`: reviewed V20 Llama r04 batch and three canonical outcomes.
+- `M4_R03_QWEN_ATTEMPT_1_REVIEW.json`: reviewed V14 Qwen r03 partial-canonical plus terminal-resource outcomes.
+- `M4_R03_PHI_ATTEMPT_1_REVIEW.json`: reviewed V15 Phi r03 batch and three canonical outcomes.
+- `M4_R03_LLAMA_ATTEMPT_1_REVIEW.json`: reviewed V16 Llama r03 batch and three canonical outcomes.
+- `M4_EXECUTION_RECONCILIATION.json`: authoritative 60-shard terminal/pending ledger.
+- `M4_FILL_R00_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed Ministral r00 batch record.
+- `M4_FILL_R01_PHI_ATTEMPT_1_REVIEW.json`: reviewed Phi r01 batch record.
+- `M4_FILL_R01_LLAMA_ATTEMPT_1_REVIEW.json`: reviewed Llama r01 batch record.
+- `M4_FILL_R01_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed Ministral r01 batch record.
+- `M4_FILL_R01_QWEN_ATTEMPT_1_REVIEW.json`: reviewed partial Qwen r01 batch and resource-boundary record.
+- `M4_R02_LLAMA_ATTEMPT_1_REVIEW.json`: reviewed V8 Llama r02 batch and three canonical outcomes.
+- `M4_R02_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed V9/M4-BATCH-3 Ministral r02 batch and three canonical outcomes.
+- `M4_R02_QWEN_ATTEMPT_1_REVIEW.json`: reviewed V10 Qwen r02 terminal resource gate and orchestration defect.
+- `M4_R02_QWEN_ATTEMPT_2_REVIEW.json`: reviewed V11 Qwen r02 short/balanced continuation in a second physical session.
+- `M4_R02_PHI_ATTEMPT_1_REVIEW.json`: reviewed V12 Phi r02 batch and three canonical outcomes.
+- `M4_R03_MINISTRAL_NOTEBOOK_PROVENANCE_RECOVERY.json`: exact reviewed post-execution saved-source incident record.
+- `M4_R03_MINISTRAL_ATTEMPT_1_REVIEW.json`: reviewed V13 Ministral r03 batch and three canonical outcomes.
+- `M4_REMAINING_EXECUTION_PLAN.json`: deterministic schedule of only not-executed shards.
+- `HISTORICAL_QWEN_SHARDED_STATE.md`: scope of the external Qwen persistence evidence.
+- `M5_DECISION.md`: post-M4 GuideLLM gate and claim boundary.
+- `../scripts/generate_m4_queue.py`: deterministic active-queue generator.
+- `python -m kaggle_vllm.research ingest-m4`: fail-closed download audit and local staging.
+- `python -m kaggle_vllm.research ingest-m4-batch`: outer-bundle audit and independent inner-shard staging.
 - `RESEARCH_MANIFEST.json`: research files, evidence sources and status gates.
 - `PUBLICATION_READINESS.md`: explicit paper-readiness gates and blockers.
 - `tooling_feasibility.md`: exact GuideLLM, Nsight and Vidur decisions.
+- `claim_boundaries.json`: machine-readable allowed and unsupported paper claims.
 - `model_artifact_workflow.md`: audited save/reload/API/upload/cleanup stages.
 
 No generated number should enter a paper table manually. The scripts in
 `analysis/` read committed machine-readable evidence and emit figures/tables.
+The M4 runner and local assembler are prepared. Five models entered the frozen
+compatibility population. Qwen, clean-rerun Phi, clean Llama 3.2, and text-only
+Ministral passed. The final hash-verified p13 Gemma ZIP and source-equivalent
+executed notebook establish the canonical, narrowly scoped
+`UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK`. Five repetitions of all
+three Phi and Llama workloads and four repetitions of all three Ministral
+workloads are preserved. The
+Qwen prefill-heavy r00, r01, and r02 attempts are reviewed terminal resource results.
+Qwen short and balanced r02 are canonical from a separate V11 physical session,
+all Phi r02 workloads are canonical from V12, and all Ministral r03 workloads
+are canonical from V13 through the disclosed exact notebook-provenance
+recovery. Qwen short and balanced r03 are canonical from V14, while Qwen
+prefill-heavy r03 is the fourth independent terminal resource result. The
+three Phi r03 workloads are canonical from V15, and the three Llama r03
+workloads are canonical from V16. Qwen balanced and short r04 are canonical
+from V17, while Qwen prefill-heavy r04 completes the five planned repetitions
+as the fifth independent terminal resource result. All three Phi r04 workloads
+are canonical from V18, and all three Llama r04 workloads are canonical from
+the distinct corrected V20 execution. The
+remaining principal matrix and M5 independent
+validation are not complete. The principal study population is
+the four compatibility-passing models; Gemma remains a negative compatibility
+result with N/A throughput, not throughput zero. The earlier Phi
+notebook-drift candidate remains rejected
+and is not combined with the accepted rerun. Llama's access-pending and token-
+authorization failures remain access records, while its manually edited retry
+remains excluded `DEBUG_COMPATIBILITY_PASS` evidence and is not combined with
+the accepted clean run. Gemma 4 is an out-of-scope follow-up and was not
+substituted post hoc.
