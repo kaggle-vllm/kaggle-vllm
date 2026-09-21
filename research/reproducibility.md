@@ -205,6 +205,16 @@ completed, so all three r04 Qwen outcomes are in the no-rerun set.
 V18 pins implementation commit `0ea6fed84f8679ee449f39312fc8f61dde75762e`,
 notebook pin `9855590e758a7b70c9e4488f86af67b6fa3942eb`, and the
 post-Qwen queue/plan for `r04-phi`; it contains no new GPU measurements.
+The resulting session `m4-r04-phi-20260920T193618Z-c949f541` completed all
+three 12-cell matrices. Its outer ZIP SHA256 is
+`6ab77b61ec3ce95e0e979c12198b2366eaf8a9a423b728f20a2e35229899bd1d`,
+executed-notebook SHA256 is
+`01a058c3c42d4e6752ccd1494be39f9c4c8e4ae5ff82080fe825f9a9414a8426`,
+and the separate and bundled runtime files are byte-identical with SHA256
+`90f69859b9123dedef87ca36e227ecc704bbb50e82e3f271d3615dde26440506`.
+All three inner payload manifests, source/runtime/session bindings, request
+ledgers, per-GPU resource guards, and cleanup checks pass. All three Phi r04
+shards are now in the reviewed no-rerun set.
 The tracked reconciliation ledger excludes every canonical and reviewed
 terminal shard from normal continuation. Batch ingestion permits
 the runtime-to-later-shard interval only within the hash-frozen batch

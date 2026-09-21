@@ -15,14 +15,14 @@ def test_queue_preserves_negative_compatibility_and_historical_shards() -> None:
     assert queue["principal_model_count"] == 4
     assert queue["active_shards"] == 60
     assert queue["active_serving_cells"] == 720
-    assert queue["preserved_shards"] == 46
-    assert queue["preserved_serving_cells"] == 552
-    assert queue["queued_shards"] == 9
-    assert queue["queued_serving_cells"] == 108
+    assert queue["preserved_shards"] == 49
+    assert queue["preserved_serving_cells"] == 588
+    assert queue["queued_shards"] == 6
+    assert queue["queued_serving_cells"] == 72
     assert queue["review_required_shards"] == 5
-    assert queue["remaining_shards"] == 14
+    assert queue["remaining_shards"] == 11
     assert queue["skipped_gemma_shards"] == 15
-    assert queue["next_shard_id"] == "phi4_mini-balanced-r04"
+    assert queue["next_shard_id"] == "llama32_3b-balanced-r04"
     assert queue["queue"][0]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert queue["queue"][1]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     by_id = {row["shard_id"]: row for row in queue["queue"]}
@@ -42,6 +42,9 @@ def test_queue_preserves_negative_compatibility_and_historical_shards() -> None:
     assert by_id["phi4_mini-short-r03"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert by_id["phi4_mini-balanced-r03"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert by_id["phi4_mini-prefill_heavy-r03"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
+    assert by_id["phi4_mini-balanced-r04"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
+    assert by_id["phi4_mini-prefill_heavy-r04"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
+    assert by_id["phi4_mini-short-r04"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert by_id["llama32_3b-short-r03"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert by_id["llama32_3b-balanced-r03"]["status"] == "PRINCIPAL_SHARD_PRESERVED"
     assert (

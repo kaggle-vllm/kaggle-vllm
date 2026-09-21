@@ -16,11 +16,11 @@
     "serving_cells": 720
   },
   "counts": {
-    "CANONICAL_PRESERVED": 46,
+    "CANONICAL_PRESERVED": 49,
     "FAILED_RESOURCE_GATE": 5,
     "FAILED_OTHER_REVIEW_REQUIRED": 0,
     "VERIFIED_LOCAL_STAGING_PENDING_PROMOTION": 0,
-    "NOT_EXECUTED": 9
+    "NOT_EXECUTED": 6
   },
   "counts_total": 60,
   "shards_by_state": {
@@ -39,14 +39,17 @@
       "phi4_mini-short-r01",
       "phi4_mini-short-r02",
       "phi4_mini-short-r03",
+      "phi4_mini-short-r04",
       "phi4_mini-balanced-r00",
       "phi4_mini-balanced-r01",
       "phi4_mini-balanced-r02",
       "phi4_mini-balanced-r03",
+      "phi4_mini-balanced-r04",
       "phi4_mini-prefill_heavy-r00",
       "phi4_mini-prefill_heavy-r01",
       "phi4_mini-prefill_heavy-r02",
       "phi4_mini-prefill_heavy-r03",
+      "phi4_mini-prefill_heavy-r04",
       "llama32_3b-short-r00",
       "llama32_3b-short-r01",
       "llama32_3b-short-r02",
@@ -82,9 +85,6 @@
     "FAILED_OTHER_REVIEW_REQUIRED": [],
     "VERIFIED_LOCAL_STAGING_PENDING_PROMOTION": [],
     "NOT_EXECUTED": [
-      "phi4_mini-short-r04",
-      "phi4_mini-balanced-r04",
-      "phi4_mini-prefill_heavy-r04",
       "llama32_3b-short-r04",
       "llama32_3b-balanced-r04",
       "llama32_3b-prefill_heavy-r04",
@@ -348,11 +348,11 @@
       "workload": "short",
       "repetition": 4,
       "serving_cells": 12,
-      "state": "NOT_EXECUTED",
-      "terminal_for_normal_continuation": false,
-      "evidence_zip_sha256": null,
-      "batch_id": null,
-      "session_id": null
+      "state": "CANONICAL_PRESERVED",
+      "terminal_for_normal_continuation": true,
+      "evidence_zip_sha256": "6a7514da1104b7fb53c472c48c41a3e470cc53276df640f1aeee2741d5620afb",
+      "batch_id": "r04-phi",
+      "session_id": "m4-r04-phi-20260920T193618Z-c949f541"
     },
     {
       "active_order": 21,
@@ -413,11 +413,11 @@
       "workload": "balanced",
       "repetition": 4,
       "serving_cells": 12,
-      "state": "NOT_EXECUTED",
-      "terminal_for_normal_continuation": false,
-      "evidence_zip_sha256": null,
-      "batch_id": null,
-      "session_id": null
+      "state": "CANONICAL_PRESERVED",
+      "terminal_for_normal_continuation": true,
+      "evidence_zip_sha256": "beebc411961895ae7307393f75329c681277ed42fa3a88a8397e2717e516e910",
+      "batch_id": "r04-phi",
+      "session_id": "m4-r04-phi-20260920T193618Z-c949f541"
     },
     {
       "active_order": 26,
@@ -478,11 +478,11 @@
       "workload": "prefill_heavy",
       "repetition": 4,
       "serving_cells": 12,
-      "state": "NOT_EXECUTED",
-      "terminal_for_normal_continuation": false,
-      "evidence_zip_sha256": null,
-      "batch_id": null,
-      "session_id": null
+      "state": "CANONICAL_PRESERVED",
+      "terminal_for_normal_continuation": true,
+      "evidence_zip_sha256": "01a8825be0e4855d66f053aaf5e7dab35f44ff9237314e27f2de6ad493074ded",
+      "batch_id": "r04-phi",
+      "session_id": "m4-r04-phi-20260920T193618Z-c949f541"
     },
     {
       "active_order": 31,
@@ -895,14 +895,17 @@
     "phi4_mini-short-r01",
     "phi4_mini-short-r02",
     "phi4_mini-short-r03",
+    "phi4_mini-short-r04",
     "phi4_mini-balanced-r00",
     "phi4_mini-balanced-r01",
     "phi4_mini-balanced-r02",
     "phi4_mini-balanced-r03",
+    "phi4_mini-balanced-r04",
     "phi4_mini-prefill_heavy-r00",
     "phi4_mini-prefill_heavy-r01",
     "phi4_mini-prefill_heavy-r02",
     "phi4_mini-prefill_heavy-r03",
+    "phi4_mini-prefill_heavy-r04",
     "llama32_3b-short-r00",
     "llama32_3b-short-r01",
     "llama32_3b-short-r02",
@@ -931,21 +934,8 @@
   "verified_local_staging_pending_promotion": [],
   "duplicate_shard_ids": [],
   "conflicting_terminal_records": [],
-  "remaining_batch_count": 3,
+  "remaining_batch_count": 2,
   "remaining_batches": [
-    {
-      "batch_id": "r04-phi",
-      "repetition": 4,
-      "model_key": "phi4_mini",
-      "ordered_shard_ids": [
-        "phi4_mini-balanced-r04",
-        "phi4_mini-prefill_heavy-r04",
-        "phi4_mini-short-r04"
-      ],
-      "logical_shard_count": 3,
-      "serving_cell_count": 36,
-      "already_settled_exclusions": []
-    },
     {
       "batch_id": "r04-llama",
       "repetition": 4,
@@ -973,5 +963,5 @@
       "already_settled_exclusions": []
     }
   ],
-  "next_batch_id": "r04-phi"
+  "next_batch_id": "r04-llama"
 }

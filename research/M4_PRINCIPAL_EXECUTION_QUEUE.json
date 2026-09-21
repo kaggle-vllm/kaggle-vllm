@@ -30,14 +30,14 @@
   ],
   "active_shards": 60,
   "active_serving_cells": 720,
-  "preserved_shards": 46,
-  "preserved_serving_cells": 552,
-  "queued_shards": 9,
-  "queued_serving_cells": 108,
+  "preserved_shards": 49,
+  "preserved_serving_cells": 588,
+  "queued_shards": 6,
+  "queued_serving_cells": 72,
   "review_required_shards": 5,
-  "remaining_shards": 14,
+  "remaining_shards": 11,
   "skipped_gemma_shards": 15,
-  "next_shard_id": "phi4_mini-balanced-r04",
+  "next_shard_id": "llama32_3b-balanced-r04",
   "session_policy": "one shard in one fresh Kaggle T4 x2 session",
   "planning_estimate": {
     "wall_clock_hours_per_shard_range": [
@@ -570,7 +570,7 @@
       "expected_artifact": "phi4_mini-short-r04-principal.zip",
       "executed_notebook_role": "downloaded executed copy of the frozen M4 notebook; required for source-equivalence audit",
       "runtime_json_role": "separately downloaded bootstrap runtime.json; required for runtime-identity audit",
-      "status": "QUEUED",
+      "status": "PRINCIPAL_SHARD_PRESERVED",
       "skip_reason": null
     },
     {
@@ -700,7 +700,7 @@
       "expected_artifact": "phi4_mini-balanced-r04-principal.zip",
       "executed_notebook_role": "downloaded executed copy of the frozen M4 notebook; required for source-equivalence audit",
       "runtime_json_role": "separately downloaded bootstrap runtime.json; required for runtime-identity audit",
-      "status": "QUEUED",
+      "status": "PRINCIPAL_SHARD_PRESERVED",
       "skip_reason": null
     },
     {
@@ -830,7 +830,7 @@
       "expected_artifact": "phi4_mini-prefill_heavy-r04-principal.zip",
       "executed_notebook_role": "downloaded executed copy of the frozen M4 notebook; required for source-equivalence audit",
       "runtime_json_role": "separately downloaded bootstrap runtime.json; required for runtime-identity audit",
-      "status": "QUEUED",
+      "status": "PRINCIPAL_SHARD_PRESERVED",
       "skip_reason": null
     },
     {

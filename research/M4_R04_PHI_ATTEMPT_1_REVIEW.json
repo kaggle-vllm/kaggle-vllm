@@ -1,0 +1,265 @@
+{
+  "schema_version": "kaggle-vllm-m4-batch-attempt-review-v1",
+  "review_status": "COMPLETE",
+  "batch_id": "r04-phi",
+  "attempt": 1,
+  "session_id": "m4-r04-phi-20260920T193618Z-c949f541",
+  "batch_protocol_version": "M4-BATCH-3",
+  "batch_status": "COMPLETED",
+  "batch_runner_returncode": 0,
+  "stop_reason": null,
+  "reviewed_scientific_disposition": "ALL_PLANNED_LOGICAL_OUTCOMES_TERMINALLY_SETTLED",
+  "source_commit": "0ea6fed84f8679ee449f39312fc8f61dde75762e",
+  "source_freeze": "research/M4_BATCH_SOURCE_FREEZE_V18.json",
+  "source_freeze_notebook_pin_commit": "9855590e758a7b70c9e4488f86af67b6fa3942eb",
+  "downloads": {
+    "outer_zip": {
+      "filename": "m4-batch-r04-phi.zip",
+      "size_bytes": 2214030,
+      "sha256": "6ab77b61ec3ce95e0e979c12198b2366eaf8a9a423b728f20a2e35229899bd1d"
+    },
+    "executed_notebook": {
+      "filename": "p31-kaggle-vllm-m4-execute-batch.ipynb",
+      "size_bytes": 37694,
+      "sha256": "01a058c3c42d4e6752ccd1494be39f9c4c8e4ae5ff82080fe825f9a9414a8426",
+      "frozen_notebook_sha256": "13d81e89c1a5f6bd629631386b0c8320a83f78ec7a42e97c10046feb18a0edb3",
+      "source_digest": "194b3dc641a66cd7c705f5dad1358242ac8a8217d298076fc41f31d5c1694851",
+      "cell_count": 4,
+      "code_cell_count": 2,
+      "execution_counts": [1, 2],
+      "output_count": 4,
+      "extra_postrun_audit_cell": false,
+      "source_equivalence": "PASS_ALL_CELL_SOURCES_IDENTICAL"
+    },
+    "runtime": {
+      "filename": "runtime.json",
+      "size_bytes": 3645,
+      "sha256": "90f69859b9123dedef87ca36e227ecc704bbb50e82e3f271d3615dde26440506",
+      "matches_bundled_runtime": true,
+      "profile": "kaggle-t4x2-cu128",
+      "strict": true
+    }
+  },
+  "outer_verification": {
+    "zip_safety": "PASS",
+    "crc": "PASS",
+    "member_count": 8,
+    "compressed_bytes": 2213008,
+    "uncompressed_bytes": 2337780,
+    "batch_sha256s": "PASS_ALL_7_PAYLOADS",
+    "absolute_paths": 0,
+    "traversal_paths": 0,
+    "duplicate_members": 0,
+    "symlinks": 0,
+    "encrypted_members": 0,
+    "oversized_members": 0,
+    "expected_inner_archives": 3,
+    "unexpected_recursive_archives": 0
+  },
+  "source_identity": {
+    "implementation_commit": "0ea6fed84f8679ee449f39312fc8f61dde75762e",
+    "notebook_pin_commit": "9855590e758a7b70c9e4488f86af67b6fa3942eb",
+    "clean_notebook_sha256": "13d81e89c1a5f6bd629631386b0c8320a83f78ec7a42e97c10046feb18a0edb3",
+    "source_digest": "194b3dc641a66cd7c705f5dad1358242ac8a8217d298076fc41f31d5c1694851",
+    "principal_queue_sha256": "6288651f982f5804fbc6db9fc016ff9160f72f74243116887aa981826b96b52b",
+    "batch_plan_sha256": "6a3ec4ecdb04def186c2dfb4361caa470bc8914e39f0a6404799ebd75a70fba5",
+    "batch_runner_sha256": "99f0d2bf002905093ac842e819bbd069623970c5917d13d8ff328bf6510806e6",
+    "base_shard_runner_sha256": "9c764abde679f10d0db802feafd4d2909fbefa584004a8464460610e69d3af87",
+    "protocol_sha256": "0bb8c6d15b8a6f3d7acc0d1716f99ab34bb4f97ed0e38dd1e26b8f1c92fe99e3",
+    "status": "PASS_V18_IMMUTABLE_SOURCE_EQUIVALENCE"
+  },
+  "runtime_validation": {
+    "status": "PASS",
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_toolkit": "12.8.93",
+    "cuda_usable": true,
+    "gpu_names": ["Tesla T4", "Tesla T4"],
+    "gpu_compute_capabilities": ["SM75", "SM75"],
+    "nccl": "2.27.5",
+    "driver": "580.159.04",
+    "wheel": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "wheel_repository": "waqasm86/kaggle-vllm-binaries",
+    "wheel_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6"
+  },
+  "execution": {
+    "planned_shard_count": 3,
+    "attempted_shard_count": 3,
+    "planned_shards": [
+      "phi4_mini-balanced-r04",
+      "phi4_mini-prefill_heavy-r04",
+      "phi4_mini-short-r04"
+    ],
+    "actual_attempt_order": [
+      "phi4_mini-balanced-r04",
+      "phi4_mini-prefill_heavy-r04",
+      "phi4_mini-short-r04"
+    ],
+    "completed_canonical_shards": [
+      "phi4_mini-balanced-r04",
+      "phi4_mini-prefill_heavy-r04",
+      "phi4_mini-short-r04"
+    ],
+    "failed_resource_gate_shards": [],
+    "failed_review_required_shards": [],
+    "operationally_failed_shards": [],
+    "not_executed_shards": [],
+    "skipped_shards": [],
+    "already_completed_skips": [],
+    "per_shard_returncodes": {
+      "phi4_mini-balanced-r04": 0,
+      "phi4_mini-prefill_heavy-r04": 0,
+      "phi4_mini-short-r04": 0
+    },
+    "start_utc": "2026-09-20T19:36:18.096825+00:00",
+    "end_utc": "2026-09-20T21:50:17.457863+00:00",
+    "batch_wall_clock_seconds": 8039.361046237,
+    "stop_reason": null
+  },
+  "model_identity": {
+    "model_key": "phi4_mini",
+    "model_id": "microsoft/Phi-4-mini-instruct",
+    "model_revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+    "tokenizer_revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+    "source_checkpoint_dtype": "BF16",
+    "frozen_server_dtype": "float16",
+    "sdk_version": "0.2.0"
+  },
+  "completed_shards": [
+    {
+      "shard_id": "phi4_mini-balanced-r04",
+      "workload": "balanced",
+      "runner_returncode": 0,
+      "inner_zip": "phi4_mini-balanced-r04-principal.zip",
+      "inner_zip_sha256": "beebc411961895ae7307393f75329c681277ed42fa3a88a8397e2717e516e910",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "runner_hashes": "PASS_ALL_76_ENTRIES",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "promotion": "PRINCIPAL_SHARD_PRESERVED",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 409600,
+      "exact_output_tokens": 204800,
+      "prompt_manifest_sha256": "8ed275aa19adef3b4be7420d30b5c85ea72331785ee9fb1ecb459c3d9a8e5ef2",
+      "gpu0_peak_mib": 13737,
+      "gpu1_peak_mib": 13737,
+      "peak_cells": ["tp2-c01", "tp2-c04", "tp2-c08", "tp2-c16", "tp2-c32", "tp2-c64"],
+      "maximum_system_ram_bytes": 7874805760,
+      "oom_observed": false,
+      "resource_guard": "PASS",
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "phi4_mini-prefill_heavy-r04",
+      "workload": "prefill_heavy",
+      "runner_returncode": 0,
+      "inner_zip": "phi4_mini-prefill_heavy-r04-principal.zip",
+      "inner_zip_sha256": "01a8825be0e4855d66f053aaf5e7dab35f44ff9237314e27f2de6ad493074ded",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "runner_hashes": "PASS_ALL_76_ENTRIES",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "promotion": "PRINCIPAL_SHARD_PRESERVED",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 1638400,
+      "exact_output_tokens": 102400,
+      "prompt_manifest_sha256": "b8c65df1f6e934bca87aeb8cd124470a86321c4f83948290093a766cde5462e6",
+      "gpu0_peak_mib": 13739,
+      "gpu1_peak_mib": 13739,
+      "peak_cells": ["tp2-c16", "tp2-c64"],
+      "maximum_system_ram_bytes": 7664336896,
+      "oom_observed": false,
+      "resource_guard": "PASS",
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    },
+    {
+      "shard_id": "phi4_mini-short-r04",
+      "workload": "short",
+      "runner_returncode": 0,
+      "inner_zip": "phi4_mini-short-r04-principal.zip",
+      "inner_zip_sha256": "6a7514da1104b7fb53c472c48c41a3e470cc53276df640f1aeee2741d5620afb",
+      "inner_hashes": "PASS_ALL_78_PAYLOADS",
+      "runner_hashes": "PASS_ALL_76_ENTRIES",
+      "semantic_validation": "VERIFIED_CANONICAL_CANDIDATE",
+      "promotion": "PRINCIPAL_SHARD_PRESERVED",
+      "tp_concurrency_grid": "COMPLETE_12_OF_12",
+      "measured_requests": 800,
+      "successful_requests": 800,
+      "failed_requests": 0,
+      "exact_input_tokens": 102400,
+      "exact_output_tokens": 51200,
+      "prompt_manifest_sha256": "8f2839294e106ac26e899eeea31162feb8177d79dd8f7d36116323fedceaf1b5",
+      "gpu0_peak_mib": 13739,
+      "gpu1_peak_mib": 13739,
+      "peak_cells": ["tp2-c01", "tp2-c04", "tp2-c08", "tp2-c16", "tp2-c32", "tp2-c64"],
+      "maximum_system_ram_bytes": 7531958272,
+      "oom_observed": false,
+      "resource_guard": "PASS",
+      "ingestion": "PRINCIPAL_SHARD_PRESERVED_LOCAL_CONTENT_ADDRESSED_STAGING"
+    }
+  ],
+  "guards": {
+    "disk": {
+      "classification": "PASS_POSITIVE_MARGIN",
+      "batch_start_free_bytes": 18522755072,
+      "minimum_free_bytes": 10793877504,
+      "minimum_required_free_bytes": 10672066216,
+      "minimum_margin_bytes": 121811288,
+      "high_water_used_bytes": 10146791424,
+      "safety_reserve_bytes": 2147483648,
+      "reserve_status": "PASS"
+    },
+    "wallclock": {
+      "classification": "PASS_NOT_WALLCLOCK_RELATED",
+      "batch_wall_clock_seconds": 8039.361046237,
+      "maximum_seconds": 37800,
+      "remaining_seconds_at_batch_end": 29760.638953763
+    },
+    "gpu_cleanup": {
+      "phi4_mini-balanced-r04": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "phi4_mini-prefill_heavy-r04": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "phi4_mini-short-r04": "PASS_GPU0_0_MIB_GPU1_0_MIB_NO_NEW_COMPUTE_PIDS",
+      "unexpected_child_processes": false
+    },
+    "cache_cleanup": {
+      "status": "DELETED_EXACT_MODEL_REPO_CACHE",
+      "path": "/kaggle/working/hf-cache/hub/models--microsoft--Phi-4-mini-instruct",
+      "broad_cleanup_observed": false
+    }
+  },
+  "ingestion": {
+    "status": "VERIFIED_BATCH_CANDIDATE",
+    "returncode": 0,
+    "accepted_shards": 3,
+    "invalid_shards": 0,
+    "failed_shards": 0,
+    "terminal_resource_shards": 0,
+    "planned_not_executed": 0,
+    "stderr": "EMPTY"
+  },
+  "no_rerun_audit": {
+    "all_phi_r04_workloads_settled": true,
+    "batch_permanently_non_runnable": true,
+    "all_three_shards_enter_no_rerun_set": true,
+    "future_execution_must_use_new_batch_id": true,
+    "phi_repetition_series_complete": true,
+    "sixth_phi_repetition_authorized": false
+  },
+  "methodology": {
+    "result_label": "FIVE_OF_FIVE_PHI_REPETITIONS_COMPLETE_GLOBAL_MATRIX_INCOMPLETE",
+    "logical_design": "60_SHARDS_720_FRESH_SERVER_CELLS_UNCHANGED",
+    "per_gpu_ceiling_mib": 14848,
+    "post_hoc_benchmark_tuning": false,
+    "historical_qwen_results_changed": false,
+    "r03_ministral_provenance_recovery_changed": false,
+    "historical_phi_r03_results_changed": false,
+    "new_multigigabyte_checkpoint_created": false,
+    "gemma_status": "CLOSED_NO_FURTHER_EXECUTION"
+  }
+}
