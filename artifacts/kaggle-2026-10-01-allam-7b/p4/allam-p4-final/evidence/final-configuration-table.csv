@@ -1,0 +1,7 @@
+tag,status,tp,max_model_len,gpu_memory_utilization,server_startup_s,model_loading_gib,available_kv_cache_gib,gpu_kv_cache_tokens,estimated_max_model_len,gpu0_peak_mem_mib,gpu1_peak_mem_mib,triton_attn_selected
+tp1-ctx960,PASS,1,960,0.98,108.227232791,13.04,1.0,2048.0,,14671.0,0.0,True
+tp1-ctx2048,PASS,1,2048,0.98,78.94890513899998,13.04,1.0,2048.0,,14799.0,0.0,True
+tp1-ctx4096,RESOURCE_GATED,1,4096,0.98,64.12099352200016,13.04,1.0,,2048.0,13743.0,0.0,True
+tp2-ctx960,PASS,2,960,0.85,91.2314988239998,6.55,5.68,23248.0,,12871.0,12871.0,True
+tp2-ctx2048,PASS,2,2048,0.85,76.3107123929999,6.55,5.68,23248.0,,12997.0,12997.0,True
+tp2-ctx4096,PASS,2,4096,0.85,76.28324937399998,6.55,5.68,23248.0,,13001.0,13001.0,True

@@ -1,0 +1,25 @@
+WAVE english C 1 R 1 success 1 / 1 out_tps 16.918074102971516 ttft_p50 0.10912224200001219
+WAVE english C 1 R 2 success 1 / 1 out_tps 16.90646331059712 ttft_p50 0.10809141300001102
+WAVE english C 1 R 3 success 1 / 1 out_tps 16.861285401271648 ttft_p50 0.1088582969999834
+WAVE english C 2 R 1 success 2 / 2 out_tps 16.764325674226267 ttft_p50 1.4446949949999635
+WAVE english C 2 R 2 success 2 / 2 out_tps 29.819705596328394 ttft_p50 0.19013024050002514
+WAVE english C 2 R 3 success 2 / 2 out_tps 28.944400573854093 ttft_p50 0.18568590299997823
+WAVE english C 4 R 1 success 4 / 4 out_tps 50.317271822995394 ttft_p50 0.4278102504999879
+WAVE english C 4 R 2 success 4 / 4 out_tps 50.519449245756476 ttft_p50 0.4158708750000528
+WAVE english C 4 R 3 success 4 / 4 out_tps 50.402870617372436 ttft_p50 0.4196784150000781
+WAVE english C 8 R 1 success 8 / 8 out_tps 81.3638344503331 ttft_p50 0.7500521239999784
+WAVE english C 8 R 2 success 8 / 8 out_tps 80.76359918509941 ttft_p50 0.7673756880000155
+WAVE english C 8 R 3 success 8 / 8 out_tps 80.77030985256158 ttft_p50 0.7638296374999527
+WAVE arabic C 1 R 1 success 1 / 1 out_tps 16.520653832567312 ttft_p50 0.11056766400008655
+WAVE arabic C 1 R 2 success 1 / 1 out_tps 16.465683565809357 ttft_p50 0.11517282899990278
+WAVE arabic C 1 R 3 success 1 / 1 out_tps 16.4180872906245 ttft_p50 0.11521515499998713
+WAVE arabic C 2 R 1 success 2 / 2 out_tps 28.631905995315016 ttft_p50 0.1917586545000063
+WAVE arabic C 2 R 2 success 2 / 2 out_tps 28.534575733755215 ttft_p50 0.19381363799999463
+WAVE arabic C 2 R 3 success 2 / 2 out_tps 28.48378632607525 ttft_p50 0.19660813099994812
+WAVE arabic C 4 R 1 success 4 / 4 out_tps 49.55536362874973 ttft_p50 0.437200844999893
+WAVE arabic C 4 R 2 success 4 / 4 out_tps 49.53515803293797 ttft_p50 0.43624988199997006
+WAVE arabic C 4 R 3 success 4 / 4 out_tps 48.80592949521145 ttft_p50 0.3358866429999807
+WAVE arabic C 8 R 1 success 8 / 8 out_tps 79.54790951724725 ttft_p50 0.7739179094999145
+WAVE arabic C 8 R 2 success 8 / 8 out_tps 79.60557737509555 ttft_p50 0.7672118589999855
+WAVE arabic C 8 R 3 success 8 / 8 out_tps 79.21211878928763 ttft_p50 0.7812708010000051
+ONLINE_BENCHMARK_PASS /kaggle/working/allam-p4-final/runs/tp1-ctx2048-online.json

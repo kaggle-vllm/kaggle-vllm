@@ -307,3 +307,27 @@ checkpoint archives, or derived model-state archives. Large native/model
 artifacts remain in documented external stores subject to identity, access,
 and license controls. The historical Qwen archive is identified by checksum
 but is not stored in the repository and is not required to reproduce M4.
+
+## Supplementary bilingual serving case study: ALLaM-7B
+
+The [post-M4 ALLaM case study](../allam/README.md) uses a distinct protocol
+and is external corroborating evidence only. ALLaM is not one of the original
+four M4 principal models or an additional repetition; the 60-shard M4
+population and all M1–M4 measurements, uncertainty estimates and conclusions
+remain unchanged. The final online protocol supports TP1 at context 2048 and
+TP2 at 4096, while TP1/4096 is resource-gated. Earlier offline P3 observations
+had a lower single-GPU boundary; logged batching/KV differences and different
+allocations establish a configuration-dependent observation, not isolated
+causality. The supplement reports descriptive within-server concurrency waves,
+not independent session replicates. English/Arabic responses and timing are
+systems measurements, not linguistic quality evaluation.
+
+Bari et al., *ALLaM: Large Language Models for Arabic and English* (2024),
+[arXiv:2407.15390v1](https://arxiv.org/abs/2407.15390v1), motivates this bilingual
+serving question through its discussion of tokenization, inference efficiency
+and token-limited context. We do not reproduce its quality benchmarks,
+tokenizer-fertility experiment, alignment results or A100-scale training. The
+supplement retains research-generated response text as well as metrics, unlike
+the M4 token/timing ledgers; it distributes no model weights, tokenizer assets
+or paper PDF. Full attribution, artifact review and limitations accompany the
+separate report.

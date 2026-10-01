@@ -60,3 +60,11 @@ repository-content review passes. This is a technical content classification,
 not legal advice. `research/model_matrix.json` continues to block future Llama
 or Gemma weight/model-state uploads until a separate review confirms the exact
 artifact, terms, notice, access, and attribution obligations.
+
+## Separate supplementary ALLaM status
+
+**REVIEWED_SUPPLEMENTARY_EVIDENCE**: [ALLaM case study](allam/README.md),
+executed after M4 with a different protocol. This is not a new M1–M4 gate or
+a fifth principal model. Its within-server waves, P3 reuse history and
+configuration-dependent capacity boundary remain explicit limitations.
+The overall `PAPER_READY_FOR_HUMAN_REVIEW` status above is unchanged.

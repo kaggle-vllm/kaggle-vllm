@@ -1,0 +1,262 @@
+{
+  "profile": "kaggle-t4x2-cu128",
+  "environment": {
+    "is_kaggle": true,
+    "python": "3.12.13",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "torch": "2.10.0+cu128",
+    "torch_path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+    "torch_cuda": "12.8",
+    "cuda_available": true,
+    "gpus": [
+      {
+        "index": 0,
+        "name": "Tesla T4",
+        "capability": [
+          7,
+          5
+        ],
+        "total_memory": 15636037632
+      },
+      {
+        "index": 1,
+        "name": "Tesla T4",
+        "capability": [
+          7,
+          5
+        ],
+        "total_memory": 15636037632
+      }
+    ],
+    "nccl": "2.27.5",
+    "nvcc": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+    "cuda_home": "/usr/local/cuda",
+    "cuda_driver": "/usr/local/nvidia/lib64/libcuda.so",
+    "cmake_library_path": null,
+    "driver_version": "580.159.04",
+    "driver_reported_cuda_max": "13.0"
+  },
+  "profile_findings": [],
+  "dependency_findings": [
+    {
+      "distribution": "transformers",
+      "import_name": "transformers",
+      "status": "pass",
+      "installed_version": "4.57.6",
+      "required_specifier": ">=4.56.0,<5",
+      "validated_version": "4.57.6",
+      "source": "wheel+overlay",
+      "message": "transformers 4.57.6"
+    },
+    {
+      "distribution": "tokenizers",
+      "import_name": "tokenizers",
+      "status": "pass",
+      "installed_version": "0.22.2",
+      "required_specifier": ">=0.21.1",
+      "validated_version": null,
+      "source": "wheel",
+      "message": "tokenizers 0.22.2"
+    },
+    {
+      "distribution": "pydantic",
+      "import_name": "pydantic",
+      "status": "pass",
+      "installed_version": "2.12.3",
+      "required_specifier": ">=2.12.0",
+      "validated_version": null,
+      "source": "wheel",
+      "message": "pydantic 2.12.3"
+    },
+    {
+      "distribution": "fastapi",
+      "import_name": "fastapi",
+      "status": "pass",
+      "installed_version": "0.136.1",
+      "required_specifier": ">=0.115.0",
+      "validated_version": null,
+      "source": "wheel",
+      "message": "fastapi 0.136.1"
+    },
+    {
+      "distribution": "aiohttp",
+      "import_name": "aiohttp",
+      "status": "pass",
+      "installed_version": "3.13.5",
+      "required_specifier": ">=3.13.3",
+      "validated_version": null,
+      "source": "wheel",
+      "message": "aiohttp 3.13.5"
+    },
+    {
+      "distribution": "numpy",
+      "import_name": "numpy",
+      "status": "pass",
+      "installed_version": "2.0.2",
+      "required_specifier": "",
+      "validated_version": null,
+      "source": "wheel",
+      "message": "numpy 2.0.2"
+    },
+    {
+      "distribution": "protobuf",
+      "import_name": "google.protobuf",
+      "status": "pass",
+      "installed_version": "6.33.6",
+      "required_specifier": ">=5.29.6,!=6.30.*,!=6.31.*,!=6.32.*,!=6.33.0.*,!=6.33.1.*,!=6.33.2.*,!=6.33.3.*,!=6.33.4.*",
+      "validated_version": "6.33.6",
+      "source": "wheel+overlay",
+      "message": "protobuf 6.33.6"
+    },
+    {
+      "distribution": "sentencepiece",
+      "import_name": "sentencepiece",
+      "status": "pass",
+      "installed_version": "0.2.1",
+      "required_specifier": "",
+      "validated_version": null,
+      "source": "wheel",
+      "message": "sentencepiece 0.2.1"
+    },
+    {
+      "distribution": "flashinfer-python",
+      "import_name": "flashinfer",
+      "status": "untested",
+      "installed_version": null,
+      "required_specifier": "==0.6.6",
+      "validated_version": "0.6.6",
+      "source": "wheel-optional-on-t4-triton-attn",
+      "message": "flashinfer-python is not installed"
+    },
+    {
+      "distribution": "xgrammar",
+      "import_name": "xgrammar",
+      "status": "pass",
+      "installed_version": "0.2.3",
+      "required_specifier": ">=0.1.32,<1.0.0",
+      "validated_version": "0.2.3",
+      "source": "wheel+overlay",
+      "message": "xgrammar 0.2.3"
+    },
+    {
+      "distribution": "apache-tvm-ffi",
+      "import_name": "tvm_ffi",
+      "status": "pass",
+      "installed_version": "0.1.13.post3",
+      "required_specifier": "==0.1.13.post3",
+      "validated_version": "0.1.13.post3",
+      "source": "validated-overlay",
+      "message": "apache-tvm-ffi 0.1.13.post3"
+    },
+    {
+      "distribution": "msgspec",
+      "import_name": "msgspec",
+      "status": "pass",
+      "installed_version": "0.21.1",
+      "required_specifier": "",
+      "validated_version": "0.21.1",
+      "source": "wheel+overlay",
+      "message": "msgspec 0.21.1"
+    },
+    {
+      "distribution": "cbor2",
+      "import_name": "cbor2",
+      "status": "pass",
+      "installed_version": "6.1.4",
+      "required_specifier": "",
+      "validated_version": "6.1.4",
+      "source": "wheel+overlay",
+      "message": "cbor2 6.1.4"
+    },
+    {
+      "distribution": "pybase64",
+      "import_name": "pybase64",
+      "status": "pass",
+      "installed_version": "1.5.0",
+      "required_specifier": "",
+      "validated_version": "1.5.0",
+      "source": "wheel+overlay",
+      "message": "pybase64 1.5.0"
+    },
+    {
+      "distribution": "gguf",
+      "import_name": "gguf",
+      "status": "pass",
+      "installed_version": "0.19.0",
+      "required_specifier": ">=0.17.0",
+      "validated_version": "0.19.0",
+      "source": "wheel+overlay",
+      "message": "gguf 0.19.0"
+    },
+    {
+      "distribution": "openai-harmony",
+      "import_name": "openai_harmony",
+      "status": "pass",
+      "installed_version": "0.0.8",
+      "required_specifier": ">=0.0.3",
+      "validated_version": "0.0.8",
+      "source": "wheel+overlay",
+      "message": "openai-harmony 0.0.8"
+    },
+    {
+      "distribution": "diskcache",
+      "import_name": "diskcache",
+      "status": "pass",
+      "installed_version": "5.6.3",
+      "required_specifier": "==5.6.3",
+      "validated_version": "5.6.3",
+      "source": "wheel+overlay",
+      "message": "diskcache 5.6.3"
+    },
+    {
+      "distribution": "outlines-core",
+      "import_name": "outlines_core",
+      "status": "pass",
+      "installed_version": "0.2.11",
+      "required_specifier": "==0.2.11",
+      "validated_version": "0.2.11",
+      "source": "wheel+overlay",
+      "message": "outlines-core 0.2.11"
+    },
+    {
+      "distribution": "lm-format-enforcer",
+      "import_name": "lmformatenforcer",
+      "status": "pass",
+      "installed_version": "0.11.3",
+      "required_specifier": "==0.11.3",
+      "validated_version": "0.11.3",
+      "source": "wheel+overlay",
+      "message": "lm-format-enforcer 0.11.3"
+    },
+    {
+      "distribution": "llguidance",
+      "import_name": "llguidance",
+      "status": "pass",
+      "installed_version": "1.3.0",
+      "required_specifier": ">=1.3.0,<1.4.0",
+      "validated_version": "1.3.0",
+      "source": "wheel+overlay",
+      "message": "llguidance 1.3.0"
+    },
+    {
+      "distribution": "triton",
+      "import_name": "triton",
+      "status": "pass",
+      "installed_version": "3.6.0",
+      "required_specifier": "",
+      "validated_version": null,
+      "source": "torch-provided/attention-backend",
+      "message": "triton 3.6.0"
+    }
+  ],
+  "summary": {
+    "dependencies": {
+      "pass": 20,
+      "warning": 0,
+      "error": 0,
+      "untested": 1
+    }
+  },
+  "compatible": true
+}

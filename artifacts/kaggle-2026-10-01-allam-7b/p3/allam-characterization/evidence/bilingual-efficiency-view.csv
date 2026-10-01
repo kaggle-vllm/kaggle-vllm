@@ -1,0 +1,9 @@
+tag,language,diagnostic_tokens_per_word,fixed_token_output_tps_mean,fixed_token_ttft_p50_mean_s
+tp1-ctx960,english,1.2414,17.46113318375008,
+tp2-ctx2048,english,1.2414,17.132449097323967,
+tp2-ctx4096,english,1.2414,18.039905645315333,
+tp2-ctx960,english,1.2414,17.93479948797898,
+tp1-ctx960,arabic,1.2333,17.408364699527258,
+tp2-ctx2048,arabic,1.2333,17.245811858434795,
+tp2-ctx4096,arabic,1.2333,17.632522682220802,
+tp2-ctx960,arabic,1.2333,18.541052094521994,

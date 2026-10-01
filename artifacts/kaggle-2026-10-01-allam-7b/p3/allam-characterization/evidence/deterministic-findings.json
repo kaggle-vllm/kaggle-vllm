@@ -1,0 +1,80 @@
+[
+  {
+    "type": "configuration_status",
+    "tag": "tp1-ctx960",
+    "status": "PASS",
+    "tp": 1,
+    "max_model_len": 960
+  },
+  {
+    "type": "configuration_status",
+    "tag": "tp2-ctx960",
+    "status": "PASS",
+    "tp": 2,
+    "max_model_len": 960
+  },
+  {
+    "type": "configuration_status",
+    "tag": "tp1-ctx2048",
+    "status": "RESOURCE_GATED",
+    "tp": 1,
+    "max_model_len": 2048
+  },
+  {
+    "type": "configuration_status",
+    "tag": "tp1-ctx4096",
+    "status": "RESOURCE_GATED",
+    "tp": 1,
+    "max_model_len": 4096
+  },
+  {
+    "type": "configuration_status",
+    "tag": "tp2-ctx2048",
+    "status": "PASS",
+    "tp": 2,
+    "max_model_len": 2048
+  },
+  {
+    "type": "configuration_status",
+    "tag": "tp2-ctx4096",
+    "status": "PASS",
+    "tp": 2,
+    "max_model_len": 4096
+  },
+  {
+    "type": "tp_throughput_delta",
+    "max_model_len": 960,
+    "language": "english",
+    "tp1_output_tps_mean": 17.46113318375008,
+    "tp2_output_tps_mean": 17.93479948797898,
+    "tp2_vs_tp1_pct": 2.7126893727018415
+  },
+  {
+    "type": "chat_sanity",
+    "tag": "tp1-ctx960",
+    "nonempty_responses": 4,
+    "expected_responses": 4,
+    "pass": true
+  },
+  {
+    "type": "chat_sanity",
+    "tag": "tp2-ctx960",
+    "nonempty_responses": 4,
+    "expected_responses": 4,
+    "pass": true
+  },
+  {
+    "type": "chat_sanity",
+    "tag": "tp2-ctx2048",
+    "nonempty_responses": 4,
+    "expected_responses": 4,
+    "pass": true
+  },
+  {
+    "type": "chat_sanity",
+    "tag": "tp2-ctx4096",
+    "nonempty_responses": 4,
+    "expected_responses": 4,
+    "pass": true
+  }
+]
