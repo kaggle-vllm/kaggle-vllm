@@ -119,3 +119,10 @@ authorization failures remain access records, while its manually edited retry
 remains excluded `DEBUG_COMPATIBILITY_PASS` evidence and is not combined with
 the accepted clean run. Gemma 4 is an out-of-scope follow-up and was not
 substituted post hoc.
+
+## Supplementary post-M4 case study
+
+[ALLaM-7B bilingual serving](allam/README.md) preserves the three-stage
+ALLaM execution and its final online protocol. It is separate from the frozen
+M1–M4 population, metrics and uncertainty treatment; ALLaM is not added to
+`model_matrix.json`. The M1–M4 readiness status is unchanged.

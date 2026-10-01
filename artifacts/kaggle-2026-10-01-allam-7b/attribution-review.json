@@ -1,0 +1,29 @@
+{
+  "review_date": "2026-10-01",
+  "official_sources": [
+    {
+      "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/raw/a28dd1e67420cde72d3629c8633a974cf7d9c366/README.md",
+      "sha256": "e95a09c2ba96e9e2cda782cbf51e93862e8f8b19fb18c55d7982113069a939a7",
+      "bytes": 30281
+    },
+    {
+      "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/raw/a28dd1e67420cde72d3629c8633a974cf7d9c366/config.json",
+      "sha256": "77494ef4de9d6450f94d566f5ccc63aedbcf6944b57ceedc6677f94cc315086d",
+      "bytes": 686
+    }
+  ],
+  "model_card_license_metadata": "apache-2.0",
+  "standalone_license_in_pinned_root": false,
+  "redistributed_upstream_assets": false,
+  "paper": {
+    "citation": "M Saiful Bari et al. ALLaM: Large Language Models for Arabic and English. 2024. arXiv:2407.15390v1.",
+    "url": "https://arxiv.org/abs/2407.15390v1",
+    "supplied_pdf_sha256": "0888e2f3883d5b3a04a41915653b1e46e9f494bd184d9c983024aa0182cf04f1",
+    "relevant_sections": [
+      "2.2 Continued Pretraining",
+      "2.4 Compute and Training Infrastructure"
+    ],
+    "pdf_committed": false
+  },
+  "scope": "Technical repository-content classification, not legal advice. Research-generated evidence only; no weights/tokenizer/checkpoint/native wheel redistribution."
+}

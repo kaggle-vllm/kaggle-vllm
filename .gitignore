@@ -46,3 +46,6 @@ vllm-0.18.1/
 
 # Local generated repository inventories
 vllm-kaggle-files-folders.txt
+
+# Supplementary ALLaM immutable execution logs
+!artifacts/kaggle-2026-10-01-allam-7b/**/*.log

@@ -1,0 +1,26 @@
+[
+  {
+    "sample": "english",
+    "words": 29,
+    "chars": 218,
+    "tokens": 36,
+    "tokens_per_word": 1.2414,
+    "chars_per_token": 6.0556
+  },
+  {
+    "sample": "arabic",
+    "words": 30,
+    "chars": 179,
+    "tokens": 37,
+    "tokens_per_word": 1.2333,
+    "chars_per_token": 4.8378
+  },
+  {
+    "sample": "code",
+    "words": 11,
+    "chars": 123,
+    "tokens": 43,
+    "tokens_per_word": 3.9091,
+    "chars_per_token": 2.8605
+  }
+]

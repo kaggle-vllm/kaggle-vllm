@@ -1,0 +1,210 @@
+{
+  "model_id": "humain-ai/ALLaM-7B-Instruct-preview",
+  "model_commit": "a28dd1e67420cde72d3629c8633a974cf7d9c366",
+  "internal_version": "7b-alpha-v2.33.0.30",
+  "sdk": "kaggle-vllm==0.2.0",
+  "matrix": [
+    {
+      "tp": 1,
+      "max_model_len": 960,
+      "gpu_memory_utilization": 0.98,
+      "experiment_role": "single_t4_feasibility_probe"
+    },
+    {
+      "tp": 2,
+      "max_model_len": 960,
+      "gpu_memory_utilization": 0.85,
+      "experiment_role": "matched_tp2_960_baseline"
+    },
+    {
+      "tp": 1,
+      "max_model_len": 2048,
+      "gpu_memory_utilization": 0.98,
+      "experiment_role": "single_t4_capacity_boundary"
+    },
+    {
+      "tp": 1,
+      "max_model_len": 4096,
+      "gpu_memory_utilization": 0.98,
+      "experiment_role": "single_t4_capacity_boundary"
+    },
+    {
+      "tp": 2,
+      "max_model_len": 2048,
+      "gpu_memory_utilization": 0.85,
+      "experiment_role": "validated_dual_t4_baseline"
+    },
+    {
+      "tp": 2,
+      "max_model_len": 4096,
+      "gpu_memory_utilization": 0.85,
+      "experiment_role": "dual_t4_full_context"
+    }
+  ],
+  "repeats": 3,
+  "core_prompt_tokens": 128,
+  "core_output_tokens": 32,
+  "concurrency_levels": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "artifacts": [
+    {
+      "path": "__pycache__/allam_characterization_runner.cpython-312.pyc",
+      "bytes": 16509,
+      "sha256": "3b2dbdac17cdc133da498b2b03baf14a9b863a2129d3fef8f4ceaf6fd0b267fc"
+    },
+    {
+      "path": "allam_characterization_runner.py",
+      "bytes": 12064,
+      "sha256": "c4e9a014ff44b8686bd1898698813bd3f17e703a1e59ecd6facc0b5656ae2f8b"
+    },
+    {
+      "path": "evidence/benchmark-rows.csv",
+      "bytes": 6594,
+      "sha256": "360d2166076a3f6f8bf87d9837bcca2d6ffd357644f144a9217c19012b53327d"
+    },
+    {
+      "path": "evidence/bilingual-efficiency-view.csv",
+      "bytes": 462,
+      "sha256": "6261efb0ae851019f05bfa41b9617f9c1931e7a6d331a62d06229111b93e2a3b"
+    },
+    {
+      "path": "evidence/capacity-probes.csv",
+      "bytes": 1297,
+      "sha256": "29ae4f543181774b1c781be30358a2c5dee9c6162857980fd85280148d6f091c"
+    },
+    {
+      "path": "evidence/concurrency-scaling.csv",
+      "bytes": 2317,
+      "sha256": "fb5f104b09cea9e3136fa6d50193165f03681976251a6afb7353fdc5f9d9c693"
+    },
+    {
+      "path": "evidence/config-summary.csv",
+      "bytes": 2078,
+      "sha256": "fc11bd0f9b518d11b4fa9eee1f44a588416461b51c41c8aa66ae8e38e20f28bb"
+    },
+    {
+      "path": "evidence/core-repeat-summary.csv",
+      "bytes": 1086,
+      "sha256": "b39d1842841f4088329f2c7a58597dab05707deb1150465b3e5300fac0fb362a"
+    },
+    {
+      "path": "evidence/deterministic-findings.json",
+      "bytes": 1587,
+      "sha256": "d3e1d2448c495c26d8b2e4d3a80b0eca33a68e31bbde8d4bc24093729e3eb642"
+    },
+    {
+      "path": "evidence/kaggle-vllm-doctor.json",
+      "bytes": 7496,
+      "sha256": "628dd8cc7e6a93916e43c8bd975de299f28af1232377216bc8dbab60b0e09cd2"
+    },
+    {
+      "path": "evidence/matrix-summary.json",
+      "bytes": 52920,
+      "sha256": "533a17bfaecd8f5a83e088c350ab4a6e558e69cb7a9519de841ebb7b4fcefb9a"
+    },
+    {
+      "path": "evidence/tokenizer-fertility.json",
+      "bytes": 443,
+      "sha256": "f9f4033bfd652342767afbaaea979a129319cdf82cc854191bed47f881ad7899"
+    },
+    {
+      "path": "plots/concurrency-scaling.png",
+      "bytes": 113967,
+      "sha256": "0c1e2c56fc6f2370d6ccbf38cd2009da45ba570584a65ebff2aeb308aac5b95b"
+    },
+    {
+      "path": "plots/core-throughput.png",
+      "bytes": 75970,
+      "sha256": "5e746ec0a4644b17fdc8c6e69780ce699745d861e7a944b73d1caac43bc7dbb1"
+    },
+    {
+      "path": "plots/peak-memory.png",
+      "bytes": 55075,
+      "sha256": "1332460b715e55da6b638c5ccf26eadcac5749770c61f1dd2ff2e15abbd6e802"
+    },
+    {
+      "path": "runs/tp1-ctx2048-gpu-telemetry.json",
+      "bytes": 60768,
+      "sha256": "b9d0716f5ea00f19b4eb95c529b393f0e22bca91b7708f2b7a2afff82f572109"
+    },
+    {
+      "path": "runs/tp1-ctx2048.log",
+      "bytes": 15158,
+      "sha256": "0f0f6f80666df2da07ef7f84fb2a4faf48b59a19456e68469e5a9b27e6af5dd9"
+    },
+    {
+      "path": "runs/tp1-ctx4096-gpu-telemetry.json",
+      "bytes": 59696,
+      "sha256": "0b1e06f5efa1136d01f382c99cdf5ef66eddf8beb3e260d8e50bfe021a75c22d"
+    },
+    {
+      "path": "runs/tp1-ctx4096.log",
+      "bytes": 15158,
+      "sha256": "5414f60a2ed563f3025e55848ca37998872b40f7108a4a03e4fe878e9506f28f"
+    },
+    {
+      "path": "runs/tp1-ctx960-gpu-telemetry.json",
+      "bytes": 85847,
+      "sha256": "2ea489cdc7ef2c776858a26b50c324ae3ab8a92f57dc01f4181305c48a9c9fb8"
+    },
+    {
+      "path": "runs/tp1-ctx960.json",
+      "bytes": 9494,
+      "sha256": "e3b06e91246a8ba338e46eb8d69248fdfcc61b214f5b92ca1cf6cf7b4af6851a"
+    },
+    {
+      "path": "runs/tp1-ctx960.log",
+      "bytes": 7886,
+      "sha256": "8acf596122da578f1798db44818453f520fd6b89b54fa22eb56653c8d2bfabdd"
+    },
+    {
+      "path": "runs/tp2-ctx2048-gpu-telemetry.json",
+      "bytes": 126562,
+      "sha256": "8e43c1f91e1f75d62f87641a9853ef1c778474cc9c12c55d9a789adf22b18ccb"
+    },
+    {
+      "path": "runs/tp2-ctx2048.json",
+      "bytes": 9614,
+      "sha256": "440c4e9c5a434a95b74dcc8b02f833cdccd13562eb4001430b99f179911a2300"
+    },
+    {
+      "path": "runs/tp2-ctx2048.log",
+      "bytes": 27558,
+      "sha256": "345bf4c26741efe22f100140889380059f4505b9bff6187b2988ecb2cdcc714e"
+    },
+    {
+      "path": "runs/tp2-ctx4096-gpu-telemetry.json",
+      "bytes": 114027,
+      "sha256": "ff2b5b7d0d5b70793ed184784ea67ff79280fd4c6cdcd6e8d8b0e52c86022476"
+    },
+    {
+      "path": "runs/tp2-ctx4096.json",
+      "bytes": 9619,
+      "sha256": "018ae41e90172649809d79caba3df135a4e976f5c9afa3b9810690a723707e7d"
+    },
+    {
+      "path": "runs/tp2-ctx4096.log",
+      "bytes": 27555,
+      "sha256": "010c327302b62637752ab045a6d52f6b688996327e29e913e24b4f4c6ef1ed85"
+    },
+    {
+      "path": "runs/tp2-ctx960-gpu-telemetry.json",
+      "bytes": 102477,
+      "sha256": "d7ff9106ecacd872095765a618f4eaf36ffc6d412ebf6297385f8f0ee187024c"
+    },
+    {
+      "path": "runs/tp2-ctx960.json",
+      "bytes": 9618,
+      "sha256": "f21a540e1684439da291bc7791beec9f414d5cce6fe5de62fd7a1d7fc946308d"
+    },
+    {
+      "path": "runs/tp2-ctx960.log",
+      "bytes": 27548,
+      "sha256": "09097aa9fedd41d066c7fb328943766bd7dc940e35476d15406e852e58dbed1d"
+    }
+  ]
+}

@@ -59,3 +59,7 @@ does not modify their bytes or invalidate recorded checksums.
 No additional M4 shard or execution batch is authorized. Future M5 directories
 must not be added unless an optional Kaggle run occurs and its provenance and
 checksums pass review. Prepared notebook source is not evidence.
+
+- [ALLaM-7B supplementary case study](kaggle-2026-10-01-allam-7b/README.md) —
+  post-M4 P2 compatibility, P3 exploration and P4 bilingual online serving;
+  separate protocol, population and provenance.

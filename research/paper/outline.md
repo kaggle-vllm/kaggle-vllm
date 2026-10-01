@@ -133,3 +133,9 @@ empirical TP1/TP2 characterization; directly measured collective regime;
 workload-dependent crossover; cross-model generalization after M4; open
 notebooks/evidence/provenance. Excluded framing: new engine, scheduler, CUDA
 kernel, PagedAttention implementation, or universal scaling law.
+
+## Separate post-M4 supplement
+
+[ALLaM bilingual serving case study](../allam/README.md): distinct protocol
+and population; descriptive serving/capacity observations only. It does not
+recalculate M4 results or reproduce ALLaM language-quality evaluations.

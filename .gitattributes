@@ -19,3 +19,7 @@ artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/*.metri
 artifacts/kaggle-2026-09-08-milestone-4/compatibility/ministral3_3b_bf16/*.server.log -whitespace
 artifacts/kaggle-2026-09-08-milestone-4/compatibility/llama32_3b/*.metrics.txt -whitespace
 artifacts/kaggle-2026-09-08-milestone-4/compatibility/llama32_3b/*.server.log -whitespace
+
+# Byte-preserved ALLaM NCCL/terminal captures contain original trailing bytes.
+artifacts/kaggle-2026-10-01-allam-7b/**/*.log -whitespace
+artifacts/kaggle-2026-10-01-allam-7b/p4/allam-p4-final/evidence/vllm-serve-help.txt -whitespace

@@ -1,0 +1,152 @@
+(APIServer pid=1971) INFO 10-01 12:17:14 [utils.py:297] 
+(APIServer pid=1971) INFO 10-01 12:17:14 [utils.py:297]        █     █     █▄   ▄█
+(APIServer pid=1971) INFO 10-01 12:17:14 [utils.py:297]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.18.2.dev0+ga26e8dc7f.d20260822
+(APIServer pid=1971) INFO 10-01 12:17:14 [utils.py:297]   █▄█▀ █     █     █     █  model   /kaggle/working/hf-allam-cache/models--humain-ai--ALLaM-7B-Instruct-preview/snapshots/a28dd1e67420cde72d3629c8633a974cf7d9c366
+(APIServer pid=1971) INFO 10-01 12:17:14 [utils.py:297]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=1971) INFO 10-01 12:17:14 [utils.py:297] 
+(APIServer pid=1971) INFO 10-01 12:17:14 [utils.py:233] non-default args: {'model_tag': '/kaggle/working/hf-allam-cache/models--humain-ai--ALLaM-7B-Instruct-preview/snapshots/a28dd1e67420cde72d3629c8633a974cf7d9c366', 'host': '127.0.0.1', 'port': 8102, 'model': '/kaggle/working/hf-allam-cache/models--humain-ai--ALLaM-7B-Instruct-preview/snapshots/a28dd1e67420cde72d3629c8633a974cf7d9c366', 'dtype': 'float16', 'max_model_len': 4096, 'enforce_eager': True, 'served_model_name': ['allam-p4'], 'disable_custom_all_reduce': True, 'gpu_memory_utilization': 0.98, 'max_num_seqs': 8}
+(APIServer pid=1971) INFO 10-01 12:17:14 [model.py:533] Resolved architecture: LlamaForCausalLM
+(APIServer pid=1971) WARNING 10-01 12:17:14 [model.py:1920] Casting torch.bfloat16 to torch.float16.
+(APIServer pid=1971) INFO 10-01 12:17:14 [model.py:1582] Using max model len 4096
+(APIServer pid=1971) INFO 10-01 12:17:14 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=2048.
+(APIServer pid=1971) INFO 10-01 12:17:14 [vllm.py:775] Asynchronous scheduling is enabled.
+(APIServer pid=1971) WARNING 10-01 12:17:14 [vllm.py:809] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(APIServer pid=1971) WARNING 10-01 12:17:14 [vllm.py:820] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(APIServer pid=1971) INFO 10-01 12:17:14 [vllm.py:985] Cudagraph is disabled under eager mode
+(APIServer pid=1971) INFO 10-01 12:17:14 [compilation.py:289] Enabled custom fusions: norm_quant, act_quant
+(EngineCore pid=2081) INFO 10-01 12:17:31 [core.py:103] Initializing a V1 LLM engine (v0.18.2.dev0+ga26e8dc7f.d20260822) with config: model='/kaggle/working/hf-allam-cache/models--humain-ai--ALLaM-7B-Instruct-preview/snapshots/a28dd1e67420cde72d3629c8633a974cf7d9c366', speculative_config=None, tokenizer='/kaggle/working/hf-allam-cache/models--humain-ai--ALLaM-7B-Instruct-preview/snapshots/a28dd1e67420cde72d3629c8633a974cf7d9c366', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=4096, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=True, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=allam-p4, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
+(EngineCore pid=2081) INFO 10-01 12:17:31 [parallel_state.py:1395] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://172.19.2.2:45769 backend=nccl
+[W1001 12:17:31.915332459 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3
+(EngineCore pid=2081) INFO 10-01 12:17:31 [parallel_state.py:1717] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=2081) INFO 10-01 12:17:32 [gpu_model_runner.py:4481] Starting to load model /kaggle/working/hf-allam-cache/models--humain-ai--ALLaM-7B-Instruct-preview/snapshots/a28dd1e67420cde72d3629c8633a974cf7d9c366...
+(EngineCore pid=2081) ERROR 10-01 12:17:32 [fa_utils.py:145] Cannot use FA version 2 is not supported due to FA2 is only supported on devices with compute capability >= 8
+(EngineCore pid=2081) INFO 10-01 12:17:32 [cuda.py:317] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore pid=2081) Loading safetensors checkpoint shards:   0% Completed | 0/3 [00:00<?, ?it/s]
+(EngineCore pid=2081) Loading safetensors checkpoint shards:  33% Completed | 1/3 [00:04<00:09,  4.85s/it]
+(EngineCore pid=2081) Loading safetensors checkpoint shards:  67% Completed | 2/3 [00:09<00:04,  4.79s/it]
+(EngineCore pid=2081) Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:13<00:00,  4.39s/it]
+(EngineCore pid=2081) Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:13<00:00,  4.50s/it]
+(EngineCore pid=2081) 
+(EngineCore pid=2081) INFO 10-01 12:17:46 [default_loader.py:384] Loading weights took 13.64 seconds
+(EngineCore pid=2081) INFO 10-01 12:17:47 [gpu_model_runner.py:4566] Model loading took 13.04 GiB memory and 13.888410 seconds
+(EngineCore pid=2081) INFO 10-01 12:17:51 [gpu_worker.py:456] Available KV cache memory: 1.0 GiB
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099] EngineCore failed to start.
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099] Traceback (most recent call last):
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/core.py", line 1073, in run_engine_core
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]     return func(*args, **kwargs)
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/core.py", line 839, in __init__
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]     super().__init__(
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/core.py", line 122, in __init__
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]     kv_cache_config = self._initialize_kv_caches(vllm_config)
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]     return func(*args, **kwargs)
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/core.py", line 256, in _initialize_kv_caches
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]     kv_cache_configs = get_kv_cache_configs(
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]                        ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/core/kv_cache_utils.py", line 1574, in get_kv_cache_configs
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]     _check_enough_kv_cache_memory(
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/core/kv_cache_utils.py", line 641, in _check_enough_kv_cache_memory
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099]     raise ValueError(
+(EngineCore pid=2081) ERROR 10-01 12:17:51 [core.py:1099] ValueError: To serve at least one request with the models's max seq len (4096), (2.0 GiB KV cache is needed, which is larger than the available KV cache memory (1.0 GiB). Based on the available memory, the estimated maximum model length is 2048. Try increasing `gpu_memory_utilization` or decreasing `max_model_len` when initializing the engine. See https://docs.vllm.ai/en/latest/configuration/conserving_memory/ for more details.
+(EngineCore pid=2081) Process EngineCore:
+(EngineCore pid=2081) Traceback (most recent call last):
+(EngineCore pid=2081)   File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+(EngineCore pid=2081)     self.run()
+(EngineCore pid=2081)   File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+(EngineCore pid=2081)     self._target(*self._args, **self._kwargs)
+(EngineCore pid=2081)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/core.py", line 1103, in run_engine_core
+(EngineCore pid=2081)     raise e
+(EngineCore pid=2081)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/core.py", line 1073, in run_engine_core
+(EngineCore pid=2081)     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=2081)                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2081)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=2081)     return func(*args, **kwargs)
+(EngineCore pid=2081)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2081)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/core.py", line 839, in __init__
+(EngineCore pid=2081)     super().__init__(
+(EngineCore pid=2081)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/core.py", line 122, in __init__
+(EngineCore pid=2081)     kv_cache_config = self._initialize_kv_caches(vllm_config)
+(EngineCore pid=2081)                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2081)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=2081)     return func(*args, **kwargs)
+(EngineCore pid=2081)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2081)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/core.py", line 256, in _initialize_kv_caches
+(EngineCore pid=2081)     kv_cache_configs = get_kv_cache_configs(
+(EngineCore pid=2081)                        ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=2081)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/core/kv_cache_utils.py", line 1574, in get_kv_cache_configs
+(EngineCore pid=2081)     _check_enough_kv_cache_memory(
+(EngineCore pid=2081)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/core/kv_cache_utils.py", line 641, in _check_enough_kv_cache_memory
+(EngineCore pid=2081)     raise ValueError(
+(EngineCore pid=2081) ValueError: To serve at least one request with the models's max seq len (4096), (2.0 GiB KV cache is needed, which is larger than the available KV cache memory (1.0 GiB). Based on the available memory, the estimated maximum model length is 2048. Try increasing `gpu_memory_utilization` or decreasing `max_model_len` when initializing the engine. See https://docs.vllm.ai/en/latest/configuration/conserving_memory/ for more details.
+[rank0]:[W1001 12:17:52.266230998 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+(APIServer pid=1971) Traceback (most recent call last):
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/bin/vllm", line 8, in <module>
+(APIServer pid=1971)     sys.exit(main())
+(APIServer pid=1971)              ^^^^^^
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/entrypoints/cli/main.py", line 75, in main
+(APIServer pid=1971)     args.dispatch_function(args)
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/entrypoints/cli/serve.py", line 118, in cmd
+(APIServer pid=1971)     uvloop.run(run_server(args))
+(APIServer pid=1971)   File "/usr/local/lib/python3.12/dist-packages/uvloop/__init__.py", line 96, in run
+(APIServer pid=1971)     return __asyncio.run(
+(APIServer pid=1971)            ^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "/usr/lib/python3.12/asyncio/runners.py", line 195, in run
+(APIServer pid=1971)     return runner.run(main)
+(APIServer pid=1971)            ^^^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+(APIServer pid=1971)     return self._loop.run_until_complete(task)
+(APIServer pid=1971)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+(APIServer pid=1971)   File "/usr/local/lib/python3.12/dist-packages/uvloop/__init__.py", line 48, in wrapper
+(APIServer pid=1971)     return await main
+(APIServer pid=1971)            ^^^^^^^^^^
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/entrypoints/openai/api_server.py", line 656, in run_server
+(APIServer pid=1971)     await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/entrypoints/openai/api_server.py", line 670, in run_server_worker
+(APIServer pid=1971)     async with build_async_engine_client(
+(APIServer pid=1971)                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=1971)     return await anext(self.gen)
+(APIServer pid=1971)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/entrypoints/openai/api_server.py", line 103, in build_async_engine_client
+(APIServer pid=1971)     async with build_async_engine_client_from_engine_args(
+(APIServer pid=1971)                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=1971)     return await anext(self.gen)
+(APIServer pid=1971)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/entrypoints/openai/api_server.py", line 144, in build_async_engine_client_from_engine_args
+(APIServer pid=1971)     async_llm = AsyncLLM.from_vllm_config(
+(APIServer pid=1971)                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/async_llm.py", line 225, in from_vllm_config
+(APIServer pid=1971)     return cls(
+(APIServer pid=1971)            ^^^^
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/async_llm.py", line 154, in __init__
+(APIServer pid=1971)     self.engine_core = EngineCoreClient.make_async_mp_client(
+(APIServer pid=1971)                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/tracing/otel.py", line 178, in sync_wrapper
+(APIServer pid=1971)     return func(*args, **kwargs)
+(APIServer pid=1971)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/core_client.py", line 128, in make_async_mp_client
+(APIServer pid=1971)     return AsyncMPClient(*client_args)
+(APIServer pid=1971)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/tracing/otel.py", line 178, in sync_wrapper
+(APIServer pid=1971)     return func(*args, **kwargs)
+(APIServer pid=1971)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/core_client.py", line 924, in __init__
+(APIServer pid=1971)     super().__init__(
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/core_client.py", line 583, in __init__
+(APIServer pid=1971)     with launch_core_engines(
+(APIServer pid=1971)          ^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1971)   File "/usr/lib/python3.12/contextlib.py", line 144, in __exit__
+(APIServer pid=1971)     next(self.gen)
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/utils.py", line 972, in launch_core_engines
+(APIServer pid=1971)     wait_for_engine_startup(
+(APIServer pid=1971)   File "/kaggle/working/kaggle-vllm-allam-020/vllm-staged/vllm/v1/engine/utils.py", line 1031, in wait_for_engine_startup
+(APIServer pid=1971)     raise RuntimeError(
+(APIServer pid=1971) RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}

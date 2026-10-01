@@ -1,0 +1,180 @@
+[
+  {
+    "type": "configuration_status",
+    "tag": "tp1-ctx960",
+    "status": "PASS",
+    "tp": 1,
+    "max_model_len": 960,
+    "gpu_memory_utilization": 0.98,
+    "estimated_max_model_len": null
+  },
+  {
+    "type": "configuration_status",
+    "tag": "tp1-ctx2048",
+    "status": "PASS",
+    "tp": 1,
+    "max_model_len": 2048,
+    "gpu_memory_utilization": 0.98,
+    "estimated_max_model_len": null
+  },
+  {
+    "type": "configuration_status",
+    "tag": "tp1-ctx4096",
+    "status": "RESOURCE_GATED",
+    "tp": 1,
+    "max_model_len": 4096,
+    "gpu_memory_utilization": 0.98,
+    "estimated_max_model_len": 2048
+  },
+  {
+    "type": "configuration_status",
+    "tag": "tp2-ctx960",
+    "status": "PASS",
+    "tp": 2,
+    "max_model_len": 960,
+    "gpu_memory_utilization": 0.85,
+    "estimated_max_model_len": null
+  },
+  {
+    "type": "configuration_status",
+    "tag": "tp2-ctx2048",
+    "status": "PASS",
+    "tp": 2,
+    "max_model_len": 2048,
+    "gpu_memory_utilization": 0.85,
+    "estimated_max_model_len": null
+  },
+  {
+    "type": "configuration_status",
+    "tag": "tp2-ctx4096",
+    "status": "PASS",
+    "tp": 2,
+    "max_model_len": 4096,
+    "gpu_memory_utilization": 0.85,
+    "estimated_max_model_len": null
+  },
+  {
+    "type": "matched_tp_delta",
+    "context": 960,
+    "language": "english",
+    "concurrency": 1,
+    "tp2_vs_tp1_output_tps_pct": -1.3535708190348248,
+    "tp2_vs_tp1_ttft_p50_pct": -26.172387369960465,
+    "tp2_vs_tp1_tpot_p50_pct": 4.127498349017502,
+    "tp2_vs_tp1_e2e_p50_pct": 2.3170270479529
+  },
+  {
+    "type": "matched_tp_delta",
+    "context": 960,
+    "language": "english",
+    "concurrency": 2,
+    "tp2_vs_tp1_output_tps_pct": -0.9070336902812103,
+    "tp2_vs_tp1_ttft_p50_pct": -52.95304053040123,
+    "tp2_vs_tp1_tpot_p50_pct": -3.968029027100512,
+    "tp2_vs_tp1_e2e_p50_pct": -5.197106553035124
+  },
+  {
+    "type": "matched_tp_delta",
+    "context": 960,
+    "language": "english",
+    "concurrency": 4,
+    "tp2_vs_tp1_output_tps_pct": 20.784227682783058,
+    "tp2_vs_tp1_ttft_p50_pct": -59.20401990947739,
+    "tp2_vs_tp1_tpot_p50_pct": -12.985800478027537,
+    "tp2_vs_tp1_e2e_p50_pct": -20.293740688163066
+  },
+  {
+    "type": "matched_tp_delta",
+    "context": 960,
+    "language": "english",
+    "concurrency": 8,
+    "tp2_vs_tp1_output_tps_pct": 34.564285148784776,
+    "tp2_vs_tp1_ttft_p50_pct": -32.84501704393023,
+    "tp2_vs_tp1_tpot_p50_pct": -24.39760867126359,
+    "tp2_vs_tp1_e2e_p50_pct": -26.423349200169866
+  },
+  {
+    "type": "matched_tp_delta",
+    "context": 960,
+    "language": "arabic",
+    "concurrency": 1,
+    "tp2_vs_tp1_output_tps_pct": 0.3771422043055045,
+    "tp2_vs_tp1_ttft_p50_pct": -30.994198186220107,
+    "tp2_vs_tp1_tpot_p50_pct": 2.2191622498339814,
+    "tp2_vs_tp1_e2e_p50_pct": 0.33452670677240787
+  },
+  {
+    "type": "matched_tp_delta",
+    "context": 960,
+    "language": "arabic",
+    "concurrency": 2,
+    "tp2_vs_tp1_output_tps_pct": 7.868550282567961,
+    "tp2_vs_tp1_ttft_p50_pct": -31.53283644364373,
+    "tp2_vs_tp1_tpot_p50_pct": -5.885929867001186,
+    "tp2_vs_tp1_e2e_p50_pct": -8.079382535173444
+  },
+  {
+    "type": "matched_tp_delta",
+    "context": 960,
+    "language": "arabic",
+    "concurrency": 4,
+    "tp2_vs_tp1_output_tps_pct": 20.680483691171826,
+    "tp2_vs_tp1_ttft_p50_pct": -38.16146600676119,
+    "tp2_vs_tp1_tpot_p50_pct": -14.763597339547891,
+    "tp2_vs_tp1_e2e_p50_pct": -18.652959251482347
+  },
+  {
+    "type": "matched_tp_delta",
+    "context": 960,
+    "language": "arabic",
+    "concurrency": 8,
+    "tp2_vs_tp1_output_tps_pct": 37.31991964592339,
+    "tp2_vs_tp1_ttft_p50_pct": -35.758141511966876,
+    "tp2_vs_tp1_tpot_p50_pct": -24.472364844741673,
+    "tp2_vs_tp1_e2e_p50_pct": -27.146939479912017
+  },
+  {
+    "type": "context_capacity",
+    "tp1_ctx960": "PASS",
+    "tp1_ctx2048": "PASS",
+    "tp1_ctx4096": "RESOURCE_GATED",
+    "tp2_ctx960": "PASS",
+    "tp2_ctx2048": "PASS",
+    "tp2_ctx4096": "PASS"
+  },
+  {
+    "type": "chat_sanity",
+    "tag": "tp1-ctx2048",
+    "passed": 4,
+    "total": 4,
+    "all_pass": true
+  },
+  {
+    "type": "chat_sanity",
+    "tag": "tp1-ctx960",
+    "passed": 4,
+    "total": 4,
+    "all_pass": true
+  },
+  {
+    "type": "chat_sanity",
+    "tag": "tp2-ctx2048",
+    "passed": 4,
+    "total": 4,
+    "all_pass": true
+  },
+  {
+    "type": "chat_sanity",
+    "tag": "tp2-ctx4096",
+    "passed": 4,
+    "total": 4,
+    "all_pass": true
+  },
+  {
+    "type": "chat_sanity",
+    "tag": "tp2-ctx960",
+    "passed": 4,
+    "total": 4,
+    "all_pass": true
+  }
+]

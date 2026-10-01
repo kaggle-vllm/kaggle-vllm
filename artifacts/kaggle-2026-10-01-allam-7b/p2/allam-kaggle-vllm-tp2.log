@@ -1,0 +1,314 @@
+============================================================
+PRE-vLLM ENVIRONMENT
+============================================================
+Python: 3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]
+Platform: Linux-6.12.90+-x86_64-with-glibc2.35
+vLLM distribution: 0.18.2.dev0+ga26e8dc7f.d20260822
+VLLM_WORKER_MULTIPROC_METHOD: spawn
+NCCL_DEBUG: INFO
+GPUs:
+GPU 0: Tesla T4 (UUID: GPU-7204c01e-4700-c3a6-8541-18ce2eb03b5b)
+GPU 1: Tesla T4 (UUID: GPU-8cd47816-d6ea-9c77-dbb8-67cb4e80e421)
+
+============================================================
+INITIALIZING KaggleLLM TP=2
+============================================================
+INFO 10-01 08:57:16 [utils.py:233] non-default args: {'dtype': 'float16', 'max_model_len': 2048, 'tensor_parallel_size': 2, 'gpu_memory_utilization': 0.85, 'max_num_seqs': 4, 'disable_log_stats': True, 'enforce_eager': True, 'disable_custom_all_reduce': True, 'model': '/kaggle/working/hf-allam-cache/models--humain-ai--ALLaM-7B-Instruct-preview/snapshots/a28dd1e67420cde72d3629c8633a974cf7d9c366'}
+INFO 10-01 08:57:35 [model.py:533] Resolved architecture: LlamaForCausalLM
+WARNING 10-01 08:57:35 [model.py:1920] Casting torch.bfloat16 to torch.float16.
+INFO 10-01 08:57:35 [model.py:1582] Using max model len 2048
+INFO 10-01 08:57:36 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=8192.
+INFO 10-01 08:57:36 [vllm.py:775] Asynchronous scheduling is enabled.
+WARNING 10-01 08:57:36 [vllm.py:809] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+WARNING 10-01 08:57:36 [vllm.py:820] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+INFO 10-01 08:57:36 [vllm.py:985] Cudagraph is disabled under eager mode
+INFO 10-01 08:57:36 [compilation.py:289] Enabled custom fusions: norm_quant, act_quant
+(EngineCore pid=310) INFO 10-01 08:57:51 [core.py:103] Initializing a V1 LLM engine (v0.18.2.dev0+ga26e8dc7f.d20260822) with config: model='/kaggle/working/hf-allam-cache/models--humain-ai--ALLaM-7B-Instruct-preview/snapshots/a28dd1e67420cde72d3629c8633a974cf7d9c366', speculative_config=None, tokenizer='/kaggle/working/hf-allam-cache/models--humain-ai--ALLaM-7B-Instruct-preview/snapshots/a28dd1e67420cde72d3629c8633a974cf7d9c366', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=2, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=True, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=/kaggle/working/hf-allam-cache/models--humain-ai--ALLaM-7B-Instruct-preview/snapshots/a28dd1e67420cde72d3629c8633a974cf7d9c366, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_endpoints': [8192], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
+(EngineCore pid=310) WARNING 10-01 08:57:51 [multiproc_executor.py:997] Reducing Torch parallelism from 2 threads to 1 to avoid unnecessary CPU contention. Set OMP_NUM_THREADS in the external environment to tune this value as needed.
+(EngineCore pid=310) INFO 10-01 08:57:51 [multiproc_executor.py:134] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=172.19.2.2 (local), world_size=2, local_world_size=2
+(Worker pid=334) INFO 10-01 08:58:08 [parallel_state.py:1395] world_size=2 rank=0 local_rank=0 distributed_init_method=tcp://127.0.0.1:46895 backend=nccl
+(Worker pid=335) INFO 10-01 08:58:08 [parallel_state.py:1395] world_size=2 rank=1 local_rank=1 distributed_init_method=tcp://127.0.0.1:46895 backend=nccl
+(Worker pid=334) INFO 10-01 08:58:08 [pynccl.py:111] vLLM is using nccl==2.27.5
+37392521f195:335:335 [1] NCCL INFO cudaDriverVersion 13000
+37392521f195:334:334 [0] NCCL INFO cudaDriverVersion 13000
+37392521f195:335:335 [1] NCCL INFO NCCL version 2.27.5+cuda12.9
+37392521f195:334:334 [0] NCCL INFO NCCL version 2.27.5+cuda12.9
+37392521f195:335:335 [1] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. 
+37392521f195:335:335 [1] NCCL INFO NET/IB : No device found.
+37392521f195:335:335 [1] NCCL INFO NET/IB : Using [RO]; OOB eth0:172.19.2.2<0>
+37392521f195:335:335 [1] NCCL INFO NET/Socket : Using [0]eth0:172.19.2.2<0>
+37392521f195:335:335 [1] NCCL INFO Initialized NET plugin Socket
+37392521f195:335:335 [1] NCCL INFO Assigned NET plugin Socket to comm
+37392521f195:335:335 [1] NCCL INFO Using network Socket
+37392521f195:335:335 [1] NCCL INFO ncclCommInitRank comm 0x32c75b50 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0xec00d8ea930b4a49 - Init START
+37392521f195:334:334 [0] NCCL INFO NET/Plugin: Could not find: libnccl-net.so. 
+37392521f195:334:334 [0] NCCL INFO NET/IB : No device found.
+37392521f195:334:334 [0] NCCL INFO NET/IB : Using [RO]; OOB eth0:172.19.2.2<0>
+37392521f195:334:334 [0] NCCL INFO NET/Socket : Using [0]eth0:172.19.2.2<0>
+37392521f195:334:334 [0] NCCL INFO Initialized NET plugin Socket
+37392521f195:334:334 [0] NCCL INFO Assigned NET plugin Socket to comm
+37392521f195:334:334 [0] NCCL INFO Using network Socket
+37392521f195:334:334 [0] NCCL INFO ncclCommInitRank comm 0x326286f0 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0xec00d8ea930b4a49 - Init START
+37392521f195:334:334 [0] NCCL INFO RAS client listening socket at ::1<28028>
+37392521f195:335:335 [1] NCCL INFO RAS client listening socket at ::1<28028>
+37392521f195:334:334 [0] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:04.0/max_link_speed, ignoring
+37392521f195:335:335 [1] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:05.0/max_link_speed, ignoring
+37392521f195:334:334 [0] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:04.0/../max_link_speed, ignoring
+37392521f195:335:335 [1] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:05.0/../max_link_speed, ignoring
+37392521f195:335:335 [1] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:05.0/max_link_width, ignoring
+37392521f195:334:334 [0] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:04.0/max_link_width, ignoring
+37392521f195:335:335 [1] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:05.0/../max_link_width, ignoring
+37392521f195:334:334 [0] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:04.0/../max_link_width, ignoring
+37392521f195:335:335 [1] NCCL INFO TOPO/NET : Importing network plugins to topology
+37392521f195:334:334 [0] NCCL INFO TOPO/NET : Importing network plugins to topology
+37392521f195:335:335 [1] NCCL INFO Retrieving state for Socket
+37392521f195:334:334 [0] NCCL INFO Retrieving state for Socket
+37392521f195:335:335 [1] NCCL INFO Initialized state 0 for Socket
+37392521f195:334:334 [0] NCCL INFO Initialized state 0 for Socket
+37392521f195:335:335 [1] NCCL INFO ncclTopoPopulateNics : Filled eth0 in topo with pciPath=(null) keep=1 coll=(null)
+37392521f195:334:334 [0] NCCL INFO ncclTopoPopulateNics : Filled eth0 in topo with pciPath=(null) keep=1 coll=(null)
+37392521f195:335:335 [1] NCCL INFO KV Convert to int : could not find value of '' in dictionary, falling back to 60
+37392521f195:335:335 [1] NCCL INFO KV Convert to int : could not find value of '' in dictionary, falling back to 60
+37392521f195:334:334 [0] NCCL INFO KV Convert to int : could not find value of '' in dictionary, falling back to 60
+37392521f195:334:334 [0] NCCL INFO KV Convert to int : could not find value of '' in dictionary, falling back to 60
+37392521f195:335:335 [1] NCCL INFO === System : maxBw 12.0 totalBw 12.0 ===
+37392521f195:335:335 [1] NCCL INFO CPU/0-0 (1/1/2)
+37392521f195:335:335 [1] NCCL INFO + PCI[5000.0] - NIC/0-0
+37392521f195:335:335 [1] NCCL INFO + PCI[12.0] - GPU/0-40 (0)
+37392521f195:335:335 [1] NCCL INFO + PCI[12.0] - GPU/0-50 (1)
+37392521f195:335:335 [1] NCCL INFO ==========================================
+37392521f195:335:335 [1] NCCL INFO GPU/0-40 :GPU/0-40 (0/5000.0/LOC) GPU/0-50 (2/12.0/PHB) CPU/0-0 (1/12.0/PHB) 
+37392521f195:335:335 [1] NCCL INFO GPU/0-50 :GPU/0-40 (2/12.0/PHB) GPU/0-50 (0/5000.0/LOC) CPU/0-0 (1/12.0/PHB) 
+37392521f195:335:335 [1] NCCL INFO Setting affinity for GPU 1 to 0-3
+37392521f195:334:334 [0] NCCL INFO === System : maxBw 12.0 totalBw 12.0 ===
+37392521f195:334:334 [0] NCCL INFO CPU/0-0 (1/1/2)
+37392521f195:334:334 [0] NCCL INFO + PCI[5000.0] - NIC/0-0
+37392521f195:334:334 [0] NCCL INFO + PCI[12.0] - GPU/0-40 (0)
+37392521f195:334:334 [0] NCCL INFO + PCI[12.0] - GPU/0-50 (1)
+37392521f195:334:334 [0] NCCL INFO ==========================================
+37392521f195:334:334 [0] NCCL INFO GPU/0-40 :GPU/0-40 (0/5000.0/LOC) GPU/0-50 (2/12.0/PHB) CPU/0-0 (1/12.0/PHB) 
+37392521f195:334:334 [0] NCCL INFO GPU/0-50 :GPU/0-40 (2/12.0/PHB) GPU/0-50 (0/5000.0/LOC) CPU/0-0 (1/12.0/PHB) 
+37392521f195:334:334 [0] NCCL INFO Setting affinity for GPU 0 to 0-3
+37392521f195:334:334 [0] NCCL INFO Pattern 4, crossNic 0, nChannels 1, bw 10.000000/10.000000, type PHB/PIX, sameChannels 1
+37392521f195:334:334 [0] NCCL INFO  0 : GPU/0-40 GPU/0-50
+37392521f195:335:335 [1] NCCL INFO Pattern 4, crossNic 0, nChannels 1, bw 10.000000/10.000000, type PHB/PIX, sameChannels 1
+37392521f195:335:335 [1] NCCL INFO  0 : GPU/0-40 GPU/0-50
+37392521f195:334:334 [0] NCCL INFO Pattern 1, crossNic 0, nChannels 1, bw 10.000000/10.000000, type PHB/PIX, sameChannels 1
+37392521f195:334:334 [0] NCCL INFO  0 : GPU/0-40 GPU/0-50
+37392521f195:335:335 [1] NCCL INFO Pattern 1, crossNic 0, nChannels 1, bw 10.000000/10.000000, type PHB/PIX, sameChannels 1
+37392521f195:335:335 [1] NCCL INFO  0 : GPU/0-40 GPU/0-50
+37392521f195:334:334 [0] NCCL INFO comm 0x326286f0 rank 0 nRanks 2 nNodes 1 localRanks 2 localRank 0 MNNVL 0
+37392521f195:335:335 [1] NCCL INFO comm 0x32c75b50 rank 1 nRanks 2 nNodes 1 localRanks 2 localRank 1 MNNVL 0
+37392521f195:334:334 [0] NCCL INFO Tree 0 : -1 -> 0 -> 1/-1/-1
+37392521f195:334:334 [0] NCCL INFO Tree 1 : -1 -> 0 -> 1/-1/-1
+37392521f195:335:335 [1] NCCL INFO Tree 0 : 0 -> 1 -> -1/-1/-1
+37392521f195:335:335 [1] NCCL INFO Tree 1 : 0 -> 1 -> -1/-1/-1
+37392521f195:334:334 [0] NCCL INFO Channel 00/02 : 0 1
+37392521f195:334:334 [0] NCCL INFO Channel 01/02 : 0 1
+37392521f195:334:334 [0] NCCL INFO Ring 00 : 1 -> 0 -> 1
+37392521f195:335:335 [1] NCCL INFO Ring 00 : 0 -> 1 -> 0
+37392521f195:334:334 [0] NCCL INFO Ring 01 : 1 -> 0 -> 1
+37392521f195:335:335 [1] NCCL INFO Ring 01 : 0 -> 1 -> 0
+37392521f195:334:334 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
+37392521f195:335:335 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0
+37392521f195:334:334 [0] NCCL INFO P2P Chunksize set to 131072
+37392521f195:335:335 [1] NCCL INFO P2P Chunksize set to 131072
+37392521f195:334:334 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+37392521f195:334:334 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0
+37392521f195:335:335 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+37392521f195:334:380 [0] NCCL INFO [Proxy Service] Device 0 CPU core 0
+37392521f195:335:381 [1] NCCL INFO [Proxy Service] Device 1 CPU core 3
+37392521f195:334:382 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 0
+37392521f195:335:383 [1] NCCL INFO [Proxy Service UDS] Device 1 CPU core 1
+37392521f195:335:335 [1] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+37392521f195:335:335 [1] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+37392521f195:334:334 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+37392521f195:334:334 [0] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+37392521f195:334:334 [0] NCCL INFO CC Off, workFifoBytes 1048576
+37392521f195:335:335 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+37392521f195:335:335 [1] NCCL INFO ncclCommInitRank comm 0x32c75b50 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0xec00d8ea930b4a49 - Init COMPLETE
+37392521f195:335:335 [1] NCCL INFO Init timings - ncclCommInitRank: rank 1 nranks 2 total 0.41 (kernels 0.35, alloc 0.02, bootstrap 0.01, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+37392521f195:334:334 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+37392521f195:334:334 [0] NCCL INFO ncclCommInitRank comm 0x326286f0 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0xec00d8ea930b4a49 - Init COMPLETE
+37392521f195:334:334 [0] NCCL INFO Init timings - ncclCommInitRank: rank 0 nranks 2 total 0.23 (kernels 0.20, alloc 0.00, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+37392521f195:335:384 [1] NCCL INFO Channel 00 : 1[1] -> 0[0] via SHM/direct/direct
+37392521f195:335:384 [1] NCCL INFO Channel 01 : 1[1] -> 0[0] via SHM/direct/direct
+37392521f195:334:385 [0] NCCL INFO Channel 00 : 0[0] -> 1[1] via SHM/direct/direct
+37392521f195:334:385 [0] NCCL INFO Channel 01 : 0[0] -> 1[1] via SHM/direct/direct
+37392521f195:334:385 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+37392521f195:335:384 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+(Worker pid=334) WARNING 10-01 08:58:09 [symm_mem.py:67] SymmMemCommunicator: Device capability 7.5 not supported, communicator is not available.
+(Worker pid=335) WARNING 10-01 08:58:09 [symm_mem.py:67] SymmMemCommunicator: Device capability 7.5 not supported, communicator is not available.
+(Worker pid=335) INFO 10-01 08:58:09 [parallel_state.py:1717] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 1, EP rank N/A, EPLB rank N/A
+(Worker pid=334) INFO 10-01 08:58:09 [parallel_state.py:1717] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(Worker_TP0 pid=334) INFO 10-01 08:58:10 [gpu_model_runner.py:4481] Starting to load model /kaggle/working/hf-allam-cache/models--humain-ai--ALLaM-7B-Instruct-preview/snapshots/a28dd1e67420cde72d3629c8633a974cf7d9c366...
+(Worker_TP0 pid=334) (Worker_TP1 pid=335) ERROR 10-01 08:58:10 [fa_utils.py:145] Cannot use FA version 2 is not supported due to FA2 is only supported on devices with compute capability >= 8
+ERROR 10-01 08:58:10 [fa_utils.py:145] Cannot use FA version 2 is not supported due to FA2 is only supported on devices with compute capability >= 8
+(Worker_TP0 pid=334) INFO 10-01 08:58:10 [cuda.py:317] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].
+(Worker_TP0 pid=334) Loading safetensors checkpoint shards:   0% Completed | 0/3 [00:00<?, ?it/s]
+(Worker_TP0 pid=334) Loading safetensors checkpoint shards:  33% Completed | 1/3 [00:09<00:19,  9.75s/it]
+(Worker_TP0 pid=334) Loading safetensors checkpoint shards:  67% Completed | 2/3 [00:21<00:10, 10.82s/it]
+(Worker_TP0 pid=334) Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:37<00:00, 13.07s/it]
+(Worker_TP0 pid=334) Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:37<00:00, 12.35s/it]
+(Worker_TP0 pid=334) 
+(Worker_TP0 pid=334) INFO 10-01 08:58:48 [default_loader.py:384] Loading weights took 37.13 seconds
+(Worker_TP0 pid=334) INFO 10-01 08:58:48 [gpu_model_runner.py:4566] Model loading took 6.55 GiB memory and 37.575492 seconds
+37392521f195:334:334 [0] NCCL INFO Comm config Blocking set to 1
+37392521f195:335:335 [1] NCCL INFO Comm config Blocking set to 1
+37392521f195:334:484 [0] NCCL INFO Assigned NET plugin Socket to comm
+37392521f195:334:484 [0] NCCL INFO Using network Socket
+37392521f195:335:485 [1] NCCL INFO Assigned NET plugin Socket to comm
+37392521f195:335:485 [1] NCCL INFO Using network Socket
+37392521f195:334:484 [0] NCCL INFO ncclCommInitRankConfig comm 0x4e1fafd0 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0xf600c46b72b7ca97 - Init START
+37392521f195:335:485 [1] NCCL INFO ncclCommInitRankConfig comm 0x4dec0f70 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0xf600c46b72b7ca97 - Init START
+37392521f195:335:485 [1] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:05.0/max_link_speed, ignoring
+37392521f195:335:485 [1] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:05.0/../max_link_speed, ignoring
+37392521f195:335:485 [1] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:05.0/max_link_width, ignoring
+37392521f195:335:485 [1] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:05.0/../max_link_width, ignoring
+37392521f195:334:484 [0] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:04.0/max_link_speed, ignoring
+37392521f195:334:484 [0] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:04.0/../max_link_speed, ignoring
+37392521f195:334:484 [0] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:04.0/max_link_width, ignoring
+37392521f195:334:484 [0] NCCL INFO Topology detection : could not read /sys/devices/pci0000:00/0000:00:04.0/../max_link_width, ignoring
+37392521f195:335:485 [1] NCCL INFO TOPO/NET : Importing network plugins to topology
+37392521f195:335:485 [1] NCCL INFO Retrieving state for Socket
+37392521f195:335:485 [1] NCCL INFO ncclTopoPopulateNics : Filled eth0 in topo with pciPath=(null) keep=1 coll=(null)
+37392521f195:334:484 [0] NCCL INFO TOPO/NET : Importing network plugins to topology
+37392521f195:334:484 [0] NCCL INFO Retrieving state for Socket
+37392521f195:334:484 [0] NCCL INFO ncclTopoPopulateNics : Filled eth0 in topo with pciPath=(null) keep=1 coll=(null)
+37392521f195:335:485 [1] NCCL INFO KV Convert to int : could not find value of '' in dictionary, falling back to 60
+37392521f195:335:485 [1] NCCL INFO KV Convert to int : could not find value of '' in dictionary, falling back to 60
+37392521f195:334:484 [0] NCCL INFO KV Convert to int : could not find value of '' in dictionary, falling back to 60
+37392521f195:334:484 [0] NCCL INFO KV Convert to int : could not find value of '' in dictionary, falling back to 60
+37392521f195:335:485 [1] NCCL INFO === System : maxBw 12.0 totalBw 12.0 ===
+37392521f195:335:485 [1] NCCL INFO CPU/0-0 (1/1/2)
+37392521f195:335:485 [1] NCCL INFO + PCI[5000.0] - NIC/0-0
+37392521f195:335:485 [1] NCCL INFO + PCI[12.0] - GPU/0-40 (0)
+37392521f195:335:485 [1] NCCL INFO + PCI[12.0] - GPU/0-50 (1)
+37392521f195:335:485 [1] NCCL INFO ==========================================
+37392521f195:334:484 [0] NCCL INFO === System : maxBw 12.0 totalBw 12.0 ===
+37392521f195:335:485 [1] NCCL INFO GPU/0-40 :GPU/0-40 (0/5000.0/LOC) GPU/0-50 (2/12.0/PHB) CPU/0-0 (1/12.0/PHB) 
+37392521f195:334:484 [0] NCCL INFO CPU/0-0 (1/1/2)
+37392521f195:334:484 [0] NCCL INFO + PCI[5000.0] - NIC/0-0
+37392521f195:335:485 [1] NCCL INFO GPU/0-50 :GPU/0-40 (2/12.0/PHB) GPU/0-50 (0/5000.0/LOC) CPU/0-0 (1/12.0/PHB) 
+37392521f195:334:484 [0] NCCL INFO + PCI[12.0] - GPU/0-40 (0)
+37392521f195:334:484 [0] NCCL INFO + PCI[12.0] - GPU/0-50 (1)
+37392521f195:334:484 [0] NCCL INFO ==========================================
+37392521f195:335:485 [1] NCCL INFO Setting affinity for GPU 1 to 0-3
+37392521f195:334:484 [0] NCCL INFO GPU/0-40 :GPU/0-40 (0/5000.0/LOC) GPU/0-50 (2/12.0/PHB) CPU/0-0 (1/12.0/PHB) 
+37392521f195:334:484 [0] NCCL INFO GPU/0-50 :GPU/0-40 (2/12.0/PHB) GPU/0-50 (0/5000.0/LOC) CPU/0-0 (1/12.0/PHB) 
+37392521f195:334:484 [0] NCCL INFO Setting affinity for GPU 0 to 0-3
+37392521f195:335:485 [1] NCCL INFO Pattern 4, crossNic 0, nChannels 1, bw 10.000000/10.000000, type PHB/PIX, sameChannels 1
+37392521f195:335:485 [1] NCCL INFO  0 : GPU/0-40 GPU/0-50
+37392521f195:334:484 [0] NCCL INFO Pattern 4, crossNic 0, nChannels 1, bw 10.000000/10.000000, type PHB/PIX, sameChannels 1
+37392521f195:334:484 [0] NCCL INFO  0 : GPU/0-40 GPU/0-50
+37392521f195:335:485 [1] NCCL INFO Pattern 1, crossNic 0, nChannels 1, bw 10.000000/10.000000, type PHB/PIX, sameChannels 1
+37392521f195:335:485 [1] NCCL INFO  0 : GPU/0-40 GPU/0-50
+37392521f195:334:484 [0] NCCL INFO Pattern 1, crossNic 0, nChannels 1, bw 10.000000/10.000000, type PHB/PIX, sameChannels 1
+37392521f195:334:484 [0] NCCL INFO  0 : GPU/0-40 GPU/0-50
+37392521f195:334:484 [0] NCCL INFO comm 0x4e1fafd0 rank 0 nRanks 2 nNodes 1 localRanks 2 localRank 0 MNNVL 0
+37392521f195:335:485 [1] NCCL INFO comm 0x4dec0f70 rank 1 nRanks 2 nNodes 1 localRanks 2 localRank 1 MNNVL 0
+37392521f195:334:484 [0] NCCL INFO Tree 0 : -1 -> 0 -> 1/-1/-1
+37392521f195:335:485 [1] NCCL INFO Tree 0 : 0 -> 1 -> -1/-1/-1
+37392521f195:334:484 [0] NCCL INFO Tree 1 : -1 -> 0 -> 1/-1/-1
+37392521f195:335:485 [1] NCCL INFO Tree 1 : 0 -> 1 -> -1/-1/-1
+37392521f195:334:484 [0] NCCL INFO Channel 00/02 : 0 1
+37392521f195:335:485 [1] NCCL INFO Ring 00 : 0 -> 1 -> 0
+37392521f195:334:484 [0] NCCL INFO Channel 01/02 : 0 1
+37392521f195:335:485 [1] NCCL INFO Ring 01 : 0 -> 1 -> 0
+37392521f195:334:484 [0] NCCL INFO Ring 00 : 1 -> 0 -> 1
+37392521f195:335:485 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0
+37392521f195:334:484 [0] NCCL INFO Ring 01 : 1 -> 0 -> 1
+37392521f195:335:485 [1] NCCL INFO P2P Chunksize set to 131072
+37392521f195:334:484 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
+37392521f195:334:484 [0] NCCL INFO P2P Chunksize set to 131072
+37392521f195:334:484 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0
+37392521f195:334:486 [0] NCCL INFO [Proxy Service] Device 0 CPU core 1
+37392521f195:334:488 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 3
+37392521f195:335:487 [1] NCCL INFO [Proxy Service] Device 1 CPU core 0
+37392521f195:335:489 [1] NCCL INFO [Proxy Service UDS] Device 1 CPU core 0
+37392521f195:335:485 [1] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+37392521f195:335:485 [1] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+37392521f195:334:484 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+37392521f195:334:484 [0] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+37392521f195:334:484 [0] NCCL INFO CC Off, workFifoBytes 1048576
+37392521f195:335:485 [1] NCCL INFO ncclCommInitRankConfig comm 0x4dec0f70 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 50 commId 0xf600c46b72b7ca97 - Init COMPLETE
+37392521f195:335:485 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 2 total 0.02 (kernels 0.00, alloc 0.00, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+37392521f195:334:484 [0] NCCL INFO ncclCommInitRankConfig comm 0x4e1fafd0 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 40 commId 0xf600c46b72b7ca97 - Init COMPLETE
+37392521f195:334:484 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 2 total 0.02 (kernels 0.00, alloc 0.00, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+37392521f195:334:490 [0] NCCL INFO Channel 00 : 0[0] -> 1[1] via SHM/direct/direct
+37392521f195:334:490 [0] NCCL INFO Channel 01 : 0[0] -> 1[1] via SHM/direct/direct
+37392521f195:335:491 [1] NCCL INFO Channel 00 : 1[1] -> 0[0] via SHM/direct/direct
+37392521f195:335:491 [1] NCCL INFO Channel 01 : 1[1] -> 0[0] via SHM/direct/direct
+37392521f195:334:490 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+37392521f195:335:491 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+(Worker_TP0 pid=334) INFO 10-01 08:58:59 [gpu_worker.py:456] Available KV cache memory: 5.35 GiB
+(EngineCore pid=310) INFO 10-01 08:58:59 [kv_cache_utils.py:1316] GPU KV cache size: 21,904 tokens
+(EngineCore pid=310) INFO 10-01 08:58:59 [kv_cache_utils.py:1321] Maximum concurrency for 2,048 tokens per request: 10.70x
+(EngineCore pid=310) INFO 10-01 08:59:00 [core.py:281] init engine (profile, create kv cache, warmup model) took 11.73 seconds
+(EngineCore pid=310) INFO 10-01 08:59:03 [vllm.py:775] Asynchronous scheduling is enabled.
+(EngineCore pid=310) WARNING 10-01 08:59:03 [vllm.py:809] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(EngineCore pid=310) WARNING 10-01 08:59:03 [vllm.py:820] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore pid=310) INFO 10-01 08:59:03 [vllm.py:985] Cudagraph is disabled under eager mode
+(EngineCore pid=310) INFO 10-01 08:59:03 [compilation.py:289] Enabled custom fusions: norm_quant, act_quant
+INFO 10-01 08:59:03 [llm.py:391] Supported tasks: ['generate']
+
+KaggleLLM TP=2 engine initialized.
+Engine initialization seconds: 110.3194
+
+Post-engine CUDA provenance:
+{
+  "version": "2.10.0+cu128",
+  "cuda": "12.8",
+  "cuda_available": true,
+  "visible_gpu_count": 2,
+  "gpus": [
+    {
+      "index": 0,
+      "name": "Tesla T4",
+      "compute_capability": "7.5",
+      "total_memory_gib": 14.56
+    },
+    {
+      "index": 1,
+      "name": "Tesla T4",
+      "compute_capability": "7.5",
+      "total_memory_gib": 14.56
+    }
+  ]
+}
+
+Tokenizer: CachedLlamaTokenizerFast
+
+Rendered prompt 0: '<s> [INST] Who are you? Answer in one concise sentence. [/INST]'
+
+Rendered prompt 1: '<s> [INST] من أنت؟ أجب بجملة واحدة مختصرة. [/INST]'
+Rendering prompts:   0%|          | 0/2 [00:00<?, ?it/s]Rendering prompts:  50%|█████     | 1/2 [00:00<00:00,  9.66it/s]Rendering prompts: 100%|██████████| 2/2 [00:00<00:00, 19.10it/s]
+Processed prompts:   0%|          | 0/2 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:  50%|█████     | 1/2 [00:07<00:07,  7.60s/it, est. speed input: 2.24 toks/s, output: 0.92 toks/s]Processed prompts: 100%|██████████| 2/2 [00:07<00:00,  7.60s/it, est. speed input: 4.70 toks/s, output: 2.22 toks/s]Processed prompts: 100%|██████████| 2/2 [00:07<00:00,  3.83s/it, est. speed input: 4.70 toks/s, output: 2.22 toks/s]
+
+=== REQUEST 0 ===
+Prompt tokens: 19
+Output tokens: 10
+Finish reason: stop
+Response:
+I am an AI-powered assistant.
+
+=== REQUEST 1 ===
+Prompt tokens: 17
+Output tokens: 7
+Finish reason: stop
+Response:
+أنا مساعد ذكاء صناعي.
+
+============================================================
+ALLaM TP=2 INFERENCE: PASS
+============================================================
+Result: /kaggle/working/allam-kaggle-vllm-tp2-result.json
+(EngineCore pid=310) INFO 10-01 08:59:11 [core.py:1201] Shutdown initiated (timeout=0)
+(EngineCore pid=310) INFO 10-01 08:59:11 [core.py:1224] Shutdown complete
+(Worker_TP0 pid=334) (Worker_TP1 pid=335) INFO 10-01 08:59:11 [multiproc_executor.py:759] Parent process exited, terminating worker queues
+INFO 10-01 08:59:11 [multiproc_executor.py:759] Parent process exited, terminating worker queues
+(Worker_TP1 pid=335) INFO 10-01 08:59:11 [multiproc_executor.py:854] WorkerProc shutting down.
+(Worker_TP0 pid=334) INFO 10-01 08:59:11 [multiproc_executor.py:854] WorkerProc shutting down.
+37392521f195:335:335 [1] NCCL INFO comm 0x4dec0f70 rank 1 nranks 2 cudaDev 1 busId 50 - Destroy COMPLETE
+37392521f195:334:334 [0] NCCL INFO comm 0x4e1fafd0 rank 0 nranks 2 cudaDev 0 busId 40 - Destroy COMPLETE
+37392521f195:334:380 [0] NCCL INFO [Service thread] Connection closed by localRank 1

@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "sdk": "kaggle-vllm==0.2.0",
+  "model_repo": "humain-ai/ALLaM-7B-Instruct-preview",
+  "model_path": "/kaggle/working/hf-allam-cache/models--humain-ai--ALLaM-7B-Instruct-preview/snapshots/a28dd1e67420cde72d3629c8633a974cf7d9c366",
+  "model_commit": "a28dd1e67420cde72d3629c8633a974cf7d9c366",
+  "internal_version": "7b-alpha-v2.33.0.30",
+  "tensor_parallel_size": 2,
+  "dtype": "float16",
+  "max_model_len": 2048,
+  "gpu_memory_utilization": 0.85,
+  "enforce_eager": true,
+  "disable_custom_all_reduce": true,
+  "vllm_worker_multiproc_method": "spawn",
+  "vllm_distribution_version": "0.18.2.dev0+ga26e8dc7f.d20260822",
+  "torch": {
+    "version": "2.10.0+cu128",
+    "cuda": "12.8",
+    "cuda_available": true,
+    "visible_gpu_count": 2,
+    "gpus": [
+      {
+        "index": 0,
+        "name": "Tesla T4",
+        "compute_capability": "7.5",
+        "total_memory_gib": 14.56
+      },
+      {
+        "index": 1,
+        "name": "Tesla T4",
+        "compute_capability": "7.5",
+        "total_memory_gib": 14.56
+      }
+    ]
+  },
+  "engine_init_seconds": 110.3194,
+  "generation_wall_seconds": 7.7651,
+  "total_prompt_tokens": 36,
+  "total_output_tokens": 17,
+  "outputs": [
+    {
+      "request_index": 0,
+      "prompt_tokens": 19,
+      "output_tokens": 10,
+      "finish_reason": "stop",
+      "stop_reason": null,
+      "text": "I am an AI-powered assistant."
+    },
+    {
+      "request_index": 1,
+      "prompt_tokens": 17,
+      "output_tokens": 7,
+      "finish_reason": "stop",
+      "stop_reason": null,
+      "text": "أنا مساعد ذكاء صناعي."
+    }
+  ]
+}
