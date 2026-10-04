@@ -12,6 +12,32 @@ It is designed for users searching for a reliable way to **install vLLM on Kaggl
 
 ---
 
+## Research paper
+
+**Characterizing Tensor-Parallel Crossover in vLLM Serving on Dual NVIDIA
+Tesla T4 GPUs** — Mohammad Waqas (2026).
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23119478.svg)](https://doi.org/10.5281/zenodo.23119478)
+[PDF](research/paper/kaggle-vllm-research-paper.pdf) ·
+[Zenodo](https://zenodo.org/records/23119478) ·
+[engineering companion](https://waqasm86.github.io/posts/characterizing-tensor-parallel-crossover-vllm-dual-t4/) ·
+[research methodology](research/README.md)
+
+- TP=2 is not automatically faster than TP=1; crossover depends on model,
+  exact token workload and offered concurrency.
+- Prefill-heavy work reached favorable TP2 throughput earlier for the three
+  fully measurable non-Qwen models; short work required much higher concurrency.
+- Qwen had no sustained favorable short-workload point in the tested grid.
+  Its prefill-heavy TP2 condition at concurrency 64 was resource-gated, not
+  zero throughput.
+- M3 measures PHB/NCCL communication independently; it does not establish
+  NCCL alone as the cause of the serving crossover.
+
+The paper characterizes the tested pinned runtime, workload, topology and
+resource envelope; it does not claim a universal TP2 speedup.
+
+---
+
 ## What problem does kaggle-vllm solve?
 
 Installing upstream vLLM directly into a Kaggle Notebook can conflict with Kaggle's preinstalled Python, PyTorch, CUDA, NCCL and system-library stack.
@@ -124,23 +150,36 @@ On SM75, vLLM selected `TRITON_ATTN`. FlashAttention 2 and SymmMem optimizations
 
 ## Does tensor parallelism make Kaggle T4 inference faster?
 
-**Not necessarily.**
+**It depends on the model, exact token workload and offered concurrency.**
+The published M4 study has five terminal logical repetitions per model and
+workload on the pinned dual-T4 stack. Valid performance comparisons use five
+matched repetitions. Its first sustained favorable TP2
+**output-throughput** points are:
 
-The controlled 2026-08-30 OPT-125M benchmark found TP=1 faster than TP=2 for this tiny model.
+| Principal model | Balanced | Prefill-heavy | Short |
+|---|---:|---:|---:|
+| Qwen2.5-3B-Instruct | 64 | N/A: resource-gated at 64 | None in tested grid |
+| Phi-4-mini-instruct | 32 | 4 | 64 |
+| Ministral-3-3B-Instruct | 16 | 4 | 32 |
+| Llama-3.2-3B-Instruct | 16 | 4 | 32 |
 
-Milestone 1 diagnostics on the validated Kaggle dual-T4 profile recorded:
+At Qwen prefill-heavy concurrency 64, TP2 exceeded the frozen resource ceiling;
+there is no valid terminal throughput value, rather than zero throughput.
+TP=2 may still help capacity when it does not improve performance.
 
-| Workload | Result |
-|---|---:|
-| OPT-125M TP=2 graph mode vs TP=1 | **26.73% lower output throughput** |
-| OPT-125M TP=2 eager mode vs TP=1 | **44.78% lower output throughput** |
-| Qwen2.5-3B TP=2 with `max_num_batched_tokens=4096` | no meaningful throughput improvement over baseline in the three-repeat workload |
+The [M1 OPT-125M diagnostic](artifacts/kaggle-2026-09-01-milestone-1/)
+measured lower TP2 output throughput at low load: 26.73% lower in graph mode
+and 44.78% lower in eager mode. The
+[M2 Qwen C=16 crossover](artifacts/kaggle-2026-09-02-milestone-2/) remains an
+exploratory single-matrix observation. M4's repeated paired-repetition study
+is the stronger final paper authority; the results describe different
+evidence levels and workloads, without isolating a single causal mechanism.
 
-This is consistent with communication and synchronization overhead outweighing useful partitioned compute for small workloads, but the benchmark did not isolate one single cause.
-
-TP=2 remains useful for **capacity, NCCL execution and topology validation**. It should not be treated as a universal performance optimization.
-
-See [benchmark methodology](docs/benchmarking.md) and the checksummed evidence under `artifacts/kaggle-2026-09-01-milestone-1/`.
+Read the [paper PDF](research/paper/kaggle-vllm-research-paper.pdf),
+[Zenodo DOI](https://doi.org/10.5281/zenodo.23119478),
+[research methods](research/README.md),
+[benchmark methods](docs/benchmarking.md) and
+[concurrency methods](docs/concurrency-benchmarking.md).
 
 ---
 
@@ -157,9 +196,9 @@ kaggle-vllm benchmark \
   --dry-run
 ```
 
-Milestone 2 adds a separate online streaming concurrency benchmark for the
-controlled Qwen TP1/TP2 matrix. On the pinned Qwen2.5-3B-Instruct workload,
-TP2 crossed TP1 in output throughput at concurrency 16; no
+Milestone 2 adds a separate exploratory online streaming concurrency benchmark
+for one controlled Qwen TP1/TP2 matrix. On that pinned workload, TP2 crossed
+TP1 in output throughput at concurrency 16; no
 TP1-fails/TP2-survives capacity crossover was observed through concurrency 64.
 See the [executed dual-T4 evidence](artifacts/kaggle-2026-09-02-milestone-2/)
 and [concurrency benchmark methodology](docs/concurrency-benchmarking.md), or

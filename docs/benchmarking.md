@@ -1,6 +1,6 @@
 # Benchmarking
 
-The repository has two scientifically distinct benchmark tracks:
+This SDK guide describes two earlier, scientifically distinct benchmark tracks:
 
 - Milestone 1 uses offline `vllm.LLM.generate` batches for tensor-parallel
   diagnostics and already has reviewed dual-T4 evidence.
@@ -9,6 +9,11 @@ The repository has two scientifically distinct benchmark tracks:
   observed a throughput crossover at concurrency 16, with no request failure,
   CUDA OOM, or capacity crossover through concurrency 64. See the
   [online concurrency methodology and results](concurrency-benchmarking.md).
+
+The published [M4 principal study](../research/paper/README.md) extends online
+serving evaluation across four models, three exact-token workloads and five
+terminal logical repetitions per model/workload. It is the final paper
+authority for those crossovers.
 
 ## Milestone 1 tensor-parallel performance diagnostics
 
@@ -266,9 +271,10 @@ GPU indices and topology command output. Examples of defensible statements:
 
 Those facts can be consistent with synchronization/communication overhead, a
 too-small model, scheduler/batching behavior, eager/graph effects, or multiple
-interactions. They do not prove that PCIe or NCCL alone caused the delta. An
-optional isolated collective microbenchmark may be added later; its bandwidth
-would remain distinct from end-to-end model throughput.
+interactions. They do not prove that PCIe or NCCL alone caused the delta. The
+later [M3 measured communication study](../research/paper/README.md)
+provides independent collective context. Its bandwidth remains distinct from
+end-to-end model throughput and does not isolate NCCL as the serving cause.
 
 TP=2 can be the correct capacity choice even when it does not improve
 throughput. No result from this profile is extrapolated to A100, H100, L4,
