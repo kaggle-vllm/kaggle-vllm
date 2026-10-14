@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "dependencies": [
+    {"distribution":"vllm","import_name":"vllm","specifier":"==0.30.0","validated_version":"0.30.0","required":true,"source":"P31 final-v2 native wheel"},
+    {"distribution":"torch","import_name":"torch","specifier":"==2.13.0+cu129","validated_version":"2.13.0+cu129","required":true,"source":"P31 runtime"},
+    {"distribution":"torchvision","import_name":"torchvision","specifier":"==0.28.0+cu129","validated_version":"0.28.0+cu129","required":true,"source":"P31 runtime"},
+    {"distribution":"torchaudio","import_name":"torchaudio","specifier":"==2.11.0+cu129","validated_version":"2.11.0+cu129","required":true,"source":"P31 runtime"},
+    {"distribution":"torchcodec","import_name":"torchcodec","specifier":"==0.16.0+cu129","validated_version":"0.16.0+cu129","required":true,"source":"corrected v2 wheelhouse"},
+    {"distribution":"triton","import_name":"triton","specifier":"==3.7.1","validated_version":"3.7.1","required":true,"source":"P31 runtime"},
+    {"distribution":"flashinfer-python","import_name":"flashinfer","specifier":"==0.6.18.post1","validated_version":"0.6.18.post1","required":true,"source":"P31 runtime"},
+    {"distribution":"flashinfer-cubin","import_name":"flashinfer_cubin","specifier":"==0.6.18.post1","validated_version":"0.6.18.post1","required":true,"source":"P31 runtime"}
+  ]
+}

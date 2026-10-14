@@ -33,6 +33,14 @@ class GPUInfo:
     def is_sm75(self) -> bool:
         return self.capability == (7, 5)
 
+    @property
+    def is_nvidia_l4(self) -> bool:
+        return self.name.strip().casefold() == "nvidia l4"
+
+    @property
+    def is_sm89(self) -> bool:
+        return self.capability == (8, 9)
+
 
 @dataclass(frozen=True)
 class Environment:

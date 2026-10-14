@@ -1,0 +1,3 @@
+# The exact P33 inference selection is L4_INFERENCE_LOCK.json (168 dependency wheels).
+# The 195-wheel RUNTIME_MANIFEST.json is archival and is not the default install.
+# No network dependency resolution is performed.

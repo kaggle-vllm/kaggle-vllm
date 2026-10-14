@@ -1,0 +1,76 @@
+{
+  "schema_version": 3,
+  "name": "kaggle-l4x4-cu129",
+  "status": "Accepted cleanup-r1 candidate runtime; rebuilt SDK wheel requires fresh Kaggle retest",
+  "python": {
+    "implementation": "CPython",
+    "major": 3,
+    "minor": 12,
+    "abi": "cp312"
+  },
+  "platform": {
+    "system": "Linux",
+    "machine": "x86_64"
+  },
+  "gpu": {
+    "name": "NVIDIA L4",
+    "count": 4,
+    "compute_capability": [
+      8,
+      9
+    ],
+    "architecture": "SM89",
+    "tensor_parallel_size": 4
+  },
+  "runtime": {
+    "torch": "2.13.0+cu129",
+    "torch_cuda": "12.9",
+    "system_cuda_compiler": "12.8",
+    "torchvision": "0.28.0+cu129",
+    "torchaudio": "2.11.0+cu129",
+    "triton": "3.7.1",
+    "torchcodec": "0.16.0+cu129",
+    "flashinfer_python": "0.6.18.post1",
+    "flashinfer_cubin": "0.6.18.post1",
+    "nccl": "2.29.7"
+  },
+  "vllm": {
+    "version": "0.30.0",
+    "source_tag": "v0.30.0",
+    "source_commit": "ced6857afa0ea7b2e3f0846a62e1394e90f15607",
+    "wheel_filename": "vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+    "built_in_fa2": "compiled, packaged, import-qualified, SM89-targeted",
+    "gemma4_tested_backend": "TRITON_ATTN",
+    "wheel_size": 293855397
+  },
+  "evidence": {
+    "p31_final_v2_sha256": "e82085d0c6f180d2f4f8eb8f52332a92051273715e0923082fc65fc8857ddad5",
+    "runtime_v3_sha256": "0ec85aec99b7d270511c3b62c306668d30249edc68169af5b9bad119f5c01c73",
+    "runtime_v3_size": 6633730070,
+    "runtime_manifest_sha256": "3fbe937af3cc281c4dd1eeadcf1c35fade1c4c2162fca7ac116a942f674a217a",
+    "nccl_tp4": "PASS",
+    "nccl_world_size": 4,
+    "gemma4_semantic_step20": "PASS"
+  },
+  "sdk_generation": "0.3.0",
+  "default_runtime_root": "/tmp/kaggle-vllm/v0.3.0/l4x4",
+  "inference_lock": "L4_INFERENCE_LOCK.json",
+  "build_provenance": {
+    "CMAKE_CUDA_ARCHITECTURES": "89",
+    "TORCH_CUDA_ARCH_LIST": "8.9",
+    "concurrency_command": "nproc --all"
+  },
+  "public_artifacts": {
+    "hf_repo_id": "waqasm86/kaggle-vllm-binaries",
+    "namespace": "v0.3.0/l4x4/",
+    "immutable_revision": null,
+    "status": "UNPUBLISHED"
+  },
+  "notes": [
+    "Exactly four NVIDIA L4 / SM89 GPUs only.",
+    "Built-in FA2 extension import validated; model backend remains model-dependent.",
+    "Gemma 4 31B QAT TP=4 selected TRITON_ATTN.",
+    "Accepted candidate wheel passed 19/19 mandatory gates; any rebuilt SDK wheel requires a new run."
+  ]
+}
