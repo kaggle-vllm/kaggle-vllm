@@ -1,0 +1,45 @@
+{
+  "status": "ACCEPTED_HISTORICAL_SDK_CANDIDATE",
+  "profile": "kaggle-l4x4-cu129",
+  "sdk_version": "0.3.0",
+  "upstream_vllm": "0.30.0",
+  "native_wheel": {
+    "filename": "vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+    "size": 293855397,
+    "sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+    "source_path": "../release-native-v030-l4x4/vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+    "qualification": [
+      "P31",
+      "P33",
+      "P35",
+      "P40"
+    ]
+  },
+  "runtime": {
+    "default_root": "/tmp/kaggle-vllm/v0.3.0/l4x4",
+    "inference_lock": "src/kaggle_vllm/profiles/kaggle-l4x4-cu129/L4_INFERENCE_LOCK.json",
+    "dependency_wheel_count": 168,
+    "archival_runtime_v3_dependency_count": 195
+  },
+  "public_binary_authority": {
+    "repository": "waqasm86/kaggle-vllm-binaries",
+    "namespace": "v0.3.0/l4x4/",
+    "immutable_revision": null,
+    "status": "NOT_UPLOADED"
+  },
+  "claims": {
+    "fa2_extension": "compiled, packaged and import validated; model backend selection remains upstream",
+    "gemma4": "gemma-4-31b-it-qat-w4a16-ct semantic TP=4 qualified; TRITON_ATTN selected"
+  },
+  "remaining_gates": [
+    "fresh Kaggle retest for any rebuilt SDK wheel",
+    "third-party redistribution decisions",
+    "immutable Hugging Face revision pin after upload"
+  ],
+  "fresh_kaggle_status": "ACCEPTED_CANDIDATE_ONLY",
+  "accepted_sdk_wheel": {
+    "filename": "kaggle_vllm-0.3.0-py3-none-any.whl",
+    "sha256": "7da66878a85c3b65db18d794d282519d853893f54d7314db5ae551ace377416b",
+    "fresh_kaggle_result": "FRESH_KAGGLE_PASS_19_OF_19"
+  }
+}

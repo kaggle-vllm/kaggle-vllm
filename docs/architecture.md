@@ -1,3 +1,19 @@
+# SDK architecture
+
+`kaggle_vllm` imports without torch or vLLM. The public API consists of `KaggleLLM`, `KaggleSamplingParams`, `bootstrap`, `activate_runtime`, and `load_profile`. `KaggleLLM` delegates execution to upstream vLLM and forwards advanced keyword options. Sampling parameters become upstream objects lazily. `chat()` renders a model chat template through Transformers, preferring `AutoProcessor` and falling back to `AutoTokenizer`.
+
+The L4 profile pins hardware, ABI, native wheel SHA256, Torch/cu129, and TorchCodec. Offline bootstrap first discovers the four corrected split-v2 Kaggle Input Datasets, a pinned P31 native source, and the P33 168-wheel inference lock. The broader runtime-v3 archive is historical evidence. It verifies each wheel and stages the closure under `/tmp/kaggle-vllm/v0.3.0/l4x4/pydeps/` with `pip --target --no-deps --no-index --no-cache-dir --no-compile`. `activate_runtime()` prepends this target to Python's import path; `kaggle-vllm env` emits shell exports. A fresh Python process is recommended after activation if torch was imported earlier.
+
+The CUDA driver helper creates only an SDK-owned `libcuda.so` symlink pointing at the live `/usr/local/nvidia/lib64/libcuda.so.1`. It adds the alias to `LIBRARY_PATH` and the real driver directory to `LD_LIBRARY_PATH`. It never changes `/usr/local/nvidia`.
+
+P31 validated a global environment, so isolated staging remains a candidate until a clean Kaggle session runs the acceptance procedure. Source/build materials stay outside the user runtime artifact.
+
+---
+
+## Preserved historical v0.2 documentation
+
+The section below is retained verbatim from the v0.2 repository state for historical users. Commands and defaults above describe the v0.3 candidate.
+
 # Architecture and design rationale
 
 Kaggle controls Python, PyTorch, the CUDA-facing runtime, driver mounts, base

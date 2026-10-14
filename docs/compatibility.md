@@ -1,3 +1,22 @@
+# Compatibility boundary
+
+| SDK | Validated Kaggle profile | Native runtime | Status |
+| --- | --- | --- | --- |
+| 0.2.x | 2 × NVIDIA Tesla T4, SM75, TP=2 | CPython 3.12, PyTorch 2.10.0+cu128, vLLM source v0.18.1 | Historical release only |
+| 0.3.0 | Exactly 4 × NVIDIA L4, SM89, TP=4 | CPython 3.12/cp312, PyTorch 2.13.0+cu129, vLLM v0.30.0 | Accepted candidate wheel passed 19/19 cleanup-r1 gates; rebuilt SDK wheel retest required |
+
+Local SDK development/build/test uses Python 3.11. It cannot import the cp312 native wheel. The packaged SDK declares `>=3.11,<3.13`; runtime activation requires CPython 3.12 on Linux x86_64.
+
+The system CUDA compiler/toolkit in P31 was 12.8. PyTorch supplied the CUDA 12.9 user-space closure. The Python distribution `cuda_toolkit-12.9.1` does not replace `/usr/local/cuda`.
+
+Strict hardware validation rejects fewer than four GPUs, T4, P100, A100, and L4 devices reporting a capability other than 8.9. P31 NCCL world_size=4 passed. No universal CPU-count requirement is encoded; the P31 source build derived parallelism from `nproc --all`, which returned 48 in that session.
+
+---
+
+## Preserved historical v0.2 documentation
+
+The section below is retained verbatim from the v0.2 repository state for historical users. Commands and defaults above describe the v0.3 candidate.
+
 # Compatibility contract
 
 The current profile is `kaggle-t4x2-cu128`. “Validated” means observed in the

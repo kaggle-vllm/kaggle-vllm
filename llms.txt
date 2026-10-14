@@ -1,5 +1,9 @@
 # kaggle-vllm
 
+Current local SDK candidate: 0.3.0 for exactly four Kaggle NVIDIA L4 GPUs (SM89), TP=4, CPython 3.12 and upstream vLLM 0.30.0. The historical published 0.2.0 T4×2/SM75/TP=2 profile remains packaged. The L4 native wheel is SHA-pinned but the final SDK wheel still needs a fresh Kaggle acceptance. The L4 expanded runtime defaults to `/tmp/kaggle-vllm/v0.3.0/l4x4`; `/kaggle/working` holds compact evidence. Public artifact downloads remain disabled until an immutable Hugging Face revision is published. See `docs/kaggle-v0.3.0-l4x4.md` and `docs/v0.2-to-v0.3-profile-boundary.md`.
+
+## Historical v0.2 reference follows
+
 > kaggle-vllm is a lightweight compatibility and runtime-delivery toolkit for running a validated upstream vLLM CUDA runtime in Kaggle Notebooks with NVIDIA Tesla T4 GPUs.
 
 Canonical repository: https://github.com/kaggle-vllm/kaggle-vllm

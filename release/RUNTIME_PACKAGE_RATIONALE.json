@@ -1,0 +1,3017 @@
+{
+  "schema_version": 3,
+  "runtime_manifest_sha256": "3fbe937af3cc281c4dd1eeadcf1c35fade1c4c2162fca7ac116a942f674a217a",
+  "runtime_archive_sha256": "0ec85aec99b7d270511c3b62c306668d30249edc68169af5b9bad119f5c01c73",
+  "target": "CPython 3.12/Linux x86_64",
+  "roots": [
+    "vllm",
+    "torch",
+    "torchvision",
+    "torchaudio",
+    "torchcodec",
+    "triton",
+    "flashinfer-python",
+    "flashinfer-cubin"
+  ],
+  "selected_wheel_count": 195,
+  "excluded_count": 8,
+  "packages": [
+    {
+      "distribution": "agent-detector",
+      "version": "2.0.0",
+      "filename": "agent_detector-2.0.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "fastapi-cli",
+        "fastapi-cloud-cli",
+        "agent-detector"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "fastapi-cli[standard]>=0.0.8; extra == \"standard\"",
+        "fastapi-cloud-cli>=0.1.1; extra == \"standard\"",
+        "agent-detector>=1.1.0"
+      ]
+    },
+    {
+      "distribution": "aiohappyeyeballs",
+      "version": "2.7.1",
+      "filename": "aiohappyeyeballs-2.7.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "aiohttp",
+        "aiohappyeyeballs"
+      ],
+      "active_requires_dist": [
+        "aiohttp>=3.13.3",
+        "aiohappyeyeballs>=2.5.0"
+      ]
+    },
+    {
+      "distribution": "aiohttp",
+      "version": "3.14.4",
+      "filename": "aiohttp-3.14.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "aiohttp"
+      ],
+      "active_requires_dist": [
+        "aiohttp>=3.13.3"
+      ]
+    },
+    {
+      "distribution": "aiosignal",
+      "version": "1.4.0",
+      "filename": "aiosignal-1.4.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "aiohttp",
+        "aiosignal"
+      ],
+      "active_requires_dist": [
+        "aiohttp>=3.13.3",
+        "aiosignal>=1.4.0"
+      ]
+    },
+    {
+      "distribution": "annotated-doc",
+      "version": "0.0.5",
+      "filename": "annotated_doc-0.0.5-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "annotated-doc"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "annotated-doc>=0.0.2"
+      ]
+    },
+    {
+      "distribution": "annotated-types",
+      "version": "0.8.0",
+      "filename": "annotated_types-0.8.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "pydantic",
+        "annotated-types"
+      ],
+      "active_requires_dist": [
+        "pydantic>=2.12.0",
+        "annotated-types>=0.6.0"
+      ]
+    },
+    {
+      "distribution": "anthropic",
+      "version": "1.11.0",
+      "filename": "anthropic-1.11.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "anthropic"
+      ],
+      "active_requires_dist": [
+        "anthropic>=0.71.0"
+      ]
+    },
+    {
+      "distribution": "anyio",
+      "version": "4.15.1",
+      "filename": "anyio-4.15.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "starlette",
+        "anyio"
+      ],
+      "active_requires_dist": [
+        "starlette>=1.0.1",
+        "anyio<5,>=4.0.0"
+      ]
+    },
+    {
+      "distribution": "apache-tvm-ffi",
+      "version": "0.1.11",
+      "filename": "apache_tvm_ffi-0.1.11-cp312-abi3-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "apache-tvm-ffi"
+      ],
+      "active_requires_dist": [
+        "apache-tvm-ffi==0.1.11"
+      ]
+    },
+    {
+      "distribution": "astor",
+      "version": "0.8.1",
+      "filename": "astor-0.8.1-py2.py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "depyf",
+        "astor"
+      ],
+      "active_requires_dist": [
+        "depyf==0.20.0",
+        "astor"
+      ]
+    },
+    {
+      "distribution": "attrs",
+      "version": "26.1.0",
+      "filename": "attrs-26.1.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "aiohttp",
+        "attrs"
+      ],
+      "active_requires_dist": [
+        "aiohttp>=3.13.3",
+        "attrs>=17.3.0"
+      ]
+    },
+    {
+      "distribution": "blake3",
+      "version": "1.0.10",
+      "filename": "blake3-1.0.10-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "blake3"
+      ],
+      "active_requires_dist": [
+        "blake3"
+      ]
+    },
+    {
+      "distribution": "cachetools",
+      "version": "7.2.1",
+      "filename": "cachetools-7.2.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "cachetools"
+      ],
+      "active_requires_dist": [
+        "cachetools"
+      ]
+    },
+    {
+      "distribution": "cbor2",
+      "version": "6.1.5",
+      "filename": "cbor2-6.1.5-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "cbor2"
+      ],
+      "active_requires_dist": [
+        "cbor2"
+      ]
+    },
+    {
+      "distribution": "certifi",
+      "version": "2026.7.22",
+      "filename": "certifi-2026.7.22-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "requests",
+        "certifi"
+      ],
+      "active_requires_dist": [
+        "requests>=2.26.0",
+        "certifi>=2023.5.7"
+      ]
+    },
+    {
+      "distribution": "cffi",
+      "version": "2.1.1",
+      "filename": "cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "mcp",
+        "pyjwt",
+        "cryptography",
+        "cffi"
+      ],
+      "active_requires_dist": [
+        "mcp<3.0.0,>=2.0.0",
+        "pyjwt[crypto]>=2.10.1",
+        "cryptography>=3.4.0; extra == \"crypto\"",
+        "cffi>=2.0.0 ; platform_python_implementation != 'PyPy'"
+      ]
+    },
+    {
+      "distribution": "charset-normalizer",
+      "version": "3.5.2",
+      "filename": "charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "requests",
+        "charset-normalizer"
+      ],
+      "active_requires_dist": [
+        "requests>=2.26.0",
+        "charset_normalizer<4,>=2"
+      ]
+    },
+    {
+      "distribution": "click",
+      "version": "8.5.0",
+      "filename": "click-8.5.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "flashinfer-python",
+      "root_path": [
+        "flashinfer-python",
+        "click"
+      ],
+      "active_requires_dist": [
+        "click"
+      ]
+    },
+    {
+      "distribution": "cloudpickle",
+      "version": "3.1.2",
+      "filename": "cloudpickle-3.1.2-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "cloudpickle"
+      ],
+      "active_requires_dist": [
+        "cloudpickle"
+      ]
+    },
+    {
+      "distribution": "compressed-tensors",
+      "version": "0.17.0",
+      "filename": "compressed_tensors-0.17.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "compressed-tensors"
+      ],
+      "active_requires_dist": [
+        "compressed-tensors==0.17.0"
+      ]
+    },
+    {
+      "distribution": "cryptography",
+      "version": "50.0.2",
+      "filename": "cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "mcp",
+        "pyjwt",
+        "cryptography"
+      ],
+      "active_requires_dist": [
+        "mcp<3.0.0,>=2.0.0",
+        "pyjwt[crypto]>=2.10.1",
+        "cryptography>=3.4.0; extra == \"crypto\""
+      ]
+    },
+    {
+      "distribution": "cuda-bindings",
+      "version": "12.9.9",
+      "filename": "cuda_bindings-12.9.9-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "cuda-bindings"
+      ],
+      "active_requires_dist": [
+        "cuda-bindings<13,>=12.9.4; platform_system == \"Linux\" and python_version < \"3.15\""
+      ]
+    },
+    {
+      "distribution": "cuda-core",
+      "version": "1.2.1",
+      "filename": "cuda_core-1.2.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "flashinfer-python",
+      "root_path": [
+        "flashinfer-python",
+        "nccl4py",
+        "cuda-core"
+      ],
+      "active_requires_dist": [
+        "nccl4py>=0.3.1",
+        "cuda-core~=1.0"
+      ]
+    },
+    {
+      "distribution": "cuda-pathfinder",
+      "version": "1.8.3",
+      "filename": "cuda_pathfinder-1.8.3-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "cuda-bindings",
+        "cuda-pathfinder"
+      ],
+      "active_requires_dist": [
+        "cuda-bindings<13,>=12.9.4; platform_system == \"Linux\" and python_version < \"3.15\"",
+        "cuda-pathfinder~=1.1"
+      ]
+    },
+    {
+      "distribution": "cuda-python",
+      "version": "12.9.7",
+      "filename": "cuda_python-12.9.7-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "flashinfer-python",
+      "root_path": [
+        "flashinfer-python",
+        "cuda-python"
+      ],
+      "active_requires_dist": [
+        "cuda-python>=12.0"
+      ]
+    },
+    {
+      "distribution": "cuda-tile",
+      "version": "1.6.0",
+      "filename": "cuda_tile-1.6.0-cp312-cp312-manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "flashinfer-python",
+      "root_path": [
+        "flashinfer-python",
+        "cuda-tile"
+      ],
+      "active_requires_dist": [
+        "cuda-tile>=1.4.0"
+      ]
+    },
+    {
+      "distribution": "cuda-toolkit",
+      "version": "12.9.1",
+      "filename": "cuda_toolkit-12.9.1-py2.py3-none-any.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "cuda-toolkit"
+      ],
+      "active_requires_dist": [
+        "cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.9.1; platform_system == \"Linux\""
+      ]
+    },
+    {
+      "distribution": "depyf",
+      "version": "0.20.0",
+      "filename": "depyf-0.20.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "depyf"
+      ],
+      "active_requires_dist": [
+        "depyf==0.20.0"
+      ]
+    },
+    {
+      "distribution": "detect-installer",
+      "version": "0.2.1",
+      "filename": "detect_installer-0.2.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "fastapi-cli",
+        "fastapi-cloud-cli",
+        "detect-installer"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "fastapi-cli[standard]>=0.0.8; extra == \"standard\"",
+        "fastapi-cloud-cli>=0.1.1; extra == \"standard\"",
+        "detect-installer>=0.1.0"
+      ]
+    },
+    {
+      "distribution": "dill",
+      "version": "0.4.1",
+      "filename": "dill-0.4.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "depyf",
+        "dill"
+      ],
+      "active_requires_dist": [
+        "depyf==0.20.0",
+        "dill"
+      ]
+    },
+    {
+      "distribution": "dnspython",
+      "version": "2.8.0",
+      "filename": "dnspython-2.8.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "email-validator",
+        "dnspython"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "email-validator>=2.0.0; extra == \"standard\"",
+        "dnspython>=2.0.0"
+      ]
+    },
+    {
+      "distribution": "docstring-parser",
+      "version": "0.18.0",
+      "filename": "docstring_parser-0.18.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "anthropic",
+        "docstring-parser"
+      ],
+      "active_requires_dist": [
+        "anthropic>=0.71.0",
+        "docstring-parser<1,>=0.15"
+      ]
+    },
+    {
+      "distribution": "einops",
+      "version": "0.8.2",
+      "filename": "einops-0.8.2-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "einops"
+      ],
+      "active_requires_dist": [
+        "einops"
+      ]
+    },
+    {
+      "distribution": "email-validator",
+      "version": "2.3.0",
+      "filename": "email_validator-2.3.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "email-validator"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "email-validator>=2.0.0; extra == \"standard\""
+      ]
+    },
+    {
+      "distribution": "fastapi",
+      "version": "0.136.3",
+      "filename": "fastapi-0.136.3-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0"
+      ]
+    },
+    {
+      "distribution": "fastapi-cli",
+      "version": "0.0.32",
+      "filename": "fastapi_cli-0.0.32-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "fastapi-cli"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "fastapi-cli[standard]>=0.0.8; extra == \"standard\""
+      ]
+    },
+    {
+      "distribution": "fastapi-cloud-cli",
+      "version": "0.26.0",
+      "filename": "fastapi_cloud_cli-0.26.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "fastapi-cli",
+        "fastapi-cloud-cli"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "fastapi-cli[standard]>=0.0.8; extra == \"standard\"",
+        "fastapi-cloud-cli>=0.1.1; extra == \"standard\""
+      ]
+    },
+    {
+      "distribution": "fastar",
+      "version": "0.12.0",
+      "filename": "fastar-0.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "fastar"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "fastar>=0.9.0; extra == \"standard\""
+      ]
+    },
+    {
+      "distribution": "fastsafetensors",
+      "version": "0.4.0",
+      "filename": "fastsafetensors-0.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastsafetensors"
+      ],
+      "active_requires_dist": [
+        "fastsafetensors>=0.3.3"
+      ]
+    },
+    {
+      "distribution": "filelock",
+      "version": "4.0.12",
+      "filename": "filelock-4.0.12-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "filelock"
+      ],
+      "active_requires_dist": [
+        "filelock>=3.16.1"
+      ]
+    },
+    {
+      "distribution": "flashinfer-cubin",
+      "version": "0.6.18.post1",
+      "filename": "flashinfer_cubin-0.6.18.post1-py3-none-any.whl",
+      "group": "runtime-large",
+      "root": "flashinfer-cubin",
+      "root_path": [
+        "flashinfer-cubin"
+      ],
+      "active_requires_dist": []
+    },
+    {
+      "distribution": "flashinfer-python",
+      "version": "0.6.18.post1",
+      "filename": "flashinfer_python-0.6.18.post1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "flashinfer-python",
+      "root_path": [
+        "flashinfer-python"
+      ],
+      "active_requires_dist": []
+    },
+    {
+      "distribution": "frozenlist",
+      "version": "1.8.0",
+      "filename": "frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "aiohttp",
+        "frozenlist"
+      ],
+      "active_requires_dist": [
+        "aiohttp>=3.13.3",
+        "frozenlist>=1.1.1"
+      ]
+    },
+    {
+      "distribution": "fsspec",
+      "version": "2026.9.0",
+      "filename": "fsspec-2026.9.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "fsspec"
+      ],
+      "active_requires_dist": [
+        "fsspec>=0.8.5"
+      ]
+    },
+    {
+      "distribution": "googleapis-common-protos",
+      "version": "1.75.5",
+      "filename": "googleapis_common_protos-1.75.5-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-exporter-otlp",
+        "opentelemetry-exporter-otlp-proto-grpc",
+        "googleapis-common-protos"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-exporter-otlp>=1.27.0",
+        "opentelemetry-exporter-otlp-proto-grpc==1.45.0",
+        "googleapis-common-protos~=1.57"
+      ]
+    },
+    {
+      "distribution": "grpcio",
+      "version": "1.84.0",
+      "filename": "grpcio-1.84.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-exporter-otlp",
+        "opentelemetry-exporter-otlp-proto-grpc",
+        "grpcio"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-exporter-otlp>=1.27.0",
+        "opentelemetry-exporter-otlp-proto-grpc==1.45.0",
+        "grpcio<2.0.0,>=1.63.2; python_version < '3.13'"
+      ]
+    },
+    {
+      "distribution": "h11",
+      "version": "0.16.0",
+      "filename": "h11-0.16.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "uvicorn",
+        "h11"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "uvicorn[standard]>=0.12.0; extra == \"standard\"",
+        "h11>=0.8"
+      ]
+    },
+    {
+      "distribution": "hf-xet",
+      "version": "1.6.0",
+      "filename": "hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "huggingface-hub",
+        "hf-xet"
+      ],
+      "active_requires_dist": [
+        "huggingface_hub>=1.31.0",
+        "hf-xet<2.0.0,>=1.6.0; platform_machine == \"x86_64\" or platform_machine == \"amd64\" or platform_machine == \"AMD64\" or platform_machine == \"arm64\" or platform_machine == \"aarch64\""
+      ]
+    },
+    {
+      "distribution": "httpcore",
+      "version": "1.0.9",
+      "filename": "httpcore-1.0.9-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "huggingface-hub",
+        "httpx",
+        "httpcore"
+      ],
+      "active_requires_dist": [
+        "huggingface_hub>=1.31.0",
+        "httpx<1,>=0.23.0",
+        "httpcore==1.*"
+      ]
+    },
+    {
+      "distribution": "httpcore2",
+      "version": "2.13.1",
+      "filename": "httpcore2-2.13.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "openai",
+        "httpx2",
+        "httpcore2"
+      ],
+      "active_requires_dist": [
+        "openai>=2.25.0",
+        "httpx2<3,>=2.12.0",
+        "httpcore2==2.13.1; sys_platform != 'emscripten'"
+      ]
+    },
+    {
+      "distribution": "httptools",
+      "version": "0.8.0",
+      "filename": "httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "uvicorn",
+        "httptools"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "uvicorn[standard]>=0.12.0; extra == \"standard\"",
+        "httptools>=0.8.0; extra == 'standard'"
+      ]
+    },
+    {
+      "distribution": "httpx",
+      "version": "0.28.1",
+      "filename": "httpx-0.28.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "huggingface-hub",
+        "httpx"
+      ],
+      "active_requires_dist": [
+        "huggingface_hub>=1.31.0",
+        "httpx<1,>=0.23.0"
+      ]
+    },
+    {
+      "distribution": "httpx2",
+      "version": "2.13.1",
+      "filename": "httpx2-2.13.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "openai",
+        "httpx2"
+      ],
+      "active_requires_dist": [
+        "openai>=2.25.0",
+        "httpx2<3,>=2.12.0"
+      ]
+    },
+    {
+      "distribution": "huggingface-hub",
+      "version": "1.33.0",
+      "filename": "huggingface_hub-1.33.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "huggingface-hub"
+      ],
+      "active_requires_dist": [
+        "huggingface_hub>=1.31.0"
+      ]
+    },
+    {
+      "distribution": "humming-kernels",
+      "version": "0.1.12",
+      "filename": "humming_kernels-0.1.12-py3-none-manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "humming-kernels"
+      ],
+      "active_requires_dist": [
+        "humming-kernels[cu12]==0.1.12"
+      ]
+    },
+    {
+      "distribution": "idna",
+      "version": "3.20",
+      "filename": "idna-3.20-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "requests",
+        "idna"
+      ],
+      "active_requires_dist": [
+        "requests>=2.26.0",
+        "idna<4,>=2.5"
+      ]
+    },
+    {
+      "distribution": "ijson",
+      "version": "3.5.1",
+      "filename": "ijson-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "ijson"
+      ],
+      "active_requires_dist": [
+        "ijson"
+      ]
+    },
+    {
+      "distribution": "instanttensor",
+      "version": "0.2.0",
+      "filename": "instanttensor-0.2.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "instanttensor"
+      ],
+      "active_requires_dist": [
+        "instanttensor>=0.1.9"
+      ]
+    },
+    {
+      "distribution": "interegular",
+      "version": "0.3.3",
+      "filename": "interegular-0.3.3-py37-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "lm-format-enforcer",
+        "interegular"
+      ],
+      "active_requires_dist": [
+        "lm-format-enforcer==0.11.3",
+        "interegular (>=0.3.2)"
+      ]
+    },
+    {
+      "distribution": "jinja2",
+      "version": "3.1.6",
+      "filename": "jinja2-3.1.6-py3-none-any.whl",
+      "group": "build-deps",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "jinja2"
+      ],
+      "active_requires_dist": [
+        "jinja2"
+      ]
+    },
+    {
+      "distribution": "jiter",
+      "version": "0.17.0",
+      "filename": "jiter-0.17.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "openai",
+        "jiter"
+      ],
+      "active_requires_dist": [
+        "openai>=2.25.0",
+        "jiter<1,>=0.16.0"
+      ]
+    },
+    {
+      "distribution": "jmespath",
+      "version": "1.1.0",
+      "filename": "jmespath-1.1.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "model-hosting-container-standards",
+        "jmespath"
+      ],
+      "active_requires_dist": [
+        "model-hosting-container-standards<1.0.0,>=0.1.14",
+        "jmespath"
+      ]
+    },
+    {
+      "distribution": "jsonschema",
+      "version": "4.26.0",
+      "filename": "jsonschema-4.26.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "jsonschema"
+      ],
+      "active_requires_dist": [
+        "jsonschema>=4.23.0"
+      ]
+    },
+    {
+      "distribution": "jsonschema-specifications",
+      "version": "2025.9.1",
+      "filename": "jsonschema_specifications-2025.9.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "jsonschema",
+        "jsonschema-specifications"
+      ],
+      "active_requires_dist": [
+        "jsonschema>=4.23.0",
+        "jsonschema-specifications>=2023.03.6"
+      ]
+    },
+    {
+      "distribution": "lark",
+      "version": "1.2.2",
+      "filename": "lark-1.2.2-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "lark"
+      ],
+      "active_requires_dist": [
+        "lark==1.2.2"
+      ]
+    },
+    {
+      "distribution": "llguidance",
+      "version": "1.7.6",
+      "filename": "llguidance-1.7.6-cp39-abi3-manylinux_2_31_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "llguidance"
+      ],
+      "active_requires_dist": [
+        "llguidance<1.8.0,>=1.7.0; platform_machine == \"x86_64\" or platform_machine == \"arm64\" or platform_machine == \"aarch64\" or platform_machine == \"ppc64le\" or platform_machine == \"s390x\""
+      ]
+    },
+    {
+      "distribution": "llvmlite",
+      "version": "0.47.0",
+      "filename": "llvmlite-0.47.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "numba",
+        "llvmlite"
+      ],
+      "active_requires_dist": [
+        "numba==0.65.0",
+        "llvmlite<0.48,>=0.47.0dev0"
+      ]
+    },
+    {
+      "distribution": "lm-format-enforcer",
+      "version": "0.11.3",
+      "filename": "lm_format_enforcer-0.11.3-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "lm-format-enforcer"
+      ],
+      "active_requires_dist": [
+        "lm-format-enforcer==0.11.3"
+      ]
+    },
+    {
+      "distribution": "loguru",
+      "version": "0.7.3",
+      "filename": "loguru-0.7.3-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "compressed-tensors",
+        "loguru"
+      ],
+      "active_requires_dist": [
+        "compressed-tensors==0.17.0",
+        "loguru"
+      ]
+    },
+    {
+      "distribution": "markdown-it-py",
+      "version": "4.2.0",
+      "filename": "markdown_it_py-4.2.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "transformers",
+        "typer",
+        "rich",
+        "markdown-it-py"
+      ],
+      "active_requires_dist": [
+        "transformers>=5.10.4",
+        "typer",
+        "rich>=13.8.0",
+        "markdown-it-py (>=2.2.0)"
+      ]
+    },
+    {
+      "distribution": "markupsafe",
+      "version": "3.0.4",
+      "filename": "markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "jinja2",
+        "markupsafe"
+      ],
+      "active_requires_dist": [
+        "jinja2",
+        "MarkupSafe>=2.0"
+      ]
+    },
+    {
+      "distribution": "mcp",
+      "version": "2.3.0",
+      "filename": "mcp-2.3.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "mcp"
+      ],
+      "active_requires_dist": [
+        "mcp<3.0.0,>=2.0.0"
+      ]
+    },
+    {
+      "distribution": "mcp-types",
+      "version": "2.3.0",
+      "filename": "mcp_types-2.3.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "mcp",
+        "mcp-types"
+      ],
+      "active_requires_dist": [
+        "mcp<3.0.0,>=2.0.0",
+        "mcp-types==2.3.0"
+      ]
+    },
+    {
+      "distribution": "mdurl",
+      "version": "0.1.2",
+      "filename": "mdurl-0.1.2-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "transformers",
+        "typer",
+        "rich",
+        "markdown-it-py",
+        "mdurl"
+      ],
+      "active_requires_dist": [
+        "transformers>=5.10.4",
+        "typer",
+        "rich>=13.8.0",
+        "markdown-it-py (>=2.2.0)",
+        "mdurl~=0.1"
+      ]
+    },
+    {
+      "distribution": "mistral-common",
+      "version": "1.12.0",
+      "filename": "mistral_common-1.12.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "mistral-common"
+      ],
+      "active_requires_dist": [
+        "mistral_common[image]>=1.11.6"
+      ]
+    },
+    {
+      "distribution": "ml-dtypes",
+      "version": "0.6.0",
+      "filename": "ml_dtypes-0.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "tilelang",
+        "ml-dtypes"
+      ],
+      "active_requires_dist": [
+        "tilelang==0.1.12",
+        "ml-dtypes"
+      ]
+    },
+    {
+      "distribution": "model-hosting-container-standards",
+      "version": "0.1.16",
+      "filename": "model_hosting_container_standards-0.1.16-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "model-hosting-container-standards"
+      ],
+      "active_requires_dist": [
+        "model-hosting-container-standards<1.0.0,>=0.1.14"
+      ]
+    },
+    {
+      "distribution": "mpmath",
+      "version": "1.3.0",
+      "filename": "mpmath-1.3.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "sympy",
+        "mpmath"
+      ],
+      "active_requires_dist": [
+        "sympy>=1.13.3",
+        "mpmath<1.4,>=1.1.0"
+      ]
+    },
+    {
+      "distribution": "msgspec",
+      "version": "0.22.0",
+      "filename": "msgspec-0.22.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "msgspec"
+      ],
+      "active_requires_dist": [
+        "msgspec"
+      ]
+    },
+    {
+      "distribution": "multidict",
+      "version": "6.9.1",
+      "filename": "multidict-6.9.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "aiohttp",
+        "multidict"
+      ],
+      "active_requires_dist": [
+        "aiohttp>=3.13.3",
+        "multidict<7.0,>=4.5"
+      ]
+    },
+    {
+      "distribution": "nccl4py",
+      "version": "0.6.0",
+      "filename": "nccl4py-0.6.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "flashinfer-python",
+      "root_path": [
+        "flashinfer-python",
+        "nccl4py"
+      ],
+      "active_requires_dist": [
+        "nccl4py>=0.3.1"
+      ]
+    },
+    {
+      "distribution": "networkx",
+      "version": "3.7",
+      "filename": "networkx-3.7-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "networkx"
+      ],
+      "active_requires_dist": [
+        "networkx>=2.5.1"
+      ]
+    },
+    {
+      "distribution": "ninja",
+      "version": "1.13.2",
+      "filename": "ninja-1.13.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "ninja"
+      ],
+      "active_requires_dist": [
+        "ninja"
+      ]
+    },
+    {
+      "distribution": "numba",
+      "version": "0.65.0",
+      "filename": "numba-0.65.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "numba"
+      ],
+      "active_requires_dist": [
+        "numba==0.65.0"
+      ]
+    },
+    {
+      "distribution": "numpy",
+      "version": "2.3.5",
+      "filename": "numpy-2.3.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "numpy"
+      ],
+      "active_requires_dist": [
+        "numpy"
+      ]
+    },
+    {
+      "distribution": "nvidia-cublas-cu12",
+      "version": "12.9.1.4",
+      "filename": "nvidia_cublas_cu12-12.9.1.4-py3-none-manylinux_2_27_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "cuda-toolkit",
+        "nvidia-cublas-cu12"
+      ],
+      "active_requires_dist": [
+        "cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.9.1; platform_system == \"Linux\"",
+        "nvidia-cublas-cu12==12.9.1.4.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'cublas'"
+      ]
+    },
+    {
+      "distribution": "nvidia-cuda-cccl-cu12",
+      "version": "12.8.90",
+      "filename": "nvidia_cuda_cccl_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "humming-kernels",
+        "nvidia-cuda-cccl-cu12"
+      ],
+      "active_requires_dist": [
+        "humming-kernels[cu12]==0.1.12",
+        "nvidia-cuda-cccl-cu12; extra == \"cu12\""
+      ]
+    },
+    {
+      "distribution": "nvidia-cuda-cupti-cu12",
+      "version": "12.9.79",
+      "filename": "nvidia_cuda_cupti_cu12-12.9.79-py3-none-manylinux_2_25_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "cuda-toolkit",
+        "nvidia-cuda-cupti-cu12"
+      ],
+      "active_requires_dist": [
+        "cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.9.1; platform_system == \"Linux\"",
+        "nvidia-cuda-cupti-cu12==12.9.79.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'cupti'"
+      ]
+    },
+    {
+      "distribution": "nvidia-cuda-nvcc-cu12",
+      "version": "12.8.93",
+      "filename": "nvidia_cuda_nvcc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "humming-kernels",
+        "nvidia-cuda-nvcc-cu12"
+      ],
+      "active_requires_dist": [
+        "humming-kernels[cu12]==0.1.12",
+        "nvidia-cuda-nvcc-cu12; extra == \"cu12\""
+      ]
+    },
+    {
+      "distribution": "nvidia-cuda-nvdisasm",
+      "version": "13.4.92",
+      "filename": "nvidia_cuda_nvdisasm-13.4.92-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "nvidia-cutlass-dsl",
+        "nvidia-cutlass-dsl-libs-base",
+        "nvidia-cuda-nvdisasm"
+      ],
+      "active_requires_dist": [
+        "nvidia-cutlass-dsl==4.7.1",
+        "nvidia-cutlass-dsl-libs-base==4.7.1",
+        "nvidia-cuda-nvdisasm<14,>=13.3"
+      ]
+    },
+    {
+      "distribution": "nvidia-cuda-nvrtc-cu12",
+      "version": "12.9.86",
+      "filename": "nvidia_cuda_nvrtc_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "humming-kernels",
+        "nvidia-cuda-nvrtc-cu12"
+      ],
+      "active_requires_dist": [
+        "humming-kernels[cu12]==0.1.12",
+        "nvidia-cuda-nvrtc-cu12; extra == \"cu12\""
+      ]
+    },
+    {
+      "distribution": "nvidia-cuda-runtime-cu12",
+      "version": "12.9.79",
+      "filename": "nvidia_cuda_runtime_cu12-12.9.79-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "humming-kernels",
+        "nvidia-cuda-runtime-cu12"
+      ],
+      "active_requires_dist": [
+        "humming-kernels[cu12]==0.1.12",
+        "nvidia-cuda-runtime-cu12; extra == \"cu12\""
+      ]
+    },
+    {
+      "distribution": "nvidia-cudnn-cu12",
+      "version": "9.20.0.48",
+      "filename": "nvidia_cudnn_cu12-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "nvidia-cudnn-cu12"
+      ],
+      "active_requires_dist": [
+        "nvidia-cudnn-cu12==9.20.0.48; platform_system == \"Linux\""
+      ]
+    },
+    {
+      "distribution": "nvidia-cudnn-frontend",
+      "version": "1.28.0",
+      "filename": "nvidia_cudnn_frontend-1.28.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "nvidia-cudnn-frontend"
+      ],
+      "active_requires_dist": [
+        "nvidia-cudnn-frontend>=1.19.1"
+      ]
+    },
+    {
+      "distribution": "nvidia-cufft-cu12",
+      "version": "11.4.1.4",
+      "filename": "nvidia_cufft_cu12-11.4.1.4-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "cuda-toolkit",
+        "nvidia-cufft-cu12"
+      ],
+      "active_requires_dist": [
+        "cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.9.1; platform_system == \"Linux\"",
+        "nvidia-cufft-cu12==11.4.1.4.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'cufft'"
+      ]
+    },
+    {
+      "distribution": "nvidia-cufile-cu12",
+      "version": "1.14.1.1",
+      "filename": "nvidia_cufile_cu12-1.14.1.1-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "cuda-toolkit",
+        "nvidia-cufile-cu12"
+      ],
+      "active_requires_dist": [
+        "cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.9.1; platform_system == \"Linux\"",
+        "nvidia-cufile-cu12==1.14.1.1.*; (sys_platform == 'linux') and extra == 'cufile'"
+      ]
+    },
+    {
+      "distribution": "nvidia-curand-cu12",
+      "version": "10.3.10.19",
+      "filename": "nvidia_curand_cu12-10.3.10.19-py3-none-manylinux_2_27_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "cuda-toolkit",
+        "nvidia-curand-cu12"
+      ],
+      "active_requires_dist": [
+        "cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.9.1; platform_system == \"Linux\"",
+        "nvidia-curand-cu12==10.3.10.19.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'curand'"
+      ]
+    },
+    {
+      "distribution": "nvidia-cusolver-cu12",
+      "version": "11.7.5.82",
+      "filename": "nvidia_cusolver_cu12-11.7.5.82-py3-none-manylinux_2_27_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "cuda-toolkit",
+        "nvidia-cusolver-cu12"
+      ],
+      "active_requires_dist": [
+        "cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.9.1; platform_system == \"Linux\"",
+        "nvidia-cusolver-cu12==11.7.5.82.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'cusolver'"
+      ]
+    },
+    {
+      "distribution": "nvidia-cusparse-cu12",
+      "version": "12.5.10.65",
+      "filename": "nvidia_cusparse_cu12-12.5.10.65-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "cuda-toolkit",
+        "nvidia-cusparse-cu12"
+      ],
+      "active_requires_dist": [
+        "cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.9.1; platform_system == \"Linux\"",
+        "nvidia-cusparse-cu12==12.5.10.65.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'cusparse'"
+      ]
+    },
+    {
+      "distribution": "nvidia-cusparselt-cu12",
+      "version": "0.8.1",
+      "filename": "nvidia_cusparselt_cu12-0.8.1-py3-none-manylinux2014_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "nvidia-cusparselt-cu12"
+      ],
+      "active_requires_dist": [
+        "nvidia-cusparselt-cu12==0.8.1; platform_system == \"Linux\""
+      ]
+    },
+    {
+      "distribution": "nvidia-cutlass-dsl",
+      "version": "4.7.1",
+      "filename": "nvidia_cutlass_dsl-4.7.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "nvidia-cutlass-dsl"
+      ],
+      "active_requires_dist": [
+        "nvidia-cutlass-dsl==4.7.1"
+      ]
+    },
+    {
+      "distribution": "nvidia-cutlass-dsl-libs-base",
+      "version": "4.7.1",
+      "filename": "nvidia_cutlass_dsl_libs_base-4.7.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "nvidia-cutlass-dsl",
+        "nvidia-cutlass-dsl-libs-base"
+      ],
+      "active_requires_dist": [
+        "nvidia-cutlass-dsl==4.7.1",
+        "nvidia-cutlass-dsl-libs-base==4.7.1"
+      ]
+    },
+    {
+      "distribution": "nvidia-cutlass-dsl-libs-core",
+      "version": "4.7.1",
+      "filename": "nvidia_cutlass_dsl_libs_core-4.7.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "nvidia-cutlass-dsl",
+        "nvidia-cutlass-dsl-libs-base",
+        "nvidia-cutlass-dsl-libs-core"
+      ],
+      "active_requires_dist": [
+        "nvidia-cutlass-dsl==4.7.1",
+        "nvidia-cutlass-dsl-libs-base==4.7.1",
+        "nvidia-cutlass-dsl-libs-core==4.7.1"
+      ]
+    },
+    {
+      "distribution": "nvidia-cutlass-dsl-libs-cu12",
+      "version": "4.7.1",
+      "filename": "nvidia_cutlass_dsl_libs_cu12-4.7.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "nvidia-cutlass-dsl",
+        "nvidia-cutlass-dsl-libs-cu12"
+      ],
+      "active_requires_dist": [
+        "nvidia-cutlass-dsl==4.7.1",
+        "nvidia-cutlass-dsl-libs-cu12==4.7.1"
+      ]
+    },
+    {
+      "distribution": "nvidia-ml-py",
+      "version": "13.615.71",
+      "filename": "nvidia_ml_py-13.615.71-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "flashinfer-python",
+      "root_path": [
+        "flashinfer-python",
+        "nvidia-ml-py"
+      ],
+      "active_requires_dist": [
+        "nvidia-ml-py"
+      ]
+    },
+    {
+      "distribution": "nvidia-nccl-cu12",
+      "version": "2.29.7",
+      "filename": "nvidia_nccl_cu12-2.29.7-py3-none-manylinux_2_18_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "nvidia-nccl-cu12"
+      ],
+      "active_requires_dist": [
+        "nvidia-nccl-cu12==2.29.7; platform_system == \"Linux\""
+      ]
+    },
+    {
+      "distribution": "nvidia-nvjitlink-cu12",
+      "version": "12.9.86",
+      "filename": "nvidia_nvjitlink_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "cuda-toolkit",
+        "nvidia-nvjitlink-cu12"
+      ],
+      "active_requires_dist": [
+        "cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.9.1; platform_system == \"Linux\"",
+        "nvidia-nvjitlink-cu12==12.9.86.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'nvjitlink'"
+      ]
+    },
+    {
+      "distribution": "nvidia-nvshmem-cu12",
+      "version": "3.4.5",
+      "filename": "nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "nvidia-nvshmem-cu12"
+      ],
+      "active_requires_dist": [
+        "nvidia-nvshmem-cu12==3.4.5; platform_system == \"Linux\""
+      ]
+    },
+    {
+      "distribution": "nvidia-nvtx-cu12",
+      "version": "12.9.79",
+      "filename": "nvidia_nvtx_cu12-12.9.79-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "cuda-toolkit",
+        "nvidia-nvtx-cu12"
+      ],
+      "active_requires_dist": [
+        "cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.9.1; platform_system == \"Linux\"",
+        "nvidia-nvtx-cu12==12.9.79.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'nvtx'"
+      ]
+    },
+    {
+      "distribution": "nvtx",
+      "version": "0.2.15",
+      "filename": "nvtx-0.2.15-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "nvtx"
+      ],
+      "active_requires_dist": [
+        "nvtx==0.2.15"
+      ]
+    },
+    {
+      "distribution": "openai",
+      "version": "3.24.0",
+      "filename": "openai-3.24.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "openai"
+      ],
+      "active_requires_dist": [
+        "openai>=2.25.0"
+      ]
+    },
+    {
+      "distribution": "openai-harmony",
+      "version": "0.0.8",
+      "filename": "openai_harmony-0.0.8-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "openai-harmony"
+      ],
+      "active_requires_dist": [
+        "openai-harmony>=0.0.3"
+      ]
+    },
+    {
+      "distribution": "opencv-python-headless",
+      "version": "5.0.0.93",
+      "filename": "opencv_python_headless-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opencv-python-headless"
+      ],
+      "active_requires_dist": [
+        "opencv-python-headless>=4.13.0"
+      ]
+    },
+    {
+      "distribution": "opentelemetry-api",
+      "version": "1.45.0",
+      "filename": "opentelemetry_api-1.45.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-api"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-api>=1.27.0"
+      ]
+    },
+    {
+      "distribution": "opentelemetry-exporter-http-transport",
+      "version": "0.66b0",
+      "filename": "opentelemetry_exporter_http_transport-0.66b0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-exporter-otlp",
+        "opentelemetry-exporter-otlp-proto-http",
+        "opentelemetry-exporter-http-transport"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-exporter-otlp>=1.27.0",
+        "opentelemetry-exporter-otlp-proto-http==1.45.0",
+        "opentelemetry-exporter-http-transport[urllib3]==0.66b0"
+      ]
+    },
+    {
+      "distribution": "opentelemetry-exporter-otlp",
+      "version": "1.45.0",
+      "filename": "opentelemetry_exporter_otlp-1.45.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-exporter-otlp"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-exporter-otlp>=1.27.0"
+      ]
+    },
+    {
+      "distribution": "opentelemetry-exporter-otlp-common",
+      "version": "0.66b0",
+      "filename": "opentelemetry_exporter_otlp_common-0.66b0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-exporter-otlp",
+        "opentelemetry-exporter-otlp-proto-grpc",
+        "opentelemetry-exporter-otlp-common"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-exporter-otlp>=1.27.0",
+        "opentelemetry-exporter-otlp-proto-grpc==1.45.0",
+        "opentelemetry-exporter-otlp-common==0.66b0"
+      ]
+    },
+    {
+      "distribution": "opentelemetry-exporter-otlp-proto-common",
+      "version": "1.45.0",
+      "filename": "opentelemetry_exporter_otlp_proto_common-1.45.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-exporter-otlp",
+        "opentelemetry-exporter-otlp-proto-grpc",
+        "opentelemetry-exporter-otlp-proto-common"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-exporter-otlp>=1.27.0",
+        "opentelemetry-exporter-otlp-proto-grpc==1.45.0",
+        "opentelemetry-exporter-otlp-proto-common==1.45.0"
+      ]
+    },
+    {
+      "distribution": "opentelemetry-exporter-otlp-proto-grpc",
+      "version": "1.45.0",
+      "filename": "opentelemetry_exporter_otlp_proto_grpc-1.45.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-exporter-otlp",
+        "opentelemetry-exporter-otlp-proto-grpc"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-exporter-otlp>=1.27.0",
+        "opentelemetry-exporter-otlp-proto-grpc==1.45.0"
+      ]
+    },
+    {
+      "distribution": "opentelemetry-exporter-otlp-proto-http",
+      "version": "1.45.0",
+      "filename": "opentelemetry_exporter_otlp_proto_http-1.45.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-exporter-otlp",
+        "opentelemetry-exporter-otlp-proto-http"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-exporter-otlp>=1.27.0",
+        "opentelemetry-exporter-otlp-proto-http==1.45.0"
+      ]
+    },
+    {
+      "distribution": "opentelemetry-proto",
+      "version": "1.45.0",
+      "filename": "opentelemetry_proto-1.45.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-exporter-otlp",
+        "opentelemetry-exporter-otlp-proto-grpc",
+        "opentelemetry-proto"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-exporter-otlp>=1.27.0",
+        "opentelemetry-exporter-otlp-proto-grpc==1.45.0",
+        "opentelemetry-proto==1.45.0"
+      ]
+    },
+    {
+      "distribution": "opentelemetry-sdk",
+      "version": "1.45.0",
+      "filename": "opentelemetry_sdk-1.45.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-sdk"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-sdk>=1.27.0"
+      ]
+    },
+    {
+      "distribution": "opentelemetry-semantic-conventions",
+      "version": "0.66b0",
+      "filename": "opentelemetry_semantic_conventions-0.66b0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-sdk",
+        "opentelemetry-semantic-conventions"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-sdk>=1.27.0",
+        "opentelemetry-semantic-conventions==0.66b0"
+      ]
+    },
+    {
+      "distribution": "opentelemetry-semantic-conventions-ai",
+      "version": "0.5.1",
+      "filename": "opentelemetry_semantic_conventions_ai-0.5.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "opentelemetry-semantic-conventions-ai"
+      ],
+      "active_requires_dist": [
+        "opentelemetry-semantic-conventions-ai>=0.4.1"
+      ]
+    },
+    {
+      "distribution": "outlines-core",
+      "version": "0.2.14",
+      "filename": "outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "outlines-core"
+      ],
+      "active_requires_dist": [
+        "outlines_core==0.2.14"
+      ]
+    },
+    {
+      "distribution": "packaging",
+      "version": "26.3",
+      "filename": "packaging-26.3-py3-none-any.whl",
+      "group": "build-deps",
+      "root": "flashinfer-python",
+      "root_path": [
+        "flashinfer-python",
+        "packaging"
+      ],
+      "active_requires_dist": [
+        "packaging>=24.2"
+      ]
+    },
+    {
+      "distribution": "partial-json-parser",
+      "version": "0.2.1.1.post7",
+      "filename": "partial_json_parser-0.2.1.1.post7-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "partial-json-parser"
+      ],
+      "active_requires_dist": [
+        "partial-json-parser"
+      ]
+    },
+    {
+      "distribution": "pillow",
+      "version": "12.3.0",
+      "filename": "pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "pillow"
+      ],
+      "active_requires_dist": [
+        "pillow"
+      ]
+    },
+    {
+      "distribution": "prometheus-client",
+      "version": "0.26.0",
+      "filename": "prometheus_client-0.26.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "prometheus-client"
+      ],
+      "active_requires_dist": [
+        "prometheus_client>=0.18.0"
+      ]
+    },
+    {
+      "distribution": "prometheus-fastapi-instrumentator",
+      "version": "8.1.0",
+      "filename": "prometheus_fastapi_instrumentator-8.1.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "prometheus-fastapi-instrumentator"
+      ],
+      "active_requires_dist": [
+        "prometheus-fastapi-instrumentator>=8.0.0"
+      ]
+    },
+    {
+      "distribution": "propcache",
+      "version": "0.5.4",
+      "filename": "propcache-0.5.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "aiohttp",
+        "propcache"
+      ],
+      "active_requires_dist": [
+        "aiohttp>=3.13.3",
+        "propcache>=0.2.0"
+      ]
+    },
+    {
+      "distribution": "protobuf",
+      "version": "7.36.2",
+      "filename": "protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "protobuf"
+      ],
+      "active_requires_dist": [
+        "protobuf!=6.30.*,!=6.31.*,!=6.32.*,!=6.33.0.*,!=6.33.1.*,!=6.33.2.*,!=6.33.3.*,!=6.33.4.*,>=5.29.6"
+      ]
+    },
+    {
+      "distribution": "psutil",
+      "version": "7.2.2",
+      "filename": "psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "psutil"
+      ],
+      "active_requires_dist": [
+        "psutil"
+      ]
+    },
+    {
+      "distribution": "py-cpuinfo",
+      "version": "9.0.0",
+      "filename": "py_cpuinfo-9.0.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "py-cpuinfo"
+      ],
+      "active_requires_dist": [
+        "py-cpuinfo"
+      ]
+    },
+    {
+      "distribution": "pybase64",
+      "version": "1.5.1",
+      "filename": "pybase64-1.5.1-cp312-cp312-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "pybase64"
+      ],
+      "active_requires_dist": [
+        "pybase64"
+      ]
+    },
+    {
+      "distribution": "pycountry",
+      "version": "26.2.16",
+      "filename": "pycountry-26.2.16-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "pydantic-extra-types",
+        "pycountry"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "pydantic-extra-types>=2.0.0; extra == \"standard\"",
+        "pycountry>=23; extra == 'pycountry'"
+      ]
+    },
+    {
+      "distribution": "pycparser",
+      "version": "3.0",
+      "filename": "pycparser-3.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "mcp",
+        "pyjwt",
+        "cryptography",
+        "cffi",
+        "pycparser"
+      ],
+      "active_requires_dist": [
+        "mcp<3.0.0,>=2.0.0",
+        "pyjwt[crypto]>=2.10.1",
+        "cryptography>=3.4.0; extra == \"crypto\"",
+        "cffi>=2.0.0 ; platform_python_implementation != 'PyPy'",
+        "pycparser; implementation_name != \"PyPy\""
+      ]
+    },
+    {
+      "distribution": "pydantic",
+      "version": "2.13.5",
+      "filename": "pydantic-2.13.5-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "pydantic"
+      ],
+      "active_requires_dist": [
+        "pydantic>=2.12.0"
+      ]
+    },
+    {
+      "distribution": "pydantic-core",
+      "version": "2.46.5",
+      "filename": "pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "pydantic",
+        "pydantic-core"
+      ],
+      "active_requires_dist": [
+        "pydantic>=2.12.0",
+        "pydantic-core==2.46.5"
+      ]
+    },
+    {
+      "distribution": "pydantic-extra-types",
+      "version": "2.11.1",
+      "filename": "pydantic_extra_types-2.11.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "pydantic-extra-types"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "pydantic-extra-types>=2.0.0; extra == \"standard\""
+      ]
+    },
+    {
+      "distribution": "pydantic-settings",
+      "version": "2.15.0",
+      "filename": "pydantic_settings-2.15.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "pydantic-settings"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "pydantic-settings>=2.0.0; extra == \"standard\""
+      ]
+    },
+    {
+      "distribution": "pygments",
+      "version": "2.21.0",
+      "filename": "pygments-2.21.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "transformers",
+        "typer",
+        "rich",
+        "pygments"
+      ],
+      "active_requires_dist": [
+        "transformers>=5.10.4",
+        "typer",
+        "rich>=13.8.0",
+        "pygments (>=2.13.0,<3.0.0)"
+      ]
+    },
+    {
+      "distribution": "pyjwt",
+      "version": "2.15.1",
+      "filename": "pyjwt-2.15.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "mcp",
+        "pyjwt"
+      ],
+      "active_requires_dist": [
+        "mcp<3.0.0,>=2.0.0",
+        "pyjwt[crypto]>=2.10.1"
+      ]
+    },
+    {
+      "distribution": "pynvvideocodec",
+      "version": "2.0.4",
+      "filename": "pynvvideocodec-2.0.4-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "pynvvideocodec"
+      ],
+      "active_requires_dist": [
+        "PyNvVideoCodec==2.0.4"
+      ]
+    },
+    {
+      "distribution": "python-dotenv",
+      "version": "1.2.4",
+      "filename": "python_dotenv-1.2.4-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "uvicorn",
+        "python-dotenv"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "uvicorn[standard]>=0.12.0; extra == \"standard\"",
+        "python-dotenv>=0.13; extra == 'standard'"
+      ]
+    },
+    {
+      "distribution": "python-json-logger",
+      "version": "4.2.0",
+      "filename": "python_json_logger-4.2.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "python-json-logger"
+      ],
+      "active_requires_dist": [
+        "python-json-logger"
+      ]
+    },
+    {
+      "distribution": "python-multipart",
+      "version": "0.0.32",
+      "filename": "python_multipart-0.0.32-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "python-multipart"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "python-multipart>=0.0.18; extra == \"standard\""
+      ]
+    },
+    {
+      "distribution": "pyyaml",
+      "version": "6.0.3",
+      "filename": "pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "pyyaml"
+      ],
+      "active_requires_dist": [
+        "pyyaml"
+      ]
+    },
+    {
+      "distribution": "pyzmq",
+      "version": "27.2.0",
+      "filename": "pyzmq-27.2.0-cp312-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "pyzmq"
+      ],
+      "active_requires_dist": [
+        "pyzmq>=25.0.0"
+      ]
+    },
+    {
+      "distribution": "quack-kernels",
+      "version": "0.6.5",
+      "filename": "quack_kernels-0.6.5-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "quack-kernels"
+      ],
+      "active_requires_dist": [
+        "quack-kernels==0.6.5"
+      ]
+    },
+    {
+      "distribution": "referencing",
+      "version": "0.37.0",
+      "filename": "referencing-0.37.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "jsonschema",
+        "referencing"
+      ],
+      "active_requires_dist": [
+        "jsonschema>=4.23.0",
+        "referencing>=0.28.4"
+      ]
+    },
+    {
+      "distribution": "regex",
+      "version": "2026.9.29",
+      "filename": "regex-2026.9.29-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "regex"
+      ],
+      "active_requires_dist": [
+        "regex"
+      ]
+    },
+    {
+      "distribution": "requests",
+      "version": "2.34.2",
+      "filename": "requests-2.34.2-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "requests"
+      ],
+      "active_requires_dist": [
+        "requests>=2.26.0"
+      ]
+    },
+    {
+      "distribution": "rich",
+      "version": "15.0.0",
+      "filename": "rich-15.0.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "transformers",
+        "typer",
+        "rich"
+      ],
+      "active_requires_dist": [
+        "transformers>=5.10.4",
+        "typer",
+        "rich>=13.8.0"
+      ]
+    },
+    {
+      "distribution": "rich-toolkit",
+      "version": "0.20.5",
+      "filename": "rich_toolkit-0.20.5-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "fastapi-cli",
+        "rich-toolkit"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "fastapi-cli[standard]>=0.0.8; extra == \"standard\"",
+        "rich-toolkit>=0.14.8"
+      ]
+    },
+    {
+      "distribution": "rignore",
+      "version": "0.8.1",
+      "filename": "rignore-0.8.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "fastapi-cli",
+        "fastapi-cloud-cli",
+        "rignore"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "fastapi-cli[standard]>=0.0.8; extra == \"standard\"",
+        "fastapi-cloud-cli>=0.1.1; extra == \"standard\"",
+        "rignore>=0.5.1"
+      ]
+    },
+    {
+      "distribution": "rpds-py",
+      "version": "2026.9.1",
+      "filename": "rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "jsonschema",
+        "rpds-py"
+      ],
+      "active_requires_dist": [
+        "jsonschema>=4.23.0",
+        "rpds-py>=0.25.0"
+      ]
+    },
+    {
+      "distribution": "safetensors",
+      "version": "0.8.0",
+      "filename": "safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "safetensors"
+      ],
+      "active_requires_dist": [
+        "safetensors>=0.6.2"
+      ]
+    },
+    {
+      "distribution": "sentencepiece",
+      "version": "0.2.2",
+      "filename": "sentencepiece-0.2.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "sentencepiece"
+      ],
+      "active_requires_dist": [
+        "sentencepiece"
+      ]
+    },
+    {
+      "distribution": "sentry-sdk",
+      "version": "2.71.0",
+      "filename": "sentry_sdk-2.71.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "fastapi-cli",
+        "fastapi-cloud-cli",
+        "sentry-sdk"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "fastapi-cli[standard]>=0.0.8; extra == \"standard\"",
+        "fastapi-cloud-cli>=0.1.1; extra == \"standard\"",
+        "sentry-sdk>=2.20.0"
+      ]
+    },
+    {
+      "distribution": "setproctitle",
+      "version": "1.3.8",
+      "filename": "setproctitle-1.3.8-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "setproctitle"
+      ],
+      "active_requires_dist": [
+        "setproctitle"
+      ]
+    },
+    {
+      "distribution": "setuptools",
+      "version": "80.10.2",
+      "filename": "setuptools-80.10.2-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "setuptools"
+      ],
+      "active_requires_dist": [
+        "setuptools<81.0.0,>=77.0.3; python_version > \"3.11\""
+      ]
+    },
+    {
+      "distribution": "shellingham",
+      "version": "1.5.4",
+      "filename": "shellingham-1.5.4-py2.py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "transformers",
+        "typer",
+        "shellingham"
+      ],
+      "active_requires_dist": [
+        "transformers>=5.10.4",
+        "typer",
+        "shellingham>=1.3.0"
+      ]
+    },
+    {
+      "distribution": "six",
+      "version": "1.17.0",
+      "filename": "six-1.17.0-py2.py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "six"
+      ],
+      "active_requires_dist": [
+        "six>=1.16.0; python_version > \"3.11\""
+      ]
+    },
+    {
+      "distribution": "sniffio",
+      "version": "1.3.1",
+      "filename": "sniffio-1.3.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "openai",
+        "sniffio"
+      ],
+      "active_requires_dist": [
+        "openai>=2.25.0",
+        "sniffio"
+      ]
+    },
+    {
+      "distribution": "sse-starlette",
+      "version": "3.5.0",
+      "filename": "sse_starlette-3.5.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "mcp",
+        "sse-starlette"
+      ],
+      "active_requires_dist": [
+        "mcp<3.0.0,>=2.0.0",
+        "sse-starlette>=3.0.0"
+      ]
+    },
+    {
+      "distribution": "starlette",
+      "version": "1.7.0",
+      "filename": "starlette-1.7.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "starlette"
+      ],
+      "active_requires_dist": [
+        "starlette>=1.0.1"
+      ]
+    },
+    {
+      "distribution": "supervisor",
+      "version": "4.3.0",
+      "filename": "supervisor-4.3.0-py2.py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "model-hosting-container-standards",
+        "supervisor"
+      ],
+      "active_requires_dist": [
+        "model-hosting-container-standards<1.0.0,>=0.1.14",
+        "supervisor (>=4.2.0)"
+      ]
+    },
+    {
+      "distribution": "sympy",
+      "version": "1.14.0",
+      "filename": "sympy-1.14.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "torch",
+      "root_path": [
+        "torch",
+        "sympy"
+      ],
+      "active_requires_dist": [
+        "sympy>=1.13.3"
+      ]
+    },
+    {
+      "distribution": "tabulate",
+      "version": "0.10.0",
+      "filename": "tabulate-0.10.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "flashinfer-python",
+      "root_path": [
+        "flashinfer-python",
+        "tabulate"
+      ],
+      "active_requires_dist": [
+        "tabulate"
+      ]
+    },
+    {
+      "distribution": "tiktoken",
+      "version": "0.14.0",
+      "filename": "tiktoken-0.14.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "tiktoken"
+      ],
+      "active_requires_dist": [
+        "tiktoken>=0.6.0"
+      ]
+    },
+    {
+      "distribution": "tilelang",
+      "version": "0.1.12",
+      "filename": "tilelang-0.1.12-cp38-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "tilelang"
+      ],
+      "active_requires_dist": [
+        "tilelang==0.1.12"
+      ]
+    },
+    {
+      "distribution": "tokenizers",
+      "version": "0.23.2",
+      "filename": "tokenizers-0.23.2-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "tokenizers"
+      ],
+      "active_requires_dist": [
+        "tokenizers>=0.21.1"
+      ]
+    },
+    {
+      "distribution": "tokenspeed-mla",
+      "version": "0.1.8",
+      "filename": "tokenspeed_mla-0.1.8-py3-none-manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "tokenspeed-mla"
+      ],
+      "active_requires_dist": [
+        "tokenspeed-mla==0.1.8; platform_system == \"Linux\""
+      ]
+    },
+    {
+      "distribution": "tokenspeed-triton",
+      "version": "3.8.10.post20260920",
+      "filename": "tokenspeed_triton-3.8.10.post20260920-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "tokenspeed-mla",
+        "tokenspeed-triton"
+      ],
+      "active_requires_dist": [
+        "tokenspeed-mla==0.1.8; platform_system == \"Linux\"",
+        "tokenspeed-triton>=3.7.10.post20260531"
+      ]
+    },
+    {
+      "distribution": "torch",
+      "version": "2.13.0+cu129",
+      "filename": "torch-2.13.0+cu129-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torch",
+      "root_path": [
+        "torch"
+      ],
+      "active_requires_dist": []
+    },
+    {
+      "distribution": "torch-c-dlpack-ext",
+      "version": "0.1.5",
+      "filename": "torch_c_dlpack_ext-0.1.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "tilelang",
+        "torch-c-dlpack-ext"
+      ],
+      "active_requires_dist": [
+        "tilelang==0.1.12",
+        "torch-c-dlpack-ext; python_version < \"3.14\""
+      ]
+    },
+    {
+      "distribution": "torchaudio",
+      "version": "2.11.0+cu129",
+      "filename": "torchaudio-2.11.0+cu129-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torchaudio",
+      "root_path": [
+        "torchaudio"
+      ],
+      "active_requires_dist": []
+    },
+    {
+      "distribution": "torchcodec",
+      "version": "0.16.0+cu129",
+      "filename": "torchcodec-0.16.0+cu129-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "torchcodec",
+      "root_path": [
+        "torchcodec"
+      ],
+      "active_requires_dist": []
+    },
+    {
+      "distribution": "torchvision",
+      "version": "0.28.0+cu129",
+      "filename": "torchvision-0.28.0+cu129-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "torchvision",
+      "root_path": [
+        "torchvision"
+      ],
+      "active_requires_dist": []
+    },
+    {
+      "distribution": "tqdm",
+      "version": "4.70.1",
+      "filename": "tqdm-4.70.1-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "tqdm"
+      ],
+      "active_requires_dist": [
+        "tqdm"
+      ]
+    },
+    {
+      "distribution": "transformers",
+      "version": "5.18.0",
+      "filename": "transformers-5.18.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "transformers"
+      ],
+      "active_requires_dist": [
+        "transformers>=5.10.4"
+      ]
+    },
+    {
+      "distribution": "triton",
+      "version": "3.7.1",
+      "filename": "triton-3.7.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "torch-cu129",
+      "root": "triton",
+      "root_path": [
+        "triton"
+      ],
+      "active_requires_dist": []
+    },
+    {
+      "distribution": "truststore",
+      "version": "0.10.4",
+      "filename": "truststore-0.10.4-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "openai",
+        "httpx2",
+        "truststore"
+      ],
+      "active_requires_dist": [
+        "openai>=2.25.0",
+        "httpx2<3,>=2.12.0",
+        "truststore>=0.10; sys_platform != 'emscripten'"
+      ]
+    },
+    {
+      "distribution": "typer",
+      "version": "0.27.2",
+      "filename": "typer-0.27.2-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "transformers",
+        "typer"
+      ],
+      "active_requires_dist": [
+        "transformers>=5.10.4",
+        "typer"
+      ]
+    },
+    {
+      "distribution": "typing-extensions",
+      "version": "4.16.0",
+      "filename": "typing_extensions-4.16.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "typing-extensions"
+      ],
+      "active_requires_dist": [
+        "typing_extensions>=4.10"
+      ]
+    },
+    {
+      "distribution": "typing-inspection",
+      "version": "0.4.4",
+      "filename": "typing_inspection-0.4.4-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "typing-inspection"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "typing-inspection>=0.4.2"
+      ]
+    },
+    {
+      "distribution": "urllib3",
+      "version": "2.8.0",
+      "filename": "urllib3-2.8.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "requests",
+        "urllib3"
+      ],
+      "active_requires_dist": [
+        "requests>=2.26.0",
+        "urllib3<3,>=1.26"
+      ]
+    },
+    {
+      "distribution": "uvicorn",
+      "version": "0.54.0",
+      "filename": "uvicorn-0.54.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "uvicorn"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "uvicorn[standard]>=0.12.0; extra == \"standard\""
+      ]
+    },
+    {
+      "distribution": "uvloop",
+      "version": "0.23.0",
+      "filename": "uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "uvicorn",
+        "uvloop"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "uvicorn[standard]>=0.12.0; extra == \"standard\"",
+        "uvloop>=0.15.1; (sys_platform != 'win32' and (sys_platform != 'cygwin' and platform_python_implementation != 'PyPy')) and extra == 'standard'"
+      ]
+    },
+    {
+      "distribution": "watchfiles",
+      "version": "1.3.0",
+      "filename": "watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "watchfiles"
+      ],
+      "active_requires_dist": [
+        "watchfiles"
+      ]
+    },
+    {
+      "distribution": "websockets",
+      "version": "17.2",
+      "filename": "websockets-17.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "fastapi",
+        "uvicorn",
+        "websockets"
+      ],
+      "active_requires_dist": [
+        "fastapi[standard]<0.137.0,>=0.133.0",
+        "uvicorn[standard]>=0.12.0; extra == \"standard\"",
+        "websockets>=13.0; extra == 'standard'"
+      ]
+    },
+    {
+      "distribution": "xgrammar",
+      "version": "0.2.8",
+      "filename": "xgrammar-0.2.8-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "xgrammar"
+      ],
+      "active_requires_dist": [
+        "xgrammar<1.0.0,>=0.2.1; platform_machine == \"x86_64\" or platform_machine == \"aarch64\" or platform_machine == \"arm64\" or platform_machine == \"s390x\" or platform_machine == \"ppc64le\""
+      ]
+    },
+    {
+      "distribution": "yarl",
+      "version": "1.25.1",
+      "filename": "yarl-1.25.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "aiohttp",
+        "yarl"
+      ],
+      "active_requires_dist": [
+        "aiohttp>=3.13.3",
+        "yarl<2.0,>=1.25.1"
+      ]
+    },
+    {
+      "distribution": "z3-solver",
+      "version": "4.15.4.0",
+      "filename": "z3_solver-4.15.4.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "group": "runtime-core",
+      "root": "vllm",
+      "root_path": [
+        "vllm",
+        "tilelang",
+        "z3-solver"
+      ],
+      "active_requires_dist": [
+        "tilelang==0.1.12",
+        "z3-solver<4.15.5,>=4.13.0"
+      ]
+    }
+  ]
+}

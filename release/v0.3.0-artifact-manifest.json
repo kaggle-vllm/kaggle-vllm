@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "sdk": {
+    "distribution": "kaggle-vllm",
+    "version": "0.3.0",
+    "python_package": "kaggle_vllm",
+    "native_engine_external": true,
+    "base_commit": "bad38f9868435d5382bf3edeca2ae7eaea4b4af0"
+  },
+  "native": {
+    "distribution": "vllm",
+    "version": "0.30.0",
+    "filename": "vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+    "sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+    "bytes": 293855397,
+    "status": "NATIVE_L4_ACCEPTED",
+    "source_tag": "v0.30.0",
+    "source_commit": "ced6857afa0ea7b2e3f0846a62e1394e90f15607"
+  },
+  "tested_kaggle_runtime": {
+    "date": "2026-10-14",
+    "profile": "kaggle-l4x4-cu129",
+    "python": "3.12.13",
+    "platform": "Linux x86_64",
+    "gpus": "4 NVIDIA L4 SM89",
+    "torch": "2.13.0+cu129",
+    "cuda_runtime": "12.9",
+    "tensor_parallel_size": 4,
+    "mandatory_gates": "19/19 PASS",
+    "gemma_backend": "TRITON_ATTN",
+    "fa2_native_import": true,
+    "fa2_gemma_model_execution_proven": false
+  },
+  "accepted_sdk_candidate": {
+    "filename": "kaggle_vllm-0.3.0-py3-none-any.whl",
+    "sha256": "7da66878a85c3b65db18d794d282519d853893f54d7314db5ae551ace377416b",
+    "sdist_sha256": "455cc310ffd75e5b8e44ce20e540dfe3267499b7e6448c48cc4d00891937f095",
+    "kaggle_result": "FRESH_KAGGLE_PASS",
+    "source_difference_from_feature_branch": [
+      "kaggle_vllm/cli_v3.py",
+      "kaggle_vllm/doctor_v3.py",
+      "kaggle_vllm/l4_bootstrap.py",
+      "kaggle_vllm/llm.py",
+      "kaggle_vllm/profiles/kaggle-l4x4-cu129/profile.json",
+      "kaggle_vllm/runtime_v3.py"
+    ]
+  },
+  "rebuilt_feature_artifacts": {
+    "wheel_filename": "kaggle_vllm-0.3.0-py3-none-any.whl",
+    "wheel_sha256": "c6da29c28bd9053fe74e32373d6fd76b9f5d0137999d88019b739e088e579323",
+    "sdist_filename": "kaggle_vllm-0.3.0.tar.gz",
+    "sdist_sha256": "284b16f7be7e3d532eae6629b2f80c75bca6f43f3ee6406421348842239ffcef",
+    "status": "SDK_PACKAGE_BUILT_GPU_RETEST_REQUIRED"
+  },
+  "publication": {
+    "github_release": "NOT_PUBLISHED",
+    "pypi": "NOT_UPLOADED",
+    "hugging_face": "NOT_UPLOADED",
+    "direct_download_url": null
+  },
+  "evidence": {
+    "audit": "docs/release/v0.3.0-acceptance-audit.md",
+    "forensic_archive": "kaggle-vllm-nvidia-l4-other-files/kaggle-vllm-v030-next-chat-cleanup-r1.zip",
+    "local_review": "kaggle-vllm-nvidia-l4-other-files/v030-sdk-integration-review-20261014"
+  }
+}

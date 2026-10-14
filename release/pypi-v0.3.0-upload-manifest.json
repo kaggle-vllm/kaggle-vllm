@@ -1,0 +1,25 @@
+{
+  "status": "LOCAL_SDK_PASS; FRESH_KAGGLE_PENDING; NO_PUBLICATION",
+  "files": [
+    "kaggle_vllm-0.3.0-py3-none-any.whl",
+    "kaggle_vllm-0.3.0.tar.gz"
+  ],
+  "exclusions": [
+    "vLLM native wheel",
+    "Torch or CUDA wheels",
+    "runtime-v3 archive",
+    "model data"
+  ],
+  "artifacts": [
+    {
+      "name": "kaggle_vllm-0.3.0-py3-none-any.whl",
+      "bytes": 170373,
+      "sha256": "7da66878a85c3b65db18d794d282519d853893f54d7314db5ae551ace377416b"
+    },
+    {
+      "name": "kaggle_vllm-0.3.0.tar.gz",
+      "bytes": 179585,
+      "sha256": "455cc310ffd75e5b8e44ce20e540dfe3267499b7e6448c48cc4d00891937f095"
+    }
+  ]
+}

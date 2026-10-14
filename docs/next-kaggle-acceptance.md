@@ -1,3 +1,17 @@
+# Next Kaggle acceptance: corrected split-v2 Inputs
+
+Use the [fresh split-v2 acceptance guide](fresh-kaggle-v030-acceptance.md), [run-first instructions](../release/README-v0.3.0-production-acceptance.md), and [output-free notebook](../kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb). The current acceptance reuses four corrected v2 Datasets and the saved P31 Notebook Output. It does **not** require a manual 6.6 GB runtime-v3 Dataset upload. The small SDK package contains no runtime dependency wheels.
+
+The runner verifies exact CPython 3.12/four-L4/SM89 hardware, hashes the SDK and every selected runtime/native wheel, stages the cu129 overlay offline, checks doctor/native core/FA2 import and libcuda linking, runs NCCL world_size=4, then tests the public `KaggleLLM.chat()` Gemma TP4 semantic path and worker cleanup. Its bounded child processes stream saved logs. Download the final evidence ZIP and inspect `FRESH_KAGGLE_PASS`.
+
+The supported competition model is `gemma-4-31b-it-qat-w4a16-ct`. This notebook does not run Qwen or another unrelated model on restricted competition L4 capacity. P31 Gemma selected `TRITON_ATTN`; built-in FA2 binary/import is checked, while actual FA2-backed model inference remains unproven for a later permitted environment.
+
+---
+
+## Preserved historical v0.2 documentation
+
+The section below is retained verbatim from the v0.2 repository state for historical users. Commands and defaults above describe the v0.3 candidate.
+
 # Final Kaggle T4x2 acceptance procedure and result
 
 The SDK is public on PyPI. This procedure was executed successfully on a fresh

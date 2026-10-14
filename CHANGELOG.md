@@ -1,3 +1,15 @@
+## 0.3.0 (candidate)
+
+- Add exact Kaggle four-L4/SM89, CPython 3.12/cu129 compatibility profile and offline runtime-v3 delivery.
+- Add lazy `KaggleLLM`/`KaggleSamplingParams`, Gemma chat-template rendering, targeted doctor, and SDK-owned CUDA driver linker alias.
+- Record P31 Gemma semantic PASS and model-specific TRITON_ATTN selection; the accepted SDK candidate passed all 19 cleanup-r1 gates; rebuilt source requires fresh retest.
+- Preserve 0.2.x as the historical two-T4/cu128 release.
+- Preserve and package both explicit profiles: historical `kaggle-t4x2-cu128` and new `kaggle-l4x4-cu129`; keep the existing T4 bootstrap, lock, and immutable binary revision.
+- Stage the L4 expanded runtime under `/tmp/kaggle-vllm/v0.3.0/l4x4` after a free-space guard. Keep `/kaggle/working` for compact evidence. Reset requires an ownership manifest and explicit confirmation.
+- Lock the P33 qualified lean inference selection at 168 dependency wheels plus the immutable native wheel (293855397 bytes; SHA256 `9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8`). Retain the 195-wheel runtime-v3 closure as archival metadata.
+- Prepare offline corrected split-v2 Kaggle Inputs and fail-closed immutable Hugging Face delivery. The public commit field remains unset until publication; no mutable `main` downloads are allowed.
+- Add a final SDK acceptance notebook with 21 bounded gates and `FRESH_KAGGLE_PENDING` status until the exact built SDK wheel passes on a new four-L4 session.
+
 # Changelog
 
 All notable changes are documented here.

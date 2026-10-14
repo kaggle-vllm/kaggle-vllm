@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "kaggle-vllm 0.3.0 fresh L4x4 acceptance matrix",
+  "type": "object",
+  "required": ["schema_version", "created_utc", "profile", "runtime_mode", "CORE_RELEASE_PASS", "FA2_MODEL_RUNTIME_PASS", "fa2_model_status", "gates"],
+  "properties": {
+    "schema_version": {"const": 3},
+    "created_utc": {"type": "string", "format": "date-time"},
+    "profile": {"const": "kaggle-l4x4-cu129"},
+    "runtime_mode": {"enum": ["SPLIT_V2_KAGGLE_INPUTS", "RUNTIME_V3_ARCHIVE"]},
+    "CORE_RELEASE_PASS": {"type": "boolean"},
+    "FA2_MODEL_RUNTIME_PASS": {"type": "boolean"},
+    "fa2_model_status": {"const": "NOT_PROVEN_OUTSIDE_COMPETITION"},
+    "gates": {
+      "type": "array",
+      "minItems": 19,
+      "items": {
+        "type": "object",
+        "required": ["step", "name", "required_for_core", "status"],
+        "properties": {
+          "step": {"type": "integer", "minimum": 0, "maximum": 20},
+          "name": {"type": "string"},
+          "required_for_core": {"type": "boolean"},
+          "status": {"enum": ["PASS", "FAIL", "OPTIONAL", "NOT_PROVEN", "SKIPPED_AFTER_REQUIRED_FAILURE"]},
+          "evidence": {"type": "object"},
+          "error": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "description": "The runner creates 19_final_matrix.json after split-v2/Gemma steps 0-18, then 20_evidence_bundle.zip. FA2 real-model inference is outside this competition run."
+}
