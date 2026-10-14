@@ -51,6 +51,13 @@ def build_parser() -> argparse.ArgumentParser:
     x.add_argument("--runtime-root", type=Path, default=DEFAULT_TARGET)
     x.add_argument("--output", type=Path, required=True)
     x.add_argument("--strict", action="store_true")
+    # Keep the historical entry points visible in top-level help. Their
+    # argument handling remains delegated to the original CLI below.
+    for command in (
+        "build-env", "inspect-shards", "verify-wheel", "stage-wheel",
+        "serve", "benchmark", "benchmark-serving", "compare-benchmarks",
+    ):
+        sub.add_parser(command, help="historical command; see its own --help")
     return parser
 
 
@@ -62,7 +69,7 @@ def _legacy(argv: list[str]) -> int:
 def main(argv: Sequence[str] | None = None) -> int:
     import sys
     raw = list(argv if argv is not None else sys.argv[1:])
-    if raw and raw[0] not in {"bootstrap", "plan", "env", "doctor", "profile", "verify-gpus", "fingerprint", "verify-hashes", "discover-model", "evidence-export"}:
+    if raw and raw[0] not in {"-h", "--help", "bootstrap", "plan", "env", "doctor", "profile", "verify-gpus", "fingerprint", "verify-hashes", "discover-model", "evidence-export"}:
         return _legacy(raw)
     parser = build_parser()
     args = parser.parse_args(raw)

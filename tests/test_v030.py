@@ -29,6 +29,17 @@ def test_version():
     assert kaggle_vllm.__version__ == "0.3.0"
 
 
+def test_root_cli_help_lists_new_and_historical_commands(capsys):
+    from kaggle_vllm.cli_v3 import main
+
+    with pytest.raises(SystemExit) as exit_info:
+        main(["--help"])
+    assert exit_info.value.code == 0
+    help_text = capsys.readouterr().out
+    for command in ("profile", "plan", "verify-hashes", "discover-model", "evidence-export", "serve", "benchmark"):
+        assert command in help_text
+
+
 def test_profile_identity():
     p = load_profile()
     assert (p.name, p.python_abi, p.gpu_count, p.compute_capability) == ("kaggle-l4x4-cu129", "cp312", 4, (8, 9))
