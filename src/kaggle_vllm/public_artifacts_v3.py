@@ -21,7 +21,7 @@ from .runtime_v3 import WHEEL_FILENAME, TORCHCODEC_AUDIT_SHA256, lean_runtime_ma
 def immutable_revision() -> str:
     value = load_profile().data["public_artifacts"].get("immutable_revision")
     if not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{40}", value) is None:
-        raise BootstrapError("public L4 artifacts are not published at an immutable Hugging Face revision; attach exact offline Kaggle Inputs")
+        raise BootstrapError("public L4 native wheel and locked runtime dependencies are not published at an immutable Hugging Face revision; attach the exact offline Kaggle Inputs")
     return value
 
 
@@ -39,7 +39,7 @@ def _download(relative: str, destination: Path, size: int, digest: str) -> None:
     try:
         with tempfile.NamedTemporaryFile(dir=destination.parent, prefix=".download-", delete=False) as out:
             temporary = Path(out.name)
-            with urlopen(Request(url, headers={"User-Agent": "kaggle-vllm/0.3.0"}), timeout=120) as response:
+            with urlopen(Request(url, headers={"User-Agent": "kaggle-vllm/0.3.1"}), timeout=120) as response:
                 while block := response.read(4 * 1024 * 1024):
                     out.write(block)
         if temporary.stat().st_size != size or hashlib.file_digest(temporary.open("rb"), "sha256").hexdigest() != digest:

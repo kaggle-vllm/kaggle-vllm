@@ -19,7 +19,7 @@ __all__ = [
     "inspect_sharded_model",
     "load_profile",
 ]
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 
 def load_profile(profile_name: str = PROFILE_NAME):
