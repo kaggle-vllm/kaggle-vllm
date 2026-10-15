@@ -41,7 +41,12 @@ jobs:
           if len(release.get('assets', [])) != 2:
               raise SystemExit('draft release must contain exactly two assets')
           PY
-          test "$(git rev-list -n 1 sdk-v0.3.0-stage)" = "$GITHUB_SHA"
+          staged_source_sha="$(git rev-list -n 1 sdk-v0.3.0-stage)"
+          git merge-base --is-ancestor "$staged_source_sha" "$GITHUB_SHA"
+          # The draft was staged at the accepted merged source. Allow only this
+          # reviewed workflow repair between that source and the dispatch run.
+          test "$(git diff --name-only "$staged_source_sha" "$GITHUB_SHA")" = \
+            '.github/workflows/stage-exact-pypi-artifacts.yml'
           mkdir -p dist
           gh release download sdk-v0.3.0-stage --dir dist --pattern 'kaggle_vllm-0.3.0*'
           test "$(find dist -maxdepth 1 -type f | wc -l)" -eq 2
