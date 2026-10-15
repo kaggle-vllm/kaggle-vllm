@@ -11,7 +11,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      # Draft releases are visible only to principals with push access.
+      contents: write
       actions: write
       id-token: write
       attestations: write
@@ -26,7 +27,10 @@ jobs:
         run: |
           set -euo pipefail
           git merge-base --is-ancestor 55618f9a4fd137bc9cf21d1ff843473d6bbc0c87 HEAD
-          gh api "repos/${GITHUB_REPOSITORY}/releases/tags/sdk-v0.3.0-stage" > staging-release.json
+          # The release-by-tag endpoint returns 404 for drafts. List releases
+          # with the repository token, then select exactly this draft tag.
+          gh api --paginate "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
+            --jq '.[] | select(.tag_name == "sdk-v0.3.0-stage")' > staging-release.json
           python - <<'PY'
           import json
           release = json.load(open('staging-release.json'))
@@ -37,7 +41,12 @@ jobs:
           if len(release.get('assets', [])) != 2:
               raise SystemExit('draft release must contain exactly two assets')
           PY
-          test "$(git rev-list -n 1 sdk-v0.3.0-stage)" = "$GITHUB_SHA"
+          staged_source_sha="$(git rev-list -n 1 sdk-v0.3.0-stage)"
+          git merge-base --is-ancestor "$staged_source_sha" "$GITHUB_SHA"
+          # The draft was staged at the accepted merged source. Allow only this
+          # reviewed workflow repair between that source and the dispatch run.
+          test "$(git diff --name-only "$staged_source_sha" "$GITHUB_SHA")" = \
+            '.github/workflows/stage-exact-pypi-artifacts.yml'
           mkdir -p dist
           gh release download sdk-v0.3.0-stage --dir dist --pattern 'kaggle_vllm-0.3.0*'
           test "$(find dist -maxdepth 1 -type f | wc -l)" -eq 2
