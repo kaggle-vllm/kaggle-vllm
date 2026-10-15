@@ -30,35 +30,32 @@ jobs:
           # The release-by-tag endpoint returns 404 for drafts. List releases
           # with the repository token, then select exactly this draft tag.
           gh api --paginate "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
-            --jq '.[] | select(.tag_name == "sdk-v0.3.0-stage")' > staging-release.json
+            --jq '.[] | select(.tag_name == "sdk-v0.3.1-stage")' > staging-release.json
           python - <<'PY'
           import json
           release = json.load(open('staging-release.json'))
           if not release.get('draft') or release.get('published_at') is not None:
               raise SystemExit('staging release must remain a draft')
-          if release.get('tag_name') != 'sdk-v0.3.0-stage':
+          if release.get('tag_name') != 'sdk-v0.3.1-stage':
               raise SystemExit('unexpected staging tag')
           if len(release.get('assets', [])) != 2:
               raise SystemExit('draft release must contain exactly two assets')
           PY
-          staged_source_sha="$(git rev-list -n 1 sdk-v0.3.0-stage)"
-          git merge-base --is-ancestor "$staged_source_sha" "$GITHUB_SHA"
-          # The draft was staged at the accepted merged source. Allow only this
-          # reviewed workflow repair between that source and the dispatch run.
-          test "$(git diff --name-only "$staged_source_sha" "$GITHUB_SHA")" = \
-            '.github/workflows/stage-exact-pypi-artifacts.yml'
+          staged_source_sha="$(git rev-list -n 1 sdk-v0.3.1-stage)"
+          # The draft tag must point at the exact reviewed main commit.
+          test "$staged_source_sha" = "$GITHUB_SHA"
           mkdir -p dist
-          gh release download sdk-v0.3.0-stage --dir dist --pattern 'kaggle_vllm-0.3.0*'
+          gh release download sdk-v0.3.1-stage --dir dist --pattern 'kaggle_vllm-0.3.1*'
           test "$(find dist -maxdepth 1 -type f | wc -l)" -eq 2
           printf '%s  %s\n' \
-            'bf1ae98d41606dc587ed27b591bf2173b4014560145e5e3d0265080845971979' 'dist/kaggle_vllm-0.3.0-py3-none-any.whl' \
-            '9e59252a4c48a1ce2b13f088cf84cc44784be19fc7f55db843ec386feb54a50c' 'dist/kaggle_vllm-0.3.0.tar.gz' | sha256sum --check --strict
+            'a14a0be361ea0ab876aa939743ad7259ac012b8c9410cc668899da00b875c27b' 'dist/kaggle_vllm-0.3.1-py3-none-any.whl' \
+            '6d5fbb5d515a7a01d6e2c39e71ecccd8e3099a2184525f87da7924150dbb58a3' 'dist/kaggle_vllm-0.3.1.tar.gz' | sha256sum --check --strict
       - uses: actions/attest@v4
         with:
           subject-path: dist/*
       - uses: actions/upload-artifact@v7
         with:
-          name: v030-exact-pypi-distributions
+          name: v031-exact-pypi-distributions
           path: dist/
           if-no-files-found: error
           retention-days: 30

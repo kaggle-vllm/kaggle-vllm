@@ -51,7 +51,7 @@ jobs:
       - name: Download only the verified staging artifact
         uses: actions/download-artifact@v8
         with:
-          name: v030-exact-pypi-distributions
+          name: v031-exact-pypi-distributions
           run-id: ${{ inputs.staging_run_id }}
           github-token: ${{ github.token }}
           path: dist
@@ -62,8 +62,8 @@ jobs:
           set -euo pipefail
           test "$(find dist -maxdepth 1 -type f | wc -l)" -eq 2
           printf '%s  %s\n' \
-            'bf1ae98d41606dc587ed27b591bf2173b4014560145e5e3d0265080845971979' 'dist/kaggle_vllm-0.3.0-py3-none-any.whl' \
-            '9e59252a4c48a1ce2b13f088cf84cc44784be19fc7f55db843ec386feb54a50c' 'dist/kaggle_vllm-0.3.0.tar.gz' | sha256sum --check --strict
+            'a14a0be361ea0ab876aa939743ad7259ac012b8c9410cc668899da00b875c27b' 'dist/kaggle_vllm-0.3.1-py3-none-any.whl' \
+            '6d5fbb5d515a7a01d6e2c39e71ecccd8e3099a2184525f87da7924150dbb58a3' 'dist/kaggle_vllm-0.3.1.tar.gz' | sha256sum --check --strict
           for artifact in dist/*; do
             gh attestation verify "$artifact" \
               --repo "$GITHUB_REPOSITORY" \
@@ -75,12 +75,12 @@ jobs:
           python - <<'PY'
           import urllib.error, urllib.request
           try:
-              urllib.request.urlopen('https://pypi.org/pypi/kaggle-vllm/0.3.0/json', timeout=20)
+              urllib.request.urlopen('https://pypi.org/pypi/kaggle-vllm/0.3.1/json', timeout=20)
           except urllib.error.HTTPError as exc:
               if exc.code == 404:
                   raise SystemExit(0)
               raise
-          raise SystemExit('PyPI 0.3.0 already exists; stop rather than overwrite')
+          raise SystemExit('PyPI 0.3.1 already exists; stop rather than overwrite')
           PY
       - name: Publish exact accepted distributions
         uses: pypa/gh-action-pypi-publish@release/v1

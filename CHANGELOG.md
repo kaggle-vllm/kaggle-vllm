@@ -1,4 +1,10 @@
-## 0.3.0 (candidate)
+## 0.3.1 (GPU retest pending)
+
+- Restore the final GPU-accepted SDK source in a new version because PyPI's 0.3.0 wheel and sdist have different bytes from the accepted GitHub v0.3.0 artifacts. PyPI 0.3.0 remains unchanged.
+- Keep the validated v0.3.0 L4 native runtime profile and frozen wheel identity. The 0.3.1 SDK wheel requires a fresh four-L4 Kaggle confirmation before publication.
+- Clarify that public runtime fetching remains unavailable until the native wheel and locked dependency wheelhouse are present at an immutable Hugging Face revision.
+
+## 0.3.0 (historical accepted candidate)
 
 - Add exact Kaggle four-L4/SM89, CPython 3.12/cu129 compatibility profile and offline runtime-v3 delivery.
 - Add lazy `KaggleLLM`/`KaggleSamplingParams`, Gemma chat-template rendering, targeted doctor, and SDK-owned CUDA driver linker alias.

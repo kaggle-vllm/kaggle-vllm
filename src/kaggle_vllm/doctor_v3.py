@@ -32,7 +32,7 @@ def doctor_report(*, target: str | Path = DEFAULT_TARGET, strict: bool = True, i
     def check(name: str, ok: bool, actual: object) -> None:
         findings.append({"check": name, "status": "pass" if ok else "error", "actual": str(actual)})
     from . import __version__
-    check("SDK version", __version__ == "0.3.0", __version__)
+    check("SDK version", __version__ == "0.3.1", __version__)
     check("Kaggle", env.is_kaggle, env.is_kaggle)
     check("Python ABI", sys.implementation.name == "cpython" and sys.version_info[:2] == (3, 12), sys.version.split()[0])
     check("platform", platform.system() == "Linux" and platform.machine() == "x86_64", platform.platform())

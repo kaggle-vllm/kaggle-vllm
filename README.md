@@ -1,13 +1,13 @@
-# kaggle-vllm 0.3.0
+# kaggle-vllm 0.3.1
 
 A lightweight Python SDK for one Kaggle Notebook runtime: **Linux x86_64, CPython 3.12, exactly four NVIDIA L4 GPUs (SM89), tensor parallel size 4**. The SDK is pure Python and can be developed with Python 3.11. Its separate P31 native vLLM 0.30.0 wheel is cp312 only.
 
-The historical T4 profile remains packaged. The accepted 0.3.0 SDK candidate wheel passed the cleanup-r1 four-L4 Kaggle run; this feature-branch source has changed and its rebuilt wheel requires another Kaggle run before release.
+The historical T4 profile remains packaged. The accepted 0.3.0 SDK wheel passed the cleanup-r1 four-L4 Kaggle run. PyPI's 0.3.0 files differ from those accepted bytes, so 0.3.1 carries the accepted source forward under a new version. The 0.3.1 wheel requires a fresh four-L4 confirmation before publication.
 
 | SDK generation | Kaggle GPUs | SM | TP | Upstream vLLM | Status |
 | --- | --- | ---: | ---: | --- | --- |
 | 0.2.x | 2 × Tesla T4 | 75 | 2 | 0.18.1 | Historical validated release |
-| 0.3.0 | Exactly 4 × NVIDIA L4 | 89 | 4 | 0.30.0 | Accepted candidate: 19/19 Kaggle gates; rebuilt wheel retest required |
+| 0.3.1 SDK with v0.3.0 runtime profile | Exactly 4 × NVIDIA L4 | 89 | 4 | 0.30.0 | Fresh 0.3.1 Kaggle retest pending |
 
 ## Runtime identity
 
@@ -27,7 +27,7 @@ eval "$(kaggle-vllm env --profile kaggle-l4x4-cu129)"
 kaggle-vllm doctor --profile kaggle-l4x4-cu129 --strict --json
 ```
 
-Public Hugging Face delivery is implemented but deliberately refuses downloads until a published immutable commit is recorded in the L4 profile. No mutable `main` revision is trusted.
+Public Hugging Face delivery is implemented but deliberately refuses downloads until the native wheel and all 168 locked dependency wheels are published at an immutable commit recorded in the L4 profile. Use the offline Kaggle Inputs until that end-to-end path is validated. No mutable `main` revision is trusted.
 
 ```python
 from kaggle_vllm import KaggleLLM, KaggleSamplingParams, activate_runtime, discover_gemma4_qat
