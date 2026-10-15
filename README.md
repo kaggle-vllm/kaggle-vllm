@@ -2,7 +2,7 @@
 
 A lightweight Python SDK for one Kaggle Notebook runtime: **Linux x86_64, CPython 3.12, exactly four NVIDIA L4 GPUs (SM89), tensor parallel size 4**. The SDK is pure Python and can be developed with Python 3.11. Its separate P31 native vLLM 0.30.0 wheel is cp312 only.
 
-The historical T4 profile remains packaged. The accepted 0.3.0 SDK wheel passed the cleanup-r1 four-L4 Kaggle run. PyPI's 0.3.0 files differ from those accepted bytes, so 0.3.1 carries the accepted source forward under a new version. The 0.3.1 wheel requires a fresh four-L4 confirmation before publication.
+The historical T4 profile remains packaged. The accepted 0.3.0 SDK wheel passed the cleanup-r1 four-L4 Kaggle run. PyPI's 0.3.0 files differ from those accepted bytes, so 0.3.1 carries the accepted source forward under a new version. The exact 0.3.1 wheel and source distribution are now public on PyPI and the GitHub v0.3.1 release. A fresh four-L4 run of that exact 0.3.1 wheel is still required before calling the SDK GPU accepted.
 
 | SDK generation | Kaggle GPUs | SM | TP | Upstream vLLM | Status |
 | --- | --- | ---: | ---: | --- | --- |
@@ -19,7 +19,7 @@ P31 qualified vLLM's built-in FlashAttention-2 extension as compiled, packaged, 
 
 ## Kaggle use
 
-For a fresh run of the rebuilt wheel, attach the small SDK package, corrected split-v2 wheelhouse Datasets, and the saved P31 Notebook Output. The [final SDK acceptance notebook](kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb) uses the exact P33 lean lock: 168 dependency wheels plus the native wheel. The broader 195-wheel runtime-v3 manifest remains archival. Bootstrap installs under `/tmp/kaggle-vllm/v0.3.0/l4x4/` after a free-space check, with pip `--no-index --no-deps --no-cache-dir --no-compile`. It does not resolve packages online or write the expanded runtime to `/kaggle/working`.
+For a fresh acceptance run of the published 0.3.1 wheel, attach the exact SDK package, corrected split-v2 wheelhouse Datasets, and the saved P31 Notebook Output. The [final SDK acceptance notebook](kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb) uses the exact P33 lean lock: 168 dependency wheels plus the native wheel. The broader 195-wheel runtime-v3 manifest remains archival. Bootstrap installs under `/tmp/kaggle-vllm/v0.3.0/l4x4/` after a free-space check, with pip `--no-index --no-deps --no-cache-dir --no-compile`. It does not resolve packages online or write the expanded runtime to `/kaggle/working`.
 
 ```bash
 kaggle-vllm bootstrap --profile kaggle-l4x4-cu129 --offline --runtime-source /kaggle/input/datasets/waqasm86 --native-wheel /exact/path/vllm-0.30.0-cp312-cp312-linux_x86_64.whl --strict
@@ -27,7 +27,7 @@ eval "$(kaggle-vllm env --profile kaggle-l4x4-cu129)"
 kaggle-vllm doctor --profile kaggle-l4x4-cu129 --strict --json
 ```
 
-Public Hugging Face delivery is implemented but deliberately refuses downloads until the native wheel and all 168 locked dependency wheels are published at an immutable commit recorded in the L4 profile. Use the offline Kaggle Inputs until that end-to-end path is validated. No mutable `main` revision is trusted.
+The exact native wheel is present on Hugging Face, but its compiled-component redistribution review remains open. The full 168-wheel locked dependency closure is not publicly staged or end-to-end validated. The SDK therefore refuses automatic public-runtime downloads until a complete approved closure and immutable Hugging Face revision are recorded in the L4 profile. Use the offline Kaggle Inputs for validated runtime staging. No mutable `main` revision is trusted.
 
 ```python
 from kaggle_vllm import KaggleLLM, KaggleSamplingParams, activate_runtime, discover_gemma4_qat

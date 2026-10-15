@@ -1,0 +1,16 @@
+{
+  "project": "kaggle-vllm",
+  "version": "0.3.1",
+  "files": [
+    {
+      "filename": "kaggle_vllm-0.3.1-py3-none-any.whl",
+      "size": 172245,
+      "sha256": "a14a0be361ea0ab876aa939743ad7259ac012b8c9410cc668899da00b875c27b"
+    },
+    {
+      "filename": "kaggle_vllm-0.3.1.tar.gz",
+      "size": 181637,
+      "sha256": "6d5fbb5d515a7a01d6e2c39e71ecccd8e3099a2184525f87da7924150dbb58a3"
+    }
+  ]
+}

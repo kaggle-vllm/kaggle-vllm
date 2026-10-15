@@ -5,15 +5,27 @@ on:
     inputs:
       staging_run_id:
         description: Successful main-branch stage-exact-pypi-artifacts run ID
-        required: true
+        required: false
         type: string
 
 permissions:
   contents: read
 
 jobs:
-  publish:
+  preflight:
     if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      published: ${{ steps.state.outputs.published }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Reuse exact published PyPI distributions
+        id: state
+        run: python scripts/release_state.py pypi
+
+  publish:
+    needs: preflight
+    if: needs.preflight.outputs.published != 'true'
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
@@ -32,7 +44,6 @@ jobs:
         run: |
           set -euo pipefail
           [[ "$STAGING_RUN_ID" =~ ^[0-9]+$ ]]
-          git merge-base --is-ancestor 55618f9a4fd137bc9cf21d1ff843473d6bbc0c87 HEAD
           gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${STAGING_RUN_ID}" > staging-run.json
           python - <<'PY'
           import json, os
@@ -60,10 +71,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          test "$(find dist -maxdepth 1 -type f | wc -l)" -eq 2
-          printf '%s  %s\n' \
-            'a14a0be361ea0ab876aa939743ad7259ac012b8c9410cc668899da00b875c27b' 'dist/kaggle_vllm-0.3.1-py3-none-any.whl' \
-            '6d5fbb5d515a7a01d6e2c39e71ecccd8e3099a2184525f87da7924150dbb58a3' 'dist/kaggle_vllm-0.3.1.tar.gz' | sha256sum --check --strict
+          python scripts/release_state.py verify-dir dist
           for artifact in dist/*; do
             gh attestation verify "$artifact" \
               --repo "$GITHUB_REPOSITORY" \
@@ -72,17 +80,11 @@ jobs:
               --source-ref refs/heads/main \
               --deny-self-hosted-runners > /dev/null
           done
-          python - <<'PY'
-          import urllib.error, urllib.request
-          try:
-              urllib.request.urlopen('https://pypi.org/pypi/kaggle-vllm/0.3.1/json', timeout=20)
-          except urllib.error.HTTPError as exc:
-              if exc.code == 404:
-                  raise SystemExit(0)
-              raise
-          raise SystemExit('PyPI 0.3.1 already exists; stop rather than overwrite')
-          PY
+      - name: Recheck PyPI identity immediately before upload
+        id: late_state
+        run: python scripts/release_state.py pypi
       - name: Publish exact accepted distributions
+        if: steps.late_state.outputs.published != 'true'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: dist/
