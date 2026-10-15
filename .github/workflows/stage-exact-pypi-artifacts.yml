@@ -1,0 +1,55 @@
+name: Stage exact accepted PyPI artifacts
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stage:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Verify source lineage and owner-staged draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git merge-base --is-ancestor 55618f9a4fd137bc9cf21d1ff843473d6bbc0c87 HEAD
+          gh api "repos/${GITHUB_REPOSITORY}/releases/tags/sdk-v0.3.0-stage" > staging-release.json
+          python - <<'PY'
+          import json
+          release = json.load(open('staging-release.json'))
+          if not release.get('draft') or release.get('published_at') is not None:
+              raise SystemExit('staging release must remain a draft')
+          if release.get('tag_name') != 'sdk-v0.3.0-stage':
+              raise SystemExit('unexpected staging tag')
+          if len(release.get('assets', [])) != 2:
+              raise SystemExit('draft release must contain exactly two assets')
+          PY
+          test "$(git rev-list -n 1 sdk-v0.3.0-stage)" = "$GITHUB_SHA"
+          mkdir -p dist
+          gh release download sdk-v0.3.0-stage --dir dist --pattern 'kaggle_vllm-0.3.0*'
+          test "$(find dist -maxdepth 1 -type f | wc -l)" -eq 2
+          printf '%s  %s\n' \
+            'bf1ae98d41606dc587ed27b591bf2173b4014560145e5e3d0265080845971979' 'dist/kaggle_vllm-0.3.0-py3-none-any.whl' \
+            '9e59252a4c48a1ce2b13f088cf84cc44784be19fc7f55db843ec386feb54a50c' 'dist/kaggle_vllm-0.3.0.tar.gz' | sha256sum --check --strict
+      - uses: actions/attest@v4
+        with:
+          subject-path: dist/*
+      - uses: actions/upload-artifact@v7
+        with:
+          name: v030-exact-pypi-distributions
+          path: dist/
+          if-no-files-found: error
+          retention-days: 30
