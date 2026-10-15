@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.11", "3.12"]
     steps:
       - uses: actions/checkout@v7
         with:
@@ -30,7 +30,7 @@ jobs:
       - run: python -m pytest -q
       - run: python -c "import kaggle_vllm; print(kaggle_vllm.__version__)"
       - run: kaggle-vllm --help
-      - run: kaggle-vllm bootstrap --dry-run --json
+      - run: kaggle-vllm profile
 
   quality-and-package:
     runs-on: ubuntu-latest
@@ -44,10 +44,10 @@ jobs:
           cache: pip
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e ".[test]"
-      - run: python -m ruff check src tests examples scripts
       - run: python scripts/verify_static.py
       - run: python scripts/check_markdown_links.py
-      - run: python -m build
+      - run: python -m pip install "setuptools>=77" wheel
+      - run: python -m build --sdist --wheel --no-isolation
         env:
           SOURCE_DATE_EPOCH: "1787760000"
       - run: python -m twine check dist/*

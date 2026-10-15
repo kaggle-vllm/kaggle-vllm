@@ -1,0 +1,2 @@
+# Exact P31 requirement provenance: runtime-v3/metadata/KAGGLE_INSTALL_REQUIREMENTS.txt.
+# Use the runtime manifest wheel paths, never install this text from an index.

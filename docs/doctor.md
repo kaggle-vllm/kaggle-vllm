@@ -1,3 +1,15 @@
+# Doctor
+
+`kaggle-vllm doctor --profile kaggle-l4x4-cu129 --strict --json` emits a schema-v3 report for Kaggle markers, CPython 3.12, Linux x86_64, Torch/cu129, CUDA availability, exactly four L4/SM89 devices, target distribution versions, runtime manifest integrity, native wheel SHA, CUDA driver alias, and linker probe. `--import-native` additionally imports vLLM core and built-in FA2 on the target cp312 runtime; never use that option for local Python 3.11 SDK work.
+
+The targeted dependency baseline checks vLLM 0.30.0, Torch 2.13.0+cu129, torchvision, torchaudio, TorchCodec 0.16.0+cu129, Triton 3.7.1, and FlashInfer 0.6.18.post1. Global `pip check` is not a release gate: P31 had unrelated preinstalled Kaggle package conflicts. P31 NCCL TP=4 and Gemma semantic evidence are reported as provenance, while a fresh session must run those tests again.
+
+---
+
+## Preserved historical v0.2 documentation
+
+The section below is retained verbatim from the v0.2 repository state for historical users. Commands and defaults above describe the v0.3 candidate.
+
 # Doctor and dependency diagnostics
 
 `doctor` compares the current process with the exact Kaggle T4x2 profile and a

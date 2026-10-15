@@ -1,41 +1,88 @@
-name: Publish Python distribution to PyPI
+name: Publish exact Python distribution to PyPI
 
 on:
   workflow_dispatch:
+    inputs:
+      staging_run_id:
+        description: Successful main-branch stage-exact-pypi-artifacts run ID
+        required: true
+        type: string
+
+permissions:
+  contents: read
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
-        with:
-          python-version: "3.11"
-      - name: Build distributions
-        run: |
-          python -m pip install --upgrade build
-          python -m build
-      - name: Upload distributions for publishing
-        uses: actions/upload-artifact@v7
-        with:
-          name: python-distributions
-          path: dist/
-          if-no-files-found: error
-
   publish:
-    needs: build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
+      actions: read
+      attestations: read
+      contents: read
       id-token: write
     steps:
-      - name: Download distributions
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Verify accepted source commit and staging run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STAGING_RUN_ID: ${{ inputs.staging_run_id }}
+        run: |
+          set -euo pipefail
+          [[ "$STAGING_RUN_ID" =~ ^[0-9]+$ ]]
+          git merge-base --is-ancestor 55618f9a4fd137bc9cf21d1ff843473d6bbc0c87 HEAD
+          gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${STAGING_RUN_ID}" > staging-run.json
+          python - <<'PY'
+          import json, os
+          run = json.load(open('staging-run.json'))
+          expected = {
+              'event': 'workflow_dispatch', 'conclusion': 'success',
+              'head_branch': 'main', 'head_sha': os.environ['GITHUB_SHA'],
+              'path': '.github/workflows/stage-exact-pypi-artifacts.yml',
+          }
+          for key, value in expected.items():
+              if run.get(key) != value:
+                  raise SystemExit(f'staging run {key} mismatch: {run.get(key)!r}')
+          if run.get('repository', {}).get('full_name') != os.environ['GITHUB_REPOSITORY']:
+              raise SystemExit('staging run belongs to another repository')
+          PY
+      - name: Download only the verified staging artifact
         uses: actions/download-artifact@v8
         with:
-          name: python-distributions
-          path: dist/
-      - name: Publish distributions to PyPI
+          name: v030-exact-pypi-distributions
+          run-id: ${{ inputs.staging_run_id }}
+          github-token: ${{ github.token }}
+          path: dist
+      - name: Verify exact accepted bytes immediately before upload
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$(find dist -maxdepth 1 -type f | wc -l)" -eq 2
+          printf '%s  %s\n' \
+            'bf1ae98d41606dc587ed27b591bf2173b4014560145e5e3d0265080845971979' 'dist/kaggle_vllm-0.3.0-py3-none-any.whl' \
+            '9e59252a4c48a1ce2b13f088cf84cc44784be19fc7f55db843ec386feb54a50c' 'dist/kaggle_vllm-0.3.0.tar.gz' | sha256sum --check --strict
+          for artifact in dist/*; do
+            gh attestation verify "$artifact" \
+              --repo "$GITHUB_REPOSITORY" \
+              --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/stage-exact-pypi-artifacts.yml" \
+              --source-digest "$GITHUB_SHA" \
+              --source-ref refs/heads/main \
+              --deny-self-hosted-runners > /dev/null
+          done
+          python - <<'PY'
+          import urllib.error, urllib.request
+          try:
+              urllib.request.urlopen('https://pypi.org/pypi/kaggle-vllm/0.3.0/json', timeout=20)
+          except urllib.error.HTTPError as exc:
+              if exc.code == 404:
+                  raise SystemExit(0)
+              raise
+          raise SystemExit('PyPI 0.3.0 already exists; stop rather than overwrite')
+          PY
+      - name: Publish exact accepted distributions
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/

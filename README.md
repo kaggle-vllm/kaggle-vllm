@@ -1,3 +1,69 @@
+# kaggle-vllm 0.3.0
+
+A lightweight Python SDK for one Kaggle Notebook runtime: **Linux x86_64, CPython 3.12, exactly four NVIDIA L4 GPUs (SM89), tensor parallel size 4**. The SDK is pure Python and can be developed with Python 3.11. Its separate P31 native vLLM 0.30.0 wheel is cp312 only.
+
+The historical T4 profile remains packaged. The accepted 0.3.0 SDK candidate wheel passed the cleanup-r1 four-L4 Kaggle run; this feature-branch source has changed and its rebuilt wheel requires another Kaggle run before release.
+
+| SDK generation | Kaggle GPUs | SM | TP | Upstream vLLM | Status |
+| --- | --- | ---: | ---: | --- | --- |
+| 0.2.x | 2 × Tesla T4 | 75 | 2 | 0.18.1 | Historical validated release |
+| 0.3.0 | Exactly 4 × NVIDIA L4 | 89 | 4 | 0.30.0 | Accepted candidate: 19/19 Kaggle gates; rebuilt wheel retest required |
+
+## Runtime identity
+
+The validated P31 native wheel was built from vLLM v0.30.0 at commit `ced6857afa0ea7b2e3f0846a62e1394e90f15607`. Its SHA256 is `9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8`. The canonical P31 final-v2 tar SHA256 is `e82085d0c6f180d2f4f8eb8f52332a92051273715e0923082fc65fc8857ddad5`.
+
+The runtime uses PyTorch `2.13.0+cu129`, torchvision `0.28.0+cu129`, torchaudio `2.11.0+cu129`, Triton `3.7.1`, TorchCodec `0.16.0+cu129`, and FlashInfer `0.6.18.post1`. Kaggle's system CUDA compiler remains 12.8; cu129 is a PyTorch user-space closure. No system CUDA 12.9 toolkit is installed by this SDK.
+
+P31 qualified vLLM's built-in FlashAttention-2 extension as compiled, packaged, SM89 targeted, and importable. Backend choice is model-specific. The validated Gemma 4 31B QAT workload selected `TRITON_ATTN`; no Gemma FA2 claim is made. P31 Step 20 passed semantic chat generation with `AutoProcessor` and TP=4. The earlier raw Step 17 newline-like output did not establish semantic success.
+
+## Kaggle use
+
+For a fresh run of the rebuilt wheel, attach the small SDK package, corrected split-v2 wheelhouse Datasets, and the saved P31 Notebook Output. The [final SDK acceptance notebook](kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb) uses the exact P33 lean lock: 168 dependency wheels plus the native wheel. The broader 195-wheel runtime-v3 manifest remains archival. Bootstrap installs under `/tmp/kaggle-vllm/v0.3.0/l4x4/` after a free-space check, with pip `--no-index --no-deps --no-cache-dir --no-compile`. It does not resolve packages online or write the expanded runtime to `/kaggle/working`.
+
+```bash
+kaggle-vllm bootstrap --profile kaggle-l4x4-cu129 --offline --runtime-source /kaggle/input/datasets/waqasm86 --native-wheel /exact/path/vllm-0.30.0-cp312-cp312-linux_x86_64.whl --strict
+eval "$(kaggle-vllm env --profile kaggle-l4x4-cu129)"
+kaggle-vllm doctor --profile kaggle-l4x4-cu129 --strict --json
+```
+
+Public Hugging Face delivery is implemented but deliberately refuses downloads until a published immutable commit is recorded in the L4 profile. No mutable `main` revision is trusted.
+
+```python
+from kaggle_vllm import KaggleLLM, KaggleSamplingParams, activate_runtime, discover_gemma4_qat
+
+activate_runtime()
+model = discover_gemma4_qat()
+llm = KaggleLLM(model=model, profile="kaggle-l4x4-cu129", dtype="bfloat16", gpu_memory_utilization=0.86, max_model_len=2048)
+outputs = llm.generate(
+    ["Explain tensor parallelism in one sentence."],
+    KaggleSamplingParams(temperature=0.0, max_tokens=64),
+)
+```
+
+For Gemma's chat template, use `llm.chat([{"role": "user", "content": "Explain tensor parallelism in one sentence."}], sampling_params=KaggleSamplingParams(temperature=0.0, max_tokens=64))`. It tries `AutoProcessor.apply_chat_template` and then `AutoTokenizer`; neither path hard-codes model tokens.
+
+For the explicit L4 profile, TP=4, `enforce_eager=True`, and `disable_custom_all_reduce=True` are P31 compatibility defaults, not performance maxima. Expert users can pass upstream options through `KaggleLLM(...)` and access `llm.upstream`. The wrapper does not force FlashAttention.
+
+## Local verification
+
+Use the user's Python 3.11 for SDK development. Do not import the cp312 native wheel locally.
+
+```bash
+PYTHONPATH=src python3.11 -m pytest -q
+python3.11 -m build --no-isolation
+```
+
+See [compatibility](docs/compatibility.md), [runtime architecture](docs/architecture.md), [native evidence](docs/native-runtime.md), [doctor](docs/doctor.md), and [fresh acceptance](docs/next-kaggle-acceptance.md).
+
+Runtime-v3 archive SHA256: `0ec85aec99b7d270511c3b62c306668d30249edc68169af5b9bad119f5c01c73` (6,633,730,070 bytes; 215 members).
+
+---
+
+## Preserved historical v0.2 documentation
+
+The section below is retained verbatim from the v0.2 repository state for historical users. Commands and defaults above describe the v0.3 candidate.
+
 # kaggle-vllm — Run vLLM on Kaggle platform with dual NVIDIA T4 GPUs
 
 **kaggle-vllm** is a lightweight compatibility and runtime-delivery toolkit for running **upstream vLLM on Kaggle Notebooks with NVIDIA Tesla T4 GPUs**.
@@ -9,6 +75,32 @@ It is designed for users searching for a reliable way to **install vLLM on Kaggl
 > Upstream runtime source: **vLLM v0.18.1** at commit `a26e8dc7ff2111a005144d775ecf9cebf56c45b2`
 
 [Documentation](docs/README.md) · [Installation](docs/installation.md) · [Compatibility](docs/compatibility.md) · [Benchmarks](docs/benchmarking.md) · [Research](research/README.md) · [Troubleshooting](docs/troubleshooting.md)
+
+---
+
+## Research paper
+
+**Characterizing Tensor-Parallel Crossover in vLLM Serving on Dual NVIDIA
+Tesla T4 GPUs** — Mohammad Waqas (2026).
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23119478.svg)](https://doi.org/10.5281/zenodo.23119478)
+[PDF](research/paper/kaggle-vllm-research-paper.pdf) ·
+[Zenodo](https://zenodo.org/records/23119478) ·
+[engineering companion](https://waqasm86.github.io/posts/characterizing-tensor-parallel-crossover-vllm-dual-t4/) ·
+[research methodology](research/README.md)
+
+- TP=2 is not automatically faster than TP=1; crossover depends on model,
+  exact token workload and offered concurrency.
+- Prefill-heavy work reached favorable TP2 throughput earlier for the three
+  fully measurable non-Qwen models; short work required much higher concurrency.
+- Qwen had no sustained favorable short-workload point in the tested grid.
+  Its prefill-heavy TP2 condition at concurrency 64 was resource-gated, not
+  zero throughput.
+- M3 measures PHB/NCCL communication independently; it does not establish
+  NCCL alone as the cause of the serving crossover.
+
+The paper characterizes the tested pinned runtime, workload, topology and
+resource envelope; it does not claim a universal TP2 speedup.
 
 ---
 
@@ -124,23 +216,36 @@ On SM75, vLLM selected `TRITON_ATTN`. FlashAttention 2 and SymmMem optimizations
 
 ## Does tensor parallelism make Kaggle T4 inference faster?
 
-**Not necessarily.**
+**It depends on the model, exact token workload and offered concurrency.**
+The published M4 study has five terminal logical repetitions per model and
+workload on the pinned dual-T4 stack. Valid performance comparisons use five
+matched repetitions. Its first sustained favorable TP2
+**output-throughput** points are:
 
-The controlled 2026-08-30 OPT-125M benchmark found TP=1 faster than TP=2 for this tiny model.
+| Principal model | Balanced | Prefill-heavy | Short |
+|---|---:|---:|---:|
+| Qwen2.5-3B-Instruct | 64 | N/A: resource-gated at 64 | None in tested grid |
+| Phi-4-mini-instruct | 32 | 4 | 64 |
+| Ministral-3-3B-Instruct | 16 | 4 | 32 |
+| Llama-3.2-3B-Instruct | 16 | 4 | 32 |
 
-Milestone 1 diagnostics on the validated Kaggle dual-T4 profile recorded:
+At Qwen prefill-heavy concurrency 64, TP2 exceeded the frozen resource ceiling;
+there is no valid terminal throughput value, rather than zero throughput.
+TP=2 may still help capacity when it does not improve performance.
 
-| Workload | Result |
-|---|---:|
-| OPT-125M TP=2 graph mode vs TP=1 | **26.73% lower output throughput** |
-| OPT-125M TP=2 eager mode vs TP=1 | **44.78% lower output throughput** |
-| Qwen2.5-3B TP=2 with `max_num_batched_tokens=4096` | no meaningful throughput improvement over baseline in the three-repeat workload |
+The [M1 OPT-125M diagnostic](artifacts/kaggle-2026-09-01-milestone-1/)
+measured lower TP2 output throughput at low load: 26.73% lower in graph mode
+and 44.78% lower in eager mode. The
+[M2 Qwen C=16 crossover](artifacts/kaggle-2026-09-02-milestone-2/) remains an
+exploratory single-matrix observation. M4's repeated paired-repetition study
+is the stronger final paper authority; the results describe different
+evidence levels and workloads, without isolating a single causal mechanism.
 
-This is consistent with communication and synchronization overhead outweighing useful partitioned compute for small workloads, but the benchmark did not isolate one single cause.
-
-TP=2 remains useful for **capacity, NCCL execution and topology validation**. It should not be treated as a universal performance optimization.
-
-See [benchmark methodology](docs/benchmarking.md) and the checksummed evidence under `artifacts/kaggle-2026-09-01-milestone-1/`.
+Read the [paper PDF](research/paper/kaggle-vllm-research-paper.pdf),
+[Zenodo DOI](https://doi.org/10.5281/zenodo.23119478),
+[research methods](research/README.md),
+[benchmark methods](docs/benchmarking.md) and
+[concurrency methods](docs/concurrency-benchmarking.md).
 
 ---
 
@@ -157,9 +262,9 @@ kaggle-vllm benchmark \
   --dry-run
 ```
 
-Milestone 2 adds a separate online streaming concurrency benchmark for the
-controlled Qwen TP1/TP2 matrix. On the pinned Qwen2.5-3B-Instruct workload,
-TP2 crossed TP1 in output throughput at concurrency 16; no
+Milestone 2 adds a separate exploratory online streaming concurrency benchmark
+for one controlled Qwen TP1/TP2 matrix. On that pinned workload, TP2 crossed
+TP1 in output throughput at concurrency 16; no
 TP1-fails/TP2-survives capacity crossover was observed through concurrency 64.
 See the [executed dual-T4 evidence](artifacts/kaggle-2026-09-02-milestone-2/)
 and [concurrency benchmark methodology](docs/concurrency-benchmarking.md), or

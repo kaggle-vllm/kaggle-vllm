@@ -1,0 +1,2832 @@
+{
+  "schema_version": 3,
+  "environment": "CPython 3.12.13 Linux x86_64",
+  "roots": [
+    "vllm",
+    "torch",
+    "torchvision",
+    "torchaudio",
+    "torchcodec",
+    "triton",
+    "flashinfer-python",
+    "flashinfer-cubin"
+  ],
+  "reachable_count_including_native": 196,
+  "edges": [
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "regex",
+      "requirement": "regex"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "cachetools",
+      "requirement": "cachetools"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "psutil",
+      "requirement": "psutil"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "sentencepiece",
+      "requirement": "sentencepiece"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "requests",
+      "requirement": "requests>=2.26.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "tqdm",
+      "requirement": "tqdm"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "blake3",
+      "requirement": "blake3"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "py-cpuinfo",
+      "requirement": "py-cpuinfo"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "transformers",
+      "requirement": "transformers>=5.10.4"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "huggingface-hub",
+      "requirement": "huggingface_hub>=1.31.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "tokenizers",
+      "requirement": "tokenizers>=0.21.1"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "safetensors",
+      "requirement": "safetensors>=0.6.2"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "protobuf",
+      "requirement": "protobuf!=6.30.*,!=6.31.*,!=6.32.*,!=6.33.0.*,!=6.33.1.*,!=6.33.2.*,!=6.33.3.*,!=6.33.4.*,>=5.29.6"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "fastapi",
+      "requirement": "fastapi[standard]<0.137.0,>=0.133.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "starlette",
+      "requirement": "starlette>=1.0.1"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "aiohttp",
+      "requirement": "aiohttp>=3.13.3"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "openai",
+      "requirement": "openai>=2.25.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic>=2.12.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "prometheus-client",
+      "requirement": "prometheus_client>=0.18.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "pillow",
+      "requirement": "pillow"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "prometheus-fastapi-instrumentator",
+      "requirement": "prometheus-fastapi-instrumentator>=8.0.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "tiktoken",
+      "requirement": "tiktoken>=0.6.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "lm-format-enforcer",
+      "requirement": "lm-format-enforcer==0.11.3"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "llguidance",
+      "requirement": "llguidance<1.8.0,>=1.7.0; platform_machine == \"x86_64\" or platform_machine == \"arm64\" or platform_machine == \"aarch64\" or platform_machine == \"ppc64le\" or platform_machine == \"s390x\""
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "outlines-core",
+      "requirement": "outlines_core==0.2.14"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "lark",
+      "requirement": "lark==1.2.2"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "xgrammar",
+      "requirement": "xgrammar<1.0.0,>=0.2.1; platform_machine == \"x86_64\" or platform_machine == \"aarch64\" or platform_machine == \"arm64\" or platform_machine == \"s390x\" or platform_machine == \"ppc64le\""
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing_extensions>=4.10"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "filelock",
+      "requirement": "filelock>=3.16.1"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "partial-json-parser",
+      "requirement": "partial-json-parser"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "jsonschema",
+      "requirement": "jsonschema>=4.23.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "pyzmq",
+      "requirement": "pyzmq>=25.0.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "msgspec",
+      "requirement": "msgspec"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "mistral-common",
+      "requirement": "mistral_common[image]>=1.11.6"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "opencv-python-headless",
+      "requirement": "opencv-python-headless>=4.13.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "pyyaml",
+      "requirement": "pyyaml"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "six",
+      "requirement": "six>=1.16.0; python_version > \"3.11\""
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "setuptools",
+      "requirement": "setuptools<81.0.0,>=77.0.3; python_version > \"3.11\""
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "einops",
+      "requirement": "einops"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "compressed-tensors",
+      "requirement": "compressed-tensors==0.17.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "depyf",
+      "requirement": "depyf==0.20.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "cloudpickle",
+      "requirement": "cloudpickle"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "watchfiles",
+      "requirement": "watchfiles"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "python-json-logger",
+      "requirement": "python-json-logger"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "ninja",
+      "requirement": "ninja"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "pybase64",
+      "requirement": "pybase64"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "cbor2",
+      "requirement": "cbor2"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "ijson",
+      "requirement": "ijson"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "setproctitle",
+      "requirement": "setproctitle"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "openai-harmony",
+      "requirement": "openai-harmony>=0.0.3"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "anthropic",
+      "requirement": "anthropic>=0.71.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "model-hosting-container-standards",
+      "requirement": "model-hosting-container-standards<1.0.0,>=0.1.14"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "mcp",
+      "requirement": "mcp<3.0.0,>=2.0.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "opentelemetry-sdk",
+      "requirement": "opentelemetry-sdk>=1.27.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "opentelemetry-api",
+      "requirement": "opentelemetry-api>=1.27.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "opentelemetry-exporter-otlp",
+      "requirement": "opentelemetry-exporter-otlp>=1.27.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "opentelemetry-semantic-conventions-ai",
+      "requirement": "opentelemetry-semantic-conventions-ai>=0.4.1"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "numba",
+      "requirement": "numba==0.65.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "torch",
+      "requirement": "torch==2.13.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "torchaudio",
+      "requirement": "torchaudio==2.11.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "torchvision",
+      "requirement": "torchvision==0.28.0"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "torchcodec",
+      "requirement": "torchcodec>=0.14"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "pynvvideocodec",
+      "requirement": "PyNvVideoCodec==2.0.4"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "flashinfer-python",
+      "requirement": "flashinfer-python==0.6.18.post1"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "apache-tvm-ffi",
+      "requirement": "apache-tvm-ffi==0.1.11"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "tilelang",
+      "requirement": "tilelang==0.1.12"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "nvidia-cudnn-frontend",
+      "requirement": "nvidia-cudnn-frontend>=1.19.1"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "nvtx",
+      "requirement": "nvtx==0.2.15"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "fastsafetensors",
+      "requirement": "fastsafetensors>=0.3.3"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "instanttensor",
+      "requirement": "instanttensor>=0.1.9"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "nvidia-cutlass-dsl",
+      "requirement": "nvidia-cutlass-dsl==4.7.1"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "quack-kernels",
+      "requirement": "quack-kernels==0.6.5"
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "tokenspeed-mla",
+      "requirement": "tokenspeed-mla==0.1.8; platform_system == \"Linux\""
+    },
+    {
+      "from": "vllm",
+      "from_extra": "",
+      "to": "humming-kernels",
+      "requirement": "humming-kernels[cu12]==0.1.12"
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "filelock",
+      "requirement": "filelock"
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.10.0"
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "setuptools",
+      "requirement": "setuptools>=77.0.3"
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "sympy",
+      "requirement": "sympy>=1.13.3"
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "networkx",
+      "requirement": "networkx>=2.5.1"
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "jinja2",
+      "requirement": "jinja2"
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "fsspec",
+      "requirement": "fsspec>=0.8.5"
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "cuda-toolkit",
+      "requirement": "cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.9.1; platform_system == \"Linux\""
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "cuda-bindings",
+      "requirement": "cuda-bindings<13,>=12.9.4; platform_system == \"Linux\" and python_version < \"3.15\""
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "nvidia-cudnn-cu12",
+      "requirement": "nvidia-cudnn-cu12==9.20.0.48; platform_system == \"Linux\""
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "nvidia-cusparselt-cu12",
+      "requirement": "nvidia-cusparselt-cu12==0.8.1; platform_system == \"Linux\""
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "nvidia-nccl-cu12",
+      "requirement": "nvidia-nccl-cu12==2.29.7; platform_system == \"Linux\""
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "nvidia-nvshmem-cu12",
+      "requirement": "nvidia-nvshmem-cu12==3.4.5; platform_system == \"Linux\""
+    },
+    {
+      "from": "torch",
+      "from_extra": "",
+      "to": "triton",
+      "requirement": "triton==3.7.1; platform_system == \"Linux\" and python_version < \"3.15\""
+    },
+    {
+      "from": "torchvision",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy"
+    },
+    {
+      "from": "torchvision",
+      "from_extra": "",
+      "to": "torch",
+      "requirement": "torch (==2.13.0)"
+    },
+    {
+      "from": "torchvision",
+      "from_extra": "",
+      "to": "pillow",
+      "requirement": "pillow (!=8.3.*,>=5.3.0)"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "apache-tvm-ffi",
+      "requirement": "apache-tvm-ffi!=0.1.8,!=0.1.8.post0,<0.2,>=0.1.6"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "click",
+      "requirement": "click"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "cuda-python",
+      "requirement": "cuda-python>=12.0"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "cuda-tile",
+      "requirement": "cuda-tile>=1.4.0"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "einops",
+      "requirement": "einops"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "nccl4py",
+      "requirement": "nccl4py>=0.3.1"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "ninja",
+      "requirement": "ninja"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "nvidia-cudnn-frontend",
+      "requirement": "nvidia-cudnn-frontend>=1.25.0"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "nvidia-cutlass-dsl",
+      "requirement": "nvidia-cutlass-dsl>=4.6.2a0"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "nvidia-ml-py",
+      "requirement": "nvidia-ml-py"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "packaging",
+      "requirement": "packaging>=24.2"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "requests",
+      "requirement": "requests"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "tabulate",
+      "requirement": "tabulate"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "torch",
+      "requirement": "torch"
+    },
+    {
+      "from": "flashinfer-python",
+      "from_extra": "",
+      "to": "tqdm",
+      "requirement": "tqdm"
+    },
+    {
+      "from": "requests",
+      "from_extra": "",
+      "to": "charset-normalizer",
+      "requirement": "charset_normalizer<4,>=2"
+    },
+    {
+      "from": "requests",
+      "from_extra": "",
+      "to": "idna",
+      "requirement": "idna<4,>=2.5"
+    },
+    {
+      "from": "requests",
+      "from_extra": "",
+      "to": "urllib3",
+      "requirement": "urllib3<3,>=1.26"
+    },
+    {
+      "from": "requests",
+      "from_extra": "",
+      "to": "certifi",
+      "requirement": "certifi>=2023.5.7"
+    },
+    {
+      "from": "transformers",
+      "from_extra": "",
+      "to": "huggingface-hub",
+      "requirement": "huggingface-hub<3.0,>=1.31.0"
+    },
+    {
+      "from": "transformers",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy>=1.17"
+    },
+    {
+      "from": "transformers",
+      "from_extra": "",
+      "to": "packaging",
+      "requirement": "packaging>=20.0"
+    },
+    {
+      "from": "transformers",
+      "from_extra": "",
+      "to": "pyyaml",
+      "requirement": "pyyaml>=5.1"
+    },
+    {
+      "from": "transformers",
+      "from_extra": "",
+      "to": "regex",
+      "requirement": "regex>=2025.10.22"
+    },
+    {
+      "from": "transformers",
+      "from_extra": "",
+      "to": "tokenizers",
+      "requirement": "tokenizers<0.24.0,>=0.23.1"
+    },
+    {
+      "from": "transformers",
+      "from_extra": "",
+      "to": "typer",
+      "requirement": "typer"
+    },
+    {
+      "from": "transformers",
+      "from_extra": "",
+      "to": "safetensors",
+      "requirement": "safetensors>=0.8.0"
+    },
+    {
+      "from": "transformers",
+      "from_extra": "",
+      "to": "tqdm",
+      "requirement": "tqdm>=4.60"
+    },
+    {
+      "from": "huggingface-hub",
+      "from_extra": "",
+      "to": "click",
+      "requirement": "click<9.0.0,>=8.4.2"
+    },
+    {
+      "from": "huggingface-hub",
+      "from_extra": "",
+      "to": "filelock",
+      "requirement": "filelock>=3.10.0"
+    },
+    {
+      "from": "huggingface-hub",
+      "from_extra": "",
+      "to": "fsspec",
+      "requirement": "fsspec>=2023.5.0"
+    },
+    {
+      "from": "huggingface-hub",
+      "from_extra": "",
+      "to": "hf-xet",
+      "requirement": "hf-xet<2.0.0,>=1.6.0; platform_machine == \"x86_64\" or platform_machine == \"amd64\" or platform_machine == \"AMD64\" or platform_machine == \"arm64\" or platform_machine == \"aarch64\""
+    },
+    {
+      "from": "huggingface-hub",
+      "from_extra": "",
+      "to": "httpx",
+      "requirement": "httpx<1,>=0.23.0"
+    },
+    {
+      "from": "huggingface-hub",
+      "from_extra": "",
+      "to": "packaging",
+      "requirement": "packaging>=20.9"
+    },
+    {
+      "from": "huggingface-hub",
+      "from_extra": "",
+      "to": "pyyaml",
+      "requirement": "pyyaml>=5.1"
+    },
+    {
+      "from": "huggingface-hub",
+      "from_extra": "",
+      "to": "tqdm",
+      "requirement": "tqdm>=4.42.1"
+    },
+    {
+      "from": "huggingface-hub",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.1.0"
+    },
+    {
+      "from": "tokenizers",
+      "from_extra": "",
+      "to": "huggingface-hub",
+      "requirement": "huggingface-hub>=0.16.4,<2.0"
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "",
+      "to": "starlette",
+      "requirement": "starlette>=0.46.0"
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic>=2.9.0"
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.8.0"
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "",
+      "to": "typing-inspection",
+      "requirement": "typing-inspection>=0.4.2"
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "",
+      "to": "annotated-doc",
+      "requirement": "annotated-doc>=0.0.2"
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "starlette",
+      "requirement": "starlette>=0.46.0"
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "pydantic",
+      "requirement": "pydantic>=2.9.0"
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.8.0"
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "typing-inspection",
+      "requirement": "typing-inspection>=0.4.2"
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "annotated-doc",
+      "requirement": "annotated-doc>=0.0.2"
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "fastapi-cli",
+      "requirement": "fastapi-cli[standard]>=0.0.8; extra == \"standard\""
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "fastar",
+      "requirement": "fastar>=0.9.0; extra == \"standard\""
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "httpx",
+      "requirement": "httpx<1.0.0,>=0.23.0; extra == \"standard\""
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "jinja2",
+      "requirement": "jinja2>=3.1.5; extra == \"standard\""
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "python-multipart",
+      "requirement": "python-multipart>=0.0.18; extra == \"standard\""
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "email-validator",
+      "requirement": "email-validator>=2.0.0; extra == \"standard\""
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "uvicorn",
+      "requirement": "uvicorn[standard]>=0.12.0; extra == \"standard\""
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "pydantic-settings",
+      "requirement": "pydantic-settings>=2.0.0; extra == \"standard\""
+    },
+    {
+      "from": "fastapi",
+      "from_extra": "standard",
+      "to": "pydantic-extra-types",
+      "requirement": "pydantic-extra-types>=2.0.0; extra == \"standard\""
+    },
+    {
+      "from": "starlette",
+      "from_extra": "",
+      "to": "anyio",
+      "requirement": "anyio<5,>=4.0.0"
+    },
+    {
+      "from": "starlette",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.10.0; python_version < '3.13'"
+    },
+    {
+      "from": "aiohttp",
+      "from_extra": "",
+      "to": "aiohappyeyeballs",
+      "requirement": "aiohappyeyeballs>=2.5.0"
+    },
+    {
+      "from": "aiohttp",
+      "from_extra": "",
+      "to": "aiosignal",
+      "requirement": "aiosignal>=1.4.0"
+    },
+    {
+      "from": "aiohttp",
+      "from_extra": "",
+      "to": "attrs",
+      "requirement": "attrs>=17.3.0"
+    },
+    {
+      "from": "aiohttp",
+      "from_extra": "",
+      "to": "frozenlist",
+      "requirement": "frozenlist>=1.1.1"
+    },
+    {
+      "from": "aiohttp",
+      "from_extra": "",
+      "to": "multidict",
+      "requirement": "multidict<7.0,>=4.5"
+    },
+    {
+      "from": "aiohttp",
+      "from_extra": "",
+      "to": "propcache",
+      "requirement": "propcache>=0.2.0"
+    },
+    {
+      "from": "aiohttp",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing_extensions>=4.4; python_version < \"3.13\""
+    },
+    {
+      "from": "aiohttp",
+      "from_extra": "",
+      "to": "yarl",
+      "requirement": "yarl<2.0,>=1.25.1"
+    },
+    {
+      "from": "openai",
+      "from_extra": "",
+      "to": "anyio",
+      "requirement": "anyio<5,>=4.10.0"
+    },
+    {
+      "from": "openai",
+      "from_extra": "",
+      "to": "httpx2",
+      "requirement": "httpx2<3,>=2.12.0"
+    },
+    {
+      "from": "openai",
+      "from_extra": "",
+      "to": "jiter",
+      "requirement": "jiter<1,>=0.16.0"
+    },
+    {
+      "from": "openai",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic!=2.0.*,!=2.1.*,!=2.2.*,!=2.3.*,<3,>=1.10.13"
+    },
+    {
+      "from": "openai",
+      "from_extra": "",
+      "to": "sniffio",
+      "requirement": "sniffio"
+    },
+    {
+      "from": "openai",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions<5,>=4.14"
+    },
+    {
+      "from": "pydantic",
+      "from_extra": "",
+      "to": "annotated-types",
+      "requirement": "annotated-types>=0.6.0"
+    },
+    {
+      "from": "pydantic",
+      "from_extra": "",
+      "to": "pydantic-core",
+      "requirement": "pydantic-core==2.46.5"
+    },
+    {
+      "from": "pydantic",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.14.1"
+    },
+    {
+      "from": "pydantic",
+      "from_extra": "",
+      "to": "typing-inspection",
+      "requirement": "typing-inspection>=0.4.2"
+    },
+    {
+      "from": "prometheus-fastapi-instrumentator",
+      "from_extra": "",
+      "to": "prometheus-client",
+      "requirement": "prometheus-client (>=0.8.0,<1.0.0)"
+    },
+    {
+      "from": "prometheus-fastapi-instrumentator",
+      "from_extra": "",
+      "to": "starlette",
+      "requirement": "starlette (>=1.0.0,<2.0.0)"
+    },
+    {
+      "from": "tiktoken",
+      "from_extra": "",
+      "to": "regex",
+      "requirement": "regex"
+    },
+    {
+      "from": "tiktoken",
+      "from_extra": "",
+      "to": "requests",
+      "requirement": "requests"
+    },
+    {
+      "from": "lm-format-enforcer",
+      "from_extra": "",
+      "to": "interegular",
+      "requirement": "interegular (>=0.3.2)"
+    },
+    {
+      "from": "lm-format-enforcer",
+      "from_extra": "",
+      "to": "packaging",
+      "requirement": "packaging"
+    },
+    {
+      "from": "lm-format-enforcer",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic (>=1.10.8)"
+    },
+    {
+      "from": "lm-format-enforcer",
+      "from_extra": "",
+      "to": "pyyaml",
+      "requirement": "pyyaml"
+    },
+    {
+      "from": "xgrammar",
+      "from_extra": "",
+      "to": "apache-tvm-ffi",
+      "requirement": "apache-tvm-ffi>=0.1.11"
+    },
+    {
+      "from": "xgrammar",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic"
+    },
+    {
+      "from": "xgrammar",
+      "from_extra": "",
+      "to": "torch",
+      "requirement": "torch>=1.10.0"
+    },
+    {
+      "from": "xgrammar",
+      "from_extra": "",
+      "to": "transformers",
+      "requirement": "transformers>=4.38.0"
+    },
+    {
+      "from": "xgrammar",
+      "from_extra": "",
+      "to": "triton",
+      "requirement": "triton; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+    },
+    {
+      "from": "xgrammar",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy"
+    },
+    {
+      "from": "xgrammar",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.9.0"
+    },
+    {
+      "from": "jsonschema",
+      "from_extra": "",
+      "to": "attrs",
+      "requirement": "attrs>=22.2.0"
+    },
+    {
+      "from": "jsonschema",
+      "from_extra": "",
+      "to": "jsonschema-specifications",
+      "requirement": "jsonschema-specifications>=2023.03.6"
+    },
+    {
+      "from": "jsonschema",
+      "from_extra": "",
+      "to": "referencing",
+      "requirement": "referencing>=0.28.4"
+    },
+    {
+      "from": "jsonschema",
+      "from_extra": "",
+      "to": "rpds-py",
+      "requirement": "rpds-py>=0.25.0"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic<3.0,>=2.7; python_version <= \"3.13\""
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "",
+      "to": "jsonschema",
+      "requirement": "jsonschema>=4.21.1"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.11.0"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "",
+      "to": "tiktoken",
+      "requirement": "tiktoken>=0.7.0; python_version <= \"3.13\""
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "",
+      "to": "pillow",
+      "requirement": "pillow>=10.3.0"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "",
+      "to": "requests",
+      "requirement": "requests>=2.0.0"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy<2.4,>=1.25; python_version <= \"3.12\""
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "",
+      "to": "pydantic-extra-types",
+      "requirement": "pydantic-extra-types[pycountry]>=2.10.5"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "image",
+      "to": "pydantic",
+      "requirement": "pydantic<3.0,>=2.7; python_version <= \"3.13\""
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "image",
+      "to": "jsonschema",
+      "requirement": "jsonschema>=4.21.1"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "image",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.11.0"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "image",
+      "to": "tiktoken",
+      "requirement": "tiktoken>=0.7.0; python_version <= \"3.13\""
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "image",
+      "to": "pillow",
+      "requirement": "pillow>=10.3.0"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "image",
+      "to": "requests",
+      "requirement": "requests>=2.0.0"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "image",
+      "to": "numpy",
+      "requirement": "numpy<2.4,>=1.25; python_version <= \"3.12\""
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "image",
+      "to": "pydantic-extra-types",
+      "requirement": "pydantic-extra-types[pycountry]>=2.10.5"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "image",
+      "to": "mistral-common",
+      "requirement": "mistral_common[opencv]; extra == \"image\""
+    },
+    {
+      "from": "opencv-python-headless",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy>=2; python_version >= \"3.9\""
+    },
+    {
+      "from": "compressed-tensors",
+      "from_extra": "",
+      "to": "torch",
+      "requirement": "torch>=2.10.0"
+    },
+    {
+      "from": "compressed-tensors",
+      "from_extra": "",
+      "to": "transformers",
+      "requirement": "transformers>=4.45.0"
+    },
+    {
+      "from": "compressed-tensors",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic>=2.0"
+    },
+    {
+      "from": "compressed-tensors",
+      "from_extra": "",
+      "to": "loguru",
+      "requirement": "loguru"
+    },
+    {
+      "from": "depyf",
+      "from_extra": "",
+      "to": "astor",
+      "requirement": "astor"
+    },
+    {
+      "from": "depyf",
+      "from_extra": "",
+      "to": "dill",
+      "requirement": "dill"
+    },
+    {
+      "from": "watchfiles",
+      "from_extra": "",
+      "to": "anyio",
+      "requirement": "anyio>=3.0.0"
+    },
+    {
+      "from": "openai-harmony",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic>=2.11.7"
+    },
+    {
+      "from": "anthropic",
+      "from_extra": "",
+      "to": "anyio",
+      "requirement": "anyio<5,>=4.1.0"
+    },
+    {
+      "from": "anthropic",
+      "from_extra": "",
+      "to": "docstring-parser",
+      "requirement": "docstring-parser<1,>=0.15"
+    },
+    {
+      "from": "anthropic",
+      "from_extra": "",
+      "to": "httpx2",
+      "requirement": "httpx2<3,>=2.0.0"
+    },
+    {
+      "from": "anthropic",
+      "from_extra": "",
+      "to": "jiter",
+      "requirement": "jiter<1,>=0.4.0"
+    },
+    {
+      "from": "anthropic",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic<3,>=1.10.0"
+    },
+    {
+      "from": "anthropic",
+      "from_extra": "",
+      "to": "sniffio",
+      "requirement": "sniffio<2,>=1"
+    },
+    {
+      "from": "anthropic",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions<5,>=4.14"
+    },
+    {
+      "from": "model-hosting-container-standards",
+      "from_extra": "",
+      "to": "fastapi",
+      "requirement": "fastapi"
+    },
+    {
+      "from": "model-hosting-container-standards",
+      "from_extra": "",
+      "to": "httpx",
+      "requirement": "httpx"
+    },
+    {
+      "from": "model-hosting-container-standards",
+      "from_extra": "",
+      "to": "jmespath",
+      "requirement": "jmespath"
+    },
+    {
+      "from": "model-hosting-container-standards",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic"
+    },
+    {
+      "from": "model-hosting-container-standards",
+      "from_extra": "",
+      "to": "setuptools",
+      "requirement": "setuptools"
+    },
+    {
+      "from": "model-hosting-container-standards",
+      "from_extra": "",
+      "to": "starlette",
+      "requirement": "starlette (>=0.49.1)"
+    },
+    {
+      "from": "model-hosting-container-standards",
+      "from_extra": "",
+      "to": "supervisor",
+      "requirement": "supervisor (>=4.2.0)"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "anyio",
+      "requirement": "anyio>=4.9; python_version < '3.14'"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "httpx2",
+      "requirement": "httpx2>=2.10.0"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "jsonschema",
+      "requirement": "jsonschema>=4.20.0"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "mcp-types",
+      "requirement": "mcp-types==2.3.0"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "opentelemetry-api",
+      "requirement": "opentelemetry-api>=1.28.0"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic>=2.12.0"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "pyjwt",
+      "requirement": "pyjwt[crypto]>=2.10.1"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "python-multipart",
+      "requirement": "python-multipart>=0.0.9"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "sse-starlette",
+      "requirement": "sse-starlette>=3.0.0"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "starlette",
+      "requirement": "starlette>=0.27; python_version < '3.14'"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.13.0"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "typing-inspection",
+      "requirement": "typing-inspection>=0.4.1"
+    },
+    {
+      "from": "mcp",
+      "from_extra": "",
+      "to": "uvicorn",
+      "requirement": "uvicorn>=0.31.1; sys_platform != 'emscripten'"
+    },
+    {
+      "from": "opentelemetry-sdk",
+      "from_extra": "",
+      "to": "opentelemetry-api",
+      "requirement": "opentelemetry-api==1.45.0"
+    },
+    {
+      "from": "opentelemetry-sdk",
+      "from_extra": "",
+      "to": "opentelemetry-semantic-conventions",
+      "requirement": "opentelemetry-semantic-conventions==0.66b0"
+    },
+    {
+      "from": "opentelemetry-sdk",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.5.0"
+    },
+    {
+      "from": "opentelemetry-api",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.5.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp",
+      "from_extra": "",
+      "to": "opentelemetry-exporter-otlp-proto-grpc",
+      "requirement": "opentelemetry-exporter-otlp-proto-grpc==1.45.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp",
+      "from_extra": "",
+      "to": "opentelemetry-exporter-otlp-proto-http",
+      "requirement": "opentelemetry-exporter-otlp-proto-http==1.45.0"
+    },
+    {
+      "from": "opentelemetry-semantic-conventions-ai",
+      "from_extra": "",
+      "to": "opentelemetry-sdk",
+      "requirement": "opentelemetry-sdk<2,>=1.38.0"
+    },
+    {
+      "from": "opentelemetry-semantic-conventions-ai",
+      "from_extra": "",
+      "to": "opentelemetry-semantic-conventions",
+      "requirement": "opentelemetry-semantic-conventions>=0.59b0"
+    },
+    {
+      "from": "numba",
+      "from_extra": "",
+      "to": "llvmlite",
+      "requirement": "llvmlite<0.48,>=0.47.0dev0"
+    },
+    {
+      "from": "numba",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy>=1.22"
+    },
+    {
+      "from": "numba",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy<2.5,>=1.22"
+    },
+    {
+      "from": "apache-tvm-ffi",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.5"
+    },
+    {
+      "from": "tilelang",
+      "from_extra": "",
+      "to": "apache-tvm-ffi",
+      "requirement": "apache-tvm-ffi<=0.1.11,>=0.1.10"
+    },
+    {
+      "from": "tilelang",
+      "from_extra": "",
+      "to": "torch-c-dlpack-ext",
+      "requirement": "torch-c-dlpack-ext; python_version < \"3.14\""
+    },
+    {
+      "from": "tilelang",
+      "from_extra": "",
+      "to": "cloudpickle",
+      "requirement": "cloudpickle"
+    },
+    {
+      "from": "tilelang",
+      "from_extra": "",
+      "to": "ml-dtypes",
+      "requirement": "ml-dtypes"
+    },
+    {
+      "from": "tilelang",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy>=1.23.5"
+    },
+    {
+      "from": "tilelang",
+      "from_extra": "",
+      "to": "psutil",
+      "requirement": "psutil"
+    },
+    {
+      "from": "tilelang",
+      "from_extra": "",
+      "to": "torch",
+      "requirement": "torch"
+    },
+    {
+      "from": "tilelang",
+      "from_extra": "",
+      "to": "tqdm",
+      "requirement": "tqdm>=4.62.3"
+    },
+    {
+      "from": "tilelang",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.10.0"
+    },
+    {
+      "from": "tilelang",
+      "from_extra": "",
+      "to": "z3-solver",
+      "requirement": "z3-solver<4.15.5,>=4.13.0"
+    },
+    {
+      "from": "fastsafetensors",
+      "from_extra": "",
+      "to": "typer",
+      "requirement": "typer>=0.9.0"
+    },
+    {
+      "from": "instanttensor",
+      "from_extra": "",
+      "to": "torch",
+      "requirement": "torch>=2.8.0"
+    },
+    {
+      "from": "nvidia-cutlass-dsl",
+      "from_extra": "",
+      "to": "nvidia-cutlass-dsl-libs-base",
+      "requirement": "nvidia-cutlass-dsl-libs-base==4.7.1"
+    },
+    {
+      "from": "nvidia-cutlass-dsl",
+      "from_extra": "",
+      "to": "nvidia-cutlass-dsl-libs-cu12",
+      "requirement": "nvidia-cutlass-dsl-libs-cu12==4.7.1"
+    },
+    {
+      "from": "quack-kernels",
+      "from_extra": "",
+      "to": "nvidia-cutlass-dsl",
+      "requirement": "nvidia-cutlass-dsl>=4.7"
+    },
+    {
+      "from": "quack-kernels",
+      "from_extra": "",
+      "to": "torch",
+      "requirement": "torch"
+    },
+    {
+      "from": "quack-kernels",
+      "from_extra": "",
+      "to": "apache-tvm-ffi",
+      "requirement": "apache-tvm-ffi<0.2,>=0.1.6"
+    },
+    {
+      "from": "quack-kernels",
+      "from_extra": "",
+      "to": "torch-c-dlpack-ext",
+      "requirement": "torch-c-dlpack-ext"
+    },
+    {
+      "from": "quack-kernels",
+      "from_extra": "",
+      "to": "einops",
+      "requirement": "einops"
+    },
+    {
+      "from": "tokenspeed-mla",
+      "from_extra": "",
+      "to": "apache-tvm-ffi",
+      "requirement": "apache-tvm-ffi<=0.1.11,>=0.1.5"
+    },
+    {
+      "from": "tokenspeed-mla",
+      "from_extra": "",
+      "to": "nvidia-cutlass-dsl",
+      "requirement": "nvidia-cutlass-dsl"
+    },
+    {
+      "from": "tokenspeed-mla",
+      "from_extra": "",
+      "to": "tokenspeed-triton",
+      "requirement": "tokenspeed-triton>=3.7.10.post20260531"
+    },
+    {
+      "from": "tokenspeed-mla",
+      "from_extra": "",
+      "to": "torch",
+      "requirement": "torch"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "",
+      "to": "torch",
+      "requirement": "torch>=2.7"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "",
+      "to": "triton",
+      "requirement": "triton"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "",
+      "to": "safetensors",
+      "requirement": "safetensors"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "",
+      "to": "jinja2",
+      "requirement": "jinja2"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "",
+      "to": "nvidia-ml-py",
+      "requirement": "nvidia-ml-py"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "",
+      "to": "cuda-bindings",
+      "requirement": "cuda-bindings"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "",
+      "to": "tqdm",
+      "requirement": "tqdm"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "",
+      "to": "tabulate",
+      "requirement": "tabulate"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "torch",
+      "requirement": "torch>=2.7"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "triton",
+      "requirement": "triton"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "numpy",
+      "requirement": "numpy"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "safetensors",
+      "requirement": "safetensors"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "jinja2",
+      "requirement": "jinja2"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "nvidia-ml-py",
+      "requirement": "nvidia-ml-py"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "cuda-bindings",
+      "requirement": "cuda-bindings"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "tqdm",
+      "requirement": "tqdm"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "tabulate",
+      "requirement": "tabulate"
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "nvidia-cuda-runtime-cu12",
+      "requirement": "nvidia-cuda-runtime-cu12; extra == \"cu12\""
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "nvidia-cuda-cccl-cu12",
+      "requirement": "nvidia-cuda-cccl-cu12; extra == \"cu12\""
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "nvidia-cuda-nvcc-cu12",
+      "requirement": "nvidia-cuda-nvcc-cu12; extra == \"cu12\""
+    },
+    {
+      "from": "humming-kernels",
+      "from_extra": "cu12",
+      "to": "nvidia-cuda-nvrtc-cu12",
+      "requirement": "nvidia-cuda-nvrtc-cu12; extra == \"cu12\""
+    },
+    {
+      "from": "sympy",
+      "from_extra": "",
+      "to": "mpmath",
+      "requirement": "mpmath<1.4,>=1.1.0"
+    },
+    {
+      "from": "jinja2",
+      "from_extra": "",
+      "to": "markupsafe",
+      "requirement": "MarkupSafe>=2.0"
+    },
+    {
+      "from": "cuda-toolkit",
+      "from_extra": "cublas",
+      "to": "nvidia-cublas-cu12",
+      "requirement": "nvidia-cublas-cu12==12.9.1.4.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'cublas'"
+    },
+    {
+      "from": "cuda-toolkit",
+      "from_extra": "cudart",
+      "to": "nvidia-cuda-runtime-cu12",
+      "requirement": "nvidia-cuda-runtime-cu12==12.9.79.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'cudart'"
+    },
+    {
+      "from": "cuda-toolkit",
+      "from_extra": "cufft",
+      "to": "nvidia-cufft-cu12",
+      "requirement": "nvidia-cufft-cu12==11.4.1.4.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'cufft'"
+    },
+    {
+      "from": "cuda-toolkit",
+      "from_extra": "cufile",
+      "to": "nvidia-cufile-cu12",
+      "requirement": "nvidia-cufile-cu12==1.14.1.1.*; (sys_platform == 'linux') and extra == 'cufile'"
+    },
+    {
+      "from": "cuda-toolkit",
+      "from_extra": "cupti",
+      "to": "nvidia-cuda-cupti-cu12",
+      "requirement": "nvidia-cuda-cupti-cu12==12.9.79.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'cupti'"
+    },
+    {
+      "from": "cuda-toolkit",
+      "from_extra": "curand",
+      "to": "nvidia-curand-cu12",
+      "requirement": "nvidia-curand-cu12==10.3.10.19.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'curand'"
+    },
+    {
+      "from": "cuda-toolkit",
+      "from_extra": "cusolver",
+      "to": "nvidia-cusolver-cu12",
+      "requirement": "nvidia-cusolver-cu12==11.7.5.82.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'cusolver'"
+    },
+    {
+      "from": "cuda-toolkit",
+      "from_extra": "cusparse",
+      "to": "nvidia-cusparse-cu12",
+      "requirement": "nvidia-cusparse-cu12==12.5.10.65.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'cusparse'"
+    },
+    {
+      "from": "cuda-toolkit",
+      "from_extra": "nvjitlink",
+      "to": "nvidia-nvjitlink-cu12",
+      "requirement": "nvidia-nvjitlink-cu12==12.9.86.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'nvjitlink'"
+    },
+    {
+      "from": "cuda-toolkit",
+      "from_extra": "nvrtc",
+      "to": "nvidia-cuda-nvrtc-cu12",
+      "requirement": "nvidia-cuda-nvrtc-cu12==12.9.86.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'nvrtc'"
+    },
+    {
+      "from": "cuda-toolkit",
+      "from_extra": "nvtx",
+      "to": "nvidia-nvtx-cu12",
+      "requirement": "nvidia-nvtx-cu12==12.9.79.*; (sys_platform == 'win32' or sys_platform == 'linux') and extra == 'nvtx'"
+    },
+    {
+      "from": "cuda-bindings",
+      "from_extra": "",
+      "to": "cuda-pathfinder",
+      "requirement": "cuda-pathfinder~=1.1"
+    },
+    {
+      "from": "nvidia-cudnn-cu12",
+      "from_extra": "",
+      "to": "nvidia-cublas-cu12",
+      "requirement": "nvidia-cublas-cu12"
+    },
+    {
+      "from": "cuda-python",
+      "from_extra": "",
+      "to": "cuda-bindings",
+      "requirement": "cuda-bindings~=12.9.7"
+    },
+    {
+      "from": "cuda-tile",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions"
+    },
+    {
+      "from": "nccl4py",
+      "from_extra": "",
+      "to": "packaging",
+      "requirement": "packaging"
+    },
+    {
+      "from": "nccl4py",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy"
+    },
+    {
+      "from": "nccl4py",
+      "from_extra": "",
+      "to": "cuda-core",
+      "requirement": "cuda-core~=1.0"
+    },
+    {
+      "from": "nccl4py",
+      "from_extra": "",
+      "to": "cuda-pathfinder",
+      "requirement": "cuda-pathfinder<2.0.0,>=1.5.4"
+    },
+    {
+      "from": "typer",
+      "from_extra": "",
+      "to": "shellingham",
+      "requirement": "shellingham>=1.3.0"
+    },
+    {
+      "from": "typer",
+      "from_extra": "",
+      "to": "rich",
+      "requirement": "rich>=13.8.0"
+    },
+    {
+      "from": "typer",
+      "from_extra": "",
+      "to": "annotated-doc",
+      "requirement": "annotated-doc>=0.0.2"
+    },
+    {
+      "from": "httpx",
+      "from_extra": "",
+      "to": "anyio",
+      "requirement": "anyio"
+    },
+    {
+      "from": "httpx",
+      "from_extra": "",
+      "to": "certifi",
+      "requirement": "certifi"
+    },
+    {
+      "from": "httpx",
+      "from_extra": "",
+      "to": "httpcore",
+      "requirement": "httpcore==1.*"
+    },
+    {
+      "from": "httpx",
+      "from_extra": "",
+      "to": "idna",
+      "requirement": "idna"
+    },
+    {
+      "from": "typing-inspection",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.15.0"
+    },
+    {
+      "from": "fastapi-cli",
+      "from_extra": "",
+      "to": "typer",
+      "requirement": "typer>=0.16.0"
+    },
+    {
+      "from": "fastapi-cli",
+      "from_extra": "",
+      "to": "uvicorn",
+      "requirement": "uvicorn[standard]>=0.15.0"
+    },
+    {
+      "from": "fastapi-cli",
+      "from_extra": "",
+      "to": "rich-toolkit",
+      "requirement": "rich-toolkit>=0.14.8"
+    },
+    {
+      "from": "fastapi-cli",
+      "from_extra": "standard",
+      "to": "typer",
+      "requirement": "typer>=0.16.0"
+    },
+    {
+      "from": "fastapi-cli",
+      "from_extra": "standard",
+      "to": "uvicorn",
+      "requirement": "uvicorn[standard]>=0.15.0"
+    },
+    {
+      "from": "fastapi-cli",
+      "from_extra": "standard",
+      "to": "rich-toolkit",
+      "requirement": "rich-toolkit>=0.14.8"
+    },
+    {
+      "from": "fastapi-cli",
+      "from_extra": "standard",
+      "to": "uvicorn",
+      "requirement": "uvicorn[standard]>=0.15.0; extra == \"standard\""
+    },
+    {
+      "from": "fastapi-cli",
+      "from_extra": "standard",
+      "to": "fastapi-cloud-cli",
+      "requirement": "fastapi-cloud-cli>=0.1.1; extra == \"standard\""
+    },
+    {
+      "from": "email-validator",
+      "from_extra": "",
+      "to": "dnspython",
+      "requirement": "dnspython>=2.0.0"
+    },
+    {
+      "from": "email-validator",
+      "from_extra": "",
+      "to": "idna",
+      "requirement": "idna>=2.0.0"
+    },
+    {
+      "from": "uvicorn",
+      "from_extra": "",
+      "to": "click",
+      "requirement": "click>=7.0"
+    },
+    {
+      "from": "uvicorn",
+      "from_extra": "",
+      "to": "h11",
+      "requirement": "h11>=0.8"
+    },
+    {
+      "from": "uvicorn",
+      "from_extra": "standard",
+      "to": "click",
+      "requirement": "click>=7.0"
+    },
+    {
+      "from": "uvicorn",
+      "from_extra": "standard",
+      "to": "h11",
+      "requirement": "h11>=0.8"
+    },
+    {
+      "from": "uvicorn",
+      "from_extra": "standard",
+      "to": "httptools",
+      "requirement": "httptools>=0.8.0; extra == 'standard'"
+    },
+    {
+      "from": "uvicorn",
+      "from_extra": "standard",
+      "to": "python-dotenv",
+      "requirement": "python-dotenv>=0.13; extra == 'standard'"
+    },
+    {
+      "from": "uvicorn",
+      "from_extra": "standard",
+      "to": "pyyaml",
+      "requirement": "pyyaml>=5.1; extra == 'standard'"
+    },
+    {
+      "from": "uvicorn",
+      "from_extra": "standard",
+      "to": "uvloop",
+      "requirement": "uvloop>=0.15.1; (sys_platform != 'win32' and (sys_platform != 'cygwin' and platform_python_implementation != 'PyPy')) and extra == 'standard'"
+    },
+    {
+      "from": "uvicorn",
+      "from_extra": "standard",
+      "to": "watchfiles",
+      "requirement": "watchfiles>=0.20; extra == 'standard'"
+    },
+    {
+      "from": "uvicorn",
+      "from_extra": "standard",
+      "to": "websockets",
+      "requirement": "websockets>=13.0; extra == 'standard'"
+    },
+    {
+      "from": "pydantic-settings",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic>=2.7.0"
+    },
+    {
+      "from": "pydantic-settings",
+      "from_extra": "",
+      "to": "python-dotenv",
+      "requirement": "python-dotenv>=0.21.0"
+    },
+    {
+      "from": "pydantic-settings",
+      "from_extra": "",
+      "to": "typing-inspection",
+      "requirement": "typing-inspection>=0.4.0"
+    },
+    {
+      "from": "pydantic-extra-types",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic>=2.5.2"
+    },
+    {
+      "from": "pydantic-extra-types",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions"
+    },
+    {
+      "from": "anyio",
+      "from_extra": "",
+      "to": "idna",
+      "requirement": "idna>=2.8"
+    },
+    {
+      "from": "anyio",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing_extensions>=4.16.0; python_version < \"3.15\""
+    },
+    {
+      "from": "aiosignal",
+      "from_extra": "",
+      "to": "frozenlist",
+      "requirement": "frozenlist>=1.1.0"
+    },
+    {
+      "from": "aiosignal",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.2; python_version < \"3.13\""
+    },
+    {
+      "from": "yarl",
+      "from_extra": "",
+      "to": "idna",
+      "requirement": "idna>=2.0"
+    },
+    {
+      "from": "yarl",
+      "from_extra": "",
+      "to": "multidict",
+      "requirement": "multidict>=4.0"
+    },
+    {
+      "from": "yarl",
+      "from_extra": "",
+      "to": "propcache",
+      "requirement": "propcache>=0.2.1"
+    },
+    {
+      "from": "httpx2",
+      "from_extra": "",
+      "to": "anyio",
+      "requirement": "anyio>=4.10; sys_platform != 'emscripten'"
+    },
+    {
+      "from": "httpx2",
+      "from_extra": "",
+      "to": "httpcore2",
+      "requirement": "httpcore2==2.13.1; sys_platform != 'emscripten'"
+    },
+    {
+      "from": "httpx2",
+      "from_extra": "",
+      "to": "idna",
+      "requirement": "idna>=3.18"
+    },
+    {
+      "from": "httpx2",
+      "from_extra": "",
+      "to": "truststore",
+      "requirement": "truststore>=0.10; sys_platform != 'emscripten'"
+    },
+    {
+      "from": "httpx2",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.5.0; python_version < '3.13'"
+    },
+    {
+      "from": "pydantic-core",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.14.1"
+    },
+    {
+      "from": "jsonschema-specifications",
+      "from_extra": "",
+      "to": "referencing",
+      "requirement": "referencing>=0.31.0"
+    },
+    {
+      "from": "referencing",
+      "from_extra": "",
+      "to": "attrs",
+      "requirement": "attrs>=22.2.0"
+    },
+    {
+      "from": "referencing",
+      "from_extra": "",
+      "to": "rpds-py",
+      "requirement": "rpds-py>=0.7.0"
+    },
+    {
+      "from": "referencing",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.4.0; python_version < '3.13'"
+    },
+    {
+      "from": "pydantic-extra-types",
+      "from_extra": "pycountry",
+      "to": "pydantic",
+      "requirement": "pydantic>=2.5.2"
+    },
+    {
+      "from": "pydantic-extra-types",
+      "from_extra": "pycountry",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions"
+    },
+    {
+      "from": "pydantic-extra-types",
+      "from_extra": "pycountry",
+      "to": "pycountry",
+      "requirement": "pycountry>=23; extra == 'pycountry'"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "opencv",
+      "to": "pydantic",
+      "requirement": "pydantic<3.0,>=2.7; python_version <= \"3.13\""
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "opencv",
+      "to": "jsonschema",
+      "requirement": "jsonschema>=4.21.1"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "opencv",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.11.0"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "opencv",
+      "to": "tiktoken",
+      "requirement": "tiktoken>=0.7.0; python_version <= \"3.13\""
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "opencv",
+      "to": "pillow",
+      "requirement": "pillow>=10.3.0"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "opencv",
+      "to": "requests",
+      "requirement": "requests>=2.0.0"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "opencv",
+      "to": "numpy",
+      "requirement": "numpy<2.4,>=1.25; python_version <= \"3.12\""
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "opencv",
+      "to": "pydantic-extra-types",
+      "requirement": "pydantic-extra-types[pycountry]>=2.10.5"
+    },
+    {
+      "from": "mistral-common",
+      "from_extra": "opencv",
+      "to": "opencv-python-headless",
+      "requirement": "opencv-python-headless>=4.0.0; extra == \"opencv\""
+    },
+    {
+      "from": "mcp-types",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic>=2.12.0"
+    },
+    {
+      "from": "mcp-types",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.13.0"
+    },
+    {
+      "from": "pyjwt",
+      "from_extra": "crypto",
+      "to": "cryptography",
+      "requirement": "cryptography>=3.4.0; extra == \"crypto\""
+    },
+    {
+      "from": "sse-starlette",
+      "from_extra": "",
+      "to": "starlette",
+      "requirement": "starlette>=0.49.1"
+    },
+    {
+      "from": "sse-starlette",
+      "from_extra": "",
+      "to": "anyio",
+      "requirement": "anyio>=4.7.0"
+    },
+    {
+      "from": "opentelemetry-semantic-conventions",
+      "from_extra": "",
+      "to": "opentelemetry-api",
+      "requirement": "opentelemetry-api==1.45.0"
+    },
+    {
+      "from": "opentelemetry-semantic-conventions",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.5.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-grpc",
+      "from_extra": "",
+      "to": "googleapis-common-protos",
+      "requirement": "googleapis-common-protos~=1.57"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-grpc",
+      "from_extra": "",
+      "to": "grpcio",
+      "requirement": "grpcio<2.0.0,>=1.63.2; python_version < '3.13'"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-grpc",
+      "from_extra": "",
+      "to": "opentelemetry-api",
+      "requirement": "opentelemetry-api~=1.15"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-grpc",
+      "from_extra": "",
+      "to": "opentelemetry-exporter-otlp-common",
+      "requirement": "opentelemetry-exporter-otlp-common==0.66b0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-grpc",
+      "from_extra": "",
+      "to": "opentelemetry-exporter-otlp-proto-common",
+      "requirement": "opentelemetry-exporter-otlp-proto-common==1.45.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-grpc",
+      "from_extra": "",
+      "to": "opentelemetry-proto",
+      "requirement": "opentelemetry-proto==1.45.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-grpc",
+      "from_extra": "",
+      "to": "opentelemetry-sdk",
+      "requirement": "opentelemetry-sdk~=1.45.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-grpc",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.6.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "from_extra": "",
+      "to": "googleapis-common-protos",
+      "requirement": "googleapis-common-protos~=1.52"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "from_extra": "",
+      "to": "opentelemetry-api",
+      "requirement": "opentelemetry-api~=1.15"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "from_extra": "",
+      "to": "opentelemetry-exporter-http-transport",
+      "requirement": "opentelemetry-exporter-http-transport[urllib3]==0.66b0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "from_extra": "",
+      "to": "opentelemetry-exporter-otlp-common",
+      "requirement": "opentelemetry-exporter-otlp-common==0.66b0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "from_extra": "",
+      "to": "opentelemetry-exporter-otlp-proto-common",
+      "requirement": "opentelemetry-exporter-otlp-proto-common==1.45.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "from_extra": "",
+      "to": "opentelemetry-proto",
+      "requirement": "opentelemetry-proto==1.45.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "from_extra": "",
+      "to": "opentelemetry-sdk",
+      "requirement": "opentelemetry-sdk~=1.45.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.5.0"
+    },
+    {
+      "from": "torch-c-dlpack-ext",
+      "from_extra": "",
+      "to": "torch",
+      "requirement": "torch"
+    },
+    {
+      "from": "ml-dtypes",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy>=2.0.0"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-base",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-base",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.10.0"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-base",
+      "from_extra": "",
+      "to": "cuda-python",
+      "requirement": "cuda-python>=12.8"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-base",
+      "from_extra": "",
+      "to": "protobuf",
+      "requirement": "protobuf>=4.21.12"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-base",
+      "from_extra": "",
+      "to": "nvidia-cuda-nvdisasm",
+      "requirement": "nvidia-cuda-nvdisasm<14,>=13.3"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-base",
+      "from_extra": "",
+      "to": "nvidia-cutlass-dsl-libs-core",
+      "requirement": "nvidia-cutlass-dsl-libs-core==4.7.1"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-cu12",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-cu12",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.10.0"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-cu12",
+      "from_extra": "",
+      "to": "cuda-python",
+      "requirement": "cuda-python>=12.8"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-cu12",
+      "from_extra": "",
+      "to": "protobuf",
+      "requirement": "protobuf>=4.21.12"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-cu12",
+      "from_extra": "",
+      "to": "nvidia-cuda-nvdisasm",
+      "requirement": "nvidia-cuda-nvdisasm<14,>=13.3"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-cu12",
+      "from_extra": "",
+      "to": "nvidia-cutlass-dsl-libs-base",
+      "requirement": "nvidia-cutlass-dsl-libs-base==4.7.1"
+    },
+    {
+      "from": "nvidia-cufft-cu12",
+      "from_extra": "",
+      "to": "nvidia-nvjitlink-cu12",
+      "requirement": "nvidia-nvjitlink-cu12"
+    },
+    {
+      "from": "nvidia-cusolver-cu12",
+      "from_extra": "",
+      "to": "nvidia-cublas-cu12",
+      "requirement": "nvidia-cublas-cu12"
+    },
+    {
+      "from": "nvidia-cusolver-cu12",
+      "from_extra": "",
+      "to": "nvidia-nvjitlink-cu12",
+      "requirement": "nvidia-nvjitlink-cu12"
+    },
+    {
+      "from": "nvidia-cusolver-cu12",
+      "from_extra": "",
+      "to": "nvidia-cusparse-cu12",
+      "requirement": "nvidia-cusparse-cu12"
+    },
+    {
+      "from": "nvidia-cusparse-cu12",
+      "from_extra": "",
+      "to": "nvidia-nvjitlink-cu12",
+      "requirement": "nvidia-nvjitlink-cu12"
+    },
+    {
+      "from": "cuda-core",
+      "from_extra": "",
+      "to": "cuda-pathfinder",
+      "requirement": "cuda-pathfinder>=1.4.2"
+    },
+    {
+      "from": "cuda-core",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy"
+    },
+    {
+      "from": "rich",
+      "from_extra": "",
+      "to": "markdown-it-py",
+      "requirement": "markdown-it-py (>=2.2.0)"
+    },
+    {
+      "from": "rich",
+      "from_extra": "",
+      "to": "pygments",
+      "requirement": "pygments (>=2.13.0,<3.0.0)"
+    },
+    {
+      "from": "httpcore",
+      "from_extra": "",
+      "to": "certifi",
+      "requirement": "certifi"
+    },
+    {
+      "from": "httpcore",
+      "from_extra": "",
+      "to": "h11",
+      "requirement": "h11>=0.16"
+    },
+    {
+      "from": "rich-toolkit",
+      "from_extra": "",
+      "to": "click",
+      "requirement": "click>=8.1.7"
+    },
+    {
+      "from": "rich-toolkit",
+      "from_extra": "",
+      "to": "rich",
+      "requirement": "rich>=13.7.1"
+    },
+    {
+      "from": "rich-toolkit",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.12.2"
+    },
+    {
+      "from": "fastapi-cloud-cli",
+      "from_extra": "",
+      "to": "typer",
+      "requirement": "typer>=0.26.1"
+    },
+    {
+      "from": "fastapi-cloud-cli",
+      "from_extra": "",
+      "to": "uvicorn",
+      "requirement": "uvicorn[standard]>=0.17.6"
+    },
+    {
+      "from": "fastapi-cloud-cli",
+      "from_extra": "",
+      "to": "rignore",
+      "requirement": "rignore>=0.5.1"
+    },
+    {
+      "from": "fastapi-cloud-cli",
+      "from_extra": "",
+      "to": "httpx",
+      "requirement": "httpx>=0.27.0"
+    },
+    {
+      "from": "fastapi-cloud-cli",
+      "from_extra": "",
+      "to": "rich-toolkit",
+      "requirement": "rich-toolkit>=0.20.5"
+    },
+    {
+      "from": "fastapi-cloud-cli",
+      "from_extra": "",
+      "to": "pydantic",
+      "requirement": "pydantic[email]>=2.7.4; python_version < \"3.13\""
+    },
+    {
+      "from": "fastapi-cloud-cli",
+      "from_extra": "",
+      "to": "sentry-sdk",
+      "requirement": "sentry-sdk>=2.20.0"
+    },
+    {
+      "from": "fastapi-cloud-cli",
+      "from_extra": "",
+      "to": "fastar",
+      "requirement": "fastar>=0.10.0"
+    },
+    {
+      "from": "fastapi-cloud-cli",
+      "from_extra": "",
+      "to": "detect-installer",
+      "requirement": "detect-installer>=0.1.0"
+    },
+    {
+      "from": "fastapi-cloud-cli",
+      "from_extra": "",
+      "to": "agent-detector",
+      "requirement": "agent-detector>=1.1.0"
+    },
+    {
+      "from": "httpcore2",
+      "from_extra": "",
+      "to": "h11",
+      "requirement": "h11>=0.16"
+    },
+    {
+      "from": "httpcore2",
+      "from_extra": "",
+      "to": "truststore",
+      "requirement": "truststore>=0.10"
+    },
+    {
+      "from": "cryptography",
+      "from_extra": "",
+      "to": "cffi",
+      "requirement": "cffi>=2.0.0 ; platform_python_implementation != 'PyPy'"
+    },
+    {
+      "from": "googleapis-common-protos",
+      "from_extra": "",
+      "to": "protobuf",
+      "requirement": "protobuf<8.0.0,>=6.33.5"
+    },
+    {
+      "from": "grpcio",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions~=4.12"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-common",
+      "from_extra": "",
+      "to": "opentelemetry-sdk",
+      "requirement": "opentelemetry-sdk~=1.45.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-common",
+      "from_extra": "",
+      "to": "opentelemetry-proto",
+      "requirement": "opentelemetry-proto==1.45.0"
+    },
+    {
+      "from": "opentelemetry-proto",
+      "from_extra": "",
+      "to": "protobuf",
+      "requirement": "protobuf<8.0,>=5.0"
+    },
+    {
+      "from": "opentelemetry-exporter-http-transport",
+      "from_extra": "",
+      "to": "opentelemetry-api",
+      "requirement": "opentelemetry-api~=1.15"
+    },
+    {
+      "from": "opentelemetry-exporter-http-transport",
+      "from_extra": "urllib3",
+      "to": "opentelemetry-api",
+      "requirement": "opentelemetry-api~=1.15"
+    },
+    {
+      "from": "opentelemetry-exporter-http-transport",
+      "from_extra": "urllib3",
+      "to": "urllib3",
+      "requirement": "urllib3>=1.26; extra == 'urllib3'"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-core",
+      "from_extra": "",
+      "to": "numpy",
+      "requirement": "numpy"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-core",
+      "from_extra": "",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.10.0"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-core",
+      "from_extra": "",
+      "to": "cuda-python",
+      "requirement": "cuda-python>=12.8"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-core",
+      "from_extra": "",
+      "to": "protobuf",
+      "requirement": "protobuf>=4.21.12"
+    },
+    {
+      "from": "nvidia-cutlass-dsl-libs-core",
+      "from_extra": "",
+      "to": "nvidia-cuda-nvdisasm",
+      "requirement": "nvidia-cuda-nvdisasm<14,>=13.3"
+    },
+    {
+      "from": "markdown-it-py",
+      "from_extra": "",
+      "to": "mdurl",
+      "requirement": "mdurl~=0.1"
+    },
+    {
+      "from": "pydantic",
+      "from_extra": "email",
+      "to": "annotated-types",
+      "requirement": "annotated-types>=0.6.0"
+    },
+    {
+      "from": "pydantic",
+      "from_extra": "email",
+      "to": "pydantic-core",
+      "requirement": "pydantic-core==2.46.5"
+    },
+    {
+      "from": "pydantic",
+      "from_extra": "email",
+      "to": "typing-extensions",
+      "requirement": "typing-extensions>=4.14.1"
+    },
+    {
+      "from": "pydantic",
+      "from_extra": "email",
+      "to": "typing-inspection",
+      "requirement": "typing-inspection>=0.4.2"
+    },
+    {
+      "from": "pydantic",
+      "from_extra": "email",
+      "to": "email-validator",
+      "requirement": "email-validator>=2.0.0; extra == 'email'"
+    },
+    {
+      "from": "sentry-sdk",
+      "from_extra": "",
+      "to": "urllib3",
+      "requirement": "urllib3>=1.26.11"
+    },
+    {
+      "from": "sentry-sdk",
+      "from_extra": "",
+      "to": "certifi",
+      "requirement": "certifi"
+    },
+    {
+      "from": "cffi",
+      "from_extra": "",
+      "to": "pycparser",
+      "requirement": "pycparser; implementation_name != \"PyPy\""
+    }
+  ],
+  "nvdisasm": {
+    "reachable": true,
+    "via": "nvidia-cutlass-dsl -> nvidia-cutlass-dsl-libs-base -> nvidia-cuda-nvdisasm>=13.3,<14",
+    "version": "13.4.92",
+    "cuda13_direct_elf_dependencies": 0,
+    "warning": "Retained as a metadata dependency; fresh Kaggle isolated staging requires acceptance."
+  }
+}

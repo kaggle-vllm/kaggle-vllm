@@ -1,3 +1,15 @@
+# Four-L4 tensor parallelism
+
+The L4 v0.3.0 profile requires exactly four visible NVIDIA L4 devices reporting compute capability 8.9 (SM89). `KaggleLLM` defaults to tensor parallel size 4. `kaggle-vllm verify-gpus --profile kaggle-l4x4-cu129` checks the exact topology. P31 NCCL world_size=4 passed, and Gemma 4 31B QAT loaded and generated meaningful chat output at TP=4.
+
+Compatibility defaults are `enforce_eager=True` and `disable_custom_all_reduce=True`. They record a validated starting point, not a throughput optimum. Upstream vLLM still controls inference and model-specific attention backend selection. The validated Gemma backend was `TRITON_ATTN`.
+
+---
+
+## Preserved historical v0.2 documentation
+
+The section below is retained verbatim from the v0.2 repository state for historical users. Commands and defaults above describe the v0.3 candidate.
+
 # Multi-GPU, tensor parallelism and NCCL
 
 Runtime tensor parallelism partitions upstream vLLM execution across a TP

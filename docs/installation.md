@@ -1,3 +1,29 @@
+# Offline installation on the exact Kaggle L4x4 profile
+
+For a fresh retest of the rebuilt SDK wheel, attach the **small** v0.3.0 acceptance Dataset; the four already-uploaded corrected `runtime-core-v2`, `runtime-large-v2`, `torch-cu129-v2`, and `wheelhouse-audit-v2` Datasets; the saved P31 final Notebook Output; and the Kaggle-provided Gemma QAT Input Model. Use a new CPython 3.12/four-L4/SM89 session with Internet off. The P33 lean lock selects 168 dependency wheels from the corrected split-v2 Inputs; build dependency wheels are excluded. No 6.6 GB archive upload is required.
+
+Use the [fresh acceptance instructions](fresh-kaggle-v030-acceptance.md) or the [output-free notebook](../kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb). After installing the small SDK wheel offline, the implemented CLI supports:
+
+```bash
+kaggle-vllm bootstrap --profile kaggle-l4x4-cu129 --offline --runtime-source /kaggle/input/datasets/waqasm86 --runtime-root /tmp/kaggle-vllm/v0.3.0/l4x4 --native-wheel /exact/mounted/P31/wheel --strict --json
+eval "$(kaggle-vllm env --profile kaggle-l4x4-cu129)"
+kaggle-vllm doctor --profile kaggle-l4x4-cu129 --strict --json --import-native
+```
+
+The bootstrap's `--native-wheel` path may be omitted if one exact P31 Notebook Output source is discoverable. `--runtime-core-root`, `--runtime-large-root`, `--torch-cu129-root`, `--wheelhouse-audit-root`, and `--build-deps-root` allow explicit corrected component views. Split-v2 discovery is preferred when corrected inputs coexist with a runtime-v3 archive. `--dry-run` does not create staging files or install packages.
+
+Bootstrap verifies the corrected audit metadata, native P31 wheel, and every selected dependency wheel, then installs exact local paths with `--target --no-deps --no-index --no-cache-dir` under `/tmp/kaggle-vllm/v0.3.0/l4x4/`. In a notebook Python kernel, call `from kaggle_vllm import activate_runtime; activate_runtime()` before importing Torch or vLLM. It never calls the Kaggle API or Internet indexes and does not compile vLLM.
+
+The archival `kaggle-vllm-v030-l4x4-runtime-v3.tar.gz` contains a broader 195-wheel dependency closure. The exact successful inference selection is the 168-dependency-wheel P33 lock plus the native wheel. Use the corrected split-v2 Inputs for final SDK acceptance. The corrected runtime uses TorchCodec `0.16.0+cu129`.
+
+The PyPI SDK is small and pure Python. Native and CUDA binaries remain external. Public binary redistribution is blocked by the [third-party license review](../release/v0.3.0-redistribution-review.md); nothing is published by this candidate work.
+
+---
+
+## Preserved historical v0.2 documentation
+
+The section below is retained verbatim from the v0.2 repository state for historical users. Commands and defaults above describe the v0.3 candidate.
+
 # Installation, bootstrap, and recovery
 
 ## Three SDK installation paths

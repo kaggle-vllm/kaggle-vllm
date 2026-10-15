@@ -1,3 +1,17 @@
+# Documentation for kaggle-vllm 0.3.0
+
+The new v0.3 runtime targets a clean Kaggle four-NVIDIA-L4 / SM89, CPython-3.12 session; the historical T4 profile remains available. Start with the [L4 candidate](kaggle-v0.3.0-l4x4.md), [profile boundary](v0.2-to-v0.3-profile-boundary.md), [storage](runtime-storage.md), [Gemma example](gemma4.md), [installation](installation.md), [compatibility](compatibility.md), [architecture](architecture.md), [native runtime](native-runtime.md), [doctor](doctor.md), [multi-GPU](multi-gpu.md), [troubleshooting](troubleshooting.md), [release status](release.md), and [fresh Kaggle acceptance](next-kaggle-acceptance.md).
+
+The repository also retains research records and v0.2.0 documents. Those describe the historical two-Tesla-T4/cu128 release and do not extend v0.3.0's supported profile.
+
+For the new, output-free corrected split-v2 acceptance, see the [L4x4 notebook](../kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb), [fresh input guide](fresh-kaggle-v030-acceptance.md), [P31 output reuse](p31-notebook-output-reuse.md), and [Gemma workload reproducibility](gemma4-competition-reproducibility.md). The [real-model FA2 test](optional-fa2-model-acceptance.md) is deferred to a later permitted L4 environment. The core SDK remains an offline inference/runtime wrapper for compatible local models on the exact L4x4 profile.
+
+---
+
+## Preserved historical v0.2 documentation
+
+The section below is retained verbatim from the v0.2 repository state for historical users. Commands and defaults above describe the v0.3 candidate.
+
 # Documentation
 
 The root [README](../README.md) is the concise entry point. These documents keep

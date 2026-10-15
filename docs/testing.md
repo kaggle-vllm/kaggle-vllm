@@ -1,5 +1,7 @@
 # Testing and acceptance
 
+For the v0.3.0 local candidate, run `python3.11 -m pytest -q`, `python3.11 -m build --no-isolation`, and `python3.11 -m twine check` with the two exact 0.3.0 distribution paths. Python 3.11 tests mock the cp312/GPU boundaries. They do not import or rebuild the CUDA wheel. The [final L4 SDK notebook](../kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb) is a separate fresh CPython 3.12/four-L4 gate. Its evidence status is `FRESH_KAGGLE_PENDING` until run; local tests never imply a GPU pass.
+
 ## CPU SDK CI
 
 GitHub CI tests the lightweight SDK on Python 3.10, 3.11, 3.12 and 3.13. It

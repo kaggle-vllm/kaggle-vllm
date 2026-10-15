@@ -1,0 +1,54 @@
+{
+  "schema_version": 3,
+  "excluded": [
+    {
+      "distribution": "build",
+      "filename": "build-1.6.1-py3-none-any.whl",
+      "group": "build-deps",
+      "reason": "not reachable from runtime roots under CPython 3.12/Linux x86_64 markers and requested extras"
+    },
+    {
+      "distribution": "cmake",
+      "filename": "cmake-4.4.4-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "group": "build-deps",
+      "reason": "not reachable from runtime roots under CPython 3.12/Linux x86_64 markers and requested extras"
+    },
+    {
+      "distribution": "pyproject-hooks",
+      "filename": "pyproject_hooks-1.3.3-py3-none-any.whl",
+      "group": "runtime-core",
+      "reason": "not reachable from runtime roots under CPython 3.12/Linux x86_64 markers and requested extras"
+    },
+    {
+      "distribution": "semantic-version",
+      "filename": "semantic_version-2.10.0-py2.py3-none-any.whl",
+      "group": "runtime-core",
+      "reason": "not reachable from runtime roots under CPython 3.12/Linux x86_64 markers and requested extras"
+    },
+    {
+      "distribution": "setuptools-rust",
+      "filename": "setuptools_rust-1.13.0-py3-none-any.whl",
+      "group": "build-deps",
+      "reason": "not reachable from runtime roots under CPython 3.12/Linux x86_64 markers and requested extras"
+    },
+    {
+      "distribution": "setuptools-scm",
+      "filename": "setuptools_scm-10.3.4-py3-none-any.whl",
+      "group": "build-deps",
+      "reason": "not reachable from runtime roots under CPython 3.12/Linux x86_64 markers and requested extras"
+    },
+    {
+      "distribution": "vcs-versioning",
+      "filename": "vcs_versioning-2.5.0-py3-none-any.whl",
+      "group": "runtime-core",
+      "reason": "not reachable from runtime roots under CPython 3.12/Linux x86_64 markers and requested extras"
+    },
+    {
+      "distribution": "wheel",
+      "filename": "wheel-0.48.0-py3-none-any.whl",
+      "group": "build-deps",
+      "reason": "not reachable from runtime roots under CPython 3.12/Linux x86_64 markers and requested extras"
+    }
+  ],
+  "nvdisasm_disposition": "included because reachable"
+}

@@ -32,6 +32,8 @@ huggingface-cache/
 kaggle-vllm-recovery-*/
 vllm-0.18.1/
 .deps/
+kaggle-vllm-v030-runtime-staging/
+runtime-v3-staging/
 *.log
 !artifacts/kaggle-2026-08-23/*.log
 !artifacts/kaggle-2026-09-01-milestone-1/*.log

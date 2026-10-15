@@ -1,0 +1,22 @@
+{
+  "status": "PREPARATION_ONLY_NO_UPLOAD",
+  "repository": "waqasm86/kaggle-vllm-binaries",
+  "namespace": "v0.3.0/l4x4/",
+  "immutable_revision": null,
+  "native": {
+    "source": "../release-native-v030-l4x4/vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+    "proposed_path": "v0.3.0/l4x4/native/vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+    "size": 293855397,
+    "sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8"
+  },
+  "inference_lock": "v0.3.0/l4x4/metadata/L4_INFERENCE_LOCK.json",
+  "wheelhouse_prefix": "v0.3.0/l4x4/wheelhouse/",
+  "dependency_wheel_count": 168,
+  "redistribution_decisions": "v0.3.0-redistribution-decisions.json",
+  "publication_blockers": [
+    "fresh exact SDK wheel acceptance on Kaggle",
+    "third-party redistribution decisions",
+    "immutable Hugging Face revision pin after upload"
+  ],
+  "historical_preservation": "Keep all existing T4 release files in place; do not touch waqasm86/kaggle-vllm-models."
+}

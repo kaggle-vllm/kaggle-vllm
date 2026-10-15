@@ -1,0 +1,7 @@
+# Future real-model FA2 acceptance outside the Gemma competition
+
+The current Gemma 4 Developer Agent Competition L4 notebooks must use the supported Gemma QAT model for agent/subagent work, and L4 access is competition-restricted with Internet off according to [Kaggle's overview](https://www.kaggle.com/competitions/gemma-4-developer-agent/overview). The fresh 0.3.0 competition acceptance notebook therefore runs **no Qwen or unrelated model**. It only verifies that the built-in vLLM FA2 native extension is packaged and importable. `FA2_MODEL_RUNTIME_PASS` stays false.
+
+For a later **permitted** L4/SM89 environment, [Qwen/Qwen2.5-1.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct) remains a possible small test candidate: its [configuration](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/blob/main/config.json) declares `Qwen2ForCausalLM` with 12 attention heads, and [vLLM 0.30 documentation](https://docs.vllm.ai/en/v0.30.0/models/supported_models/) lists that architecture. These facts do not guarantee FA2 selection. The separate, non-executed `scripts/fresh_kaggle_fa2_model_v030.py` helper is retained for future adaptation only; it is excluded from the competition acceptance package and runner.
+
+A real-model FA2 claim requires meaningful generation plus saved vLLM logs proving model-specific built-in FA2 backend selection. Never globally force `VLLM_ATTENTION_BACKEND=FLASH_ATTN` to manufacture a pass. P31 Gemma used `TRITON_ATTN`.

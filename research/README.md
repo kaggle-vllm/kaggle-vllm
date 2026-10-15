@@ -4,6 +4,15 @@ This directory turns the immutable kaggle-vllm 0.2.0 and upstream vLLM 0.18.1
 runtime baseline into a reproducible research workflow. It does not define a
 new package release.
 
+## Published paper
+
+*Characterizing Tensor-Parallel Crossover in vLLM Serving on Dual NVIDIA
+Tesla T4 GPUs* (Mohammad Waqas, 2026): [paper landing page](paper/README.md),
+[repository PDF](paper/kaggle-vllm-research-paper.pdf),
+[Zenodo record](https://zenodo.org/records/23119478),
+[DOI](https://doi.org/10.5281/zenodo.23119478), and
+[engineering companion](https://waqasm86.github.io/posts/characterizing-tensor-parallel-crossover-vllm-dual-t4/).
+
 ## Milestone state
 
 | Milestone | State | Evidence boundary |
@@ -90,12 +99,13 @@ Machine-readable control files:
 
 No generated number should enter a paper table manually. The scripts in
 `analysis/` read committed machine-readable evidence and emit figures/tables.
-The M4 runner and local assembler are prepared. Five models entered the frozen
+The M4 runner and local assembler preserve the reviewed terminal evidence.
+Five models entered the frozen
 compatibility population. Qwen, clean-rerun Phi, clean Llama 3.2, and text-only
 Ministral passed. The final hash-verified p13 Gemma ZIP and source-equivalent
 executed notebook establish the canonical, narrowly scoped
 `UNSUPPORTED_DTYPE_INTERSECTION_ON_SM75_FROZEN_STACK`. Five repetitions of all
-three Phi and Llama workloads and four repetitions of all three Ministral
+three Phi and Llama workloads and five repetitions of all three Ministral
 workloads are preserved. The
 Qwen prefill-heavy r00, r01, and r02 attempts are reviewed terminal resource results.
 Qwen short and balanced r02 are canonical from a separate V11 physical session,
@@ -108,9 +118,9 @@ workloads are canonical from V16. Qwen balanced and short r04 are canonical
 from V17, while Qwen prefill-heavy r04 completes the five planned repetitions
 as the fifth independent terminal resource result. All three Phi r04 workloads
 are canonical from V18, and all three Llama r04 workloads are canonical from
-the distinct corrected V20 execution. The
-remaining principal matrix and M5 independent
-validation are not complete. The principal study population is
+the distinct corrected V20 execution. The final Ministral r04 execution
+closed the principal matrix; M5 independent validation remains incomplete
+and optional. The principal study population is
 the four compatibility-passing models; Gemma remains a negative compatibility
 result with N/A throughput, not throughput zero. The earlier Phi
 notebook-drift candidate remains rejected

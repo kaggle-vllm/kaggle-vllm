@@ -1,5 +1,21 @@
 # Troubleshooting
 
+- **Python ABI mismatch:** The SDK can be developed under Python 3.11, but its native vLLM wheel is cp312. Use a Kaggle CPython 3.12 session for bootstrap and inference.
+- **Wrong GPU topology:** Strict mode requires exactly four NVIDIA L4/SM89 devices. A T4, A100, P100, or smaller L4 allocation is outside v0.3.0.
+- **Runtime input not found:** Attach corrected split-v2 Dataset Inputs and pass `--runtime-source /kaggle/input/datasets/waqasm86`, or use deterministic discovery with `--offline`. `--runtime-root` chooses the expanded scratch destination.
+- **FlashInfer JIT `-lcuda` failure:** Run bootstrap and inspect `kaggle-vllm doctor --json`; it creates an SDK-owned linker alias to the live driver and records an optional g++ probe.
+- **TorchCodec requests `libnvrtc.so.13`:** That symptom belonged to the old TorchCodec 0.17.0 attempt. Use corrected runtime-v3 with `0.16.0+cu129`.
+- **Gemma emits newline-like output:** Raw prompts did that in P31 Step 17. Use `llm.chat()` or render the chat template with `AutoProcessor`. P31 Step 20 semantic chat passed.
+- **FA2 extension imports but Gemma uses Triton:** Expected. Extension availability and model backend selection are separate checks.
+
+---
+
+## Preserved historical v0.2 documentation
+
+The section below is retained verbatim from the v0.2 repository state for historical users. Commands and defaults above describe the v0.3 candidate.
+
+# Troubleshooting
+
 ## CMake cannot create `CUDA::cuda_driver`
 
 If the CUDA toolkit is found but the imported driver target is absent on

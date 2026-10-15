@@ -24,6 +24,23 @@ def all_sm75(gpus: tuple[GPUInfo, ...] | list[GPUInfo]) -> bool:
     return bool(gpus) and all(gpu.is_sm75 for gpu in gpus)
 
 
+def all_nvidia_l4(gpus: tuple[GPUInfo, ...] | list[GPUInfo]) -> bool:
+    return bool(gpus) and all(gpu.is_nvidia_l4 for gpu in gpus)
+
+
+def all_sm89(gpus: tuple[GPUInfo, ...] | list[GPUInfo]) -> bool:
+    return bool(gpus) and all(gpu.is_sm89 for gpu in gpus)
+
+
+def validate_l4x4_profile(environment: Environment | None = None) -> None:
+    """Reject every topology except four exact NVIDIA L4 / SM89 devices."""
+    snapshot = environment or collect()
+    if not getattr(snapshot, "cuda_available", True) or snapshot.gpu_count != 4 or not all_nvidia_l4(snapshot.gpus) or not all_sm89(snapshot.gpus):
+        raise RuntimeValidationError(
+            "kaggle-vllm 0.3.0 requires exactly 4 NVIDIA L4 GPUs at SM89"
+        )
+
+
 def validate_tensor_parallel_size(
     tensor_parallel_size: int,
     gpu_count: int | None = None,

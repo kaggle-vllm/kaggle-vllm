@@ -1,0 +1,9 @@
+include LICENSE README.md CHANGELOG.md
+recursive-exclude docs *
+include docs/compatibility.md docs/architecture.md docs/installation.md docs/native-runtime.md docs/doctor.md docs/multi-gpu.md docs/troubleshooting.md docs/release.md docs/next-kaggle-acceptance.md
+include docs/kaggle-v0.3.0-l4x4.md docs/gemma4.md docs/runtime-storage.md docs/v0.2-to-v0.3-profile-boundary.md
+recursive-exclude release *
+include release/github-v0.3.0.md release/reproducibility-v0.3.0.md
+include scripts/build_runtime_v3.py
+recursive-exclude tests *
+recursive-include src/kaggle_vllm/profiles *.json *.txt
