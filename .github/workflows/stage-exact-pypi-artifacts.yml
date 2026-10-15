@@ -7,8 +7,20 @@ permissions:
   contents: read
 
 jobs:
-  stage:
+  preflight:
     if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      published: ${{ steps.state.outputs.published }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Reuse exact published PyPI distributions
+        id: state
+        run: python scripts/release_state.py pypi
+
+  stage:
+    needs: preflight
+    if: needs.preflight.outputs.published != 'true'
     runs-on: ubuntu-latest
     permissions:
       # Draft releases are visible only to principals with push access.
@@ -26,7 +38,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          git merge-base --is-ancestor 55618f9a4fd137bc9cf21d1ff843473d6bbc0c87 HEAD
           # The release-by-tag endpoint returns 404 for drafts. List releases
           # with the repository token, then select exactly this draft tag.
           gh api --paginate "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
@@ -46,10 +57,7 @@ jobs:
           test "$staged_source_sha" = "$GITHUB_SHA"
           mkdir -p dist
           gh release download sdk-v0.3.1-stage --dir dist --pattern 'kaggle_vllm-0.3.1*'
-          test "$(find dist -maxdepth 1 -type f | wc -l)" -eq 2
-          printf '%s  %s\n' \
-            'a14a0be361ea0ab876aa939743ad7259ac012b8c9410cc668899da00b875c27b' 'dist/kaggle_vllm-0.3.1-py3-none-any.whl' \
-            '6d5fbb5d515a7a01d6e2c39e71ecccd8e3099a2184525f87da7924150dbb58a3' 'dist/kaggle_vllm-0.3.1.tar.gz' | sha256sum --check --strict
+          python scripts/release_state.py verify-dir dist
       - uses: actions/attest@v4
         with:
           subject-path: dist/*
