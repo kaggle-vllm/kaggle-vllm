@@ -20,12 +20,16 @@ LOCK = Path(__file__).resolve().parents[1] / "release" / "sdk-exact-artifacts.js
 
 def load_lock(path: Path = LOCK) -> dict:
     data = json.loads(path.read_text())
-    assert data["project"] and data["version"]
+    if not data.get("project") or not data.get("version"):
+        raise ValueError("missing SDK project or version in release lock")
     files = data["files"]
-    assert len(files) == 2 and len({item["filename"] for item in files}) == 2
+    if len(files) != 2 or len({item["filename"] for item in files}) != 2:
+        raise ValueError("release lock requires two distinct distributions")
     for item in files:
-        assert Path(item["filename"]).name == item["filename"]
-        assert item["size"] > 0 and len(item["sha256"]) == 64
+        if Path(item["filename"]).name != item["filename"]:
+            raise ValueError("release lock filenames must be basenames")
+        if item["size"] <= 0 or len(item["sha256"]) != 64 or any(c not in "0123456789abcdef" for c in item["sha256"]):
+            raise ValueError("invalid release lock size or SHA256")
     return data
 
 
@@ -55,8 +59,8 @@ def pypi_state(lock: dict) -> str:
 
 def verify_dir(root: Path, lock: dict) -> None:
     expected = {item["filename"]: item for item in lock["files"]}
-    actual = {p.name for p in root.iterdir() if p.is_file() and not p.is_symlink()}
-    if actual != set(expected):
+    actual = {p.name for p in root.iterdir()}
+    if actual != set(expected) or any(not p.is_file() or p.is_symlink() for p in root.iterdir()):
         raise ValueError(f"distribution filename set mismatch: {sorted(actual)}")
     for name, item in expected.items():
         path = root / name
