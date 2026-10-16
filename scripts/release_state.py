@@ -22,6 +22,7 @@ NATIVE_LOCK = Path(__file__).resolve().parents[1] / "src" / "kaggle_vllm" / "pro
 GITHUB_RELEASE = "https://api.github.com/repos/kaggle-vllm/kaggle-vllm/releases/tags/v0.3.1"
 HF_REPOSITORY = "waqasm86/kaggle-vllm-binaries"
 HF_NATIVE_PATH = "v0.3.0/l4x4/native/vllm-0.30.0-cp312-cp312-linux_x86_64.whl"
+GITHUB_CHECKSUMS = (299, "a6e770c2cb27791037d109870d9734bf121edc8f78223a0ac34a8fd265601d4d")
 
 
 def load_lock(path: Path = LOCK) -> dict:
@@ -84,8 +85,9 @@ def classify_github(data: dict, lock: dict, native: dict) -> str:
         raise ValueError("GitHub v0.3.1 is not a published release")
     expected = {item["filename"]: (item["size"], item["sha256"]) for item in lock["files"]}
     expected[native["filename"]] = (native["size"], native["sha256"])
+    expected["SHA256SUMS.txt"] = GITHUB_CHECKSUMS
     actual = {item["name"]: (item["size"], str(item.get("digest", "")).removeprefix("sha256:")) for item in data.get("assets", [])}
-    if len(data.get("assets", [])) != len(actual) or set(actual) != set(expected) | {"SHA256SUMS.txt"}:
+    if len(data.get("assets", [])) != len(actual) or set(actual) != set(expected):
         raise ValueError("GitHub release asset set differs from the exact published release")
     for name, identity in expected.items():
         if actual[name] != identity:
