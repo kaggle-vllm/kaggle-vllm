@@ -1,7 +1,7 @@
 {
   "created_utc": "2026-10-16T21:42:42.830095+00:00",
   "backup_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-032-python-local-scripts/backups/v032-20261016-213418",
-  "backup_manifest_sha256": "2516e9aa1c6548dd3842212fbf69f7e69288ef2a5b8fdc653797a3b62db559ae",
+  "backup_manifest_sha256": "bb3ba6f39fa4e333473b134028323228b81a8381c2f43805f1112bc349554f90",
   "main_archive_sha256": "029a02cd1fb80816336672a69097356b5eab5b9311c6a52e24acb80a7295db8f",
   "release_archive_sha256": "87485ddf71152cf61c386aefe099145c199a2aa007e673438d19ce65f28d1a5a",
   "archive_validation": "ZIP testzip and entry inventory passed",
@@ -26,5 +26,19 @@
     "note": "Its two-line correction was applied to permanent main; original worktree left untouched."
   },
   "release_original_untracked_file": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-032-python-local-scripts/backups/v032-20261016-213418/release-original-21-local-repair-notebook-paths.txt",
-  "release_original_untracked_sha256": "88b209cf0c3334c052c882856977a66879f6af4df01ea5c3da656acc08e52f0c"
+  "release_original_untracked_sha256": "88b209cf0c3334c052c882856977a66879f6af4df01ea5c3da656acc08e52f0c",
+  "older_worktrees_archived": {
+    "pr29-orphan-directory.tar.gz": {
+      "size": 8751172,
+      "sha256": "dd95787a3b1cbbf3af3c1eabdea41e4e3971b3dee2f40f5f12f93ce68f0be181"
+    },
+    "v031-sdk-worktree.tar.gz": {
+      "size": 10576628,
+      "sha256": "bcab9301f213003ca8c63f72a0ccdb12f4e5c79a8e8ce607872ed7ceb91de603"
+    },
+    "v020-baseline-worktree.tar.gz": {
+      "size": 10071377,
+      "sha256": "9c7e06b818582dfe6e1ad38e967f717e310c321a0b45408905c4cc0008cbcafd"
+    }
+  }
 }
