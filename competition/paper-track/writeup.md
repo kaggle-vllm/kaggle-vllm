@@ -10,7 +10,7 @@ An offline coding agent must turn inference capacity into correct repository pat
 
 **Question:** On a fixed four-L4 allocation and 12-hour aggregate evaluation budget, how much of any change in code-repair success is explained by TP4 inference and initialization latency, compared with agent workflow choices such as code search, editing, and verification?
 
-Tensor parallelism partitions model computation and storage across devices [1]. vLLM provides the serving engine and memory management [2]. Issue-level patch evaluation, as in SWE-bench [3], measures a different outcome from tokens per second. The organizer's [Gemma 4 Developer Agent harness][4] applies submitted patches and runs validation tests; its submission ZIP is declarative ADK configuration, not a replacement inference server. Our earlier public SDK documentation and separate unpublished dual-T4 manuscript analyze runtime compatibility and TP crossover on smaller models. They are prior work, not evidence of Gemma 4 agent improvement. This study changes the hardware, model, outcome, and experimental unit to issue-level patch success.
+Tensor parallelism partitions model computation and storage across devices [1]. vLLM provides the serving engine and memory management [2]. Issue-level patch evaluation, as in SWE-bench [3], measures a different outcome from tokens per second. The organizer's [Gemma 4 Developer Agent harness][4] applies submitted patches and runs validation tests; its submission ZIP is declarative ADK configuration, not a replacement inference server. Our earlier public SDK documentation, engineering article, and **published Zenodo dual-T4 crossover paper** [6] analyze runtime compatibility and TP performance on smaller models. They are prior work, not evidence of Gemma 4 agent improvement. This study changes the hardware, model, outcome, and experimental unit to issue-level patch success; it must add new Gemma 4 issue-level evidence rather than reuse the earlier paper's result as its contribution.
 
 ## System and reproducibility
 
@@ -38,7 +38,7 @@ The primary agent is a single ADK `LlmAgent` using permitted repository, graph-s
 
 ## Limitations and integrity
 
-Four L4 GPUs share a single constrained Kaggle environment, so results will not establish behavior on other interconnects or accelerators. Eager execution and a 2,048-token local context limit differ from the organizer scorer's 32,768-token server configuration. GPU utilization polling can miss short peaks. A single semantic prompt tests neither patch quality nor general throughput. Existing 0.3.0 acceptance cannot substitute for 0.3.1 integration. We will disclose unsuccessful runs, allocation failures, and any task excluded before evaluation. The earlier dual-T4 paper has overlapping SDK and benchmarking methods; this paper must present newly executed Gemma 4 issue-level data and analysis to remain an original unpublished contribution.
+Four L4 GPUs share a single constrained Kaggle environment, so results will not establish behavior on other interconnects or accelerators. Eager execution and a 2,048-token local context limit differ from the organizer scorer's 32,768-token server configuration. GPU utilization polling can miss short peaks. A single semantic prompt tests neither patch quality nor general throughput. Existing 0.3.0 acceptance cannot substitute for 0.3.1 integration. We will disclose unsuccessful runs, allocation failures, and any task excluded before evaluation. The previously **published** dual-T4 paper [6] has overlapping SDK, provenance, and benchmarking methods; its numerical results cannot be presented as new findings here. This paper is not submission-ready without newly executed Gemma 4 agent-task data and analysis.
 
 ## References
 
@@ -47,5 +47,6 @@ Four L4 GPUs share a single constrained Kaggle environment, so results will not 
 3. Jimenez et al., [SWE-bench: Can Language Models Resolve Real-World GitHub Issues?](https://arxiv.org/abs/2310.06770), 2023.
 4. Google DeepMind and Kaggle, [Gemma 4 Developer Agent Competition overview](https://www.kaggle.com/competitions/gemma-4-developer-agent/overview), 2026.
 5. Google DeepMind and Kaggle, [Gemma 4 Developer Agent Paper Track submission requirements](https://www.kaggle.com/competitions/gemma-4-developer-agent-paper/overview/submission-requirements), 2026.
+6. Waqas, [Characterizing Tensor-Parallel Crossover in vLLM Serving on Dual NVIDIA Tesla T4 GPUs](https://doi.org/10.5281/zenodo.23119478), Zenodo, 2026. Published prior work by the same author.
 
 [4]: https://www.kaggle.com/competitions/gemma-4-developer-agent/overview

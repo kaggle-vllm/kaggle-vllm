@@ -72,6 +72,9 @@ def preflight(model: Path, output: Path, sdk_wheel: Path, *, new_save: bool) -> 
         raise RuntimeError('output must be under /kaggle/working')
     if not (model / 'config.json').is_file():
         raise RuntimeError('source model config missing')
+    card = model / 'README.md'
+    if not card.is_file() or not re.search(r'^license:\s*apache-2\.0\s*$', card.read_text(encoding='utf-8'), re.MULTILINE | re.IGNORECASE):
+        raise RuntimeError('source model card must declare Apache-2.0 before checkpoint export')
     if sdk_wheel.name != 'kaggle_vllm-0.3.1-py3-none-any.whl' or sha256(sdk_wheel) != SDK_SHA:
         raise RuntimeError('SDK wheel identity differs from the published 0.3.1 artifact')
     if any(path.is_symlink() for path in model.rglob('*')):
@@ -86,14 +89,15 @@ def preflight(model: Path, output: Path, sdk_wheel: Path, *, new_save: bool) -> 
     gpus = gpu_snapshot()
     if any(row['used_mib'] != 0 for row in gpus):
         raise RuntimeError(f'requires an idle four-L4 session before model loading: {gpus}')
-    source_bytes = sum(p.stat().st_size for p in model.rglob('*') if p.is_file() and p.suffix in ('.safetensors', '.bin', '.pt'))
+    source_weights = sorted(p for p in model.rglob('*') if p.is_file() and p.suffix in ('.safetensors', '.bin', '.pt'))
+    source_bytes = sum(p.stat().st_size for p in source_weights)
     if source_bytes == 0:
         raise RuntimeError('no local source model weight files found')
     free = shutil.disk_usage('/kaggle/working').free
     required = max(24 * 1024**3, int(source_bytes * 1.3))
     if new_save and free < required:
         raise RuntimeError(f'insufficient working disk: {free} free, {required} required')
-    return {'python': sys.version.split()[0], 'torch': torch.__version__, 'cuda': torch.version.cuda, 'vllm': vllm.__version__, 'sdk': kaggle_vllm.__version__, 'sdk_origin': str(Path(kaggle_vllm.__file__).resolve()), 'sdk_wheel_sha256': SDK_SHA, 'gpus': gpus, 'source_weight_bytes': source_bytes, 'working_free_bytes': free, 'required_bytes': required}
+    return {'python': sys.version.split()[0], 'torch': torch.__version__, 'cuda': torch.version.cuda, 'vllm': vllm.__version__, 'sdk': kaggle_vllm.__version__, 'sdk_origin': str(Path(kaggle_vllm.__file__).resolve()), 'sdk_wheel_sha256': SDK_SHA, 'gpus': gpus, 'source_model_license': 'apache-2.0', 'source_model_config_sha256': sha256(model / 'config.json'), 'source_model_weights': [{'path': str(p.relative_to(model)), 'bytes': p.stat().st_size, 'sha256': sha256(p)} for p in source_weights], 'source_weight_bytes': source_bytes, 'working_free_bytes': free, 'required_bytes': required}
 
 
 def copy_metadata(source: Path, target: Path) -> list[str]:
@@ -288,7 +292,7 @@ def main() -> None:
         run_child(Path(__file__).resolve(), 'save', model, staging, staging / 'SAVE.log')
         metadata = copy_metadata(model, staging)
         layout = inspect_shards(staging)
-        manifest = {'schema_version': 1, 'status': 'SAVED_NOT_YET_READBACK', 'base_model': 'google/gemma-4-31B-it-qat-w4a16-ct', 'source_input': str(model), 'sdk_wheel_sha256': SDK_SHA, 'native_wheel_sha256': NATIVE_SHA, 'vllm_version': '0.30.0', 'tensor_parallel_size': 4, 'gpu_arch': 'SM89', 'metadata_files': metadata, 'metadata_sha256': {name: sha256(staging / name) for name in metadata}, 'source_license_notice_present': any(Path(x).name.upper() in ('LICENSE', 'NOTICE') for x in metadata), **layout}
+        manifest = {'schema_version': 1, 'status': 'SAVED_NOT_YET_READBACK', 'base_model': 'google/gemma-4-31B-it-qat-w4a16-ct', 'source_input': str(model), 'source_model_license': info['source_model_license'], 'source_model_config_sha256': info['source_model_config_sha256'], 'source_model_weights': info['source_model_weights'], 'sdk_wheel_sha256': SDK_SHA, 'native_wheel_sha256': NATIVE_SHA, 'vllm_version': '0.30.0', 'tensor_parallel_size': 4, 'gpu_arch': 'SM89', 'metadata_files': metadata, 'metadata_sha256': {name: sha256(staging / name) for name in metadata}, **layout}
         (staging / 'SHARDED_STATE_MANIFEST.json').write_text(json.dumps(manifest, indent=2) + '\n')
         (staging / 'SHARDED_STATE_SHA256SUMS.txt').write_text(''.join(f'{x["sha256"]}  {x["path"]}\n' for x in layout['shards']))
         staging.rename(output)

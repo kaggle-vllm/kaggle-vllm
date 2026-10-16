@@ -56,7 +56,8 @@ def test_public_binary_checks_reuse_exact_assets_and_reject_collisions():
         {"name": item["filename"], "size": item["size"],
          "digest": "sha256:" + item["sha256"]}
         for item in [*lock["files"], native]
-    ] + [{"name": "SHA256SUMS.txt", "size": 1, "digest": "sha256:" + "0" * 64}]
+    ] + [{"name": "SHA256SUMS.txt", "size": release_state.GITHUB_CHECKSUMS[0],
+           "digest": "sha256:" + release_state.GITHUB_CHECKSUMS[1]}]
     release = {"draft": False, "tag_name": "v0.3.1", "assets": assets}
     assert release_state.classify_github(release, lock, native) == "GITHUB_RELEASE_COMPLETE"
     bad_assets = [dict(item) for item in assets]
