@@ -20,3 +20,5 @@ After adding publisher-source delivery, `PYTHONPATH=src python3.11 -m pytest -q`
 ## Rebuilt source candidate
 
 `python3.11 -m compileall -q src tests scripts` passed. Two Python 3.11 `build --no-isolation` runs with `SOURCE_DATE_EPOCH=1792152973` produced byte-identical wheels and normalized sdists. Twine passed both. The candidate wheel is `bfed3b92bdc56771f4501e3ccb3bc183abd8cf6498633d9fa5ce7e7f173c12e9`; the candidate sdist is `dbb3262738c2fae24282b5ce5d6cd5f3796a67c7c8a9d919c8f9e38739454523`. The pure Python wheel contains the locked 168-source map and no native wheel; its profile deliberately has no immutable Hub revision. These checksums must change after final Hub pinning.
+
+A separate read-only remote check obtained HTTP 200 and expected Content-Length for all 168 publisher URLs. No Kaggle notebook or GPU runtime was launched.

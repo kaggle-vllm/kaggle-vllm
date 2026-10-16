@@ -1,0 +1,111 @@
+{
+  "native_wheel": "vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+  "wheel_sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+  "embedded_license_files": [
+    "vllm/third_party/flash_linear_attention/LICENSE",
+    "vllm/vllm_flash_attn/cute/LICENSE",
+    "vllm-0.30.0.dist-info/licenses/LICENSE"
+  ],
+  "compiled_objects": [
+    {
+      "path": "vllm/_C_stable_libtorch.abi3.so",
+      "uncompressed_size": 128656920,
+      "compressed_size": 49348001,
+      "needed_shared_libraries": [
+        "libtorch.so",
+        "libcudart.so.12",
+        "libcuda.so.1",
+        "libtorch_cpu.so",
+        "libtorch_cuda.so",
+        "libstdc++.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    {
+      "path": "vllm/_moe_C_stable_libtorch.abi3.so",
+      "uncompressed_size": 135289040,
+      "compressed_size": 52003352,
+      "needed_shared_libraries": [
+        "libtorch.so",
+        "libcudart.so.12",
+        "libtorch_cpu.so",
+        "libtorch_cuda.so",
+        "libstdc++.so.6",
+        "libm.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6"
+      ]
+    },
+    {
+      "path": "vllm/cumem_allocator.abi3.so",
+      "uncompressed_size": 27312,
+      "compressed_size": 8333,
+      "needed_shared_libraries": [
+        "libcuda.so.1",
+        "libtorch_cpu.so",
+        "libtorch_cuda.so",
+        "libtorch.so",
+        "libstdc++.so.6",
+        "libc.so.6"
+      ]
+    },
+    {
+      "path": "vllm/fs_io_C.abi3.so",
+      "uncompressed_size": 27464,
+      "compressed_size": 8213,
+      "needed_shared_libraries": [
+        "libtorch_cpu.so",
+        "libtorch_cuda.so",
+        "libtorch.so",
+        "libstdc++.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6"
+      ]
+    },
+    {
+      "path": "vllm/spinloop.abi3.so",
+      "uncompressed_size": 16760,
+      "compressed_size": 3555,
+      "needed_shared_libraries": [
+        "libtorch_cpu.so",
+        "libtorch_cuda.so",
+        "libtorch.so",
+        "libc.so.6"
+      ]
+    },
+    {
+      "path": "vllm/vllm_flash_attn/_vllm_fa2_C.abi3.so",
+      "uncompressed_size": 413482624,
+      "compressed_size": 171174501,
+      "needed_shared_libraries": [
+        "libtorch.so",
+        "libcudart.so.12",
+        "libtorch_cpu.so",
+        "libtorch_cuda.so",
+        "libstdc++.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6"
+      ]
+    },
+    {
+      "path": "vllm/vllm_flash_attn/_vllm_fa3_C.abi3.so",
+      "uncompressed_size": 39514336,
+      "compressed_size": 6090380,
+      "needed_shared_libraries": [
+        "libtorch.so",
+        "libcudart.so.12",
+        "libcuda.so.1",
+        "libtorch_cpu.so",
+        "libtorch_cuda.so",
+        "libstdc++.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    }
+  ],
+  "compiled_object_count": 7,
+  "assessment": "inventory only; redistribution clearance not granted"
+}

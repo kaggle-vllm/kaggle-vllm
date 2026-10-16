@@ -4,4 +4,8 @@ A local SDK wheel, sdist, SHA256SUMS and release-note draft exist. The native wh
 
 ## PR #39 follow-up
 
-Rechecked on 2026-10-16: draft PR #39 is OPEN, cleanly mergeable, head `8f49cf662c3cb9c5494d2090aed12f745992b7cd`, base `05f2b2983a4965ab0f450d4b9490bf9f3c041b55`. There are zero reviews, zero review threads, zero review comments and zero issue comments. Its three CPU/package CI jobs passed for the prior head. The local publisher-source changes are not covered by those prior CI results until pushed. GitHub v0.3.2 release is absent. Do not merge or publish while the native rights, immutable runtime pin and final distribution checks are unresolved.
+Rechecked on 2026-10-16: draft PR #39 is OPEN, cleanly mergeable, head `8f49cf662c3cb9c5494d2090aed12f745992b7cd`, base `05f2b2983a4965ab0f450d4b9490bf9f3c041b55`. There are zero reviews, zero review threads, zero review comments and zero issue comments. Its three CPU/package CI jobs passed for the prior head. The publisher-source changes were subsequently pushed and covered by the CI result recorded below. GitHub v0.3.2 release is absent. Do not merge or publish while the native rights, immutable runtime pin and final distribution checks are unresolved.
+
+## PR update after publisher-source push
+
+The existing draft PR #39 now points to head `c1259865726a2ba7edee39e1b82b5677597380eb` against base `05f2b2983a4965ab0f450d4b9490bf9f3c041b55`; GitHub reports it cleanly mergeable. Its Python 3.11 CPU SDK, Python 3.12 CPU SDK and quality/package checks all passed at that head. No review approval exists. GitHub v0.3.2 release and tag remain absent. The PR body was updated with the publisher-source architecture and blockers.
