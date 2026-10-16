@@ -1,0 +1,2 @@
+# Manual Kaggle notebooks
+Both files exist in the permanent checkout: `kaggle-notebooks/kaggle-vllm-v020-t4x2-public-acceptance.ipynb` and `kaggle-notebooks/kaggle-vllm-v032-l4x4-public-acceptance.ipynb`. Notebook JSON and code syntax were covered by the existing test suite. The 0.3.2 notebook includes public PyPI installation, exact runtime/bootstrap validation, four L4 checks, TP4 inference and bounded evidence output. Notebook execution is reserved for the user after publication. GPU acceptance remains NOT RUN.

@@ -28,7 +28,7 @@ eval "$(kaggle-vllm env --profile kaggle-l4x4-cu129)"
 kaggle-vllm doctor --profile kaggle-l4x4-cu129 --strict --json
 ```
 
-The exact native wheel is present at the historical `v0.3.0/l4x4/native/` path on Hugging Face, but the complete 168-wheel dependency closure is not public. The SDK refuses automatic public-runtime downloads until an approved complete closure and immutable Hugging Face revision are recorded in the L4 profile. Existing offline Kaggle Inputs remain a separate path. No mutable `main` revision is trusted.
+The exact native wheel is present at the historical `v0.3.0/l4x4/native/` path on Hugging Face. The 168 locked dependency wheels are available from their original publishers; they are not mirrored to the Hub. The SDK refuses automatic public-runtime downloads until the versioned native wheel and metadata are available, verified, and pinned to an immutable Hugging Face revision in the L4 profile. Existing offline Kaggle Inputs remain a separate path. No mutable `main` revision is trusted.
 
 ```python
 from kaggle_vllm import KaggleLLM, KaggleSamplingParams, activate_runtime, discover_gemma4_qat

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-10-16T21:42:42.830095+00:00",
+  "milestones": {
+    "SOURCE CONSOLIDATED": "PASS",
+    "LOCAL RELEASE CANDIDATE": "BLOCKED",
+    "PUBLICLY AVAILABLE \u2014 GPU ACCEPTANCE PENDING": "BLOCKED",
+    "GPU ACCEPTED": "NOT RUN",
+    "PRODUCTION READY": "BLOCKED"
+  },
+  "conditions": {
+    "git_history_integrated": "PASS",
+    "original_untracked_preserved": "PASS",
+    "release_untracked_copied": "PASS",
+    "main_synchronized_with_origin": "BLOCKED",
+    "temporary_worktree_removed": "BLOCKED",
+    "native_l4_checksum": "PASS",
+    "publisher_lock_local_168": "PASS",
+    "publisher_sample_downloads": "PASS",
+    "redistribution_clearance": "BLOCKED",
+    "huggingface_v032_publication": "BLOCKED",
+    "immutable_revision_pinned": "BLOCKED",
+    "final_sdk_build": "BLOCKED",
+    "local_cpu_tests": "PASS",
+    "pr39_merged": "BLOCKED",
+    "github_release_v032": "BLOCKED",
+    "pypi_release_v032": "BLOCKED",
+    "public_installation": "BLOCKED",
+    "manual_notebooks_present": "PASS",
+    "manual_four_l4_gpu_acceptance": "NOT RUN",
+    "single_permanent_git_working_directory": "BLOCKED"
+  },
+  "blockers": [
+    "Native compiled-component provenance and redistribution review is incomplete",
+    "Public Hub v0.3.2 runtime is absent; immutable revision is unset",
+    "PR merge, worktree removal and external publication require explicit authorization",
+    "Fresh manual Kaggle four-L4 acceptance has not occurred",
+    "Other linked worktrees remain; one v0.3.1 worktree is dirty and a PR29 record is prunable"
+  ]
+}

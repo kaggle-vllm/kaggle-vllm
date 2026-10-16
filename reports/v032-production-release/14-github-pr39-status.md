@@ -1,0 +1,2 @@
+# PR #39
+[PR #39](https://github.com/kaggle-vllm/kaggle-vllm/pull/39) is OPEN, DRAFT, MERGEABLE/CLEAN at `8a6899acd9d4327ca368be27ae7753a19e9a5fbc`. GitHub CLI reported successful Python 3.11 CPU, Python 3.12 CPU and quality/package checks; no reviews were recorded. The PR is intentionally incomplete while redistribution, Hub publication and immutable pin remain blocked. It was not marked ready or merged. A future fix requires branch update, new CI and approved merge.

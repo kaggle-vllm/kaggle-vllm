@@ -1,7 +1,7 @@
 ## 0.3.2 (release candidate; GPU acceptance pending)
 
 - Preserve the exact T4 0.2.0 historical wheel and pinned Hub revision and the L4 native wheel from the prior release.
-- Move the L4 SDK staging root to a 0.3.2 namespace, add a versioned Hugging Face target namespace, and keep public delivery blocked until all 168 locked wheels are published at an immutable revision.
+- Move the L4 SDK staging root to a 0.3.2 namespace and prepare a versioned Hugging Face native wheel and metadata namespace. The 168 locked dependency wheels are fetched from their original publishers with pinned sizes and SHA256 values. Public delivery remains blocked until the Hub namespace is verified and an immutable revision is pinned.
 - Add resumable checksum-verified downloads, complete remote inventory checks, bounded retries, cache and staging locks, and network preflight diagnostics.
 - Prepare output-free manual T4 and L4 public acceptance notebooks and release gate reports. No new GPU acceptance is claimed.
 

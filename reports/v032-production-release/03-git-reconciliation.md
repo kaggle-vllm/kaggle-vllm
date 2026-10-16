@@ -1,0 +1,5 @@
+# Git reconciliation
+After a verified external backup, `git fetch origin --prune` succeeded. `main` was an ancestor of `origin/main`; `origin/main` was an ancestor of `release/v0.3.2-l4x4-public-runtime`. The permanent checkout fast-forwarded first to `05f2b2983a4965ab0f450d4b9490bf9f3c041b55`, then to `8a6899acd9d4327ca368be27ae7753a19e9a5fbc`. No merge conflicts occurred. The original untracked `ai-agents-nv-notebooks/` remains in place and in the backup archive.
+At the source-integration point, local `main` was six commits ahead of `origin/main`. A subsequent local audit commit records the reconciliation; public `main` remains behind until approved PR merge. No push or PR merge was performed. The release worktree remains linked pending explicit removal approval. Its former untracked file was moved to the verified external backup after a corrected copy was placed in main; the release worktree is now clean.
+
+A separate v0.3.1 worktree held a two-line uncommitted acceptance correction. It was backed up and applied to permanent main after `git apply --check`; this was a clean patch application, not a merge conflict. The source worktree remains unchanged.

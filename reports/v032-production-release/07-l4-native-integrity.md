@@ -1,0 +1,2 @@
+# L4 native integrity
+Accepted file: `/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/release-native-v030-l4x4/vllm-0.30.0-cp312-cp312-linux_x86_64.whl`. Size: 293855397 bytes. SHA256: `9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8`. Both match the pinned profile and native lock. This is CPython 3.12 / vLLM 0.30.0 native runtime; it was not installed into Python 3.11. The prior compiled object inventory lists seven `.so` files. No native rebuild was performed.
