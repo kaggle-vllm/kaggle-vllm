@@ -3,6 +3,8 @@
   "native_source_commit": "ced6857afa0ea7b2e3f0846a62e1394e90f15607",
   "native_filename": "vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
   "native_sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+  "native_remote_path": "v0.3.0/l4x4/native/vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+  "native_distribution": "reuse existing immutable Hub object",
   "wheel_lock_sha256": "f162e6c212371a34ed49f11885e80222fb78359a2d9a92f02b3cd29db2ce5329",
   "qualification": "historical P33 candidate only",
   "new_sdk_acceptance": "NOT RUN"

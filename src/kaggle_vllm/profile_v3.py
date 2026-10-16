@@ -12,6 +12,7 @@ from .exceptions import ProfileError
 PROFILE_NAME = "kaggle-l4x4-cu129"
 WHEEL_SHA256 = "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8"
 WHEEL_FILENAME = "vllm-0.30.0-cp312-cp312-linux_x86_64.whl"
+NATIVE_HF_PATH = "v0.3.0/l4x4/native/" + WHEEL_FILENAME
 
 
 @dataclass(frozen=True)
@@ -58,6 +59,8 @@ def validate_profile(data: dict[str, Any]) -> L4Profile:
             raise ValueError("wrong public binary authority")
         if data["public_artifacts"].get("namespace") != "v0.3.2/l4x4/":
             raise ValueError("wrong public runtime namespace")
+        if data["public_artifacts"].get("native_remote_path") != NATIVE_HF_PATH:
+            raise ValueError("wrong immutable native wheel path")
         if data["public_artifacts"].get("wheelhouse_delivery") != "publisher-index":
             raise ValueError("wrong locked wheel delivery mode")
         if v["gemma4_tested_backend"] != "TRITON_ATTN":

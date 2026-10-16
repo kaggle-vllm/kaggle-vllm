@@ -14,11 +14,11 @@ eval "$(kaggle-vllm env --profile kaggle-l4x4-cu129)"
 kaggle-vllm doctor --profile kaggle-l4x4-cu129 --strict --json
 ```
 
-The native wheel and runtime metadata are to be distributed through the versioned `waqasm86/kaggle-vllm-binaries` namespace. The 168 exact dependency wheels are retrieved from their original PyPI, PyTorch CUDA 12.9, and FlashInfer publisher sources, with pinned size and SHA256 for every file. The immutable Hugging Face revision will be inserted only after its native/metadata namespace is publicly present and verified. The SDK refuses mutable revisions or incomplete manifests.
+The native wheel is referenced at its existing `v0.3.0/l4x4/native/` Hugging Face path; 0.3.2 metadata will be distributed in `v0.3.2/l4x4/` of the same repository. The 168 exact dependency wheels are retrieved from their original PyPI, PyTorch CUDA 12.9, and FlashInfer publisher sources, with pinned size and SHA256 for every file. The immutable Hugging Face revision will be inserted only after the metadata namespace and historical native object are publicly verified together. The SDK refuses mutable revisions or incomplete manifests.
 
 ## Status and limitations
 
-- Local Python 3.11 CPU suite: 426 passed, 1 skipped. The pure Python wheel and sdist built and passed Twine checks.
+- Local Python 3.11 CPU suite: 428 passed, 1 skipped. The pure Python wheel and sdist built and passed Twine checks.
 - Four L4 GPU acceptance for the exact 0.3.2 SDK: **NOT RUN**. Native import, TP4, Gemma 4 semantic generation and cleanup require the user's manual Kaggle notebook.
 - P31 historical Gemma 4 generation used `TRITON_ATTN`. A compiled FlashAttention 2 extension import does not prove Gemma 4 FA2 execution or optimized throughput.
 - Kaggle Internet must be enabled for PyPI, Hugging Face, PyTorch and FlashInfer downloads. DNS errors are network failures; the SDK does not bypass Kaggle restrictions.

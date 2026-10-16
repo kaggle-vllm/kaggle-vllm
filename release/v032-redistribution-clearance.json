@@ -7,5 +7,6 @@
   "reviewed_wheel_count": 0,
   "required_wheel_count": 168,
   "native_compiled_components": "BLOCKED",
-  "note": "Dependency wheels are fetched from original publishers with exact SHA256 and are not mirrored by this release. Native vLLM wheel copying and notices still need documented redistribution review. Keep BLOCKED until then; this file is a publication gate, not a legal opinion."
+  "native_distribution_mode": "reuse-existing-Hugging-Face-object-with-immutable-revision-and-SHA256",
+  "note": "Dependency wheels are fetched from original publishers with exact SHA256 and are not mirrored by this release. The revised plan makes no new native wheel copy, but original native compilation provenance and notices still need documented review. Keep BLOCKED until then; this file is a publication gate, not a legal opinion."
 }

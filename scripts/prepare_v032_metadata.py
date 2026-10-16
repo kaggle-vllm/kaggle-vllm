@@ -29,6 +29,10 @@ def main() -> None:
     REPORT.mkdir(parents=True, exist_ok=True)
     l4_lock_path = L4_PROFILE / "L4_INFERENCE_LOCK.json"
     l4_lock = json.loads(l4_lock_path.read_text())
+    l4_profile = json.loads((L4_PROFILE / "profile.json").read_text())
+    native_remote_path = l4_profile["public_artifacts"]["native_remote_path"]
+    if native_remote_path != "v0.3.0/l4x4/native/" + l4_lock["native"]["filename"]:
+        raise ValueError("native reference does not match the verified historical artifact")
     t4 = json.loads((T4_PROFILE / "profile.json").read_text())
     t4_manifest = {
         "schema_version": 1, "sdk_version": "0.2.0", "profile": t4["name"],
@@ -57,6 +61,7 @@ def main() -> None:
     write_json(meta / "provenance.json", {
         "native_source_tag": "v0.30.0", "native_source_commit": "ced6857afa0ea7b2e3f0846a62e1394e90f15607",
         "native_filename": l4_lock["native"]["filename"], "native_sha256": l4_lock["native"]["sha256"],
+        "native_remote_path": native_remote_path, "native_distribution": "reuse existing immutable Hub object",
         "wheel_lock_sha256": sha(l4_lock_path), "qualification": "historical P33 candidate only",
         "new_sdk_acceptance": "NOT RUN",
     })
@@ -65,15 +70,17 @@ def main() -> None:
         "wheel_sha256": t4["wheel"]["sha256"], "historical_revision": t4["wheel"]["hf_revision"],
         "historic_path_preserved": True,
     })
-    sums = [f"{l4_lock['native']['sha256']}  native/{l4_lock['native']['filename']}"]
+    sums = ["# Paths are relative to the Hugging Face repository root.",
+            f"{l4_lock['native']['sha256']}  {native_remote_path}"]
     # Wheels are fetched from their original publisher indexes with pinned SHA256;
     # they are not staged for a third-party public mirror.
-    sums += [f"{sha(meta / name)}  metadata/{name}" for name in
+    sums += [f"{sha(meta / name)}  v0.3.2/l4x4/metadata/{name}" for name in
              ("L4_INFERENCE_LOCK.json", "runtime-manifest.json", "TORCHCODEC_ELF_AUDIT.json", "UPSTREAM_WHEEL_SOURCES.json", "compatibility.json", "provenance.json")]
     (meta / "SHA256SUMS.txt").write_text("\n".join(sums) + "\n")
     (STAGING / "v0.2.0/metadata/SHA256SUMS.txt").write_text(
-        f"{t4['wheel']['sha256']}  native/{t4['wheel']['filename']}\n"
-        f"{sha(STAGING / 'v0.2.0/metadata/runtime-manifest.json')}  metadata/runtime-manifest.json\n"
+        "# Paths are relative to the Hugging Face repository root.\n"
+        f"{t4['wheel']['sha256']}  {t4['wheel']['filename']}\n"
+        f"{sha(STAGING / 'v0.2.0/metadata/runtime-manifest.json')}  v0.2.0/metadata/runtime-manifest.json\n"
     )
     releases = {
         "schema_version": 1, "repository": "waqasm86/kaggle-vllm-binaries",
@@ -89,6 +96,7 @@ def main() -> None:
             {"sdk_version": "0.3.2", "gpu_profile": "L4x4/SM89", "vllm": "0.30.0", "python_abi": "cp312",
              "cuda": "12.9", "torch": "2.13.0+cu129", "manifest_path": "v0.3.2/l4x4/metadata/runtime-manifest.json",
              "immutable_revision": None, "native_sha256": l4_lock["native"]["sha256"],
+             "native_remote_path": native_remote_path,
              "wheelhouse_delivery": "publisher-index", "publication_status": "PREPARING", "acceptance_status": "NOT RUN"},
         ],
     }
@@ -102,11 +110,12 @@ def main() -> None:
     (STAGING / "README.md").write_text(
         "# kaggle-vllm binary release namespaces\n\n"
         "Historical root paths and pinned commits remain valid. v0.2.0 is T4x2/cu128; "
-        "v0.3.2/l4x4 is the proposed cu129 native wheel and metadata namespace. "
+        "v0.3.2/l4x4 is the proposed cu129 metadata namespace; its exact native wheel "
+        "is already hosted at " + native_remote_path + ". "
         "Its 168 locked dependencies are fetched from the original PyPI, PyTorch and FlashInfer publishers "
         "using exact checksums; dependency wheels are not mirrored here. "
-        "The v0.3.2 namespace is not public or accepted until all sources, notices, "
-        "immutable revision and manual Kaggle evidence are verified.\n"
+        "The v0.3.2 metadata namespace is not public until its sources, notices and "
+        "immutable revision are verified. Manual Kaggle GPU acceptance remains pending.\n"
     )
     rows = []
     for record in l4_lock["wheels"]:

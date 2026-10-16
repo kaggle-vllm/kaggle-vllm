@@ -1,2 +1,3 @@
-5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c  native/vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl
-b509cb5b44980dfde944f46002a41c06097f6da9edecfe7f5c79e8ec03d65720  metadata/runtime-manifest.json
+# Paths are relative to the Hugging Face repository root.
+5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c  vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl
+b509cb5b44980dfde944f46002a41c06097f6da9edecfe7f5c79e8ec03d65720  v0.2.0/metadata/runtime-manifest.json

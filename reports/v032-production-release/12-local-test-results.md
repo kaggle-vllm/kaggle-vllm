@@ -1,4 +1,17 @@
-# Local Python 3.11 checks
+# Local Python 3.11 checks (historical and current)
+
+## Current source candidate
+
+- `PYTHONPATH=src python3.11 -m pytest -q`: **428 passed, 1 skipped** after the historical native reference and HTTPS redirect checks.
+- `python3.11 -m compileall -q src tests`: PASS.
+- `python3.11 -m pytest -q tests/test_public_release_v032.py`: **9 passed** after the last downloader change.
+- Two `SOURCE_DATE_EPOCH=1792152973 python3.11 -m build --no-isolation` builds produced byte-identical wheels and normalized sdists.
+- `python3.11 -m twine check dist/kaggle_vllm-0.3.2*`: PASS for both artifacts.
+- `sha256sum -c release/v032-SHA256SUMS.txt` from `dist/`: PASS. The manifest remains provisional because the immutable Hub revision is unset.
+- Wheel metadata contains version 0.3.2, the `kaggle-vllm = kaggle_vllm.cli_v3:main` console entry point, both profiles and the 168-wheel source map. It contains no cp312 native wheel.
+- Both acceptance notebooks passed JSON and Python syntax validation. Neither notebook nor any GPU runtime was executed.
+
+Earlier build hashes below are historical snapshots and do not identify the current `dist/` files.
 
 - `PYTHONPATH=src python3.11 -m pytest -q`: 425 passed, 1 skipped (final local CPU suite).
 - `python3.11 -m compileall -q src tests`: PASS.

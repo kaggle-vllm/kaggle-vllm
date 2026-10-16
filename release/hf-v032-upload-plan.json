@@ -3,26 +3,21 @@
   "repository": "waqasm86/kaggle-vllm-binaries",
   "base_revision": "8d7dd28f7c76c3b68e7326df81758411b7dc2680",
   "mode": "additive_only",
-  "requires_explicit_user_authorization": true,
+  "publication_authorization": "user-authorized-contingent-on-clearance-and-account-credentials",
   "requires_redistribution_clearance": true,
+  "native_reference": {
+    "path": "v0.3.0/l4x4/native/vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+    "revision": "8d7dd28f7c76c3b68e7326df81758411b7dc2680",
+    "sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+    "size": 293855397
+  },
+  "historical_t4_reference": {
+    "path": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+    "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c"
+  },
   "wheelhouse_delivery": "publisher-index; no dependency wheel uploads",
   "operations": [
-    {
-      "operation": "copy",
-      "source": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
-      "source_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
-      "target": "v0.2.0/native/vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
-      "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
-      "size": 383922260
-    },
-    {
-      "operation": "copy",
-      "source": "v0.3.0/l4x4/native/vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
-      "source_revision": "8d7dd28f7c76c3b68e7326df81758411b7dc2680",
-      "target": "v0.3.2/l4x4/native/vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
-      "sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
-      "size": 293855397
-    },
     {
       "operation": "add",
       "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/LICENSE",
@@ -41,22 +36,22 @@
       "operation": "add",
       "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/README.md",
       "target": "README.md",
-      "size": 486,
-      "sha256": "11680d17dfab3443d929402281cd29b1fa3cab98821682fb6e7395109e6a8902"
+      "size": 593,
+      "sha256": "cdfab11e1243c74b75aeb2381e2292a302ee14e4057b4a566d9e18356ebad883"
     },
     {
       "operation": "add",
       "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/releases.json",
       "target": "releases.json",
-      "size": 1593,
-      "sha256": "701d0e0282a4d0eed3aabed833e3f0523b4e2c47d570961cedd1f1a11dc40065"
+      "size": 1684,
+      "sha256": "c801858690f5442dd0a249191ca429faba1b22828899b76e20d1bfa86f2564b7"
     },
     {
       "operation": "add",
       "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.2.0/metadata/SHA256SUMS.txt",
       "target": "v0.2.0/metadata/SHA256SUMS.txt",
-      "size": 243,
-      "sha256": "501fe44828d496063631c7dfc72bd7da1d419590330aed8fd75ddc7df6fc9e76"
+      "size": 301,
+      "sha256": "4dd83a9560622c40b07abe6967042ccf71ed739553931b3e56361a474ec5abab"
     },
     {
       "operation": "add",
@@ -83,8 +78,8 @@
       "operation": "add",
       "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.3.2/l4x4/metadata/SHA256SUMS.txt",
       "target": "v0.3.2/l4x4/metadata/SHA256SUMS.txt",
-      "size": 698,
-      "sha256": "773706a04fe569b04ef0faf0ce02d87273b6e5dcf4e8fa19ba3935eeef91d377"
+      "size": 840,
+      "sha256": "0c9358160443921d38ba2810bddd58f0314c2406ad8a03681e9fbd71a2d25ad9"
     },
     {
       "operation": "add",
@@ -111,8 +106,8 @@
       "operation": "add",
       "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.3.2/l4x4/metadata/provenance.json",
       "target": "v0.3.2/l4x4/metadata/provenance.json",
-      "size": 437,
-      "sha256": "ed614a5e2a13f7eb212ebdd1093f9eb17942495fc0e20cd40aac7b0f49c77ca2"
+      "size": 588,
+      "sha256": "355621f3d6f054b96a280a4d44636799d978b3757435b2463438d48c252bfb6d"
     },
     {
       "operation": "add",

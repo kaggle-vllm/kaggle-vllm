@@ -1,4 +1,4 @@
-"""Write evidence-backed 0.3.2 release review reports. No external mutation."""
+"""Historical full-mirror report generator; retained only for audit history."""
 from __future__ import annotations
 
 import hashlib
@@ -25,6 +25,12 @@ def git(*args: str) -> str:
 
 
 def main() -> None:
+    profile = json.loads((ROOT / "src/kaggle_vllm/profiles/kaggle-l4x4-cu129/profile.json").read_text())
+    if profile["public_artifacts"].get("wheelhouse_delivery") == "publisher-index":
+        raise SystemExit(
+            "Historical full-mirror report generator is incompatible with publisher-index delivery; "
+            "use prepare_v032_metadata.py and plan_hf_v032_upload.py instead"
+        )
     OUT.mkdir(parents=True, exist_ok=True)
     inventory = json.loads((OUT / "04-huggingface-existing-inventory.json").read_text())
     verified = json.loads((OUT / "local-artifact-verification.json").read_text())

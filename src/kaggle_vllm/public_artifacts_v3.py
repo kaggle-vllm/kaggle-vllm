@@ -75,10 +75,17 @@ def _cache_lock(root: Path):
         os.close(fd)
 
 
+def _remote_path(relative: str) -> str:
+    profile = load_profile().data["public_artifacts"]
+    if relative == "native/" + WHEEL_FILENAME:
+        return profile["native_remote_path"]
+    return profile["namespace"].strip("/") + "/" + relative
+
+
 def _artifact_url(relative: str) -> str:
     revision = immutable_revision()
     profile = load_profile().data["public_artifacts"]
-    remote = profile["namespace"].strip("/") + "/" + relative
+    remote = _remote_path(relative)
     return f"https://huggingface.co/{quote(profile['hf_repo_id'], safe='/')}/resolve/{revision}/{quote(remote, safe='/')}"
 
 
@@ -144,11 +151,15 @@ def _download(relative: str, destination: Path, size: int, digest: str, *, sourc
             headers["Range"] = f"bytes={offset}-"
         try:
             with urlopen(Request(url, headers=headers), timeout=60) as response:
+                final = urlparse(response.geturl() if hasattr(response, "geturl") else url)
+                if final.scheme != "https" or final.username or final.password or final.fragment:
+                    raise BootstrapError(f"artifact download redirected to an unsafe URL: {relative}")
                 if source_url is not None:
-                    final = urlparse(response.geturl())
                     allowed = final.hostname in PUBLISHER_HOSTS or (final.hostname or "").endswith(".githubusercontent.com")
-                    if final.scheme != "https" or not allowed:
+                    if not allowed:
                         raise BootstrapError(f"publisher download redirected to an untrusted host: {relative}")
+                elif final.hostname != "huggingface.co" and not (final.hostname or "").endswith((".hf.co", ".huggingface.co")):
+                    raise BootstrapError(f"Hugging Face download redirected to an untrusted host: {relative}")
                 status = response.status
                 content_range = response.headers.get("Content-Range", "")
                 if offset and (status != 206 or not content_range.startswith(f"bytes {offset}-")):
@@ -201,7 +212,11 @@ def _remote_small_sha256(relative: str, size: int) -> str:
     digest = hashlib.sha256()
     seen = 0
     try:
-        with urlopen(Request(_artifact_url(relative), headers={"User-Agent": "kaggle-vllm/0.3.2"}), timeout=30) as response:
+        url = _artifact_url(relative)
+        with urlopen(Request(url, headers={"User-Agent": "kaggle-vllm/0.3.2"}), timeout=30) as response:
+            final = urlparse(response.geturl() if hasattr(response, "geturl") else url)
+            if final.scheme != "https" or (final.hostname != "huggingface.co" and not (final.hostname or "").endswith((".hf.co", ".huggingface.co"))):
+                raise BootstrapError(f"Hugging Face metadata redirected to an untrusted URL: {relative}")
             while block := response.read(CHUNK):
                 seen += len(block)
                 if seen > size:
@@ -220,7 +235,6 @@ def verify_remote_completeness() -> dict[str, int]:
     if _sha256(source) != LOCK_SHA256:
         raise BootstrapError("packaged L4 inference lock SHA256 mismatch")
     rows = _remote_inventory()
-    namespace = load_profile().data["public_artifacts"]["namespace"].strip("/")
     expected = [("metadata/L4_INFERENCE_LOCK.json", source.stat().st_size, LOCK_SHA256)]
     delivery = load_profile().data["public_artifacts"].get("wheelhouse_delivery", "hugging-face")
     if delivery == "hugging-face":
@@ -236,7 +250,7 @@ def verify_remote_completeness() -> dict[str, int]:
     missing = []
     mismatched = []
     for relative, size, digest in expected:
-        row = rows.get(namespace + "/" + relative)
+        row = rows.get(_remote_path(relative))
         if row is None:
             missing.append(relative)
         elif row.get("size") != size:

@@ -23,16 +23,11 @@ def main() -> None:
         raise ValueError("local artifacts are not all verified")
     lock = json.loads((REPORT / "07-v032-runtime-manifest.json").read_text())
     t4 = json.loads((REPORT / "06-v020-runtime-manifest.json").read_text())
-    operations = [
-        {"operation": "copy", "source": t4["historical_path"],
-         "source_revision": t4["immutable_revision"],
-         "target": "v0.2.0/native/" + t4["native"]["filename"],
-         "sha256": t4["native"]["sha256"], "size": t4["native"]["size"]},
-        {"operation": "copy", "source": "v0.3.0/l4x4/native/" + lock["native"]["filename"],
-         "source_revision": inventory["revision"],
-         "target": "v0.3.2/l4x4/native/" + lock["native"]["filename"],
-         "sha256": lock["native"]["sha256"], "size": lock["native"]["size"]},
-    ]
+    operations = []
+    native_path = "v0.3.0/l4x4/native/" + lock["native"]["filename"]
+    existing = next((row for row in inventory["files"] if row["path"] == native_path), None)
+    if existing is None or existing.get("size") != lock["native"]["size"] or existing.get("sha256") != lock["native"]["sha256"]:
+        raise ValueError("historical L4 wheel is not verified in the Hub inventory")
     local = {row["filename"]: row for row in verified}
     origin = json.loads((REPORT / "upstream-wheel-origins.json").read_text())
     upstream = {row["filename"]: row for row in origin["wheels"]}
@@ -53,8 +48,13 @@ def main() -> None:
     OUTPUT.write_text(json.dumps({
         "schema_version": 1, "repository": "waqasm86/kaggle-vllm-binaries",
         "base_revision": inventory["revision"], "mode": "additive_only",
-        "requires_explicit_user_authorization": True,
+        "publication_authorization": "user-authorized-contingent-on-clearance-and-account-credentials",
         "requires_redistribution_clearance": True,
+        "native_reference": {"path": native_path, "revision": inventory["revision"],
+                             "sha256": lock["native"]["sha256"], "size": lock["native"]["size"]},
+        "historical_t4_reference": {"path": t4["historical_path"],
+                                     "revision": t4["immutable_revision"],
+                                     "sha256": t4["native"]["sha256"]},
         "wheelhouse_delivery": "publisher-index; no dependency wheel uploads",
         "operations": operations,
     }, indent=2) + "\n")

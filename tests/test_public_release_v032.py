@@ -56,6 +56,26 @@ def test_downloader_resumes_range_and_checks_hash(tmp_path, monkeypatch):
     assert not target.with_name("test.whl.part").exists()
 
 
+def test_hub_downloader_rejects_insecure_redirect(tmp_path, monkeypatch):
+    class Response:
+        status = 200
+        headers = {}
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return None
+
+        def geturl(self):
+            return "http://cas-bridge.xethub.hf.co/wheel"
+
+    monkeypatch.setattr(public, "_artifact_url", lambda _: "https://huggingface.co/pinned")
+    monkeypatch.setattr(public, "urlopen", lambda *a, **k: Response())
+    with pytest.raises(BootstrapError, match="unsafe URL"):
+        public._download("native/test.whl", tmp_path / "test.whl", 3, hashlib.sha256(b"abc").hexdigest())
+
+
 def test_remote_completeness_rejects_missing_metadata_and_native(monkeypatch):
     monkeypatch.setattr(public, "_remote_inventory", lambda: {})
     with pytest.raises(BootstrapError, match="missing=.*metadata/L4_INFERENCE_LOCK.json"):
@@ -67,7 +87,7 @@ def test_remote_completeness_verifies_git_stored_metadata(monkeypatch):
     namespace = public.load_profile().data["public_artifacts"]["namespace"].strip("/")
     rows = {}
     native = lock["native"]
-    rows[f"{namespace}/native/{native['filename']}"] = {
+    rows[public._remote_path(f"native/{native['filename']}")] = {
         "size": native["size"], "lfs": {"oid": native["sha256"]}
     }
     source = public.Path(public.__file__).parent / "profiles/kaggle-l4x4-cu129/L4_INFERENCE_LOCK.json"
@@ -79,6 +99,13 @@ def test_remote_completeness_verifies_git_stored_metadata(monkeypatch):
     result = public.verify_remote_completeness()
     assert result["artifact_count"] == 3
     assert result["download_bytes"] >= sum(item["size"] for item in lock["wheels"])
+
+
+def test_native_reference_reuses_exact_historical_hub_object():
+    lock = public.lean_runtime_manifest()
+    remote = public._remote_path("native/" + lock["native"]["filename"])
+    assert remote == "v0.3.0/l4x4/native/vllm-0.30.0-cp312-cp312-linux_x86_64.whl"
+    assert public.load_profile().wheel_sha256 == lock["native"]["sha256"]
 
 
 def test_publisher_sources_match_full_lock_and_pytorch_triton():
