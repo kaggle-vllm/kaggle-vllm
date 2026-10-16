@@ -1,10 +1,10 @@
-# Next Kaggle acceptance: corrected split-v2 Inputs
+# Next Kaggle acceptance: published SDK 0.3.1
 
-Use the [fresh split-v2 acceptance guide](fresh-kaggle-v030-acceptance.md), [run-first instructions](../release/README-v0.3.0-production-acceptance.md), and [output-free notebook](../kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb). The current acceptance reuses four corrected v2 Datasets and the saved P31 Notebook Output. It does **not** require a manual 6.6 GB runtime-v3 Dataset upload. The small SDK package contains no runtime dependency wheels.
+The SDK 0.3.1 wheel and source distribution are already published. Run the [offline Input audit](../kaggle-notebooks/gemma4-competition/01_offline_inputs_audit.ipynb) and [fresh SDK acceptance](../kaggle-notebooks/gemma4-competition/02_sdk_native_runtime_offline.ipynb) in separate private, Internet-disabled four-L4 sessions attached to the Gemma 4 Developer Agent competition. Attach the six datasets and licensed model listed in the [notebook README](../kaggle-notebooks/gemma4-competition/README.md), plus the corrected wheelhouse audit dataset for the acceptance runner. These Inputs reuse the exact 168-wheel P33 dependency closure and unchanged native vLLM 0.30.0 wheel; no new CUDA build or public artifact upload is required.
 
-The runner verifies exact CPython 3.12/four-L4/SM89 hardware, hashes the SDK and every selected runtime/native wheel, stages the cu129 overlay offline, checks doctor/native core/FA2 import and libcuda linking, runs NCCL world_size=4, then tests the public `KaggleLLM.chat()` Gemma TP4 semantic path and worker cleanup. Its bounded child processes stream saved logs. Download the final evidence ZIP and inspect `FRESH_KAGGLE_PASS`.
+The acceptance runner verifies CPython 3.12, four L4/SM89 GPUs, exact SDK and runtime wheel SHA256 identities, PyTorch 2.13.0+cu129, native vLLM 0.30.0, NCCL TP4, Gemma generation, backend selection, and worker cleanup. Download and inspect the final evidence bundle, checksum manifest, SDK import origin, and 19-gate matrix before recording a pass. Earlier 0.3.0 native-wheel acceptance remains evidence for the unchanged native bytes, but does not establish 0.3.1 SDK integration.
 
-The supported competition model is `gemma-4-31b-it-qat-w4a16-ct`. This notebook does not run Qwen or another unrelated model on restricted competition L4 capacity. P31 Gemma selected `TRITON_ATTN`; built-in FA2 binary/import is checked, while actual FA2-backed model inference remains unproven for a later permitted environment.
+The research notebooks use `gemma-4-31b-it-qat-w4a16-ct`. The organizer's current harness also permits 12B, E4B, and E2B quantized variants, but every agent and subagent in one submission must use the same base variant. P31 Gemma selected `TRITON_ATTN`; built-in FA2 binary/import and Gemma backend selection are distinct checks.
 
 ---
 
