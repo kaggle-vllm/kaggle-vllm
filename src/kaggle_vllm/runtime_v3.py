@@ -22,7 +22,7 @@ ARCHIVE_SIZE = 6633730070
 MANIFEST_SHA256 = "3fbe937af3cc281c4dd1eeadcf1c35fade1c4c2162fca7ac116a942f674a217a"
 TORCHCODEC_AUDIT_SHA256 = "e2d7161d69a6214a3de3781eb699e938db52f71546df72ec090f77883e776ce5"
 DEFAULT_INPUT_ROOT = Path("/kaggle/input/datasets/waqasm86")
-SDK_OWNED_ROOT = Path("/tmp/kaggle-vllm/v0.3.0/l4x4")
+SDK_OWNED_ROOT = Path("/tmp/kaggle-vllm/v0.3.2/l4x4")
 P31_ARCHIVE_NAME = "p31-kaggle-vllm-v030-l4x4-final-v2.tar.gz"
 P31_ARCHIVE_SHA256 = "e82085d0c6f180d2f4f8eb8f52332a92051273715e0923082fc65fc8857ddad5"
 P31_ARCHIVE_SIZE = 291899459
@@ -312,9 +312,9 @@ def _owned_destination(destination: Path) -> Path:
         raise BootstrapError(f"unsafe runtime staging destination: {destination}")
     owned = lexical == SDK_OWNED_ROOT or SDK_OWNED_ROOT in lexical.parents
     forbidden_parents = (Path("/kaggle/input"), Path("/etc"), Path("/usr"), Path("/var"), Path("/bin"), Path("/sbin"), Path("/lib"), Path("/opt"))
-    custom = "kaggle-vllm-v030-runtime" in lexical.parts and all(lexical != p and p not in lexical.parents for p in forbidden_parents)
+    custom = any(part in lexical.parts for part in ("kaggle-vllm-v030-runtime", "kaggle-vllm-v032-runtime")) and all(lexical != p and p not in lexical.parents for p in forbidden_parents)
     if not (owned or custom):
-        raise BootstrapError(f"custom runtime root must contain an SDK-owned kaggle-vllm-v030-runtime directory: {destination}")
+        raise BootstrapError(f"custom runtime root must contain an SDK-owned kaggle-vllm-v032-runtime directory: {destination}")
     return lexical
 
 

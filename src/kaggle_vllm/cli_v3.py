@@ -16,6 +16,8 @@ from .profiles import DEFAULT_PROFILE as T4_PROFILE
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="kaggle-vllm")
+    from . import __version__
+    parser.add_argument("--version", action="version", version=f"kaggle-vllm {__version__}")
     sub = parser.add_subparsers(dest="command", required=True)
     for command in ("bootstrap", "plan"):
         b = sub.add_parser(command, help="stage or preview an explicitly selected profile")
@@ -41,6 +43,7 @@ def build_parser() -> argparse.ArgumentParser:
     g.add_argument("--profile", choices=(PROFILE_NAME, T4_PROFILE), required=True)
     g.add_argument("--tensor-parallel-size", type=int)
     sub.add_parser("fingerprint")
+    sub.add_parser("network-preflight", help="diagnose PyPI and Hugging Face connectivity")
     h = sub.add_parser("verify-hashes", help="verify pinned native wheel and optional staged runtime")
     h.add_argument("--native-wheel", type=Path, required=True)
     h.add_argument("--runtime-source", type=Path)
@@ -69,13 +72,16 @@ def _legacy(argv: list[str]) -> int:
 def main(argv: Sequence[str] | None = None) -> int:
     import sys
     raw = list(argv if argv is not None else sys.argv[1:])
-    if raw and raw[0] not in {"-h", "--help", "bootstrap", "plan", "env", "doctor", "profile", "verify-gpus", "fingerprint", "verify-hashes", "discover-model", "evidence-export"}:
+    if raw and raw[0] not in {"-h", "--help", "--version", "bootstrap", "plan", "env", "doctor", "profile", "verify-gpus", "fingerprint", "network-preflight", "verify-hashes", "discover-model", "evidence-export"}:
         return _legacy(raw)
     parser = build_parser()
     args = parser.parse_args(raw)
     try:
         if args.command == "fingerprint":
             return _legacy(raw)
+        if args.command == "network-preflight":
+            from .network_preflight import main as preflight_main
+            return preflight_main()
         if args.command == "verify-hashes":
             from .runtime_v3 import SplitRuntimeSource, discover_runtime, validate_native_source, validate_split_source, verify_runtime
             result = {"native": validate_native_source(args.native_wheel)}
@@ -162,14 +168,24 @@ def main(argv: Sequence[str] | None = None) -> int:
         source = args.runtime_source
         if source is None and not args.offline:
             from .public_artifacts_v3 import fetch_public_runtime, immutable_revision
+            from .l4_bootstrap import _compatibility
+            problems = _compatibility(args.strict)
+            if problems:
+                raise KaggleVLLMError("incompatible native runtime: " + "; ".join(problems))
             immutable_revision()
             if args.dry_run:
                 print(json.dumps({"profile": PROFILE_NAME, "public_revision": immutable_revision(), "dry_run": True}, indent=2))
                 return 0
             source = fetch_public_runtime(args.runtime_root / "download-cache")
         result = bootstrap(runtime_root=source, native_source=args.native_wheel, component_overrides=overrides, target=args.runtime_root, strict=args.strict, dry_run=args.dry_run)
+        if source is not None and not args.offline and args.runtime_source is None:
+            from .public_artifacts_v3 import immutable_revision
+            result["public_revision"] = immutable_revision()
+        if args.strict and not args.dry_run:
+            from .doctor_v3 import doctor_report
+            result["diagnostics"] = doctor_report(target=args.runtime_root, strict=True, import_native=True)
         print(json.dumps(result, indent=2) if args.json else f"{result['profile']}: {'dry run' if args.dry_run else 'staged'} at {result['target']}")
-        return 0 if result["compatible"] else 1
+        return 0 if result["compatible"] and result.get("diagnostics", {"compatible": True})["compatible"] else 1
     except KaggleVLLMError as error:
         parser.exit(2, f"kaggle-vllm: {error}\n")
     return 2

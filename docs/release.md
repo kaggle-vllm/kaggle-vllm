@@ -1,4 +1,8 @@
-# 0.3.1 release and validation status
+# 0.3.2 release candidate
+
+The 0.3.2 SDK build is local only. Its public L4 wheelhouse, immutable Hub revision, PyPI files, GitHub release, and fresh manual four-L4 acceptance are pending. See [the release handoff](../reports/v032-production-release/20-final-handoff.md). The 0.2.0 T4 release and 0.3.1 L4 SDK remain published as historical artifacts.
+
+## Historical 0.3.1 release and validation status
 
 The Python SDK 0.3.1 wheel and source distribution are already published on [PyPI](https://pypi.org/project/kaggle-vllm/0.3.1/) and in the [GitHub v0.3.1 release](https://github.com/kaggle-vllm/kaggle-vllm/releases/tag/v0.3.1). The unchanged native vLLM 0.30.0 wheel is also on [Hugging Face](https://huggingface.co/waqasm86/kaggle-vllm-binaries). Run `python scripts/release_state.py public` to recheck all three public artifact identities before any release action. Exact SDK SHA256 values are in [the release lock](../release/sdk-exact-artifacts.json); the native hash is in the L4 profile lock.
 

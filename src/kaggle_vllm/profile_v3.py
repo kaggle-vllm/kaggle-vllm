@@ -1,4 +1,4 @@
-"""Strict, packaged L4x4 runtime identity for SDK 0.3.0."""
+"""Strict, packaged L4x4 runtime identity for SDK 0.3.2."""
 from __future__ import annotations
 
 import json
@@ -36,7 +36,7 @@ def validate_profile(data: dict[str, Any]) -> L4Profile:
     """Reject malformed or diluted identities, including an accidental T4 profile."""
     try:
         p, g, r, v = data["python"], data["gpu"], data["runtime"], data["vllm"]
-        if data["schema_version"] != 3 or data["name"] != PROFILE_NAME or data["sdk_generation"] != "0.3.0":
+        if data["schema_version"] != 3 or data["name"] != PROFILE_NAME or data["sdk_generation"] != "0.3.2":
             raise ValueError("wrong schema or profile name")
         if (p["implementation"], p["major"], p["minor"], p["abi"]) != ("CPython", 3, 12, "cp312"):
             raise ValueError("native Python ABI must be CPython cp312")
@@ -52,7 +52,7 @@ def validate_profile(data: dict[str, Any]) -> L4Profile:
             raise ValueError("vLLM native wheel identity mismatch")
         if not re.fullmatch(r"[0-9a-f]{64}", v["wheel_sha256"]):
             raise ValueError("invalid SHA256")
-        if v["wheel_size"] != 293855397 or data["default_runtime_root"] != "/tmp/kaggle-vllm/v0.3.0/l4x4":
+        if v["wheel_size"] != 293855397 or data["default_runtime_root"] != "/tmp/kaggle-vllm/v0.3.2/l4x4":
             raise ValueError("wheel size or scratch runtime root mismatch")
         if data["public_artifacts"]["hf_repo_id"] != "waqasm86/kaggle-vllm-binaries":
             raise ValueError("wrong public binary authority")
@@ -68,7 +68,7 @@ def validate_profile(data: dict[str, Any]) -> L4Profile:
 
 def load_profile(profile_name: str = PROFILE_NAME) -> L4Profile:
     if profile_name != PROFILE_NAME:
-        raise ProfileError(f"0.3.0 supports only {PROFILE_NAME}")
+        raise ProfileError(f"0.3.2 supports only {PROFILE_NAME}")
     try:
         payload = json.loads(resources.files("kaggle_vllm").joinpath("profiles", PROFILE_NAME, "profile.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:

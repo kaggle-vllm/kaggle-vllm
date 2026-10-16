@@ -10,7 +10,7 @@ from pathlib import Path
 from .exceptions import RuntimeValidationError
 
 DEFAULT_DRIVER = Path("/usr/local/nvidia/lib64/libcuda.so.1")
-DEFAULT_ALIAS_DIR = Path("/tmp/kaggle-vllm/v0.3.0/l4x4/cuda-driver-link")
+DEFAULT_ALIAS_DIR = Path("/tmp/kaggle-vllm/v0.3.2/l4x4/cuda-driver-link")
 SDK_ROOT = DEFAULT_ALIAS_DIR.parent
 
 

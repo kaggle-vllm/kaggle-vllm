@@ -1,0 +1,1448 @@
+{
+  "schema_version": 1,
+  "repository": "waqasm86/kaggle-vllm-binaries",
+  "base_revision": "8d7dd28f7c76c3b68e7326df81758411b7dc2680",
+  "mode": "additive_only",
+  "requires_explicit_user_authorization": true,
+  "requires_redistribution_clearance": true,
+  "operations": [
+    {
+      "operation": "copy",
+      "source": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+      "source_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+      "target": "v0.2.0/native/vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+      "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+      "size": 383922260
+    },
+    {
+      "operation": "copy",
+      "source": "v0.3.0/l4x4/native/vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+      "source_revision": "8d7dd28f7c76c3b68e7326df81758411b7dc2680",
+      "target": "v0.3.2/l4x4/native/vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+      "sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+      "size": 293855397
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/agent_detector-2.0.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/agent_detector-2.0.0-py3-none-any.whl",
+      "sha256": "22c6a1c9c23894a12f55aea625f060b8d3330fba774de72d02d5442bb580417f",
+      "size": 9352,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/aiohappyeyeballs-2.7.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/aiohappyeyeballs-2.7.1-py3-none-any.whl",
+      "sha256": "9243213661e29250eb41368e5daa826fc017156c3b8a11440826b2e3ed376472",
+      "size": 15038,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/aiohttp-3.14.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/aiohttp-3.14.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "c5e93ab6e6330dce40f5b43996f1fc5f2543296d263a5e4b59ff09e73870b7d8",
+      "size": 1922895,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/aiosignal-1.4.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/aiosignal-1.4.0-py3-none-any.whl",
+      "sha256": "053243f8b92b990551949e63930a839ff0cf0b0ebbe0597b0f3fb19e1a0fe82e",
+      "size": 7490,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/annotated_doc-0.0.5-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/annotated_doc-0.0.5-py3-none-any.whl",
+      "sha256": "117bac03a25ede5df5440e855b32d556049ca169ead221505badf432fed4b101",
+      "size": 5302,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/annotated_types-0.8.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/annotated_types-0.8.0-py3-none-any.whl",
+      "sha256": "f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0",
+      "size": 13427,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/anyio-4.15.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/anyio-4.15.1-py3-none-any.whl",
+      "sha256": "6152fdbbf9a77fdec97731721bebf7c4c44f7c29b424b0065826173efc7ed101",
+      "size": 132079,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/apache_tvm_ffi-0.1.11-cp312-abi3-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/apache_tvm_ffi-0.1.11-cp312-abi3-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "2843f084cdc94dedacd8b257a395a2b71b8a3dc7fc99711b148bf1d161983128",
+      "size": 2697683,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/astor-0.8.1-py2.py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/astor-0.8.1-py2.py3-none-any.whl",
+      "sha256": "070a54e890cefb5b3739d19f30f5a5ec840ffc9c50ffa7d23cc9fc1a38ebbfc5",
+      "size": 27488,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/attrs-26.1.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/attrs-26.1.0-py3-none-any.whl",
+      "sha256": "c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309",
+      "size": 67548,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/blake3-1.0.10-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/blake3-1.0.10-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "ecc21ec144cb7c1ce14450d6bc7ba161d15ce21a1843885ff486b9af6beac3d0",
+      "size": 382390,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/cachetools-7.2.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/cachetools-7.2.1-py3-none-any.whl",
+      "sha256": "63aa53dfe7473c10cccdd5a01dedf76ef2c4b73a58840d9396e7d0752cbdac3b",
+      "size": 17006,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/cbor2-6.1.5-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/cbor2-6.1.5-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "sha256": "b70d7c47ea84d456034d2be02e89d92eef7044cfcedf6f05058e21d4452f0fef",
+      "size": 463316,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/certifi-2026.7.22-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/certifi-2026.7.22-py3-none-any.whl",
+      "sha256": "62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775",
+      "size": 136983,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "c1453022f490d2459a11819d83ad1d586e9ff65a12ac3e705ffebd46d3685dcf",
+      "size": 221822,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "3d31298449090ab8d47b7b1b2a555ff73cac7ed438a08b7ac160980c7ebed649",
+      "size": 257601,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/click-8.5.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/click-8.5.0-py3-none-any.whl",
+      "sha256": "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360",
+      "size": 125251,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/cloudpickle-3.1.2-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/cloudpickle-3.1.2-py3-none-any.whl",
+      "sha256": "9acb47f6afd73f60dc1df93bb801b472f05ff42fa6c84167d25cb206be1fbf4a",
+      "size": 22228,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/compressed_tensors-0.17.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/compressed_tensors-0.17.0-py3-none-any.whl",
+      "sha256": "4a1b89b508f7efb8ffb4eee8a6e69e0452d9b080cae130146025c64fbe9fa9aa",
+      "size": 211714,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl",
+      "sha256": "9dab55f57c74c3cad24c323bacbbd04be4705ba6eb0d92e920b1fc4837ed5079",
+      "size": 4752576,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/cuda_core-1.2.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/cuda_core-1.2.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "e7c6b207048189cb784bb7d6b3ec0fa782aaa6142002fa86f41c8846d7193c51",
+      "size": 6610110,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/cuda_pathfinder-1.8.3-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/cuda_pathfinder-1.8.3-py3-none-any.whl",
+      "sha256": "e29e59829c297a7a5233bd9cc71094fc5bddbd076951482670178f9eade39b1f",
+      "size": 62561,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/cuda_python-12.9.7-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/cuda_python-12.9.7-py3-none-any.whl",
+      "sha256": "23a1fc406d491eef7a7e985095725cb7b20a04a7bd9b7a66400e5c86e082e0aa",
+      "size": 7597,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/cuda_tile-1.6.0-cp312-cp312-manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/cuda_tile-1.6.0-cp312-cp312-manylinux2014_x86_64.whl",
+      "sha256": "7e38f97bfedff359c926710387a40fbfc8f36efb7fe9ad2cb759d5a098eedde3",
+      "size": 382170,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/depyf-0.20.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/depyf-0.20.0-py3-none-any.whl",
+      "sha256": "d31effad4261cebecb58955d832e448ace88f432328f95f82fd99c30fd9308d4",
+      "size": 39381,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/detect_installer-0.2.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/detect_installer-0.2.1-py3-none-any.whl",
+      "sha256": "87e2ce7d05cb108b178f8e45bb80d3d88c0cb4b397983345c18ad6562e02e620",
+      "size": 5371,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/dill-0.4.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/dill-0.4.1-py3-none-any.whl",
+      "sha256": "1e1ce33e978ae97fcfcff5638477032b801c46c7c65cf717f95fbc2248f79a9d",
+      "size": 120019,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/dnspython-2.8.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/dnspython-2.8.0-py3-none-any.whl",
+      "sha256": "01d9bbc4a2d76bf0db7c1f729812ded6d912bd318d3b1cf81d30c0f845dbf3af",
+      "size": 331094,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/docstring_parser-0.18.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/docstring_parser-0.18.0-py3-none-any.whl",
+      "sha256": "b3fcbed555c47d8479be0796ef7e19c2670d428d72e96da63f3a40122860374b",
+      "size": 22484,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/einops-0.8.2-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/einops-0.8.2-py3-none-any.whl",
+      "sha256": "54058201ac7087911181bfec4af6091bb59380360f069276601256a76af08193",
+      "size": 65638,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/email_validator-2.3.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/email_validator-2.3.0-py3-none-any.whl",
+      "sha256": "80f13f623413e6b197ae73bb10bf4eb0908faf509ad8362c5edeb0be7fd450b4",
+      "size": 35604,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/fastar-0.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/fastar-0.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "deb0b3882626832361dd0fcee1f4ef1c6e2a7aaa4165e51c86ae0bab95caccd6",
+      "size": 808091,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/fastsafetensors-0.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/fastsafetensors-0.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "d1ecbb199d98d222c827ae1cc9c7b09dd9ef2d34aa0eb01baa8f81f70345dc0a",
+      "size": 2096153,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/filelock-4.0.12-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/filelock-4.0.12-py3-none-any.whl",
+      "sha256": "5f17ee83ecee8a6f3e389c75822fb70a1c2f0506b99438a6dffa1d56793588c8",
+      "size": 111732,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/flashinfer_python-0.6.18.post1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/flashinfer_python-0.6.18.post1-py3-none-any.whl",
+      "sha256": "adb6d2952b47131138e108bd2999b1fe18b71f1a4c0b2684f168753db9563991",
+      "size": 18348022,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "sha256": "494a5952b1c597ba44e0e78113a7266e656b9794eec897b19ead706bd7074383",
+      "size": 242411,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/fsspec-2026.9.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/fsspec-2026.9.0-py3-none-any.whl",
+      "sha256": "8dd6e646e99ea382bd85f97a45e6b526a442d79423a7dc673f1e2756d05fcb5f",
+      "size": 221738,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/googleapis_common_protos-1.75.5-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/googleapis_common_protos-1.75.5-py3-none-any.whl",
+      "sha256": "d7285525c23039db98f2463e6d5a4f9b958b94d497f03a844ece3259c4e72d5d",
+      "size": 307737,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/grpcio-1.84.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/grpcio-1.84.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "b44f0a0fc7bc6677d38cc80bca1a32814ce6c8f200fb8b3c1a61c9d77eaefbf3",
+      "size": 7156115,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/h11-0.16.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/h11-0.16.0-py3-none-any.whl",
+      "sha256": "63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86",
+      "size": 37515,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "d62671bb130879cef0ee4c9ebe47a14af6c66ec53e6d84dc15936e5ffdfac82f",
+      "size": 4464663,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/httpcore-1.0.9-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/httpcore-1.0.9-py3-none-any.whl",
+      "sha256": "2d400746a40668fc9dec9810239072b40b4484b640a8c38fd654a024c7a1bf55",
+      "size": 78784,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/httpcore2-2.13.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/httpcore2-2.13.1-py3-none-any.whl",
+      "sha256": "e1e05d4f25f7d7d496bfb96748f6f4b67657b03da069b3a68c36069f3db73d0a",
+      "size": 83423,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "sha256": "b15fc622b0f869d19207c4089a501d9bcc63ca5e071ffdd2f03f922df882dcb2",
+      "size": 523851,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/httpx-0.28.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/httpx-0.28.1-py3-none-any.whl",
+      "sha256": "d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad",
+      "size": 73517,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/httpx2-2.13.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/httpx2-2.13.1-py3-none-any.whl",
+      "sha256": "6dff50fabc270ee5fd25d845d0b078ed20564579744d6d962850975996d2f9a4",
+      "size": 95597,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/huggingface_hub-1.33.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/huggingface_hub-1.33.0-py3-none-any.whl",
+      "sha256": "04e434b06e100eddbce9a6e817d72693a7884b10a79bd67ab48080d5c07eb899",
+      "size": 846435,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/humming_kernels-0.1.12-py3-none-manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/humming_kernels-0.1.12-py3-none-manylinux_2_28_x86_64.whl",
+      "sha256": "cd3ef712a93f3a9075ea99de2c72bcd3ec89dab3759b3a248d869f5507b60331",
+      "size": 322656,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/idna-3.20-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/idna-3.20-py3-none-any.whl",
+      "sha256": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c",
+      "size": 69583,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/ijson-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/ijson-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "e4fcebfe1685bb7ba06a8255a5d428ea6b4b895d7acf979cb637d8bbc9db2f47",
+      "size": 149848,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/instanttensor-0.2.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/instanttensor-0.2.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "879e8b524b391ed916b8412ef82c3ab40d933ad8d038f40b340d0bd58b7894d3",
+      "size": 6178704,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/interegular-0.3.3-py37-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/interegular-0.3.3-py37-none-any.whl",
+      "sha256": "b0c07007d48c89d6d19f7204972d369b2a77222722e126b6aa63aa721dc3b19c",
+      "size": 23635,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/jiter-0.17.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/jiter-0.17.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "8c21265b251d99bbb40080d178a8953e35601d3a1564e05c4de4c0d2ca616797",
+      "size": 345025,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/jmespath-1.1.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/jmespath-1.1.0-py3-none-any.whl",
+      "sha256": "a5663118de4908c91729bea0acadca56526eb2698e83de10cd116ae0f4e97c64",
+      "size": 20419,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/jsonschema-4.26.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/jsonschema-4.26.0-py3-none-any.whl",
+      "sha256": "d489f15263b8d200f8387e64b4c3a75f06629559fb73deb8fdfb525f2dab50ce",
+      "size": 90630,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/jsonschema_specifications-2025.9.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/jsonschema_specifications-2025.9.1-py3-none-any.whl",
+      "sha256": "98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe",
+      "size": 18437,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/lark-1.2.2-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/lark-1.2.2-py3-none-any.whl",
+      "sha256": "c2276486b02f0f1b90be155f2c8ba4a8e194d42775786db622faccd652d8e80c",
+      "size": 111036,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/llguidance-1.7.6-cp39-abi3-manylinux_2_31_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/llguidance-1.7.6-cp39-abi3-manylinux_2_31_x86_64.whl",
+      "sha256": "ceec951d29a74309984e3be0fe7f5f56c1362434cd937abd517b259a60908b1e",
+      "size": 3074809,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/llvmlite-0.47.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/llvmlite-0.47.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "5853bf26160857c0c2573415ff4efe01c4c651e59e2c55c2a088740acfee51cd",
+      "size": 56275178,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/lm_format_enforcer-0.11.3-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/lm_format_enforcer-0.11.3-py3-none-any.whl",
+      "sha256": "cf586350875def1ae7a8fba84fcbbfc8371424b6c9d05c1fcba70aa233fbf06f",
+      "size": 45418,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/loguru-0.7.3-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/loguru-0.7.3-py3-none-any.whl",
+      "sha256": "31a33c10c8e1e10422bfd431aeb5d351c7cf7fa671e3c4df004162264b28220c",
+      "size": 61595,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/markdown_it_py-4.2.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/markdown_it_py-4.2.0-py3-none-any.whl",
+      "sha256": "9f7ebbcd14fe59494226453aed97c1070d83f8d24b6fc3a3bcf9a38092641c4a",
+      "size": 91687,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "8e124f974786f831d6043728e38296969d3579db8896fe004682f5758e613581",
+      "size": 22985,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/mdurl-0.1.2-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/mdurl-0.1.2-py3-none-any.whl",
+      "sha256": "84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8",
+      "size": 9979,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/mistral_common-1.12.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/mistral_common-1.12.0-py3-none-any.whl",
+      "sha256": "fa4504b66c30c0201ae4578c0340c5ee2abd22151c271532f62e373b985a53cf",
+      "size": 6580267,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/ml_dtypes-0.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/ml_dtypes-0.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "3b4a480aa8fd54a1805b8ac10f3f91763926a74f73c0c364c10f9231854f4170",
+      "size": 409890,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/model_hosting_container_standards-0.1.16-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/model_hosting_container_standards-0.1.16-py3-none-any.whl",
+      "sha256": "47f4f65713120bc3a69feb022981a38db9e557aedf88dbd72077f20588caa12b",
+      "size": 125666,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/mpmath-1.3.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/mpmath-1.3.0-py3-none-any.whl",
+      "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+      "size": 536198,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/msgspec-0.22.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/msgspec-0.22.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "99c401861c5bb3a57f7d6423ea7ed4352cd57aa3f04f4fbe9f3e3e4564a10f08",
+      "size": 230377,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/multidict-6.9.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/multidict-6.9.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "976fd7689d69ec78d67d31d38d396d8adb562f7e8368279f76aed4aa451fa06d",
+      "size": 336881,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/nccl4py-0.6.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nccl4py-0.6.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "f4006cf8c12c26ed29811b80858a58f8f31e4b42ea85b6c1d23401981449ab9d",
+      "size": 3695883,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/networkx-3.7-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/networkx-3.7-py3-none-any.whl",
+      "sha256": "e3fd2c13a7814cee3746340d8d7f8598a67f16a58bf47fb7f8793fab6efca1b0",
+      "size": 2142205,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/ninja-1.13.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/ninja-1.13.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "65a24341b5ac09fcadcc37082660be40a94174e51a937fabf6e2cae26225fa2c",
+      "size": 183365,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/numba-0.65.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/numba-0.65.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "a52d92ffd297c10364bce60cd1fcb88f99284ab5df085f2c6bcd1cb33b529a6f",
+      "size": 3801411,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/numpy-2.3.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/numpy-2.3.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "0d8163f43acde9a73c2a33605353a4f1bc4798745a8b1d73183b28e5b435ae28",
+      "size": 16606086,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/nvidia_cuda_nvdisasm-13.4.92-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cuda_nvdisasm-13.4.92-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "f35a5b6ddb64b6758c22c0b078c5b6ff6d54f7c240cd74bf131ab5bf13b6c3fe",
+      "size": 5203296,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/nvidia_cudnn_frontend-1.28.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cudnn_frontend-1.28.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "335c916be758a8d5533104e04fc4a15f9c30a419b103ecd2b6fd0d23e1d532e4",
+      "size": 5677342,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/nvidia_cutlass_dsl-4.7.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cutlass_dsl-4.7.1-py3-none-any.whl",
+      "sha256": "765850c74868a0b5a02fefbfc1b380842b64e5f7a1c8b1655e322a3b14c01726",
+      "size": 10460,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/nvidia_cutlass_dsl_libs_base-4.7.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cutlass_dsl_libs_base-4.7.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "sha256": "c2b67dacabfc905e4d132784fe4848647f40b0b97b1cdde3ce4a482642536b84",
+      "size": 2832971,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/nvidia_cutlass_dsl_libs_core-4.7.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cutlass_dsl_libs_core-4.7.1-py3-none-any.whl",
+      "sha256": "c65662abc9ab18fd997c57547895736928e559f4624bbe2aa1aa91418ea014ca",
+      "size": 1235214,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/nvidia_cutlass_dsl_libs_cu12-4.7.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cutlass_dsl_libs_cu12-4.7.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "sha256": "c8a0f93a1cde41404696b3194dd1f589c6f3a7b426bcabe97845f8fe96f949f5",
+      "size": 88679788,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/nvidia_ml_py-13.615.71-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_ml_py-13.615.71-py3-none-any.whl",
+      "sha256": "959bf4adf6fe1308e4bd739e722236b0d1ec8392e2cefad33ff70c311380b9b6",
+      "size": 58132,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/nvtx-0.2.15-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvtx-0.2.15-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "3ca8030a6d197952318013dd1c12c22da1d4b9feb76ba72e0fcd449961183c2c",
+      "size": 806187,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/openai_harmony-0.0.8-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/openai_harmony-0.0.8-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "c007d277218a50db8839e599ed78e0fffe5130f614c3f6d93ae257f282071a29",
+      "size": 2953260,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/opencv_python_headless-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/opencv_python_headless-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl",
+      "sha256": "ed709fdf9aa0bd1f2ed8549e71d19449b03a675bb581eb292285f6861953be37",
+      "size": 61204038,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "3bb2060c240c4507f334965a8948dbeeb22007560d797f6debd92346c0b620cb",
+      "size": 2341426,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/partial_json_parser-0.2.1.1.post7-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/partial_json_parser-0.2.1.1.post7-py3-none-any.whl",
+      "sha256": "145119e5eabcf80cbb13844a6b50a85c68bf99d376f8ed771e2a3c3b03e653ae",
+      "size": 10877,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "78cb2c6865a35ab8ff8b75fd122f6033b92a62c82801110e48ddd6c936a45d91",
+      "size": 6940830,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/propcache-0.5.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/propcache-0.5.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "2814ecd8e818f487bee4b0f921bc4d1c176cc5fc71ac0f072d0fa67eda4ac14b",
+      "size": 250424,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl",
+      "sha256": "89f23aa53c24553a2416fd4fd1ec06f74fa42b14b546d8883128813f775bbfd2",
+      "size": 343223,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "076a2d2f923fd4821644f5ba89f059523da90dc9014e85f8e45a5774ca5bc6f9",
+      "size": 155560,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/py_cpuinfo-9.0.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/py_cpuinfo-9.0.0-py3-none-any.whl",
+      "sha256": "859625bc251f64e21f077d099d4162689c762b5d6a4c3c97553d56241c9674d5",
+      "size": 22335,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pybase64-1.5.1-cp312-cp312-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pybase64-1.5.1-cp312-cp312-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl",
+      "sha256": "c212d02fd072c5845d39b4699eb65efa827b79a5cf7fecc9f468f8cad2b8540f",
+      "size": 94689,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pycountry-26.2.16-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pycountry-26.2.16-py3-none-any.whl",
+      "sha256": "115c4baf7cceaa30f59a4694d79483c9167dbce7a9de4d3d571c5f3ea77c305a",
+      "size": 8044600,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pycparser-3.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pycparser-3.0-py3-none-any.whl",
+      "sha256": "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992",
+      "size": 48172,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pydantic-2.13.5-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pydantic-2.13.5-py3-none-any.whl",
+      "sha256": "346a034f080da3755d8e9cb5e00e8b07de1d39e4f6e2c87d8ab7cafa0b269a73",
+      "size": 472589,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "0fc5be0abd4a407e200d844b404e33639a554e7bd0d448e7b9ae181be4789ac2",
+      "size": 2066284,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pydantic_extra_types-2.11.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pydantic_extra_types-2.11.1-py3-none-any.whl",
+      "sha256": "1722ea2bddae5628ace25f2aa685b69978ef533123e5638cfbddb999e0100ec1",
+      "size": 79526,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pydantic_settings-2.15.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pydantic_settings-2.15.0-py3-none-any.whl",
+      "sha256": "0ba092c291c94baceb5eff768aa0d56400a457585bc0175925a5a5510303da42",
+      "size": 69413,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pygments-2.21.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pygments-2.21.0-py3-none-any.whl",
+      "sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+      "size": 1250147,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pyjwt-2.15.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pyjwt-2.15.1-py3-none-any.whl",
+      "sha256": "42d59d631f7768a1028a64c7ff581a9bf7519804daf91fc5b6c56e30eec5e193",
+      "size": 33860,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pynvvideocodec-2.0.4-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pynvvideocodec-2.0.4-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "sha256": "b59cec7a1a3f78fad13fead78cad8b6d9686827f9ff4477080245457675a01d0",
+      "size": 43176147,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pyproject_hooks-1.3.3-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pyproject_hooks-1.3.3-py3-none-any.whl",
+      "sha256": "5fc53fdac9f7bd63fbcdc868fb5f90b4784d78a53a3d3388cd738b807441a20b",
+      "size": 10724,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/python_dotenv-1.2.4-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/python_dotenv-1.2.4-py3-none-any.whl",
+      "sha256": "42269a8a5b3fd54ffa6f3d84b18abed50064717576b4ecf03dc4a55d8aa04fdc",
+      "size": 23266,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/python_json_logger-4.2.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/python_json_logger-4.2.0-py3-none-any.whl",
+      "sha256": "158a52126fcd6869e09574d2b66272666f3dc8f468c62637ef9a1fa883719cb9",
+      "size": 14988,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/python_multipart-0.0.32-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/python_multipart-0.0.32-py3-none-any.whl",
+      "sha256": "ff6d3f776f16878c894e52e107296ffc890e913c611b1a4ec6c44e2821fe2e23",
+      "size": 30042,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "ba1cc08a7ccde2d2ec775841541641e4548226580ab850948cbfda66a1befcdc",
+      "size": 807870,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/pyzmq-27.2.0-cp312-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/pyzmq-27.2.0-cp312-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "dea74fd65f1fc5f7fe167916a473ebe6ed6174e5e5d9de11ea6583661be6cf43",
+      "size": 872258,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/quack_kernels-0.6.5-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/quack_kernels-0.6.5-py3-none-any.whl",
+      "sha256": "df1ddd31366c82eb9692fe087c671209189dcbde53c909c81a865d4ee66b158d",
+      "size": 729615,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/referencing-0.37.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/referencing-0.37.0-py3-none-any.whl",
+      "sha256": "381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231",
+      "size": 26766,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/regex-2026.9.29-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/regex-2026.9.29-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "39ab5894d971f9ac68baa6eca5c50387db579cfcacf36ae8df3feceb1815e6d0",
+      "size": 807783,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/requests-2.34.2-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/requests-2.34.2-py3-none-any.whl",
+      "sha256": "2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0",
+      "size": 73075,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/rich-15.0.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/rich-15.0.0-py3-none-any.whl",
+      "sha256": "33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb",
+      "size": 310654,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/rich_toolkit-0.20.5-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/rich_toolkit-0.20.5-py3-none-any.whl",
+      "sha256": "e21fd616db9c0539d3c50f3433fb1173db95c19d3cbf215615e224182fad6c18",
+      "size": 39370,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/rignore-0.8.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/rignore-0.8.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "2e68cfc4ee0a2909952af2aebd608d1cd22f7d1cdce332cb0b5ea3762939865d",
+      "size": 927835,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "addeda51556dac7c1a2f14cda62db8b621cd12afba3091d03a96c72932387eab",
+      "size": 371261,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "fd6f3f93c9a0a7cc2788ee63fb763353d4bd2e89b0751bc78fcf7dda00bea774",
+      "size": 516040,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/semantic_version-2.10.0-py2.py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/semantic_version-2.10.0-py2.py3-none-any.whl",
+      "sha256": "de78a3b8e0feda74cabc54aab2da702113e33ac9d9eb9d2389bcf1f58b7d9177",
+      "size": 15552,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/sentencepiece-0.2.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/sentencepiece-0.2.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "c8a168b040bc61681293f79a949b5d911c8e25086f4260285b8d97ab5f1195da",
+      "size": 1397736,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/setproctitle-1.3.8-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/setproctitle-1.3.8-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+      "sha256": "4a765e0c80a2453480be27c4fc22ba1c0771867040c5f91e4221940d78a4abfb",
+      "size": 32929,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/setuptools-80.10.2-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/setuptools-80.10.2-py3-none-any.whl",
+      "sha256": "95b30ddfb717250edb492926c92b5221f7ef3fbcc2b07579bcd4a27da21d0173",
+      "size": 1064234,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/shellingham-1.5.4-py2.py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/shellingham-1.5.4-py2.py3-none-any.whl",
+      "sha256": "7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686",
+      "size": 9755,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/six-1.17.0-py2.py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/six-1.17.0-py2.py3-none-any.whl",
+      "sha256": "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274",
+      "size": 11050,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/sniffio-1.3.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/sniffio-1.3.1-py3-none-any.whl",
+      "sha256": "2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2",
+      "size": 10235,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/sympy-1.14.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/sympy-1.14.0-py3-none-any.whl",
+      "sha256": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+      "size": 6299353,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/tabulate-0.10.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/tabulate-0.10.0-py3-none-any.whl",
+      "sha256": "f0b0622e567335c8fabaaa659f1b33bcb6ddfe2e496071b743aa113f8774f2d3",
+      "size": 39814,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/tiktoken-0.14.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/tiktoken-0.14.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "sha256": "7896eea257fe497a2b7134474d909156c6744ce8da35bce88011a960e008aa0d",
+      "size": 1204197,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/tilelang-0.1.12-cp38-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/tilelang-0.1.12-cp38-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "bbeb5573cbe2544a51a5c9a6cc737c5e3b5c2d95411caa3687fd9b08eb9d5f97",
+      "size": 50501074,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/tokenizers-0.23.2-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/tokenizers-0.23.2-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "41c2f84d172449b4dadb9cdc508e3e364076613c35b16e76ecfe47a60d1e3305",
+      "size": 3386843,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/tokenspeed_mla-0.1.8-py3-none-manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/tokenspeed_mla-0.1.8-py3-none-manylinux_2_28_x86_64.whl",
+      "sha256": "6a7526d7327746893f8c20d24aa63ba5b8a123d0dfd6e66388e13b768b6452c6",
+      "size": 755827,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/tokenspeed_triton-3.8.10.post20260920-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/tokenspeed_triton-3.8.10.post20260920-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "eb5eae6c4d3db11e13b7058c89b57e075fa7df905d43169cfdb066e161886421",
+      "size": 99900581,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/torch_c_dlpack_ext-0.1.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/torch_c_dlpack_ext-0.1.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "e6f9da4bb9af70e27facc777458be62e10dbbbddda7672d16138db0553c5a524",
+      "size": 897846,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/torchcodec-0.16.0+cu129-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/torchcodec-0.16.0+cu129-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "1d103c30631a2c04b2acd1602a56af7762d41051700d2077c2b6a964dbcf7f2c",
+      "size": 11016544,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/tqdm-4.70.1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/tqdm-4.70.1-py3-none-any.whl",
+      "sha256": "c293e525e6fef9c20e8728fd4612df02a0aa31bb5fe91ecd93e123b1b7bffa73",
+      "size": 80199,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/transformers-5.18.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/transformers-5.18.0-py3-none-any.whl",
+      "sha256": "d79e5a515a572ee3deb33eb0d578be47d91e70c75d54cf21bf6eede6edef14a9",
+      "size": 12579646,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/truststore-0.10.4-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/truststore-0.10.4-py3-none-any.whl",
+      "sha256": "adaeaecf1cbb5f4de3b1959b42d41f6fab57b2b1666adb59e89cb0b53361d981",
+      "size": 18660,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/typer-0.27.2-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/typer-0.27.2-py3-none-any.whl",
+      "sha256": "b3a5fc4342d5fc8fda8fc3010b1cf117e9249aab7fae800c2eff62fd3842d97d",
+      "size": 123130,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/typing_extensions-4.16.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/typing_extensions-4.16.0-py3-none-any.whl",
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+      "size": 45571,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/typing_inspection-0.4.4-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/typing_inspection-0.4.4-py3-none-any.whl",
+      "sha256": "65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147",
+      "size": 14750,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/urllib3-2.8.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/urllib3-2.8.0-py3-none-any.whl",
+      "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3",
+      "size": 135717,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/vcs_versioning-2.5.0-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/vcs_versioning-2.5.0-py3-none-any.whl",
+      "sha256": "dbf44f6303dc817e5792cb7d0e9cc90e3046ee1e32eaa357b20ad368811313d0",
+      "size": 122897,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/xgrammar-0.2.8-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/xgrammar-0.2.8-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "4045b096735bb2523e0d874039a55994c1b390620d547c4a0d4f43b9a106177b",
+      "size": 1311291,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/yarl-1.25.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/yarl-1.25.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "c6f117789d22dce188e5754e8bc65b7e6ebf8cb73963b9fa761f672a5883769d",
+      "size": 117050,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-core/z3_solver-4.15.4.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/z3_solver-4.15.4.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "7e103a6f203f505b8b8b8e5c931cc407c95b61556512d4921c1ddc0b3f41b08e",
+      "size": 29268352,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/runtime-large/flashinfer_cubin-0.6.18.post1-py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/flashinfer_cubin-0.6.18.post1-py3-none-any.whl",
+      "sha256": "bbacb5b8bbf429e43bf2740bb45551d981f41d0462842e36ee6fb3e3452763ab",
+      "size": 1565107285,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/cuda_bindings-12.9.9-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/cuda_bindings-12.9.9-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "fb842851be2ed9e80fce988dd68c8ea27a506a71e0e29d228b35cbd0a333dac2",
+      "size": 7627343,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/cuda_toolkit-12.9.1-py2.py3-none-any.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/cuda_toolkit-12.9.1-py2.py3-none-any.whl",
+      "sha256": "0c8636dfacbecfe9867a949a211864f080a805bc54023ce4a361aa4e1fd8738b",
+      "size": 2303,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_cublas_cu12-12.9.1.4-py3-none-manylinux_2_27_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cublas_cu12-12.9.1.4-py3-none-manylinux_2_27_x86_64.whl",
+      "sha256": "453611eb21a7c1f2c2156ed9f3a45b691deda0440ec550860290dc901af5b4c2",
+      "size": 581242350,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_cuda_cccl_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cuda_cccl_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "575bc5cfb0fe4a1956c539215c0f1e6718821b95a68ef6b7abf226aa87e3a5ad",
+      "size": 2939012,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_cuda_cupti_cu12-12.9.79-py3-none-manylinux_2_25_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cuda_cupti_cu12-12.9.79-py3-none-manylinux_2_25_x86_64.whl",
+      "sha256": "096bcf334f13e1984ba36685ad4c1d6347db214de03dbb6eebb237b41d9d934f",
+      "size": 10814997,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_cuda_nvcc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cuda_nvcc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "sha256": "2d6dc36fb7cb5ac9c0b8825bc13d193c35487a315664007287d0126531238011",
+      "size": 40128098,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_cuda_nvrtc_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cuda_nvrtc_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "sha256": "210cf05005a447e29214e9ce50851e83fc5f4358df8b453155d5e1918094dcb4",
+      "size": 89568129,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_cuda_runtime_cu12-12.9.79-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cuda_runtime_cu12-12.9.79-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "25bba2dfb01d48a9b59ca474a1ac43c6ebf7011f1b0b8cc44f54eb6ac48a96c3",
+      "size": 3493179,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_cudnn_cu12-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cudnn_cu12-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl",
+      "sha256": "7d7479e1321c7a039b33827f0247791ee1be091759032c1f66a287c4a643396a",
+      "size": 657910570,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_cufft_cu12-11.4.1.4-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cufft_cu12-11.4.1.4-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "c67884f2a7d276b4b80eb56a79322a95df592ae5e765cf1243693365ccab4e28",
+      "size": 200877592,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_cufile_cu12-1.14.1.1-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cufile_cu12-1.14.1.1-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "9552e2231792e94b1ff17bc99e958cc0e6bbbaa4a9d91fa2dbeed97716628fe6",
+      "size": 1210714,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_curand_cu12-10.3.10.19-py3-none-manylinux_2_27_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_curand_cu12-10.3.10.19-py3-none-manylinux_2_27_x86_64.whl",
+      "sha256": "49b274db4780d421bd2ccd362e1415c13887c53c214f0d4b761752b8f9f6aa1e",
+      "size": 68295626,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_cusolver_cu12-11.7.5.82-py3-none-manylinux_2_27_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cusolver_cu12-11.7.5.82-py3-none-manylinux_2_27_x86_64.whl",
+      "sha256": "15da72d1340d29b5b3cf3fd100e3cd53421dde36002eda6ed93811af63c40d88",
+      "size": 338117415,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_cusparse_cu12-12.5.10.65-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cusparse_cu12-12.5.10.65-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "73060ce019ac064a057267c585bf1fd5a353734151f87472ff02b2c5c9984e78",
+      "size": 366465088,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_cusparselt_cu12-0.8.1-py3-none-manylinux2014_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_cusparselt_cu12-0.8.1-py3-none-manylinux2014_x86_64.whl",
+      "sha256": "cd1b1dc9e1ad31ea3353c1f985e2bd6f9e7ae0e797d7e6ce879d7b2ace5e80e8",
+      "size": 239274390,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_nccl_cu12-2.29.7-py3-none-manylinux_2_18_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_nccl_cu12-2.29.7-py3-none-manylinux_2_18_x86_64.whl",
+      "sha256": "ecd0a012051abc20c1aa87328841efa8cade3ced65803046e38c2f03c0891fea",
+      "size": 293633942,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_nvjitlink_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_nvjitlink_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "sha256": "e3f1171dbdc83c5932a45f0f4c99180a70de9bd2718c1ab77d14104f6d7147f9",
+      "size": 39748338,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "sha256": "042f2500f24c021db8a06c5eec2539027d57460e1c1a762055a6554f72c369bd",
+      "size": 139103095,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/nvidia_nvtx_cu12-12.9.79-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/nvidia_nvtx_cu12-12.9.79-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl",
+      "sha256": "fec150986817f2b4e7eed72ed059f2dcb9ba3856b9a96134e448eac946a6952f",
+      "size": 85504,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/torch-2.13.0+cu129-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/torch-2.13.0+cu129-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "sha256": "df28741fcd89e3da7cce2d48cbe5299d6732d510ac20f5d422d0b85edf18c327",
+      "size": 929608127,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/torchaudio-2.11.0+cu129-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/torchaudio-2.11.0+cu129-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "sha256": "de4105653562f031edd6ddf7dd1485f07db6ac62cdc90d17364648cd3c89eb5a",
+      "size": 1572646,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/torchvision-0.28.0+cu129-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/torchvision-0.28.0+cu129-cp312-cp312-manylinux_2_28_x86_64.whl",
+      "sha256": "909365f448f66daece26fcb827bbeec1c6f9b4934a2de232d1e95244baa5335b",
+      "size": 9291448,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/torch-cu129/triton-3.7.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "target": "v0.3.2/l4x4/wheelhouse/triton-3.7.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "225910e79149807de74a0ca63160aa285956a8d64a2951d558997c57e2584ae1",
+      "size": 197149381,
+      "license_status": "REVIEW_REQUIRED"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/LICENSE",
+      "target": "LICENSE",
+      "size": 638
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/NOTICE",
+      "target": "NOTICE",
+      "size": 281
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/README.md",
+      "target": "README.md",
+      "size": 308
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/releases.json",
+      "target": "releases.json",
+      "size": 1545
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/v0.2.0/metadata/SHA256SUMS.txt",
+      "target": "v0.2.0/metadata/SHA256SUMS.txt",
+      "size": 243
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/v0.2.0/metadata/provenance.json",
+      "target": "v0.2.0/metadata/provenance.json",
+      "size": 297
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/v0.2.0/metadata/runtime-manifest.json",
+      "target": "v0.2.0/metadata/runtime-manifest.json",
+      "size": 682
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/v0.3.2/l4x4/metadata/L4_INFERENCE_LOCK.json",
+      "target": "v0.3.2/l4x4/metadata/L4_INFERENCE_LOCK.json",
+      "size": 49463
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/v0.3.2/l4x4/metadata/SHA256SUMS.txt",
+      "target": "v0.3.2/l4x4/metadata/SHA256SUMS.txt",
+      "size": 23084
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/v0.3.2/l4x4/metadata/TORCHCODEC_ELF_AUDIT.json",
+      "target": "v0.3.2/l4x4/metadata/TORCHCODEC_ELF_AUDIT.json",
+      "size": 65
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/v0.3.2/l4x4/metadata/compatibility.json",
+      "target": "v0.3.2/l4x4/metadata/compatibility.json",
+      "size": 340
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/v0.3.2/l4x4/metadata/provenance.json",
+      "target": "v0.3.2/l4x4/metadata/provenance.json",
+      "size": 437
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/release/hf-v032-staging/v0.3.2/l4x4/metadata/runtime-manifest.json",
+      "target": "v0.3.2/l4x4/metadata/runtime-manifest.json",
+      "size": 49463
+    }
+  ]
+}

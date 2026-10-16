@@ -1,0 +1,13 @@
+{
+  "sdk": "0.3.2",
+  "profile": "kaggle-l4x4-cu129",
+  "python_abi": "cp312",
+  "platform": "linux_x86_64",
+  "gpu": "exactly 4 NVIDIA L4 / SM89",
+  "tensor_parallel": 4,
+  "torch": "2.13.0+cu129",
+  "cuda_user_space": "12.9",
+  "vllm": "0.30.0",
+  "gemma4_tested_backend_historical": "TRITON_ATTN",
+  "manual_032_acceptance": "NOT RUN"
+}

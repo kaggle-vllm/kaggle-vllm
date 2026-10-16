@@ -1,7 +1,7 @@
 {
   "schema_version": 3,
   "name": "kaggle-l4x4-cu129",
-  "status": "Accepted cleanup-r1 candidate runtime; rebuilt SDK wheel requires fresh Kaggle retest",
+  "status": "0.3.2 SDK candidate; exact native wheel preserved; fresh Kaggle acceptance pending",
   "python": {
     "implementation": "CPython",
     "major": 3,
@@ -53,8 +53,8 @@
     "nccl_world_size": 4,
     "gemma4_semantic_step20": "PASS"
   },
-  "sdk_generation": "0.3.0",
-  "default_runtime_root": "/tmp/kaggle-vllm/v0.3.0/l4x4",
+  "sdk_generation": "0.3.2",
+  "default_runtime_root": "/tmp/kaggle-vllm/v0.3.2/l4x4",
   "inference_lock": "L4_INFERENCE_LOCK.json",
   "build_provenance": {
     "CMAKE_CUDA_ARCHITECTURES": "89",
@@ -63,7 +63,7 @@
   },
   "public_artifacts": {
     "hf_repo_id": "waqasm86/kaggle-vllm-binaries",
-    "namespace": "v0.3.0/l4x4/",
+    "namespace": "v0.3.2/l4x4/",
     "immutable_revision": null,
     "status": "UNPUBLISHED"
   },

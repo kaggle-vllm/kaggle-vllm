@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "repository": "waqasm86/kaggle-vllm-binaries",
+  "releases": [
+    {
+      "sdk_version": "0.2.0",
+      "gpu_profile": "T4x2/SM75",
+      "vllm": "0.18.1 source",
+      "python_abi": "cp312",
+      "cuda": "12.8",
+      "torch": "2.10.0+cu128",
+      "manifest_path": "v0.2.0/metadata/runtime-manifest.json",
+      "immutable_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+      "native_sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+      "publication_status": "ACCEPTED",
+      "acceptance_status": "historical exact artifact"
+    },
+    {
+      "sdk_version": "0.3.1",
+      "gpu_profile": "L4x4/SM89",
+      "vllm": "0.30.0",
+      "python_abi": "cp312",
+      "cuda": "12.9",
+      "torch": "2.13.0+cu129",
+      "manifest_path": null,
+      "immutable_revision": null,
+      "native_sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+      "publication_status": "PUBLISHED_UNVERIFIED",
+      "acceptance_status": "historical candidate evidence does not cover exact published SDK"
+    },
+    {
+      "sdk_version": "0.3.2",
+      "gpu_profile": "L4x4/SM89",
+      "vllm": "0.30.0",
+      "python_abi": "cp312",
+      "cuda": "12.9",
+      "torch": "2.13.0+cu129",
+      "manifest_path": "v0.3.2/l4x4/metadata/runtime-manifest.json",
+      "immutable_revision": null,
+      "native_sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+      "publication_status": "PREPARING",
+      "acceptance_status": "NOT RUN"
+    }
+  ]
+}

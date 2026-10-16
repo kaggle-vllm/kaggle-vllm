@@ -40,7 +40,7 @@ def test_l4_cli_requires_explicit_profile():
     with pytest.raises(SystemExit):
         build_parser().parse_args(["bootstrap", "--offline"])
     args = build_parser().parse_args(["bootstrap", "--profile", "kaggle-l4x4-cu129", "--offline"])
-    assert args.runtime_root == Path("/tmp/kaggle-vllm/v0.3.0/l4x4")
+    assert args.runtime_root == Path("/tmp/kaggle-vllm/v0.3.2/l4x4")
     assert build_parser().parse_args(["plan", "--profile", "kaggle-l4x4-cu129"]).command == "plan"
 
 
@@ -70,7 +70,7 @@ def test_unpublished_public_revision_fails_closed():
 def test_free_space_guard_reports_required_and_available(monkeypatch):
     monkeypatch.setattr("kaggle_vllm.l4_bootstrap.shutil.disk_usage", lambda _: SimpleNamespace(free=1024))
     with pytest.raises(BootstrapError, match="available 1024 bytes, required 2048 bytes"):
-        check_free_space("/tmp/kaggle-vllm/v0.3.0/l4x4", required=2048)
+        check_free_space("/tmp/kaggle-vllm/v0.3.2/l4x4", required=2048)
 
 
 def test_reset_requires_manifest_and_yes(tmp_path):

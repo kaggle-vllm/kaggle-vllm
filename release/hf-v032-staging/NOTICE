@@ -1,0 +1,3 @@
+kaggle-vllm SDK is Apache-2.0. Native vLLM and each dependency wheel retain their own licenses.
+This staging directory is not authorization to redistribute NVIDIA or other third-party binaries.
+See reports/v032-production-release/13-license-provenance-audit.md before publication.
