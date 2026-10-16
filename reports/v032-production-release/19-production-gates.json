@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "recorded_utc": "2026-10-16T22:01:04.624978+00:00",
+  "recorded_utc": "2026-10-16T22:17:55.912942+00:00",
   "milestones": {
     "SOURCE CONSOLIDATED": "PASS",
     "LOCAL RELEASE CANDIDATE": "BLOCKED",
@@ -12,7 +12,7 @@
     "git_history_integrated": "PASS",
     "original_untracked_preserved": "PASS",
     "release_untracked_copied": "PASS",
-    "main_synchronized_with_origin": "BLOCKED",
+    "main_synchronized_with_origin": "PASS",
     "temporary_worktree_removed": "PASS",
     "native_l4_checksum": "PASS",
     "publisher_lock_local_168": "PASS",
@@ -22,7 +22,7 @@
     "immutable_revision_pinned": "BLOCKED",
     "final_sdk_build": "BLOCKED",
     "local_cpu_tests": "PASS",
-    "pr39_merged": "BLOCKED",
+    "pr39_merged": "PASS",
     "github_release_v032": "BLOCKED",
     "pypi_release_v032": "BLOCKED",
     "public_installation": "BLOCKED",
@@ -32,9 +32,9 @@
     "pr38_merged": "PASS"
   },
   "blockers": [
-    "Native compiled-component provenance and redistribution review is incomplete",
-    "Public Hub v0.3.2 runtime is absent; immutable revision is unset",
-    "Fresh manual Kaggle four-L4 acceptance has not occurred",
-    "PR #39 source merge and final public artifact gates remain pending"
+    "Native compiled-component source-to-binary provenance and required notices remain incomplete",
+    "Public Hub v0.3.2 metadata namespace is absent and no immutable release revision is pinned",
+    "Final SDK build, GitHub v0.3.2 and PyPI 0.3.2 depend on the Hub publication gate",
+    "Fresh manual Kaggle four-L4 acceptance has not occurred"
   ]
 }

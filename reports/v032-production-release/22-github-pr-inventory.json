@@ -4,16 +4,7 @@
     38,
     39
   ],
-  "current_open_prs": [
-    {
-      "baseRefName": "main",
-      "headRefName": "release/v0.3.2-l4x4-public-runtime",
-      "isDraft": true,
-      "number": 39,
-      "title": "Prepare kaggle-vllm 0.3.2 L4 public runtime candidate",
-      "url": "https://github.com/kaggle-vllm/kaggle-vllm/pull/39"
-    }
-  ],
+  "current_open_prs": [],
   "pull_requests": {
     "38": {
       "author": {
@@ -760,53 +751,55 @@
         }
       ],
       "headRefName": "release/v0.3.2-l4x4-public-runtime",
-      "headRefOid": "f7a0c5535d539e53f0d7b36a53aeb2c0540ff861",
-      "isDraft": true,
-      "mergeCommit": null,
-      "mergeStateStatus": "CLEAN",
-      "mergeable": "MERGEABLE",
-      "mergedAt": null,
+      "headRefOid": "70eba97d2a227b6a1ccfa5c0a4e812950d00f4e7",
+      "isDraft": false,
+      "mergeCommit": {
+        "oid": "269649a99ee80111e1128b71c89819a9315f4ad4"
+      },
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "mergedAt": "2026-10-16T22:16:32Z",
       "number": 39,
       "reviewDecision": "",
       "reviews": [],
-      "state": "OPEN",
+      "state": "MERGED",
       "statusCheckRollup": [
         {
           "__typename": "CheckRun",
-          "completedAt": "2026-10-16T21:59:27Z",
+          "completedAt": "2026-10-16T22:15:55Z",
           "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/kaggle-vllm/kaggle-vllm/actions/runs/38972908211/job/117215333109",
+          "detailsUrl": "https://github.com/kaggle-vllm/kaggle-vllm/actions/runs/38974648300/job/117221031581",
           "name": "Python 3.11 CPU SDK",
-          "startedAt": "2026-10-16T21:58:57Z",
+          "startedAt": "2026-10-16T22:15:32Z",
           "status": "COMPLETED",
           "workflowName": "SDK CI"
         },
         {
           "__typename": "CheckRun",
-          "completedAt": "2026-10-16T21:59:20Z",
+          "completedAt": "2026-10-16T22:15:56Z",
           "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/kaggle-vllm/kaggle-vllm/actions/runs/38972908211/job/117215333374",
+          "detailsUrl": "https://github.com/kaggle-vllm/kaggle-vllm/actions/runs/38974648300/job/117221031875",
           "name": "Python 3.12 CPU SDK",
-          "startedAt": "2026-10-16T21:58:57Z",
+          "startedAt": "2026-10-16T22:15:32Z",
           "status": "COMPLETED",
           "workflowName": "SDK CI"
         },
         {
           "__typename": "CheckRun",
-          "completedAt": "2026-10-16T21:59:13Z",
+          "completedAt": "2026-10-16T22:15:50Z",
           "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/kaggle-vllm/kaggle-vllm/actions/runs/38972908211/job/117215333477",
+          "detailsUrl": "https://github.com/kaggle-vllm/kaggle-vllm/actions/runs/38974648300/job/117221031891",
           "name": "quality-and-package",
-          "startedAt": "2026-10-16T21:58:57Z",
+          "startedAt": "2026-10-16T22:15:32Z",
           "status": "COMPLETED",
           "workflowName": "SDK CI"
         }
       ],
       "title": "Prepare kaggle-vllm 0.3.2 L4 public runtime candidate",
       "url": "https://github.com/kaggle-vllm/kaggle-vllm/pull/39",
-      "classification": "MERGE_READY_SOURCE_ONLY",
+      "classification": "MERGED_SOURCE_CANDIDATE",
       "unresolved_review_threads": 0,
-      "unique_content_disposition": "Public runtime metadata/source candidate; native distribution remains blocked"
+      "unique_content_disposition": "Preserved on main by merge commit; public runtime and GPU acceptance remain separate gates"
     }
   },
   "repository_rules": {
@@ -818,5 +811,6 @@
       "Python 3.12 CPU SDK",
       "quality-and-package"
     ]
-  }
+  },
+  "updated_utc": "2026-10-16T22:17:37.379461+00:00"
 }
