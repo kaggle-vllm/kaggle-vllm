@@ -1,0 +1,4 @@
+evaluation:
+  max_time_minutes: 5
+  max_tool_calls: 40
+  timeout_seconds: 120

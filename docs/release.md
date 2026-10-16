@@ -1,18 +1,18 @@
-# 0.3.0 release status
+# 0.3.1 release and validation status
 
-The accepted 0.3.0 candidate wheel passed all 19 mandatory cleanup-r1 Kaggle gates in the exact four-L4 environment. This feature branch changes the SDK source and therefore needs a fresh Kaggle run before publication. The native wheel remains accepted and unchanged. See the [acceptance audit](release/v0.3.0-acceptance-audit.md).
+The Python SDK 0.3.1 wheel and source distribution are already published on [PyPI](https://pypi.org/project/kaggle-vllm/0.3.1/) and in the [GitHub v0.3.1 release](https://github.com/kaggle-vllm/kaggle-vllm/releases/tag/v0.3.1). The unchanged native vLLM 0.30.0 wheel is also on [Hugging Face](https://huggingface.co/waqasm86/kaggle-vllm-binaries). Run `python scripts/release_state.py public` to recheck all three public artifact identities before any release action. Exact SDK SHA256 values are in [the release lock](../release/sdk-exact-artifacts.json); the native hash is in the L4 profile lock.
 
-The SDK wheel and sdist are separate from runtime-v3. No native wheel is placed inside the SDK package. Publishing, tagging, and pushing are outside this packaging task. See [release notes](../release/github-v0.3.0.md), [reproducibility](../release/reproducibility-v0.3.0.md), and [fresh acceptance](next-kaggle-acceptance.md).
+The [0.3.0 native acceptance audit](release/v0.3.0-acceptance-audit.md) remains valid for the unchanged native wheel. It does not establish integration acceptance of the published 0.3.1 SDK. The [fresh 0.3.1 notebook](../kaggle-notebooks/gemma4-competition/02_sdk_native_runtime_offline.ipynb) uses the existing 168-wheel P33 lock, corrected split-v2 Inputs, the frozen native wheel, and the licensed Gemma 4 Input in a new offline four-L4 session. Its actual 19-gate output determines 0.3.1 integration status.
 
-The prepared [final SDK acceptance notebook](../kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb) defaults to the four existing corrected split-v2 Kaggle Input Datasets and a saved P31 Notebook Output. It does not require a manual runtime-v3 upload. The [additive publication plan](../release/v0.3.0-additive-publication-plan.md) preserves all historical v0.1.x/v0.2.0 GitHub, PyPI, Hugging Face binary, and model content. [Manual third-party license review](../release/v0.3.0-redistribution-review.md) remains required before any public runtime upload.
+The exact published distributions must never be rebuilt or uploaded under the same version. GitHub CI already skips PyPI staging and publication when the live files match the lock; an identity mismatch fails closed. Editing documentation does not require a new GPU run. A change to SDK runtime behavior needs relevant SDK integration evidence; a change to the native wheel would need native hardware acceptance. Gemma TP4 checkpoint research and model publication have their own save, reload, completeness, licensing, and hash checks and do not gate the already published Python SDK.
 
-Runtime-v3 archive SHA256: `0ec85aec99b7d270511c3b62c306668d30249edc68169af5b9bad119f5c01c73` (6,633,730,070 bytes; 215 members).
+The [third-party redistribution review](../release/v0.3.0-redistribution-review.md) remains open for any public mirror of the 168-wheel runtime or broader 195-wheel archival closure. Public SDK and native-wheel availability does not clear those separate third-party notice obligations. Do not use the archival 6.6 GB runtime-v3 archive as the default Kaggle Input.
 
 ---
 
 ## Preserved historical v0.2 documentation
 
-The section below is retained verbatim from the v0.2 repository state for historical users. Commands and defaults above describe the v0.3 candidate.
+The section below records the earlier v0.2 release process. Its publication order and T4 checks are historical; the 0.3.1 state above governs current work.
 
 # Release process
 
