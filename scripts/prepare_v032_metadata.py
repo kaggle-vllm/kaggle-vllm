@@ -46,10 +46,12 @@ def main() -> None:
     (meta / "L4_INFERENCE_LOCK.json").write_bytes(l4_lock_path.read_bytes())
     (meta / "runtime-manifest.json").write_bytes(l4_lock_path.read_bytes())
     (meta / "TORCHCODEC_ELF_AUDIT.json").write_bytes((L4_PROFILE / "TORCHCODEC_ELF_AUDIT.json").read_bytes())
+    (meta / "UPSTREAM_WHEEL_SOURCES.json").write_bytes((L4_PROFILE / "UPSTREAM_WHEEL_SOURCES.json").read_bytes())
     write_json(meta / "compatibility.json", {
         "sdk": "0.3.2", "profile": "kaggle-l4x4-cu129", "python_abi": "cp312",
         "platform": "linux_x86_64", "gpu": "exactly 4 NVIDIA L4 / SM89", "tensor_parallel": 4,
         "torch": "2.13.0+cu129", "cuda_user_space": "12.9", "vllm": "0.30.0",
+        "wheelhouse_delivery": "publisher-index", "wheel_count": 168,
         "gemma4_tested_backend_historical": "TRITON_ATTN", "manual_032_acceptance": "NOT RUN",
     })
     write_json(meta / "provenance.json", {
@@ -64,9 +66,10 @@ def main() -> None:
         "historic_path_preserved": True,
     })
     sums = [f"{l4_lock['native']['sha256']}  native/{l4_lock['native']['filename']}"]
-    sums += [f"{row['sha256']}  wheelhouse/{row['filename']}" for row in l4_lock["wheels"]]
+    # Wheels are fetched from their original publisher indexes with pinned SHA256;
+    # they are not staged for a third-party public mirror.
     sums += [f"{sha(meta / name)}  metadata/{name}" for name in
-             ("L4_INFERENCE_LOCK.json", "runtime-manifest.json", "TORCHCODEC_ELF_AUDIT.json", "compatibility.json", "provenance.json")]
+             ("L4_INFERENCE_LOCK.json", "runtime-manifest.json", "TORCHCODEC_ELF_AUDIT.json", "UPSTREAM_WHEEL_SOURCES.json", "compatibility.json", "provenance.json")]
     (meta / "SHA256SUMS.txt").write_text("\n".join(sums) + "\n")
     (STAGING / "v0.2.0/metadata/SHA256SUMS.txt").write_text(
         f"{t4['wheel']['sha256']}  native/{t4['wheel']['filename']}\n"
@@ -86,7 +89,7 @@ def main() -> None:
             {"sdk_version": "0.3.2", "gpu_profile": "L4x4/SM89", "vllm": "0.30.0", "python_abi": "cp312",
              "cuda": "12.9", "torch": "2.13.0+cu129", "manifest_path": "v0.3.2/l4x4/metadata/runtime-manifest.json",
              "immutable_revision": None, "native_sha256": l4_lock["native"]["sha256"],
-             "publication_status": "PREPARING", "acceptance_status": "NOT RUN"},
+             "wheelhouse_delivery": "publisher-index", "publication_status": "PREPARING", "acceptance_status": "NOT RUN"},
         ],
     }
     write_json(STAGING / "releases.json", releases)
@@ -99,8 +102,10 @@ def main() -> None:
     (STAGING / "README.md").write_text(
         "# kaggle-vllm binary release namespaces\n\n"
         "Historical root paths and pinned commits remain valid. v0.2.0 is T4x2/cu128; "
-        "v0.3.2/l4x4 is the proposed 168-wheel cu129 runtime. "
-        "The v0.3.2 namespace is not public or accepted until all artifacts, notices, "
+        "v0.3.2/l4x4 is the proposed cu129 native wheel and metadata namespace. "
+        "Its 168 locked dependencies are fetched from the original PyPI, PyTorch and FlashInfer publishers "
+        "using exact checksums; dependency wheels are not mirrored here. "
+        "The v0.3.2 namespace is not public or accepted until all sources, notices, "
         "immutable revision and manual Kaggle evidence are verified.\n"
     )
     rows = []

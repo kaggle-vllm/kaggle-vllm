@@ -29,13 +29,13 @@ jobs:
           import json
           from pathlib import Path
           state = json.loads(Path('release/v032-redistribution-clearance.json').read_text())
-          if state.get('overall') != 'PASS' or state.get('reviewed_wheel_count') != 168 or state.get('native_compiled_components') != 'PASS':
+          if state.get('overall') != 'PASS' or state.get('native_compiled_components') != 'PASS' or state.get('wheelhouse_delivery') != 'publisher-index' or state.get('publisher_source_count') != 168:
               raise SystemExit('third-party binary redistribution clearance is incomplete')
           PY
       - name: Install Python build tools
         run: python -m pip install 'build>=1.2' 'pytest>=8' 'twine>=6' 'setuptools>=77' wheel
       - name: Verify immutable complete public runtime
-        run: PYTHONPATH=src python -c 'from kaggle_vllm.public_artifacts_v3 import verify_remote_completeness; assert verify_remote_completeness()["artifact_count"] == 170'
+        run: PYTHONPATH=src python -c 'from kaggle_vllm.public_artifacts_v3 import verify_remote_completeness; assert verify_remote_completeness()["artifact_count"] == 3'
       - name: Build exact SDK artifacts
         run: |
           set -euo pipefail

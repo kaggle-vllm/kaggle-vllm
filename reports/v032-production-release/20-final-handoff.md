@@ -1,9 +1,11 @@
-# 0.3.2 release candidate handoff
+# 0.3.2 release follow-up handoff
 
-The 0.3.2 source and pure Python SDK distributions are prepared in this worktree. The exact 168-wheel local inference closure and both native wheels passed SHA256 checks. The Hub inventory has 16 files and lacks the public 0.3.2 wheelhouse. The 0.3.2 profile deliberately has no immutable revision; public bootstrap fails clearly. Both manual notebooks are output-free and were not executed.
+Status: **PUBLICATION BLOCKED**. The 0.3.2 source candidate is in the existing release worktree and draft PR #39. The public SDK installation path is not yet usable because the versioned Hub metadata/native namespace, immutable SDK revision, PyPI 0.3.2 and GitHub v0.3.2 release are absent.
 
-[Draft PR #39](https://github.com/kaggle-vllm/kaggle-vllm/pull/39) contains the source and release plan for review. It is not a published 0.3.2 release.
+The revised delivery avoids mirroring 168 third-party dependency wheels. All 168 exact locked files were located at original publisher indexes and checked by advertised SHA256 or a direct byte download (TorchVision). The local SDK now has a checksum-pinned publisher source map and an allowlisted, resumable downloader. The proposed Hub mutation is only two copies of already hosted native wheels plus 14 small metadata/index additions. Native compiled-object redistribution clearance and the user's explicit authorization remain mandatory before that public change. The prior full-mirror plan is superseded.
 
-**Production blockers:** third-party binary redistribution review, approved/additive Hugging Face publication of 168 wheels and metadata, immutable Hub pin, final SDK rebuild, source PR, PyPI/GitHub publication authorization, and fresh manual Kaggle acceptance. No 0.3.2 GPU or Gemma acceptance is claimed.
+PR #39 was rechecked as OPEN, DRAFT, cleanly mergeable, head `8f49cf662c3cb9c5494d2090aed12f745992b7cd`, base `05f2b2983a4965ab0f450d4b9490bf9f3c041b55`, zero reviews/comments/threads; three prior CI jobs passed. Local follow-up: 426 CPU tests passed, one skipped; the two primary notebooks passed static checks and were not executed. These local changes still need to be pushed for new PR CI.
 
-Historical T4 0.2.0 wheel SHA256: `5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c`. Preserved L4 native wheel SHA256: `9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8`. Local SDK candidate checksums: `release/v032-SHA256SUMS.txt`.
+Historic T4 0.2.0 wheel SHA256: `5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c`. Preserved L4 native wheel SHA256: `9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8`. Current candidate SDK checksums are in `release/v032-SHA256SUMS.txt`; they are not final until an immutable Hub revision is embedded.
+
+Remaining blockers: native-wheel legal/provenance sign-off; explicit Hub publication authorization; Hub publication and verification; immutable pin; final SDK rebuild; approved PR merge; authorized GitHub/PyPI publication and verification; user-run Kaggle four-L4 acceptance. Do not ask the user to run the 0.3.2 public notebook while any public release prerequisite remains. Exact notebook paths and status are in `21-manual-notebook-paths.md` and `.json`.

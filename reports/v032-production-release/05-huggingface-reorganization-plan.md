@@ -1,13 +1,11 @@
 # Additive Hugging Face reorganization
 
-The current Hub commit is `8d7dd28f7c76c3b68e7326df81758411b7dc2680`, with 16 files. The T4 wheel remains at the repository root; the L4 native wheel is at `v0.3.0/l4x4/native/`. No wheelhouse is present. The target metadata and release index are staged in `release/hf-v032-staging/`.
+The Hub remains at `8d7dd28f7c76c3b68e7326df81758411b7dc2680` with 16 files. Historic T4 and L4 native paths remain available. No 0.3.2 namespace has been published.
 
-1. Complete the third-party redistribution and notice review.
-2. Use Hugging Face `CommitOperationCopy` for the two existing LFS wheels, from their immutable source revisions into `v0.2.0/native/` and `v0.3.2/l4x4/native/`. Keep the old paths.
-3. Upload the 168 locally verified wheels from `../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/<group>/` into `v0.3.2/l4x4/wheelhouse/`; upload staged metadata and `releases.json`. No dummy files.
-4. Read the resulting immutable commit tree and compare all 170 required L4 entries (168 dependencies, native, lock) with the lock. Download samples or the full set for independent checks as appropriate.
-5. Pin the verified commit in the 0.3.2 SDK profile, rebuild SDK distributions, run CPU checks and then the user's manual Kaggle acceptance.
+The revised 0.3.2 design avoids mirroring third-party dependency wheels. All 168 exact locked files were found at their publisher indexes: 162 on PyPI, five on the PyTorch CUDA 12.9 index, and one on FlashInfer. The publisher source inventory is in `upstream-wheel-origins.json`; 167 hashes were advertised by the indexes, and the remaining TorchVision wheel was independently downloaded and SHA256 verified. The SDK still verifies every downloaded file by exact size and SHA256 before staging.
 
-The exact 175 currently missing target paths are listed in `missing-public-l4-artifacts.json`. Existing paths are retained; deletion requires separate approval. Hugging Face supports server-side copying of LFS files, so the large native wheels need not be downloaded and re-uploaded solely to reorganize them.
+The proposed additive Hub change has 16 operations in `release/hf-v032-upload-plan.json`: copy the two existing LFS native wheels into versioned paths and add the staged release index and metadata, including `UPSTREAM_WHEEL_SOURCES.json`. It uploads **zero dependency wheels**. The `v0.3.2/l4x4/wheelhouse/` path stays absent by design; the versioned namespace supplies native and metadata while dependency bytes come from publishers.
 
-Reference: [Hugging Face repository copy documentation](https://huggingface.co/docs/huggingface_hub/guides/repository).
+Before any external mutation, document the native wheel's compiled-component redistribution rights and notices, obtain the user's explicit approval for the exact additive commit, and confirm the Hub base revision still matches the plan. After publication, verify every target size/hash and the immutable Hub commit, then pin it in the SDK and rebuild. Keep old paths; deletion requires separate approval.
+
+The initial full-mirror plan and its 175 missing target paths remain historical evidence in `missing-public-l4-artifacts.json`. The revised plan supersedes its dependency-wheel uploads. [Hugging Face documents server-side LFS copying](https://huggingface.co/docs/huggingface_hub/guides/repository).

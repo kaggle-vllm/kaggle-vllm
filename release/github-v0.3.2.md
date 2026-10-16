@@ -14,14 +14,14 @@ eval "$(kaggle-vllm env --profile kaggle-l4x4-cu129)"
 kaggle-vllm doctor --profile kaggle-l4x4-cu129 --strict --json
 ```
 
-The large dependency wheelhouse is distributed through `waqasm86/kaggle-vllm-binaries` on Hugging Face. The immutable revision will be inserted only after all 168 locked dependency wheels, native wheel and metadata are publicly present and verified. The SDK refuses mutable revisions or incomplete artifact sets.
+The native wheel and runtime metadata are to be distributed through the versioned `waqasm86/kaggle-vllm-binaries` namespace. The 168 exact dependency wheels are retrieved from their original PyPI, PyTorch CUDA 12.9, and FlashInfer publisher sources, with pinned size and SHA256 for every file. The immutable Hugging Face revision will be inserted only after its native/metadata namespace is publicly present and verified. The SDK refuses mutable revisions or incomplete manifests.
 
 ## Status and limitations
 
-- Local Python 3.11 CPU suite: 425 passed, 1 skipped. The pure Python wheel and sdist built and passed Twine checks.
+- Local Python 3.11 CPU suite: 426 passed, 1 skipped. The pure Python wheel and sdist built and passed Twine checks.
 - Four L4 GPU acceptance for the exact 0.3.2 SDK: **NOT RUN**. Native import, TP4, Gemma 4 semantic generation and cleanup require the user's manual Kaggle notebook.
 - P31 historical Gemma 4 generation used `TRITON_ATTN`. A compiled FlashAttention 2 extension import does not prove Gemma 4 FA2 execution or optimized throughput.
-- Kaggle Internet must be enabled for PyPI and Hugging Face downloads. DNS errors are network failures; the SDK does not bypass Kaggle restrictions.
-- Third-party binary redistribution notices and rights are under review. The public wheelhouse must not be uploaded until cleared.
+- Kaggle Internet must be enabled for PyPI, Hugging Face, PyTorch and FlashInfer downloads. DNS errors are network failures; the SDK does not bypass Kaggle restrictions.
+- Native-wheel compiled-component redistribution and notices are under review. No dependency wheel is in the revised Hugging Face upload plan.
 
 Attach the reviewed SDK wheel, source distribution and `release/v032-SHA256SUMS.txt` to the GitHub release. Keep large native/runtime dependencies on Hugging Face. Include `LICENSE`, staged notices, build provenance and this release note. Do not publish this draft or claim production readiness before the remaining gates pass.

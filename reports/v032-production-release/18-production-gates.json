@@ -28,7 +28,7 @@
     }
   },
   "0.3.2": {
-    "scope": "local release candidate only",
+    "scope": "publisher-source release candidate; no public 0.3.2 runtime or manual GPU acceptance",
     "overall": "BLOCKED",
     "checks": {
       "SDK package integrity": "PASS",
@@ -51,6 +51,9 @@
       "memory cleanup": "NOT RUN",
       "documentation accuracy": "PASS",
       "public distribution reproducibility": "BLOCKED"
-    }
+    },
+    "publication_status": "PUBLICATION BLOCKED",
+    "wheelhouse_delivery": "publisher-index, 168 exact locked publisher sources",
+    "required_hub_entries": 3
   }
 }

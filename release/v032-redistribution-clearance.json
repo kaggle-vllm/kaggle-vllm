@@ -2,8 +2,10 @@
   "schema_version": 1,
   "sdk_version": "0.3.2",
   "overall": "BLOCKED",
+  "wheelhouse_delivery": "publisher-index",
+  "publisher_source_count": 168,
   "reviewed_wheel_count": 0,
   "required_wheel_count": 168,
   "native_compiled_components": "BLOCKED",
-  "note": "Replace only after documented component-by-component redistribution and notice review. This file is a publication gate, not a legal opinion."
+  "note": "Dependency wheels are fetched from original publishers with exact SHA256 and are not mirrored by this release. Native vLLM wheel copying and notices still need documented redistribution review. Keep BLOCKED until then; this file is a publication gate, not a legal opinion."
 }

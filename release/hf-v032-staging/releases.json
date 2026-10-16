@@ -38,6 +38,7 @@
       "manifest_path": "v0.3.2/l4x4/metadata/runtime-manifest.json",
       "immutable_revision": null,
       "native_sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+      "wheelhouse_delivery": "publisher-index",
       "publication_status": "PREPARING",
       "acceptance_status": "NOT RUN"
     }

@@ -2,12 +2,18 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "reports/v032-production-release"
 STAGING = ROOT / "release/hf-v032-staging"
 OUTPUT = ROOT / "release/hf-v032-upload-plan.json"
+
+
+def sha256(path: Path) -> str:
+    with path.open("rb") as stream:
+        return hashlib.file_digest(stream, "sha256").hexdigest()
 
 
 def main() -> None:
@@ -28,26 +34,28 @@ def main() -> None:
          "sha256": lock["native"]["sha256"], "size": lock["native"]["size"]},
     ]
     local = {row["filename"]: row for row in verified}
+    origin = json.loads((REPORT / "upstream-wheel-origins.json").read_text())
+    upstream = {row["filename"]: row for row in origin["wheels"]}
+    if len(upstream) != 168:
+        raise ValueError("publisher source inventory is incomplete")
     for row in lock["wheels"]:
-        actual = local[row["filename"]]
+        actual, source = local[row["filename"]], upstream[row["filename"]]
         if actual["sha256"] != row["sha256"] or actual["size"] != row["size"]:
             raise ValueError(f"local lock mismatch: {row['filename']}")
-        operations.append({
-            "operation": "add", "local_path": actual["path"],
-            "target": "v0.3.2/l4x4/wheelhouse/" + row["filename"],
-            "sha256": row["sha256"], "size": row["size"],
-            "license_status": "REVIEW_REQUIRED",
-        })
+        if source["sha256"] != row["sha256"] or source["size"] != row["size"] or source["status"] not in ("EXACT", "EXACT_DOWNLOADED"):
+            raise ValueError(f"publisher source identity unverified: {row['filename']}")
     for path in sorted(STAGING.rglob("*")):
         if path.is_file():
             operations.append({"operation": "add", "local_path": str(path),
                                "target": path.relative_to(STAGING).as_posix(),
-                               "size": path.stat().st_size})
+                               "size": path.stat().st_size,
+                               "sha256": sha256(path)})
     OUTPUT.write_text(json.dumps({
         "schema_version": 1, "repository": "waqasm86/kaggle-vllm-binaries",
         "base_revision": inventory["revision"], "mode": "additive_only",
         "requires_explicit_user_authorization": True,
         "requires_redistribution_clearance": True,
+        "wheelhouse_delivery": "publisher-index; no dependency wheel uploads",
         "operations": operations,
     }, indent=2) + "\n")
     print(f"{len(operations)} planned operations; no upload performed")

@@ -1,0 +1,482 @@
+{
+  "schema_version": 1,
+  "worktree": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree",
+  "public_status": {
+    "0.2.0": "historical public release; exact 0.2.0 artifact evidence only",
+    "0.3.2": "PUBLICATION BLOCKED",
+    "github": "v0.3.2 release absent; draft PR #39 open",
+    "pypi": "0.3.2 absent at https://pypi.org/project/kaggle-vllm/0.3.2/",
+    "hugging_face": "v0.3.2/l4x4 native/metadata namespace absent; no immutable release commit; 168 dependencies pinned to publishers"
+  },
+  "primary": {
+    "0.2.0": {
+      "filename": "kaggle-vllm-v020-t4x2-public-acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle-vllm-v020-t4x2-public-acceptance.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks",
+      "size_bytes": 5097,
+      "cell_count": 5,
+      "structural_validation": "PASS (JSON and Python AST)",
+      "has_saved_execution": false,
+      "sdk_version": "0.2.0",
+      "intended_gpu": "NVIDIA Tesla T4 x2 / SM75",
+      "python_abi": "CPython 3.12",
+      "runtime_profile": "kaggle-t4x2-cu128",
+      "required_kaggle_settings": "matching GPU topology; Internet enabled; Python 3.12",
+      "external_inputs_required": false,
+      "publication_dependencies": [],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "READY FOR MANUAL KAGGLE EXECUTION"
+    },
+    "0.3.2": {
+      "filename": "kaggle-vllm-v032-l4x4-public-acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle-vllm-v032-l4x4-public-acceptance.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks",
+      "size_bytes": 7824,
+      "cell_count": 6,
+      "structural_validation": "PASS (JSON and Python AST)",
+      "has_saved_execution": false,
+      "sdk_version": "0.3.2",
+      "intended_gpu": "NVIDIA L4 x4 / SM89",
+      "python_abi": "CPython 3.12",
+      "runtime_profile": "kaggle-l4x4-cu129",
+      "required_kaggle_settings": "matching GPU topology; Internet enabled; Python 3.12",
+      "external_inputs_required": false,
+      "publication_dependencies": [
+        "complete immutable Hugging Face runtime",
+        "final PyPI 0.3.2 SDK",
+        "GitHub v0.3.2 release",
+        "redistribution clearance"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "BLOCKED \u2014 PUBLIC RELEASE INCOMPLETE"
+    }
+  },
+  "historical_relevant": [
+    {
+      "filename": "kaggle_vllm_0_2_0_acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_0_2_0_acceptance.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks",
+      "size_bytes": 83760,
+      "cell_count": 16,
+      "structural_validation": "PASS (JSON; historical magics not parsed)",
+      "has_saved_execution": true,
+      "sdk_version": "0.2.0",
+      "intended_gpu": "NVIDIA Tesla T4 x2 / SM75",
+      "python_abi": "CPython 3.12 target; historical notebook metadata not independently qualified",
+      "runtime_profile": "kaggle-t4x2-cu128",
+      "required_kaggle_settings": "Matching GPU topology; consult historical notebook for Internet and Input settings",
+      "external_inputs_required": "historical notebook-specific; inspect before use",
+      "publication_dependencies": [
+        "historical artifact paths and/or Kaggle Inputs as specified in that notebook"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "NOT PRIMARY PUBLIC ACCEPTANCE",
+      "purpose": "historical T4 or L4 research/acceptance; not primary public acceptance"
+    },
+    {
+      "filename": "kaggle_vllm_0_2_0_benchmark.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_0_2_0_benchmark.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks",
+      "size_bytes": 91086,
+      "cell_count": 24,
+      "structural_validation": "PASS (JSON; historical magics not parsed)",
+      "has_saved_execution": true,
+      "sdk_version": "0.2.0",
+      "intended_gpu": "NVIDIA Tesla T4 x2 / SM75",
+      "python_abi": "CPython 3.12 target; historical notebook metadata not independently qualified",
+      "runtime_profile": "kaggle-t4x2-cu128",
+      "required_kaggle_settings": "Matching GPU topology; consult historical notebook for Internet and Input settings",
+      "external_inputs_required": "historical notebook-specific; inspect before use",
+      "publication_dependencies": [
+        "historical artifact paths and/or Kaggle Inputs as specified in that notebook"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "NOT PRIMARY PUBLIC ACCEPTANCE",
+      "purpose": "historical T4 or L4 research/acceptance; not primary public acceptance"
+    },
+    {
+      "filename": "kaggle_vllm_0_2_0_post_publication_acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_0_2_0_post_publication_acceptance.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks",
+      "size_bytes": 69889,
+      "cell_count": 15,
+      "structural_validation": "PASS (JSON; historical magics not parsed)",
+      "has_saved_execution": true,
+      "sdk_version": "0.2.0",
+      "intended_gpu": "NVIDIA Tesla T4 x2 / SM75",
+      "python_abi": "CPython 3.12 target; historical notebook metadata not independently qualified",
+      "runtime_profile": "kaggle-t4x2-cu128",
+      "required_kaggle_settings": "Matching GPU topology; consult historical notebook for Internet and Input settings",
+      "external_inputs_required": "historical notebook-specific; inspect before use",
+      "publication_dependencies": [
+        "historical artifact paths and/or Kaggle Inputs as specified in that notebook"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "NOT PRIMARY PUBLIC ACCEPTANCE",
+      "purpose": "historical T4 or L4 research/acceptance; not primary public acceptance"
+    },
+    {
+      "filename": "kaggle_vllm_0_2_0_qwen_regression.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_0_2_0_qwen_regression.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks",
+      "size_bytes": 80492,
+      "cell_count": 16,
+      "structural_validation": "PASS (JSON; historical magics not parsed)",
+      "has_saved_execution": true,
+      "sdk_version": "0.2.0",
+      "intended_gpu": "NVIDIA Tesla T4 x2 / SM75",
+      "python_abi": "CPython 3.12 target; historical notebook metadata not independently qualified",
+      "runtime_profile": "kaggle-t4x2-cu128",
+      "required_kaggle_settings": "Matching GPU topology; consult historical notebook for Internet and Input settings",
+      "external_inputs_required": "historical notebook-specific; inspect before use",
+      "publication_dependencies": [
+        "historical artifact paths and/or Kaggle Inputs as specified in that notebook"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "NOT PRIMARY PUBLIC ACCEPTANCE",
+      "purpose": "historical T4 or L4 research/acceptance; not primary public acceptance"
+    },
+    {
+      "filename": "kaggle_vllm_0_3_0_l4x4_final_acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_acceptance.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks",
+      "size_bytes": 4138,
+      "cell_count": 4,
+      "structural_validation": "PASS (JSON; historical magics not parsed)",
+      "has_saved_execution": false,
+      "sdk_version": "0.3.0/0.3.1 historical",
+      "intended_gpu": "NVIDIA L4 x4 / SM89",
+      "python_abi": "CPython 3.12 target; historical notebook metadata not independently qualified",
+      "runtime_profile": "kaggle-l4x4-cu129",
+      "required_kaggle_settings": "Matching GPU topology; consult historical notebook for Internet and Input settings",
+      "external_inputs_required": "historical notebook-specific; inspect before use",
+      "publication_dependencies": [
+        "historical artifact paths and/or Kaggle Inputs as specified in that notebook"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "NOT PRIMARY PUBLIC ACCEPTANCE",
+      "purpose": "historical T4 or L4 research/acceptance; not primary public acceptance"
+    },
+    {
+      "filename": "kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks",
+      "size_bytes": 6885,
+      "cell_count": 4,
+      "structural_validation": "PASS (JSON; historical magics not parsed)",
+      "has_saved_execution": false,
+      "sdk_version": "0.3.0/0.3.1 historical",
+      "intended_gpu": "NVIDIA L4 x4 / SM89",
+      "python_abi": "CPython 3.12 target; historical notebook metadata not independently qualified",
+      "runtime_profile": "kaggle-l4x4-cu129",
+      "required_kaggle_settings": "Matching GPU topology; consult historical notebook for Internet and Input settings",
+      "external_inputs_required": "historical notebook-specific; inspect before use",
+      "publication_dependencies": [
+        "historical artifact paths and/or Kaggle Inputs as specified in that notebook"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "NOT PRIMARY PUBLIC ACCEPTANCE",
+      "purpose": "historical T4 or L4 research/acceptance; not primary public acceptance"
+    },
+    {
+      "filename": "kaggle_vllm_0_2_0_acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_0_2_0_acceptance.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks",
+      "size_bytes": 83760,
+      "cell_count": 16,
+      "structural_validation": "PASS (JSON; historical magics not parsed)",
+      "has_saved_execution": true,
+      "sdk_version": "0.2.0",
+      "intended_gpu": "NVIDIA Tesla T4 x2 / SM75",
+      "python_abi": "CPython 3.12 target; historical notebook metadata not independently qualified",
+      "runtime_profile": "kaggle-t4x2-cu128",
+      "required_kaggle_settings": "Matching GPU topology; consult historical notebook for Internet and Input settings",
+      "external_inputs_required": "historical notebook-specific; inspect before use",
+      "publication_dependencies": [
+        "historical artifact paths and/or Kaggle Inputs as specified in that notebook"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "NOT PRIMARY PUBLIC ACCEPTANCE",
+      "purpose": "historical T4 or L4 research/acceptance; not primary public acceptance"
+    },
+    {
+      "filename": "kaggle_vllm_0_2_0_benchmark.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_0_2_0_benchmark.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks",
+      "size_bytes": 91086,
+      "cell_count": 24,
+      "structural_validation": "PASS (JSON; historical magics not parsed)",
+      "has_saved_execution": true,
+      "sdk_version": "0.2.0",
+      "intended_gpu": "NVIDIA Tesla T4 x2 / SM75",
+      "python_abi": "CPython 3.12 target; historical notebook metadata not independently qualified",
+      "runtime_profile": "kaggle-t4x2-cu128",
+      "required_kaggle_settings": "Matching GPU topology; consult historical notebook for Internet and Input settings",
+      "external_inputs_required": "historical notebook-specific; inspect before use",
+      "publication_dependencies": [
+        "historical artifact paths and/or Kaggle Inputs as specified in that notebook"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "NOT PRIMARY PUBLIC ACCEPTANCE",
+      "purpose": "historical T4 or L4 research/acceptance; not primary public acceptance"
+    },
+    {
+      "filename": "kaggle_vllm_0_2_0_post_publication_acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_0_2_0_post_publication_acceptance.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks",
+      "size_bytes": 69889,
+      "cell_count": 15,
+      "structural_validation": "PASS (JSON; historical magics not parsed)",
+      "has_saved_execution": true,
+      "sdk_version": "0.2.0",
+      "intended_gpu": "NVIDIA Tesla T4 x2 / SM75",
+      "python_abi": "CPython 3.12 target; historical notebook metadata not independently qualified",
+      "runtime_profile": "kaggle-t4x2-cu128",
+      "required_kaggle_settings": "Matching GPU topology; consult historical notebook for Internet and Input settings",
+      "external_inputs_required": "historical notebook-specific; inspect before use",
+      "publication_dependencies": [
+        "historical artifact paths and/or Kaggle Inputs as specified in that notebook"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "NOT PRIMARY PUBLIC ACCEPTANCE",
+      "purpose": "historical T4 or L4 research/acceptance; not primary public acceptance"
+    },
+    {
+      "filename": "kaggle_vllm_0_2_0_qwen_regression.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_0_2_0_qwen_regression.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks",
+      "size_bytes": 80492,
+      "cell_count": 16,
+      "structural_validation": "PASS (JSON; historical magics not parsed)",
+      "has_saved_execution": true,
+      "sdk_version": "0.2.0",
+      "intended_gpu": "NVIDIA Tesla T4 x2 / SM75",
+      "python_abi": "CPython 3.12 target; historical notebook metadata not independently qualified",
+      "runtime_profile": "kaggle-t4x2-cu128",
+      "required_kaggle_settings": "Matching GPU topology; consult historical notebook for Internet and Input settings",
+      "external_inputs_required": "historical notebook-specific; inspect before use",
+      "publication_dependencies": [
+        "historical artifact paths and/or Kaggle Inputs as specified in that notebook"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "NOT PRIMARY PUBLIC ACCEPTANCE",
+      "purpose": "historical T4 or L4 research/acceptance; not primary public acceptance"
+    },
+    {
+      "filename": "kaggle_vllm_0_3_0_l4x4_final_acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_acceptance.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks",
+      "size_bytes": 4138,
+      "cell_count": 4,
+      "structural_validation": "PASS (JSON; historical magics not parsed)",
+      "has_saved_execution": false,
+      "sdk_version": "0.3.0/0.3.1 historical",
+      "intended_gpu": "NVIDIA L4 x4 / SM89",
+      "python_abi": "CPython 3.12 target; historical notebook metadata not independently qualified",
+      "runtime_profile": "kaggle-l4x4-cu129",
+      "required_kaggle_settings": "Matching GPU topology; consult historical notebook for Internet and Input settings",
+      "external_inputs_required": "historical notebook-specific; inspect before use",
+      "publication_dependencies": [
+        "historical artifact paths and/or Kaggle Inputs as specified in that notebook"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "NOT PRIMARY PUBLIC ACCEPTANCE",
+      "purpose": "historical T4 or L4 research/acceptance; not primary public acceptance"
+    },
+    {
+      "filename": "kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb",
+      "parent_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks",
+      "size_bytes": 6885,
+      "cell_count": 4,
+      "structural_validation": "PASS (JSON; historical magics not parsed)",
+      "has_saved_execution": false,
+      "sdk_version": "0.3.0/0.3.1 historical",
+      "intended_gpu": "NVIDIA L4 x4 / SM89",
+      "python_abi": "CPython 3.12 target; historical notebook metadata not independently qualified",
+      "runtime_profile": "kaggle-l4x4-cu129",
+      "required_kaggle_settings": "Matching GPU topology; consult historical notebook for Internet and Input settings",
+      "external_inputs_required": "historical notebook-specific; inspect before use",
+      "publication_dependencies": [
+        "historical artifact paths and/or Kaggle Inputs as specified in that notebook"
+      ],
+      "executed_by_codex": false,
+      "manual_acceptance_readiness": "NOT PRIMARY PUBLIC ACCEPTANCE",
+      "purpose": "historical T4 or L4 research/acceptance; not primary public acceptance"
+    }
+  ],
+  "other_notebooks": [
+    {
+      "filename": "allam-7b-instruct-kaggle-vllm.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/allam-7b-instruct-kaggle-vllm.ipynb"
+    },
+    {
+      "filename": "01_offline_inputs_audit.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/gemma4-competition/01_offline_inputs_audit.ipynb"
+    },
+    {
+      "filename": "02_sdk_native_runtime_offline.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/gemma4-competition/02_sdk_native_runtime_offline.ipynb"
+    },
+    {
+      "filename": "03_gemma4_tp4_inference.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/gemma4-competition/03_gemma4_tp4_inference.ipynb"
+    },
+    {
+      "filename": "04_tp4_sharded_state_research.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/gemma4-competition/04_tp4_sharded_state_research.ipynb"
+    },
+    {
+      "filename": "05_competition_submission_paper.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/gemma4-competition/05_competition_submission_paper.ipynb"
+    },
+    {
+      "filename": "06_official_agent_task_trial.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/gemma4-competition/06_official_agent_task_trial.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_0_1_1_dual_t4_acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_0_1_1_dual_t4_acceptance.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_0_1_2_benchmark.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_0_1_2_benchmark.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_0_1_2_reset_acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_0_1_2_reset_acceptance.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_m4_execute_batch.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_m4_execute_shard.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_m4_execute_shard.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_m5_guidellm_crosscheck.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_m5_guidellm_crosscheck.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_milestone_1_tp_diagnostics.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_milestone_1_tp_diagnostics.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_milestone_2_concurrency_crossover.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_milestone_2_concurrency_crossover.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_milestone_3_measured_nccl_phb.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_milestone_3_measured_nccl_phb.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_petitgpt_compatibility_experiment.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_petitgpt_compatibility_experiment.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_qwen25vl_elevenlabs_vision_to_voice.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_qwen25vl_elevenlabs_vision_to_voice.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_research_gemma3_4b_t4x2_sharded.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_research_gemma3_4b_t4x2_sharded.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_research_llama32_3b_t4x2_sharded.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_research_llama32_3b_t4x2_sharded.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_research_mistral_mid_t4x2_sharded.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_research_mistral_mid_t4x2_sharded.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_research_phi4_mini_t4x2_sharded.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/kaggle_vllm_research_phi4_mini_t4x2_sharded.ipynb"
+    },
+    {
+      "filename": "p3-allam-7b-kaggle-vllm-characterization.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/p3-allam-7b-kaggle-vllm-characterization.ipynb"
+    },
+    {
+      "filename": "p4-allam-7b-kaggle-vllm-final-research.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/kaggle-notebooks/p4-allam-7b-kaggle-vllm-final-research.ipynb"
+    },
+    {
+      "filename": "allam-7b-instruct-kaggle-vllm.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/allam-7b-instruct-kaggle-vllm.ipynb"
+    },
+    {
+      "filename": "kaggle-vllm-milestone-X-pcie-nccl-diagnostics.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle-vllm-milestone-X-pcie-nccl-diagnostics.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_0_1_1_dual_t4_acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_0_1_1_dual_t4_acceptance.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_0_1_2_benchmark.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_0_1_2_benchmark.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_0_1_2_reset_acceptance.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_0_1_2_reset_acceptance.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_m4_execute_batch.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_m4_execute_batch.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_m4_execute_shard.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_m4_execute_shard.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_m5_guidellm_crosscheck.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_m5_guidellm_crosscheck.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_milestone_1_tp_diagnostics.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_milestone_1_tp_diagnostics.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_milestone_2_concurrency_crossover.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_milestone_2_concurrency_crossover.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_milestone_3_measured_nccl_phb.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_milestone_3_measured_nccl_phb.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_petitgpt_compatibility_experiment.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_petitgpt_compatibility_experiment.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_qwen25vl_elevenlabs_vision_to_voice.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_qwen25vl_elevenlabs_vision_to_voice.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_research_gemma3_4b_t4x2_sharded.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_research_gemma3_4b_t4x2_sharded.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_research_llama32_3b_t4x2_sharded.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_research_llama32_3b_t4x2_sharded.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_research_mistral_mid_t4x2_sharded.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_research_mistral_mid_t4x2_sharded.ipynb"
+    },
+    {
+      "filename": "kaggle_vllm_research_phi4_mini_t4x2_sharded.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/kaggle_vllm_research_phi4_mini_t4x2_sharded.ipynb"
+    },
+    {
+      "filename": "p3-allam-7b-kaggle-vllm-characterization.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/p3-allam-7b-kaggle-vllm-characterization.ipynb"
+    },
+    {
+      "filename": "p4-allam-7b-kaggle-vllm-final-research.ipynb",
+      "absolute_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/kaggle-notebooks/p4-allam-7b-kaggle-vllm-final-research.ipynb"
+    }
+  ]
+}

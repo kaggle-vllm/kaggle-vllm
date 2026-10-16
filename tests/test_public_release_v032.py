@@ -56,29 +56,35 @@ def test_downloader_resumes_range_and_checks_hash(tmp_path, monkeypatch):
     assert not target.with_name("test.whl.part").exists()
 
 
-def test_remote_completeness_rejects_missing_wheels(monkeypatch):
+def test_remote_completeness_rejects_missing_metadata_and_native(monkeypatch):
     monkeypatch.setattr(public, "_remote_inventory", lambda: {})
-    with pytest.raises(BootstrapError, match="missing=.*wheelhouse/"):
+    with pytest.raises(BootstrapError, match="missing=.*metadata/L4_INFERENCE_LOCK.json"):
         public.verify_remote_completeness()
 
 
-def test_remote_completeness_verifies_git_stored_small_wheel(monkeypatch):
+def test_remote_completeness_verifies_git_stored_metadata(monkeypatch):
     lock = public.lean_runtime_manifest()
     namespace = public.load_profile().data["public_artifacts"]["namespace"].strip("/")
     rows = {}
-    for item in lock["wheels"]:
-        rows[f"{namespace}/wheelhouse/{item['filename']}"] = {
-            "size": item["size"], "lfs": {"oid": item["sha256"]}
-        }
     native = lock["native"]
     rows[f"{namespace}/native/{native['filename']}"] = {
         "size": native["size"], "lfs": {"oid": native["sha256"]}
     }
     source = public.Path(public.__file__).parent / "profiles/kaggle-l4x4-cu129/L4_INFERENCE_LOCK.json"
     rows[f"{namespace}/metadata/L4_INFERENCE_LOCK.json"] = {"size": source.stat().st_size}
+    source_map = source.with_name("UPSTREAM_WHEEL_SOURCES.json")
+    rows[f"{namespace}/metadata/UPSTREAM_WHEEL_SOURCES.json"] = {"size": source_map.stat().st_size}
     monkeypatch.setattr(public, "_remote_inventory", lambda: rows)
-    monkeypatch.setattr(public, "_remote_small_sha256", lambda relative, size: public.LOCK_SHA256)
-    assert public.verify_remote_completeness()["artifact_count"] == 170
+    monkeypatch.setattr(public, "_remote_small_sha256", lambda relative, size: public.LOCK_SHA256 if relative.endswith("L4_INFERENCE_LOCK.json") else public.UPSTREAM_SOURCES_SHA256)
+    result = public.verify_remote_completeness()
+    assert result["artifact_count"] == 3
+    assert result["download_bytes"] >= sum(item["size"] for item in lock["wheels"])
+
+
+def test_publisher_sources_match_full_lock_and_pytorch_triton():
+    sources = public._publisher_sources(public.lean_runtime_manifest())
+    assert len(sources) == 168
+    assert sources["triton-3.7.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"].startswith("https://download-r2.pytorch.org/")
 
 
 def test_network_dns_classification(monkeypatch):

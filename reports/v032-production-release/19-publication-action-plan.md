@@ -1,10 +1,11 @@
 # Publication action plan
 
-1. Resolve legal/provenance decisions for the native compiled components and all 168 mirrored wheels; finalize notices.
-2. Obtain user authorization for additive Hugging Face publication. Copy the two existing LFS native wheels server-side, upload the verified 168 wheels and staged metadata/index, and preserve old paths.
-3. Re-inventory the immutable Hub commit. Fail if any filename, size or SHA256 differs. Pin that commit in the SDK profile and update release metadata.
-4. Pin and rebuild 0.3.2 with Python 3.11, rerun CPU tests, Twine and reproducibility checks, and update [draft PR #39](https://github.com/kaggle-vllm/kaggle-vllm/pull/39) for review.
-5. Obtain user authorization for PyPI Trusted Publishing and GitHub v0.3.2 release publication. Upload exact reviewed SDK files, checksums and notes. Never upload a credential.
-6. The user manually runs both Kaggle notebooks. Review the resulting evidence. Mark 0.3.2 accepted only if all mandatory gates pass.
+1. **Native rights and notices:** Review the seven compiled `.so` objects and bundled third-party code in the exact L4 wheel, record provenance and required notices, and set `release/v032-redistribution-clearance.json` to PASS only with supporting evidence. The revised plan mirrors no dependency wheels. The 168 exact publisher sources and hashes are in `upstream-wheel-origins.json`; this avoids granting ourselves redistribution rights we have not established.
+2. **Hugging Face authorization:** The user's earlier publication policy and current request require explicit authorization for the exact public Hub mutation. The current `release/hf-v032-upload-plan.json` has 16 additive operations: two server-side native copies and 14 metadata/index additions, zero dependency wheels. Verify the base commit is still `8d7dd28f7c76c3b68e7326df81758411b7dc2680` before any upload. Keep old paths.
+3. **Hub publication and independent verification:** Once rights and authorization are in place, commit only the approved operations. Verify every target size/SHA256 and availability at the resulting immutable commit, plus the 168 publisher URLs. Record the commit in `releases.json` and the SDK profile. Do not pin moving `main`.
+4. **Final SDK:** Rebuild 0.3.2 with Python 3.11 after the Hub pin, run CPU/static/package checks, normalize the sdist, update `release/v032-SHA256SUMS.txt`, and verify exact wheel/sdist contents. Prior candidate checksums are not the final published checksums.
+5. **PR #39:** Commit and push the reviewed changes to the existing release branch. Require passing new CI and code review; merge only after approval and all mandatory publication gates. Do not create another PR or change the dirty original main checkout.
+6. **Public releases:** Obtain the user's explicit authorization for the GitHub v0.3.2 release and PyPI Trusted Publishing. Publish the exact reviewed SDK distributions, checksum file and notes; never use a disclosed token. Verify public registry/CDN downloads and checksums independently.
+7. **Manual acceptance:** Only then mark `PUBLICLY AVAILABLE — GPU ACCEPTANCE PENDING` and hand the notebooks to the user. The user alone runs Kaggle. Fresh GPU acceptance is required for the exact public SDK/runtime.
 
-No remote mutation is performed by this report. The user must explicitly authorize the HF upload, PyPI upload and GitHub release publication as separate visible actions.
+Current status: **PUBLICATION BLOCKED**. No Hugging Face, GitHub release, PyPI, or Kaggle execution action occurred in this follow-up.

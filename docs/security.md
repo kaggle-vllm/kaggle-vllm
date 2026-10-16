@@ -1,6 +1,6 @@
 # Security and supply chain
 
-For v0.3.0, the public L4 Hugging Face revision is deliberately unset. Online bootstrap refuses to download until a 40-character immutable commit is recorded, and every artifact is checked by exact size and SHA256. The P33 inference lock has 168 dependency wheels; the archival runtime-v3 manifest has 195. No public wheelhouse mirror is approved while third-party redistribution review is open. The default expanded runtime is under `/tmp`, and reset requires an SDK manifest plus explicit `--yes`.
+For v0.3.0, the public L4 Hugging Face revision is deliberately unset. Online bootstrap refuses to download until a 40-character immutable commit is recorded, and every artifact is checked by exact size and SHA256. The P33 inference lock has 168 dependency wheels; the archival runtime-v3 manifest has 195. The 0.3.2 candidate instead pins direct publisher sources for all 168 dependency wheels; no dependency-wheel mirror is proposed. Native-wheel copying still requires clearance. The default expanded runtime is under `/tmp`, and reset requires an SDK manifest plus explicit `--yes`.
 
 ## Trust boundary
 

@@ -38,6 +38,8 @@ def network_report() -> dict[str, object]:
     endpoints = {
         "PyPI": "https://pypi.org/pypi/kaggle-vllm/0.3.2/json",
         "Hugging Face": "https://huggingface.co/api/models/waqasm86/kaggle-vllm-binaries",
+        "PyTorch CUDA 12.9": "https://download.pytorch.org/whl/cu129/torch/",
+        "FlashInfer": "https://flashinfer.ai/whl/flashinfer-cubin/",
     }
     probes = {name: _probe(url) for name, url in endpoints.items()}
     try:
@@ -61,6 +63,10 @@ def network_report() -> dict[str, object]:
         diagnosis = "PYPI_UNAVAILABLE"
     elif probes["Hugging Face"]["status"] != "PASS":
         diagnosis = "HUGGING_FACE_UNAVAILABLE"
+    elif probes["PyTorch CUDA 12.9"]["status"] != "PASS":
+        diagnosis = "PYTORCH_INDEX_UNAVAILABLE"
+    elif probes["FlashInfer"]["status"] != "PASS":
+        diagnosis = "FLASHINFER_INDEX_UNAVAILABLE"
     else:
         diagnosis = "NETWORK_READY"
     return {

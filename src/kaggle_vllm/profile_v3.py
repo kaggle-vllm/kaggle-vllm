@@ -56,6 +56,10 @@ def validate_profile(data: dict[str, Any]) -> L4Profile:
             raise ValueError("wheel size or scratch runtime root mismatch")
         if data["public_artifacts"]["hf_repo_id"] != "waqasm86/kaggle-vllm-binaries":
             raise ValueError("wrong public binary authority")
+        if data["public_artifacts"].get("namespace") != "v0.3.2/l4x4/":
+            raise ValueError("wrong public runtime namespace")
+        if data["public_artifacts"].get("wheelhouse_delivery") != "publisher-index":
+            raise ValueError("wrong locked wheel delivery mode")
         if v["gemma4_tested_backend"] != "TRITON_ATTN":
             raise ValueError("Gemma 4 backend evidence mismatch")
         evidence = data["evidence"]
