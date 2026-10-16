@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import fcntl
 import os
 import platform
 import shlex
@@ -9,6 +10,8 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 
@@ -78,7 +81,7 @@ def _manifest_path(target: Path) -> Path:
     return target / "manifests" / MANIFEST_NAME
 
 
-def bootstrap(*, runtime_root: str | Path | None = None, native_source: str | Path | None = None, component_overrides: dict[str, str | Path] | None = None, target: str | Path = DEFAULT_TARGET, strict: bool = False, dry_run: bool = False) -> dict[str, Any]:
+def _bootstrap_unlocked(*, runtime_root: str | Path | None = None, native_source: str | Path | None = None, component_overrides: dict[str, str | Path] | None = None, target: str | Path = DEFAULT_TARGET, strict: bool = False, dry_run: bool = False) -> dict[str, Any]:
     """Verify exact local wheels and install them with --target --no-deps --no-index."""
     selected = discover_runtime(runtime_root, native_source=native_source, component_overrides=component_overrides)
     destination = Path(target).expanduser().resolve()
@@ -89,6 +92,8 @@ def bootstrap(*, runtime_root: str | Path | None = None, native_source: str | Pa
             raise BootstrapError("incompatible native runtime: " + "; ".join(problems))
     source_label = str(selected.root if isinstance(selected, SplitRuntimeSource) else selected)
     completed = _manifest_path(destination)
+    if completed.is_symlink() or (destination / "pydeps").is_symlink():
+        raise BootstrapError("runtime manifest or Python overlay cannot be a symlink")
     if not dry_run and completed.is_file():
         old = json.loads(completed.read_text(encoding="utf-8"))
         if old.get("native_sha256") != load_profile().wheel_sha256 or old.get("profile") != load_profile().name:
@@ -152,6 +157,35 @@ def bootstrap(*, runtime_root: str | Path | None = None, native_source: str | Pa
     os.replace(temporary, completed)
     result.update({"completed": True, "manifest": str(completed), "driver": driver})
     return result
+
+
+@contextmanager
+def _stage_lock(target: str | Path):
+    destination = _owned_destination(Path(target))
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    fd = os.open(destination.parent / ".kaggle-vllm-stage.lock", os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
+    try:
+        for attempt in range(120):
+            try:
+                fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                break
+            except BlockingIOError:
+                if attempt == 119:
+                    raise BootstrapError("another runtime bootstrap held the staging lock for more than 60 seconds")
+                time.sleep(0.5)
+        yield
+    finally:
+        fcntl.flock(fd, fcntl.LOCK_UN)
+        os.close(fd)
+
+
+def bootstrap(*, runtime_root: str | Path | None = None, native_source: str | Path | None = None, component_overrides: dict[str, str | Path] | None = None, target: str | Path = DEFAULT_TARGET, strict: bool = False, dry_run: bool = False) -> dict[str, Any]:
+    """Serialize staging for a destination and reuse only a verified completion."""
+    arguments = dict(runtime_root=runtime_root, native_source=native_source, component_overrides=component_overrides, target=target, strict=strict, dry_run=dry_run)
+    if dry_run:
+        return _bootstrap_unlocked(**arguments)
+    with _stage_lock(target):
+        return _bootstrap_unlocked(**arguments)
 
 
 def _paths(*values: str) -> str:

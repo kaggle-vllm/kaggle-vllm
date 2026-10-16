@@ -1,0 +1,67 @@
+name: Publish reviewed kaggle-vllm 0.3.2 SDK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Verify reviewed tag and legal gate
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse 'v0.3.2^{commit}')" = "$GITHUB_SHA"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          state = json.loads(Path('release/v032-redistribution-clearance.json').read_text())
+          if state.get('overall') != 'PASS' or state.get('native_compiled_components') != 'PASS' or state.get('wheelhouse_delivery') != 'publisher-index' or state.get('publisher_source_count') != 168:
+              raise SystemExit('third-party binary redistribution clearance is incomplete')
+          PY
+      - name: Install Python build tools
+        run: python -m pip install 'build>=1.2' 'pytest>=8' 'twine>=6' 'setuptools>=77' wheel
+      - name: Verify immutable complete public runtime
+        run: PYTHONPATH=src python -c 'from kaggle_vllm.public_artifacts_v3 import verify_remote_completeness; assert verify_remote_completeness()["artifact_count"] == 3'
+      - name: Build exact SDK artifacts
+        run: |
+          set -euo pipefail
+          PYTHONPATH=src python -m pytest -q
+          export SOURCE_DATE_EPOCH="$(cat release/v032-build-epoch.txt)"
+          python -m build --no-isolation --outdir dist-raw
+          mkdir -p dist
+          cp dist-raw/kaggle_vllm-0.3.2-py3-none-any.whl dist/
+          python scripts/normalize_sdist_v032.py dist-raw/kaggle_vllm-0.3.2.tar.gz dist/kaggle_vllm-0.3.2.tar.gz --epoch "$SOURCE_DATE_EPOCH"
+          (cd dist && sha256sum -c ../release/v032-SHA256SUMS.txt)
+          python -m twine check dist/*
+      - name: Confirm no 0.3.2 release already exists
+        run: |
+          python - <<'PY'
+          import urllib.error
+          import urllib.request
+          url = 'https://pypi.org/pypi/kaggle-vllm/0.3.2/json'
+          try:
+              urllib.request.urlopen(url, timeout=20).close()
+          except urllib.error.HTTPError as error:
+              if error.code == 404:
+                  raise SystemExit(0)
+              raise
+          raise SystemExit('PyPI 0.3.2 already exists; never overwrite')
+          PY
+      - name: Publish exact reviewed SDK distributions
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/

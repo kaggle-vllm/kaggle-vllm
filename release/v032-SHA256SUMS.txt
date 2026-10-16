@@ -1,0 +1,3 @@
+# Provisional source candidate only; regenerate after the verified immutable Hugging Face revision is pinned.
+cc9b89a48901a2a55a54cf33816e1e48db9b65d9911753a27c0a891339c613e4  kaggle_vllm-0.3.2-py3-none-any.whl
+a97701c1ac0da7d3217e99292e4fba96cab87704561bbf42b6c7fd68987c8562  kaggle_vllm-0.3.2.tar.gz

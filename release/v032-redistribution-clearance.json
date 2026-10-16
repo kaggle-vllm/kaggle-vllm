@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "sdk_version": "0.3.2",
+  "overall": "BLOCKED",
+  "wheelhouse_delivery": "publisher-index",
+  "publisher_source_count": 168,
+  "reviewed_wheel_count": 0,
+  "required_wheel_count": 168,
+  "native_compiled_components": "BLOCKED",
+  "native_distribution_mode": "reuse-existing-Hugging-Face-object-with-immutable-revision-and-SHA256",
+  "note": "Dependency wheels are fetched from original publishers with exact SHA256 and are not mirrored by this release. The revised plan makes no new native wheel copy, but original native compilation provenance and notices still need documented review. Keep BLOCKED until then; this file is a publication gate, not a legal opinion."
+}

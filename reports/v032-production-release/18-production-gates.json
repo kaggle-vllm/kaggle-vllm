@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "updated": "2026-10-16",
+  "0.2.0": {
+    "scope": "historical exact artifact evidence; no changed SDK acceptance inferred",
+    "overall": "BLOCKED",
+    "checks": {
+      "SDK package integrity": "PASS",
+      "Python ABI": "PASS",
+      "GPU profile": "PASS",
+      "runtime dependency lock": "PASS",
+      "native wheel checksum": "PASS",
+      "Hugging Face completeness": "PASS",
+      "immutable revision": "PASS",
+      "license compliance": "BLOCKED",
+      "downloader correctness": "PASS",
+      "safe runtime staging": "PASS",
+      "CPU/static tests": "PASS",
+      "GitHub release consistency": "PASS",
+      "PyPI artifact consistency": "PASS",
+      "manual Kaggle SDK install": "PASS",
+      "manual native imports": "PASS",
+      "manual NCCL tensor parallelism": "PASS",
+      "manual model generation": "PASS",
+      "memory cleanup": "PASS",
+      "documentation accuracy": "PASS",
+      "public distribution reproducibility": "BLOCKED"
+    }
+  },
+  "0.3.2": {
+    "scope": "publisher-source release candidate; no public 0.3.2 runtime or manual GPU acceptance",
+    "overall": "BLOCKED",
+    "checks": {
+      "SDK package integrity": "PASS",
+      "Python ABI": "PASS",
+      "GPU profile": "NOT RUN",
+      "runtime dependency lock": "PASS",
+      "native wheel checksum": "PASS",
+      "Hugging Face completeness": "FAIL",
+      "immutable revision": "BLOCKED",
+      "license compliance": "BLOCKED",
+      "downloader correctness": "PASS",
+      "safe runtime staging": "NOT RUN",
+      "CPU/static tests": "PASS",
+      "GitHub release consistency": "NOT RUN",
+      "PyPI artifact consistency": "NOT RUN",
+      "manual Kaggle SDK install": "NOT RUN",
+      "manual native imports": "NOT RUN",
+      "manual NCCL tensor parallelism": "NOT RUN",
+      "manual model generation": "NOT RUN",
+      "memory cleanup": "NOT RUN",
+      "documentation accuracy": "PASS",
+      "public distribution reproducibility": "BLOCKED"
+    },
+    "publication_status": "PUBLICATION BLOCKED",
+    "wheelhouse_delivery": "publisher-index, 168 exact locked publisher sources",
+    "required_hub_entries": 3
+  }
+}

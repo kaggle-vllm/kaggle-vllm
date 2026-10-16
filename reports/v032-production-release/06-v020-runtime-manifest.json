@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "sdk_version": "0.2.0",
+  "profile": "kaggle-t4x2-cu128",
+  "python_abi": "cp312",
+  "cuda": "12.8",
+  "torch": "2.10.0+cu128",
+  "gpu": "2 x NVIDIA Tesla T4 / SM75",
+  "tensor_parallel": 2,
+  "native": {
+    "filename": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c",
+    "size": 383922260
+  },
+  "hf_repo_id": "waqasm86/kaggle-vllm-binaries",
+  "immutable_revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+  "historical_path": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+  "new_path_status": "PREPARING"
+}

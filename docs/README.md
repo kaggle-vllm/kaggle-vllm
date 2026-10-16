@@ -1,4 +1,4 @@
-# Documentation for kaggle-vllm 0.3.0
+# Documentation for kaggle-vllm 0.3.2
 
 The new v0.3 runtime targets a clean Kaggle four-NVIDIA-L4 / SM89, CPython-3.12 session; the historical T4 profile remains available. Start with the [L4 candidate](kaggle-v0.3.0-l4x4.md), [profile boundary](v0.2-to-v0.3-profile-boundary.md), [storage](runtime-storage.md), [Gemma example](gemma4.md), [installation](installation.md), [compatibility](compatibility.md), [architecture](architecture.md), [native runtime](native-runtime.md), [doctor](doctor.md), [multi-GPU](multi-gpu.md), [troubleshooting](troubleshooting.md), [release status](release.md), and [fresh Kaggle acceptance](next-kaggle-acceptance.md).
 

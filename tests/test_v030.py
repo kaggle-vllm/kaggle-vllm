@@ -26,7 +26,7 @@ def gpus(name="NVIDIA L4", cap=(8, 9), count=4):
 
 
 def test_version():
-    assert kaggle_vllm.__version__ == "0.3.1"
+    assert kaggle_vllm.__version__ == "0.3.2"
 
 
 def test_root_cli_help_lists_new_and_historical_commands(capsys):

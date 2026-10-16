@@ -1,0 +1,11 @@
+# Publication action plan
+
+1. **Native rights and notices:** Review the seven compiled `.so` objects and bundled third-party code in the exact L4 wheel, record provenance and required notices, and set `release/v032-redistribution-clearance.json` to PASS only with supporting evidence. The revised plan mirrors no dependency wheels. The 168 exact publisher sources and hashes are in `upstream-wheel-origins.json`; this avoids granting ourselves redistribution rights we have not established.
+2. **Hugging Face publication:** The current `release/hf-v032-upload-plan.json` has 14 additive metadata/index operations, zero binary copies and zero dependency wheels. The user requested publication when lawful and technically ready. Verify the Hub base commit and exact historical native object before any upload. Keep old paths.
+3. **Hub publication and independent verification:** Once rights and authorization are in place, commit only the approved operations. Verify every target size/SHA256 and availability at the resulting immutable commit, plus the 168 publisher URLs. Record the commit in `releases.json` and the SDK profile. Do not pin moving `main`.
+4. **Final SDK:** Rebuild 0.3.2 with Python 3.11 after the Hub pin, run CPU/static/package checks, normalize the sdist, update `release/v032-SHA256SUMS.txt`, and verify exact wheel/sdist contents. Prior candidate checksums are not the final published checksums.
+5. **PR #39:** Commit and push the reviewed changes to the existing release branch. Require passing new CI and applicable review protections. The user authorized routine PR merging; the source candidate can merge while GPU acceptance and public artifact gates remain pending if it fails closed honestly.
+6. **Public releases:** When prerequisite gates and securely configured publishing credentials are satisfied, publish the exact reviewed SDK distributions, checksum file and notes. Never use a disclosed token. Verify public registry/CDN downloads and checksums independently.
+7. **Manual acceptance:** Only then mark `PUBLICLY AVAILABLE — GPU ACCEPTANCE PENDING` and hand the notebooks to the user. The user alone runs Kaggle. Fresh GPU acceptance is required for the exact public SDK/runtime.
+
+Current status: **PUBLICATION BLOCKED**. No Hugging Face, GitHub release, PyPI, or Kaggle execution action occurred in this follow-up.

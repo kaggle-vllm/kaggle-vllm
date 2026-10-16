@@ -1,3 +1,10 @@
+## 0.3.2 (release candidate; GPU acceptance pending)
+
+- Preserve the exact T4 0.2.0 historical wheel and pinned Hub revision and the L4 native wheel from the prior release.
+- Move the L4 SDK staging root to a 0.3.2 namespace, reference the exact historical Hugging Face L4 native wheel, and prepare versioned 0.3.2 metadata. The 168 locked dependency wheels are fetched from their original publishers with pinned sizes and SHA256 values. Public delivery remains blocked until the Hub metadata is verified and an immutable revision is pinned.
+- Add resumable checksum-verified downloads, complete remote inventory checks, bounded retries, cache and staging locks, and network preflight diagnostics.
+- Prepare output-free manual T4 and L4 public acceptance notebooks and release gate reports. No new GPU acceptance is claimed.
+
 ## 0.3.1 (GPU retest pending)
 
 - Restore the final GPU-accepted SDK source in a new version because PyPI's 0.3.0 wheel and sdist have different bytes from the accepted GitHub v0.3.0 artifacts. PyPI 0.3.0 remains unchanged.

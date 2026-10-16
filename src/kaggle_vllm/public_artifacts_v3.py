@@ -1,77 +1,305 @@
-"""Immutable public artifact delivery for the L4 profile.
-
-The revision deliberately remains unset until the additive HF upload is
-finished. No request may resolve mutable ``main``.
-"""
+"""Checksum-pinned public L4 artifacts. Publication is deliberately fail closed."""
 from __future__ import annotations
 
+import fcntl
 import hashlib
+import json
 import os
 import re
-import tempfile
+import shutil
+import time
+from contextlib import contextmanager
 from pathlib import Path
-from urllib.parse import quote
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote, urlparse
 from urllib.request import Request, urlopen
 
 from .exceptions import BootstrapError
 from .profile_v3 import load_profile
-from .runtime_v3 import WHEEL_FILENAME, TORCHCODEC_AUDIT_SHA256, lean_runtime_manifest, validate_native_wheel, verify_runtime
+from .runtime_v3 import (
+    TORCHCODEC_AUDIT_SHA256, WHEEL_FILENAME, lean_runtime_manifest,
+    validate_native_wheel, verify_runtime,
+)
+
+LOCK_SHA256 = "f162e6c212371a34ed49f11885e80222fb78359a2d9a92f02b3cd29db2ce5329"
+UPSTREAM_SOURCES_SHA256 = "08b0db68c5ef9c6824c6922b9b6911198e68ad9aace46d35ed1ac23b8655d103"
+PUBLISHER_HOSTS = frozenset({"files.pythonhosted.org", "download.pytorch.org", "download-r2.pytorch.org", "github.com"})
+CHUNK = 4 * 1024 * 1024
+ATTEMPTS = 3
 
 
 def immutable_revision() -> str:
     value = load_profile().data["public_artifacts"].get("immutable_revision")
     if not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{40}", value) is None:
-        raise BootstrapError("public L4 native wheel and locked runtime dependencies are not published at an immutable Hugging Face revision; attach the exact offline Kaggle Inputs")
+        raise BootstrapError(
+            "public L4 wheelhouse is not complete at a verified immutable Hugging Face revision; "
+            "use the documented offline runtime until publication"
+        )
     return value
 
 
-def _download(relative: str, destination: Path, size: int, digest: str) -> None:
-    if destination.is_file():
-        if destination.stat().st_size == size and hashlib.file_digest(destination.open("rb"), "sha256").hexdigest() == digest:
-            return
-        raise BootstrapError(f"cached artifact identity mismatch: {destination}")
-    destination.parent.mkdir(parents=True, exist_ok=True)
+def _safe_root(root: Path) -> Path:
+    root = root.expanduser().absolute()
+    if root.resolve(strict=False) != root:
+        raise BootstrapError(f"public artifact cache cannot traverse symlinks: {root}")
+    return root
+
+
+def _safe_name(name: str) -> str:
+    if not name or name in (".", "..") or Path(name).name != name or "\\" in name or "/" in name:
+        raise BootstrapError(f"unsafe artifact filename: {name!r}")
+    return name
+
+
+def _sha256(path: Path) -> str:
+    with path.open("rb") as stream:
+        return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+@contextmanager
+def _cache_lock(root: Path):
+    root.mkdir(parents=True, exist_ok=True)
+    fd = os.open(root / ".download.lock", os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
+    try:
+        for attempt in range(120):
+            try:
+                fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                break
+            except BlockingIOError:
+                if attempt == 119:
+                    raise BootstrapError("public artifact cache is busy for more than 60 seconds")
+                time.sleep(0.5)
+        yield
+    finally:
+        fcntl.flock(fd, fcntl.LOCK_UN)
+        os.close(fd)
+
+
+def _remote_path(relative: str) -> str:
+    profile = load_profile().data["public_artifacts"]
+    if relative == "native/" + WHEEL_FILENAME:
+        return profile["native_remote_path"]
+    return profile["namespace"].strip("/") + "/" + relative
+
+
+def _artifact_url(relative: str) -> str:
     revision = immutable_revision()
     profile = load_profile().data["public_artifacts"]
-    remote = profile["namespace"].strip("/") + "/" + relative
-    url = f"https://huggingface.co/{quote(profile['hf_repo_id'], safe='/')}/resolve/{revision}/{quote(remote, safe='/')}"
-    temporary = None
+    remote = _remote_path(relative)
+    return f"https://huggingface.co/{quote(profile['hf_repo_id'], safe='/')}/resolve/{revision}/{quote(remote, safe='/')}"
+
+
+def _publisher_sources(lock: dict) -> dict[str, str]:
+    """Accept only the audited exact file identities and publisher hosts."""
+    source = Path(__file__).parent / "profiles" / "kaggle-l4x4-cu129" / "UPSTREAM_WHEEL_SOURCES.json"
+    if _sha256(source) != UPSTREAM_SOURCES_SHA256:
+        raise BootstrapError("packaged publisher source map SHA256 mismatch")
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    if payload.get("schema_version") != 1 or payload.get("profile") != "kaggle-l4x4-cu129":
+        raise BootstrapError("publisher source map profile mismatch")
+    records = payload.get("wheels")
+    if not isinstance(records, list) or len(records) != 168 or payload.get("wheel_count") != 168:
+        raise BootstrapError("publisher source map is incomplete")
+    expected = {item["filename"]: (item["size"], item["sha256"]) for item in lock["wheels"]}
+    urls: dict[str, str] = {}
+    for item in records:
+        name = _safe_name(item["filename"])
+        url = item.get("url")
+        if name in urls or expected.get(name) != (item.get("size"), item.get("sha256")):
+            raise BootstrapError(f"publisher source map artifact mismatch: {name}")
+        parsed = urlparse(url) if isinstance(url, str) else None
+        if parsed is None or parsed.scheme != "https" or parsed.hostname not in PUBLISHER_HOSTS or parsed.username or parsed.password or parsed.fragment:
+            raise BootstrapError(f"untrusted publisher URL for {name}")
+        if parsed.path.rsplit("/", 1)[-1].replace("%2B", "+").replace("%2b", "+") != name:
+            raise BootstrapError(f"publisher URL filename mismatch: {name}")
+        if parsed.hostname == "github.com" and not parsed.path.startswith("/flashinfer-ai/flashinfer/releases/download/"):
+            raise BootstrapError(f"untrusted GitHub release path for {name}")
+        urls[name] = url
+    if set(urls) != set(expected):
+        raise BootstrapError("publisher source map does not match the locked wheel set")
+    return urls
+
+
+def _download(relative: str, destination: Path, size: int, digest: str, *, source_url: str | None = None) -> None:
+    """Resume one allowlisted artifact, verify it, then atomically activate it."""
+    if size < 1 or re.fullmatch(r"[0-9a-f]{64}", digest) is None:
+        raise BootstrapError(f"invalid pinned artifact identity: {relative}")
+    if destination.is_symlink() or destination.parent.is_symlink():
+        raise BootstrapError(f"artifact path is a symlink: {destination}")
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if destination.is_file():
+        if destination.stat().st_size == size and _sha256(destination) == digest:
+            return
+        raise BootstrapError(f"cached artifact identity mismatch: {destination}")
+    partial = destination.with_name(destination.name + ".part")
+    if partial.is_symlink() or (partial.exists() and not partial.is_file()):
+        raise BootstrapError(f"unsafe partial download path: {partial}")
+    if partial.exists() and partial.stat().st_size > size:
+        partial.unlink()
+    url = source_url if source_url is not None else _artifact_url(relative)
+    last_error: Exception | None = None
+    for attempt in range(ATTEMPTS):
+        offset = partial.stat().st_size if partial.exists() else 0
+        if offset == size:
+            if _sha256(partial) == digest:
+                os.replace(partial, destination)
+                return
+            partial.unlink()
+            offset = 0
+        headers = {"User-Agent": "kaggle-vllm/0.3.2"}
+        if offset:
+            headers["Range"] = f"bytes={offset}-"
+        try:
+            with urlopen(Request(url, headers=headers), timeout=60) as response:
+                final = urlparse(response.geturl() if hasattr(response, "geturl") else url)
+                if final.scheme != "https" or final.username or final.password or final.fragment:
+                    raise BootstrapError(f"artifact download redirected to an unsafe URL: {relative}")
+                if source_url is not None:
+                    allowed = final.hostname in PUBLISHER_HOSTS or (final.hostname or "").endswith(".githubusercontent.com")
+                    if not allowed:
+                        raise BootstrapError(f"publisher download redirected to an untrusted host: {relative}")
+                elif final.hostname != "huggingface.co" and not (final.hostname or "").endswith((".hf.co", ".huggingface.co")):
+                    raise BootstrapError(f"Hugging Face download redirected to an untrusted host: {relative}")
+                status = response.status
+                content_range = response.headers.get("Content-Range", "")
+                if offset and (status != 206 or not content_range.startswith(f"bytes {offset}-")):
+                    partial.unlink(missing_ok=True)
+                    offset = 0
+                elif not offset and status != 200:
+                    raise BootstrapError(f"unexpected HTTP {status} for {relative}")
+                with partial.open("ab" if offset else "wb") as out:
+                    while block := response.read(CHUNK):
+                        out.write(block)
+                        if out.tell() > size:
+                            raise BootstrapError(f"download exceeded pinned size: {relative}")
+                    out.flush()
+                    os.fsync(out.fileno())
+            if partial.stat().st_size == size and _sha256(partial) == digest:
+                os.replace(partial, destination)
+                return
+            if partial.stat().st_size == size:
+                raise BootstrapError(f"downloaded artifact SHA256 mismatch: {relative}")
+            last_error = BootstrapError(f"incomplete download: {relative}")
+        except (HTTPError, URLError, TimeoutError, OSError) as error:
+            last_error = error
+            if isinstance(error, HTTPError) and error.code in (400, 401, 403, 404):
+                break
+        if attempt + 1 < ATTEMPTS:
+            time.sleep(min(2**attempt, 4))
+    if isinstance(last_error, BootstrapError) and "SHA256 mismatch" in str(last_error):
+        partial.unlink(missing_ok=True)
+    raise BootstrapError(f"immutable artifact download failed for {relative}: {last_error}")
+
+
+def _remote_inventory() -> dict[str, dict]:
+    """Check the pinned Hub metadata/native tree and locked publisher source map."""
+    profile = load_profile().data["public_artifacts"]
+    revision = immutable_revision()
+    url = (f"https://huggingface.co/api/models/{quote(profile['hf_repo_id'], safe='/')}"
+           f"/tree/{revision}?recursive=true")
     try:
-        with tempfile.NamedTemporaryFile(dir=destination.parent, prefix=".download-", delete=False) as out:
-            temporary = Path(out.name)
-            with urlopen(Request(url, headers={"User-Agent": "kaggle-vllm/0.3.1"}), timeout=120) as response:
-                while block := response.read(4 * 1024 * 1024):
-                    out.write(block)
-        if temporary.stat().st_size != size or hashlib.file_digest(temporary.open("rb"), "sha256").hexdigest() != digest:
-            raise BootstrapError(f"downloaded artifact identity mismatch: {relative}")
-        os.replace(temporary, destination)
-    except (OSError, ValueError) as error:
-        raise BootstrapError(f"immutable artifact download failed for {relative}: {error}") from error
-    finally:
-        if temporary is not None:
-            temporary.unlink(missing_ok=True)
+        with urlopen(Request(url, headers={"User-Agent": "kaggle-vllm/0.3.2"}), timeout=30) as response:
+            rows = json.load(response)
+    except (HTTPError, URLError, TimeoutError, OSError, ValueError) as error:
+        raise BootstrapError(f"Hugging Face inventory request failed: {error}") from error
+    if not isinstance(rows, list):
+        raise BootstrapError("Hugging Face inventory response is invalid")
+    return {item["path"]: item for item in rows if isinstance(item, dict) and item.get("type") == "file" and isinstance(item.get("path"), str)}
+
+
+def _remote_small_sha256(relative: str, size: int) -> str:
+    """Verify a Git-stored small wheel by bytes when no LFS digest is exposed."""
+    digest = hashlib.sha256()
+    seen = 0
+    try:
+        url = _artifact_url(relative)
+        with urlopen(Request(url, headers={"User-Agent": "kaggle-vllm/0.3.2"}), timeout=30) as response:
+            final = urlparse(response.geturl() if hasattr(response, "geturl") else url)
+            if final.scheme != "https" or (final.hostname != "huggingface.co" and not (final.hostname or "").endswith((".hf.co", ".huggingface.co"))):
+                raise BootstrapError(f"Hugging Face metadata redirected to an untrusted URL: {relative}")
+            while block := response.read(CHUNK):
+                seen += len(block)
+                if seen > size:
+                    raise BootstrapError(f"remote artifact exceeds pinned size: {relative}")
+                digest.update(block)
+    except (HTTPError, URLError, TimeoutError, OSError) as error:
+        raise BootstrapError(f"cannot verify remote artifact {relative}: {error}") from error
+    if seen != size:
+        raise BootstrapError(f"remote artifact size mismatch: {relative}")
+    return digest.hexdigest()
+
+
+def verify_remote_completeness() -> dict[str, int]:
+    lock = lean_runtime_manifest()
+    source = Path(__file__).parent / "profiles" / "kaggle-l4x4-cu129" / "L4_INFERENCE_LOCK.json"
+    if _sha256(source) != LOCK_SHA256:
+        raise BootstrapError("packaged L4 inference lock SHA256 mismatch")
+    rows = _remote_inventory()
+    expected = [("metadata/L4_INFERENCE_LOCK.json", source.stat().st_size, LOCK_SHA256)]
+    delivery = load_profile().data["public_artifacts"].get("wheelhouse_delivery", "hugging-face")
+    if delivery == "hugging-face":
+        expected += [("wheelhouse/" + _safe_name(x["filename"]), x["size"], x["sha256"]) for x in lock["wheels"]]
+    elif delivery == "publisher-index":
+        _publisher_sources(lock)
+        source_map = Path(__file__).parent / "profiles" / "kaggle-l4x4-cu129" / "UPSTREAM_WHEEL_SOURCES.json"
+        expected.append(("metadata/UPSTREAM_WHEEL_SOURCES.json", source_map.stat().st_size, UPSTREAM_SOURCES_SHA256))
+    else:
+        raise BootstrapError(f"unsupported public wheelhouse delivery: {delivery}")
+    native = lock["native"]
+    expected.append(("native/" + WHEEL_FILENAME, native["size"], native["sha256"]))
+    missing = []
+    mismatched = []
+    for relative, size, digest in expected:
+        row = rows.get(_remote_path(relative))
+        if row is None:
+            missing.append(relative)
+        elif row.get("size") != size:
+            mismatched.append(relative)
+        else:
+            lfs_digest = (row.get("lfs") or {}).get("oid")
+            if lfs_digest is None and size <= 20 * 1024**2:
+                lfs_digest = _remote_small_sha256(relative, size)
+            if lfs_digest != digest:
+                mismatched.append(relative)
+    if missing or mismatched:
+        raise BootstrapError(f"public runtime incomplete: missing={missing}; identity_mismatch={mismatched}")
+    download_bytes = sum(x[1] for x in expected)
+    if delivery == "publisher-index":
+        download_bytes += sum(item["size"] for item in lock["wheels"])
+    return {"artifact_count": len(expected), "download_bytes": download_bytes}
 
 
 def fetch_public_runtime(cache_root: str | Path) -> Path:
-    """Cache the exact P33 lean wheel selection; never resolve dependencies."""
-    immutable_revision()  # refuse incomplete publication before any file I/O
-    root = Path(cache_root).expanduser().resolve() / "kaggle-vllm-v030-l4x4-lean-runtime"
-    if root.is_symlink():
-        raise BootstrapError("public artifact cache cannot be a symlink")
-    lock = lean_runtime_manifest()
-    source = Path(__file__).parent / "profiles" / "kaggle-l4x4-cu129" / "L4_INFERENCE_LOCK.json"
-    raw = source.read_bytes()
-    _download("metadata/L4_INFERENCE_LOCK.json", root / "metadata" / "RUNTIME_MANIFEST.json", len(raw), hashlib.sha256(raw).hexdigest())
-    audit = Path(__file__).parent / "profiles" / "kaggle-l4x4-cu129" / "TORCHCODEC_ELF_AUDIT.json"
-    audit_target = root / "metadata" / audit.name
-    audit_target.write_bytes(audit.read_bytes()) if not audit_target.exists() else None
-    if hashlib.file_digest(audit_target.open("rb"), "sha256").hexdigest() != TORCHCODEC_AUDIT_SHA256:
-        raise BootstrapError("packaged TorchCodec audit identity mismatch")
-    for record in lock["wheels"]:
-        _download("wheelhouse/" + record["filename"], root / "wheelhouse" / record["filename"], record["size"], record["sha256"])
-    wheel = root / "native" / WHEEL_FILENAME
-    identity = load_profile().data["vllm"]
-    _download("native/" + WHEEL_FILENAME, wheel, identity["wheel_size"], identity["wheel_sha256"])
-    validate_native_wheel(wheel)
-    verify_runtime(root)
+    """Cache the exact 168 wheel selection; never resolve dependencies."""
+    immutable_revision()
+    root = _safe_root(_safe_root(Path(cache_root)) / "kaggle-vllm-v032-l4x4-lean-runtime")
+    with _cache_lock(root):
+        inventory = verify_remote_completeness()
+        already = sum(p.stat().st_size for p in root.rglob("*.whl") if p.is_file() and not p.is_symlink())
+        # Staging performs its own 24 GiB guard after the cache is complete.
+        need = max(0, inventory["download_bytes"] - already) + 24 * 1024**3
+        if shutil.disk_usage(root).free < need:
+            raise BootstrapError(f"insufficient cache storage: need {need} free bytes before download")
+        source = Path(__file__).parent / "profiles" / "kaggle-l4x4-cu129" / "L4_INFERENCE_LOCK.json"
+        _download("metadata/L4_INFERENCE_LOCK.json", root / "metadata" / "RUNTIME_MANIFEST.json", source.stat().st_size, LOCK_SHA256)
+        audit = source.parent / "TORCHCODEC_ELF_AUDIT.json"
+        audit_target = root / "metadata" / audit.name
+        if _sha256(audit) != TORCHCODEC_AUDIT_SHA256:
+            raise BootstrapError("packaged TorchCodec audit identity mismatch")
+        if not audit_target.exists():
+            audit_target.write_bytes(audit.read_bytes())
+        if audit_target.is_symlink() or _sha256(audit_target) != TORCHCODEC_AUDIT_SHA256:
+            raise BootstrapError("cached TorchCodec audit identity mismatch")
+        lock = lean_runtime_manifest()
+        delivery = load_profile().data["public_artifacts"].get("wheelhouse_delivery", "hugging-face")
+        sources = _publisher_sources(lock) if delivery == "publisher-index" else {}
+        for record in lock["wheels"]:
+            name = _safe_name(record["filename"])
+            _download("wheelhouse/" + name, root / "wheelhouse" / name, record["size"], record["sha256"],
+                      source_url=sources.get(name))
+        native = lock["native"]
+        wheel = root / "native" / WHEEL_FILENAME
+        _download("native/" + WHEEL_FILENAME, wheel, native["size"], native["sha256"])
+        validate_native_wheel(wheel)
+        verify_runtime(root)
     return root

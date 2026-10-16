@@ -1,4 +1,8 @@
-# Offline installation on the exact Kaggle L4x4 profile
+# 0.3.2 public installation candidate
+
+The intended public sequence is `python -m pip install "kaggle-vllm==0.3.2"` and `kaggle-vllm bootstrap --profile kaggle-l4x4-cu129 --strict --json`. The SDK accepts only CPython 3.12, Linux x86_64, and exactly four NVIDIA L4/SM89 GPUs for this native profile. Run `kaggle-vllm network-preflight` after installing the SDK to distinguish DNS, PyPI, proxy, TLS, and Hugging Face failures. Enable Internet in Kaggle Notebook settings first. The public bootstrap remains blocked until the native wheel and metadata are available in the versioned Hub namespace, verified, and pinned to an immutable commit. The 168 dependency wheels are downloaded from their original publishers with exact checksum pins. See the [manual public notebook](../kaggle-notebooks/kaggle-vllm-v032-l4x4-public-acceptance.ipynb).
+
+# Historical offline installation on the exact Kaggle L4x4 profile
 
 For a fresh retest of the rebuilt SDK wheel, attach the **small** v0.3.0 acceptance Dataset; the four already-uploaded corrected `runtime-core-v2`, `runtime-large-v2`, `torch-cu129-v2`, and `wheelhouse-audit-v2` Datasets; the saved P31 final Notebook Output; and the Kaggle-provided Gemma QAT Input Model. Use a new CPython 3.12/four-L4/SM89 session with Internet off. The P33 lean lock selects 168 dependency wheels from the corrected split-v2 Inputs; build dependency wheels are excluded. No 6.6 GB archive upload is required.
 

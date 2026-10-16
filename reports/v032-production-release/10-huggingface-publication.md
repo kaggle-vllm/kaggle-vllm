@@ -1,0 +1,2 @@
+# Hugging Face publication
+Hub repository: `waqasm86/kaggle-vllm-binaries`. Public API returned current commit `8d7dd28f7c76c3b68e7326df81758411b7dc2680` and 19 tree entries, with no `v0.3.2/l4x4/` paths. The revised additive upload plan has 14 metadata/index additions and no binary copies. The SDK references the existing exact L4 native wheel at `v0.3.0/l4x4/native/`. All 14 planned local additions exist in the permanent checkout with matching size and SHA256. Publication remains BLOCKED by native provenance/notice clearance; historical paths were not changed.

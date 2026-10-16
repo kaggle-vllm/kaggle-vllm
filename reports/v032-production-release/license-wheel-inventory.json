@@ -1,0 +1,1946 @@
+[
+  {
+    "filename": "agent_detector-2.0.0-py3-none-any.whl",
+    "distribution": "agent-detector",
+    "version": "2.0.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "agent_detector-2.0.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "aiohappyeyeballs-2.7.1-py3-none-any.whl",
+    "distribution": "aiohappyeyeballs",
+    "version": "2.7.1",
+    "license_metadata": "PSF-2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "aiohappyeyeballs-2.7.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "aiohttp-3.14.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "aiohttp",
+    "version": "3.14.4",
+    "license_metadata": "Apache-2.0 AND MIT",
+    "license_file_count": 5,
+    "license_files": [
+      "aiohttp-3.14.4.dist-info/licenses/",
+      "aiohttp-3.14.4.dist-info/licenses/LICENSE.txt",
+      "aiohttp-3.14.4.dist-info/licenses/vendor/",
+      "aiohttp-3.14.4.dist-info/licenses/vendor/llhttp/",
+      "aiohttp-3.14.4.dist-info/licenses/vendor/llhttp/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "aiosignal-1.4.0-py3-none-any.whl",
+    "distribution": "aiosignal",
+    "version": "1.4.0",
+    "license_metadata": "Apache 2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "aiosignal-1.4.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "annotated_doc-0.0.5-py3-none-any.whl",
+    "distribution": "annotated-doc",
+    "version": "0.0.5",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "annotated_doc-0.0.5.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "annotated_types-0.8.0-py3-none-any.whl",
+    "distribution": "annotated-types",
+    "version": "0.8.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "annotated_types-0.8.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "anyio-4.15.1-py3-none-any.whl",
+    "distribution": "anyio",
+    "version": "4.15.1",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "anyio-4.15.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "apache_tvm_ffi-0.1.11-cp312-abi3-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "apache-tvm-ffi",
+    "version": "0.1.11",
+    "license_metadata": "Apache 2.0",
+    "license_file_count": 4,
+    "license_files": [
+      "tvm_ffi/3rdparty/libbacktrace/LICENSE",
+      "apache_tvm_ffi-0.1.11.dist-info/licenses/",
+      "apache_tvm_ffi-0.1.11.dist-info/licenses/LICENSE",
+      "apache_tvm_ffi-0.1.11.dist-info/licenses/NOTICE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "astor-0.8.1-py2.py3-none-any.whl",
+    "distribution": "astor",
+    "version": "0.8.1",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "astor-0.8.1.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "attrs-26.1.0-py3-none-any.whl",
+    "distribution": "attrs",
+    "version": "26.1.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "attrs-26.1.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "blake3-1.0.10-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "distribution": "blake3",
+    "version": "1.0.10",
+    "license_metadata": "CC0-1.0 OR Apache-2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "blake3-1.0.10.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "cachetools-7.2.1-py3-none-any.whl",
+    "distribution": "cachetools",
+    "version": "7.2.1",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "cachetools-7.2.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "cbor2-6.1.5-cp312-cp312-manylinux_2_28_x86_64.whl",
+    "distribution": "cbor2",
+    "version": "6.1.5",
+    "license_metadata": "MIT",
+    "license_file_count": 2,
+    "license_files": [
+      "cbor2-6.1.5.dist-info/licenses/",
+      "cbor2-6.1.5.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "certifi-2026.7.22-py3-none-any.whl",
+    "distribution": "certifi",
+    "version": "2026.7.22",
+    "license_metadata": "MPL-2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "certifi-2026.7.22.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "cffi",
+    "version": "2.1.1",
+    "license_metadata": "MIT-0",
+    "license_file_count": 2,
+    "license_files": [
+      "cffi-2.1.1.dist-info/licenses/",
+      "cffi-2.1.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "charset-normalizer",
+    "version": "3.5.2",
+    "license_metadata": "MIT",
+    "license_file_count": 2,
+    "license_files": [
+      "charset_normalizer-3.5.2.dist-info/licenses/",
+      "charset_normalizer-3.5.2.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "click-8.5.0-py3-none-any.whl",
+    "distribution": "click",
+    "version": "8.5.0",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "click-8.5.0.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "cloudpickle-3.1.2-py3-none-any.whl",
+    "distribution": "cloudpickle",
+    "version": "3.1.2",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "cloudpickle-3.1.2.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "compressed_tensors-0.17.0-py3-none-any.whl",
+    "distribution": "compressed-tensors",
+    "version": "0.17.0",
+    "license_metadata": "Apache 2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "compressed_tensors-0.17.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl",
+    "distribution": "cryptography",
+    "version": "50.0.2",
+    "license_metadata": "Apache-2.0 OR BSD-3-Clause",
+    "license_file_count": 4,
+    "license_files": [
+      "cryptography-50.0.2.dist-info/licenses/",
+      "cryptography-50.0.2.dist-info/licenses/LICENSE",
+      "cryptography-50.0.2.dist-info/licenses/LICENSE.APACHE",
+      "cryptography-50.0.2.dist-info/licenses/LICENSE.BSD"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "cuda_core-1.2.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "cuda-core",
+    "version": "1.2.1",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 2,
+    "license_files": [
+      "cuda_core-1.2.1.dist-info/licenses/LICENSE",
+      "cuda_core-1.2.1.dist-info/licenses/NOTICE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "cuda_pathfinder-1.8.3-py3-none-any.whl",
+    "distribution": "cuda-pathfinder",
+    "version": "1.8.3",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "cuda_pathfinder-1.8.3.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "cuda_python-12.9.7-py3-none-any.whl",
+    "distribution": "cuda-python",
+    "version": "12.9.7",
+    "license_metadata": "LicenseRef-NVIDIA-SOFTWARE-LICENSE",
+    "license_file_count": 1,
+    "license_files": [
+      "cuda_python-12.9.7.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "cuda_tile-1.6.0-cp312-cp312-manylinux2014_x86_64.whl",
+    "distribution": "cuda-tile",
+    "version": "1.6.0",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "cuda_tile-1.6.0.dist-info/licenses/LICENSES/Apache-2.0.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "depyf-0.20.0-py3-none-any.whl",
+    "distribution": "depyf",
+    "version": "0.20.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "depyf-0.20.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "detect_installer-0.2.1-py3-none-any.whl",
+    "distribution": "detect-installer",
+    "version": "0.2.1",
+    "license_metadata": "0BSD",
+    "license_file_count": 2,
+    "license_files": [
+      "detect_installer-0.2.1.dist-info/licenses/",
+      "detect_installer-0.2.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "dill-0.4.1-py3-none-any.whl",
+    "distribution": "dill",
+    "version": "0.4.1",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "dill-0.4.1.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "dnspython-2.8.0-py3-none-any.whl",
+    "distribution": "dnspython",
+    "version": "2.8.0",
+    "license_metadata": "ISC",
+    "license_file_count": 1,
+    "license_files": [
+      "dnspython-2.8.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "docstring_parser-0.18.0-py3-none-any.whl",
+    "distribution": "docstring-parser",
+    "version": "0.18.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "docstring_parser-0.18.0.dist-info/licenses/LICENSE.md"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "einops-0.8.2-py3-none-any.whl",
+    "distribution": "einops",
+    "version": "0.8.2",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "einops-0.8.2.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "email_validator-2.3.0-py3-none-any.whl",
+    "distribution": "email-validator",
+    "version": "2.3.0",
+    "license_metadata": "Unlicense",
+    "license_file_count": 1,
+    "license_files": [
+      "email_validator-2.3.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "fastar-0.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "distribution": "fastar",
+    "version": "0.12.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "fastar-0.12.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "fastsafetensors-0.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "fastsafetensors",
+    "version": "0.4.0",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 2,
+    "license_files": [
+      "fastsafetensors-0.4.0.dist-info/licenses/",
+      "fastsafetensors-0.4.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "filelock-4.0.12-py3-none-any.whl",
+    "distribution": "filelock",
+    "version": "4.0.12",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "filelock-4.0.12.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "flashinfer_python-0.6.18.post1-py3-none-any.whl",
+    "distribution": "flashinfer-python",
+    "version": "0.6.18.post1",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 2,
+    "license_files": [
+      "flashinfer/data/spdlog/include/spdlog/fmt/bundled/fmt.license.rst",
+      "flashinfer_python-0.6.18.post1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "distribution": "frozenlist",
+    "version": "1.8.0",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 2,
+    "license_files": [
+      "frozenlist-1.8.0.dist-info/licenses/",
+      "frozenlist-1.8.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "fsspec-2026.9.0-py3-none-any.whl",
+    "distribution": "fsspec",
+    "version": "2026.9.0",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "fsspec-2026.9.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "googleapis_common_protos-1.75.5-py3-none-any.whl",
+    "distribution": "googleapis-common-protos",
+    "version": "1.75.5",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "googleapis_common_protos-1.75.5.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "grpcio-1.84.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "grpcio",
+    "version": "1.84.0",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 2,
+    "license_files": [
+      "grpcio-1.84.0.dist-info/licenses/",
+      "grpcio-1.84.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "h11-0.16.0-py3-none-any.whl",
+    "distribution": "h11",
+    "version": "0.16.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "h11-0.16.0.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "hf-xet",
+    "version": "1.6.0",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "hf_xet-1.6.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "httpcore-1.0.9-py3-none-any.whl",
+    "distribution": "httpcore",
+    "version": "1.0.9",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "httpcore-1.0.9.dist-info/licenses/LICENSE.md"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "httpcore2-2.13.1-py3-none-any.whl",
+    "distribution": "httpcore2",
+    "version": "2.13.1",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "httpcore2-2.13.1.dist-info/licenses/LICENSE.md"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "distribution": "httptools",
+    "version": "0.8.0",
+    "license_metadata": "MIT",
+    "license_file_count": 7,
+    "license_files": [
+      "httptools-0.8.0.dist-info/licenses/",
+      "httptools-0.8.0.dist-info/licenses/LICENSE",
+      "httptools-0.8.0.dist-info/licenses/vendor/",
+      "httptools-0.8.0.dist-info/licenses/vendor/http-parser/",
+      "httptools-0.8.0.dist-info/licenses/vendor/http-parser/LICENSE-MIT",
+      "httptools-0.8.0.dist-info/licenses/vendor/llhttp/",
+      "httptools-0.8.0.dist-info/licenses/vendor/llhttp/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "httpx-0.28.1-py3-none-any.whl",
+    "distribution": "httpx",
+    "version": "0.28.1",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "httpx-0.28.1.dist-info/licenses/LICENSE.md"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "httpx2-2.13.1-py3-none-any.whl",
+    "distribution": "httpx2",
+    "version": "2.13.1",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "httpx2-2.13.1.dist-info/licenses/LICENSE.md"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "huggingface_hub-1.33.0-py3-none-any.whl",
+    "distribution": "huggingface-hub",
+    "version": "1.33.0",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "huggingface_hub-1.33.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "humming_kernels-0.1.12-py3-none-manylinux_2_28_x86_64.whl",
+    "distribution": "humming-kernels",
+    "version": "0.1.12",
+    "license_metadata": "",
+    "license_file_count": 1,
+    "license_files": [
+      "humming_kernels-0.1.12.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "idna-3.20-py3-none-any.whl",
+    "distribution": "idna",
+    "version": "3.20",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "idna-3.20.dist-info/licenses/LICENSE.md"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "ijson-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "ijson",
+    "version": "3.5.1",
+    "license_metadata": "BSD-3-Clause AND ISC",
+    "license_file_count": 2,
+    "license_files": [
+      "ijson-3.5.1.dist-info/licenses/",
+      "ijson-3.5.1.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "instanttensor-0.2.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "instanttensor",
+    "version": "0.2.0",
+    "license_metadata": "Apache License\n                                   Version 2.0, January 2004\n                                http://www.apache.org/licenses/\n        \n           ",
+    "license_file_count": 2,
+    "license_files": [
+      "instanttensor-0.2.0.dist-info/licenses/",
+      "instanttensor-0.2.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "interegular-0.3.3-py37-none-any.whl",
+    "distribution": "interegular",
+    "version": "0.3.3",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "interegular-0.3.3.dist-info/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "jiter-0.17.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "distribution": "jiter",
+    "version": "0.17.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "jiter-0.17.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "jmespath-1.1.0-py3-none-any.whl",
+    "distribution": "jmespath",
+    "version": "1.1.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "jmespath-1.1.0.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "jsonschema-4.26.0-py3-none-any.whl",
+    "distribution": "jsonschema",
+    "version": "4.26.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "jsonschema-4.26.0.dist-info/licenses/COPYING"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "jsonschema_specifications-2025.9.1-py3-none-any.whl",
+    "distribution": "jsonschema-specifications",
+    "version": "2025.9.1",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "jsonschema_specifications-2025.9.1.dist-info/licenses/COPYING"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "lark-1.2.2-py3-none-any.whl",
+    "distribution": "lark",
+    "version": "1.2.2",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "lark-1.2.2.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "llguidance-1.7.6-cp39-abi3-manylinux_2_31_x86_64.whl",
+    "distribution": "llguidance",
+    "version": "1.7.6",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "llguidance-1.7.6.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "llvmlite-0.47.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "llvmlite",
+    "version": "0.47.0",
+    "license_metadata": "BSD-2-Clause AND Apache-2.0 WITH LLVM-exception",
+    "license_file_count": 3,
+    "license_files": [
+      "llvmlite-0.47.0.dist-info/licenses/",
+      "llvmlite-0.47.0.dist-info/licenses/LICENSE",
+      "llvmlite-0.47.0.dist-info/licenses/LICENSE.thirdparty"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "lm_format_enforcer-0.11.3-py3-none-any.whl",
+    "distribution": "lm-format-enforcer",
+    "version": "0.11.3",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "lm_format_enforcer-0.11.3.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "loguru-0.7.3-py3-none-any.whl",
+    "distribution": "loguru",
+    "version": "0.7.3",
+    "license_metadata": "",
+    "license_file_count": 0,
+    "license_files": [],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "markdown_it_py-4.2.0-py3-none-any.whl",
+    "distribution": "markdown-it-py",
+    "version": "4.2.0",
+    "license_metadata": "",
+    "license_file_count": 2,
+    "license_files": [
+      "markdown_it_py-4.2.0.dist-info/licenses/LICENSE",
+      "markdown_it_py-4.2.0.dist-info/licenses/LICENSE.markdown-it"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "markupsafe",
+    "version": "3.0.4",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 2,
+    "license_files": [
+      "markupsafe-3.0.4.dist-info/licenses/",
+      "markupsafe-3.0.4.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "mdurl-0.1.2-py3-none-any.whl",
+    "distribution": "mdurl",
+    "version": "0.1.2",
+    "license_metadata": "",
+    "license_file_count": 1,
+    "license_files": [
+      "mdurl-0.1.2.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "mistral_common-1.12.0-py3-none-any.whl",
+    "distribution": "mistral-common",
+    "version": "1.12.0",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "mistral_common-1.12.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "ml_dtypes-0.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "ml-dtypes",
+    "version": "0.6.0",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 3,
+    "license_files": [
+      "ml_dtypes-0.6.0.dist-info/licenses/",
+      "ml_dtypes-0.6.0.dist-info/licenses/LICENSE",
+      "ml_dtypes-0.6.0.dist-info/licenses/LICENSE.eigen"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "model_hosting_container_standards-0.1.16-py3-none-any.whl",
+    "distribution": "model-hosting-container-standards",
+    "version": "0.1.16",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 0,
+    "license_files": [],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "mpmath-1.3.0-py3-none-any.whl",
+    "distribution": "mpmath",
+    "version": "1.3.0",
+    "license_metadata": "BSD",
+    "license_file_count": 1,
+    "license_files": [
+      "mpmath-1.3.0.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "msgspec-0.22.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "msgspec",
+    "version": "0.22.0",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 2,
+    "license_files": [
+      "msgspec-0.22.0.dist-info/licenses/",
+      "msgspec-0.22.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "multidict-6.9.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "multidict",
+    "version": "6.9.1",
+    "license_metadata": "Apache License 2.0",
+    "license_file_count": 2,
+    "license_files": [
+      "multidict-6.9.1.dist-info/licenses/",
+      "multidict-6.9.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nccl4py-0.6.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "nccl4py",
+    "version": "0.6.0",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 2,
+    "license_files": [
+      "nccl4py-0.6.0.dist-info/licenses/",
+      "nccl4py-0.6.0.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "networkx-3.7-py3-none-any.whl",
+    "distribution": "networkx",
+    "version": "3.7",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "networkx-3.7.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "ninja-1.13.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "ninja",
+    "version": "1.13.2",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 2,
+    "license_files": [
+      "ninja-1.13.2.dist-info/licenses/",
+      "ninja-1.13.2.dist-info/licenses/LICENSE_Apache_20"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "numba-0.65.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "numba",
+    "version": "0.65.0",
+    "license_metadata": "BSD",
+    "license_file_count": 2,
+    "license_files": [
+      "numba-0.65.0.dist-info/licenses/LICENSE",
+      "numba-0.65.0.dist-info/licenses/LICENSES.third-party"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "numpy-2.3.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "numpy",
+    "version": "2.3.5",
+    "license_metadata": "Copyright (c) 2005-2025, NumPy Developers.\n         All rights reserved.\n         \n         Redistribution and use in source and binary forms, with or without\n ",
+    "license_file_count": 4,
+    "license_files": [
+      "numpy/_core/include/numpy/random/LICENSE.txt",
+      "numpy/ma/LICENSE",
+      "numpy/random/LICENSE.md",
+      "numpy-2.3.5.dist-info/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cuda_nvdisasm-13.4.92-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "nvidia-cuda-nvdisasm",
+    "version": "13.4.92",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cuda_nvdisasm-13.4.92.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cudnn_frontend-1.28.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "nvidia-cudnn-frontend",
+    "version": "1.28.0",
+    "license_metadata": "Apache-2.0 AND MIT",
+    "license_file_count": 5,
+    "license_files": [
+      "include/cudnn_frontend/thirdparty/nlohmann/LICENSE.MIT",
+      "nvidia_cudnn_frontend-1.28.0.dist-info/licenses/",
+      "nvidia_cudnn_frontend-1.28.0.dist-info/licenses/LICENSE-MIT.txt",
+      "nvidia_cudnn_frontend-1.28.0.dist-info/licenses/LICENSE.txt",
+      "nvidia_cudnn_frontend-1.28.0.dist-info/licenses/NOTICE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cutlass_dsl-4.7.1-py3-none-any.whl",
+    "distribution": "nvidia-cutlass-dsl",
+    "version": "4.7.1",
+    "license_metadata": "",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cutlass_dsl-4.7.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cutlass_dsl_libs_base-4.7.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+    "distribution": "nvidia-cutlass-dsl-libs-base",
+    "version": "4.7.1",
+    "license_metadata": "",
+    "license_file_count": 2,
+    "license_files": [
+      "nvidia_cutlass_dsl_libs_base-4.7.1.dist-info/licenses/",
+      "nvidia_cutlass_dsl_libs_base-4.7.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cutlass_dsl_libs_core-4.7.1-py3-none-any.whl",
+    "distribution": "nvidia-cutlass-dsl-libs-core",
+    "version": "4.7.1",
+    "license_metadata": "",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cutlass_dsl_libs_core-4.7.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cutlass_dsl_libs_cu12-4.7.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+    "distribution": "nvidia-cutlass-dsl-libs-cu12",
+    "version": "4.7.1",
+    "license_metadata": "",
+    "license_file_count": 2,
+    "license_files": [
+      "nvidia_cutlass_dsl_libs_cu12-4.7.1.dist-info/licenses/",
+      "nvidia_cutlass_dsl_libs_cu12-4.7.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_ml_py-13.615.71-py3-none-any.whl",
+    "distribution": "nvidia-ml-py",
+    "version": "13.615.71",
+    "license_metadata": "BSD",
+    "license_file_count": 0,
+    "license_files": [],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvtx-0.2.15-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "nvtx",
+    "version": "0.2.15",
+    "license_metadata": "Apache-2.0 WITH LLVM-exception",
+    "license_file_count": 2,
+    "license_files": [
+      "nvtx-0.2.15.dist-info/licenses/",
+      "nvtx-0.2.15.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "openai_harmony-0.0.8-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "distribution": "openai-harmony",
+    "version": "0.0.8",
+    "license_metadata": "",
+    "license_file_count": 1,
+    "license_files": [
+      "openai_harmony-0.0.8.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "opencv_python_headless-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl",
+    "distribution": "opencv-python-headless",
+    "version": "5.0.0.93",
+    "license_metadata": "Apache 2.0",
+    "license_file_count": 4,
+    "license_files": [
+      "cv2/LICENSE-3RD-PARTY.txt",
+      "cv2/LICENSE.txt",
+      "opencv_python_headless-5.0.0.93.dist-info/LICENSE-3RD-PARTY.txt",
+      "opencv_python_headless-5.0.0.93.dist-info/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "distribution": "outlines-core",
+    "version": "0.2.14",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "outlines_core-0.2.14.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "partial_json_parser-0.2.1.1.post7-py3-none-any.whl",
+    "distribution": "partial-json-parser",
+    "version": "0.2.1.1.post7",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "partial_json_parser-0.2.1.1.post7.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "pillow",
+    "version": "12.3.0",
+    "license_metadata": "MIT-CMU",
+    "license_file_count": 2,
+    "license_files": [
+      "pillow-12.3.0.dist-info/licenses/",
+      "pillow-12.3.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "propcache-0.5.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "propcache",
+    "version": "0.5.4",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 3,
+    "license_files": [
+      "propcache-0.5.4.dist-info/licenses/",
+      "propcache-0.5.4.dist-info/licenses/LICENSE",
+      "propcache-0.5.4.dist-info/licenses/NOTICE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl",
+    "distribution": "protobuf",
+    "version": "7.36.2",
+    "license_metadata": "3-Clause BSD License",
+    "license_file_count": 1,
+    "license_files": [
+      "protobuf-7.36.2.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "psutil",
+    "version": "7.2.2",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "psutil-7.2.2.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "py_cpuinfo-9.0.0-py3-none-any.whl",
+    "distribution": "py-cpuinfo",
+    "version": "9.0.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "py_cpuinfo-9.0.0.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pybase64-1.5.1-cp312-cp312-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl",
+    "distribution": "pybase64",
+    "version": "1.5.1",
+    "license_metadata": "BSD-2-Clause",
+    "license_file_count": 6,
+    "license_files": [
+      "pybase64/_license.py",
+      "pybase64/_license.pyi",
+      "pybase64-1.5.1.dist-info/licenses/",
+      "pybase64-1.5.1.dist-info/licenses/LICENSE",
+      "pybase64-1.5.1.dist-info/licenses/base64/",
+      "pybase64-1.5.1.dist-info/licenses/base64/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pycountry-26.2.16-py3-none-any.whl",
+    "distribution": "pycountry",
+    "version": "26.2.16",
+    "license_metadata": "LGPL-2.1-only",
+    "license_file_count": 1,
+    "license_files": [
+      "pycountry-26.2.16.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pycparser-3.0-py3-none-any.whl",
+    "distribution": "pycparser",
+    "version": "3.0",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "pycparser-3.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pydantic-2.13.5-py3-none-any.whl",
+    "distribution": "pydantic",
+    "version": "2.13.5",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "pydantic-2.13.5.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "distribution": "pydantic-core",
+    "version": "2.46.5",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "pydantic_core-2.46.5.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pydantic_extra_types-2.11.1-py3-none-any.whl",
+    "distribution": "pydantic-extra-types",
+    "version": "2.11.1",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "pydantic_extra_types-2.11.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pydantic_settings-2.15.0-py3-none-any.whl",
+    "distribution": "pydantic-settings",
+    "version": "2.15.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "pydantic_settings-2.15.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pygments-2.21.0-py3-none-any.whl",
+    "distribution": "pygments",
+    "version": "2.21.0",
+    "license_metadata": "BSD-2-Clause",
+    "license_file_count": 2,
+    "license_files": [
+      "pygments-2.21.0.dist-info/licenses/AUTHORS",
+      "pygments-2.21.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pyjwt-2.15.1-py3-none-any.whl",
+    "distribution": "pyjwt",
+    "version": "2.15.1",
+    "license_metadata": "MIT",
+    "license_file_count": 2,
+    "license_files": [
+      "pyjwt-2.15.1.dist-info/licenses/AUTHORS.rst",
+      "pyjwt-2.15.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pynvvideocodec-2.0.4-cp312-cp312-manylinux_2_28_x86_64.whl",
+    "distribution": "pynvvideocodec",
+    "version": "2.0.4",
+    "license_metadata": "MIT",
+    "license_file_count": 3,
+    "license_files": [
+      "pynvvideocodec-2.0.4.dist-info/licenses/",
+      "pynvvideocodec-2.0.4.dist-info/licenses/NOTICES.txt",
+      "pynvvideocodec-2.0.4.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pyproject_hooks-1.3.3-py3-none-any.whl",
+    "distribution": "pyproject-hooks",
+    "version": "1.3.3",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "pyproject_hooks-1.3.3.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "python_dotenv-1.2.4-py3-none-any.whl",
+    "distribution": "python-dotenv",
+    "version": "1.2.4",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "python_dotenv-1.2.4.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "python_json_logger-4.2.0-py3-none-any.whl",
+    "distribution": "python-json-logger",
+    "version": "4.2.0",
+    "license_metadata": "BSD-2-Clause",
+    "license_file_count": 1,
+    "license_files": [
+      "python_json_logger-4.2.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "python_multipart-0.0.32-py3-none-any.whl",
+    "distribution": "python-multipart",
+    "version": "0.0.32",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "python_multipart-0.0.32.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "pyyaml",
+    "version": "6.0.3",
+    "license_metadata": "MIT",
+    "license_file_count": 2,
+    "license_files": [
+      "pyyaml-6.0.3.dist-info/licenses/",
+      "pyyaml-6.0.3.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "pyzmq-27.2.0-cp312-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "pyzmq",
+    "version": "27.2.0",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 6,
+    "license_files": [
+      "pyzmq-27.2.0.dist-info/licenses/",
+      "pyzmq-27.2.0.dist-info/licenses/LICENSE.md",
+      "pyzmq-27.2.0.dist-info/licenses/licenses/",
+      "pyzmq-27.2.0.dist-info/licenses/licenses/LICENSE.libsodium.txt",
+      "pyzmq-27.2.0.dist-info/licenses/licenses/LICENSE.tornado.txt",
+      "pyzmq-27.2.0.dist-info/licenses/licenses/LICENSE.zeromq.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "quack_kernels-0.6.5-py3-none-any.whl",
+    "distribution": "quack-kernels",
+    "version": "0.6.5",
+    "license_metadata": "",
+    "license_file_count": 1,
+    "license_files": [
+      "quack_kernels-0.6.5.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "referencing-0.37.0-py3-none-any.whl",
+    "distribution": "referencing",
+    "version": "0.37.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "referencing-0.37.0.dist-info/licenses/COPYING"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "regex-2026.9.29-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "regex",
+    "version": "2026.9.29",
+    "license_metadata": "Apache-2.0 AND CNRI-Python",
+    "license_file_count": 2,
+    "license_files": [
+      "regex-2026.9.29.dist-info/licenses/",
+      "regex-2026.9.29.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "requests-2.34.2-py3-none-any.whl",
+    "distribution": "requests",
+    "version": "2.34.2",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 2,
+    "license_files": [
+      "requests-2.34.2.dist-info/licenses/LICENSE",
+      "requests-2.34.2.dist-info/licenses/NOTICE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "rich-15.0.0-py3-none-any.whl",
+    "distribution": "rich",
+    "version": "15.0.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "rich-15.0.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "rich_toolkit-0.20.5-py3-none-any.whl",
+    "distribution": "rich-toolkit",
+    "version": "0.20.5",
+    "license_metadata": "MIT",
+    "license_file_count": 2,
+    "license_files": [
+      "rich_toolkit-0.20.5.dist-info/licenses/LICENSE",
+      "rich_toolkit-0.20.5.dist-info/licenses/LICENSE-THIRD-PARTY"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "rignore-0.8.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "distribution": "rignore",
+    "version": "0.8.1",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "rignore-0.8.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "distribution": "rpds-py",
+    "version": "2026.9.1",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "rpds_py-2026.9.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "distribution": "safetensors",
+    "version": "0.8.0",
+    "license_metadata": "",
+    "license_file_count": 1,
+    "license_files": [
+      "safetensors-0.8.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "semantic_version-2.10.0-py2.py3-none-any.whl",
+    "distribution": "semantic-version",
+    "version": "2.10.0",
+    "license_metadata": "BSD",
+    "license_file_count": 1,
+    "license_files": [
+      "semantic_version-2.10.0.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "sentencepiece-0.2.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "sentencepiece",
+    "version": "0.2.2",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 0,
+    "license_files": [],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "setproctitle-1.3.8-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "distribution": "setproctitle",
+    "version": "1.3.8",
+    "license_metadata": "BSD-3-Clause",
+    "license_file_count": 2,
+    "license_files": [
+      "setproctitle-1.3.8.dist-info/licenses/",
+      "setproctitle-1.3.8.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "setuptools-80.10.2-py3-none-any.whl",
+    "distribution": "setuptools",
+    "version": "80.10.2",
+    "license_metadata": "MIT",
+    "license_file_count": 19,
+    "license_files": [
+      "setuptools/_vendor/importlib_metadata-8.7.1.dist-info/licenses/LICENSE",
+      "setuptools/_vendor/jaraco_context-6.1.0.dist-info/licenses/LICENSE",
+      "setuptools/_vendor/jaraco_functools-4.4.0.dist-info/licenses/LICENSE",
+      "setuptools/_vendor/more_itertools-10.8.0.dist-info/licenses/LICENSE",
+      "setuptools/_vendor/packaging/licenses/__init__.py",
+      "setuptools/_vendor/packaging/licenses/_spdx.py",
+      "setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE",
+      "setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.APACHE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "shellingham-1.5.4-py2.py3-none-any.whl",
+    "distribution": "shellingham",
+    "version": "1.5.4",
+    "license_metadata": "ISC License",
+    "license_file_count": 1,
+    "license_files": [
+      "shellingham-1.5.4.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "six-1.17.0-py2.py3-none-any.whl",
+    "distribution": "six",
+    "version": "1.17.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "six-1.17.0.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "sniffio-1.3.1-py3-none-any.whl",
+    "distribution": "sniffio",
+    "version": "1.3.1",
+    "license_metadata": "MIT OR Apache-2.0",
+    "license_file_count": 3,
+    "license_files": [
+      "sniffio-1.3.1.dist-info/LICENSE",
+      "sniffio-1.3.1.dist-info/LICENSE.APACHE2",
+      "sniffio-1.3.1.dist-info/LICENSE.MIT"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "sympy-1.14.0-py3-none-any.whl",
+    "distribution": "sympy",
+    "version": "1.14.0",
+    "license_metadata": "BSD",
+    "license_file_count": 3,
+    "license_files": [
+      "sympy/parsing/latex/LICENSE.txt",
+      "sympy-1.14.0.dist-info/licenses/AUTHORS",
+      "sympy-1.14.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "tabulate-0.10.0-py3-none-any.whl",
+    "distribution": "tabulate",
+    "version": "0.10.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "tabulate-0.10.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "tiktoken-0.14.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+    "distribution": "tiktoken",
+    "version": "0.14.0",
+    "license_metadata": "MIT License\n        \n        Copyright (c) 2022 OpenAI, Shantanu Jain\n        \n        Permission is hereby granted, free of charge, to any person obtaining a c",
+    "license_file_count": 2,
+    "license_files": [
+      "tiktoken-0.14.0.dist-info/licenses/",
+      "tiktoken-0.14.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "tilelang-0.1.12-cp38-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "tilelang",
+    "version": "0.1.12",
+    "license_metadata": "MIT",
+    "license_file_count": 2,
+    "license_files": [
+      "tilelang-0.1.12.dist-info/licenses/",
+      "tilelang-0.1.12.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "tokenizers-0.23.2-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "distribution": "tokenizers",
+    "version": "0.23.2",
+    "license_metadata": "",
+    "license_file_count": 0,
+    "license_files": [],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "tokenspeed_mla-0.1.8-py3-none-manylinux_2_28_x86_64.whl",
+    "distribution": "tokenspeed-mla",
+    "version": "0.1.8",
+    "license_metadata": "MIT License\n        \n        Copyright (c) 2026 LightSeek Foundation <contact@lightseek.org>\n        \n        Permission is hereby granted, free of charge, to a",
+    "license_file_count": 2,
+    "license_files": [
+      "tokenspeed_mla-0.1.8.dist-info/licenses/LICENSE",
+      "tokenspeed_mla-0.1.8.dist-info/licenses/THIRDPARTYNOTICES"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "tokenspeed_triton-3.8.10.post20260920-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "tokenspeed-triton",
+    "version": "3.8.10.post20260920",
+    "license_metadata": "MIT",
+    "license_file_count": 2,
+    "license_files": [
+      "tokenspeed_triton-3.8.10.post20260920.dist-info/licenses/",
+      "tokenspeed_triton-3.8.10.post20260920.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "torch_c_dlpack_ext-0.1.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "torch-c-dlpack-ext",
+    "version": "0.1.5",
+    "license_metadata": "Apache License\n                                   Version 2.0, January 2004\n                                http://www.apache.org/licenses/\n        \n           ",
+    "license_file_count": 3,
+    "license_files": [
+      "torch_c_dlpack_ext-0.1.5.dist-info/licenses/",
+      "torch_c_dlpack_ext-0.1.5.dist-info/licenses/LICENSE",
+      "torch_c_dlpack_ext-0.1.5.dist-info/licenses/NOTICE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "torchcodec-0.16.0+cu129-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "torchcodec",
+    "version": "0.16.0+cu129",
+    "license_metadata": "",
+    "license_file_count": 9,
+    "license_files": [
+      "torchcodec-0.16.0+cu129.dist-info/licenses/LICENSE",
+      "torchcodec-0.16.0+cu129.dist-info/licenses/third_party/COPYING.dav1d",
+      "torchcodec-0.16.0+cu129.dist-info/licenses/third_party/LICENSE.libavif",
+      "torchcodec-0.16.0+cu129.dist-info/licenses/third_party/LICENSE.libjpeg-turbo",
+      "torchcodec-0.16.0+cu129.dist-info/licenses/third_party/LICENSE.libnvjpeg-NVIDIA-CUDA-EULA.txt",
+      "torchcodec-0.16.0+cu129.dist-info/licenses/third_party/LICENSE.libpng",
+      "torchcodec-0.16.0+cu129.dist-info/licenses/third_party/LICENSE.libwebp",
+      "torchcodec-0.16.0+cu129.dist-info/licenses/third_party/LICENSE.libyuv"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "tqdm-4.70.1-py3-none-any.whl",
+    "distribution": "tqdm",
+    "version": "4.70.1",
+    "license_metadata": "MPL-2.0 AND MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "tqdm-4.70.1.dist-info/licenses/LICENCE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "transformers-5.18.0-py3-none-any.whl",
+    "distribution": "transformers",
+    "version": "5.18.0",
+    "license_metadata": "Apache 2.0 License",
+    "license_file_count": 1,
+    "license_files": [
+      "transformers-5.18.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "truststore-0.10.4-py3-none-any.whl",
+    "distribution": "truststore",
+    "version": "0.10.4",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "truststore-0.10.4.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "typer-0.27.2-py3-none-any.whl",
+    "distribution": "typer",
+    "version": "0.27.2",
+    "license_metadata": "MIT",
+    "license_file_count": 2,
+    "license_files": [
+      "typer-0.27.2.dist-info/licenses/LICENSE",
+      "typer/_click/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "typing_extensions-4.16.0-py3-none-any.whl",
+    "distribution": "typing-extensions",
+    "version": "4.16.0",
+    "license_metadata": "PSF-2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "typing_extensions-4.16.0.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "typing_inspection-0.4.4-py3-none-any.whl",
+    "distribution": "typing-inspection",
+    "version": "0.4.4",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "typing_inspection-0.4.4.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "urllib3-2.8.0-py3-none-any.whl",
+    "distribution": "urllib3",
+    "version": "2.8.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "urllib3-2.8.0.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "vcs_versioning-2.5.0-py3-none-any.whl",
+    "distribution": "vcs-versioning",
+    "version": "2.5.0",
+    "license_metadata": "MIT",
+    "license_file_count": 1,
+    "license_files": [
+      "vcs_versioning-2.5.0.dist-info/licenses/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "xgrammar-0.2.8-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "xgrammar",
+    "version": "0.2.8",
+    "license_metadata": "Apache 2.0",
+    "license_file_count": 3,
+    "license_files": [
+      "xgrammar-0.2.8.dist-info/licenses/",
+      "xgrammar-0.2.8.dist-info/licenses/LICENSE",
+      "xgrammar-0.2.8.dist-info/licenses/NOTICE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "yarl-1.25.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "yarl",
+    "version": "1.25.1",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 3,
+    "license_files": [
+      "yarl-1.25.1.dist-info/licenses/",
+      "yarl-1.25.1.dist-info/licenses/LICENSE",
+      "yarl-1.25.1.dist-info/licenses/NOTICE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "z3_solver-4.15.4.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "distribution": "z3-solver",
+    "version": "4.15.4.0",
+    "license_metadata": "MIT License",
+    "license_file_count": 0,
+    "license_files": [],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "flashinfer_cubin-0.6.18.post1-py3-none-any.whl",
+    "distribution": "flashinfer-cubin",
+    "version": "0.6.18.post1",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 0,
+    "license_files": [],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "cuda_bindings-12.9.9-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "cuda-bindings",
+    "version": "12.9.9",
+    "license_metadata": "Apache-2.0",
+    "license_file_count": 2,
+    "license_files": [
+      "cuda_bindings-12.9.9.dist-info/licenses/",
+      "cuda_bindings-12.9.9.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "cuda_toolkit-12.9.1-py2.py3-none-any.whl",
+    "distribution": "cuda-toolkit",
+    "version": "12.9.1",
+    "license_metadata": "",
+    "license_file_count": 0,
+    "license_files": [],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cublas_cu12-12.9.1.4-py3-none-manylinux_2_27_x86_64.whl",
+    "distribution": "nvidia-cublas-cu12",
+    "version": "12.9.1.4",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cublas_cu12-12.9.1.4.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cuda_cccl_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "nvidia-cuda-cccl-cu12",
+    "version": "12.8.90",
+    "license_metadata": "NVIDIA Proprietary Software",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cuda_cccl_cu12-12.8.90.dist-info/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cuda_cupti_cu12-12.9.79-py3-none-manylinux_2_25_x86_64.whl",
+    "distribution": "nvidia-cuda-cupti-cu12",
+    "version": "12.9.79",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cuda_cupti_cu12-12.9.79.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cuda_nvcc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+    "distribution": "nvidia-cuda-nvcc-cu12",
+    "version": "12.8.93",
+    "license_metadata": "NVIDIA Proprietary Software",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cuda_nvcc_cu12-12.8.93.dist-info/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cuda_nvrtc_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+    "distribution": "nvidia-cuda-nvrtc-cu12",
+    "version": "12.9.86",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cuda_nvrtc_cu12-12.9.86.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cuda_runtime_cu12-12.9.79-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "nvidia-cuda-runtime-cu12",
+    "version": "12.9.79",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cuda_runtime_cu12-12.9.79.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cudnn_cu12-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl",
+    "distribution": "nvidia-cudnn-cu12",
+    "version": "9.20.0.48",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cudnn_cu12-9.20.0.48.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cufft_cu12-11.4.1.4-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "nvidia-cufft-cu12",
+    "version": "11.4.1.4",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cufft_cu12-11.4.1.4.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cufile_cu12-1.14.1.1-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "nvidia-cufile-cu12",
+    "version": "1.14.1.1",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cufile_cu12-1.14.1.1.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_curand_cu12-10.3.10.19-py3-none-manylinux_2_27_x86_64.whl",
+    "distribution": "nvidia-curand-cu12",
+    "version": "10.3.10.19",
+    "license_metadata": "NVIDIA Proprietary Software",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_curand_cu12-10.3.10.19.dist-info/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cusolver_cu12-11.7.5.82-py3-none-manylinux_2_27_x86_64.whl",
+    "distribution": "nvidia-cusolver-cu12",
+    "version": "11.7.5.82",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cusolver_cu12-11.7.5.82.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cusparse_cu12-12.5.10.65-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "nvidia-cusparse-cu12",
+    "version": "12.5.10.65",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_cusparse_cu12-12.5.10.65.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_cusparselt_cu12-0.8.1-py3-none-manylinux2014_x86_64.whl",
+    "distribution": "nvidia-cusparselt-cu12",
+    "version": "0.8.1",
+    "license_metadata": "NVIDIA Proprietary Software",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia/cusparselt/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_nccl_cu12-2.29.7-py3-none-manylinux_2_18_x86_64.whl",
+    "distribution": "nvidia-nccl-cu12",
+    "version": "2.29.7",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_nccl_cu12-2.29.7.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_nvjitlink_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+    "distribution": "nvidia-nvjitlink-cu12",
+    "version": "12.9.86",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_nvjitlink_cu12-12.9.86.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "distribution": "nvidia-nvshmem-cu12",
+    "version": "3.4.5",
+    "license_metadata": "LicenseRef-NVIDIA-Proprietary",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_nvshmem_cu12-3.4.5.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "nvidia_nvtx_cu12-12.9.79-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl",
+    "distribution": "nvidia-nvtx-cu12",
+    "version": "12.9.79",
+    "license_metadata": "Apache 2.0",
+    "license_file_count": 1,
+    "license_files": [
+      "nvidia_nvtx_cu12-12.9.79.dist-info/licenses/License.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "torch-2.13.0+cu129-cp312-cp312-manylinux_2_28_x86_64.whl",
+    "distribution": "torch",
+    "version": "2.13.0+cu129",
+    "license_metadata": "Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT",
+    "license_file_count": 98,
+    "license_files": [
+      "torch-2.13.0+cu129.dist-info/licenses/LICENSE",
+      "torch-2.13.0+cu129.dist-info/licenses/third_party/FP16/LICENSE",
+      "torch-2.13.0+cu129.dist-info/licenses/third_party/FXdiv/LICENSE",
+      "torch-2.13.0+cu129.dist-info/licenses/third_party/NNPACK/LICENSE",
+      "torch-2.13.0+cu129.dist-info/licenses/third_party/NVTX/LICENSE.txt",
+      "torch-2.13.0+cu129.dist-info/licenses/third_party/NVTX/docs/LICENSE.txt",
+      "torch-2.13.0+cu129.dist-info/licenses/third_party/NVTX/python/LICENSE.txt",
+      "torch-2.13.0+cu129.dist-info/licenses/third_party/VulkanMemoryAllocator/LICENSE.txt"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "torchaudio-2.11.0+cu129-cp312-cp312-manylinux_2_28_x86_64.whl",
+    "distribution": "torchaudio",
+    "version": "2.11.0+cu129",
+    "license_metadata": "",
+    "license_file_count": 2,
+    "license_files": [
+      "torchaudio-2.11.0+cu129.dist-info/licenses/",
+      "torchaudio-2.11.0+cu129.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "torchvision-0.28.0+cu129-cp312-cp312-manylinux_2_28_x86_64.whl",
+    "distribution": "torchvision",
+    "version": "0.28.0+cu129",
+    "license_metadata": "BSD",
+    "license_file_count": 1,
+    "license_files": [
+      "torchvision-0.28.0+cu129.dist-info/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  },
+  {
+    "filename": "triton-3.7.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "distribution": "triton",
+    "version": "3.7.1",
+    "license_metadata": "",
+    "license_file_count": 2,
+    "license_files": [
+      "triton-3.7.1.dist-info/licenses/",
+      "triton-3.7.1.dist-info/licenses/LICENSE"
+    ],
+    "redistribution_status": "REVIEW_REQUIRED"
+  }
+]

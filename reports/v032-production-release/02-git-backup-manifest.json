@@ -1,0 +1,44 @@
+{
+  "created_utc": "2026-10-16T21:42:42.830095+00:00",
+  "backup_directory": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-032-python-local-scripts/backups/v032-20261016-213418",
+  "backup_manifest_sha256": "bb3ba6f39fa4e333473b134028323228b81a8381c2f43805f1112bc349554f90",
+  "main_archive_sha256": "029a02cd1fb80816336672a69097356b5eab5b9311c6a52e24acb80a7295db8f",
+  "release_archive_sha256": "87485ddf71152cf61c386aefe099145c199a2aa007e673438d19ce65f28d1a5a",
+  "archive_validation": "ZIP testzip and entry inventory passed",
+  "ignored_large_evidence": {
+    "kaggle-vllm/.local-evidence": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/.local-evidence",
+    "kaggle-vllm/dist": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/dist",
+    "kaggle-vllm-v032-release-worktree/dist": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/dist",
+    "kaggle-vllm-v032-release-worktree/dist-raw-refresh": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/dist-raw-refresh",
+    "kaggle-vllm-v032-release-worktree/dist-raw-refresh-2": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v032-release-worktree/dist-raw-refresh-2"
+  },
+  "recovery_instructions": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-032-python-local-scripts/backups/v032-20261016-213418/RECOVERY.md",
+  "additional_v031_worktree": {
+    "path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-v030-sdk-worktree",
+    "head": "cfa5659e479dfdda8a9ac0ac05d88562ade4cbf5",
+    "status": "one modified tracked file: competition/paper-track/writeup.md",
+    "preserved_files": {
+      "v031-extra-status.txt": "5d49fbcf6db418d905355bcff527dd0364ca2a5316c1467ee829f4aee169bb06",
+      "v031-extra-head.txt": "9eddb511ed7db17c1255dc61ab12717ac2f92a9c7bc81ea60c36ce3f91786de1",
+      "v031-extra.patch": "eb0f02741191f29a2cf7e46139392421b1bd51af50e3ffaad463f9da118a0185",
+      "v031-extra-writeup.md": "64d0eef0a3a8464f0b41323bef695a6b7a58f6bc2d06dad96b6439ce8bf8d128"
+    },
+    "note": "Its two-line correction was applied to permanent main; original worktree left untouched."
+  },
+  "release_original_untracked_file": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm-032-python-local-scripts/backups/v032-20261016-213418/release-original-21-local-repair-notebook-paths.txt",
+  "release_original_untracked_sha256": "88b209cf0c3334c052c882856977a66879f6af4df01ea5c3da656acc08e52f0c",
+  "older_worktrees_archived": {
+    "pr29-orphan-directory.tar.gz": {
+      "size": 8751172,
+      "sha256": "dd95787a3b1cbbf3af3c1eabdea41e4e3971b3dee2f40f5f12f93ce68f0be181"
+    },
+    "v031-sdk-worktree.tar.gz": {
+      "size": 10576628,
+      "sha256": "bcab9301f213003ca8c63f72a0ccdb12f4e5c79a8e8ce607872ed7ceb91de603"
+    },
+    "v020-baseline-worktree.tar.gz": {
+      "size": 10071377,
+      "sha256": "9c7e06b818582dfe6e1ad38e967f717e310c321a0b45408905c4cc0008cbcafd"
+    }
+  }
+}

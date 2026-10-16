@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "repository": "waqasm86/kaggle-vllm-binaries",
+  "base_revision": "8d7dd28f7c76c3b68e7326df81758411b7dc2680",
+  "mode": "additive_only",
+  "publication_authorization": "user-authorized-contingent-on-clearance-and-account-credentials",
+  "requires_redistribution_clearance": true,
+  "native_reference": {
+    "path": "v0.3.0/l4x4/native/vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+    "revision": "8d7dd28f7c76c3b68e7326df81758411b7dc2680",
+    "sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+    "size": 293855397
+  },
+  "historical_t4_reference": {
+    "path": "vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl",
+    "revision": "f6b4f10de54924ed6fe9e28cceab84eca7276ab6",
+    "sha256": "5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c"
+  },
+  "wheelhouse_delivery": "publisher-index; no dependency wheel uploads",
+  "operations": [
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/LICENSE",
+      "target": "LICENSE",
+      "size": 638,
+      "sha256": "18af4a9456a9bdbc7aec43ab0da067351db89196b4d8f3b1569a5f7bc600a4f6"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/NOTICE",
+      "target": "NOTICE",
+      "size": 281,
+      "sha256": "9844cd9898d494760197095ff2812df0b8a104aac934f71b2796e63d580e2333"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/README.md",
+      "target": "README.md",
+      "size": 593,
+      "sha256": "cdfab11e1243c74b75aeb2381e2292a302ee14e4057b4a566d9e18356ebad883"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/releases.json",
+      "target": "releases.json",
+      "size": 1684,
+      "sha256": "c801858690f5442dd0a249191ca429faba1b22828899b76e20d1bfa86f2564b7"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.2.0/metadata/SHA256SUMS.txt",
+      "target": "v0.2.0/metadata/SHA256SUMS.txt",
+      "size": 301,
+      "sha256": "4dd83a9560622c40b07abe6967042ccf71ed739553931b3e56361a474ec5abab"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.2.0/metadata/provenance.json",
+      "target": "v0.2.0/metadata/provenance.json",
+      "size": 297,
+      "sha256": "c1b7469e8b975f6e953c300e68d4c862afcd7ac773f98952d4cd15a50426e6ea"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.2.0/metadata/runtime-manifest.json",
+      "target": "v0.2.0/metadata/runtime-manifest.json",
+      "size": 682,
+      "sha256": "b509cb5b44980dfde944f46002a41c06097f6da9edecfe7f5c79e8ec03d65720"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.3.2/l4x4/metadata/L4_INFERENCE_LOCK.json",
+      "target": "v0.3.2/l4x4/metadata/L4_INFERENCE_LOCK.json",
+      "size": 49463,
+      "sha256": "f162e6c212371a34ed49f11885e80222fb78359a2d9a92f02b3cd29db2ce5329"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.3.2/l4x4/metadata/SHA256SUMS.txt",
+      "target": "v0.3.2/l4x4/metadata/SHA256SUMS.txt",
+      "size": 840,
+      "sha256": "0c9358160443921d38ba2810bddd58f0314c2406ad8a03681e9fbd71a2d25ad9"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.3.2/l4x4/metadata/TORCHCODEC_ELF_AUDIT.json",
+      "target": "v0.3.2/l4x4/metadata/TORCHCODEC_ELF_AUDIT.json",
+      "size": 65,
+      "sha256": "e2d7161d69a6214a3de3781eb699e938db52f71546df72ec090f77883e776ce5"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.3.2/l4x4/metadata/UPSTREAM_WHEEL_SOURCES.json",
+      "target": "v0.3.2/l4x4/metadata/UPSTREAM_WHEEL_SOURCES.json",
+      "size": 67542,
+      "sha256": "08b0db68c5ef9c6824c6922b9b6911198e68ad9aace46d35ed1ac23b8655d103"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.3.2/l4x4/metadata/compatibility.json",
+      "target": "v0.3.2/l4x4/metadata/compatibility.json",
+      "size": 406,
+      "sha256": "22df448cb6b748d6c04bcf35717374fad4bc62e66b58ae6ab908586fc73c1504"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.3.2/l4x4/metadata/provenance.json",
+      "target": "v0.3.2/l4x4/metadata/provenance.json",
+      "size": 588,
+      "sha256": "355621f3d6f054b96a280a4d44636799d978b3757435b2463438d48c252bfb6d"
+    },
+    {
+      "operation": "add",
+      "local_path": "/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm/release/hf-v032-staging/v0.3.2/l4x4/metadata/runtime-manifest.json",
+      "target": "v0.3.2/l4x4/metadata/runtime-manifest.json",
+      "size": 49463,
+      "sha256": "f162e6c212371a34ed49f11885e80222fb78359a2d9a92f02b3cd29db2ce5329"
+    }
+  ]
+}

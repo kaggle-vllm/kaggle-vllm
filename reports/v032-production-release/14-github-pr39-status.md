@@ -1,0 +1,3 @@
+# PR #39
+
+[PR #39](https://github.com/kaggle-vllm/kaggle-vllm/pull/39) is OPEN and DRAFT at remote head `f7a0c5535d539e53f0d7b36a53aeb2c0540ff861`. All three required CI checks passed after the normal fast-forward branch push. GitHub reports MERGEABLE/CLEAN; review threads are resolved (none exist) and the active main rule requires zero approving reviews. The native distribution and public Hub revision remain blocked/unpublished, correctly reflected in the code. Source merge is eligible after the provisional checksum manifest and audit report update are checked; publication is a separate gate.
