@@ -10,3 +10,5 @@
 - Distribution SHA256 values are in `release/v032-SHA256SUMS.txt`.
 
 The first pytest invocation without `PYTHONPATH=src` loaded an older editable install from the dirty main checkout; its 10 failures are an environment path collision, not this worktree. All final tests target this worktree explicitly. Neither cp312 native wheel nor any Kaggle notebook was run locally.
+
+Draft PR #39 initial checks passed: Python 3.11 CPU SDK, Python 3.12 CPU SDK, and quality-and-package. These CI jobs did not run Kaggle GPU acceptance.

@@ -42,7 +42,7 @@ def main() -> None:
     files = sorted((ROOT / "dist").glob("kaggle_vllm-0.3.2*"))
     sums = "\n".join(f"{sha(p)}  {p.name}" for p in files) + "\n"
     (ROOT / "release/v032-SHA256SUMS.txt").write_text(sums)
-    src_commit = git("rev-parse", "HEAD")
+    src_commit = "cfa5659e479dfdda8a9ac0ac05d88562ade4cbf5"
     md("01-local-repository-audit.md", f"""
 # Local repository audit
 
@@ -129,6 +129,8 @@ In Kaggle Notebook settings, enable Internet, restart the session, and rerun the
 - Distribution SHA256 values are in `release/v032-SHA256SUMS.txt`.
 
 The first pytest invocation without `PYTHONPATH=src` loaded an older editable install from the dirty main checkout; its 10 failures are an environment path collision, not this worktree. All final tests target this worktree explicitly. Neither cp312 native wheel nor any Kaggle notebook was run locally.
+
+Draft PR #39 initial checks passed: Python 3.11 CPU SDK, Python 3.12 CPU SDK, and quality-and-package. These CI jobs did not run Kaggle GPU acceptance.
 """)
     md("13-license-provenance-audit.md", f"""
 # License and provenance audit
@@ -146,7 +148,7 @@ Missing license metadata filenames: {', '.join(unknown)}.
     md("14-github-release-readiness.md", """
 # GitHub v0.3.2 release readiness
 
-A local SDK wheel, sdist, SHA256SUMS and release-note draft exist. The native wheel and 6.4 GB dependency wheelhouse should remain on Hugging Face. No tag, GitHub release or PR has been published from this branch yet. A PR should review the source and reports. After the Hub pin and a rebuilt SDK are verified, attach the exact SDK files and checksums to a draft GitHub release. Publish only after the user authorizes that visible action. Mark GPU testing pending until manual evidence arrives.
+A local SDK wheel, sdist, SHA256SUMS and release-note draft exist. The native wheel and 6.4 GB dependency wheelhouse should remain on Hugging Face. [Draft PR #39](https://github.com/kaggle-vllm/kaggle-vllm/pull/39) is open for source and release-plan review. No tag or GitHub release has been published. After the Hub pin and a rebuilt SDK are verified, attach the exact SDK files and checksums to a draft GitHub release. Publish only after the user authorizes that visible action. Mark GPU testing pending until manual evidence arrives.
 """)
     md("15-pypi-release-readiness.md", """
 # PyPI 0.3.2 readiness
@@ -197,7 +199,7 @@ The notebooks passed JSON and Python syntax validation only. The user must uploa
 1. Resolve legal/provenance decisions for the native compiled components and all 168 mirrored wheels; finalize notices.
 2. Obtain user authorization for additive Hugging Face publication. Copy the two existing LFS native wheels server-side, upload the verified 168 wheels and staged metadata/index, and preserve old paths.
 3. Re-inventory the immutable Hub commit. Fail if any filename, size or SHA256 differs. Pin that commit in the SDK profile and update release metadata.
-4. Rebuild 0.3.2 with Python 3.11, run CPU tests, twine and reproducibility checks, and open a source PR for review.
+4. Pin and rebuild 0.3.2 with Python 3.11, rerun CPU tests, Twine and reproducibility checks, and update [draft PR #39](https://github.com/kaggle-vllm/kaggle-vllm/pull/39) for review.
 5. Obtain user authorization for PyPI Trusted Publishing and GitHub v0.3.2 release publication. Upload exact reviewed SDK files, checksums and notes. Never upload a credential.
 6. The user manually runs both Kaggle notebooks. Review the resulting evidence. Mark 0.3.2 accepted only if all mandatory gates pass.
 
@@ -207,6 +209,8 @@ No remote mutation is performed by this report. The user must explicitly authori
 # 0.3.2 release candidate handoff
 
 The 0.3.2 source and pure Python SDK distributions are prepared in this worktree. The exact 168-wheel local inference closure and both native wheels passed SHA256 checks. The Hub inventory has {inventory['file_count']} files and lacks the public 0.3.2 wheelhouse. The 0.3.2 profile deliberately has no immutable revision; public bootstrap fails clearly. Both manual notebooks are output-free and were not executed.
+
+[Draft PR #39](https://github.com/kaggle-vllm/kaggle-vllm/pull/39) contains the source and release plan for review. It is not a published 0.3.2 release.
 
 **Production blockers:** third-party binary redistribution review, approved/additive Hugging Face publication of 168 wheels and metadata, immutable Hub pin, final SDK rebuild, source PR, PyPI/GitHub publication authorization, and fresh manual Kaggle acceptance. No 0.3.2 GPU or Gemma acceptance is claimed.
 
