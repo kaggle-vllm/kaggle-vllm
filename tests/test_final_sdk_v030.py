@@ -126,7 +126,7 @@ def test_explicit_t4_wrapper_keeps_tp2(monkeypatch):
     class Fake:
         def __init__(self, **kwargs): self.kwargs = kwargs
     monkeypatch.setattr("kaggle_vllm.llm.detect_kaggle", lambda: False)
-    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda: Fake)
+    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda **kwargs: Fake)
     wrapped = KaggleLLM("historical-model", profile="kaggle-t4x2-cu128")
     assert wrapped.engine_args["tensor_parallel_size"] == 2
     assert wrapped.upstream.kwargs["model"] == "historical-model"
@@ -136,7 +136,7 @@ def test_implicit_local_wrapper_keeps_v020_t4_defaults(monkeypatch):
     class Fake:
         def __init__(self, **kwargs): self.kwargs = kwargs
     monkeypatch.setattr("kaggle_vllm.llm.detect_kaggle", lambda: False)
-    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda: Fake)
+    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda **kwargs: Fake)
     wrapped = KaggleLLM("historical-model")
     assert wrapped.profile == "kaggle-t4x2-cu128"
     assert wrapped.engine_args["tensor_parallel_size"] == 1
@@ -158,7 +158,7 @@ def test_auto_l4_detection_does_not_preload_base_torch(monkeypatch):
     monkeypatch.setattr("kaggle_vllm.llm.subprocess.run", lambda *args, **kwargs: SimpleNamespace(stdout="NVIDIA L4, 8.9\n" * 4))
     monkeypatch.setattr("kaggle_vllm.llm.activate_runtime", lambda: True)
     monkeypatch.setattr("kaggle_vllm.llm.validate_l4x4_profile", lambda: None)
-    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda: Fake)
+    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda **kwargs: Fake)
     wrapped = KaggleLLM("l4-model")
     assert wrapped.profile == "kaggle-l4x4-cu129"
     assert wrapped.engine_args["tensor_parallel_size"] == 4

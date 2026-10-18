@@ -2,7 +2,7 @@
 
 A lightweight Python SDK for one Kaggle Notebook runtime: **Linux x86_64, CPython 3.12, exactly four NVIDIA L4 GPUs (SM89), tensor parallel size 4**. The SDK is pure Python and can be developed with Python 3.11. Its separate P31 native vLLM 0.30.0 wheel is cp312 only.
 
-The historical T4 profile remains packaged. PyPI 0.3.1 is a separate published SDK release. This 0.3.2 source preserves the P31 native wheel identity and the 168-wheel inference lock, adds a versioned public artifact namespace and safer download path, and requires a fresh four-L4 Kaggle run. The revised runtime fetches all 168 dependency wheels from their original PyPI, PyTorch, and FlashInfer publishers with exact SHA256 checks. Internet bootstrap remains blocked until the native wheel and metadata are published in the versioned Hugging Face namespace, verified, and pinned to an immutable revision.
+The historical T4 profile remains packaged. PyPI 0.3.1 is a separate historical SDK release. This 0.3.2 source preserves the P31 native wheel identity and the 168-wheel inference lock. Version 0.3.2 uses no PyPI artifact source: public runtime downloads are restricted to SHA256-pinned files at an immutable Hugging Face revision. Internet bootstrap currently fails closed because the dependency closure has not been published to the approved repository. A fresh four-L4 Kaggle run is still required.
 
 | SDK generation | Kaggle GPUs | SM | TP | Upstream vLLM | Status |
 | --- | --- | ---: | ---: | --- | --- |
@@ -20,7 +20,9 @@ P31 qualified vLLM's built-in FlashAttention-2 extension as compiled, packaged, 
 
 ## Kaggle use
 
-For the 0.3.2 public flow, use the [manual L4 acceptance notebook](kaggle-notebooks/kaggle-vllm-v032-l4x4-public-acceptance.ipynb) only after the versioned Hugging Face metadata/native runtime and PyPI package exist. The intended command is `python -m pip install "kaggle-vllm==0.3.2"` followed by `kaggle-vllm bootstrap --profile kaggle-l4x4-cu129 --strict`. Today that bootstrap fails closed because the immutable Hub revision is unset. The [historical offline notebook](kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb) records the P33 168-wheel qualification; the 195-wheel runtime-v3 manifest remains archival. The 0.3.2 staging root is `/tmp/kaggle-vllm/v0.3.2/l4x4/`.
+For manual testing, use the [new Python 3.12 notebook](kaggle-notebooks/kaggle-vllm-v032-cp312-hf-offline-manual-acceptance.ipynb) with mounted offline Inputs. The [historical offline notebook](kaggle-notebooks/kaggle_vllm_0_3_0_l4x4_final_sdk_acceptance.ipynb) records earlier P33 qualification; the 195-wheel runtime-v3 manifest remains archival. Managed staging defaults to `/tmp/kaggle-vllm/v0.3.2/l4x4/`. Explicit `KaggleLLM(..., profile="kaggle-l4x4-cu129", runtime_mode="global", strict=True)` uses a verified installation in `/usr/local/lib/python3.12/dist-packages` without managed staging.
+
+The SDK wheel can be installed locally without an index: `/usr/bin/python3.12 -m pip install --no-index --no-deps /kaggle/input/<sdk-dataset>/kaggle_vllm-0.3.2-py3-none-any.whl`. To install the exact CUDA closure, mount the five recorded v2 ZIPs, native wheel and release manifest, then run the offline installer documented in [the v0.3.2 installation report](reports/kaggle-vllm-v032-rebuild/06-pypi-free-installation.md). The installer requires explicit permission to replace Kaggle's preinstalled CUDA 12.8 stack. A direct Hugging Face SDK URL will be documented only after the SDK artifact is actually published at an immutable commit. The existing model repository is not a verified PEP 503 index; unconfigured `pip install kaggle-vllm` is not a Hugging Face-only command.
 
 ```bash
 kaggle-vllm bootstrap --profile kaggle-l4x4-cu129 --strict
@@ -28,7 +30,7 @@ eval "$(kaggle-vllm env --profile kaggle-l4x4-cu129)"
 kaggle-vllm doctor --profile kaggle-l4x4-cu129 --strict --json
 ```
 
-The exact native wheel is present at the historical `v0.3.0/l4x4/native/` path on Hugging Face. The 168 locked dependency wheels are available from their original publishers; they are not mirrored to the Hub. The SDK refuses automatic public-runtime downloads until the versioned native wheel and metadata are available, verified, and pinned to an immutable Hugging Face revision in the L4 profile. Existing offline Kaggle Inputs remain a separate path. No mutable `main` revision is trusted.
+The exact native wheel is present at the historical `v0.3.0/l4x4/native/` path on Hugging Face. The 168 dependency wheels are present in the local v2 archives, but none is currently mirrored to the approved Hub repository. The SDK refuses automatic public-runtime downloads until the full closure is present, verified and pinned to an immutable Hugging Face revision. Existing offline Kaggle Inputs remain the supported preparation path. No mutable `main` revision is trusted.
 
 ```python
 from kaggle_vllm import KaggleLLM, KaggleSamplingParams, activate_runtime, discover_gemma4_qat

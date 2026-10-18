@@ -1,0 +1,3 @@
+900e972da4502bbf9acdeca2119afb5a58b50a10497408f5a27bd42dadecdbf7  kaggle_vllm-0.3.2-py3-none-any.whl
+8f3a8d489e44cd9d40efe81e20db141378e9a784d2ae16630879916bd49e71f9  kaggle_vllm-0.3.2.tar.gz
+9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8  vllm-0.30.0-cp312-cp312-linux_x86_64.whl

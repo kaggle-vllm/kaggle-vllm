@@ -65,7 +65,7 @@
     "hf_repo_id": "waqasm86/kaggle-vllm-binaries",
     "namespace": "v0.3.2/l4x4/",
     "native_remote_path": "v0.3.0/l4x4/native/vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
-    "wheelhouse_delivery": "publisher-index",
+    "wheelhouse_delivery": "hugging-face",
     "immutable_revision": null,
     "status": "UNPUBLISHED"
   },

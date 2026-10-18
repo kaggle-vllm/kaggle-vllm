@@ -1,0 +1,7 @@
+# Dependency closure
+
+The packaged `L4_INFERENCE_LOCK.json` contains exactly 168 P33 lean inference dependency wheels (144 runtime-core, 23 torch-cu129, 1 runtime-large) plus the separate native vLLM wheel. All 168 filenames and recorded size/SHA256 entries match the local 203-wheel `WHEELHOUSE_MANIFEST.json`, and their filenames exist in the expanded local wheelhouse; 35 wheels in the larger set are outside the lean selection. This is a manifest reconciliation, not a new Kaggle install result.
+
+The SDK itself requires `packaging>=23`; the local build-deps ZIP contains pinned `packaging==26.3`, 129,956 bytes, SHA256 `d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c`, verified from the ZIP member in this audit. The P31 audit ZIP has `DEPENDENCY_GRAPH.json`, `OFFLINE_PIP_REPORT.json`, `CUDA_FAMILY_AUDIT.json`, source identity and upstream-index records. The report's 202-wheel local Python 3.11 dry run is historical provenance, not CPython 3.12 Kaggle acceptance.
+
+Local split archives are build-deps, runtime-core, runtime-large and torch-cu129 v2 ZIPs. Their filenames, measured sizes and previously recorded hashes are in `RELEASE_MANIFEST.json`; the offline installer rehashes mounted copies before pip. The separate wheelhouse-audit ZIP is evidence, not a pip source. **Hub gap:** 168 of 168 runtime dependency wheels and the 0.3.2 SDK wheel/sdist are absent from the approved Hub repository. Public HF-only runtime installation is blocked.

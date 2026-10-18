@@ -37,7 +37,7 @@ def make_llm(monkeypatch, **kwargs):
     monkeypatch.setattr(
         "kaggle_vllm.llm.validate_tensor_parallel_size", lambda size: None
     )
-    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda: FakeUpstreamLLM)
+    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda **kwargs: FakeUpstreamLLM)
     return KaggleLLM("model-id", **kwargs)
 
 
@@ -85,7 +85,7 @@ print(events)
 
 def test_missing_vllm_raises_useful_error(monkeypatch):
     def missing(name):
-        raise ImportError(name)
+        raise ModuleNotFoundError(f"No module named '{name}'", name=name)
 
     monkeypatch.setattr("kaggle_vllm.llm.importlib.import_module", missing)
     with pytest.raises(VLLMNotInstalledError, match="bootstrap"):

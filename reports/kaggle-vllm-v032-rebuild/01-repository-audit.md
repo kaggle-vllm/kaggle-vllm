@@ -1,0 +1,9 @@
+# Repository audit
+
+- Verified root: `/media/waqasm86/External1/Waqas-Projects/Project-vLLM-Kaggle/kaggle-vllm`; starting branch `main`, HEAD `5b27ad2cedee480dcf20449576b5d989fc958e53`; work branch `rebuild/v0.3.2-hf-release` at the same starting commit. No history rewrite, native rebuild, reset, or remote mutation occurred.
+- Read parent `kaggle-vllm-files-folders.txt` (16,103 lines) as historical inventory. Inspected package metadata, `MANIFEST.in`, README, changelog, source runtime/CLI, tests, scripts, reports, release records, notebooks, distribution folders and workflows. The local working tree remains authoritative.
+- Existing user changes on `main` included source/test edits for global mode and untracked reports, scripts, notebooks, and an independent nested `ai-agents-nv-notebooks/` tree. Those unrelated paths were preserved. No cache, archive, evidence, research or T4 asset was deleted.
+- Both native wheel copies measured 293,855,397 bytes and SHA256 `9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8`. Locations: `dist/kaggle-vllm-v030-native-wheel-only/` and sibling `kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/kaggle-upload/`.
+- Packaged distribution metadata is `kaggle-vllm==0.3.2`, `Requires-Python: >=3.11,<3.13`, CLI `kaggle_vllm.cli_v3:main`, pure Python wheel. The SDK sdist includes the offline installer and local verifier.
+- `.github/workflows/publish-pypi-v032.yml` was moved to `docs/release/archive/` to disable active v0.3.2 PyPI publication while preserving its history. The two remaining PyPI workflows are pinned to the historical v0.3.1 staging asset and main branch; they are not part of this v0.3.2 branch flow.
+- Existing release tags and GitHub releases contained no v0.3.2 tag/release at audit time. This was a read-only check, not a reservation.

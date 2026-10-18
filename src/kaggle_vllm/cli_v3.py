@@ -34,6 +34,7 @@ def build_parser() -> argparse.ArgumentParser:
     e.add_argument("--runtime-root", type=Path, default=DEFAULT_TARGET)
     d = sub.add_parser("doctor")
     d.add_argument("--profile", choices=(PROFILE_NAME, T4_PROFILE), required=True)
+    d.add_argument("--runtime-mode", choices=("managed", "global"), default="managed")
     d.add_argument("--runtime-root", type=Path, default=DEFAULT_TARGET)
     for flag in ("strict", "json", "import-native"):
         d.add_argument("--" + flag, action="store_true")
@@ -43,7 +44,7 @@ def build_parser() -> argparse.ArgumentParser:
     g.add_argument("--profile", choices=(PROFILE_NAME, T4_PROFILE), required=True)
     g.add_argument("--tensor-parallel-size", type=int)
     sub.add_parser("fingerprint")
-    sub.add_parser("network-preflight", help="diagnose PyPI and Hugging Face connectivity")
+    sub.add_parser("network-preflight", help="diagnose approved Hugging Face connectivity")
     h = sub.add_parser("verify-hashes", help="verify pinned native wheel and optional staged runtime")
     h.add_argument("--native-wheel", type=Path, required=True)
     h.add_argument("--runtime-source", type=Path)
@@ -130,6 +131,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 print(json.dumps({"available_profiles": [T4_PROFILE, PROFILE_NAME], "selection": "explicit"}, indent=2))
             return 0
         if args.profile == T4_PROFILE:
+            if args.command == "doctor" and args.runtime_mode != "managed":
+                parser.error("global runtime mode is available only for the L4 profile")
             if args.command in ("bootstrap", "plan"):
                 legacy = ["bootstrap", "--profile", T4_PROFILE]
                 if args.command == "plan": legacy.append("--dry-run")
@@ -145,7 +148,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
         if args.command == "doctor":
             from .doctor_v3 import run_doctor
-            return run_doctor(target=args.runtime_root, strict=args.strict, as_json_output=args.json, import_native=args.import_native)
+            return run_doctor(target=args.runtime_root, strict=args.strict, as_json_output=args.json, import_native=args.import_native, runtime_mode=args.runtime_mode)
         if args.command == "verify-gpus":
             from .environment import collect
             from .runtime import validate_l4x4_profile
