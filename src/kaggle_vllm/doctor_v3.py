@@ -33,7 +33,9 @@ def doctor_report(*, target: str | Path = DEFAULT_TARGET, strict: bool = True, i
                     {"check": "global CPython 3.12 runtime", "status": "pass", "actual": identity["site_packages"]},
                     {"check": "four NVIDIA L4 / SM89", "status": "pass", "actual": str(environment.gpu_names)},
                     {"check": "native extension identities", "status": "pass", "actual": str(identity["native_sha256"])},
-                ], "versions": identity["versions"], "evidence": {"fresh_session_acceptance": "PENDING_KAGGLE_ACCEPTANCE"}}
+                ], "versions": identity["versions"], "distribution_origins": identity["distribution_origins"],
+                "module_origins": identity["module_origins"],
+                "evidence": {"fresh_session_acceptance": "PENDING_KAGGLE_ACCEPTANCE"}}
     if runtime_mode != "managed":
         raise ValueError(f"unknown runtime mode: {runtime_mode}")
     p = load_profile()

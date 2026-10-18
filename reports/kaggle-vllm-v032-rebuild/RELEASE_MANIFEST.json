@@ -53,15 +53,15 @@
   },
   "sdk_sdist": {
     "filename": "kaggle_vllm-0.3.2.tar.gz",
-    "sha256": "8f3a8d489e44cd9d40efe81e20db141378e9a784d2ae16630879916bd49e71f9",
-    "size": 212465
+    "sha256": "14fe22ea2e6372092ff2e8e27612d9da1d1c3676cdbf0a414001ff5240e7ac80",
+    "size": 212595
   },
   "sdk_version": "0.3.2",
   "sdk_wheel": {
     "distribution": "kaggle-vllm",
     "filename": "kaggle_vllm-0.3.2-py3-none-any.whl",
-    "sha256": "900e972da4502bbf9acdeca2119afb5a58b50a10497408f5a27bd42dadecdbf7",
-    "size": 199340,
+    "sha256": "c6782f568f8e1da5e32a305427199027e7a07124a28f80c47807e39d16d0813c",
+    "size": 199466,
     "version": "0.3.2"
   },
   "source_identity": {

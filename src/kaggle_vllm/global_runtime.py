@@ -78,20 +78,27 @@ def validate_global_runtime() -> dict[str, Any]:
         "flashinfer-cubin": profile.data["runtime"]["flashinfer_cubin"],
     }
     installed: dict[str, str] = {}
+    distribution_origins: dict[str, str] = {}
     for dist in metadata.distributions(path=[str(root)]):
         name = dist.metadata.get("Name", "").lower().replace("_", "-")
         if name in expected:
             if name in installed:
                 raise RuntimeValidationError(f"multiple global {name} distributions found in {root}")
+            origin = Path(dist.locate_file("")).resolve()
+            if not origin.is_relative_to(root):
+                raise RuntimeValidationError(f"global {name} distribution metadata resolves outside {root}: {origin}")
             installed[name] = dist.version
+            distribution_origins[name] = str(origin)
     for name, version in expected.items():
         if installed.get(name) != version:
             raise RuntimeValidationError(f"global {name} must be {version} in {root}; found {installed.get(name)!r}")
+    module_origins: dict[str, str] = {}
     for name in ("kaggle_vllm", "vllm", "torch", "triton"):
         spec = importlib.util.find_spec(name)
         origin = getattr(spec, "origin", None)
         if not origin or not _inside(origin, root):
             raise RuntimeValidationError(f"{name} resolves outside global CPython 3.12 site-packages: {origin!r}")
+        module_origins[name] = str(Path(origin).resolve())
         loaded = sys.modules.get(name)
         if loaded is not None and not _inside(getattr(loaded, "__file__", ""), root):
             raise RuntimeValidationError(f"{name} was already imported outside {root}; restart Python")
@@ -130,4 +137,6 @@ def validate_global_runtime() -> dict[str, Any]:
         if not _inside(getattr(module, "__file__", ""), root):
             raise RuntimeValidationError(f"native extension {name} imported outside {root}")
         native[name] = actual_hash
-    return {"site_packages": str(root), "versions": installed, "torch_cuda": profile.torch_cuda, "native_sha256": native, "native_wheel_sha256": profile.wheel_sha256}
+    return {"site_packages": str(root), "versions": installed, "distribution_origins": distribution_origins,
+            "module_origins": module_origins, "torch_cuda": profile.torch_cuda, "native_sha256": native,
+            "native_wheel_sha256": profile.wheel_sha256}

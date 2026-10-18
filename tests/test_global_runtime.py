@@ -124,7 +124,7 @@ def _fake_global(monkeypatch, tmp_path):
         "torchcodec": "0.16.0+cu129", "flashinfer-python": "0.6.18.post1",
         "flashinfer-cubin": "0.6.18.post1",
     }
-    monkeypatch.setattr(global_runtime, "metadata", SimpleNamespace(distributions=lambda path: [SimpleNamespace(metadata={"Name": n}, version=v) for n, v in versions.items()]))
+    monkeypatch.setattr(global_runtime, "metadata", SimpleNamespace(distributions=lambda path: [SimpleNamespace(metadata={"Name": n}, version=v, locate_file=lambda _name, root=root: root) for n, v in versions.items()]))
     modules = {name: SimpleNamespace(__file__=str(root / (name.replace(".", "/") + ".so"))) for name in native}
     modules["torch"] = SimpleNamespace(__version__="2.13.0+cu129", version=SimpleNamespace(cuda="12.9"), __file__=str(root / "torch/__init__.py"))
     modules["vllm"] = SimpleNamespace(__version__="0.30.0", __file__=str(root / "vllm/__init__.py"))
@@ -145,6 +145,8 @@ def test_global_identity_validation(monkeypatch, tmp_path):
     report = global_runtime.validate_global_runtime()
     assert report["site_packages"] == str(root)
     assert report["versions"]["vllm"] == "0.30.0"
+    assert report["distribution_origins"]["vllm"] == str(root)
+    assert report["module_origins"]["vllm"] == str(root / "vllm/__init__.py")
     assert len(report["native_sha256"]) == 2
     for key in ("HF_HUB_OFFLINE", "TRANSFORMERS_OFFLINE", "HF_DATASETS_OFFLINE", "VLLM_NO_USAGE_STATS"):
         assert global_runtime.os.environ[key] == "1"
