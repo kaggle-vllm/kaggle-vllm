@@ -70,10 +70,8 @@ def _load_llm_class(*, allow_t4_fallback: bool = True) -> type[Any]:
             try:
                 if activate_t4_runtime():
                     return importlib.import_module("vllm").LLM
-            except Exception as retry_error:
-                raise VLLMLazyImportError(
-                    f"vLLM.LLM failed after T4 runtime activation: {type(retry_error).__name__}: {retry_error}"
-                ) from retry_error
+            except Exception:
+                raise
         if isinstance(error, ModuleNotFoundError) and error.name == "vllm":
             raise VLLMNotInstalledError(f"vLLM package is absent; bootstrap the selected managed runtime or install the pinned global wheel: {error}") from error
         raise VLLMLazyImportError(f"vLLM.LLM lazy import failed: {type(error).__name__}: {error}; check the named dependency or ABI") from error
