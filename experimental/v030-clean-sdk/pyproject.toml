@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kaggle-vllm"
+version = "0.3.0.post1.dev0"
+description = "Clean Kaggle L4x4 offline vLLM SDK rebuild"
+requires-python = ">=3.11,<3.13"
+license = "Apache-2.0"
+dependencies = []
+
+[project.scripts]
+kaggle-vllm-py312 = "kaggle_vllm.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
