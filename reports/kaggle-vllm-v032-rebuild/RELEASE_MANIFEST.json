@@ -1,0 +1,76 @@
+{
+  "abi": "cp312-cp312",
+  "archives": {
+    "kaggle-vllm-v030-py312-runtime-core-v2.zip": {
+      "filename": "kaggle-vllm-v030-py312-runtime-core-v2.zip",
+      "identity_status": "recorded_not_rehashed_this_turn",
+      "sha256": "65583967767248a25faeee33515cae87f9ed6324892d441c8f12ef39b8d7cff7",
+      "size": 627646391
+    },
+    "kaggle-vllm-v030-py312-runtime-large-v2.zip": {
+      "filename": "kaggle-vllm-v030-py312-runtime-large-v2.zip",
+      "identity_status": "recorded_not_rehashed_this_turn",
+      "sha256": "71b1372e0fc226ac56f1f6e0e775c7a87335f4a5d4802605e8306ebcf22ad6da",
+      "size": 1565107475
+    },
+    "kaggle-vllm-v030-py312-torch-cu129-v2.zip": {
+      "filename": "kaggle-vllm-v030-py312-torch-cu129-v2.zip",
+      "identity_status": "recorded_not_rehashed_this_turn",
+      "sha256": "db05f85e3665fb5aba21a89162a3f06bcb177bb22550340792892c98dcfb4569",
+      "size": 4218164535
+    }
+  },
+  "cuda_runtime": "12.9",
+  "dependency_lock_sha256": "f162e6c212371a34ed49f11885e80222fb78359a2d9a92f02b3cd29db2ce5329",
+  "dependency_wheel_count": 168,
+  "github_draft_release_url": null,
+  "gpu": "4 x NVIDIA L4 SM89",
+  "huggingface_observed_main_revision": "8d7dd28f7c76c3b68e7326df81758411b7dc2680",
+  "huggingface_release_revision": null,
+  "huggingface_repository": "waqasm86/kaggle-vllm-binaries",
+  "native_local_identity": "both_local_copies_current_sha256_verified",
+  "native_wheel": {
+    "filename": "vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+    "sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+    "size": 293855397
+  },
+  "platform": "Linux x86_64",
+  "publication_status": "LOCAL_ONLY_BLOCKED_REDISTRIBUTION_AND_HF_CLOSURE",
+  "python": "CPython 3.12",
+  "schema_version": 1,
+  "sdk_dependency": {
+    "distribution": "packaging",
+    "filename": "packaging-26.3-py3-none-any.whl",
+    "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+    "size": 129956,
+    "version": "26.3"
+  },
+  "sdk_dependency_archive": {
+    "filename": "kaggle-vllm-v030-py312-build-deps-v2.zip",
+    "identity_status": "recorded_not_rehashed_this_turn",
+    "sha256": "db9a3219fde55d16745416d5ea167940bf78ab7d060b3121559484f8da9f0260",
+    "size": 30640061
+  },
+  "sdk_sdist": {
+    "filename": "kaggle_vllm-0.3.2.tar.gz",
+    "sha256": "14fe22ea2e6372092ff2e8e27612d9da1d1c3676cdbf0a414001ff5240e7ac80",
+    "size": 212595
+  },
+  "sdk_version": "0.3.2",
+  "sdk_wheel": {
+    "distribution": "kaggle-vllm",
+    "filename": "kaggle_vllm-0.3.2-py3-none-any.whl",
+    "sha256": "c6782f568f8e1da5e32a305427199027e7a07124a28f80c47807e39d16d0813c",
+    "size": 199466,
+    "version": "0.3.2"
+  },
+  "source_identity": {
+    "status": "project_record_not_independently_proven",
+    "upstream_vllm_commit_recorded": "ced6857afa0ea7b2e3f0846a62e1394e90f15607"
+  },
+  "status": "PENDING_KAGGLE_ACCEPTANCE",
+  "tensor_parallel_size": 4,
+  "torch": "2.13.0+cu129",
+  "triton": "3.7.1",
+  "vllm": "0.30.0"
+}

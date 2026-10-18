@@ -1,0 +1,14 @@
+{
+  "native_wheel_filename": "vllm-0.30.0-cp312-cp312-linux_x86_64.whl",
+  "native_wheel_origin": "../kaggle-vllm-v030-wheelhouse-cp312-cu129-v2/kaggle-upload and dist/kaggle-vllm-v030-native-wheel-only",
+  "native_wheel_sha256": "9ce42cde3a8564d9670679dd1be11b0a8640fb88d22aef8f94299d5a6747a6e8",
+  "native_wheel_size": 293855397,
+  "publication_status": "LOCAL_ONLY",
+  "schema_version": 1,
+  "sdk_source_branch": "rebuild/v0.3.2-hf-release",
+  "sdk_starting_head": "5b27ad2cedee480dcf20449576b5d989fc958e53",
+  "sdk_version": "0.3.2",
+  "upstream_commit_verification": "existing project source record, not independently proven",
+  "upstream_vllm_commit_recorded": "ced6857afa0ea7b2e3f0846a62e1394e90f15607",
+  "upstream_vllm_version": "0.30.0"
+}

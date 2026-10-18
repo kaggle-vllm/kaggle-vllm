@@ -80,7 +80,7 @@ def test_default_tp_and_kwargs(monkeypatch):
     class Fake:
         def __init__(self, **kwargs): self.kwargs = kwargs
         def generate(self, *args, **kwargs): return (args, kwargs)
-    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda: Fake)
+    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda **kwargs: Fake)
     monkeypatch.setattr("kaggle_vllm.llm.activate_runtime", lambda: True)
     monkeypatch.setattr("kaggle_vllm.llm.detect_kaggle", lambda: False)
     llm = KaggleLLM("model", profile="kaggle-l4x4-cu129", max_model_len=2048)
@@ -223,7 +223,7 @@ def test_generate_converts_sampling_params_lazily(monkeypatch):
     class Fake:
         def __init__(self, **kwargs): pass
         def generate(self, *args, **kwargs): return args, kwargs
-    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda: Fake)
+    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda **kwargs: Fake)
     monkeypatch.setattr("kaggle_vllm.llm.detect_kaggle", lambda: False)
     monkeypatch.setattr(KaggleSamplingParams, "to_upstream", lambda self, profile=None: "upstream-params")
     llm = KaggleLLM("model")
@@ -252,7 +252,7 @@ def test_chat_uses_processor_template(monkeypatch):
         def apply_chat_template(self, messages, **kwargs):
             assert kwargs == {"tokenize": False, "add_generation_prompt": True}
             return "rendered prompt"
-    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda: Fake)
+    monkeypatch.setattr("kaggle_vllm.llm._load_llm_class", lambda **kwargs: Fake)
     monkeypatch.setattr("kaggle_vllm.llm.detect_kaggle", lambda: False)
     monkeypatch.setitem(sys.modules, "transformers", SimpleNamespace(AutoProcessor=Processor, AutoTokenizer=Processor))
     assert KaggleLLM("model").chat([{"role": "user", "content": "hello"}]) == ["rendered prompt"]

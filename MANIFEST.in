@@ -5,5 +5,6 @@ include docs/kaggle-v0.3.0-l4x4.md docs/gemma4.md docs/runtime-storage.md docs/v
 recursive-exclude release *
 include release/github-v0.3.0.md release/reproducibility-v0.3.0.md
 include scripts/build_runtime_v3.py
+include scripts/install_global_v032_offline.py scripts/verify_kaggle_global_cp312.py
 recursive-exclude tests *
 recursive-include src/kaggle_vllm/profiles *.json *.txt

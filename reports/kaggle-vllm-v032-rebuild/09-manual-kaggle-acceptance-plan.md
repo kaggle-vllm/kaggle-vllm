@@ -1,0 +1,5 @@
+# Manual Kaggle acceptance plan
+
+Notebook: `kaggle-notebooks/kaggle-vllm-v032-cp312-hf-offline-manual-acceptance.ipynb`. It has no saved outputs and was not executed. Its runtime commands use `/usr/bin/python3.12` even if the notebook kernel differs. It inventories four L4/SM89 GPUs and mounted Inputs, verifies the native wheel SHA256, embeds the offline installer to prevent a missing helper script, requires explicit approval inside the notebook before global CUDA stack replacement, checks distribution and module origins, imports Torch/Triton/vLLM/LLM/native extensions, runs strict global doctor, performs four-rank NCCL all-reduce, discovers an actual local Gemma 4 31B QAT model, then runs TP4 generation in a bounded subprocess. It records actual backend diagnostics and exports a small evidence ZIP.
+
+The user must run and review it on a fresh Kaggle session. Importable FA2 does not prove the Gemma backend selected FA2. No model URL or weights are downloaded by SDK installation. A candidate is not accepted until this exact wheel passes the full user-run process.

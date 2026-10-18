@@ -11,7 +11,7 @@ from typing import Any
 from .l4_bootstrap import activate_runtime
 from .bootstrap import activate_runtime as activate_t4_runtime
 from .environment import collect, detect_kaggle
-from .exceptions import RuntimeValidationError, ShardedModelError, VLLMNotInstalledError
+from .exceptions import RuntimeValidationError, ShardedModelError, VLLMLazyImportError, VLLMNotInstalledError
 from .runtime import all_sm75, all_tesla_t4, validate_l4x4_profile, validate_tensor_parallel_size
 from .profile_v3 import PROFILE_NAME as L4_PROFILE
 from .profiles import DEFAULT_PROFILE as T4_PROFILE
@@ -47,33 +47,34 @@ def _detect_kaggle_profile_without_torch() -> str:
     raise RuntimeValidationError(f"hardware profile is ambiguous; pass profile explicitly: {devices}")
 
 
-def _load_vllm_module(profile: str | None = None) -> Any:
-    try:
-        if profile != T4_PROFILE and not activate_runtime():
-            raise VLLMNotInstalledError(
-                "vLLM runtime is not staged; run `kaggle-vllm bootstrap --strict`"
-            )
-        return importlib.import_module("vllm")
-    except (ImportError, AttributeError, OSError):
+def _load_vllm_module(profile: str | None = None, runtime_mode: str = "managed") -> Any:
+    if runtime_mode not in ("managed", "global"):
+        raise RuntimeValidationError(f"unknown runtime_mode: {runtime_mode}")
+    if runtime_mode != "global" and profile != T4_PROFILE and not activate_runtime():
         raise VLLMNotInstalledError(
-            "vLLM is unavailable. Run `kaggle-vllm bootstrap --strict` in a "
-            "compatible Kaggle CPython 3.12 runtime, then activate it."
-        ) from None
+            "vLLM runtime is not staged; run `kaggle-vllm bootstrap --strict`"
+        )
+    try:
+        return importlib.import_module("vllm")
+    except Exception as error:
+        if isinstance(error, ModuleNotFoundError) and error.name == "vllm":
+            raise VLLMNotInstalledError(f"vLLM is absent in {runtime_mode} mode: {error}") from error
+        raise VLLMLazyImportError(f"vLLM module import failed in {runtime_mode} mode: {type(error).__name__}: {error}") from error
 
 
-def _load_llm_class() -> type[Any]:
+def _load_llm_class(*, allow_t4_fallback: bool = True) -> type[Any]:
     try:
         return importlib.import_module("vllm").LLM
-    except (ImportError, AttributeError, OSError):
-        try:
-            if activate_t4_runtime():
-                return importlib.import_module("vllm").LLM
-        except (ImportError, AttributeError, OSError, RuntimeError):
-            pass
-        raise VLLMNotInstalledError(
-            "vLLM is unavailable. Run the explicit `kaggle-vllm bootstrap` "
-            "command for the selected profile."
-        ) from None
+    except Exception as error:
+        if allow_t4_fallback and isinstance(error, ModuleNotFoundError) and error.name == "vllm":
+            try:
+                if activate_t4_runtime():
+                    return importlib.import_module("vllm").LLM
+            except Exception:
+                raise
+        if isinstance(error, ModuleNotFoundError) and error.name == "vllm":
+            raise VLLMNotInstalledError(f"vLLM package is absent; bootstrap the selected managed runtime or install the pinned global wheel: {error}") from error
+        raise VLLMLazyImportError(f"vLLM.LLM lazy import failed: {type(error).__name__}: {error}; check the named dependency or ABI") from error
 
 
 class KaggleLLM:
@@ -89,6 +90,7 @@ class KaggleLLM:
         tensor_parallel_size: int | None = None,
         strict: bool | None = None,
         profile: str | None = None,
+        runtime_mode: str = "managed",
         **vllm_kwargs: Any,
     ) -> None:
         strict_mode = detect_kaggle() if strict is None else strict
@@ -100,17 +102,25 @@ class KaggleLLM:
         profile = profile or T4_PROFILE
         if profile not in (L4_PROFILE, T4_PROFILE):
             raise RuntimeValidationError(f"unknown profile: {profile}")
+        if runtime_mode not in ("managed", "global"):
+            raise RuntimeValidationError(f"unknown runtime_mode: {runtime_mode}")
+        if runtime_mode == "global" and profile != L4_PROFILE:
+            raise RuntimeValidationError("global CPython 3.12 mode supports only the L4x4 profile")
         if profile == T4_PROFILE:
             from . import l4_bootstrap
             if l4_bootstrap._ACTIVE_L4_TARGET is not None:
                 raise RuntimeValidationError("L4 runtime is active in this process; restart before selecting T4")
-        if profile == L4_PROFILE and not activate_runtime():
+        if profile == L4_PROFILE and runtime_mode == "global":
+            from .global_runtime import validate_global_runtime
+            validate_global_runtime()
+        elif profile == L4_PROFILE and not activate_runtime():
             raise VLLMNotInstalledError("L4 runtime is not staged; run `kaggle-vllm bootstrap --profile kaggle-l4x4-cu129 --offline`")
         if tensor_parallel_size is None:
             tensor_parallel_size = (1 if implicit_t4 else 2) if profile == T4_PROFILE else 4
-        if strict_mode:
+        if strict_mode or runtime_mode == "global":
             if profile == L4_PROFILE:
-                activate_runtime()
+                if runtime_mode == "managed":
+                    activate_runtime()
                 validate_l4x4_profile()
                 validate_tensor_parallel_size(tensor_parallel_size, gpu_count=4)
                 if tensor_parallel_size != 4:
@@ -123,14 +133,28 @@ class KaggleLLM:
             validate_tensor_parallel_size(tensor_parallel_size, gpu_count=0)
         options = dict(T4_CONSERVATIVE_DEFAULTS if profile == T4_PROFILE else L4_COMPATIBILITY_DEFAULTS)
         options.update(vllm_kwargs)
+        if runtime_mode == "global":
+            try:
+                local_model = Path(model).expanduser().resolve(strict=True)
+            except (OSError, TypeError, ValueError) as error:
+                raise RuntimeValidationError(f"global mode requires a local model directory: {model}") from error
+            if not local_model.is_dir() or not (local_model / "config.json").is_file():
+                raise RuntimeValidationError("global mode requires a local model directory with config.json")
+            tokenizer = options.get("tokenizer")
+            if tokenizer is not None and (not Path(tokenizer).expanduser().is_dir() or not (Path(tokenizer).expanduser() / "tokenizer_config.json").is_file()):
+                raise RuntimeValidationError("global mode tokenizer must be a local directory with tokenizer_config.json")
+            if options.get("trust_remote_code") is not False:
+                raise RuntimeValidationError("global mode requires trust_remote_code=False")
+            model = local_model
         options["model"] = str(model)
         options["tensor_parallel_size"] = tensor_parallel_size
 
         self.model = str(model)
         self.profile = profile
+        self.runtime_mode = runtime_mode
         self.tensor_parallel_size = tensor_parallel_size
         self.engine_args = options.copy()
-        self._llm = _load_llm_class()(**options)
+        self._llm = _load_llm_class(allow_t4_fallback=profile == T4_PROFILE)(**options)
 
     @property
     def upstream(self) -> Any:
@@ -141,7 +165,7 @@ class KaggleLLM:
     def generate(self, prompts: Any, sampling_params: Any = None, **kwargs: Any) -> Any:
         """Delegate generation to upstream ``vllm.LLM.generate``."""
         if isinstance(sampling_params, KaggleSamplingParams):
-            sampling_params = sampling_params.to_upstream(T4_PROFILE) if self.profile == T4_PROFILE else sampling_params.to_upstream()
+            sampling_params = sampling_params.to_upstream(T4_PROFILE) if self.profile == T4_PROFILE else sampling_params.to_upstream(runtime_mode=self.runtime_mode)
         if sampling_params is None:
             return self._llm.generate(prompts, **kwargs)
         return self._llm.generate(prompts, sampling_params, **kwargs)
@@ -152,6 +176,8 @@ class KaggleLLM:
 
     def chat(self, messages: list[dict[str, str]], *, local_files_only: bool = True, sampling_params: KaggleSamplingParams | Any | None = None, **kwargs: Any) -> Any:
         """Render a model chat template with AutoProcessor, then AutoTokenizer fallback."""
+        if self.runtime_mode == "global" and not local_files_only:
+            raise RuntimeValidationError("global mode requires local_files_only=True")
         from transformers import AutoProcessor, AutoTokenizer
         errors: list[Exception] = []
         for factory in (AutoProcessor, AutoTokenizer):

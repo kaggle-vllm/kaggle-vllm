@@ -12,9 +12,12 @@ class KaggleSamplingParams:
     def __init__(self, **kwargs: Any) -> None:
         self.kwargs = dict(kwargs)
 
-    def to_upstream(self, profile: str | None = None) -> Any:
+    def to_upstream(self, profile: str | None = None, *, runtime_mode: str = "managed") -> Any:
         from .llm import _load_vllm_module
-        module = _load_vllm_module(profile) if profile is not None else _load_vllm_module()
+        if runtime_mode == "managed":
+            module = _load_vllm_module(profile) if profile is not None else _load_vllm_module()
+        else:
+            module = _load_vllm_module(profile, runtime_mode)
         return module.SamplingParams(**self.kwargs)
 
     def __repr__(self) -> str:

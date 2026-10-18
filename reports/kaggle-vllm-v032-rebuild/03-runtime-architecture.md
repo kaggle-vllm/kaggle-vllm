@@ -1,0 +1,9 @@
+# Runtime architecture
+
+The L4 profile pins exactly four NVIDIA L4 GPUs, SM89, TP=4, CPython cp312, vLLM 0.30.0, Torch 2.13.0+cu129, CUDA user-space 12.9 and Triton 3.7.1. The historical T4/SM75 profile is packaged separately.
+
+**Managed (default):** existing `l4_bootstrap.py` stages a verified native runtime under `/tmp/kaggle-vllm/v0.3.2/l4x4`; offline source is explicit. Public fetch uses `public_artifacts_v3.py`, accepts only 168 lock-approved wheels, one native wheel and lock metadata from `waqasm86/kaggle-vllm-binaries` at a 40-character immutable revision, with SHA256, bounded retries, atomic activation and cache ownership. The immutable revision remains unset because the complete Hub closure is absent. Public fetch fails closed. Staging still uses local pip `--no-index --no-deps --target` and never builds CUDA.
+
+**Global (explicit):** `KaggleLLM(..., profile="kaggle-l4x4-cu129", runtime_mode="global", strict=True, tensor_parallel_size=4)` validates ordinary `/usr/local/lib/python3.12/dist-packages`, installed versions and import origins, Torch CUDA identity, two native extension hashes/imports, local model/config and offline environment. It does not activate managed `/tmp` runtime. The CLI doctor now accepts `--runtime-mode global` for L4 only. No network call occurs at SDK import time.
+
+The offline installer `scripts/install_global_v032_offline.py` verifies the local SDK/native wheels and recorded split-v2 archives, stages exact 168 dependency wheels plus `packaging==26.3`, and only runs pip after `--apply --replace-global-cuda-stack`. It uses `/usr/bin/python3.12`, `--no-index`, `--no-deps`, `--only-binary=:all:` and SHA256-locked requirements. The archive hashes in the local release manifest are recorded values; the installer checks actual mounted bytes before installation.

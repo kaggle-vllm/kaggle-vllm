@@ -61,8 +61,8 @@ def validate_profile(data: dict[str, Any]) -> L4Profile:
             raise ValueError("wrong public runtime namespace")
         if data["public_artifacts"].get("native_remote_path") != NATIVE_HF_PATH:
             raise ValueError("wrong immutable native wheel path")
-        if data["public_artifacts"].get("wheelhouse_delivery") != "publisher-index":
-            raise ValueError("wrong locked wheel delivery mode")
+        if data["public_artifacts"].get("wheelhouse_delivery") != "hugging-face":
+            raise ValueError("L4 dependency wheels must come only from Hugging Face")
         if v["gemma4_tested_backend"] != "TRITON_ATTN":
             raise ValueError("Gemma 4 backend evidence mismatch")
         evidence = data["evidence"]

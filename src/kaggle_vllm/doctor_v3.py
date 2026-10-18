@@ -20,8 +20,24 @@ from .cuda_driver import DEFAULT_DRIVER
 EXPECTED = {"vllm": "0.30.0", "torch": "2.13.0+cu129", "torchvision": "0.28.0+cu129", "torchaudio": "2.11.0+cu129", "torchcodec": "0.16.0+cu129", "triton": "3.7.1", "flashinfer-python": "0.6.18.post1", "flashinfer-cubin": "0.6.18.post1"}
 
 
-def doctor_report(*, target: str | Path = DEFAULT_TARGET, strict: bool = True, import_native: bool = False) -> dict[str, Any]:
+def doctor_report(*, target: str | Path = DEFAULT_TARGET, strict: bool = True, import_native: bool = False, runtime_mode: str = "managed") -> dict[str, Any]:
     """Collect serializable findings; native imports are explicit and cp312 only."""
+    if runtime_mode == "global":
+        from .global_runtime import validate_global_runtime
+        from .runtime import validate_l4x4_profile
+        identity = validate_global_runtime()
+        environment = collect()
+        validate_l4x4_profile(environment)
+        return {"schema_version": 3, "profile": load_profile().name, "runtime_mode": "global", "strict": strict,
+                "compatible": True, "findings": [
+                    {"check": "global CPython 3.12 runtime", "status": "pass", "actual": identity["site_packages"]},
+                    {"check": "four NVIDIA L4 / SM89", "status": "pass", "actual": str(environment.gpu_names)},
+                    {"check": "native extension identities", "status": "pass", "actual": str(identity["native_sha256"])},
+                ], "versions": identity["versions"], "distribution_origins": identity["distribution_origins"],
+                "module_origins": identity["module_origins"],
+                "evidence": {"fresh_session_acceptance": "PENDING_KAGGLE_ACCEPTANCE"}}
+    if runtime_mode != "managed":
+        raise ValueError(f"unknown runtime mode: {runtime_mode}")
     p = load_profile()
     bootstrap_path = Path(target).resolve() / "manifests" / "sdk-runtime.json"
     if bootstrap_path.is_file() and sys.version_info[:2] == (3, 12):
@@ -105,8 +121,8 @@ def doctor_report(*, target: str | Path = DEFAULT_TARGET, strict: bool = True, i
     return {"schema_version": 3, "profile": p.name, "strict": strict, "compatible": not any(x["status"] == "error" for x in findings), "findings": findings, "warnings": ["Global pip check is excluded from the profile gate; P31 recorded unrelated Kaggle package conflicts."], "evidence": {"nccl_tp4_p31": "PASS", "gemma4_semantic_step20_p31": "PASS", "fresh_session_acceptance": "historical_candidate_wheel_only", "FA2_NATIVE_IMPORT_PASS": "historical_candidate", "TRITON_ATTN_GEMMA_RUNTIME_PASS": "historical_candidate", "FA2_MODEL_RUNTIME_PASS": False}}
 
 
-def run_doctor(*, target: str | Path = DEFAULT_TARGET, strict: bool = True, as_json_output: bool = False, import_native: bool = False) -> int:
-    report = doctor_report(target=target, strict=strict, import_native=import_native)
+def run_doctor(*, target: str | Path = DEFAULT_TARGET, strict: bool = True, as_json_output: bool = False, import_native: bool = False, runtime_mode: str = "managed") -> int:
+    report = doctor_report(target=target, strict=strict, import_native=import_native, runtime_mode=runtime_mode)
     if as_json_output:
         print(json.dumps(report, indent=2))
     else:

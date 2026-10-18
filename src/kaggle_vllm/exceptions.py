@@ -13,6 +13,10 @@ class VLLMNotInstalledError(KaggleVLLMError):
     """Raised when an inference operation needs an unavailable vLLM install."""
 
 
+class VLLMLazyImportError(VLLMNotInstalledError):
+    """Raised when vLLM exists but its lazy API or a dependency fails to load."""
+
+
 class ChecksumMismatchError(KaggleVLLMError):
     """Raised when an artifact does not match its expected SHA256."""
 

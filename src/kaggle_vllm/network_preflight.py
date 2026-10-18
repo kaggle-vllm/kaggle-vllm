@@ -26,8 +26,7 @@ def _probe(url: str) -> dict[str, str]:
     except ssl.SSLError as error:
         return {"status": "FAIL", "category": "TLS_ERROR", "detail": str(error)}
     except HTTPError as error:
-        category = "PACKAGE_VERSION_UNAVAILABLE" if error.code == 404 and "pypi.org" in host else "HOST_HTTP_ERROR"
-        return {"status": "FAIL", "category": category, "detail": str(error.code)}
+        return {"status": "FAIL", "category": "HOST_HTTP_ERROR", "detail": str(error.code)}
     except (URLError, TimeoutError, OSError) as error:
         reason = str(error).lower()
         category = "PROXY_FAILURE" if "proxy" in reason else "HOST_UNAVAILABLE"
@@ -36,10 +35,7 @@ def _probe(url: str) -> dict[str, str]:
 
 def network_report() -> dict[str, object]:
     endpoints = {
-        "PyPI": "https://pypi.org/pypi/kaggle-vllm/0.3.2/json",
         "Hugging Face": "https://huggingface.co/api/models/waqasm86/kaggle-vllm-binaries",
-        "PyTorch CUDA 12.9": "https://download.pytorch.org/whl/cu129/torch/",
-        "FlashInfer": "https://flashinfer.ai/whl/flashinfer-cubin/",
     }
     probes = {name: _probe(url) for name, url in endpoints.items()}
     try:
@@ -57,16 +53,8 @@ def network_report() -> dict[str, object]:
         diagnosis = "DISK_EXHAUSTION"
     elif all(x["category"] == "DNS_FAILURE" for x in probes.values()):
         diagnosis = "DNS_FAILURE_OR_INTERNET_DISABLED"
-    elif probes["PyPI"]["category"] == "PACKAGE_VERSION_UNAVAILABLE":
-        diagnosis = "PACKAGE_VERSION_UNAVAILABLE"
-    elif probes["PyPI"]["status"] != "PASS":
-        diagnosis = "PYPI_UNAVAILABLE"
     elif probes["Hugging Face"]["status"] != "PASS":
         diagnosis = "HUGGING_FACE_UNAVAILABLE"
-    elif probes["PyTorch CUDA 12.9"]["status"] != "PASS":
-        diagnosis = "PYTORCH_INDEX_UNAVAILABLE"
-    elif probes["FlashInfer"]["status"] != "PASS":
-        diagnosis = "FLASHINFER_INDEX_UNAVAILABLE"
     else:
         diagnosis = "NETWORK_READY"
     return {
@@ -75,10 +63,10 @@ def network_report() -> dict[str, object]:
         "probes": probes,
         "proxy_configured": proxy_present,
         "pip_index_host": index_host,
-        "pip_index_configuration": "CUSTOM_INDEX_REVIEW" if index_host and index_host not in ("pypi.org", "pypi.python.org") else "DEFAULT_OR_PYPI",
+        "pip_index_configuration": "UNAPPROVED_INDEX_CONFIGURED" if index_host else "NO_CUSTOM_INDEX",
         "pip_index_config_keys": config,
         "scratch_free_bytes": free_bytes,
-        "guidance": "Enable Internet in Kaggle Notebook settings and restart the session if disabled. Check DNS, proxy and pip index settings before retrying. Keep TLS verification enabled.",
+        "guidance": "Only the pinned Hugging Face repository may supply v0.3.2 runtime artifacts. A reachable API does not prove the 168-wheel closure is published. Keep TLS verification enabled.",
     }
 
 

@@ -27,6 +27,14 @@
 
 All notable changes are documented here.
 
+## 0.3.2 — local candidate; Kaggle acceptance and publication pending
+
+- Preserve the historical T4 runtime and P31 L4 native wheel identity while restoring SDK metadata to genuine 0.3.2.
+- Add explicit global CPython 3.12 mode with strict installed version, CUDA, module origin and native extension checks; retain managed L4 staging as the default.
+- Keep lazy vLLM import exceptions chained, including missing optional dependencies and native ABI failures.
+- Restrict active 0.3.2 artifact download code to SHA256-pinned Hugging Face files at an immutable revision. The full 168-wheel closure is not yet published there, so public bootstrap fails closed.
+- Prepare an offline, `--no-index` global installer and manual Kaggle notebook. Final four-L4/Gemma 4 acceptance was not run.
+
 ## Unreleased
 
 - Add a CPU-testable streaming OpenAI-compatible serving benchmark with real
