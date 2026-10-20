@@ -15,7 +15,7 @@ around upstream [vLLM](https://github.com/vllm-project/vllm), not a fork or a
 claim of ownership over vLLM. **This is not an official upstream vLLM binary.**
 
 The repository also carries exact PyPI artifacts for the lightweight
-`kaggle-vllm` 0.1.2 SDK, plus the historical 0.1.0 and 0.1.1 SDK files. These
+`kaggle-vllm` 0.1.0 through 0.2.0 SDK releases. These
 pure-Python artifacts do not contain vLLM, CUDA, or Torch and do not install
 the native runtime implicitly.
 
@@ -37,9 +37,10 @@ The exact PyPI artifacts are:
 | `kaggle_vllm-0.2.0-py3-none-any.whl` | 36,732 bytes | `f3dce393c9e0bd43b9ba29a29ae14f9467857e5eea61390d41f512a52911fbbe` |
 | `kaggle_vllm-0.2.0.tar.gz` | 43,104 bytes | `48ed97da07e54119939053e38f4e87900cf79316711d7b4558aed8122a66e3aa` |
 
-These 0.2.0 SDK files are authoritative on PyPI and are not duplicated in this
-repository. Their publication does not change the native wheel identity or
-immutable revision.
+These 0.2.0 SDK files are byte-identical mirrors of the published PyPI files
+and are also attached to the GitHub v0.2.0 release. Their publication does
+not change the native wheel identity or immutable revision. The native wheel
+is also attached to the GitHub v0.2.0 release with the same SHA256.
 
 ## Historical mirrored SDK artifacts
 
@@ -59,8 +60,8 @@ pip install "kaggle-vllm[hub]==0.2.0"
 kaggle-vllm bootstrap
 ```
 
-The latest immutable Hub SDK fallback is the historical byte-identical 0.1.2
-PyPI wheel:
+The latest SDK wheel is the byte-identical 0.2.0 mirror in this repository.
+The historical immutable 0.1.2 Hub fallback remains available:
 
 ```bash
 pip install "https://huggingface.co/waqasm86/kaggle-vllm-binaries/resolve/97b741d7fc988ed557a00fc28f2e34abad09fb7d/kaggle_vllm-0.1.2-py3-none-any.whl#sha256=13f1043df4a173e74555c6a4d7a8f66b4e661d942fc0222124208f50b1e9aad2"

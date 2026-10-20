@@ -89,7 +89,7 @@ kaggle-vllm serve /kaggle/input/qwen2.5-3b-t4x2-sharded \
 
 Large files never belong in this Git history:
 
-- native CUDA wheel: [Hugging Face binaries](https://huggingface.co/waqasm86/kaggle-vllm-binaries), immutable revision `f6b4f10de54924ed6fe9e28cceab84eca7276ab6`, SHA256 `5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c`;
+- native CUDA wheel: [Hugging Face binaries](https://huggingface.co/waqasm86/kaggle-vllm-binaries) at immutable revision `f6b4f10de54924ed6fe9e28cceab84eca7276ab6`, also mirrored on the [v0.2.0 GitHub release](https://github.com/kaggle-vllm/kaggle-vllm/releases/tag/v0.2.0), SHA256 `5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c`;
 - Qwen TP=2 `sharded_state`: [Hugging Face model repository](https://huggingface.co/waqasm86/kaggle-vllm-models), archive SHA256 `12dcb264cb74e6fa2947b5f1fbebfa14562afa2292387f49e447b3290bc0b83b`.
 
 The Qwen artifact is a vLLM-native, rank-specific TP=2 checkpoint—not a generic
