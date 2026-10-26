@@ -1,3 +1,5 @@
+> **Historical Python 3.12/cp312 documentation.** This records the earlier T4 validation or release workflow. The active local SDK now targets Python 3.13 with native runtime pending; see [current status](README.md).
+
 # Final Kaggle T4x2 acceptance procedure and result
 
 The SDK is public on PyPI. This procedure was executed successfully on a fresh

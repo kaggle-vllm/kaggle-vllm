@@ -1,3 +1,5 @@
+> **Historical Python 3.12/cp312 documentation.** This records the earlier T4 validation or release workflow. The active local SDK now targets Python 3.13 with native runtime pending; see [current status](README.md).
+
 # Benchmarking methodology
 
 The 0.2 development-candidate harness was executed on the validated hardware on

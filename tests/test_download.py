@@ -9,7 +9,12 @@ from kaggle_vllm.profiles import load_profile
 def small_profile(content: bytes):
     return replace(
         load_profile(),
-        wheel_filename="native-cp312.whl",
+        status="functionally_validated",
+        wheel_status="validated",
+        wheel_filename="vllm-0.18.1-cp313-cp313-linux_x86_64.whl",
+        hf_repo_id="example/native",
+        hf_revision="a" * 40,
+        overlay_lock="future-validated-lock.txt",
         wheel_sha256=sha256(content).hexdigest(),
     )
 

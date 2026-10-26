@@ -10,7 +10,7 @@ else
   export PYTHONPATH="$TARGET${PYTHONPATH:+:$PYTHONPATH}"
 fi
 
-TORCH_LIB="$(python3 - <<'PY'
+TORCH_LIB="$(python3.13 - <<'PY'
 from pathlib import Path
 import torch
 print(Path(torch.__file__).resolve().parent / "lib")
@@ -18,7 +18,7 @@ PY
 )"
 export LD_LIBRARY_PATH="$TORCH_LIB:/usr/local/nvidia/lib64:/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
-python - <<'PY'
+python3.13 - <<'PY'
 import importlib
 import os
 import sys

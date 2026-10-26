@@ -27,14 +27,22 @@ def main() -> int:
         "project"
     ]
 
-    wheel_sha = profile["wheel"]["sha256"]
+    historical = json.loads((ROOT / "compat/historical-py312-v0.2.0/profile.json").read_text(encoding="utf-8"))
+    wheel_sha = historical["wheel"]["sha256"]
     source_commit = profile["vllm"]["source_commit"]
-    assert compat["wheel_sha256"] == wheel_sha
+    assert profile["status"] == "target_unvalidated"
+    assert profile["python"]["abi"] == "cp313"
+    assert profile["wheel"]["filename"] is None
+    assert profile["wheel"]["sha256"] is None
+    assert compat["wheel_sha256"] is None
     assert provenance["native_wheel"]["sha256"] == wheel_sha
     assert compat["upstream_vllm_commit"] == source_commit
     assert provenance["upstream"]["commit"] == source_commit
     assert wheel_sha in checksums
-    assert compat["driver_reported_cuda_max"] == "13.0"
+    assert compat["status"] == "target_unvalidated"
+    assert compat["gpus"] == 2
+    assert compat["compute_capability"] == "7.5"
+    assert project["requires-python"] == ">=3.13,<3.14"
     forbidden = {"torch", "torchvision", "torchaudio", "vllm"}
     dependencies = {
         Requirement(item).name.casefold() for item in project.get("dependencies", [])
@@ -47,6 +55,19 @@ def main() -> int:
     )
     assert version_match is not None
     assert version_match.group(1) == project["version"]
+    active_files = [ROOT / "pyproject.toml", COMPAT]
+    active_files.extend((ROOT / "src/kaggle_vllm").rglob("*.py"))
+    active_files.extend((ROOT / "src/kaggle_vllm/profiles").rglob("*.json"))
+    active_files.extend((ROOT / "kaggle-notebooks").rglob("*.ipynb"))
+    # Assemble the later-generation markers so the scan itself does not
+    # introduce a false match into active source text.
+    forbidden_markers = (
+        "0." + "3.0", "NVIDIA " + "L4", "SM" + "89", "sm_" + "89",
+        "TP=" + "4", "cu" + "129", "CUDA 12." + "9",
+    )
+    for path in active_files:
+        content = path.read_text(encoding="utf-8")
+        assert not any(marker in content for marker in forbidden_markers), path
     print("static profile/provenance/package checks: PASS")
     return 0
 

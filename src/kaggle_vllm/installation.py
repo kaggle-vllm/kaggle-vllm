@@ -9,6 +9,9 @@ import sys
 from collections.abc import Mapping
 from pathlib import Path
 
+from packaging.tags import sys_tags
+from packaging.utils import InvalidWheelFilename, parse_wheel_filename
+
 from .checksums import verify_sha256
 from .exceptions import InstallationError
 
@@ -43,6 +46,14 @@ def stage_wheel(
     if not wheel_path.is_file() or wheel_path.suffix != ".whl":
         raise InstallationError(
             f"wheel does not exist or lacks a .whl suffix: {wheel_path}"
+        )
+    try:
+        _, _, _, wheel_tags = parse_wheel_filename(wheel_path.name)
+    except InvalidWheelFilename as error:
+        raise InstallationError(f"invalid native wheel filename: {wheel_path.name}") from error
+    if not wheel_tags.intersection(sys_tags()):
+        raise InstallationError(
+            f"wheel ABI/platform is incompatible with this Python: {wheel_path.name}"
         )
     if expected_sha256:
         verify_sha256(wheel_path, expected_sha256)

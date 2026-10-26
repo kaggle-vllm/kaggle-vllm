@@ -11,7 +11,7 @@ from kaggle_vllm.installation import (
 
 
 def test_stage_wheel_uses_target_and_no_deps(monkeypatch, tmp_path):
-    wheel = tmp_path / "vllm.whl"
+    wheel = tmp_path / "vllm-0.18.1-cp313-cp313-linux_x86_64.whl"
     wheel.write_bytes(b"wheel")
     calls = []
     monkeypatch.setattr(
@@ -26,6 +26,20 @@ def test_stage_wheel_uses_target_and_no_deps(monkeypatch, tmp_path):
     assert "--target" in command
     assert "--no-deps" in command
     assert command[-1] == str(wheel.resolve())
+
+
+@pytest.mark.parametrize("name", [
+    "vllm-0.18.1-cp312-cp312-linux_x86_64.whl",
+    "vllm-0.18.1-cp313-cp313-win_amd64.whl",
+])
+def test_stage_wheel_rejects_wrong_abi_or_platform_before_pip(monkeypatch, tmp_path, name):
+    wheel = tmp_path / name
+    wheel.write_bytes(b"historical or foreign wheel")
+    monkeypatch.setattr("kaggle_vllm.installation.subprocess.run",
+                        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("pip called")))
+    with pytest.raises(InstallationError, match="ABI/platform"):
+        stage_wheel(wheel, tmp_path / "staged")
+    assert not (tmp_path / "staged").exists()
 
 
 @pytest.mark.parametrize(

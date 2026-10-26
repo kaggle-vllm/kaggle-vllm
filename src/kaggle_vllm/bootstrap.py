@@ -114,11 +114,17 @@ class BootstrapPlan:
             "compatible": self.compatible,
             "findings": [asdict(finding) for finding in self.findings],
             "artifact": {
+                "status": self.profile.wheel_status,
+                "python_abi": self.profile.python_abi,
                 "hf_repo_id": self.profile.hf_repo_id,
                 "hf_revision": self.profile.hf_revision,
                 "filename": self.profile.wheel_filename,
                 "sha256": self.profile.wheel_sha256,
-                "fallback_url": immutable_resolve_url(self.profile),
+                "fallback_url": (
+                    immutable_resolve_url(self.profile)
+                    if self.profile.native_ready
+                    else None
+                ),
             },
             "paths": {key: str(value) for key, value in asdict(self.paths).items()},
             "commands": [list(command) for command in self.commands],
@@ -220,28 +226,28 @@ def inspect_compatibility(
             environment.is_kaggle,
             "Kaggle",
             str(environment.is_kaggle),
-            strict,
+            True,
         ),
         _finding(
             "PyTorch",
             environment.torch == profile.torch_version,
             profile.torch_version,
             str(environment.torch),
-            strict,
+            True,
         ),
         _finding(
             "PyTorch CUDA",
             environment.torch_cuda == profile.torch_cuda,
             profile.torch_cuda,
             str(environment.torch_cuda),
-            strict,
+            True,
         ),
         _finding(
             "visible GPU count",
             environment.gpu_count == profile.gpu_count,
             str(profile.gpu_count),
             str(environment.gpu_count),
-            strict,
+            True,
         ),
         _finding(
             "GPU model",
@@ -253,7 +259,7 @@ def inspect_compatibility(
             ),
             profile.gpu_name,
             ", ".join(environment.gpu_names) or "none",
-            strict,
+            True,
         ),
         _finding(
             "GPU compute capability",
@@ -264,16 +270,24 @@ def inspect_compatibility(
             f"SM{profile.compute_capability[0]}{profile.compute_capability[1]}",
             ", ".join(f"SM{major}{minor}" for major, minor in environment.gpu_caps)
             or "none",
-            strict,
-        ),
-        _finding(
-            "NCCL",
-            environment.nccl == profile.nccl,
-            profile.nccl,
-            str(environment.nccl),
-            strict,
+            True,
         ),
     ]
+    if profile.nccl is not None:
+        findings.append(
+            _finding(
+                "NCCL", environment.nccl == profile.nccl,
+                profile.nccl, str(environment.nccl), strict,
+            )
+        )
+    if not profile.native_ready:
+        findings.append(
+            CompatibilityFinding(
+                "native runtime", "error",
+                "Python 3.13 target detected, but no validated kaggle-vllm 0.2.0 "
+                "CPython 3.13 native vLLM runtime has been registered yet.",
+            )
+        )
     return tuple(findings)
 
 
@@ -544,33 +558,36 @@ def build_bootstrap_plan(
         system=system,
         machine=machine,
     )
-    cached_wheel = paths.cache / profile.wheel_filename
-    lock_path = str(profile_resource(profile.name, profile.overlay_lock))
-    commands = (
-        (
-            python_executable,
-            "-m",
-            "pip",
-            "install",
-            "--target",
-            str(paths.staged),
-            "--no-deps",
-            "--no-cache-dir",
-            str(cached_wheel),
-        ),
-        (
-            python_executable,
-            "-m",
-            "pip",
-            "install",
-            "--target",
-            str(paths.overlay),
-            "--no-deps",
-            "--no-cache-dir",
-            "-r",
-            lock_path,
-        ),
-    )
+    commands = ()
+    if profile.native_ready:
+        assert profile.wheel_filename is not None and profile.overlay_lock is not None
+        cached_wheel = paths.cache / profile.wheel_filename
+        lock_path = str(profile_resource(profile.name, profile.overlay_lock))
+        commands = (
+            (
+                python_executable,
+                "-m",
+                "pip",
+                "install",
+                "--target",
+                str(paths.staged),
+                "--no-deps",
+                "--no-cache-dir",
+                str(cached_wheel),
+            ),
+            (
+                python_executable,
+                "-m",
+                "pip",
+                "install",
+                "--target",
+                str(paths.overlay),
+                "--no-deps",
+                "--no-cache-dir",
+                "-r",
+                lock_path,
+            ),
+        )
     return BootstrapPlan(profile, paths, snapshot, findings, strict, commands)
 
 
@@ -709,16 +726,16 @@ def bootstrap(
     )
     if dry_run:
         return BootstrapResult(plan, None, False, False, reset_plan, False)
+    if reset_plan and not yes:
+        raise BootstrapError(
+            "runtime reset requires explicit --yes confirmation; "
+            "inspect it first with --reset-runtime --dry-run"
+        )
     errors = [finding.message for finding in plan.findings if finding.status == "error"]
     if errors:
         raise BootstrapError("incompatible native runtime:\n- " + "\n- ".join(errors))
     reset_completed = False
     if reset_plan:
-        if not yes:
-            raise BootstrapError(
-                "runtime reset requires explicit --yes confirmation; "
-                "inspect it first with --reset-runtime --dry-run"
-            )
         execute_reset(reset_plan)
         reset_completed = True
     if _matching_manifest(plan):

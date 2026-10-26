@@ -13,7 +13,7 @@ def test_tp_two_fails_with_one_gpu():
         validate_tensor_parallel_size(2, gpu_count=1)
 
 
-@pytest.mark.parametrize("value", [0, -1, True, 1.5])
+@pytest.mark.parametrize("value", [0, -1, True, 1.5, 4])
 def test_tp_size_must_be_positive_integer(value):
     with pytest.raises(RuntimeValidationError):
         validate_tensor_parallel_size(value, gpu_count=2)

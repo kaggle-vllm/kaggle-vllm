@@ -94,12 +94,10 @@ def test_cli_bootstrap_dry_run_reports_plan_without_writes(tmp_path, capsys):
     )
     output = capsys.readouterr().out
     assert "dry-run: no download or filesystem changes performed" in output
-    assert "immutable revision: f6b4f10de54924ed6fe9e28cceab84eca7276ab6" in output
-    assert "'" in next(
-        line
-        for line in output.splitlines()
-        if "staged path" in line and "would run" in line
-    )
+    assert "no validated kaggle-vllm 0.2.0" in output
+    assert "native status: pending_kaggle_build" in output
+    assert "target ABI: cp313" in output
+    assert "would run:" not in output
     assert not any(path.exists() for path in (staged, overlay, cache, manifest))
 
 

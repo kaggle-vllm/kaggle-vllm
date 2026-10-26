@@ -1,3 +1,5 @@
+> **Historical Python 3.12/cp312 notebooks.** Their results are not Python 3.13 native validation.
+
 # Kaggle notebooks
 
 This directory contains Kaggle-specific validation material for

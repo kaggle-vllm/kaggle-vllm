@@ -23,9 +23,9 @@ from kaggle_vllm.profiles import load_profile
 def validated_environment() -> Environment:
     return Environment(
         is_kaggle=True,
-        python="3.12.13",
+        python="3.13.15",
         platform="Linux-x86_64",
-        torch="2.10.0+cu128",
+        torch="2.11.0+cu128",
         torch_path=None,
         torch_cuda="12.8",
         cuda_available=True,
@@ -84,22 +84,24 @@ def host_findings(version: tuple[int, int], system="Linux", machine="x86_64"):
     )
 
 
-def test_cp311_rejected_for_cp312_native_wheel():
+def test_cp312_rejected_for_cp313_target():
     errors = [
-        finding for finding in host_findings((3, 11)) if finding.status == "error"
+        finding for finding in host_findings((3, 12)) if finding.status == "error"
     ]
     assert any(finding.check == "Python ABI" for finding in errors)
 
 
-def test_cp312_linux_x86_64_is_accepted():
-    assert all(finding.status == "pass" for finding in host_findings((3, 12)))
+def test_cp313_host_matches_but_native_artifact_is_pending():
+    findings = host_findings((3, 13))
+    assert all(f.status == "pass" for f in findings if f.check != "native runtime")
+    assert any(f.check == "native runtime" and f.status == "error" for f in findings)
 
 
 @pytest.mark.parametrize("system,machine", [("Darwin", "x86_64"), ("Linux", "aarch64")])
 def test_native_profile_rejects_other_platforms(system, machine):
     assert any(
         finding.status == "error"
-        for finding in host_findings((3, 12), system=system, machine=machine)
+        for finding in host_findings((3, 13), system=system, machine=machine)
     )
 
 
@@ -116,67 +118,25 @@ def test_dry_run_does_not_create_user_paths(tmp_path):
         strict=True,
         environment=validated_environment(),
         implementation="CPython",
-        python_version=(3, 12),
+        python_version=(3, 13),
         system="Linux",
         machine="x86_64",
     )
-    assert result.plan.compatible
+    assert not result.plan.compatible
     assert not result.completed
     assert not any(path.exists() for path in paths.values())
-    assert all("--no-deps" in command for command in result.plan.commands)
+    assert result.plan.commands == ()
 
 
-def test_bootstrap_writes_manifest_and_is_idempotent(monkeypatch, tmp_path):
+def test_bootstrap_never_downloads_pending_native_wheel(monkeypatch, tmp_path):
     bootstrap_module = importlib.import_module("kaggle_vllm.bootstrap")
-    wheel = tmp_path / load_profile().wheel_filename
-    wheel.write_bytes(b"mocked by staging")
-    calls = []
-
-    def fake_stage_wheel(_wheel, target, **kwargs):
-        calls.append(("wheel", kwargs))
-        target = Path(target)
-        target.mkdir(parents=True)
-        (target / "vllm").mkdir()
-        return target
-
-    def fake_stage_overlay(_lock, target, **kwargs):
-        calls.append(("overlay", kwargs))
-        target = Path(target)
-        target.mkdir(parents=True)
-        (target / "transformers").mkdir()
-        return target
-
-    monkeypatch.setattr(bootstrap_module, "download_wheel", lambda *_args: wheel)
-    monkeypatch.setattr(bootstrap_module, "stage_wheel", fake_stage_wheel)
-    monkeypatch.setattr(
-        bootstrap_module, "stage_dependency_overlay", fake_stage_overlay
-    )
-    arguments = {
-        "staged": tmp_path / "staged",
-        "overlay": tmp_path / "overlay",
-        "cache": tmp_path / "cache",
-        "manifest": tmp_path / "runtime.json",
-        "strict": True,
-        "environment": validated_environment(),
-        "implementation": "CPython",
-        "python_version": (3, 12),
-        "system": "Linux",
-        "machine": "x86_64",
-        "python_executable": "/usr/bin/python3.12",
-    }
-    first = bootstrap(**arguments)
-    second = bootstrap(**arguments)
-    assert first.completed and not first.already_complete
-    assert second.completed and second.already_complete
-    assert [name for name, _ in calls] == ["wheel", "overlay"]
-    manifest = json.loads((tmp_path / "runtime.json").read_text(encoding="utf-8"))
-    assert manifest["profile"] == "kaggle-t4x2-cu128"
-    assert manifest["wheel"]["hf_revision"] == load_profile().hf_revision
-    assert set(manifest["runtime_environment"]) == {
-        "PYTHONPATH",
-        "LD_LIBRARY_PATH",
-        "PATH",
-    }
+    monkeypatch.setattr(bootstrap_module, "download_wheel", lambda *_args: (_ for _ in ()).throw(AssertionError("download attempted")))
+    with pytest.raises(BootstrapError, match="no validated.*CPython 3.13 native"):
+        bootstrap(staged=tmp_path / "staged", overlay=tmp_path / "overlay",
+                  cache=tmp_path / "cache", manifest=tmp_path / "manifest.json",
+                  environment=validated_environment(), implementation="CPython",
+                  python_version=(3, 13), system="Linux", machine="x86_64")
+    assert list(tmp_path.iterdir()) == []
 
 
 def test_bootstrap_refuses_nonempty_runtime_destination(monkeypatch, tmp_path):
@@ -189,7 +149,7 @@ def test_bootstrap_refuses_nonempty_runtime_destination(monkeypatch, tmp_path):
         "download_wheel",
         lambda *_args: (_ for _ in ()).throw(AssertionError("download not expected")),
     )
-    with pytest.raises(BootstrapError, match="refusing to overwrite"):
+    with pytest.raises(BootstrapError, match="no validated.*CPython 3.13 native"):
         bootstrap(
             staged=staged,
             overlay=tmp_path / "overlay",
@@ -197,7 +157,7 @@ def test_bootstrap_refuses_nonempty_runtime_destination(monkeypatch, tmp_path):
             manifest=tmp_path / "runtime.json",
             environment=validated_environment(),
             implementation="CPython",
-            python_version=(3, 12),
+            python_version=(3, 13),
             system="Linux",
             machine="x86_64",
         )
@@ -227,7 +187,7 @@ def test_reset_dry_run_deletes_nothing(tmp_path):
         dry_run=True,
         environment=validated_environment(),
         implementation="CPython",
-        python_version=(3, 12),
+        python_version=(3, 13),
         system="Linux",
         machine="x86_64",
     )
@@ -520,65 +480,25 @@ def test_bootstrap_reset_requires_yes(tmp_path):
             reset_runtime=True,
             environment=validated_environment(),
             implementation="CPython",
-            python_version=(3, 12),
+            python_version=(3, 13),
             system="Linux",
             machine="x86_64",
         )
     assert all(paths[label].exists() for label in ("staged", "overlay", "manifest"))
 
 
-def test_confirmed_reset_then_bootstrap_recreates_runtime(monkeypatch, tmp_path):
-    bootstrap_module = importlib.import_module("kaggle_vllm.bootstrap")
-    paths = {
-        "staged": tmp_path / "staged",
-        "overlay": tmp_path / "overlay",
-        "cache": tmp_path / "cache",
-        "manifest": tmp_path / "runtime.json",
-    }
+def test_confirmed_reset_refuses_pending_runtime_without_deleting(tmp_path):
+    paths = {"staged": tmp_path / "staged", "overlay": tmp_path / "overlay",
+             "cache": tmp_path / "cache", "manifest": tmp_path / "runtime.json"}
     for label in ("staged", "overlay", "cache"):
         paths[label].mkdir()
         (paths[label] / "old.txt").write_text(label, encoding="utf-8")
     write_reset_manifest(**paths)
-    wheel = tmp_path / load_profile().wheel_filename
-    wheel.write_bytes(b"mocked by staging")
-
-    def fake_stage_wheel(_wheel, target, **_kwargs):
-        target.mkdir(parents=True)
-        (target / "vllm").mkdir()
-        return target
-
-    def fake_stage_overlay(_lock, target, **_kwargs):
-        target.mkdir(parents=True)
-        (target / "transformers").mkdir()
-        return target
-
-    monkeypatch.setattr(bootstrap_module, "download_wheel", lambda *_args: wheel)
-    monkeypatch.setattr(bootstrap_module, "stage_wheel", fake_stage_wheel)
-    monkeypatch.setattr(
-        bootstrap_module, "stage_dependency_overlay", fake_stage_overlay
-    )
-
-    result = bootstrap(
-        **paths,
-        reset_runtime=True,
-        yes=True,
-        strict=True,
-        environment=validated_environment(),
-        implementation="CPython",
-        python_version=(3, 12),
-        system="Linux",
-        machine="x86_64",
-        python_executable="/usr/bin/python3.12",
-    )
-
-    assert result.completed and result.reset_completed
-    assert not result.already_complete
-    assert (paths["staged"] / "vllm").is_dir()
-    assert (paths["overlay"] / "transformers").is_dir()
-    assert not (paths["staged"] / "old.txt").exists()
-    assert not (paths["overlay"] / "old.txt").exists()
-    assert (paths["cache"] / "old.txt").read_text(encoding="utf-8") == "cache"
-    assert paths["manifest"].is_file()
+    with pytest.raises(BootstrapError, match="no validated.*CPython 3.13 native"):
+        bootstrap(**paths, reset_runtime=True, yes=True, strict=True,
+                  environment=validated_environment(), implementation="CPython",
+                  python_version=(3, 13), system="Linux", machine="x86_64")
+    assert all(paths[label].exists() for label in ("staged", "overlay", "cache", "manifest"))
 
 
 def test_yes_without_reset_is_rejected(tmp_path):

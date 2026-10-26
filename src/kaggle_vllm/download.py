@@ -28,6 +28,9 @@ UrlOpener = Callable[..., _Response]
 def immutable_resolve_url(profile: BootstrapProfile) -> str:
     """Build the immutable Hugging Face ``resolve`` fallback URL."""
 
+    if not profile.native_ready:
+        raise DownloadError("CPython 3.13 native wheel is pending Kaggle build and validation")
+    assert profile.hf_repo_id and profile.hf_revision and profile.wheel_filename
     repo = quote(profile.hf_repo_id, safe="/")
     revision = quote(profile.hf_revision, safe="")
     filename = quote(profile.wheel_filename, safe="")
@@ -93,6 +96,9 @@ def download_wheel(
     request follows Hugging Face redirects and writes atomically.
     """
 
+    if not profile.native_ready:
+        raise DownloadError("CPython 3.13 native wheel is pending Kaggle build and validation")
+    assert profile.wheel_filename and profile.wheel_sha256
     cache = Path(cache_dir).expanduser().resolve()
     destination = cache / profile.wheel_filename
     if destination.is_file():

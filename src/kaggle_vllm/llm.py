@@ -32,9 +32,8 @@ def _load_llm_class() -> type[Any]:
         except (ImportError, AttributeError, OSError, RuntimeError):
             pass
         raise VLLMNotInstalledError(
-            "vLLM is unavailable. Run the explicit `kaggle-vllm bootstrap` command "
-            "in the compatible Kaggle CPython 3.12 runtime, or activate an existing "
-            "runtime manifest; diagnostics work without vLLM."
+            "vLLM is unavailable. A validated Kaggle CPython 3.13 native runtime "
+            "has not been registered; see the native rebuild preparation guide."
         ) from None
 
 
