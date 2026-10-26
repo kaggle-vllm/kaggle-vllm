@@ -40,9 +40,10 @@ jobs:
           cache: pip
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e ".[test]"
+      - run: python -m pip install "setuptools>=77" wheel
       - run: python scripts/verify_static.py
       - run: python scripts/check_markdown_links.py
-      - run: python -m build
+      - run: python -m build --no-isolation
         env:
           SOURCE_DATE_EPOCH: "1787760000"
       - name: Inspect distribution contents

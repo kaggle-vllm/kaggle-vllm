@@ -2578,7 +2578,7 @@
       "t4_hardware_relevance": "Python 3.13 dual-T4 source or documentation"
     }
   ],
-  "generated_utc": "2026-10-26T20:34:09.397964+00:00",
+  "generated_utc": "2026-10-26T20:37:21.295679+00:00",
   "hash_note": "git_object_id is Git SHA-1 object identity, not SHA256 of file bytes",
   "ref": "origin/main",
   "repository": "kaggle-vllm/kaggle-vllm"

@@ -256,7 +256,7 @@
       "t4_hardware_relevance": "historical dual-T4 runtime"
     }
   ],
-  "generated_utc": "2026-10-26T20:34:10.424984+00:00",
+  "generated_utc": "2026-10-26T20:37:22.642397+00:00",
   "hash_note": "repository_blob_id is a Git/HF object id; lfs_sha256_metadata is LFS server metadata and does not independently prove remote byte integrity",
   "repository": "waqasm86/kaggle-vllm-binaries",
   "revision": "7ffb3eeed346673122dda2e67f21e61583e4413f"

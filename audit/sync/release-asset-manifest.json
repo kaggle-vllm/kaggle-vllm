@@ -99,7 +99,7 @@
       "t4_hardware_relevance": "dual Tesla T4 CUDA 12.8 historical release"
     }
   ],
-  "generated_utc": "2026-10-26T20:34:09.737375+00:00",
+  "generated_utc": "2026-10-26T20:37:21.632155+00:00",
   "hash_note": "github_api_digest is server metadata; no remote asset bytes downloaded by this inventory",
   "release_id": 379793287,
   "release_url": "https://github.com/kaggle-vllm/kaggle-vllm/releases/tag/v0.2.0",
