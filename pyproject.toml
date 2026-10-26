@@ -7,21 +7,18 @@ name = "kaggle-vllm"
 version = "0.2.0"
 description = "A lightweight Kaggle compatibility and runtime-delivery toolkit for upstream vLLM on NVIDIA Tesla T4 GPUs."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.13,<3.14"
 license = "Apache-2.0"
 authors = [{name = "kaggle-vllm contributors"}]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
 ]
 dependencies = ["packaging>=23"]
 
 [project.optional-dependencies]
-test = ["build>=1.2", "pytest>=8", "ruff>=0.12", "twine>=6"]
+test = ["build>=1.2", "pytest>=8"]
 hub = ["huggingface_hub>=0.36"]
 
 [project.urls]
@@ -29,8 +26,6 @@ Documentation = "https://github.com/kaggle-vllm/kaggle-vllm/tree/main/docs"
 Repository = "https://github.com/kaggle-vllm/kaggle-vllm"
 Issues = "https://github.com/kaggle-vllm/kaggle-vllm/issues"
 Changelog = "https://github.com/kaggle-vllm/kaggle-vllm/blob/main/CHANGELOG.md"
-"Hugging Face binaries" = "https://huggingface.co/waqasm86/kaggle-vllm-binaries"
-"Hugging Face TP=2 model" = "https://huggingface.co/waqasm86/kaggle-vllm-models"
 
 [project.scripts]
 kaggle-vllm = "kaggle_vllm.cli:main"
@@ -47,6 +42,3 @@ markers = [
   "gpu: requires a real CUDA GPU runtime",
   "kaggle: requires the documented Kaggle environment",
 ]
-
-[tool.ruff]
-extend-exclude = ["*.ipynb", "artifacts/**"]

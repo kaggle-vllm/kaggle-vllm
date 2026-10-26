@@ -10,7 +10,7 @@ if [[ -e "$DEST" ]]; then
 fi
 mkdir -p "$DEST"
 
-python - "$WHEEL" "$DEST" <<'PY'
+python3.13 - "$WHEEL" "$DEST" <<'PY'
 import sys, zipfile
 wheel, dest = sys.argv[1], sys.argv[2]
 with zipfile.ZipFile(wheel) as z:

@@ -12,7 +12,7 @@ from .runtime import validate_tensor_parallel_size
 
 @dataclass(frozen=True)
 class ServerConfig:
-    """Supported settings for the validated OpenAI-compatible server workflow."""
+    """Supported settings for the proposed T4 OpenAI-compatible server workflow."""
 
     model: str
     served_model_name: str | None = None

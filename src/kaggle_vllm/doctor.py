@@ -1,4 +1,4 @@
-"""Human- and machine-readable checks for the validated Kaggle profile."""
+"""Human- and machine-readable checks for the Kaggle T4 target profile."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from .runtime import all_sm75, all_tesla_t4
 
 
 def suggested_build_env() -> dict[str, str]:
-    """Return build settings derived from the successful Kaggle experiment."""
+    """Return proposed SM75 build settings for the future Kaggle experiment."""
 
     environment = {
         "CUDA_HOME": "/usr/local/cuda",
@@ -31,10 +31,15 @@ def suggested_build_env() -> dict[str, str]:
 
 
 def profile_failures(environment: Environment) -> list[str]:
-    """Return differences from the exactly validated Kaggle runtime profile."""
+    """Return differences and the pending native-runtime gate."""
 
     profile = load_profile()
     failures: list[str] = []
+    if not profile.native_ready:
+        failures.append(
+            "Python 3.13 target detected, but no validated kaggle-vllm 0.2.0 "
+            "CPython 3.13 native vLLM runtime has been registered yet."
+        )
     if not environment.is_kaggle:
         failures.append("Kaggle runtime markers were not detected")
     python_prefix = f"{profile.python_major}.{profile.python_minor}."
@@ -56,7 +61,7 @@ def profile_failures(environment: Environment) -> list[str]:
         failures.append("Visible GPUs are not all compute capability 7.5 / SM75")
     if environment.cuda_driver is None:
         failures.append("CUDA driver library was not found")
-    if environment.nccl != profile.nccl:
+    if profile.nccl is not None and environment.nccl != profile.nccl:
         failures.append(f"NCCL is not {profile.nccl}")
     return failures
 
@@ -72,6 +77,8 @@ def _doctor_payload(
     }
     return {
         "profile": "kaggle-t4x2-cu128",
+        "profile_status": load_profile().status,
+        "native_wheel_status": load_profile().wheel_status,
         "environment": asdict(runtime),
         "profile_findings": [
             {"status": "error", "message": failure} for failure in failures
@@ -90,7 +97,7 @@ def run_doctor(
     as_json_output: bool = False,
     version_lookup: Callable[[str], str] = metadata.version,
 ) -> int:
-    """Print diagnostics and return zero only when required checks pass."""
+    """Print diagnostics and return zero only when native validation is registered."""
 
     runtime = environment or collect()
     profile = load_profile()
@@ -133,9 +140,9 @@ def run_doctor(
 
     if runtime.nccl is None:
         print("\nWarning: could not read the NCCL version")
-    elif runtime.nccl != profile.nccl:
+    elif profile.nccl is not None and runtime.nccl != profile.nccl:
         print(
-            f"\nWarning: NCCL {runtime.nccl} differs from the validated {profile.nccl}"
+            f"\nWarning: NCCL {runtime.nccl} differs from expected {profile.nccl}"
         )
 
     if check_dependencies:

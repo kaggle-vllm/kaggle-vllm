@@ -33,7 +33,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="kaggle-vllm")
     subcommands = parser.add_subparsers(dest="command", required=True)
     doctor = subcommands.add_parser(
-        "doctor", help="compare runtime and dependencies with the validated profile"
+        "doctor", help="compare runtime and dependencies with the T4 target profile"
     )
     doctor.add_argument("--strict", action="store_true")
     doctor.add_argument("--json", action="store_true", dest="as_json")
@@ -44,11 +44,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="skip installed-distribution checks",
     )
     subcommands.add_parser("fingerprint", help="print a JSON runtime fingerprint")
-    subcommands.add_parser("build-env", help="print validated source-build settings")
+    subcommands.add_parser("build-env", help="print proposed SM75 source-build settings")
 
     bootstrap = subcommands.add_parser(
         "bootstrap",
-        help="explicitly download and stage the validated Kaggle native runtime",
+        help="inspect or stage a registered Kaggle native runtime",
     )
     bootstrap.add_argument("--profile", default=DEFAULT_PROFILE)
     bootstrap.add_argument("--staged", type=Path, default=DEFAULT_STAGED)
@@ -123,6 +123,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 def _verify_gpus(tensor_parallel_size: int) -> int:
     environment = collect()
+    if environment.gpu_count != 2:
+        raise KaggleVLLMError(
+            f"expected exactly 2 visible Tesla T4 GPUs; found {environment.gpu_count}"
+        )
     validate_tensor_parallel_size(tensor_parallel_size, environment.gpu_count)
     if not all_tesla_t4(environment.gpus) or not all_sm75(environment.gpus):
         raise KaggleVLLMError("visible GPUs do not all match Tesla T4 / SM75")
@@ -152,10 +156,13 @@ def _run_bootstrap(args: argparse.Namespace) -> int:
     print(f"profile: {data['profile']}")
     print(f"compatible: {data['compatible']}")
     print(f"strict: {data['strict']}")
-    print(f"HF repository: {data['artifact']['hf_repo_id']}")
-    print(f"immutable revision: {data['artifact']['hf_revision']}")
-    print(f"wheel: {data['artifact']['filename']}")
-    print(f"expected SHA256: {data['artifact']['sha256']}")
+    print(f"native status: {data['artifact']['status']}")
+    print(f"target ABI: {data['artifact']['python_abi']}")
+    if data['artifact']['filename']:
+        print(f"HF repository: {data['artifact']['hf_repo_id']}")
+        print(f"immutable revision: {data['artifact']['hf_revision']}")
+        print(f"wheel: {data['artifact']['filename']}")
+        print(f"expected SHA256: {data['artifact']['sha256']}")
     print(f"cache: {data['paths']['cache']}")
     print(f"staged: {data['paths']['staged']}")
     print(f"overlay: {data['paths']['overlay']}")

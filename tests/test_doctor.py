@@ -8,10 +8,10 @@ from kaggle_vllm.environment import Environment, GPUInfo
 def validated_environment() -> Environment:
     return Environment(
         is_kaggle=True,
-        python="3.12.13",
+        python="3.13.15",
         platform="Linux",
-        torch="2.10.0+cu128",
-        torch_path="/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+        torch="2.11.0+cu128",
+        torch_path="/usr/local/lib/python3.13/dist-packages/torch/__init__.py",
         torch_cuda="12.8",
         cuda_available=True,
         gpus=(GPUInfo(0, "Tesla T4", (7, 5)), GPUInfo(1, "Tesla T4", (7, 5))),
@@ -24,8 +24,10 @@ def validated_environment() -> Environment:
     )
 
 
-def test_validated_profile_has_no_failures():
-    assert profile_failures(validated_environment()) == []
+def test_target_host_still_reports_pending_native_wheel():
+    failures = profile_failures(validated_environment())
+    assert len(failures) == 1
+    assert "no validated" in failures[0]
 
 
 def test_kaggle_build_env_contains_cuda():
@@ -51,8 +53,9 @@ def test_doctor_json_is_machine_readable(monkeypatch, capsys):
     monkeypatch.setattr(
         "kaggle_vllm.doctor.inspect_dependencies", lambda **_kwargs: (finding,)
     )
-    assert run_doctor(validated_environment(), as_json_output=True) == 0
+    assert run_doctor(validated_environment(), as_json_output=True) == 1
     payload = json.loads(capsys.readouterr().out)
-    assert payload["compatible"] is True
+    assert payload["compatible"] is False
+    assert payload["native_wheel_status"] == "pending_kaggle_build"
     assert payload["summary"]["dependencies"]["pass"] == 1
     assert payload["dependency_findings"][0]["status"] == "pass"

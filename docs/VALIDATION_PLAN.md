@@ -1,3 +1,5 @@
+> **Historical Python 3.12/cp312 documentation.** This records the earlier T4 validation or release workflow. The active local SDK now targets Python 3.13 with native runtime pending; see [current status](README.md).
+
 # Validation plan
 
 The original staged-gate plan has been completed on Kaggle. The resulting

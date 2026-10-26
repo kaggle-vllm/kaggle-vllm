@@ -33,9 +33,9 @@ def validate_tensor_parallel_size(
     if (
         not isinstance(tensor_parallel_size, int)
         or isinstance(tensor_parallel_size, bool)
-        or tensor_parallel_size < 1
+        or tensor_parallel_size not in (1, 2)
     ):
-        raise RuntimeValidationError("tensor_parallel_size must be a positive integer")
+        raise RuntimeValidationError("tensor_parallel_size must be 1 or 2 for the T4 profile")
     visible = visible_gpu_count() if gpu_count is None else gpu_count
     if tensor_parallel_size > visible:
         raise RuntimeValidationError(

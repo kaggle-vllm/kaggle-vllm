@@ -88,7 +88,7 @@ def test_missing_vllm_raises_useful_error(monkeypatch):
         raise ImportError(name)
 
     monkeypatch.setattr("kaggle_vllm.llm.importlib.import_module", missing)
-    with pytest.raises(VLLMNotInstalledError, match="bootstrap"):
+    with pytest.raises(VLLMNotInstalledError, match="CPython 3.13 native runtime"):
         _load_llm_class()
 
 

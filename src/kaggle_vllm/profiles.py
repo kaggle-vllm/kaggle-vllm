@@ -17,7 +17,7 @@ _HEX_64 = re.compile(r"^[0-9a-f]{64}$")
 
 @dataclass(frozen=True)
 class BootstrapProfile:
-    """A validated native wheel, host topology, and overlay identity."""
+    """Target host topology and, when validated, native artifact identity."""
 
     name: str
     status: str
@@ -30,20 +30,33 @@ class BootstrapProfile:
     machine: str
     torch_version: str
     torch_cuda: str
-    cuda_toolkit: str
+    cuda_toolkit: str | None
     gpu_name: str
     compute_capability: tuple[int, int]
     gpu_count: int
-    nccl: str
+    nccl: str | None
     vllm_source_tag: str
     vllm_source_commit: str
-    wheel_filename: str
-    wheel_sha256: str
-    hf_repo_id: str
-    hf_revision: str
-    overlay_lock: str
-    overlay_requirements: str
+    wheel_filename: str | None
+    wheel_sha256: str | None
+    hf_repo_id: str | None
+    hf_revision: str | None
+    overlay_lock: str | None
+    overlay_requirements: str | None
     attention_backend: str
+    wheel_status: str
+
+    @property
+    def native_ready(self) -> bool:
+        return self.wheel_status == "validated" and all(
+            (
+                self.wheel_filename,
+                self.wheel_sha256,
+                self.hf_repo_id,
+                self.hf_revision,
+                self.overlay_lock,
+            )
+        )
 
     @classmethod
     def from_mapping(cls, data: dict[str, Any]) -> BootstrapProfile:
@@ -62,7 +75,7 @@ class BootstrapProfile:
             profile = cls(
                 name=str(data["name"]),
                 status=str(data["status"]),
-                python_version=str(data["python"]["validated_version"]),
+                python_version=str(data["python"]["target_version"]),
                 python_implementation=str(data["python"]["implementation"]),
                 python_major=int(data["python"]["major"]),
                 python_minor=int(data["python"]["minor"]),
@@ -71,35 +84,66 @@ class BootstrapProfile:
                 machine=str(data["platform"]["machine"]),
                 torch_version=str(data["runtime"]["torch"]),
                 torch_cuda=str(data["runtime"]["torch_cuda"]),
-                cuda_toolkit=str(data["runtime"]["cuda_toolkit"]),
+                cuda_toolkit=data["runtime"].get("cuda_toolkit"),
                 gpu_name=str(data["runtime"]["gpu_name"]),
                 compute_capability=(capability[0], capability[1]),
                 gpu_count=int(data["runtime"]["gpu_count"]),
-                nccl=str(data["runtime"]["nccl"]),
+                nccl=data["runtime"].get("nccl"),
                 vllm_source_tag=str(data["vllm"]["source_tag"]),
                 vllm_source_commit=str(data["vllm"]["source_commit"]),
-                wheel_filename=str(data["wheel"]["filename"]),
-                wheel_sha256=str(data["wheel"]["sha256"]),
-                hf_repo_id=str(data["wheel"]["hf_repo_id"]),
-                hf_revision=str(data["wheel"]["hf_revision"]),
-                overlay_lock=str(data["overlay"]["lock"]),
-                overlay_requirements=str(data["overlay"]["requirements_reference"]),
+                wheel_filename=data["wheel"].get("filename"),
+                wheel_sha256=data["wheel"].get("sha256"),
+                hf_repo_id=data["wheel"].get("hf_repo_id"),
+                hf_revision=data["wheel"].get("hf_revision"),
+                overlay_lock=data["overlay"].get("lock"),
+                overlay_requirements=data["overlay"].get("requirements_reference"),
                 attention_backend=str(data["runtime"]["attention_backend"]),
+                wheel_status=str(data["wheel"]["status"]),
             )
         except (KeyError, TypeError, ValueError) as error:
             raise ProfileError(f"invalid bootstrap profile data: {error}") from error
         if profile.name != data.get("name") or not profile.name:
             raise ProfileError("profile name must be non-empty")
-        if not _HEX_40.fullmatch(profile.hf_revision):
-            raise ProfileError(
-                "Hugging Face revision must be an immutable 40-digit commit"
-            )
         if not _HEX_40.fullmatch(profile.vllm_source_commit):
             raise ProfileError("vLLM source commit must be a 40-digit commit")
-        if not _HEX_64.fullmatch(profile.wheel_sha256):
-            raise ProfileError("wheel SHA256 must be a lowercase 64-digit digest")
-        if not profile.wheel_filename.endswith(".whl"):
-            raise ProfileError("profile wheel filename must end in .whl")
+        if profile.python_abi != f"cp{profile.python_major}{profile.python_minor}":
+            raise ProfileError("profile Python ABI does not match target Python")
+        if data["wheel"].get("python_abi") != profile.python_abi:
+            raise ProfileError("native wheel ABI does not match target Python")
+        if profile.status == "target_unvalidated":
+            if profile.wheel_status != "pending_kaggle_build" or any(
+                (
+                    profile.wheel_filename,
+                    profile.wheel_sha256,
+                    profile.hf_repo_id,
+                    profile.hf_revision,
+                    profile.overlay_lock,
+                )
+            ):
+                raise ProfileError(
+                    "unvalidated target must not register a native artifact or overlay"
+                )
+        elif profile.status == "functionally_validated":
+            if not profile.native_ready:
+                raise ProfileError(
+                    "validated profile requires complete native artifact metadata"
+                )
+            if not _HEX_40.fullmatch(profile.hf_revision or ""):
+                raise ProfileError(
+                    "Hugging Face revision must be an immutable 40-digit commit"
+                )
+            if not _HEX_64.fullmatch(profile.wheel_sha256 or ""):
+                raise ProfileError(
+                    "wheel SHA256 must be a lowercase 64-digit digest"
+                )
+            if not profile.wheel_filename or not profile.wheel_filename.endswith(".whl"):
+                raise ProfileError("profile wheel filename must end in .whl")
+            if f"-{profile.python_abi}-{profile.python_abi}-" not in profile.wheel_filename:
+                raise ProfileError(
+                    "native wheel filename ABI does not match target Python"
+                )
+        else:
+            raise ProfileError(f"unsupported profile status: {profile.status}")
         return profile
 
 
