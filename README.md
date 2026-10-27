@@ -1,25 +1,85 @@
-# kaggle-vllm 0.2.0 — Python 3.13 dual-T4 development source
+# kaggle-vllm 0.2.1 — Python 3.13 SDK for Kaggle dual T4
 
-This local source tree is the lightweight `kaggle-vllm` 0.2.0 SDK for Kaggle Linux x86_64 with **exactly two NVIDIA Tesla T4 GPUs**, SM75, CUDA 12.8, and TP=1 or TP=2. Its Python package requires CPython 3.13. The SDK is pure Python and does not depend on `vllm`, `torch`, or CUDA packages at installation time.
+`kaggle-vllm` is a pure-Python compatibility and runtime-delivery SDK for
+Kaggle Linux x86_64 with **two NVIDIA Tesla T4 GPUs** (compute capability 7.5 /
+SM75), a CUDA 12.8 environment, and tensor parallel sizes 1 or 2. Version
+0.2.1 supports **CPython 3.13 only** (`>=3.13,<3.14`).
 
-**Status: target_unvalidated.** The Python 3.13 SDK is prepared for a future Kaggle native build. No validated cp313 vLLM CUDA wheel, checksum, Hub revision, or dependency overlay has been registered. `kaggle-vllm bootstrap --dry-run` reports this pending state; a real bootstrap stops before download or installation. `doctor` cannot report native compatibility as passed yet.
+The SDK provides environment checks, dependency diagnostics, native-wheel
+checksum and ABI validation, explicit runtime staging, a lazy `KaggleLLM`
+wrapper, sharded-state inspection, and an OpenAI-compatible server command.
+The Python distribution contains no native vLLM runtime, CUDA libraries,
+PyTorch, model weights, or NVIDIA binaries. Inference and serving require a
+separately installed compatible upstream vLLM runtime.
 
-The historical 0.2.0 acceptance used CPython 3.12.13/cp312, PyTorch 2.10.0+cu128, upstream vLLM v0.18.1 at commit `a26e8dc7ff2111a005144d775ecf9cebf56c45b2`, and dual T4 GPUs. Its wheel `vllm-0.18.2.dev0+ga26e8dc7f.d20260822.cu128-cp312-cp312-linux_x86_64.whl` (SHA256 `5a9bd710b8a19fdd23abb3442baad892da977466f996334decd533a225f5fd0c`) is **historical cp312 evidence, not a Python 3.13 runtime**. Acceptance logs, Qwen TP=2 regression, and benchmark data in `artifacts/` retain their original meaning; they do not prove Python 3.13 native compatibility.
-
-The observed current Kaggle target has Python 3.13.15, PyTorch 2.11.0+cu128, Triton 3.6.0, Transformers 5.16.1, and two Tesla T4 GPUs. The historical vLLM dependency contract includes `transformers>=4.56,<5` and `protobuf>=5.29.6`; the observed Transformers 5.16.1 and protobuf 5.29.5 require investigation before a native runtime can be claimed. No upstream vLLM upgrade is assumed.
-
-## Local SDK checks
+## Install
 
 ```bash
-python3.13 --version
-PYTHONPATH=src python3.13 -c "import kaggle_vllm; print(kaggle_vllm.__version__)"
-PYTHONPATH=src python3.13 -m kaggle_vllm.cli --help
-PYTHONPATH=src python3.13 -m kaggle_vllm.cli bootstrap --dry-run --json
-python3.13 -m build
+python3.13 -m pip install "kaggle-vllm[hub]==0.2.1"
 ```
 
-The SDK build remains a pure Python `py3-none-any` wheel. The separate native vLLM wheel must be built with a real cp313 ABI on Kaggle. See [Python 3.13 native rebuild preparation](docs/python313-native-runtime-rebuild.md) and the [documentation index](docs/README.md).
+The normal SDK dependency is `packaging>=23`; the optional `hub` extra adds
+`huggingface_hub`. The package does not install or replace Kaggle's PyTorch or
+CUDA stack.
 
-The already published public `kaggle-vllm==0.2.0` files and GitHub v0.2.0 release are historical Python 3.12 artifacts. This Python 3.13 development source is prepared on branch `python313-t4-v020`; its locally rebuilt SDK files differ from the published files. Do not install the published cp312 native wheel into Python 3.13 or publish these development files under the existing release version. A future cp313 native build and real Kaggle dual-T4 validation are required before runtime compatibility can be claimed.
+## CLI and environment checks
 
-The SDK is Apache-2.0. Upstream vLLM and Qwen model materials retain their own licenses.
+```bash
+kaggle-vllm --help
+kaggle-vllm fingerprint
+kaggle-vllm doctor --json
+kaggle-vllm bootstrap --dry-run --json
+kaggle-vllm verify-gpus --tensor-parallel-size 2
+```
+
+`fingerprint` reports the current host. `doctor` compares it with the packaged
+Kaggle T4 profile and returns a failure status when a required condition is
+unmet. `bootstrap --dry-run` is read-only; actual staging requires a validated
+runtime identity in the profile. `verify-wheel` and `stage-wheel` check a native
+wheel before staging it. See the [CLI and installation guide](docs/installation.md).
+
+## Python API
+
+With a compatible upstream vLLM runtime available in the process environment:
+
+```python
+from kaggle_vllm import KaggleLLM, inspect_sharded_model, load_profile
+from vllm import SamplingParams
+
+profile = load_profile()
+print(profile.name, profile.python_abi)
+
+llm = KaggleLLM(
+    model="facebook/opt-125m",
+    tensor_parallel_size=2,
+    max_model_len=512,
+    gpu_memory_utilization=0.40,
+)
+outputs = llm.generate(
+    ["Hello from Kaggle"], SamplingParams(temperature=0.0, max_tokens=32)
+)
+
+# For an existing vLLM sharded_state directory:
+# inspection = inspect_sharded_model("/kaggle/input/my-sharded-model")
+```
+
+The API also accepts `tensor_parallel_size=1`. Importing `kaggle_vllm` alone
+does not initialize a GPU, access the network, or install packages.
+
+## Compatibility and provenance
+
+The active package profile is
+[`kaggle-t4x2-cu128`](src/kaggle_vllm/profiles/kaggle-t4x2-cu128/profile.json).
+It records the Python 3.13, dual-T4, SM75 and CUDA 12.8 target and preserves
+strict wheel ABI validation. The [compatibility guide](docs/compatibility.md)
+distinguishes this SDK target from the historical Python 3.12 GPU results.
+
+The original v0.2.0 acceptance, benchmark, native-wheel checksums, and model
+provenance remain in [`artifacts/`](artifacts/),
+[`compat/historical-py312-v0.2.0/`](compat/historical-py312-v0.2.0/), and
+[`release/`](release/). Those records do **not** establish Python 3.13 native
+imports, NCCL, inference, serving, or benchmark performance. See the
+[documentation index](docs/README.md) and [changelog](CHANGELOG.md).
+
+This project is not an official Kaggle or upstream vLLM distribution. The SDK
+is Apache-2.0; upstream vLLM and model materials retain their own licenses.

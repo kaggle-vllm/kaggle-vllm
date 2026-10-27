@@ -284,7 +284,7 @@ def inspect_compatibility(
         findings.append(
             CompatibilityFinding(
                 "native runtime", "error",
-                "Python 3.13 target detected, but no validated kaggle-vllm 0.2.0 "
+                "Python 3.13 target detected, but no validated kaggle-vllm 0.2.1 "
                 "CPython 3.13 native vLLM runtime has been registered yet.",
             )
         )

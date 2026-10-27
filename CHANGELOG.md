@@ -2,6 +2,17 @@
 
 All notable changes are documented here.
 
+## 0.2.1 — 2026-10-27
+
+- Publish the pure-Python SDK for CPython 3.13 only, with package metadata,
+  CLI diagnostics, and documentation aligned to the Kaggle dual-Tesla-T4,
+  SM75, CUDA 12.8 compatibility target.
+- Keep TP=1 and TP=2 interfaces and native-wheel ABI safeguards. The SDK
+  package does not include the upstream vLLM runtime or NVIDIA binaries.
+- Preserve the Python 3.12 / v0.2.0 GPU acceptance, benchmark, checksum,
+  and provenance records as historical evidence; no Python 3.13 GPU
+  acceptance or benchmark result is asserted for this SDK release.
+
 ## 0.2.0 — 2026-08-31
 
 - Add dependency-aware, machine-readable runtime diagnostics sourced from the

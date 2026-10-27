@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_project_and_active_profile_are_cp313_pending_t4():
     project = tomllib.loads((ROOT / "pyproject.toml").read_text())
-    assert project["project"]["version"] == "0.2.0"
+    assert project["project"]["version"] == "0.2.1"
     assert project["project"]["requires-python"] == ">=3.13,<3.14"
     assert set(project["project"]["dependencies"]) == {"packaging>=23"}
     profile = load_profile()
@@ -80,7 +80,7 @@ def test_import_has_no_native_import_network_or_install_side_effect(tmp_path):
 socket.create_connection = lambda *a, **k: (_ for _ in ()).throw(AssertionError('network'))
 subprocess.run = lambda *a, **k: (_ for _ in ()).throw(AssertionError('install'))
 import kaggle_vllm
-assert kaggle_vllm.__version__ == '0.2.0'
+assert kaggle_vllm.__version__ == '0.2.1'
 assert 'vllm' not in sys.modules
 """
     env = {**os.environ, "PYTHONPATH": str(ROOT / "src")}

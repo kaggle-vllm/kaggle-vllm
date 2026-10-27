@@ -37,7 +37,7 @@ def profile_failures(environment: Environment) -> list[str]:
     failures: list[str] = []
     if not profile.native_ready:
         failures.append(
-            "Python 3.13 target detected, but no validated kaggle-vllm 0.2.0 "
+            "Python 3.13 target detected, but no validated kaggle-vllm 0.2.1 "
             "CPython 3.13 native vLLM runtime has been registered yet."
         )
     if not environment.is_kaggle:
