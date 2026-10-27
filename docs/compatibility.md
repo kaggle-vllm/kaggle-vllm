@@ -2,7 +2,7 @@
 
 | Dimension | Python 3.13 target |
 |---|---|
-| SDK version | 0.2.0 |
+| SDK version | 0.2.1 |
 | Platform | Kaggle Linux x86_64 |
 | Python ABI | CPython 3.13 / cp313 |
 | Torch | observed 2.11.0+cu128 |

@@ -94,7 +94,7 @@ def test_cli_bootstrap_dry_run_reports_plan_without_writes(tmp_path, capsys):
     )
     output = capsys.readouterr().out
     assert "dry-run: no download or filesystem changes performed" in output
-    assert "no validated kaggle-vllm 0.2.0" in output
+    assert "no validated kaggle-vllm 0.2.1" in output
     assert "native status: pending_kaggle_build" in output
     assert "target ABI: cp313" in output
     assert "would run:" not in output
